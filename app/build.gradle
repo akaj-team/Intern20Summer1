@@ -21,6 +21,52 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+
+        debug {
+            debuggable true
+            minifyEnabled false
+            signingConfig signingConfigs.debug
+            applicationIdSuffix ".debug"
+        }
+    }
+
+    flavorDimensions "at-name"
+
+    productFlavors {
+        'at-longphan' {
+            dimension "at-name"
+            applicationIdSuffix ".longphan"
+        }
+        'at-linhle' {
+            dimension "at-name"
+            applicationIdSuffix ".linhle"
+        }
+        'at-sonnguyen' {
+            dimension "at-name"
+            applicationIdSuffix ".sonnguyen"
+        }
+        'at-hoangtran' {
+            dimension "at-name"
+            applicationIdSuffix ".hoangtran"
+        }
+        'at-phuongle' {
+            dimension "at-name"
+            applicationIdSuffix ".phuongle"
+        }
+        'at-vuongphan' {
+            dimension "at-name"
+            applicationIdSuffix ".vuongphan"
+        }
+        'at-huybui' {
+            dimension "at-name"
+            applicationIdSuffix ".huybui"
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+        lintConfig file('lint.xml')
+        xmlOutput file("${buildDir}/reports/lint-results.xml")
     }
 }
 
@@ -30,8 +76,7 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.3.0'
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-
 }

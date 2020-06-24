@@ -30,4 +30,3 @@ at-huybui
 
 ### 4. Rule khi tạo PullRequest
 - Mỗi pull request cần phải được reference tới `issue` cụ thể trong description bằng cú pháp `#<issue id>`.
-Ví dụ [#1](https://github.com/akaj-team/Intern19SourceCode/issues/1) sẽ reference tới issue có id 1 là https://github.com/akaj-team/Intern19SourceCode/issues/1
