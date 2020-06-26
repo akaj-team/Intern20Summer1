@@ -29,6 +29,4 @@ public class TheJourneyBegins {
         }
         return true;
     }
-
-
 }
