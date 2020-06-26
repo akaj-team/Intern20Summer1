@@ -1,4 +1,4 @@
-package intro;
+package com.asiantech.intern20summer1.intro;
 
 public class TheJourneyBegins {
     /**
