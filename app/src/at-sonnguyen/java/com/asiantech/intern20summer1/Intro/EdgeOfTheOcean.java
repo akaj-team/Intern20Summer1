@@ -51,6 +51,46 @@ public class EdgeOfTheOcean {
     * determine whether it is possible to obtain a strictly increasing sequence
     * by removing no more than one element from the array.
     * */
+    boolean almostIncreasingSequence(int[] sequence) {
+        int count1 = 0, count2 = 0;
+        for (int i = 0; i < sequence.length-1;i++){
+            if (sequence[i]>=sequence[i+1]){
+                count1 +=1;
+            }
+        }
+        for (int i = 0; i < sequence.length-2;i++){
+            if (sequence[i]>=sequence[i+2]){
+                count2 +=1;
+            }
+        }
+        if (count1 > 1  ) {
+            return false;
+        }else if (count2 >1){
+            return false;
+        }else return true;
+
+    }
+    /*
+    * Given matrix, a rectangular matrix of integers,
+    *  where each value represents the cost of the room,
+    * your task is to return the total sum of all rooms that are suitable for the CodeBots
+    * */
+    int matrixElementsSum(int[][] matrix) {
+        int Sum =0;
+        for(int i=0;i<matrix.length;i++){
+            for(int j=0;j<matrix[0].length;j++){
+                if(matrix[i][j]==0){
+                    for(int k=i;k<matrix.length;k++){
+                        matrix[k][j]=0;
+                    }
+                    continue;
+                }
+                else
+                    Sum+=matrix[i][j];
+            }
+        }
+        return Sum;
+    }
 
 
 }
