@@ -51,18 +51,18 @@ public class ExploringTheWaters {
         int count = 0;
         int s1 = 1;
         int s2 = 1;
-        if(a.length != b.length){
+        if (a.length != b.length) {
             return false;
-        }else{
+        } else {
             for (int i = 0; i < a.length; i++) {
-                if (a[i] != b[i]){
+                if (a[i] != b[i]) {
                     count++;
                 }
                 s1 *= a[i];
                 s2 *= b[i];
             }
         }
-        return count <= 2 && s1==s2;
+        return count <= 2 && s1 == s2;
     }
 
     /**
@@ -72,10 +72,10 @@ public class ExploringTheWaters {
      */
     int arrayChange(int[] inputArray) {
         int sum = 0;
-        for(int i=0; i<inputArray.length-1;i++){
-            if(inputArray[i] >= inputArray[i+1]){
-                sum = sum +inputArray[i] + 1 - inputArray[i+1];
-                inputArray[i+1] = inputArray[i] + 1;
+        for (int i = 0; i < inputArray.length - 1; i++) {
+            if (inputArray[i] >= inputArray[i + 1]) {
+                sum = sum + inputArray[i] + 1 - inputArray[i + 1];
+                inputArray[i + 1] = inputArray[i] + 1;
             }
         }
         return sum;
@@ -88,18 +88,18 @@ public class ExploringTheWaters {
         int count = 0;
         char check = '.', temp;
         boolean flag = false;
-        for(int i=0;i<inputString.length();i++){
+        for (int i = 0; i < inputString.length(); i++) {
             temp = inputString.charAt(i);
             count = 0;
-            for(int j=0;j<inputString.length();j++){
-                if(temp == inputString.charAt(j)){
-                    count ++;
+            for (int j = 0; j < inputString.length(); j++) {
+                if (temp == inputString.charAt(j)) {
+                    count++;
                 }
             }
-            if(count % 2 == 1){
-                if(flag == true && check != temp){
+            if (count % 2 == 1) {
+                if (flag == true && check != temp) {
                     return false;
-                } else{
+                } else {
                     check = temp;
                     flag = true;
                 }
