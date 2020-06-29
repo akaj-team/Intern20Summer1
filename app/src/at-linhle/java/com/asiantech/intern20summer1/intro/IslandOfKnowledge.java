@@ -32,6 +32,28 @@ public class IslandOfKnowledge {
     }
 
     /**
+     * You are given an array of integers representing coordinates of obstacles situated on a
+     * straight line.
+     * Assume that you are jumping from the point with coordinate 0 to the right. You are allowed
+     * only to make jumps of the same length represented by some integer.
+     * Find the minimal length of the jump enough to avoid all the obstacles.
+     */
+    int avoidObstacles(int[] inputArray) {
+        for (int i = 1; ; i++) {
+            int count = 0;
+            for (int value : inputArray) {
+                if (value % i == 0) {
+                    break;
+                }
+                count++;
+                if (count >= inputArray.length) {
+                    return i;
+                }
+            }
+        }
+    }
+
+    /**
      * An IP address is a numerical label assigned to each device (e.g., computer)
      * participating in a computer network that uses the Internet Protocol for communication.
      * There are two versions of the Internet protocol, and thus two versions of addresses.
@@ -58,27 +80,5 @@ public class IslandOfKnowledge {
             }
         }
         return true;
-    }
-
-    /**
-     * You are given an array of integers representing coordinates of obstacles situated on a
-     * straight line.
-     * Assume that you are jumping from the point with coordinate 0 to the right. You are allowed
-     * only to make jumps of the same length represented by some integer.
-     * Find the minimal length of the jump enough to avoid all the obstacles.
-     */
-    int avoidObstacles(int[] inputArray) {
-        for (int i = 1; ; i++) {
-            int count = 0;
-            for (int value : inputArray) {
-                if (value % i == 0) {
-                    break;
-                }
-                count++;
-                if (count >= inputArray.length) {
-                    return i;
-                }
-            }
-        }
     }
 }
