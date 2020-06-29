@@ -1,5 +1,7 @@
 package com.asiantech.intern20summer1.intro;
 
+import java.util.Arrays;
+
 public class ExploringtheWaters {
 
 
@@ -58,4 +60,52 @@ public class ExploringtheWaters {
         return OutPuts; // xuất
     }
 
+
+    /** 16 : Are similar
+     * Two arrays are called similar if one can be obtained from another 
+     * by swapping at most one pair of elements in one of the arrays.
+     * Given two arrays a and b, check whether they are similar.
+     * */
+
+    static boolean areSimilar(int[] a, int[] b) {
+        if(Arrays.equals(a,b)){  // kiểm tra xem 2 mảng có bằng nhau không
+            return true;
+        }
+        int[] buf = {0,0,0};
+        for(int i = 0; i < b.length; i++){
+            if(a[i] != b[i]){   // kiểm tra vi trí 2 mảng khác nhau và lưu vào buff
+                buf[buf[2]] = i;
+                buf[2]++;
+            }
+            if(buf[2] > 2){ // nếu nhiều hơn 2 vị trí khác nhau thì false
+                return false;
+            }
+
+        }
+        // không nhiều hơn 2 vị trí thì kiểm tra chéo
+        if(a[buf[0]] == b[buf[1]] && a[buf[1]] == b[buf[0]]){
+            return true;
+        } else{
+            return false;
+        }
+    }
+
+
+    /**
+     * You are given an array of integers.
+     * On each move you are allowed to increase exactly one of its element by one.
+     * Find the minimal number of moves required to obtain a strictly increasing sequence from the input.
+     */
+    static   int arrayChange(int[] inputArray) {
+        int mLeng = inputArray.length;    // đo chiều dài mảng
+        int mCount= 0;      // biến count output
+        for(int i = 0; i < mLeng -1; i++){  // lặp để kiểm tra từng giá trị
+            while(inputArray[i] >= inputArray[i+1]){  // nếu còn nhỏ thì tiếp tục while
+                inputArray[i+1]++; // tăng giá trị lên
+                mCount++;   // tăng count
+            }
+        }
+        return mCount;
+    }
 }
+
