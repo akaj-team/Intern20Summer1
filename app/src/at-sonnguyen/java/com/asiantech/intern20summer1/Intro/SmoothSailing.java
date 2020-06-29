@@ -6,14 +6,11 @@ import java.util.List;
 
 public class SmoothSailing {
     /*
-    *
     *return another array containing all of its longest strings.
     */
     String[] allLongestStrings(String[] inputArray) {
         int MaxLength = inputArray[0].length() ;
-
         List<String> ListResult = new ArrayList<>();
-
         for (int index = 0; index <inputArray.length; index++){
             if (inputArray[index].length() > MaxLength){
                 MaxLength = inputArray[index].length();
@@ -29,9 +26,7 @@ public class SmoothSailing {
         return ArrayResult;
     }
     /*
-    *
     *find the number of common characters between 2 Arrays.
-    *
     */
     int commonCharacterCount(String s1, String s2) {
         List<Integer> array = new ArrayList<Integer>();
@@ -48,9 +43,7 @@ public class SmoothSailing {
         return Count;
     }
     /*
-    *
     * Given a ticket number n, determine if it's lucky or not.
-    *
     */
     boolean isLucky(int n) {
         List<Integer> ArrayListNumber = new ArrayList<Integer>();
@@ -82,12 +75,10 @@ public class SmoothSailing {
         }
     }
     /*
-    *
     * rearrange the people by their heights in a non-descending order without moving the trees
     */
     int[] sortByHeight(int[] a) {
         int[] temp = a.clone();
-
         Arrays.sort(a);
         List<Integer> list = new ArrayList<Integer>();
         for(int n: a){
@@ -143,4 +134,5 @@ public class SmoothSailing {
         }
         return inputString ;
     }
+
 }
