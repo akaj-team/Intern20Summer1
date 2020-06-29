@@ -90,7 +90,7 @@ public class SmoothSailing {
         }
         System.out.println(mCountTree);
 
-        // đưa người vào mảng người mới để lưu t
+        // đưa người vào mảng người mới để lưu trữ
         int mPeopleBuf[] = new int[a.length - mCountTree];
         for(int i = 0, j = 0; i < a.length;i++){
             if(a[i] != -1){
@@ -129,7 +129,55 @@ public class SmoothSailing {
     }
 
 
+    /**
+     * Write a function that reverses characters in (possibly nested) parentheses in the input string.
+     * Input strings will always be well-formed with matching ()s.
+     * examble: input- "foo(bar)baz(blim)"   output - "foorabbazmilb"
+     * @param inputString
+     * @return
+     */
+    static String reverseInParentheses(String inputString) {
+        int Stacks[] = new int[10];     // tạo bố nhớ stack ghi nhớ ký từ ')'
+        int indexStack = 0;             // địa chỉ của ô nhớ trong stack
+        for (int j = 0; j < inputString.length(); j++) {
+            if (inputString.charAt(j) == '(') {
+                indexStack++;   // tăng vùng nhớ stack lên
+                Stacks[indexStack] = j; // gắn vị tri của ký tự '(' vào stack
 
+            } else if(inputString.charAt(j) == ')') {
+                /**
+                 * nếu gặp ký tự ')' thì bắt đầu vào bộ nhớ stack láy vị trí của '(' để tạo thành cặp "(  )
+                 * lật chuỗi ở giữa ( ) lại
+                 * sau đó bắt đầu cắt chuỗi để nối thành chuỗi mới
+                 */
+                String mir  = mirroString(inputString.substring(Stacks[indexStack] + 1, j)); /* lật chuỗi */
+                inputString  = inputString.substring(0,Stacks[indexStack] +1 ) + mir + inputString.substring(j);// cắt
+                indexStack--; // giảm địa chỉ trong bộ nhớ stack đi
 
+            }
+        }
 
+        /**
+         * tạo một biến output để lưu giá trị lọc bỏ những ký tự '(' và ')' trong sbuf
+         * xuất output
+         */
+        String output = "";
+        for(int i = 0 ; i < inputString.length();i++){
+            if(inputString.charAt(i) != '(' && inputString.charAt(i) != ')'){
+                output += inputString.charAt(i);
+            }
+        }
+        return output;
+    }
+
+    /**
+     * để lật chuỗi ta sử dụng hàm bên dưới với st là chuỗi đầu vào và trả về chuỗi được lật
+     */
+    static String mirroString(String st){
+        String stNew = "";
+        for (int k = st.length() - 1; k >= 0; k--) {
+            stNew += st.charAt(k);
+        }
+        return stNew;
+    }
 }
