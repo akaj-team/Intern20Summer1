@@ -8,7 +8,8 @@ public class SmoothSailing {
     /*
     *return another array containing all of its longest strings.
     */
-    String[] allLongestStrings(String[] inputArray) {
+
+    static String[] allLongestStrings(String[] inputArray) {
         int MaxLength = inputArray[0].length() ;
         List<String> ListResult = new ArrayList<>();
         for (int index = 0; index <inputArray.length; index++){
@@ -28,7 +29,7 @@ public class SmoothSailing {
     /*
     *find the number of common characters between 2 Arrays.
     */
-    int commonCharacterCount(String s1, String s2) {
+    static int commonCharacterCount(String s1, String s2) {
         List<Integer> array = new ArrayList<Integer>();
         int Count = 0 ;
         for (int index1 =0 ; index1 < s1.length() ; index1++ ){
@@ -45,7 +46,7 @@ public class SmoothSailing {
     /*
     * Given a ticket number n, determine if it's lucky or not.
     */
-    boolean isLucky(int n) {
+    static boolean isLucky(int n) {
         List<Integer> ArrayListNumber = new ArrayList<Integer>();
         while (n > 0){
             System.out.println(n);
@@ -77,7 +78,7 @@ public class SmoothSailing {
     /*
     * rearrange the people by their heights in a non-descending order without moving the trees
     */
-    int[] sortByHeight(int[] a) {
+    static int[] sortByHeight(int[] a) {
         int[] temp = a.clone();
         Arrays.sort(a);
         List<Integer> list = new ArrayList<Integer>();
@@ -98,7 +99,7 @@ public class SmoothSailing {
     /*
     * reverses characters in (possibly nested) parentheses in the input string
     */
-    String reverseInParentheses(String inputString) {
+    static String reverseInParentheses(String inputString) {
         String tmpCh = new String("");
         String tmpChRe = new String("");
         String tmp = new String("");
@@ -133,6 +134,14 @@ public class SmoothSailing {
             tmpChRe = "";
         }
         return inputString ;
+    }
+    public static void main(){
+        //String [] longestString = allLongestStrings(['aaa','bbb','ccc','a', 'd','ccc']);
+        int commonCharacter = commonCharacterCount("aabc", "abcd");
+        boolean lucky = isLucky(156);
+        int [] inputArray = {15,16,16,-1,-1,15};
+        int[] Sort = sortByHeight(inputArray);
+        String RevertString = reverseInParentheses("a(son)j");
     }
 
 }

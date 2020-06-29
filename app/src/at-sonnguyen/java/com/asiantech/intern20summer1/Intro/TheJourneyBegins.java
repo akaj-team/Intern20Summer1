@@ -4,14 +4,14 @@ public class TheJourneyBegins {
     /*
     * returns the sum of two numbers.
     */
-    int add(int param1, int param2) {
+    static int add(int param1, int param2) {
         return param1 + param2 ;
     }
 
     /*
      * return the century the year is in
      */
-    int centuryFromYear(int year) {
+    static int centuryFromYear(int year) {
         if (year % 100 == 0){
             return year/100;
         }
@@ -20,7 +20,7 @@ public class TheJourneyBegins {
     /*
      * check palindrome.
      */
-    boolean checkPalindrome(String inputString) {
+    static boolean checkPalindrome(String inputString) {
         char [] arrayInputString = inputString.toCharArray();
         for (int i =0 ; i <= inputString.length()/2 ; i++){
             if (arrayInputString[i] != arrayInputString[inputString.length()-1 - i]){
@@ -28,5 +28,13 @@ public class TheJourneyBegins {
             }
         }
         return true;
+    }
+    public static void main(){
+        int Sum =  add(15,20);
+        System.out.println(Sum);
+        int Century = centuryFromYear(2000);
+        System.out.println(Century);
+        boolean CheckPalind = checkPalindrome("adddds");
+        boolean CheckPalind2 = checkPalindrome("adddda");
     }
 }
