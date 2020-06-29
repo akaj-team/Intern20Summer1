@@ -24,7 +24,7 @@ public class IslandOfKnowledge {
         System.out.println("]");
 
         System.out.println("Ex 24: [");
-        int[][] minesweeper = minesweeper(new boolean[][]{{false,true,true,false}, {true,true,false,true}, {false,false,true,false}});
+        int[][] minesweeper = minesweeper(new boolean[][]{{false, true, true, false}, {true, true, false, true}, {false, false, true, false}});
         for (int i = 0; i < minesweeper.length; i++) {
             for (int j = 0; j < minesweeper[0].length; j++) {
                 System.out.print(minesweeper[i][j] + "\t");
