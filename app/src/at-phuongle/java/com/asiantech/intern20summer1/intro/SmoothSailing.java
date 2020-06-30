@@ -1,23 +1,8 @@
 package com.asiantech.intern20summer1.intro;
 import java.util.*;
+import com.asiantech.intern20summer1.intro.EdgeOfTheOcean;
 
 public class SmoothSailing {
-    /**
-     * Write a function that sort array from min to max.
-     */
-    void sortASC(Integer[] arr) {
-        int temp = arr[0];
-        for (int i = 0; i < arr.length - 1; i++) {
-            for (int j = i + 1; j < arr.length; j++) {
-                if (arr[i] > arr[j]) {
-                    temp = arr[j];
-                    arr[j] = arr[i];
-                    arr[i] = temp;
-                }
-            }
-        }
-    }
-
     /**
      * Write a function that returns an array store the longest strings.
      */
