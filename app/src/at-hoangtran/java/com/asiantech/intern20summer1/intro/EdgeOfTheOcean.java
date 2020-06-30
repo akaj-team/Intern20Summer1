@@ -78,31 +78,38 @@ public class EdgeOfTheOcean {
 //        Note:
 //        sequence a0, a1, ...,an is considered to be a strictly increasing if a0<a1< ... <
 //        an.Sequence containing only one element is also considered to be strictly increasing.
-        int count = 0;
-        int dupcount = 0;
-        int l = sequence.length;
-        for (int i = 0; i < l - 1; i++) {
-            if (sequence[i + 1] < sequence[i]) {
-                count++;
-            }
-        }
 
-        for (int i = 0; i < l; i++) {
-            int counti = 0;
-            for (int j = 0; j < l; j++) {
-                if (sequence[j] == sequence[i]) {
-                    counti++;
+            int count = 0;
+            int dupcount = 0;
+            int l = sequence.length;
+            for (int i = 0; i < l - 1; i++) {
+                if (sequence[i + 1] <= sequence[i]) {
+                    count++;
+                    if (i > 1) {
+                        if (sequence[i + 1] < sequence[i - 1] && i + 1 != l - 1) {
+                            return false;
+                        }
+                    }
                 }
             }
-            if (counti > 1) {
-                dupcount++;
+            for (int i = 0; i < l; i++) {
+                int counti = 0;
+                for (int j = 0; j < l; j++) {
+                    if (sequence[j] == sequence[i]) {
+                        counti++;
+                    }
+                }
+                if (counti > 1) {
+                    dupcount++;
+                }
             }
+            if (dupcount > 2 || count > 1) {
+                return false;
+            }
+            return true;
         }
-        if (dupcount > 2 || count > 1) {
-            return false;
-        }
-        return true;
-    }
+
+
 
     static int matrixElementsSum(int[][] matrix) {
 //        After becoming famous, the CodeBots decided to move into a new building together.Each of
