@@ -97,9 +97,9 @@ public class ExploringtheWaters {
      * Find the minimal number of moves required to obtain a strictly increasing sequence from the input.
      */
     static   int arrayChange(int[] inputArray) {
-        int mLeng = inputArray.length;    // đo chiều dài mảng
+        int mmLeng = inputArray.length;    // đo chiều dài mảng
         int mCount= 0;      // biến count output
-        for(int i = 0; i < mLeng -1; i++){  // lặp để kiểm tra từng giá trị
+        for(int i = 0; i < mmLeng -1; i++){  // lặp để kiểm tra từng giá trị
             while(inputArray[i] >= inputArray[i+1]){  // nếu còn nhỏ thì tiếp tục while
                 inputArray[i+1]++; // tăng giá trị lên
                 mCount++;   // tăng count
@@ -107,5 +107,38 @@ public class ExploringtheWaters {
         }
         return mCount;
     }
-}
 
+    /** 18 :palindromeRearranging
+     * Given a string, find out if its characters can be rearranged to form a symmetry String
+     * */
+    static  boolean palindromeRearranging(String inputString) {
+        String buf  = inputString;   // tạo buffer cho chuỗi
+        int mLeng    = buf.length(); // độ dài chuỗi
+        int mFlat    = 0;            // biến mFlat lưu số ký tự có số lượng lẻ
+        while (!buf.isEmpty()){      // Kiểm tra chuỗi còn ký tự hay không
+            char c = buf.charAt(0);  // lấy ký tự đầu tiên để đếm số lượng
+            int Count   = 0 ;        // Khởi tạo biến Count để đếm số ký tự
+            while( buf.indexOf(c) != -1){   // Tìm ký tự nếu thấy thì vô while
+                int index = buf.indexOf(c); //Lấy vị trí của ký tự
+                buf = buf.substring(0,index) + buf.substring(index  + 1); // Cắt bỏ ký tự đã tìm thấy đi
+                Count++; // tăng biến Count lên
+            } // thoát while
+
+            if(Count%2 == 1){ // Nếu ký tự có số lượng là lẻ thì tăng flat lên
+                mFlat++;
+            }
+        }
+
+        if ((mLeng%2 == 0 && mFlat == 0) || (mLeng%2 == 1 && mFlat == 1)) {
+            return true;
+            /**
+             * có 2 trường hợp để true là
+             * chiều dài chuỗi chẵn và số ký tự lẻ bằng 0
+             * chiều dài chuỗi lẻ và số lượng ký tự lẻ bằng 1
+             * còn lại thì false
+             */
+        }else{
+            return false;
+        }
+    }
+}
