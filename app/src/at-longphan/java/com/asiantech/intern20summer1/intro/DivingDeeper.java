@@ -7,7 +7,7 @@ import java.util.HashMap;
 public class DivingDeeper {
     public static void main(String[] args) {
         //RUN main() with Coverage
-        System.out.println("Ex 34: " + Arrays.toString(extractEachKth(new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},3)));
+        System.out.println("Ex 34: " + Arrays.toString(extractEachKth(new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, 3)));
 
         System.out.println("Ex 35: " + firstDigit("var_123__Int"));
 
@@ -21,8 +21,8 @@ public class DivingDeeper {
          * Given array of integers, remove each kth element from it.
          */
         ArrayList<Integer> x = new ArrayList<>();
-        for(int i = 0, j = 1; i < inputArray.length; i++, j++){
-            if(j == k) {
+        for (int i = 0, j = 1; i < inputArray.length; i++, j++) {
+            if (j == k) {
                 j = 0;
             } else {
                 x.add(inputArray[i]);
@@ -30,7 +30,7 @@ public class DivingDeeper {
         }
         int[] result = new int[x.size()];
         for (int i = 0; i < x.size(); i++) {
-            result[i]= (x.get(i));
+            result[i] = (x.get(i));
         }
         return result;
     }
@@ -39,8 +39,8 @@ public class DivingDeeper {
         /**
          * Find the leftmost digit that occurs in a given string.
          */
-        for(int i = 0; i < inputString.length(); i++){
-            if(String.valueOf(inputString.charAt(i)).matches("[0-9]"))
+        for (int i = 0; i < inputString.length(); i++) {
+            if (String.valueOf(inputString.charAt(i)).matches("[0-9]"))
                 return inputString.charAt(i);
         }
         return 0;
@@ -51,8 +51,8 @@ public class DivingDeeper {
          * Given a string, find the number of different characters in it.
          */
         HashMap<Character, Integer> map = new HashMap<>();
-        for(int i = 0; i < s.length(); i++){
-            if(!map.containsKey(s.charAt(i))) map.put(s.charAt(i), 0);
+        for (int i = 0; i < s.length(); i++) {
+            if (!map.containsKey(s.charAt(i))) map.put(s.charAt(i), 0);
         }
         return map.size();
     }
@@ -64,15 +64,15 @@ public class DivingDeeper {
          */
         int max = 0;
         int previousSum = 0;
-        for(int i = 0; i <= a.length - k; i++) {
-            if(i == 0) {
-                for(int j = i; j < i + k; j++){
+        for (int i = 0; i <= a.length - k; i++) {
+            if (i == 0) {
+                for (int j = i; j < i + k; j++) {
                     previousSum += a[j];
                 }
             } else {
-                previousSum = previousSum - a[i-1] + a[i+k-1];
+                previousSum = previousSum - a[i - 1] + a[i + k - 1];
             }
-            if(previousSum > max) max = previousSum;
+            if (previousSum > max) max = previousSum;
         }
         return max;
     }
