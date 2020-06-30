@@ -129,8 +129,7 @@ public class IslandofKnowledge {
         }
         return OutPut;
     }
-
-    /** 23 : boxBlur
+     /** 23
      * Last night you partied a little too hard.
      * Now there's a black and white photo of you that's about to go viral!
      * You can't let this ruin your reputation, so you want to apply the box blur algorithm to the photo to hide its content.
@@ -147,9 +146,9 @@ public class IslandofKnowledge {
     int[][] boxBlur(int[][] image) {
         int mHorizon    = image[0].length;
         int mVertical   = image.length;
-        int newHorizon  = mHorizon - 2; // chiều ngang ma trận mới
-        int newVertial  = mVertical - 2;// chiều dọc ma trận mới
-        int[][] newArray= new int[newVertial][newHorizon]; // khởi tạo ma trận mới
+        int newHorizon  = mHorizon - 2;
+        int newVertial  = mVertical - 2;
+        int[][] newArray= new int[newVertial][newHorizon];
         for(int i = 0; i < newVertial; i++){
             for (int j = 0; j < newHorizon; j++){
                 newArray[i][j] =  ( image[i][j]   + image[i][j+1]     + image[i][j+2]   +
@@ -161,6 +160,65 @@ public class IslandofKnowledge {
         return newArray;
     }
 
+    /** 24 minesweeper **
+     *In the popular Minesweeper game you have a board with some mines
+     * and those cells that don't contain a mine have a number in it that indicates
+     * the total number of mines in the neighboring cells.
+     * Starting off with some arrangement of mines we want to create a Minesweeper game setup.
+     */
+
+    int[][] minesweeper(boolean[][] matrix) {
+        int mHorizon        = matrix[0].length;
+        int mVertical       = matrix.length;
+        int[][] newArray    = new int[mVertical+2][mHorizon+2];
+        int[][] OutPutArray = new int[mVertical][mHorizon];
+
+        /** tạo mảng newarray và gán giá trị cho nói với các giá trị
+         * ở viền sẽ bằng 0 và các giá trị
+         * khá sẽ ứng với giá trị của matrix nếu true là 1 và false
+         *   ví dụ  000000
+         *          011010
+         *          011010
+         *          011110
+         *          000000
+         */
+              // Vòng tạo giá trị 0 ở viền
+        for(int i = 0; i < mVertical + 2 ; i++){
+            for (int j = 0; j < mHorizon + 2; j++){
+                if(i == 0 || i == mVertical + 1 || j == 0 || j == mHorizon + 1){
+                    newArray[i][j] = 0;
+                }
+            }
+        }
+                // vòng gán các giá trị còn lại
+        for(int i = 0; i < mVertical  ; i++){
+            for (int j = 0; j < mHorizon; j++){
+                if(matrix[i][j]){
+                    newArray[i+1][j+1] = 1;
+                }else {
+                    newArray[i+1][j+1] = 0;
+                }
+            }
+        }
+                // tính array output
+        for(int i = 0; i < mVertical ; i++){
+            for (int j = 0; j < mHorizon ; j++){
+                int number = 0;
+                number = newArray[i][j]      +
+                        newArray[i][j+1]    +
+                        newArray[i][j+2]    +
+                        newArray[i+1][j]    +
+                        newArray[i+1][j+2]  +
+                        newArray[i+2][j]    +
+                        newArray[i+2][j+1]  + //
+                        newArray[i+2][j+2];
+                //  printSln("X:" + number/9);
+                OutPutArray[i][j] = number;
+
+            }
+        }
+        return OutPutArray;
+    }
 }
 
 
