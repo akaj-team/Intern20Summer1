@@ -81,4 +81,68 @@ public class IslandOfKnowledge {
         }
         return true;
     }
+
+    /**
+     * The pixels in the input image are represented as integers. The algorithm distorts the input
+     * image in the following way: Every pixel x in the output image has a value equal to the
+     * average value of the pixel values from the 3 × 3 square that has its center at x, including
+     * x itself. All the pixels on the border of x are then removed.
+     * Return the blurred image as an integer, with the fractions rounded down.
+     */
+    int[][] boxBlur(int[][] image) {
+        int row = image.length - 2;
+        int col = image[0].length - 2;
+        int[][] result = new int[row][col];
+        for (int i = 0; i < image.length - 2; i++) {
+            for (int j = 0; j < image[0].length - 2; j++) {
+                result[i][j] = (image[i][j] + image[i][j + 1] + image[i][j + 2]
+                        + image[i + 1][j] + image[i + 1][j + 1] + image[i + 1][j + 2]
+                        + image[i + 2][j] + image[i + 2][j + 1] + image[i + 2][j + 2]) / 9;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * In the popular Minesweeper game you have a board with some mines and those cells that don't
+     * contain a mine have a number in it that indicates the total number of mines in the
+     * neighboring cells. Starting off with some arrangement of mines we want to create a
+     * Minesweeper game setup.
+     */
+    int[][] minesweeper(boolean[][] matrix) {
+        int col = matrix.length;
+        int row = matrix[0].length;
+        int[][] mine = new int[col][row];
+        for (int i = 0; i < col; i++) {
+            for (int j = 0; j < row; j++) {
+                int count = 0;
+                if (i > 0 && j > 0 && matrix[i - 1][j - 1]) {
+                    count++;
+                }
+                if (i > 0 && matrix[i - 1][j]) {
+                    count++;
+                }
+                if (i > 0 && j + 1 < row && matrix[i - 1][j + 1]) {
+                    count++;
+                }
+                if (j > 0 && matrix[i][j - 1]) {
+                    count++;
+                }
+                if (j + 1 < row && matrix[i][j + 1]) {
+                    count++;
+                }
+                if (i + 1 < col && j > 0 && matrix[i + 1][j - 1]) {
+                    count++;
+                }
+                if (i + 1 < col && matrix[i + 1][j]) {
+                    count++;
+                }
+                if (i + 1 < col && j + 1 < row && matrix[i + 1][j + 1]) {
+                    count++;
+                }
+                mine[i][j] = count;
+            }
+        }
+        return mine;
+    }
 }
