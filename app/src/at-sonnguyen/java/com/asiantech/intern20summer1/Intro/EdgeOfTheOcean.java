@@ -3,11 +3,15 @@ package com.asiantech.intern20summer1.Intro;
 public class EdgeOfTheOcean {
     public static void main(){
     int Shape = shapeArea(15);
+    System.out.print(Shape);
     int [ ] inputArray = {1,2,5,8,9};
     int AddToArray = makeArrayConsecutive2(inputArray);
+    System.out.print(AddToArray);
     boolean checkSequence = almostIncreasingSequence(inputArray);
+    System.out.print(checkSequence);
     int [][] Matrix = {{2,3,5},{1,3,6},{5,4,9}};
     int Sum = matrixElementsSum(Matrix);
+    System.out.print(Sum);
     }
     /*
     * Given an array of integers, find the pair of adjacent elements that has the largest product and return that product.

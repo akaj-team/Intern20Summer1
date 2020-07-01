@@ -70,12 +70,16 @@ public class RainsOfReason {
     public static void main(){
         int[] inputArray = {1,2,3,4,1,5,1}
         int[] ResultArray = arrayReplace(inputArray , 1,3);
-        boolean checkEvenDigitsOnly = evenDigitsOnly(168);
+        for ( int i = 0 ; i< ResultArray.length ; i++){
+            System.out.print(ResultArray[i]);
+        }
+        System.out.print("Check EvenDigitsOnly: "+evenDigitsOnly(168));
         String StringToCheck = "variable___to_check";
-        boolean checkVariableName = variableName(StringToCheck);
+        System.out.print( "Result Check VariableName"+variableName(StringToCheck));
         String StringToReplace = "abcaz";
         String CheckReplaceChar = alphabeticShift(StringToReplace);
-        boolean CheckColorOf2Cell = chessBoardCellColor("A1","C5");
+        System.out.print("after Replace" +CheckReplaceChar);
+        System.out.print("Same Color: "+chessBoardCellColor("A1","C3"));
 
 
     }

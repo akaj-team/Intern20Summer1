@@ -101,14 +101,20 @@ public class ExploringTheWaters{
         int [] inputArray = {150,160,170,120,153,162};
         int [] Result = new  int[2];
         Result = alternatingSums(inputArray);
+        for (int index = 0 ; index < Result.length ; index++){
+            System.out.print(Result[index]);
+        }
         String[] StringPicture = {"abc" , "adc"};
         String[] Result2 = new String[];
         Result2 = addBorder(StringPicture);
+        for (int i = 0 ; i < Result2.length ; i++){
+            System.out.print(Result2[i]);
+        }
         int [] inputArray1 = {3,5,6,7};
         int[] inputArray2 = {3,4,6,7};
-        boolean isSimilar = areSimilar(inputArray1,inputArray2);
-        int count = arrayChange(inputArray);
+        System.out.print(areSimilar(inputArray1,inputArray2));
+        System.out.print(arrayChange(inputArray));
         String string = "asdfgfdsa";
-        boolean checkpalindromeRearranging = palindromeRearranging(string);
+        System.out.print(palindromeRearranging(string));
         }
 }

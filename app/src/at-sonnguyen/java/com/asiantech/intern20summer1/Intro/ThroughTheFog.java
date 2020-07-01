@@ -55,12 +55,14 @@ public class ThroughTheFog {
                 a[s-1] = t;}}
         return b;}
     public static void main(){
-
-    int FaceWithFirstNamber = circleOfNumbers(15,5);
+    int n = 15,firstnumber = 5 ;
+    int FaceWithFirstNamber = circleOfNumbers(n,firstnumber);
+    System.out.print(FaceWithFirstNamber +"is face With" + firstnumber + "in circle" + n );
+    int deposit =  100 , rate = 10 , threshold = 200 ;
     int TimeToGainPtofit = depositProfit(100,10,200 );
+    System.out.print("Spend " + TimeToGainPtofit + " period to gain " + threshold );
     int[] inputArray = { 1,2,6,8,9,15};
     int AbsoluteValuesSumMinOfArray = absoluteValuesSumMinimization(inputArray);
-
+    System.out.print("Min Sum of Array : " + AbsoluteValuesSumMinOfArray);
     }
-
 }

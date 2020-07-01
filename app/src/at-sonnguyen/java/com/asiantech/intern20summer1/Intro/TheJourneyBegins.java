@@ -30,11 +30,14 @@ public class TheJourneyBegins {
         return true;
     }
     public static void main(){
-        int Sum =  add(15,20);
-        System.out.println(Sum);
-        int Century = centuryFromYear(2000);
-        System.out.println(Century);
-        boolean CheckPalind = checkPalindrome("adddds");
-        boolean CheckPalind2 = checkPalindrome("adddda");
+        int n1 = 15 ,n2 = 20;
+        int Sum =  add(n1,n2);
+        System.out.println(n1+ "+"+ n2 + " = "+ Sum);
+        int year = 2000;
+        int Century = centuryFromYear(year);
+        System.out.println(year +" in "+Century);
+        String s = "aabaa";
+        boolean CheckPalindrome = checkPalindrome(s);
+        System.out.print(s +" is Palindrome :  "+checkPalindrome(s) );
     }
 }

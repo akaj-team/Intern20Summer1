@@ -136,12 +136,22 @@ public class SmoothSailing {
         return inputString ;
     }
     public static void main(){
-        //String [] longestString = allLongestStrings(['aaa','bbb','ccc','a', 'd','ccc']);
-        int commonCharacter = commonCharacterCount("aabc", "abcd");
-        boolean lucky = isLucky(156);
-        int [] inputArray = {15,16,16,-1,-1,15};
-        int[] Sort = sortByHeight(inputArray);
-        String RevertString = reverseInParentheses("a(son)j");
+        String[] imputArray = {"aaa","bbb","ccc","d","e","aa"};
+        String [] longestString = allLongestStrings(imputArray);
+        System.out.print("LongestStrings : ");
+        for(int i = 0 ; i < longestString.length ; i++ ) {
+            System.out.print(longestString[i]);
+        }
+        System.out.print("Common Character Count: " +commonCharacterCount("aabc", "abcd"));
+        System.out.print("Check lucky Number : " + isLucky(156));
+        int [] inputArray2 = {15,16,16,-1,-1,15};
+        int[] Sort = sortByHeight(inputArray2);
+        System.out.print("Sort Array By Height : ");
+        for(int i = 0 ;i < inputArray2.length ; i++){
+            System.out.print(Sort[i]);
+        }
+        String s = "a(Son)j";
+        System.out.print("Revert of String :" + s + "is" + reverseInParentheses(s));
     }
 
 }

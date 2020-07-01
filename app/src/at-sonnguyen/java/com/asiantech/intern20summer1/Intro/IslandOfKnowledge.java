@@ -112,16 +112,26 @@ public class IslandOfKnowledge {
     }
 
     public static void main(){
-        boolean checkEquallyStrong = areEquallyStrong(15,10,20,5);
+        System.out.print(areEquallyStrong(15,10,10,15));
         int [] inputArray = {1,5,6,3,4,5,3};
-        int MaximalAdjacentDifference = arrayMaximalAdjacentDifference(inputArray);
+        System.out.print(arrayMaximalAdjacentDifference(inputArray));
         String string = "192.168.143.1";
-        boolean checkIPv4 = isIPv4Address(string);
-        int StepToJump = avoidObstacles(inputArray);
+        System.out.print(isIPv4Address(string));
+        System.out.print(avoidObstacles(inputArray));
         int[][] Matrix = {{1,2,3},{1,2,1},{3,4,2}};
         int[][] BoxBlur = boxBlur(Matrix);
+        for ( int i = 0 ; i < BoxBlur.length ; i++ ){
+            for ( int j = 0 ; j < BoxBlur[0].length ; j++ ){
+                System.out.print(BoxBlur[i][j]);
+            }
+        }
         boolean[][] MaxtrixBoolean = {{true,true,false},{true,false,false},{true,false,true}};
         int [][] MineSeeperMatrix = minesweeper(MaxtrixBoolean);
+        for(int i = 0 ; i < MineSeeperMatrix.length ; i++){
+            for ( int j = 0 ; j < MineSeeperMatrix[0].length;j++){
+                System.out.print(MineSeeperMatrix[i][j]);
+            }
+        }
 
     }
 

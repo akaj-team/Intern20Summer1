@@ -60,9 +60,15 @@ public class DivingDeeper {
     public static void main(){
         int[] inputArray = {1,5,3,6,8,9};
         int[] ResultArray = extractEachKth(inputArray,2);
+        for (int index = 0 ; index < ResultArray.length ; index++){
+            System.out.print(ResultArray[index]);
+        }
         String inputString = "axcf35hhh";
         char FirtsDigit = firstDigit(inputString);
+        System.out.print(FirtsDigit);
         int DefferenceChar = differentSymbolsNaive(inputString);
+        System.out.print(DefferenceChar);
         int MaxSum = arrayMaxConsecutiveSum(inputArray,3);
+        System.out.print(MaxSum);
     }
 }
