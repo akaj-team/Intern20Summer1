@@ -90,4 +90,44 @@ public class DarkWilderness {
         return Out;
     }
 
+    /** 41 **
+     * Let's define digit degree of some positive integer as the number of times we need
+     * to replace this number with the sum of its digits until we get to a one digit number.
+     *
+     * Given an integer, find its digit degree.
+     */
+
+    static int digitDegree(int n) {
+        int mCount = 0;
+        while( n > 10){ // nếu n còn lớn hơn 10 thì tăng count và gán lại m = SumNumber
+            mCount++;
+            n = SumNumber(n);
+        }
+        return mCount;
+    }
+
+    static int SumNumber(int n){  // hàm tính tổng các sô ở trong chữ số
+        int sum = 0;
+        while(n > 0){
+            sum += n%10;
+            n /=10;
+        }
+        return sum;
+    }
+
+
+    /** 42
+     * Given the positions of a white bishop and a black pawn on the standard chess board,
+     * determine whether the bishop can capture the pawn in one move.
+     *
+     * The bishop has no restrictions in distance for each move,
+     * but is limited to diagonal movement. Check out the example below to see how it can move:
+     */
+    boolean bishopAndPawn(String bishop, String pawn) {
+
+        return     Math.abs(bishop.charAt(0) - pawn.charAt(0) )
+                == Math.abs(bishop.charAt(1) - pawn.charAt(1));
+    }
+
+
 }
