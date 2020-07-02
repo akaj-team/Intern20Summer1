@@ -79,7 +79,7 @@ public class LandofLogic {
                 Output = i + Output;
             }
         }
-        return product == 1 ? new Integer(r) : -1;
+        return product == 1 ? new Integer(Output) : -1;
     }
 
     /** 57 **
