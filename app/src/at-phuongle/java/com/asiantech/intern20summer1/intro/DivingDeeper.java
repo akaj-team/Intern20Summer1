@@ -60,4 +60,30 @@ public class DivingDeeper {
 
         return listDifferentChar.size();
     }
+
+    /**
+     * Write a funtion that returns the maximal possible sum of some of its k consecutive elements.
+     */
+    int arrayMaxConsecutiveSum(int[] inputArray, int k) {
+        int sum;
+        int count;
+        int maxSum = 0;
+        for (int i = 0; i < inputArray.length; i++) {
+            sum = 0;
+            count = k;
+            try {
+                while (count > 0) {
+                    sum += inputArray[i + count - 1];
+                    count--;
+                }
+
+            } catch (Exception ex4) {
+
+            }
+            if (sum > maxSum) {
+                maxSum = sum;
+            }
+        }
+        return maxSum;
+    }
 }
