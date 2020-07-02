@@ -110,6 +110,58 @@ public class LandofLogic {
         return Out;
     }
 
+    /** 58
+     *You are taking part in an Escape Room challenge designed specifically for programmers.
+     * In your efforts to find a clue, you've found a binary code written on the wall behind a vase,
+     * and realized that it must be an encrypted message. After some thought, your first guess is
+     * that each consecutive 8 bits of the code stand for the character with the corresponding extended ASCII code.
+     * Assuming that your hunch is correct, decode the message.
+     */
+
+    String messageFromBinaryCode(String code) {
+        String Out = "";
+        for(int i = 0; i < code.length();i+=8){ // bắt chuõi 8 ký tự 1 lần
+            int x = Integer.parseInt(code.substring(i,i+8),2); // Cắt rồi chuyển từ bin sang Dex
+            Out += "" + (char)x; // Dex int ép sang Dex char rồi cộng với Out
+        }
+        return Out;
+    }
+
+    /**59 **
+     *
+     */
+
+    int[][] spiralNumbers(int n) {
+        int[][] array = new int[n][n];
+        int mLeft = 0;        // tạo các biến lưu cạnh cho vòng lặp
+        int mRight = n - 1;
+        int mTop = 0;
+        int mDown = n - 1;
+
+        for (int count = 1; count <= n * n; )
+        {
+            for (int x = mLeft; x <= mRight; x++){ // chạy từ trái qua phải nếu dính tường thì out tăng top
+                array[mTop][x] = count++;
+            }
+            mTop++;
+
+            for (int y = mTop; y <= mDown; y++){  // Các vòng khác tương tự
+                array[y][mRight] = count++;
+            }
+            mRight--;
+
+            for (int x = mRight; x >= mLeft; x--){
+                array[mDown][x] = count++;
+            }
+            mDown--;
+
+            for (int y = mDown; y >= mTop; y--){
+                array[y][mLeft] = count++;
+            }
+            mLeft++;
+        }
+        return array;
+    }
 
 
 
