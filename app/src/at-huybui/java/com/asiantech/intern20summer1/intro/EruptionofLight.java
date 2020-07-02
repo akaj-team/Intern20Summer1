@@ -1,5 +1,8 @@
 package com.asiantech.intern20summer1.intro;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
 public class EruptionofLight {
 
     /**43  ****
@@ -60,7 +63,41 @@ public class EruptionofLight {
     }
 
     /** 46 **
+     *Elections are in progress!
      *
+     * Given an array of the numbers of votes given to each of the candidates so far,
+     * and an integer k equal to the number of voters who haven't cast their vote yet,
+     * find the number of candidates who still have a chance to win the election.
+     *
+     * The winner of the election must secure strictly more votes than any other candidate.
+     * If two or more candidates receive the same (maximum) number of votes, assume there is no winner at all.
      */
+
+    int electionsWinners(int[] votes, int k) {
+
+        Arrays.sort(votes);    // nổi bọt mảng
+        int mMax = votes[votes.length - 1]; // giá trị cuối cùng sẽ là giá trị max
+        int mCount = 0;  // biến đếm số người có thế win
+        for (int i : votes) { // duyệt mảng
+            if (i + k > mMax) { // nếu i + k > max thì có thể win => + Count
+                mCount++;
+            }
+
+        }
+        if (votes[votes.length - 2] != mMax && mCount == 0) {
+            mCount++;   // trường hợp không có ai lớn hơn mMax và phần tử trước max cũng khác max thì chỉ có max win
+        }
+        return mCount;
+    }
+
+
+        /** 47 **
+         *  check by given string inputString whether it corresponds to MAC-48 address or not.
+         */
+
+        boolean isMAC48Address(String inputString) {
+            String regex = "^([A-F0-9]{2}-){5}[A-F0-9]{2}$"; // tạo regex cho MAC address
+            return inputString.matches(regex); // kiểm tra xem có khớp không
+        }
 
 }
