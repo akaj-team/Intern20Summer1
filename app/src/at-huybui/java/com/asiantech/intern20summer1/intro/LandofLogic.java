@@ -163,6 +163,47 @@ public class LandofLogic {
         return array;
     }
 
+    /** 60 **
+     *
+     */
+    /**
+     * ý tưởng tạo 1 Hashset để add các phần từ trong cùng hàng hoặc cùng cột
+     * hoặc cùng khối vào nếu add ko thành công thì false
+     */
+
+    boolean sudoku(int[][] grid) {
+        for (int i = 0; i< 9; i++){  // quét theo chiều ngang add theo hàng
+            HashSet<Integer> buf = new HashSet<Integer>();
+            for(int j = 0; j< 9; j++){
+                if(!buf.add(grid[i][j])){
+                    return false;
+                }
+            }
+        }
+        for (int i = 0; i< 9; i++){ //// quét theo chiều dọc add theo cột
+            HashSet<Integer> buf = new HashSet<Integer>();
+            for(int j = 0; j< 9; j++){
+                if(!buf.add(grid[j][i])){
+                    return false;
+                }
+            }
+        }
+        for (int i = 0; i< 9; i+=3){ // quét theo khối
+            for(int j = 0; j< 9; j+=3){
+                HashSet<Integer> buf = new HashSet<Integer>();
+                for(int k = 0; k<3;k++){
+                    for (int h = 0; h<3;h++){
+                        if(!buf.add(grid[i+k][j+h])){
+                            return false;
+
+                        }
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
 
 
 }
