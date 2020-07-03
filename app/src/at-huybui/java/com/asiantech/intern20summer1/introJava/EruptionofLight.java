@@ -1,6 +1,5 @@
-package com.asiantech.intern20summer1.intro;
+package com.asiantech.intern20summer1.introJava;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 public class EruptionofLight {

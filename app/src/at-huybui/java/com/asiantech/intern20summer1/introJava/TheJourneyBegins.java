@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.intro;
+package com.asiantech.intern20summer1.introJava;
 
 public class TheJourneyBegins {
 
