@@ -62,6 +62,33 @@ class EgdeOfTheOcean {
         }
         return true
     }
+
+    fun matrixElementsSum(matrix: MutableList<MutableList<Int>>): Int {
+//        After becoming famous, the CodeBots decided to move into a new building together.
+//        Each of the rooms has a different cost, and some of them are free, but there's a rumour
+//        that all the free rooms are haunted! Since the CodeBots are quite superstitious, they
+//        refuse to stay in any of the free rooms, or any of the rooms below any of the free rooms.
+//
+//        Given matrix, a rectangular matrix of integers, where each value represents the
+//        cost of the room, your task is to return the total sum of all rooms that are suitable
+//        for the CodeBots (ie: add up all the values that don't appear below a 0).
+        val row = matrix.size
+        val col = matrix.get(0).size
+        var sum = 0
+        var tmp = mutableListOf<Int>()
+        for (i in 0..row - 1) {
+            for (j in 0..col - 1) {
+                if (matrix.get(i).get(j) == 0) {
+                    tmp.add(j)
+                }
+                if (!tmp.contains(j)) {
+                    sum += matrix.get(i).get(j)
+                }
+            }
+        }
+        return sum
+    }
+
 }
 
 fun main(args: Array<String>) {
