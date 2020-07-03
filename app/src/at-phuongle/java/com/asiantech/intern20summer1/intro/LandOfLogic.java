@@ -1,6 +1,8 @@
 package com.asiantech.intern20summer1.intro;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class LandOfLogic {
     /**
@@ -80,7 +82,6 @@ public class LandOfLogic {
     /**
      * Write a function that checks if the given grid of numbers represents a correct solution to Sudoku.
      */
-
     boolean sudoku(int[][] grid) {
         for (int i = 0; i < 9; i++) {
 
@@ -96,5 +97,46 @@ public class LandOfLogic {
                 return false;
         }
         return true;
+    }
+
+    /**
+     * Write a function that returns an array of names that will be given to the files.
+     */
+    String[] fileNaming(String[] names) {
+        List<String> result = new ArrayList<String>();
+        for (int i = 0; i < names.length; i++) {
+            int count = 0;
+            String s = names[i];
+            while (result.contains(s)) {
+                count++;
+                s = names[i] + "(" + count + ")";
+            }
+            result.add(s);
+        }
+
+        return result.toArray(new String[result.size()]);
+    }
+
+    /**
+     * Write a function that returns the smallest positive integer the product of whose digits is equal to product.
+     */
+    int digitsProduct(int product) {
+        if (product == 0) {
+            return 10;
+        }
+        if (product == 1) {
+            return 1;
+        }
+        String digits = "";
+        for (int divisor = 9; divisor > 1; divisor--) {
+            while (product % divisor == 0) {
+                product /= divisor;
+                digits = (divisor) + digits;
+            }
+        }
+
+        if (product > 1) return -1;
+
+        return Integer.parseInt(digits);
     }
 }
