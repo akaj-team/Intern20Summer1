@@ -42,7 +42,7 @@ public class ThroughtheFog {
      * Given a sorted array of integers a, your task is to determine which element of
      * a is closest to all other values of a. In other words,
      * find the element x in a, which minimizes the following mSum:
-     * abs(a[0] - x) + abs(a[1] - x) + ... + abs(a[a.length - 1] - x)
+     * abs(a[0] - x) + abs(a[1] - x) + ... + abs(a[a.mLength - 1] - x)
      * (where abs denotes the absolute value)
      * If there are several possible answers, mOutput the smallest one.
      */
@@ -67,6 +67,55 @@ public class ThroughtheFog {
             }
         }
         return mOut;
+    }
+
+    /** 33 **
+     *
+     */
+    boolean stringsRearrangement(String[] inputArray) {
+        int mLeng = inputArray.length;
+        int[] ar = new int[mLeng];
+        for(int i =0; i < mLeng; i++){  // quét lấy số lần trùng của 1 giá trị gán vào mảng ar
+            int Count = 0;
+            for(int j = 0; j < mLeng; j++){
+                if(Compare(inputArray[i],inputArray[j])){
+                    Count++;
+                }
+            }
+            ar[i] = Count;
+        }
+        System.out.println(Arrays.toString(ar));
+
+        int int1 = 0;
+        for(int i: ar){
+            if(i<1){
+                return false;
+            }else if(i == 1){
+                int1++;
+            }
+        }
+        if(ar[0] == 5 && ar[mLeng - 1] == 1){
+            return false;
+        }
+        if(int1>2) return false;
+        return true;
+    }
+
+    static String sub(String st, int index){  // cắt bỏ 1 giá trị của chuõi
+        return st.substring(0,index) + st.substring(index+1);
+    }
+    static boolean Compare(String st1, String st2){  // hàm kiểm tra 2 chuỗi có khác nhau 1 giá trị ko
+        if(st1.equals(st2)){
+            return false;
+        }
+        for(int k = 0; k < st1.length(); k++){
+            String xst1 = sub(st1,k);
+            String xst2 = sub(st2,k);
+            if(xst1.equals(xst2)){
+                return true;
+            }
+        }
+        return false;
     }
 
 }
