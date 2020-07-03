@@ -97,7 +97,7 @@ public class DarkWilderness {
      * Given an integer, find its digit degree.
      */
 
-    static int digitDegree(int n) {
+    public static int digitDegree(int n) {
         int mCount = 0;
         while( n > 10){ // nếu n còn lớn hơn 10 thì tăng count và gán lại m = SumNumber
             mCount++;
