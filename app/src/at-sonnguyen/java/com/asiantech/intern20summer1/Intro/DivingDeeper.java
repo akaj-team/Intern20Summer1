@@ -30,14 +30,14 @@ public class DivingDeeper {
     * Given a string, find the number of different characters in it.
     */
     static int differentSymbolsNaive(String s) {
-        List<Character> DifferentCharacrers = new ArrayList<>();
-        for ( int index = 0 ; index < s.length(); index++){
-            if (!DifferentCharacrers.contains(s.charAt(index))){
-                DifferentCharacrers.add(s.charAt(index));
-            }
+        int differentSymbols = 0;
+        while(s.length()>0){
+            s = s.replaceAll(s.charAt(0)+"","");
+            differentSymbols++;
         }
-        return DifferentCharacrers.size();
+        return differentSymbols;
     }
+
     /*
     *Given array of integers, find the maximal possible sum of some of its k consecutive elements
     */

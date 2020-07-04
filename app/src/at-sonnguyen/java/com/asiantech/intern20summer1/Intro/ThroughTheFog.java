@@ -33,7 +33,8 @@ public class ThroughTheFog {
     * Return true if it's possible, and false if not.
     */
     boolean stringsRearrangement(String[] inputArray) {
-        return p(inputArray.length, inputArray.length, inputArray, false);}
+        return p(inputArray.length, inputArray.length, inputArray, false);
+    }
 
     boolean p(int n, int s, String[] a, boolean b) {
         if (s == 1) {

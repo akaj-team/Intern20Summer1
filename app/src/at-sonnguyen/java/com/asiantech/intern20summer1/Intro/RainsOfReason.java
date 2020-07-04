@@ -68,7 +68,7 @@ public class RainsOfReason {
     }
 
     public static void main(){
-        int[] inputArray = {1,2,3,4,1,5,1}
+        int[] inputArray = {1,2,3,4,1,5,1};
         int[] ResultArray = arrayReplace(inputArray , 1,3);
         for ( int i = 0 ; i< ResultArray.length ; i++){
             System.out.print(ResultArray[i]);

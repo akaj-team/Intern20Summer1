@@ -158,6 +158,35 @@ public class LandOfLogic {
         }
         return matrix;
     }
+    /*
+    * sudoku : check if the given grid of numbers represents a correct solution to Sudoku.
+    */
+    static boolean sudoku(int[][] grid) {
+        int product= 1;
+        int sum= 0;
+        for (int i= 0; i< grid.length; i++) {
+            sum= 0;
+            for (int j= 0; j< grid[0].length; j++) {
+                sum+= grid[i][j];
+            }
+            if (sum!= 45) return false;
+        }
+        for (int j= 0; j< grid[0].length; j++) {
+            sum= 0;
+            for (int i= 0; i< grid.length; i++) {
+                sum+= grid[i][j];
+            }
+            if (sum!= 45) return false;
+        }
+        for (int i= 0; i< grid.length; i+= 3) {
+            product= 1;
+            for (int j= i; j< i+ 3; j++) {
+                product*= grid[i][j]* grid[i+ 1][j]* grid[i+ 2][j];
+            }
+            if (product!= 362880) return false;
+        }
+        return true;
+    }
 
     public static void main(){
         String text = "Ready, steady, go!";
@@ -173,5 +202,15 @@ public class LandOfLogic {
         String codeBinary = "010010000110010101101100011011000110111100100001";
         System.out.print(messageFromBinaryCode(codeBinary));
         System.out.print(spiralNumbers(9));
+        int [][] grid = {{1, 3, 2, 5, 4, 6, 9, 8, 7},
+                {4, 6, 5, 8, 7, 9, 3, 2, 1},
+                {7, 9, 8, 2, 1, 3, 6, 5, 4},
+                {9, 2, 1, 4, 3, 5, 8, 7, 6},
+                {3, 5, 4, 7, 6, 8, 2, 1, 9},
+                {6, 8, 7, 1, 9, 2, 5, 4, 3},
+                {5, 7, 6, 9, 8, 1, 4, 3, 2},
+                {2, 4, 3, 6, 5, 7, 1, 9, 8},
+                {8, 1, 9, 3, 2, 4, 7, 6, 5}};
+        System.out.print(sudoku(grid));
     }
 }

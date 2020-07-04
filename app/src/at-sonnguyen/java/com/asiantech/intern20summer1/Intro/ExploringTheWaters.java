@@ -105,8 +105,7 @@ public class ExploringTheWaters{
             System.out.print(Result[index]);
         }
         String[] StringPicture = {"abc" , "adc"};
-        String[] Result2 = new String[];
-        Result2 = addBorder(StringPicture);
+        String[] Result2 = addBorder(StringPicture);
         for (int i = 0 ; i < Result2.length ; i++){
             System.out.print(Result2[i]);
         }
