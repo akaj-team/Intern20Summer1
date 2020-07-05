@@ -73,7 +73,7 @@ class SmoothSailing {
                     val indexS =
                         Stack.removeAt(Stack.size - 1)  // lấy vị trí đồng thời xóa vị trí đó
                     mOutPut = mOutPut.substring(0, indexS) + mOutPut.substring(indexS, index)
-                        .reversed() + mOutPut.substring(index)
+                            .reversed() + mOutPut.substring(index)
                 }
             }
         }
