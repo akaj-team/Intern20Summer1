@@ -20,20 +20,20 @@ class AttheCrossroads {
      * i.e. you can't take two first items or two second items.
      */
     fun knapsackLight(value1: Int, weight1: Int, value2: Int, weight2: Int, maxW: Int): Int {
-        if(maxW >= weight1+weight2){
+        if (maxW >= weight1 + weight2) {
             return value1 + value2
-        } else{
-            return if(maxW >= weight2 && maxW >= weight1){
+        } else {
+            return if (maxW >= weight2 && maxW >= weight1) {
                 if (value1 > value2) {
                     value1
                 } else {
                     value2
                 }
-            }else if(maxW >= weight1){
+            } else if (maxW >= weight1) {
                 value1
-            }else if(maxW >= weight2){
+            } else if (maxW >= weight2) {
                 value2
-            }else{
+            } else {
                 0;
             }
         }
@@ -61,21 +61,21 @@ class AttheCrossroads {
     /** 12 **
      *Given integers a and b, determine whether the following pseudocode results in an infinite loop
      * while a is not equal to b do
-            - increase a by 1
-            - decrease b by 1
+    - increase a by 1
+    - decrease b by 1
      *Assume that the program is executed on a virtual machine which
      *can store arbitrary long numbers and execute forever.
      */
     fun isInfiniteProcess(a: Int, b: Int): Boolean {
         return when {
-            a>b -> {
+            a > b -> {
                 true
             }
             a == b -> {
                 false
             }
             else -> {
-                (b-a-1)%2 == 0
+                (b - a - 1) % 2 == 0
             }
         }
     }
@@ -85,7 +85,7 @@ class AttheCrossroads {
      * Check whether it is possible to replace # with one of the four signs: +, -, * or / to obtain a correct expression.
      */
     fun arithmeticExpression(a: Int, b: Int, c: Int): Boolean {
-        return (a/b==c && a%b ==0) || a+b==c || a*b == c || a-b == c
+        return (a / b == c && a % b == 0) || a + b == c || a * b == c || a - b == c
     }
 
     /** 14 **
@@ -96,9 +96,9 @@ class AttheCrossroads {
      * for a tennis set to be finished with a final score of score1 : score2.
      */
     fun tennisSet(score1: Int, score2: Int): Boolean {
-        return if((score1 == 6 && score2 <=4) ||(score2 == 6 && score1 <=4) ){
+        return if ((score1 == 6 && score2 <= 4) || (score2 == 6 && score1 <= 4)) {
             true;
-        }else (score1 == 7 || score2 == 7)&&(score1!=score2)&& score1<8 && score1>4 &&score2<8 && score2>4
+        } else (score1 == 7 || score2 == 7) && (score1 != score2) && score1 < 8 && score1 > 4 && score2 < 8 && score2 > 4
     }
 
     /** 15 **
@@ -109,22 +109,22 @@ class AttheCrossroads {
      *  - they are loved but not young or not beautiful.
      */
     fun willYou(young: Boolean, beautiful: Boolean, loved: Boolean): Boolean {
-        return (young&&beautiful&&!loved)||((!young||!beautiful)&&loved)
+        return (young && beautiful && !loved) || ((!young || !beautiful) && loved)
     }
 
     /** 16 **
      *
      */
     fun metroCard(lastNumberOfDays: Int): MutableList<Int> {
-        when(lastNumberOfDays){
+        when (lastNumberOfDays) {
             28 -> {
                 return mutableListOf(31)
             }
             30 -> {
                 return mutableListOf(31)
             }
-            31 ->{
-                return mutableListOf(28,30,31)
+            31 -> {
+                return mutableListOf(28, 30, 31)
             }
         }
         return mutableListOf(0)

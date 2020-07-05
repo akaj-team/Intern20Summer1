@@ -6,7 +6,7 @@ class IntroGates {
      *You are given a two-digit integer n. Return the sum of its digits.
      */
     fun addTwoDigits(n: Int): Int {
-        return n/10 + n%10  //trả về tổng số đầu và số cuỗi
+        return n / 10 + n % 10  //trả về tổng số đầu và số cuỗi
     }
 
     /** 2 **
@@ -14,8 +14,8 @@ class IntroGates {
      */
     fun largestNumber(n: Int): Int {
         var mOut = 0
-        for(i in 0 until n){
-            mOut = (mOut*10 + 9)
+        for (i in 0 until n) {
+            mOut = (mOut * 10 + 9)
         }
         return mOut
     }
@@ -27,7 +27,7 @@ class IntroGates {
      * Individual pieces of candy cannot be split.
      */
     fun candies(n: Int, m: Int): Int {
-        return (m/n) * n   // chia lấy nguyên rồi nhân lại sẽ được số kẹo lớn nhất
+        return (m / n) * n   // chia lấy nguyên rồi nhân lại sẽ được số kẹo lớn nhất
     }
 
     /** 4 **
@@ -37,20 +37,20 @@ class IntroGates {
      * assuming all seats are occupied.
      */
     fun seatsInTheater(nCols: Int, nRows: Int, col: Int, row: Int): Int {
-        return (nCols - col+1)*(nRows - row)
+        return (nCols - col + 1) * (nRows - row)
 
     }
 
     /** 5 **
      *Given a divisor and a bound, find the largest integer N such that:
-        -N is divisible by divisor.
-        -N is less than or equal to bound.
-        -N is greater than 0.
+    -N is divisible by divisor.
+    -N is less than or equal to bound.
+    -N is greater than 0.
      *It is guaranteed that such a number exists.
      */
     fun maxMultiple(divisor: Int, bound: Int): Int {
         var mOut = bound;
-        while(mOut%divisor != 0){
+        while (mOut % divisor != 0) {
             mOut--;
         }
         return mOut
@@ -63,10 +63,10 @@ class IntroGates {
      * Given n and firstNumber, find the number which is written in the radially opposite position to firstNumber.
      */
     fun circleOfNumbers(n: Int, firstNumber: Int): Int {
-        if(firstNumber < n/2){
-            return n/2 + firstNumber
-        }else{
-            return firstNumber - n/2
+        if (firstNumber < n / 2) {
+            return n / 2 + firstNumber
+        } else {
+            return firstNumber - n / 2
         }
     }
 
@@ -74,9 +74,9 @@ class IntroGates {
      *https://app.codesignal.com/arcade/code-arcade/intro-gates/aiKck9MwwAKyF8D4L
      */
     fun lateRide(n: Int): Int {
-        val mHour   = n/60
-        val mMinute = n%60
-        return mHour/10 + mHour%10 + mMinute/10 + mMinute%10
+        val mHour = n / 60
+        val mMinute = n % 60
+        return mHour / 10 + mHour % 10 + mMinute / 10 + mMinute % 10
     }
 
     /** 8 **
@@ -88,12 +88,12 @@ class IntroGates {
      * (in minutes rounded down to the nearest integer) you can have?
      */
     fun phoneCall(min1: Int, min2_10: Int, min11: Int, s: Int): Int {
-        if(s <= min1){
-            return s/min1
-        }else if(s > min1 && s< (min2_10*9 + min1)){
-            return 1 + (s - min1)/min2_10
-        }else{
-            return 10 + (s- min1 - min2_10*9)/min11
+        if (s <= min1) {
+            return s / min1
+        } else if (s > min1 && s < (min2_10 * 9 + min1)) {
+            return 1 + (s - min1) / min2_10
+        } else {
+            return 10 + (s - min1 - min2_10 * 9) / min11
         }
 
     }

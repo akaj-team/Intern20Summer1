@@ -69,16 +69,16 @@ public class ThroughtheFog {
         return mOut;
     }
 
-    /** 33 **
-     *
+    /**
+     * 33 **
      */
     boolean stringsRearrangement(String[] inputArray) {
         int mLeng = inputArray.length;
         int[] ar = new int[mLeng];
-        for(int i =0; i < mLeng; i++){  // quét lấy số lần trùng của 1 giá trị gán vào mảng ar
+        for (int i = 0; i < mLeng; i++) {  // quét lấy số lần trùng của 1 giá trị gán vào mảng ar
             int Count = 0;
-            for(int j = 0; j < mLeng; j++){
-                if(Compare(inputArray[i],inputArray[j])){
+            for (int j = 0; j < mLeng; j++) {
+                if (Compare(inputArray[i], inputArray[j])) {
                     Count++;
                 }
             }
@@ -87,31 +87,32 @@ public class ThroughtheFog {
         System.out.println(Arrays.toString(ar));
 
         int int1 = 0;
-        for(int i: ar){
-            if(i<1){
+        for (int i : ar) {
+            if (i < 1) {
                 return false;
-            }else if(i == 1){
+            } else if (i == 1) {
                 int1++;
             }
         }
-        if(ar[0] == 5 && ar[mLeng - 1] == 1){
+        if (ar[0] == 5 && ar[mLeng - 1] == 1) {
             return false;
         }
-        if(int1>2) return false;
+        if (int1 > 2) return false;
         return true;
     }
 
-    static String sub(String st, int index){  // cắt bỏ 1 giá trị của chuõi
-        return st.substring(0,index) + st.substring(index+1);
+    static String sub(String st, int index) {  // cắt bỏ 1 giá trị của chuõi
+        return st.substring(0, index) + st.substring(index + 1);
     }
-    static boolean Compare(String st1, String st2){  // hàm kiểm tra 2 chuỗi có khác nhau 1 giá trị ko
-        if(st1.equals(st2)){
+
+    static boolean Compare(String st1, String st2) {  // hàm kiểm tra 2 chuỗi có khác nhau 1 giá trị ko
+        if (st1.equals(st2)) {
             return false;
         }
-        for(int k = 0; k < st1.length(); k++){
-            String xst1 = sub(st1,k);
-            String xst2 = sub(st2,k);
-            if(xst1.equals(xst2)){
+        for (int k = 0; k < st1.length(); k++) {
+            String xst1 = sub(st1, k);
+            String xst2 = sub(st2, k);
+            if (xst1.equals(xst2)) {
                 return true;
             }
         }

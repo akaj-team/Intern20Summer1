@@ -1,33 +1,33 @@
 package com.asiantech.intern20summer1.introJava;
 
 
-
 public class SmoothSailing {
 
-    /** 9 All Longest Strings **
-     *Given an array of strings,
-     *return another array containing all of its longest strings.
+    /**
+     * 9 All Longest Strings **
+     * Given an array of strings,
+     * return another array containing all of its longest strings.
      */
     String[] allLongestStrings(String[] inputArray) {
 
         /* lay gia trị String dai nhat*/
         int lengMax = inputArray[0].length();   // biến lưu chiều dài lớn nhất
         int count = 0;                          //bien luu so gia tri trong input co lengMax
-        for(String st: inputArray){
-            if(st.length() > lengMax){
+        for (String st : inputArray) {
+            if (st.length() > lengMax) {
                 lengMax = st.length();          // lengMax new
                 count = 0;                      // neu co lengMax new nạp lại count =0
             }
-            if(st.length() == lengMax){
+            if (st.length() == lengMax) {
                 count++;                        // dem so gia tri co lengMax
             }
         }
 
         //Nap gia tri co lengMax cho output
-        int j=0;
+        int j = 0;
         String[] mReturn = new String[count];
-        for(String st: inputArray){
-            if(st.length() == lengMax){
+        for (String st : inputArray) {
+            if (st.length() == lengMax) {
                 mReturn[j] = st;
                 j++;
             }
@@ -35,24 +35,26 @@ public class SmoothSailing {
         return mReturn;
     }
 
-    /** 10 Common Character Count
+    /**
+     * 10 Common Character Count
      * Given two strings, find the number of common characters between them.
      */
     static int commonCharacterCount(String s1, String s2) {
-        int count =0;  // bien dem so ky tu trung
+        int count = 0;  // bien dem so ky tu trung
         for (int i = 0; i < s1.length(); i++) {
-            int index = s2.indexOf( s1.charAt(i) ); //kiem tra index ký tự trùng
-            if(index >= 0 ){
+            int index = s2.indexOf(s1.charAt(i)); //kiem tra index ký tự trùng
+            if (index >= 0) {
                 count++; // tăng biến đếm nếu phát hiện ký tự trùng
-                s2 = s2.substring(0,index) + s2.substring(index + 1,s2.length()); //cắt tạo chuỗi mới để so sánh lần sau
+                s2 = s2.substring(0, index) + s2.substring(index + 1, s2.length()); //cắt tạo chuỗi mới để so sánh lần sau
                 System.out.println("new s2:" + s2);
             }
         }
         return count;
     }
 
-    /** 11 Is Lucky
-     *Ticket numbers usually consist of an even number of digits.
+    /**
+     * 11 Is Lucky
+     * Ticket numbers usually consist of an even number of digits.
      * A ticket number is considered lucky if the sum of
      * the first half of the digits is equal to the sum of the second half.
      * Given a ticket number n, determine if it's lucky or not.
@@ -72,7 +74,8 @@ public class SmoothSailing {
         return sumL == sumR; // compare
     }
 
-    /** 12 Sort by Height
+    /**
+     * 12 Sort by Height
      * Some people are standing in a row in a park.
      * There are trees between them which cannot be moved.
      * Your task is to rearrange
@@ -83,8 +86,8 @@ public class SmoothSailing {
     int[] sortByHeight(int[] a) {
         //Đếm số cây trong mảng a
         int mCountTree = 0;
-        for(int i : a){
-            if(i == -1){
+        for (int i : a) {
+            if (i == -1) {
                 mCountTree++;
             }
         }
@@ -92,8 +95,8 @@ public class SmoothSailing {
 
         // đưa người vào mảng người mới để lưu trữ
         int mPeopleBuf[] = new int[a.length - mCountTree];
-        for(int i = 0, j = 0; i < a.length;i++){
-            if(a[i] != -1){
+        for (int i = 0, j = 0; i < a.length; i++) {
+            if (a[i] != -1) {
                 System.out.print(a[i] + " ");
                 mPeopleBuf[j] = a[i];
                 j++;
@@ -102,19 +105,19 @@ public class SmoothSailing {
         System.out.println("");
 
         //Nổi bọt mảng người
-        for (int i = 0; i < mPeopleBuf.length -1; i++){
-            for (int j = 0; j < mPeopleBuf.length -i-1; j++){
-                if (mPeopleBuf[j] > mPeopleBuf[j+1]){
+        for (int i = 0; i < mPeopleBuf.length - 1; i++) {
+            for (int j = 0; j < mPeopleBuf.length - i - 1; j++) {
+                if (mPeopleBuf[j] > mPeopleBuf[j + 1]) {
                     int buf = mPeopleBuf[j];
-                    mPeopleBuf[j]   = mPeopleBuf[j+1];
-                    mPeopleBuf[j+1] = buf;
+                    mPeopleBuf[j] = mPeopleBuf[j + 1];
+                    mPeopleBuf[j + 1] = buf;
 
                 }
             }
         }
 
         //Gán lại mảng người đã nổi bot cho mảng
-        for(int i = 0,j = 0; i < a.length; i++) {
+        for (int i = 0, j = 0; i < a.length; i++) {
             if (a[i] != -1) {
                 a[i] = mPeopleBuf[j];
                 j++;
@@ -122,17 +125,19 @@ public class SmoothSailing {
         }
 
         //in mảng a đã sắp xếp lại
-        for(int i: a) {
+        for (int i : a) {
             System.out.print(i + " ");
         }
         return a;
     }
 
 
-    /** 13 **
+    /**
+     * 13 **
      * Write a function that reverses characters in (possibly nested) parentheses in the input string.
      * Input strings will always be well-formed with matching ()s.
      * examble: input- "foo(bar)baz(blim)"   output - "foorabbazmilb"
+     *
      * @param inputString
      * @return
      */
@@ -144,14 +149,14 @@ public class SmoothSailing {
                 indexStack++;   // tăng vùng nhớ stack lên
                 Stacks[indexStack] = j; // gắn vị tri của ký tự '(' vào stack
 
-            } else if(inputString.charAt(j) == ')') {
+            } else if (inputString.charAt(j) == ')') {
                 /**
                  * nếu gặp ký tự ')' thì bắt đầu vào bộ nhớ stack láy vị trí của '(' để tạo thành cặp "(  )
                  * lật chuỗi ở giữa ( ) lại
                  * sau đó bắt đầu cắt chuỗi để nối thành chuỗi mới
                  */
-                String mir  = mirroString(inputString.substring(Stacks[indexStack] + 1, j)); /* lật chuỗi */
-                inputString  = inputString.substring(0,Stacks[indexStack] +1 ) + mir + inputString.substring(j);// cắt
+                String mir = mirroString(inputString.substring(Stacks[indexStack] + 1, j)); /* lật chuỗi */
+                inputString = inputString.substring(0, Stacks[indexStack] + 1) + mir + inputString.substring(j);// cắt
                 indexStack--; // giảm địa chỉ trong bộ nhớ stack đi
 
             }
@@ -162,8 +167,8 @@ public class SmoothSailing {
          * xuất output
          */
         String output = "";
-        for(int i = 0 ; i < inputString.length();i++){
-            if(inputString.charAt(i) != '(' && inputString.charAt(i) != ')'){
+        for (int i = 0; i < inputString.length(); i++) {
+            if (inputString.charAt(i) != '(' && inputString.charAt(i) != ')') {
                 output += inputString.charAt(i);
             }
         }
@@ -173,7 +178,7 @@ public class SmoothSailing {
     /**
      * để lật chuỗi ta sử dụng hàm bên dưới với st là chuỗi đầu vào và trả về chuỗi được lật
      */
-    static String mirroString(String st){
+    static String mirroString(String st) {
         String stNew = "";
         for (int k = st.length() - 1; k >= 0; k--) {
             stNew += st.charAt(k);
