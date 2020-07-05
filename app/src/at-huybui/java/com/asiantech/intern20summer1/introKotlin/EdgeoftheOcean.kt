@@ -32,7 +32,7 @@ class EdgeoftheOcean {
      * Help him figure out the minimum number of additional statues needed.
      */
     fun makeArrayConsecutive2(statues: MutableList<Int>): Int {
-        return statues.max()!! - statues.min()!! - (statues.size - 1) // chấp nhận có thể dính null
+        return statues.max()!! - statues.min()!! - (statues.size - 1) //chấp nhận có thể dính null
     }
 
     /** 7 **
