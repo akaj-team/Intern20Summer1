@@ -6,15 +6,18 @@ object TheJourneyBegins {
     }
 
     fun centuryFromYear(year : Int) :Int {
+        var result : Int;
         if (year <= 100) {
-            return 1
+            result = 1
         } else {
             if(year % 100 == 0) {
-                return year / 100
+                result = year / 100
             } else {
-                return year / 100 + 1
+                result = year / 100 + 1
             }
         }
+
+        return result
     }
 
     fun checkPalindrome(inputString : String) : Boolean {
