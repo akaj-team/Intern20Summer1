@@ -9,7 +9,7 @@ object ExploringTheWaters {
     private fun alternatingSums(a: MutableList<Int>): MutableList<Int> {
         var sum0 = 0
         var sum1 = 0
-        for (i in 0..a.size-1){
+        for (i in 0 until a.size){
             if (i%2==0){
                 sum0 += a[i]
             }else sum1 += a[i]
@@ -57,12 +57,9 @@ object ExploringTheWaters {
                 diff[0] = a[i]
                 diff[1] = b[i]
                 times++
-                if(times > 1){
-                    return false
-                }
+                if(times > 1)   return false
             }
-            else
-                similar = true
+            else    similar = true
 
         }
         return similar
