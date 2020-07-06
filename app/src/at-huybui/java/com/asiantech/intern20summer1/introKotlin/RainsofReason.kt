@@ -37,5 +37,27 @@ class RainsofReason {
         return regex.matches(name)
     }
 
+    /** 28 **
+     *Given a string, your task is to replace each of its characters by the next one in the English alphabet;
+     * i.e. replace a with b, replace b with c, etc (z would be replaced by a).
+     */
+    fun alphabeticShift(inputString: String): String {
+        var mOutputString = ""
+        inputString.forEach {
+            when {
+                it == 'z' -> mOutputString += "a"
+                else -> mOutputString += it + 1
+            }
+        }
+        return mOutputString
+    }
 
+    /** 29 **
+     * Given two cells on the standard chess board,
+     * determine whether they have the same color or not.
+     */
+    fun chessBoardCellColor(cell1: String, cell2: String): Boolean {
+        return cell1.map { char -> char.toByte() }.sum() % 2 ==
+                cell1.map { char -> char.toByte() }.sum() % 2
+    }
 }
