@@ -81,8 +81,10 @@ class EdgeOfTheOcean {
                 if (count == 2) {
                     return false
                 }
-                if (i > 0 && i < a.size - 2 && a[i + 2] <= a[i] && a[i + 1] <= a[i - 1]) {
-                    return false
+                if (i > 0 && i < a.size - 2 ) {
+                    if(a[i + 2] <= a[i] && a[i + 1] <= a[i - 1]){
+                        return false
+                    }
                 }
             }
             i++

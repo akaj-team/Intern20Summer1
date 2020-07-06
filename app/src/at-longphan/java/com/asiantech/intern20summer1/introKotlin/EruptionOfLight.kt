@@ -49,26 +49,25 @@ class EruptionOfLight {
         return address.substring(lastIndex + 1)
     }
 
-    fun buildPalindrome(a: String): String? {
+    fun buildPalindrome(a: String): String {
         /**
          * Given a string, find the shortest possible string which can be achieved by
          * adding characters to the end of initial string to make it a palindrome.
          */
         var aReverse = a
         aReverse = aReverse.reversed()
-        if (aReverse.equals(a)) {
+        if (aReverse == a) {
             return a
         } else {
             var insertStr = ""
-            for (i in 0 until a.length) {
-                val newCh = a[i]
-                insertStr = newCh.toString() + insertStr
+            for (i in a) {
+                insertStr = i.toString() + insertStr
                 var reverse = a + insertStr
                 reverse = reverse.reversed()
-                if (reverse.equals(a + insertStr)) return reverse
+                if (reverse == a + insertStr) return reverse
             }
         }
-        return null
+        return a + aReverse
     }
 
     fun electionsWinners(votes: MutableList<Int>, k: Int): Int {

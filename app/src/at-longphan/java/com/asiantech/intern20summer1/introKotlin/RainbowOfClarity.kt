@@ -17,7 +17,8 @@ class RainbowOfClarity {
      * Determine if the given character is a digit or not.
      */
     fun isDigit(symbol: Char): Boolean {
-        return symbol.toInt() in 48..57
+        val symbolRange = 48..57
+        return symbol.toInt() in symbolRange
     }
 
     fun lineEncoding(s: String): String? {

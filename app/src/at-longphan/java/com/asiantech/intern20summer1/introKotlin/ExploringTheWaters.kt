@@ -8,7 +8,7 @@ fun main() {
     println("Ex 14: " + obj.alternatingSums(mutableListOf(50, 60, 60, 45, 70)))
 
     println("Ex 15: ")
-    println(obj.addBorder(mutableListOf("abc", "ded")).contentToString())
+    println(obj.addBorder(mutableListOf("abc", "ded")))
 
     println("Ex 16: " + obj.areSimilar(mutableListOf(1, 2, 3), mutableListOf(2, 1, 3)))
 
@@ -36,11 +36,11 @@ class ExploringTheWaters {
         return result
     }
 
-    fun addBorder(picture: MutableList<String>): Array<String> {
+    fun addBorder(picture: MutableList<String>): MutableList<String> {
         /**
          * Given a rectangular matrix of characters, add a border of asterisks(*) to it.
          */
-        var a: Array<String> = Array(picture.size + 2) { "" }
+        var a = MutableList(picture.size + 2) { "" }
         a[0] = "*".repeat(picture[0].length + 2)
         a[a.size - 1] = a[0]
         for (i in 1..a.size - 2) {

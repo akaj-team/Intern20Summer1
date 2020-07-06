@@ -90,7 +90,7 @@ class IslandOfKnowledge {
                     return false
                 }
             }
-        } catch (e: Exception) {
+        } catch (e: NumberFormatException) {
             return false
         }
         return true
@@ -193,7 +193,7 @@ class IslandOfKnowledge {
                         if (i2 < 0 || j2 < 0 || i2 == i && j2 == j || i2 >= row || j2 >= col) {
                             continue
                         } else {
-                            x[i][j] = if (matrix[i2][j2] == true) x[i][j] + 1 else x[i][j]
+                            x[i][j] = if (matrix[i2][j2]) x[i][j] + 1 else x[i][j]
                         }
                     }
                 }

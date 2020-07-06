@@ -46,11 +46,13 @@ class DarkWilderness {
         Note that there are only two items and you can't bring more than one item of each type,
         i.e. you can't take two first items or two second items.
          */
-        if (maxW >= weight1 + weight2) return value1 + value2
-        if (maxW < weight1 && maxW < weight2) return 0
-        if (weight1 > maxW) return value2
-        if (weight2 > maxW) return value1
-        return Math.max(value1, value2)
+        return when {
+            maxW >= weight1 + weight2 -> value1 + value2
+            maxW < weight1 && maxW < weight2 -> 0
+            weight1 > maxW -> value2
+            weight2 > maxW -> value1
+            else -> Math.max(value1, value2)
+        }
     }
 
     fun longestDigitsPrefix(a: String): String? {

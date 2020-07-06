@@ -69,9 +69,11 @@ class LandOfLogic {
          */
         val h = Integer.valueOf(time.substring(0, 2))
         val m = Integer.valueOf(time.substring(3))
-        if (h < 0 || h > 23) return false
-        if (m < 0 || m > 59) return false
-        return !(h == 24 && m == 0)
+        return when {
+            h < 0 || h > 23 -> false
+            m < 0 || m > 59 -> false
+            else -> !(h == 24 && m == 0)
+        }
     }
 
     fun sumUpNumbers(inputString: String): Int {
@@ -138,10 +140,10 @@ class LandOfLogic {
          * integer the product of whose digits is equal to product. If there is no such integer,
          * return -1 instead.
          */
-        var product = product
+        var product: Int = product
         if (product == 0) return 10
         if (product < 10) return product
-        var str = ""
+        var str: String = ""
         for (i in 9 downTo 2) {
             while (product % i == 0) {
                 str = i.toString() + str
@@ -180,7 +182,7 @@ class LandOfLogic {
 
         Assuming that your hunch is correct, decode the message.
          */
-        var result = ""
+        var result: String = ""
         for (i in 0 until code.length / 8) {
             val a = code.substring(i * 8, (i + 1) * 8).toInt(2)
             result += a.toChar()
