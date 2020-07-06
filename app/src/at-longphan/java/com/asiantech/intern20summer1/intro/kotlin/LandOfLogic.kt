@@ -68,10 +68,11 @@ class LandOfLogic {
          *Check if the given string is a correct time representation of the 24-hour clock.
          */
         val h = Integer.valueOf(time.substring(0, 2))
-        val m = Integer.valueOf(time.substring(3))
-        val maxHour = 23
-        val maxMinute = 59
-        val exceptionHour = 24
+        val indexOfMinute: Int = 3
+        val m = Integer.valueOf(time.substring(indexOfMinute))
+        val maxHour: Int = 23
+        val maxMinute: Int = 59
+        val exceptionHour: Int = 24
         return when {
             h < 0 || h > maxHour -> false
             m < 0 || m > maxMinute -> false
@@ -111,9 +112,9 @@ class LandOfLogic {
         for (i in 0 until row - 1) {
             for (j in 0 until col - 1) {
                 // take each 4 digits to a square
-                var square = ""
-                var toFour = 0
-                val to = 4
+                var square: String = ""
+                var toFour: Int = 0
+                val to: Int = 4
                 for (i2 in i until i + 2) {
                     for (j2 in j until j + 2) {
                         toFour++
@@ -145,11 +146,12 @@ class LandOfLogic {
          * return -1 instead.
          */
         var product: Int = product
-        val exceptionProduct = 10
+        val exceptionProduct: Int = 10
         if (product == 0) return exceptionProduct
         if (product < exceptionProduct) return product
         var str: String = ""
-        for (i in 9 downTo 2) {
+        val maxDigit: Int = 9
+        for (i in maxDigit downTo 2) {
             while (product % i == 0) {
                 str = i.toString() + str
                 product /= i
@@ -187,7 +189,7 @@ class LandOfLogic {
 
         Assuming that your hunch is correct, decode the message.
          */
-        val sizeBit = 8
+        val sizeBit: Int = 8
         var result: String = ""
         for (i in 0 until code.length / sizeBit) {
             val a = code.substring(i * sizeBit, (i + 1) * sizeBit).toInt(2)
@@ -257,7 +259,7 @@ class LandOfLogic {
                 }
             }
         }
-        val skip = 3
+        val skip: Int = 3
         for (i in 0 until n) {
             for (j in 0 until n) {
                 if (i % skip == 0 && j % skip == 0) {

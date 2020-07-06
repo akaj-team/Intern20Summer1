@@ -17,8 +17,8 @@ class RainbowOfClarity {
      * Determine if the given character is a digit or not.
      */
     fun isDigit(symbol: Char): Boolean {
-        val minOfRange = 48
-        val maxOfRange = 57
+        val minOfRange: Int = 48
+        val maxOfRange: Int = 57
         return symbol.toInt() in minOfRange..maxOfRange
     }
 
@@ -82,7 +82,7 @@ class RainbowOfClarity {
         The complete move therefore looks like the letter L. Check out the image below
         to see all valid moves for a knight piece that is placed on one of the central squares.
          */
-        var moves : Int = 8
+        var moves: Int = 8
         if (cell[0] == 'b' || cell[0] == 'g') moves -= 2
         if (cell[1] == '2' || cell[1] == '7') moves -= 2
         if (cell[0] == 'a' || cell[0] == 'h') moves /= 2

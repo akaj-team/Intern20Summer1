@@ -80,13 +80,15 @@ class IslandOfKnowledge {
         Given a string, find out if it satisfies the IPv4 address naming rules.
          */
         val b = a.split("[.]".toRegex()).toTypedArray()
-        if (b.size != 4) return false
+        val validSize : Int = 4
+        val maxItem: Int = 255
+        if (b.size != validSize) return false
         try {
             for (item in b) {
                 if (item.matches("[0][1-9]".toRegex()) || item.matches("[0][0]".toRegex())) {
                     return false
                 }
-                if (item.toInt() < 0 || item.toInt() > 255) {
+                if (item.toInt() < 0 || item.toInt() > maxItem) {
                     return false
                 }
             }

@@ -25,8 +25,9 @@ class TheJourneyBegins{
          * the second - from the year 101 up to and including the year 200, etc.
          */
         var result = 0
-        if (year / 100.0 == (year / 100).toDouble()) result = year / 100
-        else result = year / 100 + 1
+        val oneHundred: Int = 100
+        if (year / oneHundred.toDouble() == (year / oneHundred).toDouble()) result = year / oneHundred
+        else result = year / oneHundred + 1
         return result
     }
 

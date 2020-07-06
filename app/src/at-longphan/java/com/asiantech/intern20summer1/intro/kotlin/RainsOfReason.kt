@@ -61,8 +61,9 @@ class RainsOfReason {
          * etc (z would be replaced by a).
          */
         var aClone = a
+        val exceptionChar: Int = 122
         for (i in aClone.indices) {
-            aClone = if (aClone[i].toInt() == 122) {
+            aClone = if (aClone[i].toInt() == exceptionChar) {
                 val replace = 'a'
                 aClone.substring(0, i) + replace + aClone.substring(i + 1)
             } else {

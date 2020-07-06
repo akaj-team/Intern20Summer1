@@ -36,8 +36,9 @@ class ThroughTheFog {
          */
         var money = deposit.toDouble()
         var year = 1
+        val oneHundred: Int = 100
         while (true) {
-            money = money * (rate + 100) / 100
+            money = money * (rate + oneHundred) / oneHundred
             if (money >= threshold) {
                 return year
             }
