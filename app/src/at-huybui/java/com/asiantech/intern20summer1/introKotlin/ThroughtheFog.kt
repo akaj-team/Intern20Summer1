@@ -25,7 +25,8 @@ class ThroughtheFog {
      */
     fun depositProfit(deposit: Int, rate: Int, threshold: Int): Int {
         var mYear = 0 // khai báo số năm
-        var newDeposit = deposit.toDouble() // Ép deposit qua double để tránh ép kiểu nhiều lần tốn chu kỳ máy
+        var newDeposit =
+            deposit.toDouble() // Ép deposit qua double để tránh ép kiểu nhiều lần tốn chu kỳ máy
         while (newDeposit < threshold) {
             newDeposit += newDeposit * (rate / 100.0)
             mYear++
@@ -33,5 +34,22 @@ class ThroughtheFog {
         return mYear
     }
 
+    /** 32 **
+     *Given a sorted array of integers a, your task is to determine which element
+     * of a is closest to all other values of a.
+     * In other words, find the element x in a, which minimizes the following sum:
+     */
+    fun absoluteValuesSumMinimization(a: MutableList<Int>): Int {
+        var mSum = a.map { Math.abs(a[0] - it) }.sum()
+        var mXout = a[0]
+        a.forEach { i ->
+            val sumNew = a.map { Math.abs(i - it) }.sum()
+            if (sumNew < mSum) {
+                mSum = sumNew
+                mXout = i
+            }
+        }
+        return mXout
+    }
 
 }
