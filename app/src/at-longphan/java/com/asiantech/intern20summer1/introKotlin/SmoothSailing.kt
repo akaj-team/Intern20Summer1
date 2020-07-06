@@ -120,5 +120,4 @@ class SmoothSailing {
         }
         return aClone
     }
-
 }

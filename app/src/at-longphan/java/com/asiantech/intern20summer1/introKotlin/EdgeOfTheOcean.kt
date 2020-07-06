@@ -1,7 +1,5 @@
 package com.asiantech.intern20summer1.introKotlin
 
-import java.util.*
-
 fun main() {
     //RUN main() with Coverage
     val obj: EdgeOfTheOcean = EdgeOfTheOcean()
@@ -61,7 +59,8 @@ class EdgeOfTheOcean {
          * to be able to accomplish that. Help him figure out the minimum number of additional statues needed.
          */
         statues.sort()
-        return statues[statues.size - 1] - statues[0] - 1 - (statues.size - 2)
+        val result = statues[statues.size - 1] - statues[0] - 1 - (statues.size - 2)
+        return result
     }
 
     fun almostIncreasingSequence(a: MutableList<Int>): Boolean {

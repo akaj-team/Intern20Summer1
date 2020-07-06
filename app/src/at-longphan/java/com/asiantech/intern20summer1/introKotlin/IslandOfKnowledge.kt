@@ -14,7 +14,6 @@ fun main() {
 
     println("Ex 22: " + obj.avoidObstacles(mutableListOf(5, 3, 6, 7, 9)))
 
-
     println(
         "Ex 23: " + obj.boxBlur(
             mutableListOf(

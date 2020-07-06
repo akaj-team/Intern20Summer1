@@ -1,6 +1,7 @@
 package com.asiantech.intern20summer1.introKotlin
 
 fun main() {
+    //RUN main() with Coverage
     var obj : TheJourneyBegins = TheJourneyBegins()
     println("Ex 1: " + obj.add(3, 6))
 
@@ -23,7 +24,10 @@ class TheJourneyBegins{
          * he first century spans from the year 1 up to and including the year 100,
          * the second - from the year 101 up to and including the year 200, etc.
          */
-        return if (year / 100.0 == (year / 100).toDouble()) year / 100 else year / 100 + 1
+        var result = 0
+        if (year / 100.0 == (year / 100).toDouble()) result = year / 100
+        else result = year / 100 + 1
+        return result
     }
 
     fun checkPalindrome(inputString: String): Boolean {
