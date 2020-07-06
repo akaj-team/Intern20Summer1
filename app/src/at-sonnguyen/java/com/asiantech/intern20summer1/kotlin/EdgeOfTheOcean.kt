@@ -9,7 +9,7 @@ object EdgeOfTheOcean {
     */
     private fun adjacentElementsProduct(inputArray: MutableList<Int>): Int {
         var lengthOfArray = inputArray.size
-        var max : Int = inputArray[0]*inputArray[1] ;
+        var max : Int = inputArray[0]*inputArray[1]
         for (index in 0 until lengthOfArray-1){
             if(inputArray[index]*inputArray[index+1] > max){
                 max = inputArray[index]*inputArray[index+1]
@@ -34,16 +34,23 @@ object EdgeOfTheOcean {
     * by removing no more than one element from the array
     */
     private fun almostIncreasingSequence(sequence: MutableList<Int>): Boolean {
-        var count1 : Int = 0
-        var count2 : Int = 0
-        for(i in 0..sequence.size-2){
-            if(sequence[i]>=sequence[i+1])      count1++
+        var pullCount = 0
+        var errorCountOne = 0
+        var errorCountTwo = 0
+
+        for(i in 0..sequence.size - 2)
+        {
+            if(sequence[i] >= sequence[i + 1])
+                errorCountOne++
+
+            if(i != 0)
+            {
+                if(sequence[i - 1] >= sequence[i + 1])
+                    errorCountTwo++
+            }
         }
-        for (i in 0 until  sequence.size-2){
-            if (sequence[i]>=sequence[i+2]) count2++
-        }
-        if (count1 > 1||count2 > 1)  return false
-        return true
+
+        return errorCountOne == 1 && errorCountTwo <= 1
     }
     /*
     * return the total sum of all rooms that are suitable for the CodeBots
