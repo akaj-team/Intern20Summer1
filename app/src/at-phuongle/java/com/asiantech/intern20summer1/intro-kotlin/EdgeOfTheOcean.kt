@@ -47,6 +47,7 @@ object EdgeOfTheOcean {
         var n : Int = 0;
 
         for(i in 0 until (sequence.size - 1)){
+
             if(sequence[i] - sequence[i+1] >= 0){
                 n++;
                 if(i - 1 >= 0 && i + 2 <= sequence.size - 1
@@ -56,6 +57,8 @@ object EdgeOfTheOcean {
                 }
             }
         }
+
         return n <= 1;
     }
+
 }
