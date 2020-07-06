@@ -45,9 +45,7 @@ object edgeOfTheOcean {
                 count2++
             }
         }
-        if (count1 > 1) {
-            return false
-        }else if (count2 > 1){
+        if (count1 > 1||count2 > 1) {
             return false
         }
         return true
@@ -60,7 +58,7 @@ object edgeOfTheOcean {
         for(i in 0 until matrix.size){
             for (j in 0 until matrix[0].size){
                 if (matrix[i][j]==0){
-                    for (k in i..matrix.size-1){
+                    for (k in i until matrix.size){
                         matrix[k][j] =0
                     }
                     continue
