@@ -1,8 +1,8 @@
 package com.asiantech.intern20summer1.kotlin
 
 object IslandOfKnowledge{
-    const val LENGTH_SPLIT_IP_V4 = 4
-    const val MAX_IP_VALUE = 255
+    private const val LENGTH_SPLIT_IP_V4 = 4
+    private const val MAX_IP_VALUE = 255
     /*
     * Given your and your friend's arms' lifting capabilities find out if you two are equally strong.
     */

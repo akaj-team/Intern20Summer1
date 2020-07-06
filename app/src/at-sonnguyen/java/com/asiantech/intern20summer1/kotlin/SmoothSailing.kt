@@ -1,7 +1,7 @@
 package com.asiantech.intern20summer1.kotlin
 
 object SmoothSailing {
-    const val NUMBER_TO_CHECK_ISLUCKY = 134008
+    private const val NUMBER_TO_CHECK_ISLUCKY = 134008
     /*
     *Given an array of strings, return another array containing all of its longest strings.
     */
@@ -41,7 +41,7 @@ object SmoothSailing {
     /*
     * Given a ticket number n, determine if it's lucky or not.
     */
-    fun isLucky(n: Int): Boolean {
+    private fun isLucky(n: Int): Boolean {
         var string : String = n.toString()
         var sum1 : Int = 0;
         var sum2 : Int = 0;
@@ -61,7 +61,7 @@ object SmoothSailing {
     /*
     * rearrange the people by their heights in a non-descending order without moving the trees
     */
-    fun sortByHeight(a: MutableList<Int>): MutableList<Int> {
+    private fun sortByHeight(a: MutableList<Int>): MutableList<Int> {
         var temp : Int = 0
         for (i in 0..a.size-1){
             for (j in i+1..a.size-1){

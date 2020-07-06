@@ -1,6 +1,11 @@
 package com.asiantech.intern20summer1.kotlin
 
 object ThroughTheFog{
+    private const val DEPOSIT = 100
+    private const val RATE = 20
+    private const val THRESHOLD = 200
+    private const val NUMBER_TO_GET_PERCENT = 100
+    private const val STEP_INDEX = 10
     /*
     *   Given n and firstNumber, find the number which is written in the radially opposite position to firstNumber.
     */
@@ -13,7 +18,7 @@ object ThroughTheFog{
         var money : Double = deposit + 0.0
         while (money < threshold){
             result++
-            money += money*rate/100
+            money += money*rate/ NUMBER_TO_GET_PERCENT
         }
         return result
     }
@@ -44,7 +49,7 @@ object ThroughTheFog{
                     }
                 }
                 if (a[i] == a[i + 1]) {
-                    c += 10
+                    c += STEP_INDEX
                 }
             }
             if (c == a.size - 1) {
@@ -67,13 +72,13 @@ object ThroughTheFog{
     }
     @JvmStatic
     fun main(args: Array<String>) {
-        val deposit = 100
-        val rate = 20
-        val threshold = 200
+        val deposit = DEPOSIT
+        val rate = RATE
+        val threshold = THRESHOLD
         val intArray : MutableList<Int> = mutableListOf(-10, 100, 200, 300, 400, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500)
         val inputStringArray : MutableList<String> = mutableListOf("ab","bb","aa")
         println("30.result: ${circleOfNumbers(15,10)}")
-        println("31. spend ${depositProfit(100,20,200)} month to gain $threshold from $deposit with rate = $rate")
+        println("31. spend ${depositProfit(deposit,rate,threshold)} month to gain $threshold from $deposit with rate = $rate")
         println("32. min of absolute value Sum in $intArray is ${absoluteValuesSumMinimization(intArray)}")
         println("33. Result : ${stringsRearrangement(inputStringArray)}")
     }

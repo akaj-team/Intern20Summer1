@@ -1,10 +1,10 @@
 package com.asiantech.intern20summer1.kotlin
 
 object TheJourneyBegins{
-    const val YEARS_IN_CENTURY = 100
-    const val YEAR = 2000
-    const val NUMBER1 = 15
-    const val NUMBER2 = 30
+    private const val YEARS_IN_CENTURY = 100
+    private const val YEAR = 2000
+    private const val NUMBER1 = 15
+    private const val NUMBER2 = 30
     /*
     *   returns the sum of two numbers.
     */
