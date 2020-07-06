@@ -58,5 +58,35 @@ class ExploringtheWaters {
         return false
     }
 
+    /** 17 **
+     *You are given an array of integers. On each move you are allowed to increase exactly one of its element by one.
+     * Find the minimal number of moves required to obtain a strictly increasing sequence from the input.
+     */
+    fun arrayChange(inputArray: MutableList<Int>): Int {
+        var mmBufferArray = inputArray.toMutableList()
+        var mCount = 0
+        mmBufferArray.forEachIndexed { index, i ->
+            if (index > 0) {
+                // println(mmBufferArray[index])
+                while (mmBufferArray[index] <= mmBufferArray[index - 1]) {
+                    mCount++
+                    mmBufferArray[index] = mmBufferArray[index] + 1
+                }
 
+            }
+
+        }
+        return mCount
+    }
+
+    /** 18 **
+     *Given a string, find out if its characters can be rearranged to form a palindrome.
+     */
+    fun palindromeRearranging(inputString: String): Boolean {
+        val mLeng = inputString.length // độ dài chuỗi
+        val mFlat =
+            ('a'..'z').map { char -> if (inputString.count { it == char } % 2 == 1) 1 else 0 }
+                .sum() // số ký tự lẻ
+        return (mLeng % 2 == 0 && mFlat == 0) || (mLeng % 2 == 1 && mFlat == 1)
+    }
 }
