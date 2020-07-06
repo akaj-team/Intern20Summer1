@@ -1,7 +1,7 @@
 package com.asiantech.intern20summer1.introJava;
 
 
-public class EdgeoftheOcean {
+public class EdgeOfTheOcean {
 
     public static void main(String[] args) {
         System.out.println("\nOUT: ");
@@ -126,10 +126,4 @@ public class EdgeoftheOcean {
         }
         return mSum;
     }
-
-    /**
-     * The end.
-     */
-
-
 }
