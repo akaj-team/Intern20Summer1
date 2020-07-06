@@ -1,5 +1,7 @@
 package com.asiantech.intern20summer1.kotlin
 
+import kotlin.math.abs
+
 object IslandOfKnowledge{
     private const val LENGTH_SPLIT_IP_V4 = 4
     private const val MAX_IP_VALUE = 255
@@ -10,15 +12,8 @@ object IslandOfKnowledge{
     /*
     *   Given an array of integers, find the maximal absolute difference between any two of its adjacent elements
     */
-    private fun arrayMaximalAdjacentDifference(inputArray: MutableList<Int>): Int {
-        var max : Int = 0
-        for(i in 0..inputArray.size-2 ){
-            if (Math.abs(inputArray[i]-inputArray[i+1]) > max){
-                max = Math.abs(inputArray[i]-inputArray[i+1])
-            }
-        }
-        return max
-    }
+    private fun arrayMaximalAdjacentDifference(inputArray: MutableList<Int>) =
+        inputArray.zip(inputArray.drop(1)) { a, b -> abs(a - b) }.max()
 
     /*
     *   Given a string, find out if it satisfies the IPv4 address naming rules.
