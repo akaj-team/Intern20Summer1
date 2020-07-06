@@ -67,14 +67,23 @@ object IslandOfKnowledge {
     /*
     *   Return the blurred image as an integer, with the fractions rounded down.
     */
-    private fun boxBlur(image: MutableList<MutableList<Int>>): MutableList<MutableList<Int>> =
-        (1 until image.lastIndex).map { x ->
-            (1 until image[x].lastIndex).map { y ->
-                image.slice(x - 1..x + 1)
-                    .flatMap { it.slice(y - 1..y + 1) }
-                    .sum() / 9
-            }.toMutableList()
-        }.toMutableList()
+    private fun boxBlur(image: MutableList<MutableList<Int>>): MutableList<MutableList<Int>> {
+        var xMax = image[0].size - 3
+        var yMax = image.size - 3
+        var sum = 0
+        var result : MutableList<MutableList<Int>> = mutableListOf()
+        for(i in 0..yMax){
+            var x : MutableList<Int> = mutableListOf()
+            for(j in 0..xMax){
+                sum = image[i].subList(j,j+3).sum()+
+                        image[i+1].subList(j,j+3).sum()+
+                        image[i+2].subList(j,j+3).sum()
+                x.add(sum/9)
+            }
+            result.add(x)
+        }
+        return result
+    }
 
 
     /*
