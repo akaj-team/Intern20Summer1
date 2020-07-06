@@ -34,42 +34,27 @@ object ThroughTheFog{
     * in such a way that each consecutive pair of strings differ by exactly one character.
     * Return true if it's possible, and false if not.
     */
-    private fun stringsRearrangement(inputArray:  MutableList<String>): Boolean {
-        return p(inputArray.size, inputArray.size, inputArray, false)
-    }
+    private fun stringsRearrangement(inputArray: MutableList<String>): Boolean = inputArray
+        .run {
+            var margins = 0
+            var max = 0
+            var nextMax = 0
+            forEach { s1 ->
+                val sum = inputArray.fold(0) { acc, s2 ->
+                    acc + if (s1.filterIndexed { index, c -> c != s2[index] }.count() == 1) 1 else 0
+                }
+                print("$sum ")
+                if (sum == 0) return false
+                if (sum == 1 && this[0].count() > 1) {
+                    if (margins == 2) return false
+                    margins++
+                }
+                if (max < sum) max = sum
+                if (nextMax < sum && max != sum) nextMax = sum
+            }
 
-    private fun p(n: Int, s: Int, a:  MutableList<String>, b: Boolean): Boolean {
-        var b = b
-        if (s == 1) {
-            var c = 0
-            for (i in 0 until n - 1) {
-                for (j in a[i].indices) {
-                    if (a[i].substring(j, j + 1) != a[i + 1].substring(j, j + 1)) {
-                        c++
-                    }
-                }
-                if (a[i] == a[i + 1]) {
-                    c += STEP_INDEX
-                }
-            }
-            if (c == a.size - 1) {
-                return true
-            }
+            return max == inputArray.count() - 1 || max - nextMax < 3
         }
-        for (i in 0 until s) {
-            b = p(n, s - 1, a, b)
-            if (s % 2 == 0) {
-                val t = a[i]
-                a[i] = a[s - 1]
-                a[s - 1] = t
-            } else {
-                val t = a[0]
-                a[0] = a[s - 1]
-                a[s - 1] = t
-            }
-        }
-        return b
-    }
     @JvmStatic
     fun main(args: Array<String>) {
         val deposit = DEPOSIT
