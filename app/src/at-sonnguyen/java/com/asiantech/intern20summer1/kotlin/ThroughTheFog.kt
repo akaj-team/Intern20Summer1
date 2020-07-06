@@ -1,6 +1,6 @@
 package com.asiantech.intern20summer1.kotlin
 
-object throughTheFog{
+object ThroughTheFog{
     /*
     *   Given n and firstNumber, find the number which is written in the radially opposite position to firstNumber.
     */
@@ -29,11 +29,11 @@ object throughTheFog{
     * in such a way that each consecutive pair of strings differ by exactly one character.
     * Return true if it's possible, and false if not.
     */
-    private open fun stringsRearrangement(inputArray:  MutableList<String>): Boolean {
+    private fun stringsRearrangement(inputArray:  MutableList<String>): Boolean {
         return p(inputArray.size, inputArray.size, inputArray, false)
     }
 
-    fun p(n: Int, s: Int, a:  MutableList<String>, b: Boolean): Boolean {
+    private fun p(n: Int, s: Int, a:  MutableList<String>, b: Boolean): Boolean {
         var b = b
         if (s == 1) {
             var c = 0

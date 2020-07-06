@@ -19,7 +19,6 @@ object EdgeOfTheOcean {
     *   return the area of a polygon for a given n
     */
     private fun shapeArea(n: Int): Int = n*n + (n-1)*(n-1)
-
     /*
     *   the minimum number of additional statues needed.
     */
@@ -41,13 +40,9 @@ object EdgeOfTheOcean {
             }
         }
         for (i in 0..sequence.size-3){
-            if (sequence[i]>=sequence[i+2]){
-                count2++
-            }
+            if (sequence[i]>=sequence[i+2]) count2++
         }
-        if (count1 > 1||count2 > 1) {
-            return false
-        }
+        if (count1 > 1||count2 > 1)  return false
         return true
     }
     /*

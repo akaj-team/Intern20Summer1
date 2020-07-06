@@ -1,6 +1,6 @@
 package com.asiantech.intern20summer1.kotlin
 
-object islandOfKnowledge{
+object IslandOfKnowledge{
     /*
     * Given your and your friend's arms' lifting capabilities find out if you two are equally strong.
     */

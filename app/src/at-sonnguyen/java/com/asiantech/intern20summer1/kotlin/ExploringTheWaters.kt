@@ -1,6 +1,6 @@
 package com.asiantech.intern20summer1.kotlin
 
-object exploringTheWaters {
+object ExploringTheWaters {
     /*
     *   Return an array of two integers,
     *   where the first element is the total weight of team 1,

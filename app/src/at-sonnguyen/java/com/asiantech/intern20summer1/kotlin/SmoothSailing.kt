@@ -1,6 +1,6 @@
 package com.asiantech.intern20summer1.kotlin
 
-object smoothSailing {
+object SmoothSailing {
     /*
     *Given an array of strings, return another array containing all of its longest strings.
     */

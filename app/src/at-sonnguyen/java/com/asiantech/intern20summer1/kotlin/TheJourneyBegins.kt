@@ -1,6 +1,6 @@
 package com.asiantech.intern20summer1.kotlin
 
-object c{
+object TheJourneyBegins{
     /*
     *   returns the sum of two numbers.
     */
