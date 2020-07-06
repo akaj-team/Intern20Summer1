@@ -97,4 +97,22 @@ object ExploringTheWaters {
 
         return result
     }
+
+    fun palindromeRearranging(inputString : String) : Boolean {
+        var list : MutableList<Char> = mutableListOf()
+
+        for (i in 0 until inputString.length) {
+            if (list.contains(inputString[i])) {
+                list.remove(inputString[i]);
+            } else {
+                list.add(inputString[i]);
+            }
+        }
+
+        if (list.size == 0 || list.size == 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
