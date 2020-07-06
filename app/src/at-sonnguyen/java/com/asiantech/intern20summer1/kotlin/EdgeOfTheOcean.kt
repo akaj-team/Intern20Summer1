@@ -1,6 +1,7 @@
 package com.asiantech.intern20summer1.kotlin
 
 object EdgeOfTheOcean {
+    const val SHAPE = 5
     /*
     *   Given an array of integers,
     *   find the pair of adjacent elements that has the largest product and return that product
@@ -37,7 +38,7 @@ object EdgeOfTheOcean {
         for(i in 0..sequence.size-2){
             if(sequence[i]>=sequence[i+1])      count1++
         }
-        for (i in 0..sequence.size-3){
+        for (i in 0 until  sequence.size-2){
             if (sequence[i]>=sequence[i+2]) count2++
         }
         if (count1 > 1||count2 > 1)  return false
@@ -67,7 +68,7 @@ object EdgeOfTheOcean {
         var inputMatrix : MutableList<MutableList<Int>> = mutableListOf(mutableListOf(0,1,1,2), mutableListOf(0,5,0,0),
             mutableListOf(2,0,3,3) )
         var inputArray : MutableList<Int> = mutableListOf(3, 6, -2, -5, 7, 3)
-        var n = 5
+        var n = SHAPE
         println("4. ${adjacentElementsProduct(inputArray)}")
         println("5. Shape Area of $n = ${shapeArea(n)}")
         println("6. minimum add number = ${makeArrayConsecutive2(inputArray)} ")

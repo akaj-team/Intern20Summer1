@@ -107,5 +107,4 @@ object SmoothSailing {
         println("12. sort by height of $a is ${sortByHeight(a)}")
         println("13. reserve In Parenthese of $string is ${reverseInParentheses(string)}")
     }
-
 }
