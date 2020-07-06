@@ -35,9 +35,7 @@ object EdgeOfTheOcean {
         var count1 : Int = 0
         var count2 : Int = 0
         for(i in 0..sequence.size-2){
-            if(sequence[i]>=sequence[i+1]){
-                count1++
-            }
+            if(sequence[i]>=sequence[i+1])      count1++
         }
         for (i in 0..sequence.size-3){
             if (sequence[i]>=sequence[i+2]) count2++
