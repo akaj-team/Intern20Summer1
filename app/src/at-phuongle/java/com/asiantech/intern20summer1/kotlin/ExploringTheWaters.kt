@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.`intro-kotlin`
+package com.asiantech.intern20summer1.kotlin
 
 object ExploringTheWaters {
     fun alternatingSums(a : IntArray) : IntArray {

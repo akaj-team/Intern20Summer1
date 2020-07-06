@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.`intro-kotlin`
+package com.asiantech.intern20summer1.kotlin
 
 object TheJourneyBegins {
     fun add(param1 : Int, param2 : Int): Int {
