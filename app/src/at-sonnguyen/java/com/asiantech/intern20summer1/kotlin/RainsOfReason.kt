@@ -1,6 +1,7 @@
 package com.asiantech.intern20summer1.kotlin
 
 object RainsOfReason{
+    const val TEN = 10
     /*
     *   Given an array of integers, replace all the occurrences of elemToReplace with substitutionElem.
     */
@@ -22,7 +23,7 @@ object RainsOfReason{
             if(copyN % 2 != 0 ){
                 return false
             }
-            copyN/= 10
+            copyN/= TEN
         }
         return true
     }
@@ -58,12 +59,12 @@ object RainsOfReason{
     @JvmStatic
     fun main(args: Array<String>) {
         val inputArray : MutableList<Int> = mutableListOf(1, 2, 1)
-        val n : Int = 268462
+        //val n : Int = 268462
         val string = "variable0"
         val cell1 = "A1"
         val cell2 = "H2"
         println("25. Replace all element = 1 to element = 3 in $inputArray is ${arrayReplace(inputArray,1,3)} ")
-        println("26. $n is only even Digits ? ${evenDigitsOnly(n)} ")
+        println("26.  is only even Digits ? ${evenDigitsOnly(268462)} ")
         println("27. $string is a variable name ? ${variableName(string)} ")
         println("28. $string after shift a value is ${alphabeticShift(string)}")
         println("29. $cell1 and $cell2 are same color ? ${chessBoardCellColor(cell1,cell2)} ")

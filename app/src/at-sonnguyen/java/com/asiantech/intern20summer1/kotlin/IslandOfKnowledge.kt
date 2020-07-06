@@ -1,6 +1,8 @@
 package com.asiantech.intern20summer1.kotlin
 
 object IslandOfKnowledge{
+    const val LENGTH_SPLIT_IP_V4 = 4
+    const val MAX_IP_VALUE = 255
     /*
     * Given your and your friend's arms' lifting capabilities find out if you two are equally strong.
     */
@@ -22,12 +24,12 @@ object IslandOfKnowledge{
     */
     private fun isIPv4Address(inputString: String): Boolean {
         var splitIp = inputString.split('.')
-        if(splitIp.size!=4){
+        if(splitIp.size!= LENGTH_SPLIT_IP_V4){
             return false
         }
         for(v in splitIp){
             var num = v.toIntOrNull()
-            if(num == null || (v.toInt()<0 || v.toInt()>255  )){
+            if(num == null || (v.toInt()<0 || v.toInt()> MAX_IP_VALUE  )){
                 return false
             }else if  ((v.toInt() > 0 && v.getOrNull(0) =='0') || (v.toInt() == 0 && v.length > 1 ) ){
                 return false

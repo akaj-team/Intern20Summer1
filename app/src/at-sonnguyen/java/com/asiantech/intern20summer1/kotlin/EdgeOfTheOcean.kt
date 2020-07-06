@@ -2,6 +2,7 @@ package com.asiantech.intern20summer1.kotlin
 
 object EdgeOfTheOcean {
     const val SHAPE = 5
+
     /*
     *   Given an array of integers,
     *   find the pair of adjacent elements that has the largest product and return that product

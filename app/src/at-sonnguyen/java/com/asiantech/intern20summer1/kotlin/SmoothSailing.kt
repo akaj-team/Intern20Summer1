@@ -1,6 +1,7 @@
 package com.asiantech.intern20summer1.kotlin
 
 object SmoothSailing {
+    const val NUMBER_TO_CHECK_ISLUCKY = 134008
     /*
     *Given an array of strings, return another array containing all of its longest strings.
     */
@@ -99,7 +100,7 @@ object SmoothSailing {
         val s1 : String = "aabcc"
         val  s2 : String = "adcaa"
         val string : String = "foo(bar)baz"
-        val n = 134008
+        val n = NUMBER_TO_CHECK_ISLUCKY
         var a : MutableList<Int> = mutableListOf(-1, 150, 190, 170, -1, -1, 160, 180)
         println("9. longest String in $inputArray is : ${allLongestStrings(inputArray)}")
         println(" 10. common Character of $s1 and $s2 = ${commonCharacterCount(s1,s2)}")
