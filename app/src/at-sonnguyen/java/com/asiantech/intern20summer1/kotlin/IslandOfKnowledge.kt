@@ -19,6 +19,7 @@ object IslandOfKnowledge{
         }
         return max
     }
+
     /*
     *   Given a string, find out if it satisfies the IPv4 address naming rules.
     */
@@ -37,9 +38,12 @@ object IslandOfKnowledge{
         }
         return true
     }
+
+
     /*
     *   Find the minimal length of the jump enough to avoid all the obstacles.
     */
+
     private fun avoidObstacles(inputArray: MutableList<Int>): Int {
         var max : Int = 0
         var result : Int = 1
@@ -57,6 +61,7 @@ object IslandOfKnowledge{
         }
         return result
     }
+
     /*
     *   Return the blurred image as an integer, with the fractions rounded down.
     */
@@ -78,6 +83,7 @@ object IslandOfKnowledge{
         }
         return r
     }
+
     /*
     *In the popular Minesweeper game you have a board with some mines and
     *  those cells that don't contain a mine have a number in it that indicates
