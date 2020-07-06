@@ -59,7 +59,7 @@ object IslandOfKnowledge {
                     if(Integer.parseInt(numbers[i]) < 0 || Integer.parseInt(numbers[i]) > 255) {
                         check = false
                     }
-                } catch (ex1 : Exception) {
+                } catch (ex1 : IndexOutOfBoundsException) {
                     check = false
                 }
             }

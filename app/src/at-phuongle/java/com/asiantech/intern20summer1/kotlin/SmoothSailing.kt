@@ -99,8 +99,9 @@ object SmoothSailing {
         var j: Int = 0
 
         for (i in 0 until l) {
-            if (s[i] == '(')
+            if (s[i] == '(') {
                 n++;
+            }
         }
 
         var T: IntArray = IntArray(n)
