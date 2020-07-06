@@ -34,7 +34,6 @@ object EdgeOfTheOcean {
     * by removing no more than one element from the array
     */
     private fun almostIncreasingSequence(sequence: MutableList<Int>): Boolean {
-        var pullCount = 0
         var errorCountOne = 0
         var errorCountTwo = 0
 
