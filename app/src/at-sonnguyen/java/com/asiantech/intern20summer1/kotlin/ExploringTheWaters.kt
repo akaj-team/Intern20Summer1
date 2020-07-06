@@ -20,23 +20,13 @@ object ExploringTheWaters {
     * Given a rectangular matrix of characters, add a border of asterisks(*) to it.
     */
     private fun addBorder(picture: MutableList<String>): MutableList<String> {
-        val returnMatrix = mutableListOf<String>()
-        val length = picture[0].length
+        var newPicture = mutableListOf<String>( String().padStart(picture[0].length+2, '*') )
 
-        var borderRow = ""
-        for (i in 1..length + 2) {
-            borderRow+="*"
-        }
+        picture.map { it -> newPicture.add("*$it*")}
 
-        returnMatrix.add(borderRow)
+        newPicture.add( String().padStart(picture[0].length+2, '*') )
 
-        for (row in picture) {
-            returnMatrix.add("*$row*")
-        }
-
-        returnMatrix.add(borderRow)
-
-        return returnMatrix
+        return newPicture
     }
     /*
     *   Given two arrays a and b, check whether they are similar.
