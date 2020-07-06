@@ -1,6 +1,6 @@
 package com.asiantech.intern20summer1.kotlin
 
-object edgeOfTheOcean {
+object EdgeOfTheOcean {
     /*
     *   Given an array of integers,
     *   find the pair of adjacent elements that has the largest product and return that product
