@@ -69,7 +69,6 @@ android {
         xmlOutput file("${buildDir}/reports/lint-results.xml")
     }
 }
-
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
