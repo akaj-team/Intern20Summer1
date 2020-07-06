@@ -41,17 +41,19 @@ object SmoothSailing {
     }
 
     fun isLucky(n: Int): Boolean {
+        var check: Boolean = true
         var number: Int = n
         var numbers: MutableList<Int> = mutableListOf()
         var sum1: Int = 0
         var sum2: Int = 0
+
         while (number > 0) {
             numbers.add(number % 10)
             number /= 10
         }
 
         if ((numbers.size % 2) != 0) {
-            return false
+            check = false
         }
 
         for (i in 0 until (numbers.size / 2)) {
@@ -60,10 +62,10 @@ object SmoothSailing {
         }
 
         if (sum1 != sum2) {
-            return false
+            check = false
         }
 
-        return true
+        return check
     }
 
     fun sortByHeight(a: Array<Int>): Array<Int> {
