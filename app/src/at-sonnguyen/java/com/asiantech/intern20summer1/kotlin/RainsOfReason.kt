@@ -50,12 +50,8 @@ object RainsOfReason{
     /*
     *   Given two cells on the standard chess board, determine whether they have the same color or not.
     */
-    private fun chessBoardCellColor(cell1: String, cell2: String): Boolean {
-        if( ((cell1.get(0).toInt()+cell1.get(1).toInt())  %2 == 0 &&(cell2.get(0).toInt()+ cell2.get(1).toInt())%2 == 0 || (cell1.get(0).toInt()+cell1.get(1).toInt()) %2 !=0 && (cell2.get(0).toInt()+ cell2.get(1).toInt())%2 != 0)){
-            return true
-        }
-        return false
-    }
+    private fun chessBoardCellColor(cell1: String, cell2: String): Boolean =
+        (cell1[0].toInt()+cell1[1].toInt())%2 == (cell2[0].toInt()+cell2[1].toInt())%2
     @JvmStatic
     fun main(args: Array<String>) {
         val inputArray : MutableList<Int> = mutableListOf(1, 2, 1)

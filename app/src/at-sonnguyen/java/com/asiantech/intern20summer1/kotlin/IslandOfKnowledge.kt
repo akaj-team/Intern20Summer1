@@ -2,13 +2,20 @@ package com.asiantech.intern20summer1.kotlin
 
 import kotlin.math.abs
 
-object IslandOfKnowledge{
+object IslandOfKnowledge {
     private const val LENGTH_SPLIT_IP_V4 = 4
     private const val MAX_IP_VALUE = 255
+
     /*
     * Given your and your friend's arms' lifting capabilities find out if you two are equally strong.
     */
-    private fun areEquallyStrong(yourLeft: Int, yourRight: Int, friendsLeft: Int, friendsRight: Int): Boolean = setOf(yourLeft,yourRight) == setOf(friendsLeft,friendsRight)
+    private fun areEquallyStrong(
+        yourLeft: Int,
+        yourRight: Int,
+        friendsLeft: Int,
+        friendsRight: Int
+    ): Boolean = setOf(yourLeft, yourRight) == setOf(friendsLeft, friendsRight)
+
     /*
     *   Given an array of integers, find the maximal absolute difference between any two of its adjacent elements
     */
@@ -20,14 +27,14 @@ object IslandOfKnowledge{
     */
     private fun isIPv4Address(inputString: String): Boolean {
         var splitIp = inputString.split('.')
-        if(splitIp.size!= LENGTH_SPLIT_IP_V4){
+        if (splitIp.size != LENGTH_SPLIT_IP_V4) {
             return false
         }
-        for(v in splitIp){
+        for (v in splitIp) {
             var num = v.toIntOrNull()
-            if(num == null || (v.toInt()<0 || v.toInt()> MAX_IP_VALUE  )){
+            if (num == null || (v.toInt() < 0 || v.toInt() > MAX_IP_VALUE)) {
                 return false
-            }else if  ((v.toInt() > 0 && v.getOrNull(0) =='0') || (v.toInt() == 0 && v.length > 1 ) ){
+            } else if ((v.toInt() > 0 && v.getOrNull(0) == '0') || (v.toInt() == 0 && v.length > 1)) {
                 return false
             }
         }
@@ -40,17 +47,17 @@ object IslandOfKnowledge{
     */
 
     private fun avoidObstacles(inputArray: MutableList<Int>): Int {
-        var max : Int = 0
-        var result : Int = 1
-        for (i in 0 until inputArray.size){
-            if (inputArray[i] > max ){
+        var max: Int = 0
+        var result: Int = 1
+        for (i in 0 until inputArray.size) {
+            if (inputArray[i] > max) {
                 max = inputArray[i]
             }
         }
-        for ( i in 0..max){
-            for (j in 0 until inputArray.size){
-                if (inputArray[j] % result == 0 ){
-                    result ++
+        for (i in 0..max) {
+            for (j in 0 until inputArray.size) {
+                if (inputArray[j] % result == 0) {
+                    result++
                 }
             }
         }
@@ -60,24 +67,15 @@ object IslandOfKnowledge{
     /*
     *   Return the blurred image as an integer, with the fractions rounded down.
     */
-    private fun boxBlur(i: MutableList<MutableList<Int>>): MutableList<MutableList<Int>>
-    {
-        val lx = i[0].size - 2
-        val ly = i.size -2
-        val r = mutableListOf<MutableList<Int>>()
-        for (l in 0 until ly)
-        {
-            val m = mutableListOf<Int>()
-            for (c in 0 until lx)
-            {
-                m.add((i[l][c]   + i[l][c+1]   + i[l][c+2]    +
-                        i[l+1][c] + i[l+1][c+1] + i[l+1][c+2]  +
-                        i[l+2][c] + i[l+2][c+1] + i[l+2][c+2]) / 9)
-            }
-            r.add(m)
-        }
-        return r
-    }
+    private fun boxBlur(image: MutableList<MutableList<Int>>): MutableList<MutableList<Int>> =
+        (1 until image.lastIndex).map { x ->
+            (1 until image[x].lastIndex).map { y ->
+                image.slice(x - 1..x + 1)
+                    .flatMap { it.slice(y - 1..y + 1) }
+                    .sum() / 9
+            }.toMutableList()
+        }.toMutableList()
+
 
     /*
     *In the popular Minesweeper game you have a board with some mines and
