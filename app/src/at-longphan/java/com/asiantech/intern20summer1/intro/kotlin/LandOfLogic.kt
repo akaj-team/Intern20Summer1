@@ -1,53 +1,64 @@
 package com.asiantech.intern20summer1.intro.kotlin
 
-fun main() {
-    //RUN main() with Coverage
-    var obj: LandOfLogic = LandOfLogic()
-    println("Ex 52: " + obj.longestWord("Ready, steady, go!"))
+object LandOfLogic {
+    @JvmStatic
+    fun main(args: Array<String>) {
+        //RUN main() with Coverage
+        println("Ex 52: " + longestWord("Ready, steady, go!"))
 
-    println("Ex 53: " + obj.validTime("13:58"))
+        println("Ex 53: " + validTime("13:58"))
 
-    println("Ex 54: " + obj.sumUpNumbers("2 apples, 12 oranges"))
+        println("Ex 54: " + sumUpNumbers("2 apples, 12 oranges"))
 
-    println(
-        "Ex 55: " + obj.differentSquares(
-            mutableListOf(
-                mutableListOf(1, 2, 1),
-                mutableListOf(2, 2, 2),
-                mutableListOf(2, 2, 2),
-                mutableListOf(1, 2, 3),
-                mutableListOf(2, 2, 1)
+        println(
+            "Ex 55: " + differentSquares(
+                mutableListOf(
+                    mutableListOf(1, 2, 1),
+                    mutableListOf(2, 2, 2),
+                    mutableListOf(2, 2, 2),
+                    mutableListOf(1, 2, 3),
+                    mutableListOf(2, 2, 1)
+                )
             )
         )
-    )
 
-    println("Ex 56: " + obj.digitsProduct(12))
+        println("Ex 56: " + digitsProduct(12))
 
-    println("Ex 57: " + obj.fileNaming(mutableListOf("doc", "doc", "image", "doc(1)", "doc")))
+        println("Ex 57: " + fileNaming(mutableListOf("doc", "doc", "image", "doc(1)", "doc")))
 
-    println("Ex 58: " + obj.messageFromBinaryCode("010010000110010101101100011011000110111100100001"))
+        println("Ex 58: " + messageFromBinaryCode("010010000110010101101100011011000110111100100001"))
 
-    println("Ex 59: " + obj.spiralNumbers(3))
+        println("Ex 59: " + spiralNumbers(3))
 
-    println(
-        "Ex 60: " + obj.sudoku(
-            mutableListOf(
-                mutableListOf(1, 3, 2, 5, 4, 6, 9, 8, 7),
-                mutableListOf(4, 6, 5, 8, 7, 9, 3, 2, 1),
-                mutableListOf(7, 9, 8, 2, 1, 3, 6, 5, 4),
-                mutableListOf(9, 2, 1, 4, 3, 5, 8, 7, 6),
-                mutableListOf(3, 5, 4, 7, 6, 8, 2, 1, 9),
-                mutableListOf(6, 8, 7, 1, 9, 2, 5, 4, 3),
-                mutableListOf(5, 7, 6, 9, 8, 1, 4, 3, 2),
-                mutableListOf(2, 4, 3, 6, 5, 7, 1, 9, 8),
-                mutableListOf(8, 1, 9, 3, 2, 4, 7, 6, 5)
+        println(
+            "Ex 60: " + sudoku(
+                mutableListOf(
+                    mutableListOf(1, 3, 2, 5, 4, 6, 9, 8, 7),
+                    mutableListOf(4, 6, 5, 8, 7, 9, 3, 2, 1),
+                    mutableListOf(7, 9, 8, 2, 1, 3, 6, 5, 4),
+                    mutableListOf(9, 2, 1, 4, 3, 5, 8, 7, 6),
+                    mutableListOf(3, 5, 4, 7, 6, 8, 2, 1, 9),
+                    mutableListOf(6, 8, 7, 1, 9, 2, 5, 4, 3),
+                    mutableListOf(5, 7, 6, 9, 8, 1, 4, 3, 2),
+                    mutableListOf(2, 4, 3, 6, 5, 7, 1, 9, 8),
+                    mutableListOf(8, 1, 9, 3, 2, 4, 7, 6, 5)
+                )
             )
         )
-    )
-}
+    }
 
-class LandOfLogic {
-    fun longestWord(text: String): String {
+    private const val INDEX_OF_MINUTE: Int = 3
+    private const val MAX_HOUR: Int = 23
+    private const val MAX_MINUTE: Int = 59
+    private const val SPECIAL_HOUR: Int = 24
+    private const val TO: Int = 4
+    private const val SPECIAL_PRODUCT: Int = 10
+    private const val MAX_DIGIT: Int = 9
+    private const val SIZE_BIT: Int = 8
+    private const val SKIP: Int = 3
+
+
+    private fun longestWord(text: String): String {
         /**
          *Define a word as a sequence of consecutive English letters. Find the longest word from the given string.
          */
@@ -63,24 +74,21 @@ class LandOfLogic {
         return longestWord
     }
 
-    fun validTime(time: String): Boolean {
+    private fun validTime(time: String): Boolean {
         /**
          *Check if the given string is a correct time representation of the 24-hour clock.
          */
         val h = Integer.valueOf(time.substring(0, 2))
-        val indexOfMinute: Int = 3
-        val m = Integer.valueOf(time.substring(indexOfMinute))
-        val maxHour: Int = 23
-        val maxMinute: Int = 59
-        val exceptionHour: Int = 24
+        val m = Integer.valueOf(time.substring(INDEX_OF_MINUTE))
+
         return when {
-            h < 0 || h > maxHour -> false
-            m < 0 || m > maxMinute -> false
-            else -> !(h == exceptionHour && m == 0)
+            h < 0 || h > MAX_HOUR -> false
+            m < 0 || m > MAX_MINUTE -> false
+            else -> !(h == SPECIAL_HOUR && m == 0)
         }
     }
 
-    fun sumUpNumbers(inputString: String): Int {
+    private fun sumUpNumbers(inputString: String): Int {
         /**
          * CodeMaster has just returned from shopping. He scanned the check of the items he bought
          * and gave the resulting string to Ratiorg to figure out the total number of purchased items.
@@ -99,7 +107,7 @@ class LandOfLogic {
         return sum
     }
 
-    fun differentSquares(matrix: MutableList<MutableList<Int>>): Int {
+    private fun differentSquares(matrix: MutableList<MutableList<Int>>): Int {
         /**
          * Given a rectangular matrix containing only digits, calculate the number of
          * different 2 × 2 squares in it.
@@ -114,12 +122,12 @@ class LandOfLogic {
                 // take each 4 digits to a square
                 var square: String = ""
                 var toFour: Int = 0
-                val to: Int = 4
+
                 for (i2 in i until i + 2) {
                     for (j2 in j until j + 2) {
                         toFour++
                         square += matrix[i2][j2]
-                        if (toFour == to) {
+                        if (toFour == TO) {
                             var isDuplicate = true
                             //check if duplicate
                             for (k in 0 until list.size) {
@@ -139,19 +147,18 @@ class LandOfLogic {
         return list.size
     }
 
-    fun digitsProduct(product: Int): Int {
+    private fun digitsProduct(product: Int): Int {
         /**
          * Given an integer product, find the smallest positive (i.e. greater than 0)
          * integer the product of whose digits is equal to product. If there is no such integer,
          * return -1 instead.
          */
         var product: Int = product
-        val exceptionProduct: Int = 10
-        if (product == 0) return exceptionProduct
-        if (product < exceptionProduct) return product
+
+        if (product == 0) return SPECIAL_PRODUCT
+        if (product < SPECIAL_PRODUCT) return product
         var str: String = ""
-        val maxDigit: Int = 9
-        for (i in maxDigit downTo 2) {
+        for (i in MAX_DIGIT downTo 2) {
             while (product % i == 0) {
                 str = i.toString() + str
                 product /= i
@@ -160,7 +167,7 @@ class LandOfLogic {
         return if (product == 1) str.toInt() else -1
     }
 
-    fun fileNaming(names: MutableList<String>): MutableList<String> {
+    private fun fileNaming(names: MutableList<String>): MutableList<String> {
         /**
          * You are given an array of desired filenames in the order of their creation. Since two files cannot have equal names, the one which comes later will have an addition to its name in a form of (k), where k is the smallest positive integer such that the obtained name is not used yet.
 
@@ -179,7 +186,7 @@ class LandOfLogic {
         return newNames
     }
 
-    fun messageFromBinaryCode(code: String): String {
+    private fun messageFromBinaryCode(code: String): String {
         /**
          * You are taking part in an Escape Room challenge designed specifically for programmers.
          * In your efforts to find a clue, you've found a binary code written on the wall behind a vase,
@@ -189,16 +196,15 @@ class LandOfLogic {
 
         Assuming that your hunch is correct, decode the message.
          */
-        val sizeBit: Int = 8
         var result: String = ""
-        for (i in 0 until code.length / sizeBit) {
-            val a = code.substring(i * sizeBit, (i + 1) * sizeBit).toInt(2)
+        for (i in 0 until code.length / SIZE_BIT) {
+            val a = code.substring(i * SIZE_BIT, (i + 1) * SIZE_BIT).toInt(2)
             result += a.toChar()
         }
         return result
     }
 
-    fun spiralNumbers(n: Int): MutableList<MutableList<Int>> {
+    private fun spiralNumbers(n: Int): MutableList<MutableList<Int>> {
         /**
          * Construct a square matrix with a size N × N containing integers from 1 to N * N
          * in a spiral order, starting from top-left and in clockwise direction.
@@ -230,7 +236,7 @@ class LandOfLogic {
         return a
     }
 
-    fun sudoku(grid: MutableList<MutableList<Int>>): Boolean {
+    private fun sudoku(grid: MutableList<MutableList<Int>>): Boolean {
         /**
          * Sudoku is a number-placement puzzle. The objective is to fill a 9 × 9 grid with digits
          * so that each column, each row, and each of the nine 3 × 3 sub-grids
@@ -259,13 +265,12 @@ class LandOfLogic {
                 }
             }
         }
-        val skip: Int = 3
         for (i in 0 until n) {
             for (j in 0 until n) {
-                if (i % skip == 0 && j % skip == 0) {
+                if (i % SKIP == 0 && j % SKIP == 0) {
                     val oneToN: ArrayList<Int> = ArrayList()
-                    for (i2 in i until i + skip) {
-                        for (j2 in j until j + skip) {
+                    for (i2 in i until i + SKIP) {
+                        for (j2 in j until j + SKIP) {
                             if (oneToN.contains(grid[i2][j2])) {
                                 return false
                             } else {

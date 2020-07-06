@@ -1,28 +1,29 @@
 package com.asiantech.intern20summer1.intro.kotlin
 
-fun main() {
-    //RUN main() with Coverage
-    var obj: RainbowOfClarity = RainbowOfClarity()
-    println("Ex 48: " + obj.isDigit('0'))
+object RainbowOfClarity {
+    @JvmStatic
+    fun main(args: Array<String>) {
+        //RUN main() with Coverage
+        println("Ex 48: " + isDigit('0'))
 
-    println("Ex 49: " + obj.lineEncoding("aabbbc"))
+        println("Ex 49: " + lineEncoding("aabbbc"))
 
-    println("Ex 50: " + obj.chessKnight("a1"))
+        println("Ex 50: " + chessKnight("a1"))
 
-    println("Ex 51: " + obj.deleteDigit(152))
-}
-
-class RainbowOfClarity {
-    /**
-     * Determine if the given character is a digit or not.
-     */
-    fun isDigit(symbol: Char): Boolean {
-        val minOfRange: Int = 48
-        val maxOfRange: Int = 57
-        return symbol.toInt() in minOfRange..maxOfRange
+        println("Ex 51: " + deleteDigit(152))
     }
 
-    fun lineEncoding(s: String): String? {
+    private const val MIN_OF_RANGE: Int = 48
+    private const val MAX_OF_RANGE: Int = 57
+
+    private fun isDigit(symbol: Char): Boolean {
+        /**
+         * Determine if the given character is a digit or not.
+         */
+        return symbol.toInt() in MIN_OF_RANGE..MAX_OF_RANGE
+    }
+
+    private fun lineEncoding(s: String): String? {
         /**
          * Given a string, return its encoding defined as follows:
 
@@ -72,7 +73,7 @@ class RainbowOfClarity {
         return result
     }
 
-    fun chessKnight(cell: String): Int {
+    private fun chessKnight(cell: String): Int {
         /**
          * Given a position of a knight on the standard chessboard, find the number of
          * different moves the knight can perform.
@@ -90,7 +91,7 @@ class RainbowOfClarity {
         return moves
     }
 
-    fun deleteDigit(n: Int): Int {
+    private fun deleteDigit(n: Int): Int {
         /**
          * Given some integer, find the maximal number you can obtain by deleting exactly one digit of the given number.
          */

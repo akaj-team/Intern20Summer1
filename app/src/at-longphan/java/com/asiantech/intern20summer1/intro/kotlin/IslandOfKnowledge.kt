@@ -3,41 +3,43 @@ package com.asiantech.intern20summer1.intro.kotlin
 import kotlin.math.abs
 import kotlin.math.floor
 
-fun main() {
-    //RUN main() with Coverage
-    var obj: IslandOfKnowledge = IslandOfKnowledge()
-    println("Ex 19: " + obj.areEquallyStrong(10, 15, 15, 10))
+object IslandOfKnowledge {
+    @JvmStatic
+    fun main(args: Array<String>) {
+        //RUN main() with Coverage
+        println("Ex 19: " + areEquallyStrong(10, 15, 15, 10))
 
-    println("Ex 20: " + obj.arrayMaximalAdjacentDifference(mutableListOf(2, 4, 1, 0)))
+        println("Ex 20: " + arrayMaximalAdjacentDifference(mutableListOf(2, 4, 1, 0)))
 
-    println("Ex 21: " + obj.isIPv4Address("172.316.254.1"))
+        println("Ex 21: " + isIPv4Address("172.316.254.1"))
 
-    println("Ex 22: " + obj.avoidObstacles(mutableListOf(5, 3, 6, 7, 9)))
+        println("Ex 22: " + avoidObstacles(mutableListOf(5, 3, 6, 7, 9)))
 
-    println(
-        "Ex 23: " + obj.boxBlur(
-            mutableListOf(
-                mutableListOf(1, 1, 1),
-                mutableListOf(1, 7, 1),
-                mutableListOf(1, 1, 1)
+        println(
+            "Ex 23: " + boxBlur(
+                mutableListOf(
+                    mutableListOf(1, 1, 1),
+                    mutableListOf(1, 7, 1),
+                    mutableListOf(1, 1, 1)
+                )
             )
         )
-    )
 
-    println(
-        "Ex 24: "
-    )
-    println(obj.minesweeper(
-        mutableListOf(
-            mutableListOf(true, false, false),
-            mutableListOf(false, true, false),
-            mutableListOf(false, false, false)
+        println(
+            "Ex 24: "
         )
-    ).forEach { e -> println("$e ") }
-    )
-}
+        println(minesweeper(
+            mutableListOf(
+                mutableListOf(true, false, false),
+                mutableListOf(false, true, false),
+                mutableListOf(false, false, false)
+            )
+        ).forEach { e -> println("$e ") }
+        )
+    }
+    private const val VALID_SIZE : Int = 4
+    private const val MAX_ITEM: Int = 255
 
-class IslandOfKnowledge {
     fun areEquallyStrong(
         yourLeft: Int,
         yourRight: Int,
@@ -80,15 +82,14 @@ class IslandOfKnowledge {
         Given a string, find out if it satisfies the IPv4 address naming rules.
          */
         val b = a.split("[.]".toRegex()).toTypedArray()
-        val validSize : Int = 4
-        val maxItem: Int = 255
-        if (b.size != validSize) return false
+
+        if (b.size != VALID_SIZE) return false
         try {
             for (item in b) {
                 if (item.matches("[0][1-9]".toRegex()) || item.matches("[0][0]".toRegex())) {
                     return false
                 }
-                if (item.toInt() < 0 || item.toInt() > maxItem) {
+                if (item.toInt() < 0 || item.toInt() > MAX_ITEM) {
                     return false
                 }
             }

@@ -1,19 +1,19 @@
 package com.asiantech.intern20summer1.intro.kotlin
 
-fun main() {
-    //RUN main() with Coverage
-    var obj: DivingDeeper = DivingDeeper()
-    println("Ex 34: " + obj.extractEachKth(mutableListOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10), 3))
+object DivingDeeper {
+    @JvmStatic
+    fun main(args: Array<String>) {
+        //RUN main() with Coverage
+        println("Ex 34: " + extractEachKth(mutableListOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10), 3))
 
-    println("Ex 35: " + obj.firstDigit("var_1__Int"))
+        println("Ex 35: " + firstDigit("var_1__Int"))
 
-    println("Ex 36: " + obj.differentSymbolsNaive("cabca"))
+        println("Ex 36: " + differentSymbolsNaive("cabca"))
 
-    println("Ex 37: " + obj.arrayMaxConsecutiveSum(mutableListOf(2, 3, 5, 1, 6), 2))
-}
+        println("Ex 37: " + arrayMaxConsecutiveSum(mutableListOf(2, 3, 5, 1, 6), 2))
+    }
 
-class DivingDeeper {
-    fun extractEachKth(inputArray: MutableList<Int>, k: Int): MutableList<Int> {
+    private fun extractEachKth(inputArray: MutableList<Int>, k: Int): MutableList<Int> {
         /**
          * Find the leftmost digit that occurs in a given string.
          */
@@ -38,7 +38,7 @@ class DivingDeeper {
         return result
     }
 
-    fun firstDigit(inputString: String): Char {
+    private fun firstDigit(inputString: String): Char {
         /**
          * Find the leftmost digit that occurs in a given string.
          */
@@ -48,7 +48,7 @@ class DivingDeeper {
         return inputString[0]
     }
 
-    fun differentSymbolsNaive(s: String): Int {
+    private fun differentSymbolsNaive(s: String): Int {
         /**
          * Given a string, find the number of different characters in it.
          */
@@ -59,7 +59,7 @@ class DivingDeeper {
         return map.size
     }
 
-    fun arrayMaxConsecutiveSum(a: MutableList<Int>, k: Int): Int {
+    private fun arrayMaxConsecutiveSum(a: MutableList<Int>, k: Int): Int {
         /**
          * Given array of integers, find the maximal possible sum of some of its k consecutive elements.
          */

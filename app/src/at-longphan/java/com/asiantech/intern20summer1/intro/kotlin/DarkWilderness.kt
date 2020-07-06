@@ -1,31 +1,30 @@
 package com.asiantech.intern20summer1.intro.kotlin
 
-fun main() {
-    //RUN main() with Coverage
-    var obj: DarkWilderness = DarkWilderness()
-    println("Ex 38: " + obj.growingPlant(100, 10, 90))
+object DarkWilderness {
+    @JvmStatic
+    fun main(args: Array<String>) {
+        println("Ex 38: " + growingPlant(100, 10, 90))
 
-    println("Ex 39: " + obj.knapsackLight(10, 5, 6, 4, 8))
+        println("Ex 39: " + knapsackLight(10, 5, 6, 4, 8))
 
-    println("Ex 40: " + obj.longestDigitsPrefix("123aa1"))
+        println("Ex 40: " + longestDigitsPrefix("123aa1"))
 
-    println("Ex 41: " + obj.digitDegree(5))
+        println("Ex 41: " + digitDegree(5))
 
-    println("Ex 42: " + obj.bishopAndPawn("a1", "c3"))
-}
+        println("Ex 42: " + bishopAndPawn("a1", "c3"))
+    }
 
-class DarkWilderness {
-    /**
-     * Caring for a plant can be hard work, but since you tend to it regularly,
-     * you have a plant that grows consistently. Each day, its height increases
-     * by a fixed amount represented by the integer upSpeed. But due to lack of sunlight,
-     * the plant decreases in height every night, by an amount represented by downSpeed.
+    private fun growingPlant(upSpeed: Int, downSpeed: Int, desiredHeight: Int): Int {
+        /**
+         * Caring for a plant can be hard work, but since you tend to it regularly,
+         * you have a plant that grows consistently. Each day, its height increases
+         * by a fixed amount represented by the integer upSpeed. But due to lack of sunlight,
+         * the plant decreases in height every night, by an amount represented by downSpeed.
 
-    Since you grew the plant from a seed, it started at height 0 initially.
-    Given an integer desiredHeight, your task is to find how many days it'll take for
-    the plant to reach this height.
-     */
-    fun growingPlant(upSpeed: Int, downSpeed: Int, desiredHeight: Int): Int {
+        Since you grew the plant from a seed, it started at height 0 initially.
+        Given an integer desiredHeight, your task is to find how many days it'll take for
+        the plant to reach this height.
+         */
         var height = 0
         var day = 1
         while (true) {
@@ -36,7 +35,7 @@ class DarkWilderness {
         }
     }
 
-    fun knapsackLight(value1: Int, weight1: Int, value2: Int, weight2: Int, maxW: Int): Int {
+    private fun knapsackLight(value1: Int, weight1: Int, value2: Int, weight2: Int, maxW: Int): Int {
         /**
          * You found two items in a treasure chest! The first item weighs weight1 and is worth value1,
          * and the second item weighs weight2 and is worth value2. What is the total maximum value of
@@ -55,7 +54,7 @@ class DarkWilderness {
         }
     }
 
-    fun longestDigitsPrefix(a: String): String? {
+    private fun longestDigitsPrefix(a: String): String? {
         /**
          * Given a string, output its longest prefix which contains only digits.
          */
@@ -70,7 +69,7 @@ class DarkWilderness {
         return result
     }
 
-    fun digitDegree(n: Int): Int {
+    private fun digitDegree(n: Int): Int {
         /**
          * Let's define digit degree of some positive integer as the number of times
          * we need to replace this number with the sum of its digits until we get to a one digit number.
@@ -91,7 +90,7 @@ class DarkWilderness {
         }
     }
 
-    fun bishopAndPawn(bishop: String, pawn: String): Boolean {
+    private fun bishopAndPawn(bishop: String, pawn: String): Boolean {
         /**
          * Given the positions of a white bishop and a black pawn on the standard chess board,
          * determine whether the bishop can capture the pawn in one move.

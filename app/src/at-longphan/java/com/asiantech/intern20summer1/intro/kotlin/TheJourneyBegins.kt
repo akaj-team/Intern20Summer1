@@ -1,16 +1,18 @@
 package com.asiantech.intern20summer1.intro.kotlin
 
-fun main() {
-    //RUN main() with Coverage
-    var obj : TheJourneyBegins = TheJourneyBegins()
-    println("Ex 1: " + obj.add(3, 6))
+object TheJourneyBegins{
+    @JvmStatic
+    fun main(args: Array<String>) {
+        //RUN main() with Coverage
+        println("Ex 1: " + add(3, 6))
 
-    println("Ex 2: " + obj.centuryFromYear(2001))
+        println("Ex 2: " + centuryFromYear(2001))
 
-    println("Ex 3: " + obj.checkPalindrome("acbca"))
-}
+        println("Ex 3: " + checkPalindrome("acbca"))
+    }
 
-class TheJourneyBegins{
+    private const val HUNDRED: Int = 100
+
     fun add(param1: Int, param2: Int): Int {
         /**
          * Write a function that returns the sum of two numbers.
@@ -25,9 +27,8 @@ class TheJourneyBegins{
          * the second - from the year 101 up to and including the year 200, etc.
          */
         var result = 0
-        val oneHundred: Int = 100
-        if (year / oneHundred.toDouble() == (year / oneHundred).toDouble()) result = year / oneHundred
-        else result = year / oneHundred + 1
+        if (year / HUNDRED.toDouble() == (year / HUNDRED).toDouble()) result = year / HUNDRED
+        else result = year / HUNDRED + 1
         return result
     }
 

@@ -2,23 +2,22 @@ package com.asiantech.intern20summer1.intro.kotlin
 
 import java.util.*
 
-fun main() {
-    //RUN main() with Coverage
-    var obj: ExploringTheWaters = ExploringTheWaters()
-    println("Ex 14: " + obj.alternatingSums(mutableListOf(50, 60, 60, 45, 70)))
+object ExploringTheWaters {
+    @JvmStatic
+    fun main(args: Array<String>) {
+        //RUN main() with Coverage
+        println("Ex 14: " + alternatingSums(mutableListOf(50, 60, 60, 45, 70)))
 
-    println("Ex 15: ")
-    println(obj.addBorder(mutableListOf("abc", "ded")))
+        println("Ex 15: ")
+        println(addBorder(mutableListOf("abc", "ded")))
 
-    println("Ex 16: " + obj.areSimilar(mutableListOf(1, 2, 3), mutableListOf(2, 1, 3)))
+        println("Ex 16: " + areSimilar(mutableListOf(1, 2, 3), mutableListOf(2, 1, 3)))
 
-    println("Ex 17: " + obj.arrayChange(mutableListOf(-1000, 0, -2, 0)))
+        println("Ex 17: " + arrayChange(mutableListOf(-1000, 0, -2, 0)))
 
-    println("Ex 18: " + obj.palindromeRearranging("abbcabb"))
-}
-
-class ExploringTheWaters {
-    fun alternatingSums(a: MutableList<Int>): MutableList<Int> {
+        println("Ex 18: " + palindromeRearranging("abbcabb"))
+    }
+    private fun alternatingSums(a: MutableList<Int>): MutableList<Int> {
         /**
          * Several people are standing in a row and need to be divided into two teams.
          * The first person goes into team 1, the second goes into team 2,
@@ -36,7 +35,7 @@ class ExploringTheWaters {
         return result
     }
 
-    fun addBorder(picture: MutableList<String>): MutableList<String> {
+    private fun addBorder(picture: MutableList<String>): MutableList<String> {
         /**
          * Given a rectangular matrix of characters, add a border of asterisks(*) to it.
          */
@@ -49,7 +48,7 @@ class ExploringTheWaters {
         return a
     }
 
-    fun areSimilar(A: MutableList<Int>, B: MutableList<Int>): Boolean {
+    private fun areSimilar(A: MutableList<Int>, B: MutableList<Int>): Boolean {
         /**
          * Two arrays are called similar if one can be obtained from another by swapping at
          * most one pair of elements in one of the arrays.
@@ -86,7 +85,7 @@ class ExploringTheWaters {
         return true
     }
 
-    fun arrayChange(a: MutableList<Int>): Int {
+    private fun arrayChange(a: MutableList<Int>): Int {
         /**
          * You are given an array of integers. On each move you are allowed to increase
          * exactly one of its element by one. Find the minimal number of moves required
@@ -102,7 +101,7 @@ class ExploringTheWaters {
         return times
     }
 
-    fun palindromeRearranging(a: String): Boolean {
+    private fun palindromeRearranging(a: String): Boolean {
         /**
          * Given a string, find out if its characters can be rearranged to form a palindrome.
          */

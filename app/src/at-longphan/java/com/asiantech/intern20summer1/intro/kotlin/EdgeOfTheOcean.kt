@@ -1,29 +1,29 @@
 package com.asiantech.intern20summer1.intro.kotlin
 
-fun main() {
-    //RUN main() with Coverage
-    val obj: EdgeOfTheOcean = EdgeOfTheOcean()
-    println("Ex 4: " + obj.adjacentElementsProduct(intArrayOf(3, 6, -2, -5, 7, 3)))
+object EdgeOfTheOcean {
+    @JvmStatic
+    fun main(args: Array<String>) {
+        //RUN main() with Coverage
+        println("Ex 4: " + adjacentElementsProduct(intArrayOf(3, 6, -2, -5, 7, 3)))
 
-    println("Ex 5: " + obj.shapeArea(5))
+        println("Ex 5: " + shapeArea(5))
 
-    println("Ex 6: " + obj.makeArrayConsecutive2(mutableListOf(6, 2, 3, 8)))
+        println("Ex 6: " + makeArrayConsecutive2(mutableListOf(6, 2, 3, 8)))
 
-    println("Ex 7: " + obj.almostIncreasingSequence(mutableListOf(1, 3, 2, 1)))
+        println("Ex 7: " + almostIncreasingSequence(mutableListOf(1, 3, 2, 1)))
 
-    println(
-        "Ex 8: " + obj.matrixElementsSum(
-            mutableListOf(
-                mutableListOf(0, 1, 1, 2),
-                mutableListOf(0, 5, 0, 0),
-                mutableListOf(2, 0, 3, 3)
+        println(
+            "Ex 8: " + matrixElementsSum(
+                mutableListOf(
+                    mutableListOf(0, 1, 1, 2),
+                    mutableListOf(0, 5, 0, 0),
+                    mutableListOf(2, 0, 3, 3)
+                )
             )
         )
-    )
-}
+    }
 
-class EdgeOfTheOcean {
-    fun adjacentElementsProduct(inputArray: IntArray): Int {
+    private fun adjacentElementsProduct(inputArray: IntArray): Int {
         /**
          * Given an array of integers, find the pair of adjacent elements
          * that has the largest product and return that product.
@@ -37,7 +37,7 @@ class EdgeOfTheOcean {
         return max
     }
 
-    fun shapeArea(n: Int): Int {
+    private fun shapeArea(n: Int): Int {
         /**
          * Below we will define an n-interesting polygon.
          * Your task is to find the area of a polygon for a given n.
@@ -50,7 +50,7 @@ class EdgeOfTheOcean {
         return n * n + (n - 1) * (n - 1)
     }
 
-    fun makeArrayConsecutive2(statues: MutableList<Int>): Int {
+    private fun makeArrayConsecutive2(statues: MutableList<Int>): Int {
         /**
          * Ratiorg got statues of different sizes as a present from CodeMaster for his birthday,
          * each statue having an non-negative integer size. Since he likes to make things perfect,
@@ -63,7 +63,7 @@ class EdgeOfTheOcean {
         return result
     }
 
-    fun almostIncreasingSequence(a: MutableList<Int>): Boolean {
+    private fun almostIncreasingSequence(a: MutableList<Int>): Boolean {
         /**
          * Given a sequence of integers as an array, determine whether it is possible to obtain
          * a strictly increasing sequence by removing no more than one element from the array.
@@ -92,7 +92,7 @@ class EdgeOfTheOcean {
         return true
     }
 
-    fun matrixElementsSum(matrix: MutableList<MutableList<Int>>): Int {
+    private fun matrixElementsSum(matrix: MutableList<MutableList<Int>>): Int {
         /**
          * After becoming famous, the CodeBots decided to move into a new building together.
          * Each of the rooms has a different cost, and some of them are free,

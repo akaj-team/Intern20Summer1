@@ -1,19 +1,20 @@
 package com.asiantech.intern20summer1.intro.kotlin
 
-fun main() {
-    //RUN main() with Coverage
-    var obj: ThroughTheFog = ThroughTheFog()
-    println("Ex 30: " + obj.circleOfNumbers(10, 2))
+object ThroughTheFog {
+    @JvmStatic
+    fun main(args: Array<String>) {
+        //RUN main() with Coverage
+        println("Ex 30: " + circleOfNumbers(10, 2))
 
-    println("Ex 31: " + obj.depositProfit(100, 20, 170))
+        println("Ex 31: " + depositProfit(100, 20, 170))
 
-    println("Ex 32: " + obj.absoluteValuesSumMinimization(mutableListOf(2, 4, 7)))
+        println("Ex 32: " + absoluteValuesSumMinimization(mutableListOf(2, 4, 7)))
 
-    println("Ex 33: " + obj.stringsRearrangement(mutableListOf("aba", "bbb", "bab")))
-}
+        println("Ex 33: " + stringsRearrangement(mutableListOf("aba", "bbb", "bab")))
+    }
+    private const val HUNDRED: Int = 100
 
-class ThroughTheFog {
-    fun circleOfNumbers(n: Int, firstNumber: Int): Int {
+    private fun circleOfNumbers(n: Int, firstNumber: Int): Int {
         /**
          * Consider integer numbers from 0 to n - 1 written down along the circle in such a way
          * that the distance between any two neighboring numbers is equal (note that 0 and n - 1 are neighboring, too).
@@ -27,7 +28,7 @@ class ThroughTheFog {
         }
     }
 
-    fun depositProfit(deposit: Int, rate: Int, threshold: Int): Int {
+    private fun depositProfit(deposit: Int, rate: Int, threshold: Int): Int {
         /**
          * You have deposited a specific amount of money into your bank account.
          * Each year your balance increases at the same growth rate.
@@ -36,9 +37,8 @@ class ThroughTheFog {
          */
         var money = deposit.toDouble()
         var year = 1
-        val oneHundred: Int = 100
         while (true) {
-            money = money * (rate + oneHundred) / oneHundred
+            money = money * (rate + HUNDRED) / HUNDRED
             if (money >= threshold) {
                 return year
             }
@@ -46,7 +46,7 @@ class ThroughTheFog {
         }
     }
 
-    fun absoluteValuesSumMinimization(a: MutableList<Int>): Int {
+    private fun absoluteValuesSumMinimization(a: MutableList<Int>): Int {
         /**
          * Given a sorted array of integers a, your task is to determine which element of
          * a is closest to all other values of a. In other words, find the element x in a,
@@ -64,7 +64,7 @@ class ThroughTheFog {
         }
     }
 
-    fun stringsRearrangement(inputArray: MutableList<String>): Boolean {
+    private fun stringsRearrangement(inputArray: MutableList<String>): Boolean {
         /**
          * Given an array of equal-length strings, you'd like to know if it's possible to
          * rearrange the order of the elements in such a way that each consecutive pair

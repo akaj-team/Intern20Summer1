@@ -3,24 +3,24 @@ package com.asiantech.intern20summer1.intro.kotlin
 import android.os.Build
 import androidx.annotation.RequiresApi
 
-@RequiresApi(Build.VERSION_CODES.N)
-fun main() {
-    //RUN main() with Coverage
-    var obj: EruptionOfLight = EruptionOfLight()
-    println("Ex 43: " + obj.isBeautifulString("bbbaacdafe"))
-
-    println("Ex 44: " + obj.findEmailDomain("prettyandsimple@example.com"))
-
-    println("Ex 45: " + obj.buildPalindrome("abcdc"))
-
-    println("Ex 46: " + obj.electionsWinners(mutableListOf(2, 3, 5, 2), 3))
-
-    println("Ex 47: " + obj.isMAC48Address("00-1B-63-84-45-E6"))
-}
-
-class EruptionOfLight {
+object EruptionOfLight {
     @RequiresApi(Build.VERSION_CODES.N)
-    fun isBeautifulString(inputString: String): Boolean {
+    @JvmStatic
+    fun main(args: Array<String>) {
+        //RUN main() with Coverage
+        println("Ex 43: " + isBeautifulString("bbbaacdafe"))
+
+        println("Ex 44: " + findEmailDomain("prettyandsimple@example.com"))
+
+        println("Ex 45: " + buildPalindrome("abcdc"))
+
+        println("Ex 46: " + electionsWinners(mutableListOf(2, 3, 5, 2), 3))
+
+        println("Ex 47: " + isMAC48Address("00-1B-63-84-45-E6"))
+    }
+
+    @RequiresApi(Build.VERSION_CODES.N)
+    private fun isBeautifulString(inputString: String): Boolean {
         /**
          *  string is said to be beautiful if each letter in the string appears at
          *  most as many times as the previous letter in the alphabet within the string;
@@ -34,7 +34,7 @@ class EruptionOfLight {
         return (0 until sortedValues.size - 1).all { sortedValues[it] >= sortedValues[it + 1] }
     }
 
-    fun findEmailDomain(address: String): String? {
+    private fun findEmailDomain(address: String): String? {
         /**
          * An email address such as "John.Smith@example.com" is made up of a local part ("John.Smith"),
          * an "@" symbol, then a domain part ("example.com").
@@ -49,7 +49,7 @@ class EruptionOfLight {
         return address.substring(lastIndex + 1)
     }
 
-    fun buildPalindrome(a: String): String {
+    private fun buildPalindrome(a: String): String {
         /**
          * Given a string, find the shortest possible string which can be achieved by
          * adding characters to the end of initial string to make it a palindrome.
@@ -70,7 +70,7 @@ class EruptionOfLight {
         return a + aReverse
     }
 
-    fun electionsWinners(votes: MutableList<Int>, k: Int): Int {
+    private fun electionsWinners(votes: MutableList<Int>, k: Int): Int {
         /**
          * Elections are in progress!
         Given an array of the numbers of votes given to each of the candidates so far,
@@ -104,7 +104,7 @@ class EruptionOfLight {
         return count
     }
 
-    fun isMAC48Address(a: String): Boolean {
+    private fun isMAC48Address(a: String): Boolean {
         /**
          * A media access control address (MAC address) is a unique identifier assigned to
          * network interfaces for communications on the physical network segment.
