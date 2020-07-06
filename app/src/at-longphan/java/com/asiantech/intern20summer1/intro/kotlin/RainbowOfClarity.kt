@@ -45,8 +45,7 @@ object RainbowOfClarity {
         letters[0] = s[0]
         var indexLetters = 0
         for (i in 1 until s.length) {
-            if (s[i] == letters[indexLetters]) {
-            } else {
+            if (s[i] != letters[indexLetters]) {
                 indexLetters++
                 letters[indexLetters] = s[i]
             }
