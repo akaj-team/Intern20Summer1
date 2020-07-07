@@ -1,4 +1,6 @@
 object LandofLogic {
+    private const val NINE = 9
+    private const val TWO = 2
     @JvmStatic
     fun main(args: Array<String>) {
         /**
@@ -92,7 +94,7 @@ object LandofLogic {
             return 10
         }
         var b = ""
-        for (i in 9 downTo 2) {
+        for (i in NINE downTo TWO) {
             while (product % i == 0) {
                 product = product / i
                 b = i.toString() + b
