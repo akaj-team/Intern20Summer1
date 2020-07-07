@@ -15,6 +15,7 @@ object RainbowOfClarity {
 
     private const val MIN_OF_RANGE: Int = 48
     private const val MAX_OF_RANGE: Int = 57
+    private const val INIT_MOVES: Int = 8
 
     private fun isDigit(symbol: Char): Boolean {
         /**
@@ -64,7 +65,7 @@ object RainbowOfClarity {
         The complete move therefore looks like the letter L. Check out the image below
         to see all valid moves for a knight piece that is placed on one of the central squares.
          */
-        var moves: Int = 8
+        var moves: Int = INIT_MOVES
         if (cell[0] == 'b' || cell[0] == 'g') moves -= 2
         if (cell[1] == '2' || cell[1] == '7') moves -= 2
         if (cell[0] == 'a' || cell[0] == 'h') moves /= 2

@@ -49,49 +49,14 @@ object ExploringTheWaters {
         return a
     }
 
-    private fun areSimilar(A: MutableList<Int>, B: MutableList<Int>): Boolean {
+    private fun areSimilar(a: MutableList<Int>, b: MutableList<Int>): Boolean {
         /**
          * Two arrays are called similar if one can be obtained from another by swapping at
          * most one pair of elements in one of the arrays.
 
         Given two arrays a and b, check whether they are similar.
          */
-        var a = A
-        var b = B
-        var result = true
-        if (a.size != b.size) {
-            result = false
-        } else {
-            var count = 0
-            var aDiff = 0
-            var bDiff = 0
-            var iDiff = 0
-            for (i in 0 until a.size) {
-                if (a[i] != b[i] && count == 0) {
-                    aDiff = a[i]
-                    bDiff = b[i]
-                    iDiff = i
-                    count++
-                    continue
-                }
-                if (a[i] != b[i] && count == 1) {
-                    if (a[i] != bDiff || b[i] != aDiff) {
-                        result = false
-                        break
-                    } else {
-                        a[iDiff] = a[i]
-                        a[i] = aDiff
-                        break
-                    }
-                }
-            }
-            a.forEachIndexed { i, v ->
-                if (a[i] != b[i]) {
-                    result = false
-                }
-            }
-        }
-        return result
+        return a.sorted() == b.sorted() && a.zip(b).filter { it.first != it.second }.count() < 3
     }
 
     private fun arrayChange(a: MutableList<Int>): Int {

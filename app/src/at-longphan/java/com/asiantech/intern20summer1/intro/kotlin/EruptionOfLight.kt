@@ -15,6 +15,9 @@ object EruptionOfLight {
         println("Ex 47: " + isMAC48Address("00-1B-63-84-45-E6"))
     }
 
+    private const val SIZE_ALPHABET = 26
+    private const val TRANSFER_RANGE = 97
+
     private fun isBeautifulString(inputString: String): Boolean {
         /**
          *  string is said to be beautiful if each letter in the string appears at most as
@@ -23,9 +26,9 @@ object EruptionOfLight {
 
         Given a string, check whether it is beautiful.
          */
-        val numLetters = IntArray(26)
+        val numLetters = IntArray(SIZE_ALPHABET)
         for (letter in inputString) {
-            val i = letter.toInt() - 97
+            val i = letter.toInt() - TRANSFER_RANGE
             numLetters[i]++
         }
 

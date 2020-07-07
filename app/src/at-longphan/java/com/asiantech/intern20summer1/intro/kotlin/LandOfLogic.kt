@@ -134,25 +134,24 @@ object LandOfLogic {
          * integer the product of whose digits is equal to product. If there is no such integer,
          * return -1 instead.
          */
-        var product: Int = product
-        var result = 0
-        if (product == 0) {
-            result = SPECIAL_PRODUCT
-        } else {
-            if (product < SPECIAL_PRODUCT) {
-                result = product
-            } else {
-                var str: String = ""
-                for (i in MAX_DIGIT downTo 2) {
-                    while (product % i == 0) {
-                        str = i.toString() + str
-                        product /= i
-                    }
-                }
-                result = if (product == 1) str.toInt() else -1
+        var p = product
+        if (product < SPECIAL_PRODUCT) {
+            return if (product > 0)
+                product
+            else
+                SPECIAL_PRODUCT
+        }
+        var r = ""
+        for (i in MAX_DIGIT downTo 2) {
+            while (p % i == 0) {
+                p /= i
+                r = ('0' + i).toString() + r
             }
         }
-        return result
+        return when {
+            p != 1 -> -1
+            else -> r.toInt()
+        }
     }
 
     private fun fileNaming(names: MutableList<String>): MutableList<String> {

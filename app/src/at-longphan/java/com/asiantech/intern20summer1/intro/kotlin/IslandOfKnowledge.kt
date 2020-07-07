@@ -39,6 +39,8 @@ object IslandOfKnowledge {
 
     private const val VALID_SIZE: Int = 4
     private const val MAX_ITEM: Int = 255
+    private const val BORDER: Int = 3
+    private const val BOUND: Int = 9
 
     private fun areEquallyStrong(
         yourLeft: Int,
@@ -81,27 +83,8 @@ object IslandOfKnowledge {
 
         Given a string, find out if it satisfies the IPv4 address naming rules.
          */
-        val b = a.split("[.]".toRegex()).toTypedArray()
-        var result = true
-        if (b.size != VALID_SIZE) {
-            result = false
-        } else {
-            try {
-                for (item in b) {
-                    if (item.matches("[0][1-9]".toRegex()) || item.matches("[0][0]".toRegex())) {
-                        result = false
-                        break
-                    }
-                    if (item.toInt() < 0 || item.toInt() > MAX_ITEM) {
-                        result = false
-                        break
-                    }
-                }
-            } catch (e: NumberFormatException) {
-                return false
-            }
-        }
-        return result
+        val tokens = a.split(".")
+        return tokens.size == 4 && tokens.all { it.toIntOrNull() in 0..255 }
     }
 
     private fun avoidObstacles(a: MutableList<Int>): Int {
@@ -129,17 +112,17 @@ object IslandOfKnowledge {
 
         Return the blurred image as an integer, with the fractions rounded down.
          */
-        var xMax = image[0].size - 3
-        var yMax = image.size - 3
+        var xMax = image[0].size - BORDER
+        var yMax = image.size - BORDER
         var sum = 0
         var result: MutableList<MutableList<Int>> = mutableListOf()
         for (i in 0..yMax) {
             var x: MutableList<Int> = mutableListOf()
             for (j in 0..xMax) {
-                sum = image[i].subList(j, j + 3).sum() +
-                        image[i + 1].subList(j, j + 3).sum() +
-                        image[i + 2].subList(j, j + 3).sum()
-                x.add(sum / 9)
+                sum = image[i].subList(j, j + BORDER).sum() +
+                        image[i + 1].subList(j, j + BORDER).sum() +
+                        image[i + 2].subList(j, j + BORDER).sum()
+                x.add(sum / BOUND)
             }
             result.add(x)
         }
@@ -153,23 +136,26 @@ object IslandOfKnowledge {
          * in the neighboring cells. Starting off with some arrangement of mines
          * we want to create a Minesweeper game setup.
          */
-        val row = matrix.size
-        val col: Int = matrix[0].size
-        val x =
-            MutableList(row) { MutableList(col) { 0 } }
-        for (i in 0 until row) {
-            for (j in 0 until col) {
-                for (i2 in i - 1..i + 1) {
-                    for (j2 in j - 1..j + 1) {
-                        if (i2 < 0 || j2 < 0 || i2 == i && j2 == j || i2 >= row || j2 >= col) {
-                            continue
-                        } else {
-                            x[i][j] = if (matrix[i2][j2]) x[i][j] + 1 else x[i][j]
-                        }
-                    }
+        val result = mutableListOf<MutableList<Int>>()
+        for (x in 0 until matrix.size) {
+            for (y in 0 until matrix[x].size) {
+                val aroundFields = listOf(
+                    matrix.getOrNull(x - 1)?.getOrNull(y - 1),
+                    matrix.getOrNull(x - 1)?.getOrNull(y),
+                    matrix.getOrNull(x - 1)?.getOrNull(y + 1),
+                    matrix.getOrNull(x)?.getOrNull(y - 1),
+                    matrix.getOrNull(x)?.getOrNull(y + 1),
+                    matrix.getOrNull(x + 1)?.getOrNull(y - 1),
+                    matrix.getOrNull(x + 1)?.getOrNull(y),
+                    matrix.getOrNull(x + 1)?.getOrNull(y + 1)
+                )
+                if (result.size <= x) {
+                    result.add(mutableListOf())
                 }
+                result[x].add(aroundFields.count { true == it })
             }
         }
-        return x
+        return result
+
     }
 }
