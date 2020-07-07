@@ -1,10 +1,6 @@
 package com.asiantech.intern20summer1.intro.kotlin
 
-import android.os.Build
-import androidx.annotation.RequiresApi
-
 object EruptionOfLight {
-    @RequiresApi(Build.VERSION_CODES.N)
     @JvmStatic
     fun main(args: Array<String>) {
         //RUN main() with Coverage
@@ -19,19 +15,26 @@ object EruptionOfLight {
         println("Ex 47: " + isMAC48Address("00-1B-63-84-45-E6"))
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
     private fun isBeautifulString(inputString: String): Boolean {
         /**
-         *  string is said to be beautiful if each letter in the string appears at
-         *  most as many times as the previous letter in the alphabet within the string;
-         *  ie: b occurs no more times than a; c occurs no more times than b; etc.
+         *  string is said to be beautiful if each letter in the string appears at most as
+         *  many times as the previous letter in the alphabet within the string; ie:
+         *  b occurs no more times than a; c occurs no more times than b; etc.
 
         Given a string, check whether it is beautiful.
          */
-        val sortedMap = inputString.groupingBy { it }.eachCount().toSortedMap()
-        ('a'..'z').forEach { sortedMap.putIfAbsent(it, 0) }
-        val sortedValues = sortedMap.values.toList()
-        return (0 until sortedValues.size - 1).all { sortedValues[it] >= sortedValues[it + 1] }
+        val numLetters = IntArray(26)
+        for (letter in inputString) {
+            val i = letter.toInt() - 97
+            numLetters[i]++
+        }
+
+        var isBeautiful = true
+        for (i in 1 until numLetters.size) {
+            isBeautiful = isBeautiful && numLetters[i] <= numLetters[i - 1]
+        }
+
+        return isBeautiful
     }
 
     private fun findEmailDomain(address: String): String? {
@@ -56,18 +59,16 @@ object EruptionOfLight {
          */
         var aReverse = a
         aReverse = aReverse.reversed()
-        if (aReverse == a) {
-            return a
-        } else {
-            var insertStr = ""
-            for (i in a) {
-                insertStr = i.toString() + insertStr
-                var reverse = a + insertStr
-                reverse = reverse.reversed()
-                if (reverse == a + insertStr) return reverse
-            }
+        if (aReverse == a) return a
+        var insertStr = ""
+        var reverse = ""
+        for (i in a) {
+            insertStr = i.toString() + insertStr
+            reverse = ""
+            reverse = (a + insertStr).reversed()
+            if (reverse == a + insertStr) break
         }
-        return a + aReverse
+        return reverse
     }
 
     private fun electionsWinners(votes: MutableList<Int>, k: Int): Int {
@@ -80,28 +81,13 @@ object EruptionOfLight {
         The winner of the election must secure strictly more votes than any other candidate.
         If two or more candidates receive the same (maximum) number of votes, assume there is no winner at all.
          */
-        if (k == 0) {
-            var moreOne = 1
-            var max = 0
-            for (item in votes) {
-                if (item > max) {
-                    max = item
-                    moreOne = 0
-                }
-                if (item == max) moreOne++
-            }
-            return if (moreOne > 1) 0 else 1
+        val max = votes.max()
+        val e = votes.filter { it + k > max ?: 0 || it == max }
+
+        return when (k) {
+            0 -> e.filter { cur -> e.count { it == cur } == 1 }.size
+            else -> e.size
         }
-        var count = 0
-        var voteCanWin = 0
-        for (item in votes) {
-            if (item > voteCanWin) voteCanWin = item
-        }
-        voteCanWin++
-        for (item in votes) {
-            if (item + k >= voteCanWin) count++
-        }
-        return count
     }
 
     private fun isMAC48Address(a: String): Boolean {

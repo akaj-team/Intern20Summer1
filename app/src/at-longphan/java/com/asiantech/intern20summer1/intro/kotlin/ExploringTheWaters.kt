@@ -17,6 +17,7 @@ object ExploringTheWaters {
 
         println("Ex 18: " + palindromeRearranging("abbcabb"))
     }
+
     private fun alternatingSums(a: MutableList<Int>): MutableList<Int> {
         /**
          * Several people are standing in a row and need to be divided into two teams.
@@ -57,32 +58,40 @@ object ExploringTheWaters {
          */
         var a = A
         var b = B
-        if (a.size != b.size) return false
-        var count = 0
-        var aDiff = 0
-        var bDiff = 0
-        var iDiff = 0
-        for (i in 0 until a.size) {
-            if (a[i] != b[i] && count == 0) {
-                aDiff = a[i]
-                bDiff = b[i]
-                iDiff = i
-                count++
-                continue
+        var result = true
+        if (a.size != b.size) {
+            result = false
+        } else {
+            var count = 0
+            var aDiff = 0
+            var bDiff = 0
+            var iDiff = 0
+            for (i in 0 until a.size) {
+                if (a[i] != b[i] && count == 0) {
+                    aDiff = a[i]
+                    bDiff = b[i]
+                    iDiff = i
+                    count++
+                    continue
+                }
+                if (a[i] != b[i] && count == 1) {
+                    if (a[i] != bDiff || b[i] != aDiff) {
+                        result = false
+                        break
+                    } else {
+                        a[iDiff] = a[i]
+                        a[i] = aDiff
+                        break
+                    }
+                }
             }
-            if (a[i] != b[i] && count == 1) {
-                if (a[i] != bDiff || b[i] != aDiff) return false
-                else {
-                    a[iDiff] = a[i]
-                    a[i] = aDiff
-                    break
+            a.forEachIndexed { i, v ->
+                if (a[i] != b[i]) {
+                    result = false
                 }
             }
         }
-        for (i in a.indices) {
-            if (a[i] != b[i]) return false
-        }
-        return true
+        return result
     }
 
     private fun arrayChange(a: MutableList<Int>): Int {

@@ -109,42 +109,23 @@ object LandOfLogic {
 
     private fun differentSquares(matrix: MutableList<MutableList<Int>>): Int {
         /**
-         * Given a rectangular matrix containing only digits, calculate the number of
-         * different 2 × 2 squares in it.
+         * Given a rectangular matrix containing only digits,
+         * calculate the number of different 2 × 2 squares in it.
          */
-        val row = matrix.size
-        val col: Int = matrix[0].size
-        //list contain value of each different square
-        val list: ArrayList<String> = ArrayList()
-        //loop to get value of all squares
-        for (i in 0 until row - 1) {
-            for (j in 0 until col - 1) {
-                // take each 4 digits to a square
-                var square: String = ""
-                var toFour: Int = 0
+        val matrixSize = matrix.size
+        val vectorSize = matrix[0].size
+        var unique: MutableSet<String> = mutableSetOf()
 
-                for (i2 in i until i + 2) {
-                    for (j2 in j until j + 2) {
-                        toFour++
-                        square += matrix[i2][j2]
-                        if (toFour == TO) {
-                            var isDuplicate = true
-                            //check if duplicate
-                            for (k in 0 until list.size) {
-                                if (square == list[k]) {
-                                    isDuplicate = false
-                                    break
-                                }
-                            }
-                            if (isDuplicate) {
-                                list.add(square)
-                            }
-                        }
-                    }
-                }
+        for (i in 1 until matrixSize) {
+            for (j in 1 until vectorSize) {
+                val a = matrix[i - 1][j - 1]
+                val b = matrix[i - 1][j]
+                val c = matrix[i][j - 1]
+                val d = matrix[i][j]
+                unique.add("$a,$b,$c,$d")
             }
         }
-        return list.size
+        return unique.size
     }
 
     private fun digitsProduct(product: Int): Int {
@@ -154,17 +135,24 @@ object LandOfLogic {
          * return -1 instead.
          */
         var product: Int = product
-
-        if (product == 0) return SPECIAL_PRODUCT
-        if (product < SPECIAL_PRODUCT) return product
-        var str: String = ""
-        for (i in MAX_DIGIT downTo 2) {
-            while (product % i == 0) {
-                str = i.toString() + str
-                product /= i
+        var result = 0
+        if (product == 0) {
+            result = SPECIAL_PRODUCT
+        } else {
+            if (product < SPECIAL_PRODUCT) {
+                result = product
+            } else {
+                var str: String = ""
+                for (i in MAX_DIGIT downTo 2) {
+                    while (product % i == 0) {
+                        str = i.toString() + str
+                        product /= i
+                    }
+                }
+                result = if (product == 1) str.toInt() else -1
             }
         }
-        return if (product == 1) str.toInt() else -1
+        return result
     }
 
     private fun fileNaming(names: MutableList<String>): MutableList<String> {
@@ -244,43 +232,23 @@ object LandOfLogic {
 
         This algorithm should check if the given grid of numbers represents a correct solution to Sudoku.
          */
-        val n = grid.size
-        for (i in 0 until n) {
-            val oneToN: ArrayList<Int> = ArrayList()
-            for (j in 0 until n) {
-                if (oneToN.contains(grid[i][j])) {
-                    return false
-                } else {
-                    oneToN.add(grid[i][j])
+        val gridSize = grid.size
+        val validRows = grid.all { it.distinct().count() == gridSize }
+        val cols = (0 until gridSize).map { grid.map { r -> r[it] } }
+        val validColumns = cols.all { it.distinct().count() == gridSize }
+
+        for (i in 0 until gridSize) {
+            val set = mutableSetOf<Int>()
+            val k = i * SKIP
+            val x = (k / gridSize) * SKIP
+            val y = k % gridSize
+            for (x1 in 0 until SKIP) {
+                for (y1 in 0 until SKIP) {
+                    set.add(grid[x + x1][y + y1])
                 }
             }
+            if (set.size != gridSize) return false
         }
-        for (i in 0 until n) {
-            val oneToN: ArrayList<Int> = ArrayList()
-            for (j in 0 until n) {
-                if (oneToN.contains(grid[j][i])) {
-                    return false
-                } else {
-                    oneToN.add(grid[j][i])
-                }
-            }
-        }
-        for (i in 0 until n) {
-            for (j in 0 until n) {
-                if (i % SKIP == 0 && j % SKIP == 0) {
-                    val oneToN: ArrayList<Int> = ArrayList()
-                    for (i2 in i until i + SKIP) {
-                        for (j2 in j until j + SKIP) {
-                            if (oneToN.contains(grid[i2][j2])) {
-                                return false
-                            } else {
-                                oneToN.add(grid[i2][j2])
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return true
+        return validRows && validColumns
     }
 }

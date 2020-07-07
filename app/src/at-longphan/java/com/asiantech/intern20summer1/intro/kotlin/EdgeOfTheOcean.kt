@@ -72,24 +72,20 @@ object EdgeOfTheOcean {
         if a0 < a1 < ... < an. Sequence containing only one element is also considered
         to be strictly increasing.
          */
-        if (a.size == 2) return true
-        var count: Int = 0
-        var i: Int = 0
-        while (i < a.size - 1) {
-            if (a[i] >= a[i + 1]) {
-                count++
-                if (count == 2) {
-                    return false
-                }
-                if (i > 0 && i < a.size - 2 ) {
-                    if(a[i + 2] <= a[i] && a[i + 1] <= a[i - 1]){
-                        return false
-                    }
-                }
+        var errorCountOne = 0
+        var errorCountTwo = 0
+
+        for (i in 0..a.size - 2) {
+            if (a[i] >= a[i + 1])
+                errorCountOne++
+
+            if (i != 0) {
+                if (a[i - 1] >= a[i + 1])
+                    errorCountTwo++
             }
-            i++
         }
-        return true
+
+        return errorCountOne == 1 && errorCountTwo <= 1
     }
 
     private fun matrixElementsSum(matrix: MutableList<MutableList<Int>>): Int {

@@ -23,7 +23,7 @@ object RainbowOfClarity {
         return symbol.toInt() in MIN_OF_RANGE..MAX_OF_RANGE
     }
 
-    private fun lineEncoding(s: String): String? {
+    private fun lineEncoding(s: String): String {
         /**
          * Given a string, return its encoding defined as follows:
 
@@ -35,38 +35,20 @@ object RainbowOfClarity {
         for example, substring "bbb" is replaced by "3b"
         Finally, all the new strings are concatenated together in the same order and a new string is returned.
          */
-        var size = 1
-        for (i in 1 until s.length) {
-            if (s[i] != s[i - 1]) {
-                size++
-            }
-        }
-        val letters = arrayOfNulls<Char>(size)
-        letters[0] = s[0]
-        var indexLetters = 0
-        for (i in 1 until s.length) {
-            if (s[i] != letters[indexLetters]) {
-                indexLetters++
-                letters[indexLetters] = s[i]
-            }
-        }
-        val repeats = IntArray(size)
-        repeats[0] = 1
-        var indexRepeats = 0
-        for (i in 1 until s.length) {
-            if (s[i] == s[i - 1]) {
-                repeats[indexRepeats]++
-            } else {
-                indexRepeats++
-                repeats[indexRepeats]++
-            }
-        }
+        val input = "$s "
         var result = ""
-        for (i in letters.indices) {
-            result += if (repeats[i] == 1) {
-                (letters[i]!!).toString()
+        var current = s[0]
+        var counter = 0
+        input.forEach {
+            if (it == current) {
+                counter++
             } else {
-                repeats[i].toString() + (letters[i]!!).toString()
+                if (counter > 1) {
+                    result += counter
+                }
+                result += current
+                current = it
+                counter = 1
             }
         }
         return result

@@ -1,7 +1,6 @@
 package com.asiantech.intern20summer1.intro.kotlin
 
 import kotlin.math.abs
-import kotlin.math.floor
 
 object IslandOfKnowledge {
     @JvmStatic
@@ -37,10 +36,11 @@ object IslandOfKnowledge {
         ).forEach { e -> println("$e ") }
         )
     }
-    private const val VALID_SIZE : Int = 4
+
+    private const val VALID_SIZE: Int = 4
     private const val MAX_ITEM: Int = 255
 
-    fun areEquallyStrong(
+    private fun areEquallyStrong(
         yourLeft: Int,
         yourRight: Int,
         friendsLeft: Int,
@@ -58,7 +58,7 @@ object IslandOfKnowledge {
                 || yourLeft == friendsRight && yourRight == friendsLeft
     }
 
-    fun arrayMaximalAdjacentDifference(a: MutableList<Int>): Int {
+    private fun arrayMaximalAdjacentDifference(a: MutableList<Int>): Int {
         /**
          * Given an array of integers, find the maximal absolute difference between any
          * two of its adjacent elements.
@@ -72,7 +72,7 @@ object IslandOfKnowledge {
         return max
     }
 
-    fun isIPv4Address(a: String): Boolean {
+    private fun isIPv4Address(a: String): Boolean {
         /**
          * An IP address is a numerical label assigned to each device
          * (e.g., computer, printer) participating in a computer network that uses
@@ -82,24 +82,29 @@ object IslandOfKnowledge {
         Given a string, find out if it satisfies the IPv4 address naming rules.
          */
         val b = a.split("[.]".toRegex()).toTypedArray()
-
-        if (b.size != VALID_SIZE) return false
-        try {
-            for (item in b) {
-                if (item.matches("[0][1-9]".toRegex()) || item.matches("[0][0]".toRegex())) {
-                    return false
+        var result = true
+        if (b.size != VALID_SIZE) {
+            result = false
+        } else {
+            try {
+                for (item in b) {
+                    if (item.matches("[0][1-9]".toRegex()) || item.matches("[0][0]".toRegex())) {
+                        result = false
+                        break
+                    }
+                    if (item.toInt() < 0 || item.toInt() > MAX_ITEM) {
+                        result = false
+                        break
+                    }
                 }
-                if (item.toInt() < 0 || item.toInt() > MAX_ITEM) {
-                    return false
-                }
+            } catch (e: NumberFormatException) {
+                return false
             }
-        } catch (e: NumberFormatException) {
-            return false
         }
-        return true
+        return result
     }
 
-    fun avoidObstacles(a: MutableList<Int>): Int {
+    private fun avoidObstacles(a: MutableList<Int>): Int {
         /**
          * You are given an array of integers representing coordinates of obstacles situated on a straight line.
 
@@ -108,46 +113,10 @@ object IslandOfKnowledge {
 
         Find the minimal length of the jump enough to avoid all the obstacles.
          */
-        a.sort()
-        val max = a[a.size - 1]
-        var x = 2
-        var isExistInArray = false
-        while (true) {
-            isExistInArray = false
-            for (item in a) {
-                if (item == x) {
-                    isExistInArray = true
-                    break
-                }
-            }
-            if (isExistInArray) {
-                x++
-                continue
-            }
-            var jump = 1
-            while (x * jump <= max) {
-                for (item in a) {
-                    if (item == x * jump) {
-                        isExistInArray = true
-                        break
-                    }
-                }
-                if (isExistInArray) {
-                    break
-                }
-                jump++
-            }
-            return if (isExistInArray) {
-                x++
-                continue
-            } else {
-                x
-            }
-            x++
-        }
+        return (1..Int.MAX_VALUE).first { jump -> a.all { it % jump != 0 } }
     }
 
-    fun boxBlur(image: MutableList<MutableList<Int>>): MutableList<MutableList<Int>> {
+    private fun boxBlur(image: MutableList<MutableList<Int>>): MutableList<MutableList<Int>> {
         /**
          *Last night you partied a little too hard. Now there's a black and white photo of you that's
          *  about to go viral! You can't let this ruin your reputation, so you want to apply
@@ -160,25 +129,24 @@ object IslandOfKnowledge {
 
         Return the blurred image as an integer, with the fractions rounded down.
          */
-        val row = image.size
-        val col: Int = image[0].size
-        val rowX = row - 2
-        val colX = col - 2
-        val x = MutableList(rowX) { MutableList(colX) { 0 } }
-        for (i in 0 until rowX) {
-            for (j in 0 until colX) {
-                for (i2 in i..i + 2) {
-                    for (j2 in j..j + 2) {
-                        x[i][j] += image[i2][j2]
-                    }
-                }
-                x[i][j] = floor(x[i][j] / 9.toDouble()).toInt()
+        var xMax = image[0].size - 3
+        var yMax = image.size - 3
+        var sum = 0
+        var result: MutableList<MutableList<Int>> = mutableListOf()
+        for (i in 0..yMax) {
+            var x: MutableList<Int> = mutableListOf()
+            for (j in 0..xMax) {
+                sum = image[i].subList(j, j + 3).sum() +
+                        image[i + 1].subList(j, j + 3).sum() +
+                        image[i + 2].subList(j, j + 3).sum()
+                x.add(sum / 9)
             }
+            result.add(x)
         }
-        return x
+        return result
     }
 
-    fun minesweeper(matrix: MutableList<MutableList<Boolean>>): MutableList<MutableList<Int>> {
+    private fun minesweeper(matrix: MutableList<MutableList<Boolean>>): MutableList<MutableList<Int>> {
         /**
          * In the popular Minesweeper game you have a board with some mines and those cells
          * that don't contain a mine have a number in it that indicates the total number of mines
