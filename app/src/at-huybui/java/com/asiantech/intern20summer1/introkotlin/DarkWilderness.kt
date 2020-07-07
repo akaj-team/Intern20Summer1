@@ -32,18 +32,17 @@ class DarkWilderness {
      * i.e. you can't take two first items or two second items.
      */
     fun knapsackLight(value1: Int, weight1: Int, value2: Int, weight2: Int, maxW: Int): Int {
-        if (maxW >= weight1 + weight2) {
-            return value1 + value2
+        return if (maxW >= weight1 + weight2) {
+             value1 + value2
         } else if (value1 >= value2 && maxW >= weight1) {
-            return value1
+             value1
         } else if (value1 >= value2 && maxW >= weight2) {
-            return value2
+             value2
         } else if (value1 < value2 && maxW >= weight2) {
-            return value2
+             value2
         } else if (value1 < value2 && maxW >= weight1) {
-            return value1
-        }
-        return 0
+             value1
+        } else 0
     }
 
     /** 40 **

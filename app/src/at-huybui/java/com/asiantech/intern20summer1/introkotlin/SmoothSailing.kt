@@ -63,15 +63,15 @@ class SmoothSailing {
      */
     fun reverseInParentheses(inputString: String): String {
         var mOutPut = inputString          // tạo biến đầu ra
-        var Stack = mutableListOf<Int>() // tạo bộ nhớ stack lưu vị trí của ký tự '('
+        var mStack = mutableListOf<Int>() // tạo bộ nhớ stack lưu vị trí của ký tự '('
         inputString.forEachIndexed { index, c ->   // quét forEach với index
             when (c) {
                 '(' -> {   // nếu ký tự là ')' thì lưu vị trí của nó vào stack
-                    Stack.add(index)
+                    mStack.add(index)
                 }
                 ')' -> {  // Nếu ký tự là ')' thì lấy vị trí mới lưu và vị trí hiện tại để căt và lật chuỗi rỗi ghép lại
                     val indexS =
-                        Stack.removeAt(Stack.size - 1)  // lấy vị trí đồng thời xóa vị trí đó
+                        mStack.removeAt(mStack.size - 1)  // lấy vị trí đồng thời xóa vị trí đó
                     mOutPut = mOutPut.substring(0, indexS) + mOutPut.substring(indexS, index)
                             .reversed() + mOutPut.substring(index)
                 }

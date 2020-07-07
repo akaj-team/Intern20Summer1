@@ -106,6 +106,4 @@ class IslandofKnowledge {
         return mNewArray
     }
 
-
-
 }

@@ -35,5 +35,4 @@ class EruptionOfLight {
         return "0"
     }
 
-
 }
