@@ -23,7 +23,7 @@ object TheJourneyBegins {
         return param1 + param2
     }
     private fun centuryFromYear(year: Int): Int {
-        if(year % 100 ==0){
+        if(year % DIV ==0){
             return year / DIV
         }else{
             return year / DIV +1
