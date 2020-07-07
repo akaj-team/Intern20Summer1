@@ -38,7 +38,7 @@ object IslandOfKnowledge {
     }
 
     private const val VALID_SIZE: Int = 4
-    private const val MAX_ITEM: Int = 255
+    private const val MAX_RANGE: Int = 255
     private const val BORDER: Int = 3
     private const val BOUND: Int = 9
 
@@ -84,7 +84,7 @@ object IslandOfKnowledge {
         Given a string, find out if it satisfies the IPv4 address naming rules.
          */
         val tokens = a.split(".")
-        return tokens.size == 4 && tokens.all { it.toIntOrNull() in 0..255 }
+        return tokens.size == VALID_SIZE && tokens.all { it.toIntOrNull() in 0..MAX_RANGE }
     }
 
     private fun avoidObstacles(a: MutableList<Int>): Int {

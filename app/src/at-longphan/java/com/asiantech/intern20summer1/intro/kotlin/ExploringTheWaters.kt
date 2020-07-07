@@ -56,7 +56,7 @@ object ExploringTheWaters {
 
         Given two arrays a and b, check whether they are similar.
          */
-        return a.sorted() == b.sorted() && a.zip(b).filter { it.first != it.second }.count() < 3
+        return a.sorted() == b.sorted() && a.zip(b).filter { it.first != it.second }.count() <= 2
     }
 
     private fun arrayChange(a: MutableList<Int>): Int {
