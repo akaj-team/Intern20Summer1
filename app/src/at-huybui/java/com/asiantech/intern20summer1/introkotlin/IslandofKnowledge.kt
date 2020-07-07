@@ -1,6 +1,4 @@
-package com.asiantech.intern20summer1.introKotlin
-
-import kotlin.math.abs
+package com.asiantech.intern20summer1.introkotlin
 
 class IslandofKnowledge {
 

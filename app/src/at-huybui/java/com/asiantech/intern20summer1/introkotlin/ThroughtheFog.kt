@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.introKotlin
+package com.asiantech.intern20summer1.introkotlin
 
 class ThroughtheFog {
     /**
@@ -25,8 +25,8 @@ class ThroughtheFog {
      */
     fun depositProfit(deposit: Int, rate: Int, threshold: Int): Int {
         var mYear = 0 // khai báo số năm
-        var newDeposit =
-            deposit.toDouble() // Ép deposit qua double để tránh ép kiểu nhiều lần tốn chu kỳ máy
+        var newDeposit = deposit.toDouble()
+        // Ép deposit qua double để tránh ép kiểu nhiều lần tốn chu kỳ máy
         while (newDeposit < threshold) {
             newDeposit += newDeposit * (rate / 100.0)
             mYear++

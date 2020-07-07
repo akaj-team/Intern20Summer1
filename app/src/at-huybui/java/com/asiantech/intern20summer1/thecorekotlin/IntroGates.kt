@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.theCoreKotlin
+package com.asiantech.intern20summer1.thecorekotlin
 
 class IntroGates {
 

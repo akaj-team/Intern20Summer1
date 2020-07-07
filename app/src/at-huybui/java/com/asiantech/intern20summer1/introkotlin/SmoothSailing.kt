@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.introKotlin
+package com.asiantech.intern20summer1.introkotlin
 
 class SmoothSailing {
 
