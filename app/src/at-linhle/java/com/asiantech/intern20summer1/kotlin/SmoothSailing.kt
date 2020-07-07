@@ -3,9 +3,6 @@ package com.asiantech.intern20summer1.kotlin
 import java.util.*
 
 class SmoothSailing {
-    /**
-     * Given an array of strings, return another array containing all of its longest strings
-     */
     fun allLongestStrings(inputArray: MutableList<String>): MutableList<String> {
         var max = 0
         for (i in 0 until inputArray.size) {
@@ -20,9 +17,6 @@ class SmoothSailing {
         return outputArray
     }
 
-    /**
-     * Given two strings, find the number of common characters between them.
-     */
     fun commonCharacterCount(s1: String, s2: String): Int {
         var count = 0
         val arr: MutableList<Int> = mutableListOf()
@@ -38,11 +32,6 @@ class SmoothSailing {
         return count
     }
 
-    /**
-     * Ticket numbers usually consist of an even number of digits. A ticket number is considered
-     * lucky if the sum of the first half of the digits is equal to the sum of the second half.
-     * Given a ticket number n, determine if it's lucky or not.
-     */
     fun isLucky(n: Int): Boolean {
         val str = n.toString()
         var sum = 0
@@ -52,11 +41,6 @@ class SmoothSailing {
         return sum == 0
     }
 
-    /**
-     * Some people are standing in a row in a park. There are trees between them which cannot
-     * be moved. Your task is to rearrange the people by their heights in a non-descending order
-     * without moving the trees. People can be very tall!
-     */
     fun sortByHeight(a: MutableList<Int>): MutableList<Int> {
         for (i in 0 until a.size - 1) {
             for (j in i + 1 until a.size) {
@@ -68,10 +52,6 @@ class SmoothSailing {
         return a
     }
 
-    /**
-     * Write a function that reverses characters in (possibly nested) parentheses in the input
-     * string. Input strings will always be well-formed with matching ()s.
-     */
     fun reverseInParentheses(inputString: String): String {
         val stack = Stack<String>()
         var str = ""
