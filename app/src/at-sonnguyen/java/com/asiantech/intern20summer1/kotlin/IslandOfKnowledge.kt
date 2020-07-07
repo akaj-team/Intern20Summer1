@@ -19,8 +19,9 @@ object IslandOfKnowledge {
     /*
     *   Given an array of integers, find the maximal absolute difference between any two of its adjacent elements
     */
-    private fun arrayMaximalAdjacentDifference(inputArray: MutableList<Int>) =
-        inputArray.zip(inputArray.drop(1)) { a, b -> abs(a - b) }.max()
+    private fun arrayMaximalAdjacentDifference(inputArray: MutableList<Int>) : Int? {
+        return inputArray.zip(inputArray.drop(1)) { a, b -> abs(a - b) }.max()
+    }
 
     /*
     *   Given a string, find out if it satisfies the IPv4 address naming rules.
