@@ -46,16 +46,19 @@ class IslandofKnowledge {
             println(regex.matches(inputString))
             return false
         }
-
         var mArrayNumber = inputString.split(".") // tách chuỗi thành mảng phần tử
         mArrayNumber.forEach { st -> // quét mảng phần tử
+            var flat = false
             if (st.length > 1 && st.toInt() == 0) {   // nếu giá trị bằng ko mà độ dài chuỗi > 1 =>false
-                return false
+                flat =true
             } else if (st.toInt() < 0 || st.toInt() > 255) { // giá trị < 0 và > 255 false
-                return false
+                flat =true
             } else if (st.toInt() in 1..255 && st.substring(0, 1) == "0") { // giá trị trong khoảng 1..255 mà giá trị đầu là 0 => flase
-                return false
+                flat =true
             }
+           if(flat){
+               return false
+           }
         }
         return true // còn lại thì true
     }

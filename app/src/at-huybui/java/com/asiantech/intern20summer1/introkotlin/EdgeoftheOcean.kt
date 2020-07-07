@@ -43,18 +43,18 @@ class EdgeoftheOcean {
      */
 
     fun almostIncreasingSequence(sequence: MutableList<Int>): Boolean {
-        var flat = 0
-        for (i in 0 until sequence.size - 1) {
-            if (sequence[i] >= sequence[i + 1]) {
-                flat++
+        var mFlat = 0
+        for (i in 0 until sequence.size - 1) {  // quets mảng
+            if (sequence[i] >= sequence[i + 1]) {    // nếu giá trị thứ y lớn hơn giá trị i+1 thì công flat lên
+                mFlat++
                 if (i >= 1 && i + 2 <= sequence.size - 1 && sequence[i] >= sequence[i + 2]) {
-                    if (sequence[i - 1] >= sequence[i + 1]) {
+                    if (sequence[i - 1] >= sequence[i + 1]) { // kiểm tra điêu kiện cho 3 phần turwr nếu sai thì trả vềluoon
                         return false
                     }
                 }
             }
         }
-        return flat <= 1
+        return mFlat <= 1
     }
 
     /** 8 ** đề bài tại link
