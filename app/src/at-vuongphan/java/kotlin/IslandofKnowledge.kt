@@ -3,6 +3,7 @@ object IslaclsndofKnowledge {
     private const val CHARTEST ='0'
     private const val NUMBERSTART = 0
     private const val NUMBEREND = 255
+    private const val DIVIP = 4
     @JvmStatic
     fun main(args: Array<String>) {
         /**
@@ -68,7 +69,7 @@ object IslaclsndofKnowledge {
     }
     private fun isIPv4Address(inputString: String): Boolean {
         var tokens = inputString.split(".")
-        if(tokens.size != 4){
+        if(tokens.size != DIVIP){
             return false
         }
         for(i in 0 until tokens.size){
