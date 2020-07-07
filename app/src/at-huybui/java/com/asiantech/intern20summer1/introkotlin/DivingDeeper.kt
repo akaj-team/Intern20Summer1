@@ -39,7 +39,7 @@ class DivingDeeper {
         var mSumOut = 0;
         inputArray.forEachIndexed { index1, i1 ->
             if (index1 <= inputArray.size - k) {
-                val sumnew = inputArray.filterIndexed { index2, i2 -> (index2 < index1 + k) && (index2 >= index1) }.sum()
+                val sumnew =    inputArray.filterIndexed { index2, i2 -> (index2 < index1 + k) && (index2 >= index1) }.sum()
                 if (sumnew > mSumOut) {
                     mSumOut = sumnew
                 }
