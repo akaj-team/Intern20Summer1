@@ -1,6 +1,8 @@
 package com.asiantech.intern20summer1.kotlin
 
 object DarkWilderness {
+    private const val TEN = 10
+
     fun growingPlant(upSpeed: Int, downSpeed: Int, desiredHeight: Int): Int {
         var height: Int = 0
         var day: Int = 0
@@ -56,8 +58,8 @@ object DarkWilderness {
         var sum: Int = 0
 
         while (number > 0) {
-            sum += (number % 10)
-            number /= 10
+            sum += (number % TEN)
+            number /= TEN
         }
 
         return sum
