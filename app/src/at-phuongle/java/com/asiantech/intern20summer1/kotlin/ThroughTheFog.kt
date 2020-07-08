@@ -4,6 +4,7 @@ object ThroughTheFog {
     private const val PERCENT = 100.0
 
     fun circleOfNumbers(n: Int, firstNumber: Int): Int {
+        var result: Int = 0
         var numbers1: IntArray = IntArray(n / 2)
         var numbers2: IntArray = IntArray(numbers1.size)
         var m: Int = 0
@@ -22,13 +23,13 @@ object ThroughTheFog {
         for (i in numbers1.indices) {
             if (firstNumber == numbers1[i]) {
                 indexOfOpposite = i
-                return numbers2[indexOfOpposite]
+                result = numbers2[indexOfOpposite]
             } else if (firstNumber == numbers2[i]) {
                 indexOfOpposite = i
-                return numbers1[indexOfOpposite]
+                result = numbers1[indexOfOpposite]
             }
         }
-        return 0
+        return result
     }
 
     fun depositProfit(deposit: Int, rate: Int, threshold: Int): Int {
