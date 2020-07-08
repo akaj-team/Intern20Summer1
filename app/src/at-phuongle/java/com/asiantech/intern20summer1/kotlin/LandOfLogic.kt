@@ -16,16 +16,17 @@ object LandOfLogic {
     }
 
     fun validTime(time: String): Boolean {
+        var check : Boolean = true
         var regex: String = "[:]"
         var strings: Array<String> = time.split(regex.toRegex()).toTypedArray()
         if (strings[0].toInt() < 0 || strings[0].toInt() > 23) {
-            return false
+            check = false
         }
         if (strings[1].toInt() < 0 || strings[1].toInt() > 59) {
-            return false
+            check = false
         }
 
-        return true
+        return check
     }
 
     fun sumUpNumbers(inputString: String): Int {
