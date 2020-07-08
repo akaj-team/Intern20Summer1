@@ -18,7 +18,7 @@ object EdgeOfTheOcean {
         return n * n + (n - 1) * (n - 1);
     }
 
-    fun sortASC(arr: Array<Int>): Unit {
+    private fun sortASC(arr: Array<Int>): Unit {
         var temp: Int = arr[0];
         for (i in 0 until (arr.size - 1)) {
             for (j in (i + 1) until (arr.size)) {
@@ -59,4 +59,19 @@ object EdgeOfTheOcean {
         return n <= 1;
     }
 
+    fun matrixElementsSum(matrix: Array<Array<Int>>): Int {
+        var sum: Int = 0
+
+        for (i in matrix[0].indices) {
+            for (j in matrix.indices) {
+                if (matrix[j][i] > 0) {
+                    sum += matrix[j][i]
+                } else {
+                    break
+                }
+            }
+        }
+
+        return sum
+    }
 }
