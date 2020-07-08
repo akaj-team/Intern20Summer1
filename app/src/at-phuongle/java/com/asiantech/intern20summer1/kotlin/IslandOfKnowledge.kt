@@ -48,7 +48,7 @@ object IslandOfKnowledge {
         if (numbers.size != 4) {
             check = false
         } else {
-            for (i in 0 until numbers.size) {
+            for (i in numbers.indices) {
                 try {
                     if ((numbers[i].length == 2) && Integer.parseInt(numbers[i]) < 10) {
                         check = false
