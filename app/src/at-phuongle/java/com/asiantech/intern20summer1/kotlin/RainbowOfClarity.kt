@@ -1,6 +1,12 @@
 package com.asiantech.intern20summer1.kotlin
 
 object RainbowOfClarity {
+    private const val SEVEN = 7
+    private const val TEN = 10
+    private const val a = 97
+    private const val TO_NUMBER = 49
+    private const val CHESS_BOARD = 8
+
     fun isDigit(symbol: Char): Boolean {
         return symbol.isDigit()
     }
@@ -27,10 +33,10 @@ object RainbowOfClarity {
     }
 
     fun chessKnight(cell: String): Int {
-        var matrix: Array<IntArray> = Array(8, { IntArray(8) })
+        var matrix: Array<IntArray> = Array(CHESS_BOARD, { IntArray(CHESS_BOARD) })
         var count: Int = 0
-        var i1Cell: Int = 7 - (cell[0].toInt() - 97)
-        var i2Cell: Int = cell[1].toInt() - 49
+        var i1Cell: Int = SEVEN - (cell[0].toInt() - a)
+        var i2Cell: Int = cell[1].toInt() - TO_NUMBER
         var X: Array<Int> = arrayOf(2, 1, -1, -2, -2, -1, 1, 2)
         var Y: Array<Int> = arrayOf(1, 2, 2, 1, -1, -2, -2, -1)
 
@@ -40,7 +46,7 @@ object RainbowOfClarity {
             }
         }
 
-        for (i in 0 until 8) {
+        for (i in 0 until CHESS_BOARD) {
 
             var x: Int = i1Cell + X[i]
             var y: Int = i2Cell + Y[i]
@@ -61,8 +67,8 @@ object RainbowOfClarity {
         var listNumbers: MutableList<Int> = mutableListOf()
 
         while (number > 0) {
-            listNumbers.add(number % 10)
-            number /= 10
+            listNumbers.add(number % TEN)
+            number /= TEN
         }
 
         for (i in 0 until listNumbers.size) {

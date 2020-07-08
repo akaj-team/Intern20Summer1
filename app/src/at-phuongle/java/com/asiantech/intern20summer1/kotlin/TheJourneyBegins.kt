@@ -1,19 +1,21 @@
 package com.asiantech.intern20summer1.kotlin
 
 object TheJourneyBegins {
+    private const val CENTURY = 100
+
     fun add(param1 : Int, param2 : Int): Int {
         return param1 + param2;
     }
 
     fun centuryFromYear(year : Int) :Int {
         var result : Int;
-        if (year <= 100) {
+        if (year <= CENTURY) {
             result = 1
         } else {
-            if(year % 100 == 0) {
-                result = year / 100
+            if(year % CENTURY == 0) {
+                result = year / CENTURY
             } else {
-                result = year / 100 + 1
+                result = year / CENTURY + 1
             }
         }
 

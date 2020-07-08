@@ -1,6 +1,12 @@
 package com.asiantech.intern20summer1.kotlin
 
 object RainsOfReason {
+    private const val TEN = 10
+    private const val CURLY_BRACKETS = 123
+    private const val a = 97
+    private const val A = 65
+    private const val TO_NUMBER = 49
+
     fun arrayReplace(
         inputArray: Array<Int>,
         elemToReplace: Int,
@@ -17,11 +23,11 @@ object RainsOfReason {
     fun evenDigitsOnly(n: Int): Boolean {
         var number: Int = n
         while (number > 0) {
-            var digit: Int = number % 10
+            var digit: Int = number % TEN
             if (digit % 2 != 0) {
                 return false
             }
-            number /= 10
+            number /= TEN
         }
         return true
     }
@@ -42,8 +48,8 @@ object RainsOfReason {
         for (element in inputString) {
             var temp: Char = element
             var n: Int = (temp + 1).toInt()
-            if (n == 123) {
-                n = 97
+            if (n == CURLY_BRACKETS) {
+                n = a
             }
             temp = n.toChar()
             newString += temp
@@ -53,10 +59,10 @@ object RainsOfReason {
     }
 
     fun chessBoardCellColor(cell1: String, cell2: String): Boolean {
-        var i1Cell1: Int = (cell1[0]).toInt() - 65
-        var i2Cell1: Int = (cell1[1]).toInt() - 49
-        var i1Cell2: Int = (cell2[0]).toInt() - 65
-        var i2Cell2: Int = (cell2[1]).toInt() - 49
+        var i1Cell1: Int = (cell1[0]).toInt() - A
+        var i2Cell1: Int = (cell1[1]).toInt() - TO_NUMBER
+        var i1Cell2: Int = (cell2[0]).toInt() - A
+        var i2Cell2: Int = (cell2[1]).toInt() - TO_NUMBER
         var check1: Char
         var check2: Char
 

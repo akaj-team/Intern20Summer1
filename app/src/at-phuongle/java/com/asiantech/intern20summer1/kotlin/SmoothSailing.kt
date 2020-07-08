@@ -1,16 +1,18 @@
 package com.asiantech.intern20summer1.kotlin
 
 object SmoothSailing {
+    private const val TEN = 10
+
     fun allLongestStrings(inputArray: Array<String>): Array<String> {
         var longestLength: Int = 0
         var longestStrings: MutableList<String> = mutableListOf();
-        for (i in 0 until inputArray.size) {
+        for (i in inputArray.indices) {
             if (inputArray[i].length > longestLength) {
                 longestLength = inputArray[i].length
             }
         }
 
-        for (i in 0 until inputArray.size) {
+        for (i in inputArray.indices) {
             if (inputArray[i].length == longestLength) {
                 longestStrings.add(inputArray[i])
             }
@@ -23,13 +25,13 @@ object SmoothSailing {
         var charsArray1: CharArray = s1.toCharArray();
         var charsArray2: CharArray = s2.toCharArray();
         var listChar2: MutableList<Char> = mutableListOf();
-        for (i in 0 until charsArray2.size) {
-            listChar2.add(charsArray2[i]);
+        for (element in charsArray2) {
+            listChar2.add(element);
         }
 
-        for (i in 0 until charsArray1.size) {
+        for (element in charsArray1) {
             for (j in 0 until listChar2.size) {
-                if (charsArray1[i] == listChar2.get(j)) {
+                if (element == listChar2.get(j)) {
                     count++;
                     listChar2.removeAt(j);
                     break;
@@ -48,8 +50,8 @@ object SmoothSailing {
         var sum2: Int = 0
 
         while (number > 0) {
-            numbers.add(number % 10)
-            number /= 10
+            numbers.add(number % TEN)
+            number /= TEN
         }
 
         if ((numbers.size % 2) != 0) {
@@ -57,8 +59,8 @@ object SmoothSailing {
         }
 
         for (i in 0 until (numbers.size / 2)) {
-            sum1 += numbers.get(i)
-            sum2 += numbers.get(numbers.size - i - 1)
+            sum1 += numbers[i]
+            sum2 += numbers[numbers.size - i - 1]
         }
 
         if (sum1 != sum2) {
@@ -71,7 +73,7 @@ object SmoothSailing {
     fun sortByHeight(a: Array<Int>): Array<Int> {
         var numbers: MutableList<Int> = mutableListOf()
 
-        for (i in 0 until a.size) {
+        for (i in a.indices) {
             if (a[i] != -1) {
                 numbers.add(a[i])
             }
@@ -79,14 +81,14 @@ object SmoothSailing {
 
         numbers.sort()
 
-        for (i in 0 until a.size) {
+        for (i in a.indices) {
             if (a[i] != -1) {
-                a[i] = numbers.get(0);
-                numbers.removeAt(0);
+                a[i] = numbers.get(0)
+                numbers.removeAt(0)
             }
         }
 
-        return a;
+        return a
     }
 
     fun reverseInParentheses(string: String): String {
@@ -118,11 +120,11 @@ object SmoothSailing {
         while (n > 0) {
             j = T[n - 1] + 1;
             while (s[j] != ')') {
-                tmpCh = tmpCh + s[j];
+                tmpCh += s[j];
                 j++;
             }
             for (q in (tmpCh.length - 1) downTo 0)
-                tmpChRe = tmpChRe + tmpCh[q];
+                tmpChRe += tmpCh[q];
             tmp = s.substring(0, T[n - 1]) + tmpChRe + s.substring(T[n - 1] + tmpChRe.length + 2);
             s = tmp;
             n--;

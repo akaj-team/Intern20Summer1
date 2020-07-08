@@ -1,6 +1,10 @@
 package com.asiantech.intern20summer1.kotlin
 
 object LandOfLogic {
+    private const val NINE = 9
+    private const val VALID_HOUR = 23
+    private const val VALID_MINUTE = 59
+
     fun longestWord(text: String): String {
         var regex: String = "[^a-zA-Z]+"
         var strings: Array<String> = text.split(regex.toRegex()).toTypedArray()
@@ -19,10 +23,10 @@ object LandOfLogic {
         var check: Boolean = true
         var regex: String = "[:]"
         var strings: Array<String> = time.split(regex.toRegex()).toTypedArray()
-        if (strings[0].toInt() < 0 || strings[0].toInt() > 23) {
+        if (strings[0].toInt() < 0 || strings[0].toInt() > VALID_HOUR) {
             check = false
         }
-        if (strings[1].toInt() < 0 || strings[1].toInt() > 59) {
+        if (strings[1].toInt() < 0 || strings[1].toInt() > VALID_MINUTE) {
             check = false
         }
 
@@ -56,7 +60,7 @@ object LandOfLogic {
         }
 
 
-        for (divisor in 9 downTo 2) {
+        for (divisor in NINE downTo 2) {
             while (p % divisor == 0) {
                 p /= divisor
                 digits = divisor.toString() + digits

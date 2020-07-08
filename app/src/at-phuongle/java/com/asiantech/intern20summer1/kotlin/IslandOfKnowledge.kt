@@ -1,6 +1,10 @@
 package com.asiantech.intern20summer1.kotlin
 
 object IslandOfKnowledge {
+    private const val FOUR = 4
+    private const val TEN = 10
+    private const val MAX_IPv4 = 255
+
     fun areEquallyStrong(yourLeft : Int, yourRight : Int, friendsLeft : Int, friendsRight : Int) : Boolean {
         var myHeaviestWeights : Int
         var friendsHeaviestWeights : Int
@@ -45,18 +49,18 @@ object IslandOfKnowledge {
         var regex : String = "[.]"
         var numbers : Array<String> = inputString.split(regex.toRegex()).toTypedArray()
 
-        if (numbers.size != 4) {
+        if (numbers.size != FOUR) {
             check = false
         } else {
             for (i in numbers.indices) {
                 try {
-                    if ((numbers[i].length == 2) && Integer.parseInt(numbers[i]) < 10) {
+                    if ((numbers[i].length == 2) && Integer.parseInt(numbers[i]) < TEN) {
                         check = false
                     }
                     if (numbers[i].isNullOrEmpty()) {
                         check = false
                     }
-                    if(Integer.parseInt(numbers[i]) < 0 || Integer.parseInt(numbers[i]) > 255) {
+                    if(Integer.parseInt(numbers[i]) < 0 || Integer.parseInt(numbers[i]) > MAX_IPv4) {
                         check = false
                     }
                 } catch (ex1 : IndexOutOfBoundsException) {
@@ -90,6 +94,4 @@ object IslandOfKnowledge {
 
         return count
     }
-
-
 }

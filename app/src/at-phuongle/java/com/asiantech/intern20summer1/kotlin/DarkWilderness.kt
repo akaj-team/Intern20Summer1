@@ -2,6 +2,9 @@ package com.asiantech.intern20summer1.kotlin
 
 object DarkWilderness {
     private const val TEN = 10
+    private const val SEVEN = 7
+    private const val a = 97
+    private const val TO_NUMBER = 49
 
     fun growingPlant(upSpeed: Int, downSpeed: Int, desiredHeight: Int): Int {
         var height: Int = 0
@@ -69,7 +72,7 @@ object DarkWilderness {
         var number: Int = n
         var count: Int = 0
 
-        while (number >= 10) {
+        while (number >= TEN) {
             count++
             number = sumOfDigits(number)
         }
@@ -79,10 +82,10 @@ object DarkWilderness {
 
     fun bishopAndPawn(bishop: String, pawn: String): Boolean {
         var check: Boolean = false
-        var i1Bishop: Int = 7 - (bishop[0].toInt() - 97)
-        var i2Bishop: Int = bishop[1].toInt() - 49
-        var i1Pawn: Int = 7 - (pawn[0].toInt() - 97)
-        var i2Pawn: Int = pawn[1].toInt() - 49
+        var i1Bishop: Int = SEVEN - (bishop[0].toInt() - a)
+        var i2Bishop: Int = bishop[1].toInt() - TO_NUMBER
+        var i1Pawn: Int = SEVEN - (pawn[0].toInt() - a)
+        var i2Pawn: Int = pawn[1].toInt() - TO_NUMBER
 
         if (i1Pawn > i1Bishop && i2Pawn > i2Bishop) {
             if ((i1Pawn - i1Bishop) == (i2Pawn - i2Bishop)) {
