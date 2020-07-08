@@ -4,7 +4,7 @@ object ExploringTheWaters {
     fun alternatingSums(a: IntArray): IntArray {
         var aSums: IntArray = IntArray(2)
 
-        for (i in 0 until a.size) {
+        for (i in a.indices) {
             if (i % 2 == 0) {
                 aSums[0] += a[i];
             } else {
@@ -20,7 +20,7 @@ object ExploringTheWaters {
         var newPicture: Array<String?> = arrayOfNulls<String>(borderRow)
         var tmp: String = ""
 
-        for (i in 0 until newPicture.size) {
+        for (i in newPicture.indices) {
             if (i == 0 || i == borderRow - 1) {
                 for (j in 0 until borderCol) {
                     tmp += "*"
@@ -76,11 +76,7 @@ object ExploringTheWaters {
             var aPos2: Int = pos2.aElement;
             var bPos2: Int = pos2.bElement;
 
-            if (aPos1 == bPos2 && bPos1 == aPos2) {
-                check = true;
-            } else {
-                check = false;
-            }
+            check = aPos1 == bPos2 && bPos1 == aPos2
         } else {
             check = false;
         }
@@ -105,7 +101,7 @@ object ExploringTheWaters {
     fun palindromeRearranging(inputString: String): Boolean {
         var list: MutableList<Char> = mutableListOf()
 
-        for (i in 0 until inputString.length) {
+        for (i in inputString.indices) {
             if (list.contains(inputString[i])) {
                 list.remove(inputString[i]);
             } else {
@@ -113,11 +109,7 @@ object ExploringTheWaters {
             }
         }
 
-        if (list.size == 0 || list.size == 1) {
-            return true;
-        } else {
-            return false;
-        }
+        return list.size == 0 || list.size == 1
     }
 
 }
