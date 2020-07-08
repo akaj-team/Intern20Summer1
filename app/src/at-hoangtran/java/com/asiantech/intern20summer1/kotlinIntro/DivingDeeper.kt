@@ -36,15 +36,16 @@ class DivingDeeper {
         }
         return count
     }
+
     fun arrayMaxConsecutiveSum(inputArray: MutableList<Int>, k: Int): Int {
 //        Given array of integers, find the maximal possible sum of some of its k consecutive elements.
         var max = 0
-        for(i in 0..inputArray.size-k){
-            var sum:Int = 0
-            for(j in 0..k-1){
-                sum += inputArray[i+j]
+        for (i in 0..inputArray.size - k) {
+            var sum: Int = 0
+            for (j in 0..k - 1) {
+                sum += inputArray[i + j]
             }
-            if(max<sum){
+            if (max < sum) {
                 max = sum
             }
         }
@@ -59,5 +60,5 @@ fun main(args: Array<String>) {
     println(nah.extractEachKth((intArray), 6))
     println(nah.firstDigit("fgdg1"))
     println(nah.differentSymbolsNaive("dfgdfhcb"))
-    println(nah.arrayMaxConsecutiveSum(intArray,2))
+    println(nah.arrayMaxConsecutiveSum(intArray, 2))
 }
