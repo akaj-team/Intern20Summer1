@@ -63,7 +63,7 @@ object DivingDeeper {
                 }
 
             } catch (ex4: Exception) {
-
+                println("Exception")
             }
             if (sum > maxSum) {
                 maxSum = sum
