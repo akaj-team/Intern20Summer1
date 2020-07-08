@@ -16,7 +16,7 @@ object LandOfLogic {
     }
 
     fun validTime(time: String): Boolean {
-        var check : Boolean = true
+        var check: Boolean = true
         var regex: String = "[:]"
         var strings: Array<String> = time.split(regex.toRegex()).toTypedArray()
         if (strings[0].toInt() < 0 || strings[0].toInt() > 23) {
@@ -48,11 +48,11 @@ object LandOfLogic {
         var digits: String = ""
 
         if (p == 0) {
-            return 10
+            digits = "10"
         }
 
         if (p == 1) {
-            return 1
+            digits = "1"
         }
 
 
@@ -64,7 +64,7 @@ object LandOfLogic {
         }
 
         if (p > 1) {
-            return -1
+            digits = "-1"
         }
 
         return digits.toInt()
