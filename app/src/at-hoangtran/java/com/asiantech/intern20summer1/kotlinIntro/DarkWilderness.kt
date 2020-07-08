@@ -9,7 +9,7 @@ class DarkWilderness {
 //
 //        Since you grew the plant from a seed, it started at height 0 initially. Given an integer
 //        desiredHeight, your task is to find how many days it'll take for the plant to reach this height.
-//        var height = 0
+        var height = 0
         var count = 1
         while (height < desiredHeight) {
             height += upSpeed
@@ -65,7 +65,7 @@ class DarkWilderness {
 //        Let's define digit degree of some positive integer as the number of times we need
 //        to replace this number with the sum of its digits until we get to a one digit number.
 
-        Given an integer, find its digit degree.
+//        Given an integer, find its digit degree.
         var count = 0
         var sum = 0
         var n = n.toString()
