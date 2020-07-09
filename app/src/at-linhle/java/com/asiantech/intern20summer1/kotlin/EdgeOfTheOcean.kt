@@ -53,18 +53,12 @@ class EdgeOfTheOcean {
 
     fun matrixElementsSum(matrix: MutableList<MutableList<Int>>): Int {
         var sum = 0
-        for (i in 0 until matrix.size) {
-            for (j in 0 until matrix[0].size) {
-                if (matrix[i][j] == 0) {
-                    if (i < matrix.size - 1) {
-                        matrix[i + 1][j] = 0
-                    } else {
-                        continue
-                    }
-                } else {
-                    sum += matrix[i][j]
-                }
+        for (x in 0 until matrix[0].size) {
+            var columnValue = 0
+            for (y in matrix.size - 1 downTo 0) {
+                columnValue = if (matrix[y][x] == 0) 0 else matrix[y][x] + columnValue
             }
+            sum += columnValue
         }
         return sum
     }

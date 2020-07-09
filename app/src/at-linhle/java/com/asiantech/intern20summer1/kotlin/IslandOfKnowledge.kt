@@ -33,7 +33,7 @@ class IslandOfKnowledge {
 
     fun isIPv4Address(inputString: String): Boolean {
         val tokens = inputString.split(".")
-        return tokens.size == 4 && tokens.all { it.toIntOrNull() in 0..255 }
+        return tokens.size == FOUR && tokens.all { it.toIntOrNull() in 0..NUMBER }
     }
 
     fun avoidObstacles(inputArray: MutableList<Int>): Int {
