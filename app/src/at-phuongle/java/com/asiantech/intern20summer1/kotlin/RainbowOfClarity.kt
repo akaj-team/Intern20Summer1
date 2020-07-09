@@ -47,14 +47,16 @@ object RainbowOfClarity {
         }
 
         for (i in 0 until CHESS_BOARD) {
-
             var x: Int = i1Cell + X[i]
             var y: Int = i2Cell + Y[i]
 
-            if (x >= 0 && y >= 0 && x < matrix.size && y < matrix[0].size
-                && matrix[x][y] == 0
-            )
-                count++
+            if (x >= 0 && y >= 0) {
+                if (x < matrix.size && y < matrix[0].size) {
+                    if (matrix[x][y] == 0) {
+                        count++
+                    }
+                }
+            }
         }
 
         return count
