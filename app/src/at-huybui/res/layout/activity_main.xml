@@ -1,15 +1,255 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_weight="0.95"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="30dp"
+        android:layout_gravity="center"
+        android:src="@drawable/logo" />
+
+    <RelativeLayout
+        android:layout_weight="1"
+        android:id="@+id/RelativeEmail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tvEmailTile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="68dp"
+            android:layout_marginLeft="68dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/email_title"
+            android:textSize="12dp" />
+
+        <EditText
+            android:id="@+id/edtEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/tvEmailTile"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="68dp"
+            android:layout_marginLeft="68dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="68dp"
+            android:layout_marginRight="68dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/custom_edittext"
+            android:hint="email"
+            android:paddingLeft="20dp" />
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignTop="@+id/edtEmail"
+            android:layout_alignEnd="@+id/edtEmail"
+            android:layout_alignRight="@+id/edtEmail"
+            android:layout_alignBottom="@+id/edtEmail"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="0dp"
+            android:src="@drawable/ic_launcher_background" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_weight="1"
+        android:id="@+id/RelativePass"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tvPassTile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="68dp"
+            android:layout_marginLeft="68dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/pass_title"
+            android:textSize="12sp" />
+
+        <EditText
+            android:id="@+id/edtPass"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/tvPassTile"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="68dp"
+            android:layout_marginLeft="68dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="68dp"
+            android:layout_marginRight="68dp"
+            android:layout_marginBottom="10dp"
+            android:inputType="textPassword"
+            android:background="@drawable/custom_edittext"
+            android:hint="xxxx"
+            android:paddingLeft="20dp" />
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignTop="@+id/edtPass"
+            android:layout_alignEnd="@+id/edtPass"
+            android:layout_alignRight="@+id/edtPass"
+            android:layout_alignBottom="@+id/edtPass"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="0dp"
+            android:src="@drawable/ic_launcher_background" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_weight="1"
+        android:id="@+id/RelativeRePass"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tvRePassTile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="68dp"
+            android:layout_marginLeft="68dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/repass_title"
+            android:textSize="12sp" />
+
+        <EditText
+            android:id="@+id/edtRePass"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/tvRePassTile"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="68dp"
+            android:layout_marginLeft="68dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="68dp"
+            android:layout_marginRight="68dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/custom_edittext"
+            android:hint="xxxx"
+            android:inputType="textPassword"
+            android:paddingLeft="20dp" />
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignTop="@+id/edtRePass"
+            android:layout_alignEnd="@+id/edtRePass"
+            android:layout_alignRight="@+id/edtRePass"
+            android:layout_alignBottom="@+id/edtRePass"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="0dp"
+            android:src="@drawable/ic_launcher_background" />
+    </RelativeLayout>
 
     <TextView
+        android:layout_weight="1.09"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/link_btn_title"
+        android:layout_marginTop="10dp"
+
+
+        android:gravity="center"
+        android:textSize="15sp"/>
+    
+    <LinearLayout
+        android:layout_weight="1.11"
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/btn_facebook" />
+        <ImageView
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/btn_twitter"/>
+        <ImageView
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/btn_google_plus"/>
+
+    </LinearLayout>
+
+    <Button
+        android:layout_weight="1.08"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="68dp"
+        android:layout_marginRight="68dp"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        android:text="@string/signup"
+        android:textColor="#FAF4F1"
+        android:background="@drawable/custom_button" />
+
+    <LinearLayout
+        android:layout_weight="1.08"
+        android:layout_gravity="center"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/not_register"
+            android:textSize="13sp"
+            android:gravity="bottom|right"
+            android:paddingBottom="10dp"
+            />
+        <TextView
+
+            android:layout_weight="2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="2dp"
+            android:text="@string/signup_edt"
+            android:textColor="#0D2A93"
+            android:textSize="13sp"
+            android:gravity="bottom|left"
+            android:paddingBottom="10dp"
+            />
+    </LinearLayout>
+
+</LinearLayout>

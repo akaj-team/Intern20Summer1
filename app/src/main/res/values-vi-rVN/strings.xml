@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Intern20Summer1</string>
+    <string name="email_title">Nhập địa chỉ Email của bạn</string>
+    <string name="pass_title">Nhập mật khậu</string>
+    <string name="repass_title">Xác nhận mật khẩu</string>
+    <string name="signup">Đăng Ký</string>
+    <string name="link_btn_title">Liên kết mạng xã hội</string>
+    <string name="not_register">Chưa đăng ký</string>
+    <string name="signup_edt">Đăng ký!</string>
+</resources>
