@@ -5,6 +5,7 @@ import kotlin.math.abs
 object IslandOfKnowledge {
     private const val LENGTH_SPLIT_IP_V4 = 4
     private const val MAX_IP_VALUE = 255
+    private const val PIXEL_VALUE = 3
 
     /*
     * Given your and your friend's arms' lifting capabilities find out if you two are equally strong.
@@ -70,8 +71,8 @@ object IslandOfKnowledge {
     *   Return the blurred image as an integer, with the fractions rounded down.
     */
     private fun boxBlur(image: MutableList<MutableList<Int>>): MutableList<MutableList<Int>> {
-        var xMax = image[0].size - 3
-        var yMax = image.size - 3
+        var xMax = image[0].size - PIXEL_VALUE
+        var yMax = image.size - PIXEL_VALUE
         var sum = 0
         var result : MutableList<MutableList<Int>> = mutableListOf()
         for(i in 0..yMax){
@@ -80,7 +81,7 @@ object IslandOfKnowledge {
                 sum = image[i].subList(j,j+3).sum()+
                         image[i+1].subList(j,j+3).sum()+
                         image[i+2].subList(j,j+3).sum()
-                x.add(sum/9)
+                x.add(sum/(PIXEL_VALUE* PIXEL_VALUE))
             }
             result.add(x)
         }
