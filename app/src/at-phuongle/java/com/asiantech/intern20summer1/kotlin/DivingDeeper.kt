@@ -62,8 +62,8 @@ object DivingDeeper {
                     count--
                 }
 
-            } catch (ex4: Exception) {
-                println("Exception")
+            } catch (ex4: IndexOutOfBoundsException) {
+                println("IndexOutOfBoundsException")
             }
             if (sum > maxSum) {
                 maxSum = sum

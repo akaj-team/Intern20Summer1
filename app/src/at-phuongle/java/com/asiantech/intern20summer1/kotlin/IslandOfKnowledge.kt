@@ -2,6 +2,7 @@ package com.asiantech.intern20summer1.kotlin
 
 object IslandOfKnowledge {
     private const val FOUR = 4
+    private const val NINE = 9
     private const val TEN = 10
     private const val MAX_IPv4 = 255
 
@@ -107,7 +108,7 @@ object IslandOfKnowledge {
 
         for (i in image.indices) {
             for (j in image[0].indices) {
-                count += 4
+                count += FOUR
 
                 if (i < (image.size - 1)) {
                     count += 2
@@ -122,7 +123,7 @@ object IslandOfKnowledge {
                 }
 
                 try {
-                    if (count == 9) {
+                    if (count == NINE) {
                         sum += image[i][j]
                         sum += image[i][j - 1]
                         sum += image[i - 1][j]
