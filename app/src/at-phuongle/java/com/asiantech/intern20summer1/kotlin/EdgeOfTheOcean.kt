@@ -44,19 +44,21 @@ object EdgeOfTheOcean {
     }
 
     fun almostIncreasingSequence(sequence: Array<Int>): Boolean {
-        var n: Int = 0;
+        var n: Int = 0
 
         for (i in 0 until (sequence.size - 1)) {
 
             if (sequence[i] - sequence[i + 1] >= 0) {
                 n++;
-                if (i - 1 >= 0 && i + 2 <= sequence.size - 1 && sequence[i] - sequence[i + 2] >= 0 && sequence[i - 1] - sequence[i + 1] >= 0) {
-                    return false;
+                if ((i - 1) >= 0 && (i + 2) <= (sequence.size - 1) &&
+                    (sequence[i] - sequence[i + 2]) >= 0 &&
+                    (sequence[i - 1] - sequence[i + 1]) >= 0) {
+                    return false
                 }
             }
         }
 
-        return n <= 1;
+        return n <= 1
     }
 
     fun matrixElementsSum(matrix: Array<Array<Int>>): Int {
