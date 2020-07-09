@@ -66,15 +66,16 @@ object RainsOfReason {
         var check1: Char
         var check2: Char
 
-        if ((i1Cell1 % 2 == 0 && i2Cell1 % 2 == 0) || (i1Cell1 % 2 == 1 && i2Cell1 % 2 == 1)) {
-            check1 = 'X'
+        check1 = if ((i1Cell1 % 2 == 0 && i2Cell1 % 2 == 0) || (i1Cell1 % 2 == 1 && i2Cell1 % 2 == 1)) {
+            'X'
         } else {
-            check1 = 'O'
+            'O'
         }
-        if ((i1Cell2 % 2 == 0 && i2Cell2 % 2 == 0) || (i1Cell2 % 2 == 1 && i2Cell2 % 2 == 1)) {
-            check2 = 'X'
+
+        check2 = if ((i1Cell2 % 2 == 0 && i2Cell2 % 2 == 0) || (i1Cell2 % 2 == 1 && i2Cell2 % 2 == 1)) {
+            'X'
         } else {
-            check2 = 'O'
+            'O'
         }
 
         if (check1 == check2) {
