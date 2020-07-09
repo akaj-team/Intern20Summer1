@@ -1,15 +1,177 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imgLogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:src="@drawable/logo"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/llInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical"
+            android:weightSum="9"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imgLogo">
+
+            <TextView
+                android:id="@+id/tvEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Enter your email ID" />
+
+            <EditText
+                android:id="@+id/edtEmail"
+                android:layout_width="238dp"
+                android:layout_height="47dp"
+                android:layout_marginTop="9dp"
+                android:layout_weight="2"
+                android:background="@drawable/edit_text_border"
+                android:paddingLeft="20dp" />
+
+            <TextView
+                android:id="@+id/tvPass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="13dp"
+                android:layout_weight="1"
+                android:text="Type your password" />
+
+            <EditText
+                android:id="@+id/edtPass"
+                android:layout_width="238dp"
+                android:layout_height="47dp"
+                android:layout_marginTop="9dp"
+                android:layout_weight="2"
+                android:background="@drawable/edit_text_border"
+                android:inputType="textPassword"
+                android:paddingLeft="20dp" />
+
+            <TextView
+                android:id="@+id/tvPass2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="13dp"
+                android:layout_weight="1"
+                android:text="Retype your password" />
+
+            <EditText
+                android:id="@+id/edtPass2"
+                android:layout_width="238dp"
+                android:layout_height="47dp"
+                android:layout_marginTop="9dp"
+                android:layout_weight="2"
+                android:background="@drawable/edit_text_border"
+                android:inputType="textPassword"
+                android:paddingLeft="20dp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvLink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="Link your social media profiles"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/llInput" />
+
+        <LinearLayout
+            android:id="@+id/llLink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="29dp"
+            android:weightSum="3"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvLink">
+
+            <ImageButton
+                android:id="@+id/imgBtnFb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                app:srcCompat="@drawable/btn_facebook" />
+
+            <ImageButton
+                android:id="@+id/imgBtnGp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                app:srcCompat="@drawable/btn_google_plus" />
+
+            <ImageButton
+                android:id="@+id/imgBtnTw"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                app:srcCompat="@drawable/btn_twitter" />
+        </LinearLayout>
+
+        <Button
+            android:onClick="onSignUpBtn"
+            android:id="@+id/btn"
+            android:layout_width="238dp"
+            android:layout_height="47dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/button_sign_up"
+            android:text="SIGNUP"
+            android:textColor="@color/colorTextBtnSignUp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/llLink" />
+
+        <LinearLayout
+            android:id="@+id/llSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="42dp"
+            android:layout_marginBottom="29dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn">
+
+            <TextView
+                android:id="@+id/tvNotReg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Not registered? " />
+
+            <TextView
+                android:textColor="@color/colorTvSignUp"
+                android:id="@+id/tvSignUp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:gravity="center_horizontal"
+                android:onClick="onSignUp"
+                android:text="Sign up!" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

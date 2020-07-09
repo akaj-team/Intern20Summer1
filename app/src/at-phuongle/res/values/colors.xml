@@ -3,4 +3,10 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+    <color name="colorStatusBar">#FFFFFF</color>
+    <color name="colorBtnSignUp">#A8E490</color>
+    <color name="colorTextBtnSignUp">#FFFFFF</color>
+    <color name="colorEdtBorder">#A8E490</color>
+    <color name="colorSignUp">#A8E490</color>
+    <color name="colorTvSignUp">#0000FF</color>
 </resources>
