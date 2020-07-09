@@ -12,14 +12,15 @@ class IslandOfKnowledge {
         friendsLeft: Int,
         friendsRight: Int
     ): Boolean {
+        var flag = false
         if (yourLeft == friendsLeft && yourRight == friendsRight) {
-            return true
+            flag = true
         } else if (yourLeft != friendsLeft && yourRight != friendsRight) {
             if (yourLeft == friendsRight && yourRight == friendsLeft) {
-                return true
+                flag = true
             }
         }
-        return false
+        return flag
     }
 
     fun arrayMaximalAdjacentDifference(inputArray: MutableList<Int>): Int {
@@ -31,25 +32,8 @@ class IslandOfKnowledge {
     }
 
     fun isIPv4Address(inputString: String): Boolean {
-        val pieces = inputString.split(".")
-        for (i in pieces.indices) {
-            try {
-                if (Integer.parseInt(pieces[i]) == 0) {
-                    if (pieces[i].length > 1) {
-                        return false
-                    }
-                } else {
-                    if (pieces[i][0] == '0') {
-                        return false
-                    }
-                }
-                val num = Integer.parseInt(pieces[i])
-                if (pieces.size != FOUR || num > NUMBER) return false
-            } catch (e: NumberFormatException) {
-                return false
-            }
-        }
-        return true
+        val tokens = inputString.split(".")
+        return tokens.size == 4 && tokens.all { it.toIntOrNull() in 0..255 }
     }
 
     fun avoidObstacles(inputArray: MutableList<Int>): Int {

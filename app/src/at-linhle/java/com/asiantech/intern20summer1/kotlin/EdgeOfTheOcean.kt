@@ -33,17 +33,22 @@ class EdgeOfTheOcean {
     }
 
     fun almostIncreasingSequence(sequence: MutableList<Int>): Boolean {
-        var numErr = 0
-        for (i in 0 until sequence.size - 1) {
-            if (sequence[i] - sequence[i + 1] >= 0) {
-                numErr += 1
-                if (i - 1 >= 0 && i + 2 <= sequence.size - 1
-                    && sequence[i] - sequence[i + 2] >= 0
-                    && sequence[i - 1] - sequence[i + 1] >= 0
-                ) return false
+        var firstMax = Int.MIN_VALUE
+        var secondMax = Int.MIN_VALUE
+        return sequence.count {
+            when {
+                it > firstMax -> {
+                    secondMax = firstMax
+                    firstMax = it
+                    false
+                }
+                it > secondMax -> {
+                    firstMax = it
+                    true
+                }
+                else -> true
             }
-        }
-        return numErr <= 1
+        } <= 1
     }
 
     fun matrixElementsSum(matrix: MutableList<MutableList<Int>>): Int {

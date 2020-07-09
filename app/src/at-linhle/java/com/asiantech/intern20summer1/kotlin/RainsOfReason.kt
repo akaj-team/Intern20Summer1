@@ -1,5 +1,7 @@
 package com.asiantech.intern20summer1.kotlin
 
+import java.util.regex.Pattern
+
 private const val TEN = 10
 
 class RainsOfReason {
@@ -28,19 +30,9 @@ class RainsOfReason {
     }
 
     fun variableName(name: String): Boolean {
-        for (i in name.indices) {
-            if (!(name[i] in 'a'..'z' ||
-                        name[i] in 'A'..'Z' ||
-                        name[i] in '0'..'9' ||
-                        name[i] == '_')
-            ) {
-                return false
-            }
-        }
-        if (name[0] in '0'..'9') {
-            return false
-        }
-        return true
+        val p = Pattern.compile("[a-zA-Z_][0-9a-zA-Z_]*")
+        val m = p.matcher(name)
+        return m.matches()
     }
 
     fun alphabeticShift(inputString: String): String {

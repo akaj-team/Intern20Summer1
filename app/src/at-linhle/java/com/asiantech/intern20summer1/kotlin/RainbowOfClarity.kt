@@ -1,6 +1,7 @@
 package com.asiantech.intern20summer1.kotlin
 
 private const val TEN = 10
+
 class RainbowOfClarity {
     fun isDigit(symbol: Char): Boolean {
         return Character.isDigit(symbol)

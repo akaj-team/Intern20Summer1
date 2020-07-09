@@ -15,11 +15,13 @@ class DarkWilderness {
     }
 
     fun knapsackLight(value1: Int, weight1: Int, value2: Int, weight2: Int, maxW: Int): Int {
-        if (weight1 > maxW && weight2 > maxW) return 0
-        if (weight1 + weight2 <= maxW) return value1 + value2
-        if (weight1 > maxW) return value2
-        if (weight2 > maxW) return value1
-        return maxOf(value1, value2)
+        return when {
+            (weight1 > maxW && weight2 > maxW) -> 0
+            (weight1 + weight2 <= maxW) -> value1 + value2
+            (weight1 > maxW) -> value2
+            (weight2 > maxW) -> value1
+            else -> maxOf(value1, value2)
+        }
     }
 
     fun longestDigitsPrefix(inputString: String): String {

@@ -53,37 +53,21 @@ class SmoothSailing {
     }
 
     fun reverseInParentheses(inputString: String): String {
-        val stack = Stack<String>()
-        var str = ""
-        var temp = ""
-        for (i in inputString.indices) {
-            if (inputString[i] == '(') {
-                stack.push(inputString[i].toString())
-            } else {
-                if (!stack.isEmpty()) {
-                    if (inputString[i] == ')') {
-                        while (stack.peek() != '('.toString()) {
-                            temp += stack.peek()
-                            stack.pop()
-                        }
-                        stack.pop()
-                        if (!stack.isEmpty()) {
-                            for (j in temp.indices) {
-                                stack.push(temp[j].toString())
-                            }
-
-                        } else {
-                            str += temp
-                        }
-                        temp = ""
-                    } else {
-                        stack.push(inputString[i].toString())
-                    }
-                } else {
-                    str += inputString[i]
-                }
+        val stack = ArrayDeque<StringBuilder>()
+        var curr = StringBuilder()
+        for (char in inputString) when (char) {
+            '(' -> {
+                stack.push(curr)
+                curr = StringBuilder()
             }
+            ')' -> {
+                curr.reverse()
+                val prev = stack.pop()
+                prev.append(curr)
+                curr = prev
+            }
+            else -> curr.append(char)
         }
-        return str
+        return curr.toString()
     }
 }
