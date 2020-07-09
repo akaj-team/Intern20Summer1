@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Intern20Summer1</string>
+    <string name="hintEmail">Email</string>
+    <string name="hintPass">Password</string>
+    <string name="emailID">Enter your email ID</string>
+    <string name="password">Enter your password</string>
+    <string name="retype">Retype your password</string>
+    <string name="link">Link your social media profiles</string>
+    <string name="signUP">SIGN UP</string>
+    <string name="not">Not Registered yet? </string>
+    <string name="sign">Sign up!</string>
+
 </resources>

@@ -38,7 +38,6 @@
             android:layout_marginLeft="22dp"
             android:layout_marginRight="22dp"
             android:autofillHints="Email"
-            android:hint="@string/hintEmail"
             android:inputType="textEmailAddress"
             tools:ignore="LabelFor" />
 
@@ -82,8 +81,7 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="22dp"
             android:layout_marginRight="22dp"
-            android:autofillHints="Password"
-            android:hint="@string/password"
+            android:autofillHints="Email"
             android:inputType="textPassword"
             tools:ignore="LabelFor" />
 
@@ -128,7 +126,6 @@
             android:layout_marginLeft="22dp"
             android:layout_marginRight="22dp"
             android:autofillHints="Email"
-            android:hint="@string/password"
             android:inputType="textEmailAddress"
             tools:ignore="LabelFor" />
 
@@ -160,56 +157,28 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="30dp">
+        android:layout_gravity="center_horizontal">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="20dp"
             android:src="@mipmap/btn_facebook" />
-
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="20dp"
             android:src="@mipmap/btn_twitter" />
-
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="20dp"
             android:src="@mipmap/btn_google_plus" />
     </LinearLayout>
-
     <Button
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginLeft="68dp"
         android:layout_marginRight="68dp"
-        android:background="@drawable/shapebutton"
-        android:text="@string/signUP"
-        android:textColor="#FFFFFF" />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="40dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:paddingRight="5dp"
-            android:text="@string/not" />
-
-        <TextView
-            android:id="@+id/hyper"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/signup" />
-    </LinearLayout>
-
+        android:backgroundTint="#ADFF7F"/>
 </LinearLayout>
