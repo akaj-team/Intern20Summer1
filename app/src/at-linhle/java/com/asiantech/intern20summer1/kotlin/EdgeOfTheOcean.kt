@@ -2,6 +2,8 @@ package com.asiantech.intern20summer1.kotlin
 
 import kotlin.math.abs
 
+private const val FOUR = 4
+
 class EdgeOfTheOcean {
     fun adjacentElementsProduct(inputArray: MutableList<Int>): Int {
         var max = inputArray[0] * inputArray[1]
@@ -15,7 +17,7 @@ class EdgeOfTheOcean {
         if (n == 1) {
             return 1
         }
-        return shapeArea(n - 1) + (4 * (n - 1))
+        return shapeArea(n - 1) + (FOUR * (n - 1))
     }
 
     fun makeArrayConsecutive2(statues: MutableList<Int>): Int {

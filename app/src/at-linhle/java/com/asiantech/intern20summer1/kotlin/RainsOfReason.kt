@@ -1,5 +1,7 @@
 package com.asiantech.intern20summer1.kotlin
 
+private const val TEN = 10
+
 class RainsOfReason {
     fun arrayReplace(
         inputArray: MutableList<Int>,
@@ -17,10 +19,10 @@ class RainsOfReason {
     fun evenDigitsOnly(n: Int): Boolean {
         var temp = n
         while (temp != 0) {
-            if (temp % 10 % 2 != 0) {
+            if (temp % TEN % 2 != 0) {
                 return false
             }
-            temp /= 10
+            temp /= TEN
         }
         return true
     }

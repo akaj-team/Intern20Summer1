@@ -2,6 +2,8 @@ package com.asiantech.intern20summer1.kotlin
 
 import kotlin.math.abs
 
+private const val TEN = 10
+
 class DarkWilderness {
     fun growingPlant(upSpeed: Int, downSpeed: Int, desiredHeight: Int): Int {
         return when {
@@ -32,12 +34,12 @@ class DarkWilderness {
 
     private fun digitDegree(n: Int): Int {
         var temp = n
-        if (temp / 10 == 0)
+        if (temp / TEN == 0)
             return 0
         var num = 0
         while (temp != 0) {
-            num += temp % 10
-            temp /= 10
+            num += temp % TEN
+            temp /= TEN
         }
         return 1 + digitDegree(num)
     }

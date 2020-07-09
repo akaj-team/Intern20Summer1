@@ -1,5 +1,6 @@
 package com.asiantech.intern20summer1.kotlin
 
+private const val TEN = 10
 class RainbowOfClarity {
     fun isDigit(symbol: Char): Boolean {
         return Character.isDigit(symbol)
@@ -78,8 +79,8 @@ class RainbowOfClarity {
         var max = 0
         var t = 1
         while (t < n) {
-            max = maxOf(n / 10 / t * t + n % t, max)
-            t *= 10
+            max = maxOf(n / TEN / t * t + n % t, max)
+            t *= TEN
         }
         return max
     }

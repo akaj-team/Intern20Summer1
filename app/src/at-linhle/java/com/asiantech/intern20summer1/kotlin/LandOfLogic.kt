@@ -1,5 +1,10 @@
 package com.asiantech.intern20summer1.kotlin
 
+private const val HOUR = 23
+private const val MINUTE = 23
+private const val NINE = 9
+private const val THREE = 3
+
 class LandOfLogic {
     fun longestWord(text: String): String? {
         var longest = ""
@@ -21,8 +26,8 @@ class LandOfLogic {
 
     fun validTime(time: String): Boolean {
         val temp = time.split(":")
-        if (temp[0].toInt() !in 0..23
-            || temp[1].toInt() !in 0..59
+        if (temp[0].toInt() !in 0..HOUR
+            || temp[1].toInt() !in 0..MINUTE
         ) {
             return false
         }
@@ -70,7 +75,7 @@ class LandOfLogic {
         }
         var str = ""
         var temp = product
-        for (i in 9 downTo 2) {
+        for (i in NINE downTo 2) {
             while (temp % i == 0) {
                 temp /= i
                 str = i.toString() + str
@@ -155,20 +160,20 @@ class LandOfLogic {
             }
         }
         var lb = 0
-        while (lb < 9) {
+        while (lb < NINE) {
             var cb = 0
-            while (cb < 9) {
+            while (cb < NINE) {
                 val number = HashSet<Int>()
-                for (i in lb until lb + 3) {
-                    for (j in cb until cb + 3) {
+                for (i in lb until lb + THREE) {
+                    for (j in cb until cb + THREE) {
                         if (!number.add(grid[i][j])) {
                             return false
                         }
                     }
                 }
-                cb += 3
+                cb += THREE
             }
-            lb += 3
+            lb += THREE
         }
         return true
     }

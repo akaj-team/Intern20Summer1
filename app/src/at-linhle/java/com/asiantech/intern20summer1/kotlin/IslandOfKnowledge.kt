@@ -2,6 +2,9 @@ package com.asiantech.intern20summer1.kotlin
 
 import kotlin.math.abs
 
+private const val FOUR = 4
+private const val NUMBER = 255
+
 class IslandOfKnowledge {
     fun areEquallyStrong(
         yourLeft: Int,
@@ -41,7 +44,7 @@ class IslandOfKnowledge {
                     }
                 }
                 val num = Integer.parseInt(pieces[i])
-                if (pieces.size != 4 || num > 255) return false
+                if (pieces.size != FOUR || num > NUMBER) return false
             } catch (e: NumberFormatException) {
                 return false
             }
