@@ -38,14 +38,33 @@
                 android:layout_weight="1"
                 android:text="Enter your email ID" />
 
-            <EditText
-                android:id="@+id/edtEmail"
-                android:layout_width="238dp"
-                android:layout_height="47dp"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/containerEmailField"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="9dp"
-                android:layout_weight="2"
-                android:background="@drawable/edit_text_border"
-                android:paddingLeft="20dp" />
+                android:layout_weight="2">
+
+                <EditText
+                    android:id="@+id/edtEmail"
+                    android:layout_width="238dp"
+                    android:layout_height="47dp"
+                    android:background="@drawable/edit_text_border_normal"
+                    android:paddingLeft="20dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/imgEmail"
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
 
             <TextView
                 android:id="@+id/tvPass"
@@ -55,15 +74,32 @@
                 android:layout_weight="1"
                 android:text="Type your password" />
 
-            <EditText
-                android:id="@+id/edtPass"
-                android:layout_width="238dp"
-                android:layout_height="47dp"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/containerPassField"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="9dp"
-                android:layout_weight="2"
-                android:background="@drawable/edit_text_border"
-                android:inputType="textPassword"
-                android:paddingLeft="20dp" />
+                android:layout_weight="2">
+
+                <EditText
+                    android:id="@+id/edtPass"
+                    android:layout_width="238dp"
+                    android:layout_height="47dp"
+                    android:background="@drawable/edit_text_border_normal"
+                    android:inputType="textPassword"
+                    android:paddingLeft="20dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/imgPass"
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/tvPass2"
@@ -73,15 +109,32 @@
                 android:layout_weight="1"
                 android:text="Retype your password" />
 
-            <EditText
-                android:id="@+id/edtPass2"
-                android:layout_width="238dp"
-                android:layout_height="47dp"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/containerPass2Field"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="9dp"
-                android:layout_weight="2"
-                android:background="@drawable/edit_text_border"
-                android:inputType="textPassword"
-                android:paddingLeft="20dp" />
+                android:layout_weight="2">
+
+                <EditText
+                    android:id="@+id/edtPass2"
+                    android:layout_width="238dp"
+                    android:layout_height="47dp"
+                    android:background="@drawable/edit_text_border_normal"
+                    android:inputType="textPassword"
+                    android:paddingLeft="20dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/imgPass2"
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
 
         <TextView
@@ -132,12 +185,12 @@
         </LinearLayout>
 
         <Button
-            android:onClick="onSignUpBtn"
             android:id="@+id/btn"
             android:layout_width="238dp"
             android:layout_height="47dp"
             android:layout_marginTop="30dp"
             android:background="@drawable/button_sign_up"
+            android:onClick="onSignUpBtn"
             android:text="SIGNUP"
             android:textColor="@color/colorTextBtnSignUp"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -164,14 +217,14 @@
                 android:text="Not registered? " />
 
             <TextView
-                android:textColor="@color/colorTvSignUp"
                 android:id="@+id/tvSignUp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:gravity="center_horizontal"
                 android:onClick="onSignUp"
-                android:text="Sign up!" />
+                android:text="Sign up!"
+                android:textColor="@color/colorTvSignUp" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

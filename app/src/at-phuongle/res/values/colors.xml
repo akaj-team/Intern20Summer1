@@ -9,4 +9,7 @@
     <color name="colorEdtBorder">#A8E490</color>
     <color name="colorSignUp">#A8E490</color>
     <color name="colorTvSignUp">#0000FF</color>
+    <color name="colorEdtBorderNormal">#FFFFFF</color>
+    <color name="colorEdtBorderWrong">#FF0000</color>
+    <color name="colorEdtBorderActive">#808080</color>
 </resources>
