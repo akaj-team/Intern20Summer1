@@ -21,7 +21,7 @@
         app:layout_constraintGuide_end="@dimen/guidle_margin_end" />
 
     <ImageView
-        android:id="@+id/imIcon"
+        android:id="@+id/imgIcon"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/icon_height_image"
         android:layout_gravity="center"
@@ -40,7 +40,7 @@
         android:text="@string/email_id_text_view_description_text"
         app:layout_constraintEnd_toEndOf="@id/guidelineRight"
         app:layout_constraintStart_toStartOf="@id/guidelineLeft"
-        app:layout_constraintTop_toBottomOf="@id/imIcon" />
+        app:layout_constraintTop_toBottomOf="@id/imgIcon" />
 
     <EditText
         android:id="@+id/edtEmail"
@@ -125,7 +125,7 @@
         app:layout_constraintTop_toBottomOf="@id/edtRetypePassword" />
 
     <LinearLayout
-        android:id="@+id/lnImage"
+        android:id="@+id/llImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -163,7 +163,7 @@
         android:text="@string/sign_up_button_description_text"
         app:layout_constraintEnd_toEndOf="@id/guidelineRight"
         app:layout_constraintStart_toStartOf="@id/guidelineLeft"
-        app:layout_constraintTop_toBottomOf="@id/lnImage" />
+        app:layout_constraintTop_toBottomOf="@id/llImage" />
 
     <LinearLayout
         android:layout_width="wrap_content"
