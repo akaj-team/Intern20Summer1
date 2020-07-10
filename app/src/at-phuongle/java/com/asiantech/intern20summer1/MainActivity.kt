@@ -1,9 +1,6 @@
 package com.asiantech.intern20summer1
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
@@ -14,6 +11,8 @@ import java.util.regex.Pattern
 
 
 class MainActivity : AppCompatActivity() {
+    private val ICON_WIDTH = 20
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(com.asiantech.intern20summer1.R.layout.activity_main)
@@ -37,12 +36,12 @@ class MainActivity : AppCompatActivity() {
                     if (isEmailValid(fieldEmail.text.toString())) {
                         fieldEmail.setBackgroundResource(com.asiantech.intern20summer1.R.drawable.edit_text_border)
                         imgEmail.setBackgroundResource(com.asiantech.intern20summer1.R.drawable.icon_tick)
-                        imgEmail.layoutParams.width = 20
+                        imgEmail.layoutParams.width = ICON_WIDTH
                         imgEmail.requestLayout()
                     } else {
                         fieldEmail.setBackgroundResource(com.asiantech.intern20summer1.R.drawable.edit_text_border_wrong)
                         imgEmail.setBackgroundResource(com.asiantech.intern20summer1.R.drawable.icon_error)
-                        imgEmail.layoutParams.width = 20
+                        imgEmail.layoutParams.width = ICON_WIDTH
                         imgEmail.requestLayout()
                     }
                 }
@@ -61,12 +60,12 @@ class MainActivity : AppCompatActivity() {
                     if (isPasswordValid(fieldPass.text.toString())) {
                         fieldPass.setBackgroundResource(com.asiantech.intern20summer1.R.drawable.edit_text_border)
                         imgPass.setBackgroundResource(com.asiantech.intern20summer1.R.drawable.icon_tick)
-                        imgPass.layoutParams.width = 20
+                        imgPass.layoutParams.width = ICON_WIDTH
                         imgPass.requestLayout()
                     } else {
                         fieldPass.setBackgroundResource(com.asiantech.intern20summer1.R.drawable.edit_text_border_wrong)
                         imgPass.setBackgroundResource(com.asiantech.intern20summer1.R.drawable.icon_error)
-                        imgPass.layoutParams.width = 20
+                        imgPass.layoutParams.width = ICON_WIDTH
                         imgPass.requestLayout()
                     }
                 }
@@ -85,12 +84,12 @@ class MainActivity : AppCompatActivity() {
                     if (isPassword2Valid(fieldPass2.text.toString(), fieldPass2.text.toString())) {
                         fieldPass2.setBackgroundResource(com.asiantech.intern20summer1.R.drawable.edit_text_border)
                         imgPass2.setBackgroundResource(com.asiantech.intern20summer1.R.drawable.icon_tick)
-                        imgPass2.layoutParams.width = 20
+                        imgPass2.layoutParams.width = ICON_WIDTH
                         imgPass2.requestLayout()
                     } else {
                         fieldPass2.setBackgroundResource(com.asiantech.intern20summer1.R.drawable.edit_text_border_wrong)
                         imgPass2.setBackgroundResource(com.asiantech.intern20summer1.R.drawable.icon_error)
-                        imgPass2.layoutParams.width = 20
+                        imgPass2.layoutParams.width = ICON_WIDTH
                         imgPass2.requestLayout()
                     }
                 }
