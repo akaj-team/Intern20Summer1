@@ -46,8 +46,8 @@
 
                 <EditText
                     android:id="@+id/edtEmail"
-                    android:layout_width="238dp"
-                    android:layout_height="47dp"
+                    android:layout_width="@dimen/edt_width"
+                    android:layout_height="@dimen/edt_height"
                     android:autofillHints=""
                     android:background="@drawable/edit_text_border_normal"
                     android:inputType="textEmailAddress"
@@ -85,8 +85,8 @@
 
                 <EditText
                     android:id="@+id/edtPass"
-                    android:layout_width="238dp"
-                    android:layout_height="47dp"
+                    android:layout_width="@dimen/edt_width"
+                    android:layout_height="@dimen/edt_height"
                     android:autofillHints=""
                     android:background="@drawable/edit_text_border_normal"
                     android:inputType="textPassword"
@@ -122,8 +122,8 @@
 
                 <EditText
                     android:id="@+id/edtPass2"
-                    android:layout_width="238dp"
-                    android:layout_height="47dp"
+                    android:layout_width="@dimen/edt_width"
+                    android:layout_height="@dimen/edt_height"
                     android:autofillHints=""
                     android:background="@drawable/edit_text_border_normal"
                     android:inputType="textPassword"
@@ -192,8 +192,8 @@
 
         <Button
             android:id="@+id/btn"
-            android:layout_width="238dp"
-            android:layout_height="47dp"
+            android:layout_width="@dimen/btn_signUp_width"
+            android:layout_height="@dimen/btn_signUp_height"
             android:layout_marginTop="30dp"
             android:background="@drawable/button_sign_up"
             android:onClick="onSignUpBtn"

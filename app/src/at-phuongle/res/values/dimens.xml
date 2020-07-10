@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="edt_width">238dp</dimen>
+    <dimen name="edt_height">47dp</dimen>
+    <dimen name="btn_signUp_width">238dp</dimen>
+    <dimen name="btn_signUp_height">47dp</dimen>
+</resources>
