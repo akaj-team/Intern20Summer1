@@ -1,6 +1,7 @@
 package com.asiantech.intern20summer1
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
@@ -116,9 +117,11 @@ class MainActivity : AppCompatActivity() {
 
     fun onSignUpBtn(view: View) {
         Toast.makeText(applicationContext, "Sign Up", Toast.LENGTH_SHORT).show()
+        Log.d("onSignUpBtn", view.tag.toString())
     }
 
     fun onSignUp(view: View) {
         Toast.makeText(applicationContext, "Sign up!", Toast.LENGTH_SHORT).show()
+        Log.d("onSignUp", view.tag.toString())
     }
 }
