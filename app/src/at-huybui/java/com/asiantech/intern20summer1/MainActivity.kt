@@ -1,9 +1,11 @@
 package com.asiantech.intern20summer1
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
@@ -47,7 +49,17 @@ class MainActivity : AppCompatActivity() {
      * function do not have parameters and return
      */
 
+    @SuppressLint("ClickableViewAccessibility")
     private fun handleForlistener() {
+
+        container?.setOnTouchListener { view,_ ->
+            view.clearFocus()
+            view.requestFocus()
+            view.hideKeyboard()
+            true
+        }
+
+
         btnSignup.setOnClickListener {
             val textEmail = edtEmail.text.toString()
             val textPass = edtPass.text.toString()
@@ -55,7 +67,7 @@ class MainActivity : AppCompatActivity() {
             if (textEmail.isEmpty() || textPass.isEmpty() || textRepass.isEmpty()) {
                 val text =
                     resources.getString(R.string.text_enter_full_email_and_password)
-                text.toast() // hiển thị lên toast là có ô trống
+                text.toast()
             } else if (bufferEmail.isEmpty() || bufferPass.isEmpty() || !bufferRepass) {
                 val text = resources.getString(R.string.text_email_or_password_is_invalid)
                 text.toast()
@@ -89,7 +101,7 @@ class MainActivity : AppCompatActivity() {
      * this will control image views to hide and show them
      * this function will change color of box with state of text in box
      */
-    private fun handleForEdittextEmail() {  // funtion xử lý cho edit text email
+    private fun handleForEdittextEmail() {
 
         edtEmail.addTextChangedListener {
             printLog("change text Email")
@@ -100,11 +112,11 @@ class MainActivity : AppCompatActivity() {
                     if (textEmail.matches(regexEmail)) {
                         imgTickEmail.setImageResource(R.drawable.icon_tick)
                         edtEmail.setBackgroundResource(R.drawable.custom_edittext_tick)
-                        textEmail
+                        textEmail // set bufferEmail is textEmail variable
                     } else {
                         imgTickEmail.setImageResource(R.drawable.icon_error)
                         edtEmail.setBackgroundResource(R.drawable.custom_edittext_error)
-                        "" // gán rỗng cho bufferEmail
+                        "" // set bufferEmail is empty
                     }
             } else {
                 imgTickEmail.visibility = View.INVISIBLE
@@ -136,18 +148,18 @@ class MainActivity : AppCompatActivity() {
         }
 
         edtPass.addTextChangedListener {
-            printLog("change text Pass")
+            printLog("change text Password")
             val textPass = edtPass.text.toString()
             if (textPass.isNotEmpty()) {
                 imgTickPass.visibility = View.VISIBLE
                 this.bufferPass = if (textPass.matches(regexPass)) {
                     imgTickPass.setImageResource(R.drawable.icon_tick)
                     edtPass.setBackgroundResource(R.drawable.custom_edittext_tick)
-                    textPass
+                    textPass // set bufferPass is textPass variable
                 } else {
                     imgTickPass.setImageResource(R.drawable.icon_error)
                     edtPass.setBackgroundResource(R.drawable.custom_edittext_error)
-                    ""
+                    "" // set bufferPass is empty
                 }
             } else {
                 imgTickPass.visibility = View.INVISIBLE
@@ -181,7 +193,7 @@ class MainActivity : AppCompatActivity() {
      */
     private fun handleForEdittextRePass() {
         edtRePass.addTextChangedListener {
-            printLog("change text Repass")
+            printLog("change text Rewrite password ")
             val textRepass = edtRePass.text.toString()
             if (textRepass.isNotEmpty()) {
                 imgTickRepass.visibility = View.VISIBLE
@@ -203,9 +215,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
+     * this function will used to hide keyboard when click to another views
+     */
+    fun View.hideKeyboard() {
+        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(windowToken, 0)
+    }
+
+    /**
      * this function will handle toast, it will used to show string to activity display
      */
-    private var mToast: Toast? = null // Khai báo cho toast
+    private var mToast: Toast? = null
     private fun Any.toast(
         context: Context = this@MainActivity,
         duration: Int = Toast.LENGTH_SHORT
