@@ -92,14 +92,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun onSignUp() {
-        Toast.makeText(applicationContext, "Sign up!", Toast.LENGTH_SHORT).show()
-    }
-
-    fun onSignUpBtn() {
-        Toast.makeText(applicationContext, "Sign Up", Toast.LENGTH_SHORT).show()
-    }
-
     private fun isEmailValid(email: String?): Boolean {
         val expression = "^[\\w.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$"
         val pattern: Pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE)
@@ -120,5 +112,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun isPassword2Valid(pass: String, pass2: String): Boolean {
         return pass2 == pass
+    }
+
+    fun onSignUpBtn(view: View) {
+        Toast.makeText(applicationContext, "Sign Up", Toast.LENGTH_SHORT).show()
+    }
+
+    fun onSignUp(view: View) {
+        Toast.makeText(applicationContext, "Sign up!", Toast.LENGTH_SHORT).show()
     }
 }
