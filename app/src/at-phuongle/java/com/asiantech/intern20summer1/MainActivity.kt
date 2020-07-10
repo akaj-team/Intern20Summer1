@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity() {
         val fieldPass2 = findViewById<EditText>(R.id.edtPass2)
         val imgPass2 = findViewById<ImageView>(R.id.imgPass2)
 
+        // Handle event when focus on EditText field
         fieldEmail.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
             if (hasFocus && fieldEmail.text.toString().isEmpty()) {
                 fieldEmail.setBackgroundResource(R.drawable.edit_text_border_active)
@@ -47,7 +48,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
         fieldPass.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
             if (hasFocus && fieldPass.text.toString().isEmpty()) {
                 fieldPass.setBackgroundResource(R.drawable.edit_text_border_active)
@@ -69,7 +69,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
         fieldPass2.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
             if (hasFocus && fieldPass2.text.toString().isEmpty()) {
                 fieldPass2.setBackgroundResource(R.drawable.edit_text_border_active)
@@ -93,6 +92,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // Check valid email
     private fun isEmailValid(email: String?): Boolean {
         val expression = "^[\\w.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$"
         val pattern: Pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE)
@@ -101,6 +101,7 @@ class MainActivity : AppCompatActivity() {
         return matcher.matches()
     }
 
+    // Check valid password
     private fun isPasswordValid(pass: String): Boolean {
         var check = true
 
@@ -111,15 +112,18 @@ class MainActivity : AppCompatActivity() {
         return check
     }
 
+    // Check valid retype password
     private fun isPassword2Valid(pass: String, pass2: String): Boolean {
         return pass2 == pass
     }
 
+    // handle event when click into button sign up
     fun onSignUpBtn(view: View) {
         Toast.makeText(applicationContext, "Sign Up", Toast.LENGTH_SHORT).show()
         Log.d("onSignUpBtn", view.tag.toString())
     }
 
+    // handle event when click into TextView sign up
     fun onSignUp(view: View) {
         Toast.makeText(applicationContext, "Sign up!", Toast.LENGTH_SHORT).show()
         Log.d("onSignUp", view.tag.toString())
