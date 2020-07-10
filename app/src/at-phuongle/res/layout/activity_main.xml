@@ -35,7 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/tvEmail" />
+                android:text="@string/email_tvEmail_text_view" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/containerEmailField"
@@ -74,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="13dp"
                 android:layout_weight="1"
-                android:text="@string/tvPass" />
+                android:text="@string/pass_tvPass_text_view" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/containerPassField"
@@ -111,7 +111,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="13dp"
                 android:layout_weight="1"
-                android:text="@string/tvPass2" />
+                android:text="@string/pass2_tvPass2_text_view" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/containerPass2Field"
@@ -148,7 +148,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:text="@string/tvLink"
+            android:text="@string/link_tvLink_text_view"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/llInput" />
@@ -197,7 +197,7 @@
             android:layout_marginTop="30dp"
             android:background="@drawable/button_sign_up"
             android:onClick="onSignUpBtn"
-            android:text="@string/btnSignUp"
+            android:text="@string/signUp_btn_button"
             android:textColor="@color/colorTextBtnSignUp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -220,7 +220,7 @@
                 android:id="@+id/tvNotReg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/tvNotReg" />
+                android:text="@string/signUp_tvNotReg_text_view" />
 
             <TextView
                 android:id="@+id/tvSignUp"
@@ -230,7 +230,7 @@
                 android:focusable="true"
                 android:gravity="center_horizontal"
                 android:onClick="onSignUp"
-                android:text="@string/tvSignUp"
+                android:text="@string/signUp_tvSignUp_text_view"
                 android:textColor="@color/colorTvSignUp" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
