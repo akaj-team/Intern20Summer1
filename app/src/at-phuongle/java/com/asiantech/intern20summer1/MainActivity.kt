@@ -12,6 +12,7 @@ import java.util.regex.Pattern
 
 class MainActivity : AppCompatActivity() {
     private val ICON_WIDTH = 20
+    private val PASSWORD_LENGTH = 6
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -116,7 +117,7 @@ class MainActivity : AppCompatActivity() {
     fun isPasswordValid(pass: String): Boolean {
         var check: Boolean = true
 
-        if (pass.length < 6) {
+        if (pass.length < ICON_WIDTH) {
             check = false
         }
 
