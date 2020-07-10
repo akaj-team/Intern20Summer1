@@ -22,6 +22,10 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+
+    /**
+     * Event handler edit text Email
+     */
     private fun initListenerEditTextEmail() {
         edtEmail.afterTextChanged {
             if (it.isValidEmail()) {
@@ -38,6 +42,9 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    /**
+     * Event handler edit text type password
+     */
     private fun initListenerEditTextTypePass() {
         edtTypePassword.afterTextChanged {
             if (it.isValidPassword()) {
@@ -63,7 +70,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
+    /**
+     * Event handler edit text retype password
+     */
     private fun initListenEditTextRetypePass() {
         edtRetypePassword.afterTextChanged {
             if (it.isValidPassword() && (edtRetypePassword.text.toString()
@@ -91,12 +100,17 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
+    /**
+     * Initialize initial values for the interface
+     */
     private fun initViews() {
         edtEmail.isActivated = false
         edtEmail.isSelected = false
     }
 
+    /**
+     * funtion Toast
+     */
     private fun initToast() {
         tvSign.setOnClickListener {
             Toast.makeText(this, "Sign up! ", Toast.LENGTH_SHORT).show()

@@ -2,10 +2,11 @@ package utils
 
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.View
-import android.widget.EditText
 import android.widget.TextView
 
+/**
+ * Create extension funtion
+ */
 internal fun TextView.afterTextChanged(afterTextChanged: (String) -> Unit) {
     this.addTextChangedListener(object : TextWatcher {
         override fun afterTextChanged(editable: Editable?) {
