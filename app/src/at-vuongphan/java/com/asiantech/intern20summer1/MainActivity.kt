@@ -1,11 +1,109 @@
 package com.asiantech.intern20summer1
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.`at-vuongphan`.activity_main.*
+import utils.afterTextChanged
+import utils.isValidEmail
+import utils.isValidPassword
+
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        initViews()
+        initListenerEditTextEmail()
+        initListenerEditTextTypePass()
+        initListenEditTextRetypePass()
+        initToast()
+
     }
+
+    private fun initListenerEditTextEmail() {
+        edtEmail.afterTextChanged {
+            if (it.isValidEmail()) {
+                edtEmail.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.icon_tick, 0)
+                edtEmail.isActivated = false
+            } else {
+                edtEmail.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.icon_error, 0)
+                edtEmail.isActivated = true
+            }
+        }
+        edtEmail.setOnFocusChangeListener { view_Email, isFocus ->
+            edtEmail.isSelected = isFocus
+        }
+
+    }
+
+    private fun initListenerEditTextTypePass() {
+        edtTypePassword.afterTextChanged {
+            if (it.isValidPassword()) {
+                edtTypePassword.setCompoundDrawablesWithIntrinsicBounds(
+                    0,
+                    0,
+                    R.drawable.icon_tick,
+                    0
+                )
+                edtTypePassword.isActivated = false
+            } else {
+                edtTypePassword.setCompoundDrawablesWithIntrinsicBounds(
+                    0,
+                    0,
+                    R.drawable.icon_error,
+                    0
+                )
+                edtTypePassword.isActivated = true
+            }
+        }
+        edtTypePassword.setOnFocusChangeListener { view_Email, isFocus ->
+            edtTypePassword.isSelected = isFocus
+        }
+    }
+
+
+    private fun initListenEditTextRetypePass() {
+        edtRetypePassword.afterTextChanged {
+            if (it.isValidPassword() && (edtRetypePassword.text.toString()
+                    .equals(edtTypePassword.text.toString()))
+            ) {
+                edtRetypePassword.setCompoundDrawablesWithIntrinsicBounds(
+                    0,
+                    0,
+                    R.drawable.icon_tick,
+                    0
+                )
+                edtRetypePassword.isActivated = false
+            } else {
+                edtRetypePassword.setCompoundDrawablesWithIntrinsicBounds(
+                    0,
+                    0,
+                    R.drawable.icon_error,
+                    0
+                )
+                edtRetypePassword.isActivated = true
+            }
+        }
+        edtRetypePassword.setOnFocusChangeListener { view_Email, isFocus ->
+            edtRetypePassword.isSelected = isFocus
+        }
+    }
+
+
+    private fun initViews() {
+        edtEmail.isActivated = false
+        edtEmail.isSelected = false
+    }
+
+    private fun initToast() {
+        tvSign.setOnClickListener {
+            Toast.makeText(this, "Sign up! ", Toast.LENGTH_SHORT).show()
+        }
+        btnLogin.setOnClickListener {
+            Toast.makeText(this, "Sign Up", Toast.LENGTH_SHORT).show()
+        }
+    }
+
 }
