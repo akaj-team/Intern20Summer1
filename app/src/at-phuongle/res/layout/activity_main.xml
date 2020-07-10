@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/imgLogo"
@@ -36,7 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Enter your email ID" />
+                android:text="@string/tvEmail" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/containerEmailField"
@@ -49,10 +48,13 @@
                     android:id="@+id/edtEmail"
                     android:layout_width="238dp"
                     android:layout_height="47dp"
+                    android:autofillHints=""
                     android:background="@drawable/edit_text_border_normal"
+                    android:inputType="textEmailAddress"
                     android:paddingLeft="20dp"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="LabelFor" />
 
                 <ImageView
                     android:id="@+id/imgEmail"
@@ -72,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="13dp"
                 android:layout_weight="1"
-                android:text="Type your password" />
+                android:text="@string/tvPass" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/containerPassField"
@@ -85,11 +87,13 @@
                     android:id="@+id/edtPass"
                     android:layout_width="238dp"
                     android:layout_height="47dp"
+                    android:autofillHints=""
                     android:background="@drawable/edit_text_border_normal"
                     android:inputType="textPassword"
                     android:paddingLeft="20dp"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="LabelFor" />
 
                 <ImageView
                     android:id="@+id/imgPass"
@@ -107,7 +111,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="13dp"
                 android:layout_weight="1"
-                android:text="Retype your password" />
+                android:text="@string/tvPass2" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/containerPass2Field"
@@ -120,11 +124,13 @@
                     android:id="@+id/edtPass2"
                     android:layout_width="238dp"
                     android:layout_height="47dp"
+                    android:autofillHints=""
                     android:background="@drawable/edit_text_border_normal"
                     android:inputType="textPassword"
                     android:paddingLeft="20dp"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="LabelFor" />
 
                 <ImageView
                     android:id="@+id/imgPass2"
@@ -142,7 +148,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:text="Link your social media profiles"
+            android:text="@string/tvLink"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/llInput" />
@@ -191,7 +197,7 @@
             android:layout_marginTop="30dp"
             android:background="@drawable/button_sign_up"
             android:onClick="onSignUpBtn"
-            android:text="SIGNUP"
+            android:text="@string/btnSignUp"
             android:textColor="@color/colorTextBtnSignUp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -214,16 +220,17 @@
                 android:id="@+id/tvNotReg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Not registered? " />
+                android:text="@string/tvNotReg" />
 
             <TextView
                 android:id="@+id/tvSignUp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="true"
+                android:focusable="true"
                 android:gravity="center_horizontal"
                 android:onClick="onSignUp"
-                android:text="Sign up!"
+                android:text="@string/tvSignUp"
                 android:textColor="@color/colorTvSignUp" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

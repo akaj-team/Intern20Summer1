@@ -82,7 +82,7 @@ class MainActivity : AppCompatActivity() {
                     fieldPass2.setBackgroundResource(com.asiantech.intern20summer1.R.drawable.edit_text_border_normal)
                     imgPass2.setBackgroundResource(0)
                 } else {
-                    if (isPassword2Valid(fieldPass2.text.toString(), fieldPass2.text.toString())) {
+                    if (isPassword2Valid(fieldPass.text.toString(), fieldPass2.text.toString())) {
                         fieldPass2.setBackgroundResource(com.asiantech.intern20summer1.R.drawable.edit_text_border)
                         imgPass2.setBackgroundResource(com.asiantech.intern20summer1.R.drawable.icon_tick)
                         imgPass2.layoutParams.width = ICON_WIDTH

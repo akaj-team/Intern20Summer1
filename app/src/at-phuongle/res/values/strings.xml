@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">[Phuong]Intern20Summer1</string>
+    <string name="tvEmail">Enter your email ID</string>
+    <string name="tvPass">Type your password</string>
+    <string name="tvPass2">Retype your password</string>
+    <string name="tvLink">Link your social media profiles</string>
+    <string name="tvNotReg">Not registered? </string>
+    <string name="tvSignUp">Sign up!</string>
+    <string name="btnSignUp">SIGNUP</string>
 </resources>
