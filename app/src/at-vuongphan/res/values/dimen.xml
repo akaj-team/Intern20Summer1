@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="dimen_guidle_start_end">50dp</dimen>
-    <dimen name="dimen_image_Top">50dp</dimen>
-    <dimen name="dimen_height_image_first">60dp</dimen>
-    <dimen name="dimen_text_views_first_top">30dp</dimen>
-    <dimen name="dimen_edit_text_range_text_view">9dp</dimen>
-    <dimen name="dimen_edit_text_range_left">22dp</dimen>
-    <dimen name="dimen_edit_text_range_right">10dp</dimen>
-    <dimen name="dimen_height_edit_text">50dp</dimen>
-    <dimen name="dimen_text_view_range_edit_text">13dp</dimen>
-    <dimen name="dimen_text_view_end">29dp</dimen>
-    <dimen name="dimen_linear_top">31dp</dimen>
-    <dimen name="dimen_height_fb">47dp</dimen>
-    <dimen name="dimen_linear_range_left">20dp</dimen>
-    <dimen name="dimen_height_button">50dp</dimen>
+    <dimen name="guidle_margin_start">50dp</dimen>
+    <dimen name="guidle_margin_end">50dp</dimen>
+    <dimen name="icon_image_margin_top">50dp</dimen>
+    <dimen name="icon_height_image">60dp</dimen>
+    <dimen name="text_views_email_margin_top">30dp</dimen>
+    <dimen name="button_sign_up_margin_top">30dp</dimen>
+    <dimen name="edit_text_margin_top">9dp</dimen>
+    <dimen name="edit_text_padding_left">22dp</dimen>
+    <dimen name="edit_text_padding_right">10dp</dimen>
+    <dimen name="height_edit_text">50dp</dimen>
+    <dimen name="height_button_sign_up">50dp</dimen>
+    <dimen name="text_view_password_margin_top">13dp</dimen>
+    <dimen name="text_view_link_margin_top">29dp</dimen>
+    <dimen name="linear_icon_margin_top">31dp</dimen>
+    <dimen name="icon_height_image_fb">47dp</dimen>
+    <dimen name="icon_height_image_twitter">47dp</dimen>
+    <dimen name="icon_height_image_google">47dp</dimen>
+    <dimen name="icon_image_padding_left">20dp</dimen>
 </resources>

@@ -1,9 +1,13 @@
 package utils
 
-private const val LENGTH = 6
+/*
+ * Check Email by regex
+ */
+fun String.isValidEmail(): Boolean {
+    return android.util.Patterns.EMAIL_ADDRESS.matcher(this).matches()
+}
 
-
-/**
+/*
  * Check Password
  */
 fun String.isValidPassword(): Boolean {

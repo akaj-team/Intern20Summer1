@@ -1,12 +1,12 @@
 <resources>
     <string name="app_name">[Vuong]Intern20Summer1</string>
-    <string name="email_text_view">Enter your email ID</string>
-    <string name="password_text_view">Type your password</string>
-    <string name="retype_password_text_view">Retype your password</string>
-    <string name="email_hint_edit_view">Email</string>
-    <string name="password_hint_edit_view">Password</string>
-    <string name="link_media_text_view">Link your social media profiles</string>
-    <string name="sign_up_button">SIGN UP</string>
-    <string name="not_registered_text_view">Not registered yet?</string>
-    <string name="sign_up_text_view">Sign up!</string>
+    <string name="email_id_text_view_description_text">Enter your email ID</string>
+    <string name="type_password_text_view_description_text">Type your password</string>
+    <string name="retype_password_text_view_description_text">Retype your password</string>
+    <string name="email_edit_text_hint">Email</string>
+    <string name="password_edit_text_hint">Password</string>
+    <string name="link_media_text_view_description_text">Link your social media profiles</string>
+    <string name="sign_up_button_description_text">SIGN UP</string>
+    <string name="not_registered_text_view_description_tex">Not registered yet?</string>
+    <string name="sign_up_text_view_description_text">Sign up!</string>
 </resources>

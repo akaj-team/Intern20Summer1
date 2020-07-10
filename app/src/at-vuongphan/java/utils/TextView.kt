@@ -4,7 +4,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.widget.TextView
 
-/**
+/*
  * Create extension funtion
  */
 internal fun TextView.afterTextChanged(afterTextChanged: (String) -> Unit) {
