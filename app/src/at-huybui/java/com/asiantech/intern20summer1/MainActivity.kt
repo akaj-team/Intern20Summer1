@@ -10,23 +10,26 @@ import androidx.core.widget.addTextChangedListener
 import kotlinx.android.synthetic.`at-huybui`.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-    private var mToast: Toast? = null // Khai báo cho toast
-    private val regexEmail = """^[a-z][a-z0-9_.]{5,32}[@][a-z0-9]{2,}(.[a-z0-9]{2,4}){1,2}${'$'}""".toRegex() // regex cho email
-    private val regexPass =
-        """(?=^.{8,}${'$'})((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*${'$'}""".toRegex() // regex cho mật khẩu
 
-    private var mBufEmail = ""          // biến đệm lưu trữ email hợp lệ
-    private var mBufPass = ""           // biến đệm lưu trư mật khẩu hơp lệ
-    private var mFlatRepass = false     // biến đệm lưu trangj thái xác nhận mật khẩu hợp lệ
+    private val regexEmail = """^[a-z][a-z0-9_.]{5,32}[@][a-z0-9]{2,}(.[a-z0-9]{2,4}){1,2}${'$'}"""
+        .toRegex() // regex for email
+    private val regexPass =
+        """(?=^.{8,}${'$'})((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*${'$'}"""
+            .toRegex() // regex for password
+
+    private var bufferEmail = ""          // buffer variable for Email
+    private var bufferPass = ""           // buffer variable for Password
+    private var bufferRepass = false     // state variable for Rewrite password
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        // ẩn các image view tick trong edit text
+
+        // hide image views in edit text
         imgTickEmail.visibility = View.INVISIBLE
         imgTickPass.visibility = View.INVISIBLE
         imgTickRepass.visibility = View.INVISIBLE
 
-        // gọi các hàm xử lý của các view
+        // call handle function for views
         handleForEdittextEmail()
         handleForEdittextPass()
         handleForEdittextRePass()
@@ -36,28 +39,28 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * hàm xử lý cho các setOnCLicklistener của các nút nhấn
-     * bên trong hàm có:
-     *     - button sign up
-     *     - image view facebook, twitter, google
-     *     - text register, sign up
-     * hàm không có tham số đầu vào và không trả về giá trị
+     * handle function of buttons and image views
+     * in function have:
+     *     - handle for signup button
+     *     - handled for image views ( facebook, google, twitter)
+     *     - handled for text views (register, sign up!)
+     * function do not have parameters and return
      */
 
     private fun handleForlistener() {
         btnSignup.setOnClickListener {
-            val textEmail = edtEmail.text.toString()   // lấy text trong edit text email
-            val textPass = edtPass.text.toString()    // lấy text trong edit text pass
-            val textRepass = edtRePass.text.toString()  // lấy text trong edit text repass
-            if (textEmail.isEmpty() || textPass.isEmpty() || textRepass.isEmpty()) { // Kiểm tra xem có edit text nào trống hay không
+            val textEmail = edtEmail.text.toString()
+            val textPass = edtPass.text.toString()
+            val textRepass = edtRePass.text.toString()
+            if (textEmail.isEmpty() || textPass.isEmpty() || textRepass.isEmpty()) {
                 val text =
-                    resources.getString(R.string.text_enter_full_email_and_password)  // lấy text trong string để hiển thị
+                    resources.getString(R.string.text_enter_full_email_and_password)
                 text.toast() // hiển thị lên toast là có ô trống
-            } else if (mBufEmail.isEmpty() || mBufPass.isEmpty() || !mFlatRepass) {  // nếu không có ô nào trống thì kiểm tra xem email và mật khẩu có hợp lệ không
+            } else if (bufferEmail.isEmpty() || bufferPass.isEmpty() || !bufferRepass) {
                 val text = resources.getString(R.string.text_email_or_password_is_invalid)
                 text.toast()
             } else {
-                "Email    : $mBufEmail\nPassword: $mBufPass".toast() // Không vấn đề gì thì hiện email và pass
+                "Email    : $bufferEmail\nPassword: $bufferPass".toast()
             }
         }
 
@@ -81,49 +84,48 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * hàm xử lý sự kiện cho edit text email
-     * hàm kiểm tả trạng thái của edit text: trống hay không trống, email nhập có hơpj thệ hay không.
-     * điều khiển ẩn hiện các icon tick error, đổi màu box edit text
-     * Ngoài ra nếu Email hợp lệ sẽ gán email cho biến mBufEmail
+     * handle function for email edit text
+     * this function will check text in box of  email edit text
+     * this will control image views to hide and show them
+     * this function will change color of box with state of text in box
      */
     private fun handleForEdittextEmail() {  // funtion xử lý cho edit text email
 
         edtEmail.addTextChangedListener {
             printLog("change text Email")
-            val textEmail = edtEmail.text.toString() //Lấy chuỗi
-            if (textEmail.isNotEmpty()) {           // Kiểm tra chuỗi có rống không
-                imgTickEmail.visibility = View.VISIBLE  // không rỗng thì hiện icon
-                this.mBufEmail =
-                    if (textEmail.matches(regexEmail)) { // kiểm tra email hợp lệ bằng Regex
-                        imgTickEmail.setImageResource(R.drawable.icon_tick)    // hợp lệ thì đổi tick xanh
-                        edtEmail.setBackgroundResource(R.drawable.custom_edittext_tick)  // đổi màu xanh cho box
-                        textEmail   // gán email cho biến mBufEmail
+            val textEmail = edtEmail.text.toString()
+            if (textEmail.isNotEmpty()) {
+                imgTickEmail.visibility = View.VISIBLE
+                this.bufferEmail =
+                    if (textEmail.matches(regexEmail)) {
+                        imgTickEmail.setImageResource(R.drawable.icon_tick)
+                        edtEmail.setBackgroundResource(R.drawable.custom_edittext_tick)
+                        textEmail
                     } else {
-                        imgTickEmail.setImageResource(R.drawable.icon_error) // ko hợp set tick đỏ
-                        edtEmail.setBackgroundResource(R.drawable.custom_edittext_error) //  đổi màu đỏ cho box
-                        "" // gán rỗng cho mBufEmail
+                        imgTickEmail.setImageResource(R.drawable.icon_error)
+                        edtEmail.setBackgroundResource(R.drawable.custom_edittext_error)
+                        "" // gán rỗng cho bufferEmail
                     }
             } else {
-                imgTickEmail.visibility = View.INVISIBLE  // trường hợp box rỗng thì ẩn tick
-                edtEmail.setBackgroundResource(R.drawable.custom_select_edittext)// trả lại back ground cũ cho box
+                imgTickEmail.visibility = View.INVISIBLE
+                edtEmail.setBackgroundResource(R.drawable.custom_select_edittext)
             }
         }
 
     }
 
     /**
-     * hàm xử lý edit text Pass
-     * hàm này kiểm tra: edit text có trống hay không
-     *              - xem Mật khẩu nhập vào có hợp lệ không
-     *              - đổi màu box edit text
-     *              - điều khiển icon tick, error
-     *              - gán mật khẩu cho biến mBufPass
-     *            - ngoài ra nó con thực hiện nhiệm vụ của edit text Repass để điều khiển Edit text Repass
+     * this function same handle function for email
+     * they are just unlike at variables and views
+     *              - this function will check text in box of password edit text view
+     *              - it will change color of box
+     *              - it will control
+     *              - it will set invalid password for bufferPass variable
+     *              - final, it wil do work of handle function of rewrite password edit text view
      */
 
     private fun handleForEdittextPass() {
 
-        // 2 hàm bên dưới để xuất ra hướng dẫn nhập email ký kick vô box
         edtPass.setOnClickListener {
             resources.getString(R.string.text_rule_password).toast()
         }
@@ -133,15 +135,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        // hàm bắt sự kiện thay đổi text. hàm này thực hiện công việc khá giống hàm trên,
-        // nó chỉ khác biến và khác view
-        // ngoài ra hàm thực hiện luôn công việc của Repass để kiểm tra lại sự khác nhau khi thay đổi text
         edtPass.addTextChangedListener {
             printLog("change text Pass")
             val textPass = edtPass.text.toString()
             if (textPass.isNotEmpty()) {
                 imgTickPass.visibility = View.VISIBLE
-                this.mBufPass = if (textPass.matches(regexPass)) {
+                this.bufferPass = if (textPass.matches(regexPass)) {
                     imgTickPass.setImageResource(R.drawable.icon_tick)
                     edtPass.setBackgroundResource(R.drawable.custom_edittext_tick)
                     textPass
@@ -158,7 +157,7 @@ class MainActivity : AppCompatActivity() {
             val textRepass = edtRePass.text.toString()
             if (textRepass.isNotEmpty()) {
                 imgTickRepass.visibility = View.VISIBLE
-                this.mFlatRepass = if (textRepass == mBufPass) {
+                this.bufferRepass = if (textRepass == bufferPass) {
                     imgTickRepass.setImageResource(R.drawable.icon_tick)
                     edtRePass.setBackgroundResource(R.drawable.custom_edittext_tick)
                     true
@@ -172,25 +171,21 @@ class MainActivity : AppCompatActivity() {
                 edtRePass.setBackgroundResource(R.drawable.custom_select_edittext)
             }
         }
-
     }
 
     /**
-     * hàm xử lý Edit text Repass
-     * Hàm này thực hiện:
-     *          - kiểm tra Edit text có trống hay không
-     *          - kiểm tra xem mật khẩu đã nhập có khớp với mật khẩu nhập lại hay không
-     *          - đổi màu box và điều khiển icon tick, error
+     * this function will do :
+     *          - check rewrite pass edit text view is empty or is not
+     *          - compare password strings and rewrite password strings is match or not match
+     *          - change color of box
      */
-    // hàm nay tương tự chỉ khác biến và khác view và khác sự kiện.
-    // nó so sánh giữa text và mBufPass đã được lưu chữ ko so sánh regex
     private fun handleForEdittextRePass() {
         edtRePass.addTextChangedListener {
             printLog("change text Repass")
             val textRepass = edtRePass.text.toString()
             if (textRepass.isNotEmpty()) {
                 imgTickRepass.visibility = View.VISIBLE
-                this.mFlatRepass = if (textRepass == mBufPass) {
+                this.bufferRepass = if (textRepass == bufferPass) {
                     imgTickRepass.setImageResource(R.drawable.icon_tick)
                     edtRePass.setBackgroundResource(R.drawable.custom_edittext_tick)
                     true
@@ -208,8 +203,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * hàm xử lý toast, xuất toast lên màn hình
+     * this function will handle toast, it will used to show string to activity display
      */
+    private var mToast: Toast? = null // Khai báo cho toast
     private fun Any.toast(
         context: Context = this@MainActivity,
         duration: Int = Toast.LENGTH_SHORT
@@ -219,7 +215,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * Log funtion
+     * Log function to debug
      */
     private fun printLog(st: String) {
         Log.d("AAA", st)
