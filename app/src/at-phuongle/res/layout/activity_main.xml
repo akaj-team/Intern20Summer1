@@ -13,7 +13,7 @@
             android:id="@+id/imgLogo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="@dimen/logo_image_margin_top"
             android:src="@drawable/logo"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -23,7 +23,7 @@
             android:id="@+id/llInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="@dimen/input_linear_layout_margin_top"
             android:orientation="vertical"
             android:weightSum="9"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -41,7 +41,7 @@
                 android:id="@+id/containerEmailField"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="9dp"
+                android:layout_marginTop="@dimen/container_margin_top"
                 android:layout_weight="2">
 
                 <EditText
@@ -51,16 +51,16 @@
                     android:autofillHints=""
                     android:background="@drawable/edit_text_border_normal"
                     android:inputType="textEmailAddress"
-                    android:paddingLeft="20dp"
+                    android:paddingLeft="@dimen/email_edt_padding_left"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="LabelFor" />
 
                 <ImageView
                     android:id="@+id/imgEmail"
-                    android:layout_width="20dp"
+                    android:layout_width="@dimen/icon_image_width"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="20dp"
+                    android:layout_marginRight="@dimen/icon_image_margin_right"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -72,7 +72,7 @@
                 android:id="@+id/tvPass"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="13dp"
+                android:layout_marginTop="@dimen/pass_text_view_margin_top"
                 android:layout_weight="1"
                 android:text="@string/pass_tvPass_text_view" />
 
@@ -80,7 +80,7 @@
                 android:id="@+id/containerPassField"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="9dp"
+                android:layout_marginTop="@dimen/container_margin_top"
                 android:layout_weight="2">
 
                 <EditText
@@ -90,16 +90,16 @@
                     android:autofillHints=""
                     android:background="@drawable/edit_text_border_normal"
                     android:inputType="textPassword"
-                    android:paddingLeft="20dp"
+                    android:paddingLeft="@dimen/pass_edt_padding_left"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="LabelFor" />
 
                 <ImageView
                     android:id="@+id/imgPass"
-                    android:layout_width="20dp"
+                    android:layout_width="@dimen/icon_image_width"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="20dp"
+                    android:layout_marginRight="@dimen/icon_image_width"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -109,7 +109,7 @@
                 android:id="@+id/tvPass2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="13dp"
+                android:layout_marginTop="@dimen/pass2_text_view_margin_top"
                 android:layout_weight="1"
                 android:text="@string/pass2_tvPass2_text_view" />
 
@@ -117,7 +117,7 @@
                 android:id="@+id/containerPass2Field"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="9dp"
+                android:layout_marginTop="@dimen/container_margin_top"
                 android:layout_weight="2">
 
                 <EditText
@@ -127,16 +127,16 @@
                     android:autofillHints=""
                     android:background="@drawable/edit_text_border_normal"
                     android:inputType="textPassword"
-                    android:paddingLeft="20dp"
+                    android:paddingLeft="@dimen/pass2_edt_padding_left"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="LabelFor" />
 
                 <ImageView
                     android:id="@+id/imgPass2"
-                    android:layout_width="20dp"
+                    android:layout_width="@dimen/icon_image_width"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="20dp"
+                    android:layout_marginRight="@dimen/icon_image_margin_right"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -147,7 +147,7 @@
             android:id="@+id/tvLink"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="@dimen/link_text_view_margin_top"
             android:text="@string/link_tvLink_text_view"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -157,7 +157,7 @@
             android:id="@+id/llLink"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="29dp"
+            android:layout_marginTop="@dimen/link_linear_layout_margin_top"
             android:weightSum="3"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -167,7 +167,7 @@
                 android:id="@+id/imgBtnFb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="20dp"
+                android:layout_marginRight="@dimen/link_image_btn_margin_right"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 app:srcCompat="@drawable/btn_facebook" />
@@ -176,7 +176,7 @@
                 android:id="@+id/imgBtnGp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="20dp"
+                android:layout_marginRight="@dimen/link_image_btn_margin_right"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 app:srcCompat="@drawable/btn_google_plus" />
@@ -194,7 +194,7 @@
             android:id="@+id/btn"
             android:layout_width="@dimen/btn_signUp_width"
             android:layout_height="@dimen/btn_signUp_height"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="@dimen/sign_up_btn_margin_top"
             android:background="@drawable/button_sign_up"
             android:onClick="onSignUpBtn"
             android:text="@string/signUp_btn_button"
@@ -207,8 +207,8 @@
             android:id="@+id/llSignUp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="42dp"
-            android:layout_marginBottom="29dp"
+            android:layout_marginTop="@dimen/sign_up_linear_layout_margin_top"
+            android:layout_marginBottom="@dimen/sign_up_linear_layout_margin_bottom"
             android:gravity="center_horizontal"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
