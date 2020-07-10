@@ -3,4 +3,10 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+    <color name="colorStrokeTrue">#99FF66</color>
+    <color name="colorStrokeFalse">#FFB8261B</color>
+    <color name="colorSolid">#FFF</color>
+    <color name="colorSolidIsSelected">#655858</color>
+    <color name="colorBackgroundButton">#00FF00</color>
+    <color name="test">#ff00</color>
 </resources>
