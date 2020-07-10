@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("ClickableViewAccessibility")
     private fun handleForlistener() {
 
-        container?.setOnTouchListener { view,_ ->
+        container?.setOnTouchListener { view, _ ->
             view.clearFocus()
             view.requestFocus()
             view.hideKeyboard()
@@ -218,8 +218,8 @@ class MainActivity : AppCompatActivity() {
      * this function will used to hide keyboard when click to another views
      */
     fun View.hideKeyboard() {
-        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(windowToken, 0)
+        val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(windowToken, 0)
     }
 
     /**
