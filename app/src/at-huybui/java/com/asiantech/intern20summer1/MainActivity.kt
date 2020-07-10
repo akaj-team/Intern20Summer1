@@ -141,7 +141,7 @@ class MainActivity : AppCompatActivity() {
         edtPass.setOnClickListener {
             resources.getString(R.string.text_rule_password).toast()
         }
-        edtPass.setOnFocusChangeListener { view, b ->
+        edtPass.setOnFocusChangeListener { _, b ->
             if (b) {
                 resources.getString(R.string.text_rule_password).toast()
             }
@@ -217,7 +217,7 @@ class MainActivity : AppCompatActivity() {
     /**
      * this function will used to hide keyboard when click to another views
      */
-    fun View.hideKeyboard() {
+    private fun View.hideKeyboard() {
         val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(windowToken, 0)
     }
