@@ -10,10 +10,10 @@ import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 
-class MainActivity : AppCompatActivity() {
-    private val ICON_WIDTH = 20
-    private val PASSWORD_LENGTH = 6
+private const val ICON_WIDTH = 20
+private const val PASSWORD_LENGTH = 6
 
+class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(com.asiantech.intern20summer1.R.layout.activity_main)
@@ -117,7 +117,7 @@ class MainActivity : AppCompatActivity() {
     fun isPasswordValid(pass: String): Boolean {
         var check: Boolean = true
 
-        if (pass.length < ICON_WIDTH) {
+        if (pass.length < PASSWORD_LENGTH) {
             check = false
         }
 
