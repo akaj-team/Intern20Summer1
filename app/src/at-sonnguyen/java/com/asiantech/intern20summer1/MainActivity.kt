@@ -1,25 +1,13 @@
 package com.asiantech.intern20summer1
-
-import android.graphics.Color
-import android.media.MediaCodec
 import android.os.Bundle
-import android.provider.ContactsContract
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
-import android.util.Patterns
 import android.view.Window
-import android.view.Window.FEATURE_NO_TITLE
 import android.view.WindowManager
-import android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN
-import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.`at-sonnguyen`.activity_main.*
-import java.util.regex.Pattern
-import java.util.regex.PatternSyntaxException
-import com.asiantech.intern20summer1.R.string as string1
-import com.asiantech.intern20summer1.R.string.changebackground as changebackground1
+private const val MIN_LENGTH_PASSWORD = 6
 
 @Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
@@ -81,6 +69,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun handleListionerEdtPassword() {
+        edtPassword.setOnFocusChangeListener { _, isFocus ->
+            edtPassword.isSelected = isFocus
+        }
+        edtPassword.setBackgroundResource(R.drawable.select_custom_edt)
         edtPassword.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
                 if (isValidPassword(edtPassword.text.toString())) {
@@ -120,24 +112,11 @@ class MainActivity : AppCompatActivity() {
                         edtRetypePassword.text.toString()
                     )
                 ) {
-                    edtRetypePassword.setCompoundDrawablesWithIntrinsicBounds(
-                        0,
-                        0,
-                        R.drawable.icon_tick,
-                        0
-                    )
+                    edtRetypePassword.setCompoundDrawablesWithIntrinsicBounds(0, 0,R.drawable.icon_tick, 0)
                     edtRetypePassword.setBackgroundResource(R.drawable.custom_edt_true)
                 } else {
-                    edtRetypePassword.setCompoundDrawablesWithIntrinsicBounds(
-                        0,
-                        0,
-                        R.drawable.icon_error,
-                        0
-                    )
+                    edtRetypePassword.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.icon_error, 0)
                     edtRetypePassword.setBackgroundResource(R.drawable.custom_edt_false)
-                }
-                edtRetypePassword.setOnFocusChangeListener { _, isFocus ->
-                    edtRetypePassword.isSelected = isFocus
                 }
             }
 
@@ -158,6 +137,5 @@ fun isValidPassword(string: String): Boolean {
     if (string.isEmpty()) {
         return false
     }
-    return (string[0] == string[0].toUpperCase() && !string[0].isDigit() && string.length >= 6)
+    return (string[0] == string[0].toUpperCase() && !string[0].isDigit() && string.length >= MIN_LENGTH_PASSWORD)
 }
-
