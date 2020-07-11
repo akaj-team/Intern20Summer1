@@ -3,189 +3,198 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content">
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    <RelativeLayout
 
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         tools:context=".MainActivity">
+
         <LinearLayout
             android:id="@+id/llLogo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical"
             android:layout_marginTop="40dp"
-            >
+            android:gravity="center"
+            android:orientation="vertical">
+
             <ImageView
+                android:id="@+id/imgLogo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/logo"
-
-                />
+                android:src="@drawable/logo" />
         </LinearLayout>
+
         <RelativeLayout
-            android:layout_below="@+id/llLogo"
+            android:id="@+id/rlInformation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:layout_below="@+id/llLogo"
             android:layout_marginTop="20dp"
-            android:id="@+id/rlInformation"
-            >
+            android:gravity="center">
+
             <TextView
-                android:layout_marginTop="30dp"
-                android:textSize="10sp"
                 android:id="@+id/tvEmail"
                 android:layout_width="238dp"
                 android:layout_height="14dp"
-                android:text="Enter your Email ID"
-                />
+                android:layout_marginTop="30dp"
+                android:text="@string/tv_email"
+                android:textSize="10sp"
+                tools:ignore="SmallSp" />
+
             <EditText
                 android:id="@+id/edtEmail"
-                android:layout_marginTop="9dp"
-                android:layout_below="@id/tvEmail"
-                android:background="@drawable/custom_edittext"
+                android:layout_width="238dp"
                 android:layout_height="50dp"
+                android:layout_below="@id/tvEmail"
+                android:layout_marginTop="9dp"
                 android:width="238dp"
-                android:layout_width="238dp" />
+                android:autofillHints=""
+                android:background="@drawable/custom_edittext"
+                android:inputType="textEmailAddress"
+                tools:ignore="LabelFor" />
+
             <TextView
-                android:layout_below="@+id/edtEmail"
-                android:layout_marginTop="13dp"
-                android:textSize="10sp"
                 android:id="@+id/tvPassword"
                 android:layout_width="238dp"
                 android:layout_height="14dp"
-                android:text="Type your password"
-                />
+                android:layout_below="@+id/edtEmail"
+                android:layout_marginTop="13dp"
+                android:text="@string/tv_password"
+                android:textSize="10sp"
+                tools:ignore="SmallSp" />
 
             <EditText
-
                 android:id="@+id/edtPassword"
                 android:layout_width="238dp"
                 android:layout_height="50dp"
                 android:layout_below="@id/tvPassword"
-                android:inputType="textPassword"
                 android:layout_marginTop="9dp"
-                android:background="@drawable/custom_edittext" />
+                android:autofillHints="@string/hint_password"
+                android:background="@drawable/custom_edittext"
+                android:importantForAutofill="no"
+                android:inputType="textPassword"
+                tools:ignore="LabelFor" />
 
             <TextView
-                android:layout_below="@id/edtPassword"
-                android:layout_marginTop="13dp"
-                android:textSize="10sp"
                 android:id="@+id/tvRetypePassword"
                 android:layout_width="238dp"
                 android:layout_height="14dp"
-                android:text="Retype your password"
-                />
+                android:layout_below="@id/edtPassword"
+                android:layout_marginTop="13dp"
+                android:text="@string/tv_retype_password"
+                android:textSize="9sp"
+                tools:ignore="SmallSp" />
 
             <EditText
                 android:id="@+id/edtRetypePassword"
                 android:layout_width="238dp"
                 android:layout_height="50dp"
+                android:layout_below="@id/tvRetypePassword"
                 android:layout_marginTop="9dp"
-                android:inputType="textPassword"
+                android:autofillHints="@string/hint_retype_password"
                 android:background="@drawable/custom_edittext"
-                android:layout_below="@id/tvRetypePassword"/>
+                android:inputType="textPassword"
+                tools:ignore="LabelFor" />
+
 
         </RelativeLayout>
+
         <RelativeLayout
-            android:layout_marginTop="50dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/rlInformation"
-            android:gravity="center"
-            >
+            android:layout_marginTop="50dp"
+            android:gravity="center">
+
             <RelativeLayout
+                android:id="@+id/rltvLinkProfile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/rltvLinkProfile"
-                android:gravity="center"
-                >
+                android:gravity="center">
+
                 <TextView
                     android:id="@+id/tvLinkProfile"
-                    android:text="Link your social media profile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"/>
+                    android:gravity="center_horizontal"
+                    android:text="@string/link_your_profile" />
             </RelativeLayout>
 
             <RelativeLayout
-                android:layout_marginTop="18dp"
-                android:layout_below="@+id/rltvLinkProfile"
+                android:id="@+id/rlLinkProfile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:id="@+id/rlLinkProfile"
-                >
+                android:layout_below="@+id/rltvLinkProfile"
+                android:layout_marginTop="18dp"
+                android:gravity="center">
+
                 <ImageView
                     android:id="@+id/imgFacebook"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/btn_facebook"/>
+                    android:src="@drawable/btn_facebook" />
+
                 <ImageView
                     android:id="@+id/imgTwitter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/btn_twitter"
-                    android:layout_toRightOf="@id/imgFacebook"
                     android:layout_marginLeft="20dp"
+                    android:layout_toRightOf="@id/imgFacebook"
+                    android:src="@drawable/btn_twitter" />
 
-                    />
                 <ImageView
 
+                    android:id="@+id/imgGoogle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/imgGoogle"
-                    android:layout_toRightOf="@id/imgTwitter"
-                    android:src="@drawable/btn_google_plus"
                     android:layout_marginLeft="20dp"
-                    />
+                    android:layout_toRightOf="@id/imgTwitter"
+                    android:src="@drawable/btn_google_plus" />
             </RelativeLayout>
+
             <RelativeLayout
-                android:layout_width="match_parent"
                 android:id="@+id/rlbtnSignup"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/rlLinkProfile"
                 android:layout_marginTop="30dp"
-                android:gravity="center"
-                >
+                android:gravity="center">
+
                 <Button
                     android:id="@+id/btnSignUp"
-                    android:layout_marginTop="4dp"
-                    android:gravity="center"
-                    android:text="SIGNUP"
                     android:layout_width="238dp"
                     android:layout_height="50dp"
+                    android:layout_marginTop="4dp"
                     android:background="@drawable/custom_button"
-                    />
+                    android:gravity="center"
+                    android:text="@string/text_button" />
 
             </RelativeLayout>
 
             <RelativeLayout
-                android:layout_below="@id/rlbtnSignup"
+                android:id="@+id/rlSignin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/rlSignin"
-                android:gravity="center"
+                android:layout_below="@id/rlbtnSignup"
                 android:layout_marginTop="30dp"
-                >
+                android:gravity="center">
 
                 <TextView
-                    android:layout_width="wrap_content"
                     android:id="@+id/txtNotSignIn"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:text="not register yet ? "
-                    />
-                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/txtNotSignIn"
-                    android:text="Sign In"
-                    android:id="@+id/txtSignIn"
                     android:layout_marginTop="30dp"
+                    android:text="@string/tv_ask_signin" />
+
+                <TextView
+                    android:id="@+id/txtSignIn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:layout_toRightOf="@id/txtNotSignIn"
+                    android:text="@string/tv_signin"
                     android:textColor="@color/test"
                     tools:ignore="InvalidId" />
             </RelativeLayout>
