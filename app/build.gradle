@@ -68,6 +68,10 @@ android {
         lintConfig file('lint.xml')
         xmlOutput file("${buildDir}/reports/lint-results.xml")
     }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
 }
 
 dependencies {
