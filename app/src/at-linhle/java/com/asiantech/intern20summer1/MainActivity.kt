@@ -13,9 +13,9 @@ import kotlinx.android.synthetic.`at-linhle`.activity_main.*
 import java.util.regex.Pattern
 
 class MainActivity : AppCompatActivity() {
-    // At least 1 digit, 1 lower char, 1 upper char, must have from 8 to 30 char
+    // Length >=6, capitalize the first character.
     private val passwordPattern =
-        Pattern.compile("""^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,30}$""")
+        Pattern.compile("""^([A-Z])(?=.*[a-zA-Z]).{6,}$""")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,8 +69,7 @@ class MainActivity : AppCompatActivity() {
 
     // Handle retype password when nothing in edit text
     private fun handleRetypePasswordEditText() {
-        if (imgRetypePassTick.visibility == View.INVISIBLE
-            && imgRetypePassError.visibility == View.INVISIBLE
+        if (imgRetypePassTick.visibility == View.INVISIBLE && imgRetypePassError.visibility == View.INVISIBLE
         ) {
             imgRetypePassError.visibility = View.VISIBLE
             edtRetype.setBackgroundResource(R.drawable.edit_text_error)
@@ -79,8 +78,7 @@ class MainActivity : AppCompatActivity() {
 
     // Handle event between password and retype password
     private fun handlePassword() {
-        if (edtRetype.text.toString() == edtPassword.text.toString()
-            && isPasswordValid(edtRetype.text.toString())
+        if (edtRetype.text.toString() == edtPassword.text.toString() && isPasswordValid(edtRetype.text.toString())
         ) {
             imgRetypePassTick.visibility = View.VISIBLE
             imgRetypePassError.visibility = View.INVISIBLE
