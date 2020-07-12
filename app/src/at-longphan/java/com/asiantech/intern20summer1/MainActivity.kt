@@ -1,7 +1,10 @@
 package com.asiantech.intern20summer1
 
+import android.content.Context
+import android.media.session.MediaSession
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
@@ -20,12 +23,22 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun handleListener() {
+        scrollView?.setOnTouchListener { view, _ ->
+            view.clearFocus()
+            view.hideKeyboard()
+            true
+        }
         btnSignup.setOnClickListener {
             Toast.makeText(applicationContext, "Sign Up", Toast.LENGTH_SHORT).show()
         }
         tvSignup.setOnClickListener {
             Toast.makeText(applicationContext, "Sign Up!", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun View.hideKeyboard() {
+        val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(windowToken, 0)
     }
 
     private fun handleEdtEmailId() {
@@ -78,15 +91,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun isValidEmailId(email: String): Boolean {
-        val regexForEmail =
-            "^[a-z][a-z0-9_.]{5,31}[@][a-z0-9]{2,}(.[a-z0-9]{2,4}){1,2}${'$'}".toRegex()
-        /*"^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}${'$'}".toRegex()*/
+        val regexForEmail = "^[a-z][a-z0-9_.]{5,31}[@][a-z0-9]{2,}(.[a-z0-9]{2,4}){1,2}${'$'}".toRegex()
         return email.matches(regexForEmail)
     }
 
     private fun isValidPassword(password: String): Boolean {
-        val regexForPassword =
-            "^[A-Z]{1}[a-zA-Z0-9_.]{5,31}${'$'}".toRegex()
+        val regexForPassword = "^[A-Z]{1}[a-zA-Z0-9_.]{5,31}${'$'}".toRegex()
         return password.matches(regexForPassword)
     }
 }
