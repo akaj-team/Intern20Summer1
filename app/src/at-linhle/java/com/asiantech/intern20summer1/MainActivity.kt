@@ -20,6 +20,15 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        changeColorForStatusBar()
+        handleEmailTextChanged()
+        handlePasswordTextChanged()
+        handleRetypePassTextChanged()
+        handleClickingSignUpButton()
+        handleClickingSignUpTextView()
+    }
+
+    private fun changeColorForStatusBar() {
         // clear FLAG_TRANSLUCENT_STATUS flag:
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
@@ -30,27 +39,18 @@ class MainActivity : AppCompatActivity() {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
             window.statusBarColor = this.titleColor
         }
-        handleEmailTextChanged()
-        handlePasswordTextChanged()
-        handleRetypePassTextChanged()
-        btnSignUpOnClick()
-        tvSignUpOnClicked()
     }
 
     //Check Email
-    fun isEmailValid(email: String): Boolean {
-        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
-    }
+    fun isEmailValid(email: String) = android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
 
     //Check Password
-    fun isPasswordValid(password: String): Boolean {
-        return passwordPattern.matcher(password).matches()
-    }
+    fun isPasswordValid(password: String) = passwordPattern.matcher(password).matches()
 
     // Handle email when nothing in edit text
     private fun handleEmailEditText() {
-        if (imgEmailTick.visibility == View.INVISIBLE
-            && imgEmailError.visibility == View.INVISIBLE
+        if (
+            imgEmailTick.visibility == View.INVISIBLE && imgEmailError.visibility == View.INVISIBLE
         ) {
             imgEmailError.visibility = View.VISIBLE
             edtEmail.setBackgroundResource(R.drawable.edit_text_error)
@@ -59,8 +59,8 @@ class MainActivity : AppCompatActivity() {
 
     // Handle password when nothing in edit text
     private fun handlePasswordEditText() {
-        if (imgPasswordTick.visibility == View.INVISIBLE
-            && imgPasswordError.visibility == View.INVISIBLE
+        if (
+            imgPasswordTick.visibility == View.INVISIBLE && imgPasswordError.visibility == View.INVISIBLE
         ) {
             imgPasswordError.visibility = View.VISIBLE
             edtPassword.setBackgroundResource(R.drawable.edit_text_error)
@@ -130,7 +130,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if (isEmailValid(edtEmail.text.toString())) {
+                if (isEmailValid(p0.toString())) {
                     imgEmailTick.visibility = View.VISIBLE
                     imgEmailError.visibility = View.INVISIBLE
                     edtEmail.setBackgroundResource(R.drawable.edit_text_focus_pass)
@@ -147,9 +147,10 @@ class MainActivity : AppCompatActivity() {
     private fun handlePasswordTextChanged() {
         // Event focus
         edtPassword.setOnFocusChangeListener { edtPassword, hasFocus ->
-            when (hasFocus) {
-                true -> handleStatusFocusEditText(imgPasswordError, edtPassword)
-                else -> handleStatusNotFocusEditText(imgPasswordError, edtPassword)
+            if (hasFocus) {
+                handleStatusFocusEditText(imgPasswordError, edtPassword)
+            } else {
+                handleStatusNotFocusEditText(imgPasswordError, edtPassword)
             }
         }
         // Event change
@@ -167,7 +168,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if (isPasswordValid(edtPassword.text.toString())) {
+                if (isPasswordValid(p0.toString())) {
                     imgPasswordTick.visibility = View.VISIBLE
                     imgPasswordError.visibility = View.INVISIBLE
                     edtPassword.setBackgroundResource(R.drawable.edit_text_focus_pass)
@@ -182,32 +183,33 @@ class MainActivity : AppCompatActivity() {
 
     private fun handleRetypePassTextChanged() {
         edtRetype.setOnFocusChangeListener { edtRetype, hasFocus ->
-            when (hasFocus) {
-                true -> handleStatusFocusEditText(imgRetypePassError, edtRetype)
-                else -> handleStatusNotFocusEditText(imgRetypePassError, edtRetype)
+            if (hasFocus) {
+                handleStatusFocusEditText(imgRetypePassError, edtRetype)
+            } else {
+                handleStatusNotFocusEditText(imgRetypePassError, edtRetype)
             }
         }
-        edtRetype.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {
+        edtRetype.addTextChangedListener(
+            object : TextWatcher {
+                override fun afterTextChanged(p0: Editable?) {
 
-            }
+                }
 
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
-            }
+                }
 
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                handlePassword()
-            }
-        })
+                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                    handlePassword()
+                }
+            })
     }
 
     // Event click of button sign up
-    private fun btnSignUpOnClick() {
+    private fun handleClickingSignUpButton() {
         btnSignUp.setOnClickListener {
-            if (imgEmailTick.visibility == View.VISIBLE
-                && imgPasswordTick.visibility == View.VISIBLE
-                && imgRetypePassTick.visibility == View.VISIBLE
+            if (
+                imgEmailTick.visibility == View.VISIBLE && imgPasswordTick.visibility == View.VISIBLE && imgRetypePassTick.visibility == View.VISIBLE
             ) {
                 Toast.makeText(
                     this@MainActivity, "Sign up success.", Toast.LENGTH_SHORT
@@ -224,7 +226,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     // Event click of text view sign up
-    private fun tvSignUpOnClicked() {
+    private fun handleClickingSignUpTextView() {
         tvSignUp.setOnClickListener {
             Toast.makeText(
                 this@MainActivity, "You are clicked sign up.", Toast.LENGTH_SHORT
