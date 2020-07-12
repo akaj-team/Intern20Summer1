@@ -1,7 +1,6 @@
 package com.asiantech.intern20summer1
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -31,10 +30,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun handleEdtEmailId() {
         edtEmailId.addTextChangedListener {
-            val EdtEmailId = edtEmailId.text.toString()
-            if (EdtEmailId.isNotEmpty()) {
+            val emailId = edtEmailId.text.toString()
+            if (emailId.isNotEmpty()) {
                 imgCheckEmailId.visibility = View.VISIBLE
-                if (isValidEmailId(EdtEmailId)) {
+                if (isValidEmailId(emailId)) {
                     imgCheckEmailId.setImageResource(R.drawable.icon_tick)
                     edtEmailId.setBackgroundResource(R.drawable.custom_edt_valid)
                 } else {
@@ -45,12 +44,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun handleEdtPassword(){
+    private fun handleEdtPassword() {
         edtPassword.addTextChangedListener {
-            val EdtPassword = edtPassword.text.toString()
-            if(EdtPassword.isNotEmpty()){
+            val password = edtPassword.text.toString()
+            if (password.isNotEmpty()) {
                 imgCheckPassword.visibility = View.VISIBLE
-                if (isValidPassword(EdtPassword)) {
+                if (isValidPassword(password)) {
                     imgCheckPassword.setImageResource(R.drawable.icon_tick)
                     edtPassword.setBackgroundResource(R.drawable.custom_edt_valid)
                 } else {
@@ -61,13 +60,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun handleEdtRetypePassword(){
+    private fun handleEdtRetypePassword() {
         edtRetypePassword.addTextChangedListener {
-            val EdtPassword = edtPassword.text.toString()
-            val EdtRetypePassword = edtRetypePassword.text.toString()
-            if(EdtRetypePassword.isNotEmpty()){
+            val password = edtPassword.text.toString()
+            val retypePassword = edtRetypePassword.text.toString()
+            if (retypePassword.isNotEmpty()) {
                 imgCheckRetypePassword.visibility = View.VISIBLE
-                if (EdtPassword.equals(EdtRetypePassword)) {
+                if (password.equals(retypePassword)) {
                     imgCheckRetypePassword.setImageResource(R.drawable.icon_tick)
                     edtRetypePassword.setBackgroundResource(R.drawable.custom_edt_valid)
                 } else {
@@ -81,7 +80,7 @@ class MainActivity : AppCompatActivity() {
     private fun isValidEmailId(email: String): Boolean {
         val regexForEmail =
             "^[a-z][a-z0-9_.]{5,31}[@][a-z0-9]{2,}(.[a-z0-9]{2,4}){1,2}${'$'}".toRegex()
-            /*"^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}${'$'}".toRegex()*/
+        /*"^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}${'$'}".toRegex()*/
         return email.matches(regexForEmail)
     }
 
