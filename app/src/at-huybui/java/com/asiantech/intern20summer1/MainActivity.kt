@@ -104,7 +104,7 @@ class MainActivity : AppCompatActivity() {
     private fun handleForEdittextEmail() {
 
         edtEmail.addTextChangedListener {
-            printLog("change text Email")
+            "change text Email".printLog()
             val textEmail = edtEmail.text.toString()
             if (textEmail.isNotEmpty()) {
                 imgTickEmail.visibility = View.VISIBLE
@@ -148,7 +148,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         edtPass.addTextChangedListener {
-            printLog("change text Password")
+            "change text Password".printLog()
             val textPass = edtPass.text.toString()
             if (textPass.isNotEmpty()) {
                 imgTickPass.visibility = View.VISIBLE
@@ -193,7 +193,6 @@ class MainActivity : AppCompatActivity() {
      */
     private fun handleForEdittextRePass() {
         edtRePass.addTextChangedListener {
-            printLog("change text Rewrite password ")
             val textRepass = edtRePass.text.toString()
             if (textRepass.isNotEmpty()) {
                 imgTickRepass.visibility = View.VISIBLE
@@ -237,7 +236,7 @@ class MainActivity : AppCompatActivity() {
     /**
      * Log function to debug
      */
-    private fun printLog(st: String) {
-        Log.d("AAA", st)
+    private fun Any.printLog(tag: String = "AAA") {
+        Log.d(tag, this.toString())
     }
 }
