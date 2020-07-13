@@ -20,25 +20,24 @@ class MainActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
         setContentView(R.layout.activity_main)
-        handleListionerEdtEmail()
-        handleListionerEdtPassword()
-        handleListionerEdtRetypePassword()
-        handleListionerBtnSignIn()
-        handleListionerTvSignUp()
+        handleListionerEditrextEmail()
+        handleListionerEdittextPassword()
+        handleListionerEdittexRetypePassword()
+        handleListionerButtonSignIn()
+        handleListionerTextviewSignUp()
 
     }
 
 
 
-    private fun handleListionerTvSignUp() {
+    private fun handleListionerTextviewSignUp() {
         txtSignIn.setOnClickListener {
             Toast.makeText(this, "Click Sign Up", Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun handleListionerEdtEmail() {
-        edtEmail.setOnFocusChangeListener { _, isFocus ->
-            edtEmail.isSelected = isFocus
+    private fun handleListionerEditrextEmail() {
+        edtEmail.setOnFocusChangeListener { _, isFocus -> edtEmail.isSelected = isFocus
         }
         edtEmail.setBackgroundResource(R.drawable.select_custom_edt)
 
@@ -64,7 +63,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun handleListionerEdtPassword() {
+    private fun handleListionerEdittextPassword() {
         edtPassword.setOnFocusChangeListener { _, isFocus ->
             edtPassword.isSelected = isFocus
         }
@@ -87,7 +86,7 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun handleListionerEdtRetypePassword() {
+    private fun handleListionerEdittexRetypePassword() {
         edtRetypePassword.setOnFocusChangeListener { _, isFocus ->
             edtRetypePassword.isSelected = isFocus
         }
@@ -113,7 +112,7 @@ class MainActivity : AppCompatActivity() {
 
         })
     }
-    private fun handleListionerBtnSignIn() {
+    private fun handleListionerButtonSignIn() {
         btnSignIn.setOnClickListener {
             Toast.makeText(this, "click Sign In", Toast.LENGTH_SHORT).show()
         }
