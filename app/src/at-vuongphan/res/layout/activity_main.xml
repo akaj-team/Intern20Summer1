@@ -1,193 +1,206 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorWhite"
-    android:orientation="vertical">
+    android:fillViewport="true">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineLeft"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="@dimen/guidle_margin_start" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineRight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_end="@dimen/guidle_margin_end" />
-
-    <ImageView
-        android:id="@+id/imgIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/icon_height_image"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/icon_image_margin_top"
-        android:src="@drawable/logo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tvEmail"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/text_views_email_margin_top"
-        android:text="@string/email_id_text_view_description_text"
-        app:layout_constraintEnd_toEndOf="@id/guidelineRight"
-        app:layout_constraintStart_toStartOf="@id/guidelineLeft"
-        app:layout_constraintTop_toBottomOf="@id/imgIcon" />
-
-    <EditText
-        android:id="@+id/edtEmail"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/height_edit_text"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/edit_text_margin_top"
-        android:background="@drawable/custom_edit_text"
-        android:hint="@string/email_edit_text_hint"
-        android:importantForAutofill="no"
-        android:inputType="textEmailAddress"
-        android:paddingLeft="@dimen/edit_text_padding_left"
-        android:paddingRight="@dimen/edit_text_padding_right"
-        app:layout_constraintEnd_toEndOf="@id/guidelineRight"
-        app:layout_constraintStart_toStartOf="@id/guidelineLeft"
-        app:layout_constraintTop_toBottomOf="@id/tvEmail" />
-
-    <TextView
-        android:id="@+id/tvTypePassword"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/text_view_password_margin_top"
-        android:inputType="text"
-        android:text="@string/type_password_text_view_description_text"
-        app:layout_constraintEnd_toEndOf="@id/guidelineRight"
-        app:layout_constraintStart_toStartOf="@id/guidelineLeft"
-        app:layout_constraintTop_toBottomOf="@id/edtEmail" />
-
-    <EditText
-        android:id="@+id/edtTypePassword"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/height_edit_text"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/edit_text_margin_top"
-        android:background="@drawable/custom_edit_text"
-        android:hint="@string/password_edit_text_hint"
-        android:importantForAutofill="no"
-        android:inputType="textPassword"
-        android:paddingLeft="@dimen/edit_text_padding_left"
-        android:paddingRight="@dimen/edit_text_padding_right"
-        app:layout_constraintEnd_toEndOf="@id/guidelineRight"
-        app:layout_constraintStart_toStartOf="@id/guidelineLeft"
-        app:layout_constraintTop_toBottomOf="@id/tvTypePassword" />
-
-    <TextView
-        android:id="@+id/tvRetypePassword"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/text_view_password_margin_top"
-        android:text="@string/retype_password_text_view_description_text"
-        app:layout_constraintEnd_toEndOf="@id/guidelineRight"
-        app:layout_constraintStart_toStartOf="@id/guidelineLeft"
-        app:layout_constraintTop_toBottomOf="@id/edtTypePassword" />
-
-    <EditText
-        android:id="@+id/edtRetypePassword"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/height_edit_text"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/edit_text_margin_top"
-        android:background="@drawable/custom_edit_text"
-        android:hint="@string/password_edit_text_hint"
-        android:inputType="textPassword"
-        android:paddingLeft="@dimen/edit_text_padding_left"
-        android:paddingRight="@dimen/edit_text_padding_right"
-        app:layout_constraintEnd_toEndOf="@id/guidelineRight"
-        app:layout_constraintStart_toStartOf="@id/guidelineLeft"
-        app:layout_constraintTop_toBottomOf="@id/tvRetypePassword" />
-
-    <TextView
-        android:id="@+id/tvMedial"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/text_view_link_margin_top"
-        android:paddingLeft="@dimen/edit_text_padding_left"
-        android:text="@string/link_media_text_view_description_text"
-        app:layout_constraintEnd_toEndOf="@id/guidelineRight"
-        app:layout_constraintStart_toStartOf="@id/guidelineLeft"
-        app:layout_constraintTop_toBottomOf="@id/edtRetypePassword" />
-
-    <LinearLayout
-        android:id="@+id/llImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/linear_icon_margin_top"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="@id/guidelineRight"
-        app:layout_constraintStart_toStartOf="@id/guidelineLeft"
-        app:layout_constraintTop_toBottomOf="@id/tvMedial">
+        tools:context=".MainActivity">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/icon_height_image_fb"
-            android:src="@drawable/btn_facebook" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/icon_height_image_twitter"
-            android:paddingLeft="@dimen/icon_image_padding_left"
-            android:src="@drawable/btn_twitter" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/icon_height_image_google"
-            android:paddingLeft="@dimen/icon_image_padding_left"
-            android:src="@drawable/btn_google_plus" />
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/btnLogin"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/height_button_sign_up"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/button_sign_up_margin_top"
-        android:background="@drawable/custom_round_button"
-        android:text="@string/sign_up_button_description_text"
-        app:layout_constraintEnd_toEndOf="@id/guidelineRight"
-        app:layout_constraintStart_toStartOf="@id/guidelineLeft"
-        app:layout_constraintTop_toBottomOf="@id/llImage" />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="42dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="@id/guidelineRight"
-        app:layout_constraintStart_toStartOf="@id/guidelineLeft"
-        app:layout_constraintTop_toBottomOf="@id/btnLogin">
-
-        <TextView
+            android:id="@+id/imIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:paddingRight="5dp"
-            android:text="@string/not_registered_text_view_description_tex" />
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/icon_image_margin_top"
+            android:src="@drawable/logo" />
 
-        <TextView
-            android:id="@+id/tvSign"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:id="@+id/rlEmail"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/sign_up_text_view_description_text"
-            android:textColor="@color/colorBlue" />
-    </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_below="@id/imIcon"
+            android:layout_marginLeft="@dimen/layout_margin_left"
+            android:layout_marginTop="@dimen/relative_margin_top"
+            android:layout_marginRight="@dimen/layout_margin_right">
+
+            <TextView
+                android:id="@+id/tvEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/text_views_email_margin_top"
+                android:text="@string/email_id_text_view_description_text" />
+
+            <EditText
+                android:id="@+id/edtEmail"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_edit_text"
+                android:layout_below="@id/tvEmail"
+                android:layout_marginTop="@dimen/edit_text_margin_top"
+                android:background="@drawable/custom_edit_text"
+                android:hint="@string/email_edit_text_hint"
+                android:importantForAutofill="no"
+                android:paddingLeft="@dimen/edit_text_padding_left"
+                android:paddingRight="@dimen/edit_text_padding_right" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlTypePassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rlEmail"
+            android:layout_marginLeft="@dimen/layout_margin_left"
+            android:layout_marginTop="@dimen/relative_password_margin_top"
+            android:layout_marginRight="@dimen/layout_margin_right"
+            tools:ignore="InvalidId">
+
+            <TextView
+                android:id="@+id/tvTypePassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/type_password_text_view_description_text" />
+
+            <EditText
+                android:id="@+id/edtTypePassword"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_edit_text"
+                android:layout_below="@id/tvTypePassword"
+                android:layout_marginTop="@dimen/edit_text_margin_top"
+                android:background="@drawable/custom_edit_text"
+                android:hint="@string/password_edit_text_hint"
+                android:inputType="textPassword"
+                android:paddingLeft="@dimen/edit_text_padding_left"
+                android:paddingRight="@dimen/edit_text_padding_right"
+                tools:ignore="UnknownId" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlRetypePasswordd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rlTypePassword"
+            android:layout_marginLeft="@dimen/layout_margin_left"
+            android:layout_marginTop="@dimen/relative_password_margin_top"
+            android:layout_marginRight="@dimen/layout_margin_right">
+
+            <TextView
+                android:id="@+id/tvRetypePassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/retype_password_text_view_description_text" />
+
+            <EditText
+                android:id="@+id/edtRetypePassword"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_edit_text"
+                android:layout_below="@id/tvRetypePassword"
+                android:layout_marginTop="@dimen/edit_text_margin_top"
+                android:background="@drawable/custom_edit_text"
+                android:hint="@string/password_edit_text_hint"
+                android:inputType="textPassword"
+                android:paddingLeft="@dimen/edit_text_padding_left"
+                android:paddingRight="@dimen/edit_text_padding_right"
+                tools:ignore="UnknownId" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rlRetypePasswordd"
+            android:layout_marginLeft="@dimen/layout_margin_left"
+            android:layout_marginTop="@dimen/relative_margin_top"
+            android:layout_marginRight="@dimen/layout_margin_right">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/edit_text_padding_left"
+                android:text="@string/link_media_text_view_description_text" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlThreeIcon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rlEdit"
+            android:layout_marginLeft="@dimen/layout_margin_left"
+            android:layout_marginTop="@dimen/relative_margin_top"
+            android:layout_marginRight="@dimen/layout_margin_right"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/imIconOne"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/btn_facebook" />
+
+            <ImageView
+                android:id="@+id/imIconTwo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/imIconOne"
+                android:layout_toRightOf="@id/imIconOne"
+                android:paddingLeft="@dimen/icon_image_padding_left"
+                android:src="@drawable/btn_twitter" />
+
+            <ImageView
+                android:id="@+id/imIconThree"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/imIconTwo"
+                android:layout_toRightOf="@id/imIconTwo"
+                android:paddingLeft="@dimen/icon_image_padding_left"
+                android:src="@drawable/btn_google_plus" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rlThreeIcon"
+            android:layout_marginLeft="@dimen/layout_margin_left"
+            android:layout_marginTop="@dimen/relative_margin_top"
+            android:layout_marginRight="@dimen/layout_margin_right">
+
+            <Button
+                android:id="@+id/btnLogin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custom_round_button"
+                android:text="@string/sign_up_button_description_text"
+                android:textColor="@color/colorWhite" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/relative_height_end"
+            android:layout_below="@+id/rlButton"
+            android:layout_marginLeft="@dimen/layout_margin_left"
+            android:layout_marginTop="@dimen/relative_text_view_margin_top"
+            android:layout_marginRight="@dimen/layout_margin_right"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/tvRegister"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:text="@string/not_registered_text_view_description_tex" />
+
+            <TextView
+                android:id="@+id/tvSign"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/tvRegister"
+                android:text="@string/sign_up_text_view_description_text"
+                android:textColor="@color/colorPrimaryDark" />
+        </RelativeLayout>
+    </RelativeLayout>
+</ScrollView>

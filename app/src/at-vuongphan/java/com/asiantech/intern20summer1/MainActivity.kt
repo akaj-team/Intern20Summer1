@@ -112,5 +112,4 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "Sign Up", Toast.LENGTH_SHORT).show()
         }
     }
-
 }
