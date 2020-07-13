@@ -94,7 +94,6 @@ class MainActivity : AppCompatActivity() {
         edtRetypePassword.setBackgroundResource(R.drawable.select_custom_edt)
         edtRetypePassword.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
-                this@MainActivity.edtRetypePassword.clearFocus()
                 if (edtRetypePassword.text.toString() == edtPassword.text.toString() && isValidPassword(
                         edtRetypePassword.text.toString()
                     )
@@ -115,8 +114,6 @@ class MainActivity : AppCompatActivity() {
         })
     }
     private fun handleListionerBtnSignIn() {
-        btnSignIn.isEnabled = !(!isValidEmail(edtEmail.text.toString())||!isValidPassword(edtPassword.text.toString()) ||edtRetypePassword.text.toString() != edtPassword.text.toString())
-
         btnSignIn.setOnClickListener {
             Toast.makeText(this, "click Sign In", Toast.LENGTH_SHORT).show()
         }
