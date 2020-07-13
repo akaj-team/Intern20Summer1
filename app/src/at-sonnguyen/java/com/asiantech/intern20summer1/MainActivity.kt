@@ -23,20 +23,16 @@ class MainActivity : AppCompatActivity() {
         handleListionerEdtEmail()
         handleListionerEdtPassword()
         handleListionerEdtRetypePassword()
-        handleListionerBtnSignup()
-        handleListionerTvSignin()
+        handleListionerBtnSignIn()
+        handleListionerTvSignUp()
 
     }
 
-    private fun handleListionerBtnSignup() {
-        btnSignUp.setOnClickListener {
-            Toast.makeText(this, "click Sign Up", Toast.LENGTH_SHORT).show()
-        }
-    }
 
-    private fun handleListionerTvSignin() {
+
+    private fun handleListionerTvSignUp() {
         txtSignIn.setOnClickListener {
-            Toast.makeText(this, "Click Sign In", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Click Sign Up", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -76,20 +72,10 @@ class MainActivity : AppCompatActivity() {
         edtPassword.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
                 if (isValidPassword(edtPassword.text.toString())) {
-                    edtPassword.setCompoundDrawablesWithIntrinsicBounds(
-                        0,
-                        0,
-                        R.drawable.icon_tick,
-                        0
-                    )
+                    edtPassword.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.icon_tick, 0)
                     edtPassword.setBackgroundResource(R.drawable.custom_edt_true)
                 } else {
-                    edtPassword.setCompoundDrawablesWithIntrinsicBounds(
-                        0,
-                        0,
-                        R.drawable.icon_error,
-                        0
-                    )
+                    edtPassword.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.icon_error, 0)
                     edtPassword.setBackgroundResource(R.drawable.custom_edt_false)
                 }
             }
@@ -108,6 +94,7 @@ class MainActivity : AppCompatActivity() {
         edtRetypePassword.setBackgroundResource(R.drawable.select_custom_edt)
         edtRetypePassword.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
+                this@MainActivity.edtRetypePassword.clearFocus()
                 if (edtRetypePassword.text.toString() == edtPassword.text.toString() && isValidPassword(
                         edtRetypePassword.text.toString()
                     )
@@ -126,6 +113,13 @@ class MainActivity : AppCompatActivity() {
 
 
         })
+    }
+    private fun handleListionerBtnSignIn() {
+        btnSignIn.isEnabled = !(!isValidEmail(edtEmail.text.toString())||!isValidPassword(edtPassword.text.toString()) ||edtRetypePassword.text.toString() != edtPassword.text.toString())
+
+        btnSignIn.setOnClickListener {
+            Toast.makeText(this, "click Sign In", Toast.LENGTH_SHORT).show()
+        }
     }
 }
 

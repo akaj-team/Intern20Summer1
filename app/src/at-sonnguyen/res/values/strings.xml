@@ -6,7 +6,7 @@
     <string name="hint_password">password</string>
     <string name="tv_retype_password">Retype your password</string>
     <string name="hint_retype_password">Retype your password</string>
-    <string name="text_button">SIGN UP</string>
+    <string name="text_button">SIGN IN</string>
     <string name="tv_ask_signin">not register yet ? </string>
-    <string name="tv_signin">SignIn</string>
+    <string name="tv_signup">Sign up</string>
 </resources>

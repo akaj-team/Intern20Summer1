@@ -96,6 +96,8 @@
                 android:autofillHints="@string/hint_retype_password"
                 android:background="@drawable/custom_edittext"
                 android:inputType="textPassword"
+                android:focusableInTouchMode="true"
+                android:focusable="true"
                 tools:ignore="LabelFor" />
 
 
@@ -163,7 +165,7 @@
                 android:gravity="center">
 
                 <Button
-                    android:id="@+id/btnSignUp"
+                    android:id="@+id/btnSignIn"
                     android:layout_width="238dp"
                     android:layout_height="50dp"
                     android:layout_marginTop="4dp"
@@ -194,7 +196,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
                     android:layout_toRightOf="@id/txtNotSignIn"
-                    android:text="@string/tv_signin"
+                    android:text="@string/tv_signup"
                     android:textColor="@color/test"
                     tools:ignore="InvalidId" />
             </RelativeLayout>
