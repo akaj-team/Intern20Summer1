@@ -1,9 +1,7 @@
 package com.asiantech.intern20summer1
 
-import android.content.Context
 import android.os.Bundle
 import android.view.View
-import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
@@ -12,6 +10,8 @@ import androidx.core.widget.addTextChangedListener
 import kotlinx.android.synthetic.`at-longphan`.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+    private val MINIMUM_PASSWORD: Int = 6
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -133,6 +133,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun isValidPassword(password: String): Boolean {
-        return if (password.length >= 6 && password[0].isUpperCase()) true else false
+        return if (password.length >= MINIMUM_PASSWORD && password[0].isUpperCase()) true else false
     }
 }
