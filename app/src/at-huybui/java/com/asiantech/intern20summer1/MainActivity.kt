@@ -2,6 +2,8 @@ package com.asiantech.intern20summer1
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -25,19 +27,15 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         // hide image views in edit text
         imgTickEmail.visibility = View.INVISIBLE
         imgTickPass.visibility = View.INVISIBLE
         imgTickRepass.visibility = View.INVISIBLE
-
         // call handle function for views
         handleForEdittextEmail()
         handleForEdittextPass()
         handleForEdittextRePass()
         handleForlistener()
-
-
     }
 
     /**
@@ -56,10 +54,9 @@ class MainActivity : AppCompatActivity() {
             view.clearFocus()
             view.requestFocus()
             view.hideKeyboard()
+            "touch container".printLog()
             true
         }
-
-
         btnSignup.setOnClickListener {
             val textEmail = edtEmail.text.toString()
             val textPass = edtPass.text.toString()
@@ -75,7 +72,10 @@ class MainActivity : AppCompatActivity() {
                 "Email    : $bufferEmail\nPassword: $bufferPass".toast()
             }
         }
-
+        btnSignup.setOnLongClickListener {
+            "Long click ".toast()
+           false
+        }
         tvRegister?.setOnClickListener {
             resources.getString(R.string.text_goto_register).toast()
         }
@@ -83,16 +83,23 @@ class MainActivity : AppCompatActivity() {
             resources.getString(R.string.text_goto_register).toast()
         }
         imgFacebook?.setOnClickListener {
-            resources.getString(R.string.text_goto_facebook).toast()
+            val uri = Uri.parse("http://facebook.com")
+            val intent = Intent(Intent.ACTION_VIEW,uri)
+            startActivity(intent)
+           // resources.getString(R.string.text_goto_facebook).toast()
         }
         imgTwitter?.setOnClickListener {
-            resources.getString(R.string.text_goto_twitter).toast()
+            val uri = Uri.parse("https://twitter.com/login")
+            val intent = Intent(Intent.ACTION_VIEW,uri)
+            startActivity(intent)
+         //   resources.getString(R.string.text_goto_twitter).toast()
         }
         imgGoogle?.setOnClickListener {
-            resources.getString(R.string.text_goto_google).toast()
+            val uri = Uri.parse("https://accounts.google.com")
+            val intent = Intent(Intent.ACTION_VIEW,uri)
+            startActivity(intent)
+            //resources.getString(R.string.text_goto_google).toast()
         }
-
-
     }
 
     /**
@@ -102,7 +109,6 @@ class MainActivity : AppCompatActivity() {
      * this function will change color of box with state of text in box
      */
     private fun handleForEdittextEmail() {
-
         edtEmail.addTextChangedListener {
             "change text Email".printLog()
             val textEmail = edtEmail.text.toString()
@@ -123,7 +129,6 @@ class MainActivity : AppCompatActivity() {
                 edtEmail.setBackgroundResource(R.drawable.custom_select_edittext)
             }
         }
-
     }
 
     /**
@@ -137,7 +142,6 @@ class MainActivity : AppCompatActivity() {
      */
 
     private fun handleForEdittextPass() {
-
         edtPass.setOnClickListener {
             resources.getString(R.string.text_rule_password).toast()
         }
@@ -146,7 +150,6 @@ class MainActivity : AppCompatActivity() {
                 resources.getString(R.string.text_rule_password).toast()
             }
         }
-
         edtPass.addTextChangedListener {
             "change text Password".printLog()
             val textPass = edtPass.text.toString()
@@ -165,7 +168,6 @@ class MainActivity : AppCompatActivity() {
                 imgTickPass.visibility = View.INVISIBLE
                 edtPass.setBackgroundResource(R.drawable.custom_select_edittext)
             }
-
             val textRepass = edtRePass.text.toString()
             if (textRepass.isNotEmpty()) {
                 imgTickRepass.visibility = View.VISIBLE
@@ -210,14 +212,14 @@ class MainActivity : AppCompatActivity() {
                 edtRePass.setBackgroundResource(R.drawable.custom_select_edittext)
             }
         }
-
     }
 
     /**
      * this function will used to hide keyboard when click to another views
      */
     private fun View.hideKeyboard() {
-        val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val inputMethodManager =
+            context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(windowToken, 0)
     }
 

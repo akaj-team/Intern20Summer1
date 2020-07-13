@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/container"
-    android:focusable="true"
-    android:clickable="true"
-    android:focusableInTouchMode="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clickable="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:orientation="vertical">
 
     <ImageView
@@ -186,8 +188,6 @@
         android:layout_marginTop="10dp"
         android:layout_weight="1.09"
         android:gravity="center"
-
-
         android:text="@string/link_btn_title"
         android:textSize="15sp" />
 
@@ -263,5 +263,4 @@
             android:textColor="#0D2A93"
             android:textSize="13sp" />
     </LinearLayout>
-
 </LinearLayout>
