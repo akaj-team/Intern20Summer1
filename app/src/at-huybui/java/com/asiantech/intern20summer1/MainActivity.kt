@@ -7,7 +7,6 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import kotlinx.android.synthetic.`at-huybui`.activity_main.*
-import values.toast
 
 class MainActivity : AppCompatActivity() {
 
