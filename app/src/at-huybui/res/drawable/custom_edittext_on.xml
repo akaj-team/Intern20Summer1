@@ -4,5 +4,6 @@
     <corners android:radius="@dimen/radius" />
     <stroke
         android:width="@dimen/edit_text_stroke_width"
-        android:color="@color/edit_text_on" />
+        android:color="@color/edit_text_off" />
+    <solid android:color="@color/edit_text_background_on"/>
 </shape>

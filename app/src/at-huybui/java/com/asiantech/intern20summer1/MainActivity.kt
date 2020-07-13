@@ -10,14 +10,15 @@ import kotlinx.android.synthetic.`at-huybui`.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private val regexEmail = """^[a-z][a-z0-9_.]{5,32}[@][a-z0-9]{2,}(.[a-z0-9]{2,4}){1,2}${'$'}"""
+    private val regexEmail = """^[a-z][a-z0-9_.]{0,32}[@][a-z0-9]{2,}(.[a-z0-9]{2,4}){1,2}${'$'}"""
         .toRegex() // regex for email
-    private val regexPass =
+    private val regexPass  =
         """(?=^.{8,}${'$'})((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*${'$'}"""
             .toRegex() // regex for password
-    private var bufferEmail = ""          // buffer variable for Email
-    private var bufferPass = ""           // buffer variable for Password
-    private var bufferRepass = false     // state variable for Rewrite password
+
+    private var bufferEmail     = ""          // buffer variable for Email
+    private var bufferPass      = ""           // buffer variable for Password
+    private var bufferRepass    = false     // state variable for Rewrite password
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -50,29 +51,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnSignup.setOnClickListener {
-            val textEmail = edtEmail.text.toString()
-            val textPass = edtPass.text.toString()
-            val textRepass = edtRePass.text.toString()
-            when (true) {
-                textEmail.isEmpty(), textPass.isEmpty(), textRepass.isEmpty() -> {
-                    val text = resources.getString(R.string.text_enter_full_email_and_password)
-                    text.toast(this)
-                }
-                bufferEmail.isEmpty(), bufferPass.isEmpty(), !bufferRepass -> {
-                    val text = resources.getString(R.string.text_email_or_password_is_invalid)
-                    text.toast(this)
-                }
-                else -> {
-                    "Email    : $bufferEmail\nPassword: $bufferPass".toast(this@MainActivity)
-                }
-            }
+            val email   = edtEmail.text.toString()
+            val pass    = edtPass.text.toString()
+            "Email    : $email\nPassword: $pass".toast(this@MainActivity)
         }
 
-        tvRegister?.setOnClickListener {
-            resources.getString(R.string.text_goto_register).toast(this@MainActivity)
-        }
-
-        tvSigup?.setOnClickListener {
+        llTextRegister?.setOnClickListener {
             resources.getString(R.string.text_goto_register).toast(this@MainActivity)
         }
 
