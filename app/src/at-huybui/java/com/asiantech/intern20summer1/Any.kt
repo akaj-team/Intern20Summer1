@@ -10,5 +10,4 @@ private var toastStatus: Toast? = null
 fun Any.toast(context: Context, duration: Int = Toast.LENGTH_SHORT) {
     toastStatus?.cancel()
     toastStatus = Toast.makeText(context, this.toString(), duration).apply { show() }
-
 }
