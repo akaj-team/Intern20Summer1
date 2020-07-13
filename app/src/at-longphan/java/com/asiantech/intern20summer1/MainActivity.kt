@@ -10,8 +10,6 @@ import androidx.core.widget.addTextChangedListener
 import kotlinx.android.synthetic.`at-longphan`.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-    private val MINIMUM_PASSWORD: Int = 6
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -127,12 +125,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun isValidEmailId(email: String): Boolean {
-        val regexForEmail =
-            "^[a-z][a-z0-9_.]{5,32}[@][a-z0-9]{2,}([.][a-z0-9]{2,4}){1,2}${'$'}".toRegex()
+        val regexForEmail = "^[a-z][a-z0-9_.]{5,32}[@][a-z0-9]{2,}([.][a-z0-9]{2,4}){1,2}${'$'}".toRegex()
         return email.matches(regexForEmail)
     }
 
     private fun isValidPassword(password: String): Boolean {
-        return if (password.length >= MINIMUM_PASSWORD && password[0].isUpperCase()) true else false
+        val regexForPassword = "^[A-Z](.){5,32}${'$'}".toRegex()
+        return if (password.matches(regexForPassword)) true else false
     }
 }
