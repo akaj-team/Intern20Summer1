@@ -50,7 +50,7 @@
                 android:layout_below="@id/tvEmail"
                 android:layout_marginTop="9dp"
                 android:width="238dp"
-                android:autofillHints=""
+                android:importantForAutofill="no"
                 android:background="@drawable/custom_edittext"
                 android:inputType="textEmailAddress"
                 tools:ignore="LabelFor" />
