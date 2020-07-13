@@ -37,7 +37,7 @@
                 android:layout_weight="1"
                 android:text="@string/email_tvEmail_text_view" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <RelativeLayout
                 android:id="@+id/containerEmailField"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -52,20 +52,17 @@
                     android:background="@drawable/edit_text_border_normal"
                     android:inputType="textEmailAddress"
                     android:paddingLeft="@dimen/email_edt_padding_left"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="LabelFor" />
 
                 <ImageView
                     android:id="@+id/imgEmail"
                     android:layout_width="@dimen/icon_image_width"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="@dimen/icon_image_margin_right"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:layout_height="@dimen/icon_image_height"
+                    android:layout_alignRight="@id/edtEmail"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/icon_image_margin_right" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </RelativeLayout>
 
 
             <TextView
@@ -76,7 +73,7 @@
                 android:layout_weight="1"
                 android:text="@string/pass_tvPass_text_view" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <RelativeLayout
                 android:id="@+id/containerPassField"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -91,19 +88,16 @@
                     android:background="@drawable/edit_text_border_normal"
                     android:inputType="textPassword"
                     android:paddingLeft="@dimen/pass_edt_padding_left"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="LabelFor" />
 
                 <ImageView
                     android:id="@+id/imgPass"
                     android:layout_width="@dimen/icon_image_width"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="@dimen/icon_image_width"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:layout_height="@dimen/icon_image_height"
+                    android:layout_alignRight="@id/edtPass"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/icon_image_width" />
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/tvPass2"
@@ -113,7 +107,7 @@
                 android:layout_weight="1"
                 android:text="@string/pass2_tvPass2_text_view" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <RelativeLayout
                 android:id="@+id/containerPass2Field"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -128,19 +122,16 @@
                     android:background="@drawable/edit_text_border_normal"
                     android:inputType="textPassword"
                     android:paddingLeft="@dimen/pass2_edt_padding_left"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="LabelFor" />
 
                 <ImageView
                     android:id="@+id/imgPass2"
                     android:layout_width="@dimen/icon_image_width"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="@dimen/icon_image_margin_right"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:layout_height="@dimen/icon_image_height"
+                    android:layout_alignRight="@id/edtPass2"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/icon_image_margin_right" />
+            </RelativeLayout>
         </LinearLayout>
 
         <TextView
