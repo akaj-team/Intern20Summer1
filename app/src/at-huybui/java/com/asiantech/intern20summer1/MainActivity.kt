@@ -1,17 +1,15 @@
 package com.asiantech.intern20summer1
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import kotlinx.android.synthetic.`at-huybui`.activity_main.*
+import values.toast
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,7 +18,6 @@ class MainActivity : AppCompatActivity() {
     private val regexPass =
         """(?=^.{8,}${'$'})((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*${'$'}"""
             .toRegex() // regex for password
-
     private var bufferEmail = ""          // buffer variable for Email
     private var bufferPass = ""           // buffer variable for Password
     private var bufferRepass = false     // state variable for Rewrite password
@@ -39,91 +36,83 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * handle function of buttons and image views
-     * in function have:
-     *     - handle for signup button
-     *     - handled for image views ( facebook, google, twitter)
-     *     - handled for text views (register, sign up!)
-     * function do not have parameters and return
+     * Handle function of buttons and image views
+     * In function have:
+     *     - Handle for sign up button
+     *     - Handled for image views ( facebook, google, twitter)
+     *     - Handled for text views (register, sign up!)
+     * Function do not have parameters and return
      */
-
     @SuppressLint("ClickableViewAccessibility")
     private fun handleForlistener() {
-
         container?.setOnTouchListener { view, _ ->
             view.clearFocus()
             view.requestFocus()
             view.hideKeyboard()
-            "touch container".printLog()
             true
         }
+
         btnSignup.setOnClickListener {
             val textEmail = edtEmail.text.toString()
             val textPass = edtPass.text.toString()
             val textRepass = edtRePass.text.toString()
-            if (textEmail.isEmpty() || textPass.isEmpty() || textRepass.isEmpty()) {
-                val text =
-                    resources.getString(R.string.text_enter_full_email_and_password)
-                text.toast()
-            } else if (bufferEmail.isEmpty() || bufferPass.isEmpty() || !bufferRepass) {
-                val text = resources.getString(R.string.text_email_or_password_is_invalid)
-                text.toast()
-            } else {
-                "Email    : $bufferEmail\nPassword: $bufferPass".toast()
+            when (true) {
+                textEmail.isEmpty(), textPass.isEmpty(), textRepass.isEmpty() -> {
+                    val text = resources.getString(R.string.text_enter_full_email_and_password)
+                    text.toast(this)
+                }
+                bufferEmail.isEmpty(), bufferPass.isEmpty(), !bufferRepass -> {
+                    val text = resources.getString(R.string.text_email_or_password_is_invalid)
+                    text.toast(this)
+                }
+                else -> {
+                    "Email    : $bufferEmail\nPassword: $bufferPass".toast(this@MainActivity)
+                }
             }
         }
-        btnSignup.setOnLongClickListener {
-            "Long click ".toast()
-           false
-        }
+
         tvRegister?.setOnClickListener {
-            resources.getString(R.string.text_goto_register).toast()
+            resources.getString(R.string.text_goto_register).toast(this@MainActivity)
         }
+
         tvSigup?.setOnClickListener {
-            resources.getString(R.string.text_goto_register).toast()
+            resources.getString(R.string.text_goto_register).toast(this@MainActivity)
         }
+
         imgFacebook?.setOnClickListener {
-            val uri = Uri.parse("http://facebook.com")
-            val intent = Intent(Intent.ACTION_VIEW,uri)
-            startActivity(intent)
-           // resources.getString(R.string.text_goto_facebook).toast()
+            resources.getString(R.string.text_goto_facebook).toast(this@MainActivity)
         }
+
         imgTwitter?.setOnClickListener {
-            val uri = Uri.parse("https://twitter.com/login")
-            val intent = Intent(Intent.ACTION_VIEW,uri)
-            startActivity(intent)
-         //   resources.getString(R.string.text_goto_twitter).toast()
+            resources.getString(R.string.text_goto_twitter).toast(this@MainActivity)
         }
+
         imgGoogle?.setOnClickListener {
-            val uri = Uri.parse("https://accounts.google.com")
-            val intent = Intent(Intent.ACTION_VIEW,uri)
-            startActivity(intent)
-            //resources.getString(R.string.text_goto_google).toast()
+            resources.getString(R.string.text_goto_google).toast(this@MainActivity)
         }
     }
 
     /**
-     * handle function for email edit text
-     * this function will check text in box of  email edit text
-     * this will control image views to hide and show them
-     * this function will change color of box with state of text in box
+     * Handle function for email edit text
+     * This function will check text in box of  email edit text
+     * This will control image views to hide and show them
+     * This function will change color of box with state of text in box
      */
     private fun handleForEdittextEmail() {
         edtEmail.addTextChangedListener {
-            "change text Email".printLog()
+            Log.d("AAA", "change text Email")
             val textEmail = edtEmail.text.toString()
             if (textEmail.isNotEmpty()) {
                 imgTickEmail.visibility = View.VISIBLE
-                this.bufferEmail =
-                    if (textEmail.matches(regexEmail)) {
-                        imgTickEmail.setImageResource(R.drawable.icon_tick)
-                        edtEmail.setBackgroundResource(R.drawable.custom_edittext_tick)
-                        textEmail // set bufferEmail is textEmail variable
-                    } else {
-                        imgTickEmail.setImageResource(R.drawable.icon_error)
-                        edtEmail.setBackgroundResource(R.drawable.custom_edittext_error)
-                        "" // set bufferEmail is empty
-                    }
+                this.bufferEmail = if (textEmail.matches(regexEmail)) {
+                    imgTickEmail.setImageResource(R.drawable.icon_tick)
+                    edtEmail.setBackgroundResource(R.drawable.custom_edittext_tick)
+                    textEmail // set bufferEmail is textEmail variable
+                } else {
+                    imgTickEmail.setImageResource(R.drawable.icon_error)
+                    edtEmail.setBackgroundResource(R.drawable.custom_edittext_error)
+                    "" // set bufferEmail is empty
+                }
             } else {
                 imgTickEmail.visibility = View.INVISIBLE
                 edtEmail.setBackgroundResource(R.drawable.custom_select_edittext)
@@ -132,26 +121,28 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * this function same handle function for email
-     * they are just unlike at variables and views
-     *              - this function will check text in box of password edit text view
-     *              - it will change color of box
-     *              - it will control
-     *              - it will set invalid password for bufferPass variable
-     *              - final, it wil do work of handle function of rewrite password edit text view
+     * This function same handle function for email
+     * They are just unlike at variables and views
+     *              - This function will check text in box of password edit text view
+     *              - It will change color of box
+     *              - It will control
+     *              - It will set invalid password for bufferPass variable
+     *              - Final, it wil do work of handle function of rewrite password edit text view
      */
 
     private fun handleForEdittextPass() {
         edtPass.setOnClickListener {
-            resources.getString(R.string.text_rule_password).toast()
+            resources.getString(R.string.text_rule_password).toast(this@MainActivity)
         }
+
         edtPass.setOnFocusChangeListener { _, b ->
             if (b) {
-                resources.getString(R.string.text_rule_password).toast()
+                resources.getString(R.string.text_rule_password).toast(this@MainActivity)
             }
         }
+
         edtPass.addTextChangedListener {
-            "change text Password".printLog()
+            Log.d("AAA", "change text Password")
             val textPass = edtPass.text.toString()
             if (textPass.isNotEmpty()) {
                 imgTickPass.visibility = View.VISIBLE
@@ -188,10 +179,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * this function will do :
-     *          - check rewrite pass edit text view is empty or is not
-     *          - compare password strings and rewrite password strings is match or not match
-     *          - change color of box
+     * This function will do :
+     *          - Check rewrite pass edit text view is empty or is not
+     *          - Compare password strings and rewrite password strings is match or not match
+     *          - Change color of box
      */
     private fun handleForEdittextRePass() {
         edtRePass.addTextChangedListener {
@@ -212,33 +203,5 @@ class MainActivity : AppCompatActivity() {
                 edtRePass.setBackgroundResource(R.drawable.custom_select_edittext)
             }
         }
-    }
-
-    /**
-     * this function will used to hide keyboard when click to another views
-     */
-    private fun View.hideKeyboard() {
-        val inputMethodManager =
-            context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(windowToken, 0)
-    }
-
-    /**
-     * this function will handle toast, it will used to show string to activity display
-     */
-    private var mToast: Toast? = null
-    private fun Any.toast(
-        context: Context = this@MainActivity,
-        duration: Int = Toast.LENGTH_SHORT
-    ) {
-        mToast?.cancel()
-        mToast = Toast.makeText(context, this.toString(), duration).apply { show() }
-    }
-
-    /**
-     * Log function to debug
-     */
-    private fun Any.printLog(tag: String = "AAA") {
-        Log.d(tag, this.toString())
     }
 }
