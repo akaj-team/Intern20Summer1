@@ -36,36 +36,34 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        edtEmail.setOnFocusChangeListener { view, hasFocus ->
+        edtEmail.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 rlEmail?.setBackgroundResource(R.drawable.ontextchange)
             } else {
                 rlEmail?.setBackgroundResource(R.drawable.edittextshape)
             }
         }
-        edtPass.setOnFocusChangeListener { view, hasFocus ->
+        edtPass.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 rlPass?.setBackgroundResource(R.drawable.ontextchange)
             } else {
                 rlPass?.setBackgroundResource(R.drawable.edittextshape)
             }
         }
-        edtRetype.setOnFocusChangeListener { view, hasFocus ->
+        edtRetype.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 rlRetype?.setBackgroundResource(R.drawable.ontextchange)
             } else {
                 rlRetype?.setBackgroundResource(R.drawable.edittextshape)
             }
         }
+
         lnMain?.setOnTouchListener { it, _ ->
             it.requestFocus()
             it.clearFocus()
             it.hideKeyboard()
             true
         }
-//        lnMain?.setOnTouchListener() {
-//
-//        }
 
         edtEmail.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -73,13 +71,17 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
-                if (Patterns.EMAIL_ADDRESS.matcher(edtEmail.text.toString()).matches()) {
-                    imgEmailTick.visibility = View.VISIBLE
+                if (edtEmail.text.toString().isEmpty()) {
                     imgEmailError.visibility = View.INVISIBLE
-                } else {
                     imgEmailTick.visibility = View.INVISIBLE
-                    imgEmailError.visibility = View.VISIBLE
+                } else {
+                    if (Patterns.EMAIL_ADDRESS.matcher(edtEmail.text.toString()).matches()) {
+                        imgEmailTick.visibility = View.VISIBLE
+                        imgEmailError.visibility = View.INVISIBLE
+                    } else {
+                        imgEmailTick.visibility = View.INVISIBLE
+                        imgEmailError.visibility = View.VISIBLE
+                    }
                 }
             }
 
@@ -94,13 +96,17 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                edtPass.setBackgroundResource(R.drawable.ontextchange)
-                if (validPassword(edtPass.text.toString())) {
-                    imgPassTick.visibility = View.VISIBLE
+                if (edtPass.text.toString().isEmpty()) {
                     imgPassError.visibility = View.INVISIBLE
-                } else {
                     imgPassTick.visibility = View.INVISIBLE
-                    imgPassError.visibility = View.VISIBLE
+                } else {
+                    if (validPassword(edtPass.text.toString())) {
+                        imgPassTick.visibility = View.VISIBLE
+                        imgPassError.visibility = View.INVISIBLE
+                    } else {
+                        imgPassTick.visibility = View.INVISIBLE
+                        imgPassError.visibility = View.VISIBLE
+                    }
                 }
             }
 
@@ -114,13 +120,20 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                edtRetype.setBackgroundResource(R.drawable.ontextchange)
-                if (edtRetype.text.toString() == edtPass.text.toString() && validPassword(edtRetype.text.toString())) {
-                    imgRetypeTick.visibility = View.VISIBLE
+                if (edtRetype.text.toString().isEmpty()) {
                     imgRetypeError.visibility = View.INVISIBLE
-                } else {
                     imgRetypeTick.visibility = View.INVISIBLE
-                    imgRetypeError.visibility = View.VISIBLE
+                } else {
+                    if (edtRetype.text.toString() == edtPass.text.toString() && validPassword(
+                            edtRetype.text.toString()
+                        )
+                    ) {
+                        imgRetypeTick.visibility = View.VISIBLE
+                        imgRetypeError.visibility = View.INVISIBLE
+                    } else {
+                        imgRetypeTick.visibility = View.INVISIBLE
+                        imgRetypeError.visibility = View.VISIBLE
+                    }
                 }
             }
 
@@ -141,7 +154,19 @@ class MainActivity : AppCompatActivity() {
             "Google+".toast()
         }
 
-
+        btnSignUp?.setOnClickListener {
+            if (edtEmail.text.toString().isEmpty() || edtPass.text.toString().isEmpty()
+                && edtRetype.text.toString().isEmpty()
+            ) {
+                "Email or password is empty".toast()
+            } else if (imgEmailError.visibility == View.VISIBLE) {
+                "Wrong email".toast()
+            } else if (imgPassError.visibility == View.VISIBLE) {
+                "Wrong password".toast()
+            } else if (imgRetypeError.visibility == View.VISIBLE) {
+                "Password not match".toast()
+            }
+        }
     }
 
 }
