@@ -10,15 +10,11 @@ import kotlinx.android.synthetic.`at-huybui`.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private val regexEmail = """^[a-z][a-z0-9_.]{0,32}[@][a-z0-9]{2,}(.[a-z0-9]{2,4}){1,2}${'$'}"""
-        .toRegex() // regex for email
-    private val regexPass  =
-        """(?=^.{8,}${'$'})((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*${'$'}"""
-            .toRegex() // regex for password
-
-    private var bufferEmail     = ""          // buffer variable for Email
-    private var bufferPass      = ""           // buffer variable for Password
-    private var bufferRepass    = false     // state variable for Rewrite password
+    private val regexEmail = """^[a-zA-Z][a-zA-Z0-9_.]*[@][a-zA-Z0-9]+[.][a-zA-Z0-9]+$""".toRegex()
+    private val regexPass = """^[A-Z][a-zA-Z0-9]{5,}$""".toRegex() // regex for password
+    private var bufferEmail = ""          // buffer variable for Email
+    private var bufferPass = ""           // buffer variable for Password
+    private var bufferRepass = false     // state variable for Rewrite password
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -51,13 +47,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnSignup.setOnClickListener {
-            val email   = edtEmail.text.toString()
-            val pass    = edtPass.text.toString()
-            "Email    : $email\nPassword: $pass".toast(this@MainActivity)
+            resources.getString(R.string.signup_button).toast(this@MainActivity)
         }
 
         llTextRegister?.setOnClickListener {
-            resources.getString(R.string.text_goto_register).toast(this@MainActivity)
+            resources.getString(R.string.signup_edt).toast(this@MainActivity)
         }
 
         imgFacebook?.setOnClickListener {
@@ -112,16 +106,6 @@ class MainActivity : AppCompatActivity() {
      */
 
     private fun handleForEdittextPass() {
-        edtPass.setOnClickListener {
-            resources.getString(R.string.text_rule_password).toast(this@MainActivity)
-        }
-
-        edtPass.setOnFocusChangeListener { _, b ->
-            if (b) {
-                resources.getString(R.string.text_rule_password).toast(this@MainActivity)
-            }
-        }
-
         edtPass.addTextChangedListener {
             Log.d("AAA", "change text Password")
             val textPass = edtPass.text.toString()
