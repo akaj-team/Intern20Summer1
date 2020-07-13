@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" >
+    <corners
+        android:radius="@dimen/custom_edt_focused_cornors_radius"/>
+
+    <solid android:color="@color/colorSolidCustomEdtFocused" />
+
+    <padding
+        android:left="@dimen/custom_edt_focused_padding_left"
+        android:right="@dimen/custom_edt_focused_padding_right"/>
+
+    <stroke
+        android:width="@dimen/custom_edt_focused_stroke_width"
+        android:color="@color/colorStrokeCustomEdtFocused" />
+
+    <size
+        android:height="@dimen/custom_edt_focused_size_height"
+        android:width="@dimen/custom_edt_focused_size_width" />
+</shape>

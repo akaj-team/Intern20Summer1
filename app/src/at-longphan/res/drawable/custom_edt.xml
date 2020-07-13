@@ -1,28 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="rectangle" >
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <corners android:radius="@dimen/custom_edt_corners_radius" />
 
-    <corners
-        android:bottomLeftRadius="25dp"
-        android:bottomRightRadius="25dp"
-        android:radius="20dp"
-        android:topLeftRadius="25dp"
-        android:topRightRadius="25dp" />
-
-    <solid android:color="#ffffff" />
+    <solid android:color="@color/colorSolidCustomEdt" />
 
     <padding
-        android:bottom="0dp"
-        android:left="22dp"
-        android:right="44dp"
-        android:top="0dp" />
+        android:left="@dimen/custom_edt_padding_left"
+        android:right="@dimen/custom_edt_padding_right" />
 
     <stroke
-        android:width="1dp"
-        android:color="#d5edc5" />
+        android:width="@dimen/custom_edt_stroke_width"
+        android:color="@color/colorStokeCustomEdt" />
 
     <size
-        android:height="50dp"
-        android:width="238dp" />
-
+        android:height="@dimen/custom_edt_size_height"
+        android:width="@dimen/custom_edt_size_width" />
 </shape>

@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">[Long]Intern20Summer1</string>
-    <string name="tvEmailId">Enter your email ID</string>
-    <string name="tvPassword">Type your password</string>
-    <string name="tvRetypePassword">Retype your password</string>
-    <string name="tvSocial">Link your social media profiles</string>
-    <string name="tvNotRegistered">Not registered yet?</string>
-    <string name="tvSignup">Sign up!</string>
-    <string name="btnSignup">Signup</string>
+    <string name="text_view_email_id_description">Enter your email ID</string>
+    <string name="text_view_password_description">Type your password</string>
+    <string name="text_view_retype_password_description">Retype your password</string>
+    <string name="text_view_links_description">Link your social media profiles</string>
+    <string name="text_view_not_registered_description">Not registered yet?</string>
+    <string name="text_view_signup_description">Sign up!</string>
+    <string name="button_signup">Signup</string>
 </resources>
