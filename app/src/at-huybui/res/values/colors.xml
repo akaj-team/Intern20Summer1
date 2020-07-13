@@ -3,4 +3,10 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#EEEEEE</color>
     <color name="colorAccent">#03DAC5</color>
+    <color name="button_sign_up">#A1E895</color>
+    <color name="edit_text_error">#FF00</color>
+    <color name="edit_text_tick">#FF7ED321</color>
+    <color name="edit_text_off">#D1A6B1A1</color>
+    <color name="edit_text_on">#D15A6058</color>
+    <color name="text_sign_up">#0D2A93</color>
 </resources>

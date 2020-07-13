@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="radius">100dp</dimen>
+    <dimen name="edit_text_stroke_width">2dp</dimen>
+    <dimen name="edit_text_title">12sp</dimen>
+    <dimen name="text_another">13sp</dimen>
+</resources>
