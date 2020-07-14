@@ -1,128 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/container"
-    android:background="@color/background_write"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/sign_up_background_write"
     android:clickable="true"
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical">
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_weight="0.95"
-        android:paddingTop="30dp"
+        android:layout_weight="1"
+        android:paddingTop="@dimen/sign_up_logo_image_view_padding_top"
+        android:paddingBottom="@dimen/sign_up_logo_image_view_padding_bottom"
         android:src="@drawable/logo" />
 
-    <RelativeLayout
-        android:id="@+id/RelativeEmail"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1">
+    <TextView
+        android:id="@+id/tvEmailTile"
+        style="@style/sign_up_text_view_title_edit_text"
+        android:text="@string/sign_up_email_title" />
 
-        <TextView
-            android:id="@+id/tvEmailTile"
-            style="@style/text_title_edit_text"
-            android:text="@string/email_title" />
-
-        <EditText
-            android:id="@+id/edtEmail"
-            style="@style/edit_text"
-            android:layout_below="@+id/tvEmailTile"
-            android:background="@drawable/custom_select_edittext"
-            android:hint="@string/edittext_email"
-            android:importantForAutofill="no"
-            android:inputType="textEmailAddress" />
-
-        <ImageView
-            android:id="@+id/imgTickEmail"
-            style="@style/icon_tick_error"
-            android:layout_alignTop="@+id/edtEmail"
-            android:layout_alignEnd="@+id/edtEmail"
-            android:layout_alignRight="@+id/edtEmail"
-            android:layout_alignBottom="@+id/edtEmail"
-            android:src="@drawable/ic_launcher_background" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/RelativePass"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1">
-
-        <TextView
-            android:id="@+id/tvPassTile"
-            style="@style/text_title_edit_text"
-            android:text="@string/pass_title" />
-
-        <EditText
-            android:id="@+id/edtPass"
-            style="@style/edit_text"
-            android:layout_below="@+id/tvPassTile"
-            android:background="@drawable/custom_select_edittext"
-            android:hint="@string/edittext_password"
-            android:importantForAutofill="no"
-            android:inputType="textPassword" />
-
-        <ImageView
-            android:id="@+id/imgTickPass"
-            style="@style/icon_tick_error"
-            android:layout_alignTop="@+id/edtPass"
-            android:layout_alignEnd="@+id/edtPass"
-            android:layout_alignRight="@+id/edtPass"
-            android:layout_alignBottom="@+id/edtPass"
-            android:src="@drawable/ic_launcher_background" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/RelativeRePass"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1">
-
-        <TextView
-            android:id="@+id/tvRePassTile"
-            style="@style/text_title_edit_text"
-            android:text="@string/repass_title" />
-
-        <EditText
-            android:id="@+id/edtRePass"
-            style="@style/edit_text"
-            android:layout_below="@+id/tvRePassTile"
-            android:background="@drawable/custom_select_edittext"
-            android:hint="@string/edittext_password"
-            android:importantForAutofill="no"
-            android:inputType="textPassword" />
-
-        <ImageView
-            android:id="@+id/imgTickRepass"
-            style="@style/icon_tick_error"
-            android:layout_alignTop="@+id/edtRePass"
-            android:layout_alignEnd="@+id/edtRePass"
-            android:layout_alignRight="@+id/edtRePass"
-            android:layout_alignBottom="@+id/edtRePass"
-            android:src="@drawable/ic_launcher_background" />
-    </RelativeLayout>
+    <EditText
+        android:id="@+id/edtEmail"
+        style="@style/edit_text"
+        android:background="@drawable/bg_custom_select_edit_text"
+        android:hint="@string/sign_up_edit_text_email"
+        android:importantForAutofill="no"
+        android:inputType="textEmailAddress" />
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
-        android:layout_weight="1.09"
+        android:id="@+id/tvPassTile"
+        style="@style/sign_up_text_view_title_edit_text"
+        android:text="@string/sign_up_pass_title" />
+
+    <EditText
+        android:id="@+id/edtPass"
+        style="@style/edit_text"
+        android:background="@drawable/bg_custom_select_edit_text"
+        android:hint="@string/sign_up_edit_text_password"
+        android:importantForAutofill="no"
+        android:inputType="textPassword" />
+
+    <TextView
+        android:id="@+id/tvRePassTile"
+        style="@style/sign_up_text_view_title_edit_text"
+        android:text="@string/sign_up_rewrite_pass_title" />
+
+    <EditText
+        android:id="@+id/edtRePass"
+        style="@style/edit_text"
+        android:background="@drawable/bg_custom_select_edit_text"
+        android:hint="@string/sign_up_edit_text_password"
+        android:importantForAutofill="no"
+        android:inputType="textPassword" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/sign_up_link_your_edit_text_margin_top"
+        android:layout_marginBottom="@dimen/sign_up_link_your_edit_text_margin_bottom"
         android:gravity="center"
-        android:text="@string/link_btn_title"
-        android:textSize="@dimen/text_another" />
+        android:text="@string/sign_up_link_your_title"
+        android:textSize="@dimen/sign_up_register_text_view_size" />
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_weight="1.11"
+        android:layout_weight="1"
         android:orientation="horizontal">
 
         <ImageView
@@ -143,34 +92,40 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/btnSignup"
-        style="@style/button"
-        android:text="@string/signup" />
+        android:id="@+id/btnSignUp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sign_up_button_height"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/sign_up_button_left_right"
+        android:layout_marginTop="@dimen/sign_up_button_margin_top"
+        android:layout_marginRight="@dimen/sign_up_button_left_right"
+        android:layout_weight="1"
+        android:background="@drawable/bg_custom_button"
+        android:text="@string/sign_up_text_in_button"
+        android:textColor="@color/sign_up_text_button" />
 
     <LinearLayout
         android:id="@+id/llTextRegister"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_weight="1.08"
+        android:layout_marginTop="@dimen/sign_up_ll_text_register_margin_top"
         android:gravity="bottom"
         android:orientation="horizontal"
-        android:paddingBottom="10dp">
+        android:paddingBottom="@dimen/sign_up_ll_text_register_padding_bottom">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="bottom|right"
-            android:text="@string/not_register"
-            android:textSize="@dimen/text_another" />
+            android:text="@string/sign_up_text_view_not_register"
+            android:textSize="@dimen/sign_up_register_text_view_size" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="bottom|left"
-            android:paddingLeft="2dp"
-            android:text="@string/signup_edt"
-            android:textColor="@color/text_sign_up"
-            android:textSize="@dimen/text_another" />
+            android:paddingLeft="@dimen/sign_up_sign_up_text_view_padding_left"
+            android:text="@string/sign_up_text_view_sign_up"
+            android:textColor="@color/sign_up_sign_up_text"
+            android:textSize="@dimen/sign_up_register_text_view_size" />
     </LinearLayout>
 </LinearLayout>

@@ -8,62 +8,41 @@
     </style>
 
     <style name="edit_text">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/sign_up_edit_text_height</item>
         <item name="android:layout_alignParentStart">true</item>
         <item name="android:layout_alignParentLeft">true</item>
         <item name="android:layout_alignParentEnd">true</item>
         <item name="android:layout_alignParentRight">true</item>
         <item name="android:layout_alignParentBottom">true</item>
-        <item name="android:layout_marginStart">68dp</item>
-        <item name="android:layout_marginLeft">68dp</item>
-        <item name="android:layout_marginTop">7dp</item>
-        <item name="android:layout_marginEnd">68dp</item>
-        <item name="android:layout_marginRight">68dp</item>
-        <item name="android:layout_marginBottom">10dp</item>
-        <item name="android:paddingLeft">20dp</item>
-        <item name="android:paddingRight">40dp</item>
+        <item name="android:layout_marginStart">@dimen/sign_up_edit_text_margin_left_right</item>
+        <item name="android:layout_marginLeft">@dimen/sign_up_edit_text_margin_left_right</item>
+        <item name="android:layout_marginEnd">@dimen/sign_up_edit_text_margin_left_right</item>
+        <item name="android:layout_marginRight">@dimen/sign_up_edit_text_margin_left_right</item>
+        <item name="android:layout_marginBottom">@dimen/sign_up_edit_text_margin_bottom</item>
+        <item name="android:paddingLeft">@dimen/sign_up_edit_text_padding_left_right</item>
+        <item name="android:paddingRight">@dimen/sign_up_edit_text_padding_left_right</item>
         <item name="android:lines">1</item>
     </style>
 
-    <style name="icon_tick_error">
-        <item name="android:layout_width">15dp</item>
-        <item name="android:layout_height">15dp</item>
-        <item name="android:layout_marginTop">0dp</item>
-        <item name="android:layout_marginEnd">12dp</item>
-        <item name="android:layout_marginRight">15dp</item>
-        <item name="android:layout_marginBottom">0dp</item>
-    </style>
-
     <style name="image_button">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:paddingRight">10dp</item>
-        <item name="android:paddingLeft">10dp</item>
         <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingRight">@dimen/sign_up_icon_image_view_padding_left_right</item>
+        <item name="android:paddingLeft">@dimen/sign_up_icon_image_view_padding_left_right</item>
     </style>
 
-    <style name="button">
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_weight">1.08</item>
-        <item name="android:layout_gravity">center</item>
-        <item name="android:layout_marginTop">10dp</item>
-        <item name="android:layout_marginLeft">68dp</item>
-        <item name="android:layout_marginRight">68dp</item>
-        <item name="android:background">@drawable/custom_button</item>
-        <item name="android:textColor">#FAF4F1</item>
-    </style>
-
-    <style name="text_title_edit_text">
+    <style name="sign_up_text_view_title_edit_text">
+        <item name="android:layout_weight">1</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_alignParentStart">true</item>
         <item name="android:layout_alignParentLeft">true</item>
         <item name="android:layout_alignParentTop">true</item>
-        <item name="android:layout_marginStart">68dp</item>
-        <item name="android:layout_marginLeft">68dp</item>
-        <item name="android:layout_marginTop">10dp</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:layout_marginStart">@dimen/sign_up_edit_text_margin_left_right</item>
+        <item name="android:layout_marginLeft">@dimen/sign_up_edit_text_margin_left_right</item>
+        <item name="android:textSize">@dimen/sign_up_title_text_view_text_size</item>
     </style>
 </resources>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <corners android:radius="@dimen/custom_button_edit_text_radius" />
+    <stroke
+        android:width="@dimen/custom_edit_text_stroke_width"
+        android:color="@color/sign_up_edit_text_off" />
+    <solid android:color="@color/sign_up_edit_text_background_on" />
+</shape>
