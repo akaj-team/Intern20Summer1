@@ -33,6 +33,5 @@ internal inline fun TextView.addTextChanged(
         }
     }
     addTextChangedListener(textWatcher)
-
     return textWatcher
 }
