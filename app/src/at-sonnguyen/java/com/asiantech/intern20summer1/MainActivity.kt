@@ -3,8 +3,6 @@ package com.asiantech.intern20summer1
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.Window
-import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.`at-sonnguyen`.activity_main.*
@@ -21,13 +19,13 @@ class MainActivity : AppCompatActivity() {
         handleListionerEmailEditText()
         handleListionerPasswordEditText()
         handleListionerRetypePasswordEditText()
-        handleListionerButtonSignIn()
+        handleListionerButtonSignUp()
         handleListionerSignUpTextView()
     }
 
     private fun handleListionerSignUpTextView() {
         txtSignIn.setOnClickListener {
-            Toast.makeText(this, "Click Sign Up", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Sign Up !", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -45,10 +43,10 @@ class MainActivity : AppCompatActivity() {
             override fun afterTextChanged(p0: Editable?) {
                 if (isValidEmail(p0.toString())) {
                     edtEmail.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.icon_tick, 0)
-                    edtEmail.setBackgroundResource(R.drawable.bg_edit_text_input_true)
+                    edtEmail.setBackgroundResource(R.drawable.bg_edit_text_input_pass)
                 } else {
                     edtEmail.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.icon_error, 0)
-                    edtEmail.setBackgroundResource(R.drawable.bg_edit_text_input_false)
+                    edtEmail.setBackgroundResource(R.drawable.bg_edit_text_input_error)
                 }
             }
         })
@@ -63,10 +61,10 @@ class MainActivity : AppCompatActivity() {
             override fun afterTextChanged(p0: Editable?) {
                 if (isValidPassword(p0.toString())) {
                     edtPassword.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.icon_tick, 0)
-                    edtPassword.setBackgroundResource(R.drawable.bg_edit_text_input_true)
+                    edtPassword.setBackgroundResource(R.drawable.bg_edit_text_input_pass)
                 } else {
                     edtPassword.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.icon_error, 0)
-                    edtPassword.setBackgroundResource(R.drawable.bg_edit_text_input_false)
+                    edtPassword.setBackgroundResource(R.drawable.bg_edit_text_input_error)
                 }
             }
 
@@ -89,10 +87,10 @@ class MainActivity : AppCompatActivity() {
                     )
                 ) {
                     edtRetypePassword.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.icon_tick, 0)
-                    edtRetypePassword.setBackgroundResource(R.drawable.bg_edit_text_input_true)
+                    edtRetypePassword.setBackgroundResource(R.drawable.bg_edit_text_input_pass)
                 } else {
                     edtRetypePassword.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.icon_error, 0)
-                    edtRetypePassword.setBackgroundResource(R.drawable.bg_edit_text_input_false)
+                    edtRetypePassword.setBackgroundResource(R.drawable.bg_edit_text_input_error)
                 }
             }
 
@@ -102,9 +100,9 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun handleListionerButtonSignIn() {
+    private fun handleListionerButtonSignUp() {
         btnSignIn.setOnClickListener {
-            Toast.makeText(this, "click Sign In", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Sign Up ", Toast.LENGTH_SHORT).show()
         }
     }
 

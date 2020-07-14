@@ -21,7 +21,6 @@
         <TextView
             android:id="@+id/tvEmail"
             android:layout_width="@dimen/text_view_width"
-
             android:layout_height="@dimen/text_view_height"
             android:layout_below="@id/imgLogo"
             android:layout_centerHorizontal="true"
@@ -132,9 +131,7 @@
                 android:layout_marginLeft="@dimen/length_icon_to_icon"
                 android:layout_toRightOf="@id/imgTwitter"
                 android:src="@drawable/btn_google_plus" />
-
         </androidx.appcompat.widget.LinearLayoutCompat>
-
 
         <Button
             android:id="@+id/btnSignIn"
@@ -151,8 +148,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/btnSignIn"
             android:gravity="center"
-            android:layout_marginTop="@dimen/length_text_view_sign_up_to_button"
-            >
+            android:layout_marginTop="@dimen/length_text_view_sign_up_to_button">
 
             <TextView
                 android:id="@+id/txtNotSignIn"
@@ -169,6 +165,5 @@
                 android:textColor="@color/colorSignInText"
                 tools:ignore="InvalidId" />
         </androidx.appcompat.widget.LinearLayoutCompat>
-
     </RelativeLayout>
 </ScrollView>

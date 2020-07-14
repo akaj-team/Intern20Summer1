@@ -6,7 +6,7 @@
     <string name="hint_password">password</string>
     <string name="retype_password_edit_text_description">Retype your password</string>
     <string name="hint_retype_password">Retype your password</string>
-    <string name="button_text_description">SIGN IN</string>
+    <string name="button_text_description">SIGN UP</string>
     <string name="sign_up_ask_description">not register yet ?   </string>
     <string name="sign_up_text_view_description">  Sign up</string>
 </resources>
