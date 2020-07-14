@@ -41,10 +41,19 @@ class MainActivity : AppCompatActivity() {
 
             override fun afterTextChanged(p0: Editable?) {
                 if (isValidEmail(p0.toString())) {
-                    edtEmail.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.icon_tick, 0)
+                    edtEmail.setCompoundDrawablesWithIntrinsicBounds(
+                        0,
+                        0,
+                        R.drawable.icon_tick,
+                        0
+                    )
                     edtEmail.setBackgroundResource(R.drawable.bg_edit_text_input_pass)
                 } else {
-                    edtEmail.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.icon_error, 0)
+                    edtEmail.setCompoundDrawablesWithIntrinsicBounds(0,
+                        0,
+                        R.drawable.icon_error,
+                        0
+                    )
                     edtEmail.setBackgroundResource(R.drawable.bg_edit_text_input_error)
                 }
             }
@@ -59,10 +68,20 @@ class MainActivity : AppCompatActivity() {
         edtPassword.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
                 if (isValidPassword(p0.toString())) {
-                    edtPassword.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.icon_tick, 0)
+                    edtPassword.setCompoundDrawablesWithIntrinsicBounds(
+                        0,
+                        0,
+                        R.drawable.icon_tick,
+                        0
+                    )
                     edtPassword.setBackgroundResource(R.drawable.bg_edit_text_input_pass)
                 } else {
-                    edtPassword.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.icon_error, 0)
+                    edtPassword.setCompoundDrawablesWithIntrinsicBounds(
+                        0,
+                        0,
+                        R.drawable.icon_error,
+                        0
+                    )
                     edtPassword.setBackgroundResource(R.drawable.bg_edit_text_input_error)
                 }
             }
@@ -81,14 +100,23 @@ class MainActivity : AppCompatActivity() {
         edtRetypePassword.setBackgroundResource(R.drawable.select_custom_edit_text)
         edtRetypePassword.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
-                if (edtRetypePassword.text.toString() == edtPassword.text.toString() && isValidPassword(
-                        edtRetypePassword.text.toString()
-                    )
+                if (edtRetypePassword.text.toString() == edtPassword.text.toString() &&
+                    isValidPassword(edtRetypePassword.text.toString())
                 ) {
-                    edtRetypePassword.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.icon_tick, 0)
+                    edtRetypePassword.setCompoundDrawablesWithIntrinsicBounds(
+                        0,
+                        0,
+                        R.drawable.icon_tick,
+                        0
+                    )
                     edtRetypePassword.setBackgroundResource(R.drawable.bg_edit_text_input_pass)
                 } else {
-                    edtRetypePassword.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.icon_error, 0)
+                    edtRetypePassword.setCompoundDrawablesWithIntrinsicBounds(
+                        0,
+                        0,
+                        R.drawable.icon_error,
+                        0
+                    )
                     edtRetypePassword.setBackgroundResource(R.drawable.bg_edit_text_input_error)
                 }
             }
