@@ -9,8 +9,14 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import kotlinx.android.synthetic.`at-hoangtran`.activity_main.view.*
 
+var edtP: String = ""
+
+fun validPassword(password: String): Boolean {
+    val passwordPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{4,}$"
+    return password.matches(passwordPattern.toRegex())
+}
+
 fun EditText.onTextChange(edt: EditText, tick: ImageView, rl: RelativeLayout) {
-    val main = MainActivity()
     this.addTextChangedListener(object : TextWatcher {
         override fun afterTextChanged(s: Editable?) {
         }
@@ -19,13 +25,13 @@ fun EditText.onTextChange(edt: EditText, tick: ImageView, rl: RelativeLayout) {
         }
 
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            val str = edt.text
-            if (str.toString().isEmpty()) {
+            val str = edt.text.toString()
+            if (str.isEmpty()) {
                 tick.visibility = View.INVISIBLE
-                rl.setBackgroundResource(R.drawable.on_text_change)
+                rl.setBackgroundResource(R.drawable.bg_edit_text_focus)
             } else when (edt) {
                 edtEmail -> {
-                    if (Patterns.EMAIL_ADDRESS.matcher(str.toString()).matches()) {
+                    if (Patterns.EMAIL_ADDRESS.matcher(str).matches()) {
                         tick.visibility = View.VISIBLE
                         tick.setImageResource(R.mipmap.icon_tick)
                     } else {
@@ -34,25 +40,26 @@ fun EditText.onTextChange(edt: EditText, tick: ImageView, rl: RelativeLayout) {
                     }
                 }
                 edtPass -> {
-                    if (main.validPassword(str.toString())) {
+                    edtP = str
+                    if (validPassword(str)) {
                         tick.visibility = View.VISIBLE
                         tick.setImageResource(R.mipmap.icon_tick)
-                        rl.setBackgroundResource(R.drawable.on_text_change)
+                        rl.setBackgroundResource(R.drawable.bg_edit_text_focus)
                     } else {
                         tick.visibility = View.VISIBLE
                         tick.setImageResource(R.mipmap.icon_error)
-                        rl.setBackgroundResource(R.drawable.wrong_password)
+                        rl.setBackgroundResource(R.drawable.bg_wrong_password)
                     }
                 }
                 edtRetype -> {
-                    if (str.toString() == edtPass.text.toString() && main.validPassword(str.toString())) {
+                    if (str == edtP && validPassword(str)) {
                         tick.visibility = View.VISIBLE
                         tick.setImageResource(R.mipmap.icon_tick)
-                        rl.setBackgroundResource(R.drawable.on_text_change)
+                        rl.setBackgroundResource(R.drawable.bg_edit_text_focus)
                     } else {
                         tick.visibility = View.VISIBLE
                         tick.setImageResource(R.mipmap.icon_error)
-                        rl.setBackgroundResource(R.drawable.wrong_password)
+                        rl.setBackgroundResource(R.drawable.bg_wrong_password)
                     }
                 }
             }
