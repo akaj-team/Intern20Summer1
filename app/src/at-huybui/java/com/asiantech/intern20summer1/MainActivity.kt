@@ -16,6 +16,7 @@ class MainActivity : AppCompatActivity() {
     companion object {
         private const val REGEX_EMAIL = """^[a-zA-Z][a-zA-Z0-9_.]*[@][a-zA-Z0-9]+[.][a-zA-Z0-9]+$"""
         private const val REGEX_PASSWORD = """^[A-Z][a-zA-Z0-9]{5,}$""" // regex for password
+        private const val SDK_VERSION = 23
     }
 
     private var bufferEmail = ""          // buffer variable for Email
@@ -182,7 +183,7 @@ class MainActivity : AppCompatActivity() {
      */
     @RequiresApi(Build.VERSION_CODES.M)
     private fun handleStatusBarFollowSdk(){
-        if (Build.VERSION.SDK_INT >= 23) {
+        if (Build.VERSION.SDK_INT >= SDK_VERSION) {
             window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         } else{
             window.statusBarColor = resources.getColor(R.color.status_bar)
