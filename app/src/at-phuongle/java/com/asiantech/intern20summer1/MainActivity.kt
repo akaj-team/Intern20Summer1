@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
 
     // Handle event when click into button sign up
     private fun handleSignUpButton() {
-        btn.setOnClickListener {
+        btnSignUp.setOnClickListener {
             Toast.makeText(applicationContext, "Sign Up", Toast.LENGTH_SHORT).show()
         }
     }

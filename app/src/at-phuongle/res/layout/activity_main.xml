@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -46,6 +45,7 @@
                     android:layout_width="@dimen/edt_width"
                     android:layout_height="@dimen/edt_height"
                     android:background="@drawable/edit_text_border_normal"
+                    android:inputType="textEmailAddress"
                     android:paddingLeft="@dimen/email_edt_padding_left" />
 
                 <ImageView
@@ -137,7 +137,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/link_linear_layout_margin_top"
-            android:weightSum="3"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvLink">
@@ -147,7 +146,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/link_image_btn_margin_right"
-                android:layout_weight="1"
                 android:background="@android:color/transparent"
                 app:srcCompat="@drawable/btn_facebook" />
 
@@ -156,7 +154,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/link_image_btn_margin_right"
-                android:layout_weight="1"
                 android:background="@android:color/transparent"
                 app:srcCompat="@drawable/btn_google_plus" />
 
@@ -164,18 +161,17 @@
                 android:id="@+id/imgBtnTw"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:background="@android:color/transparent"
                 app:srcCompat="@drawable/btn_twitter" />
         </LinearLayout>
 
         <Button
-            android:id="@+id/btn"
+            android:id="@+id/btnSignUp"
             android:layout_width="@dimen/btn_signUp_width"
             android:layout_height="@dimen/btn_signUp_height"
             android:layout_marginTop="@dimen/sign_up_btn_margin_top"
             android:background="@drawable/button_sign_up"
-            android:text="@string/signUp_btn_button"
+            android:text="@string/sign_up_button_description"
             android:textColor="@color/colorTextBtnSignUp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -192,13 +188,13 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn">
+            app:layout_constraintTop_toBottomOf="@id/btnSignUp">
 
             <TextView
                 android:id="@+id/tvNotReg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/signUp_tvNotReg_text_view" />
+                android:text="@string/not_registered_text_view_description" />
 
             <TextView
                 android:id="@+id/tvSignUp"
@@ -208,8 +204,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center_horizontal"
-                android:onClick="onSignUp"
-                android:text="@string/signUp_tvSignUp_text_view"
+                android:text="@string/sign_up_text_view_description"
                 android:textColor="@color/colorTvSignUp" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
