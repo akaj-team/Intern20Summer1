@@ -22,18 +22,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun handleListener() {
-        scrollView?.setOnTouchListener { view, _ ->
+        ll_big?.setOnTouchListener { view, _ ->
             view.clearFocus()
             view.hideKeyboard()
             true
         }
 
-        btnSignup.setOnClickListener {
-            Toast.makeText(applicationContext, "Sign Up", Toast.LENGTH_SHORT).show()
+        btnSignUp.setOnClickListener {
+            val message = "Sign Up"
+            Toast.makeText(applicationContext, message, Toast.LENGTH_SHORT).show()
         }
 
-        tvSignup.setOnClickListener {
-            Toast.makeText(applicationContext, "Sign Up!", Toast.LENGTH_SHORT).show()
+        tvSignUp.setOnClickListener {
+            val message = "Sign Up!"
+            Toast.makeText(applicationContext, message, Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -125,12 +127,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun isValidEmailId(email: String): Boolean {
-        val regexForEmail = "^[a-z][a-z0-9_.]{5,32}[@][a-z0-9]{2,}([.][a-z0-9]{2,4}){1,2}${'$'}".toRegex()
+        val regexForEmail = "^[a-zA-Z0-9]{1,32}[@][a-zA-Z0-9]+[.][a-zA-Z0-9]+${'$'}".toRegex()
         return email.matches(regexForEmail)
     }
 
     private fun isValidPassword(password: String): Boolean {
         val regexForPassword = "^[A-Z](.){5,32}${'$'}".toRegex()
-        return if (password.matches(regexForPassword)) true else false
+        return password.matches(regexForPassword)
     }
 }

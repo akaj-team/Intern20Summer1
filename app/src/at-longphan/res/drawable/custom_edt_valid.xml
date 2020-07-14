@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <corners
-        android:radius="@dimen/custom_edt_valid_corners_radius"/>
+        android:radius="@dimen/custom_editText_corners_radius"/>
 
     <solid android:color="@color/colorSolidCustomEdtValid" />
 
     <padding
-        android:left="@dimen/custom_edt_valid_padding_left"
-        android:right="@dimen/custom_edt_valid_padding_right"/>
+        android:left="@dimen/custom_editText_padding_left"
+        android:right="@dimen/custom_editText_padding_right"/>
 
     <stroke
-        android:width="@dimen/custom_edt_valid_stroke_width"
+        android:width="1dp"
         android:color="@color/colorStrokeCustomEdtValid" />
 
     <size
-        android:height="@dimen/custom_edt_valid_size_height"
-        android:width="@dimen/custom_edt_valid_size_weitght" />
+        android:height="@dimen/custom_editText_size_height"
+        android:width="@dimen/custom_editText_size_width" />
 </shape>

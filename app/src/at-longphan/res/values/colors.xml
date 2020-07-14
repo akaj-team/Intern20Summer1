@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimary">#4CAF50</color>
     <color name="colorPrimaryDark">#ffffff</color>
     <color name="colorAccent">#03DAC5</color>
-    <color name="colorTextBtnSignup">#ffffff</color>
-    <color name="colorTextTvSignup">#0000ff</color>
-    <color name="colorBackgroundScrollView">#ffffff</color>
+    <color name="colorTextBtnSignUp">#ffffff</color>
+    <color name="colorTextTvSignUp">#0000ff</color>
+    <color name="colorBackgroundContainer">#ffffff</color>
     <color name="colorSolidCustomBtn">#b5de97</color>
     <color name="colorSolidCustomEdt">#ffffff</color>
     <color name="colorStokeCustomEdt">#d5edc5</color>
