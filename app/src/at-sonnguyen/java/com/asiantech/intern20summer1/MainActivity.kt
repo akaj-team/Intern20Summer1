@@ -7,70 +7,67 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.`at-sonnguyen`.activity_main.*
-private const val MIN_LENGTH_PASSWORD = 6
 
 @Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
+    companion object{
+        private const val MIN_LENGTH_PASSWORD = 6
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        changeBackgroundForStatusBar()
+        setContentView(R.layout.activity_main)
+        handleListionerEmailEditText()
+        handleListionerPasswordEditText()
+        handleListionerRetypePasswordEditText()
+        handleListionerButtonSignIn()
+        handleListionerSignUpTextView()
+    }
+    private fun changeBackgroundForStatusBar(){
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         supportActionBar?.hide()
         this.window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
-        setContentView(R.layout.activity_main)
-        handleListionerEditrextEmail()
-        handleListionerEdittextPassword()
-        handleListionerEdittexRetypePassword()
-        handleListionerButtonSignIn()
-        handleListionerTextviewSignUp()
-
     }
-
-
-
-    private fun handleListionerTextviewSignUp() {
+    
+    private fun handleListionerSignUpTextView() {
         txtSignIn.setOnClickListener {
             Toast.makeText(this, "Click Sign Up", Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun handleListionerEditrextEmail() {
-        edtEmail.setOnFocusChangeListener { _, isFocus -> edtEmail.isSelected = isFocus
+    private fun handleListionerEmailEditText() {
+        edtEmail.setOnFocusChangeListener { _, isFocus ->
+            edtEmail.isSelected = isFocus
         }
         edtEmail.setBackgroundResource(R.drawable.select_custom_edt)
 
         edtEmail.addTextChangedListener(object : TextWatcher {
-
-
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun afterTextChanged(p0: Editable?) {
-                if (isValidEmail(edtEmail.text.toString())) {
+                if (isValidEmail(p0.toString())) {
                     edtEmail.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.icon_tick, 0)
                     edtEmail.setBackgroundResource(R.drawable.custom_edt_true)
                 } else {
                     edtEmail.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.icon_error, 0)
                     edtEmail.setBackgroundResource(R.drawable.custom_edt_false)
-
                 }
             }
-
         })
-
     }
-
-    private fun handleListionerEdittextPassword() {
+    private fun handleListionerPasswordEditText() {
         edtPassword.setOnFocusChangeListener { _, isFocus ->
             edtPassword.isSelected = isFocus
         }
         edtPassword.setBackgroundResource(R.drawable.select_custom_edt)
         edtPassword.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
-                if (isValidPassword(edtPassword.text.toString())) {
+                if (isValidPassword(p0.toString())) {
                     edtPassword.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.icon_tick, 0)
                     edtPassword.setBackgroundResource(R.drawable.custom_edt_true)
                 } else {
@@ -78,7 +75,6 @@ class MainActivity : AppCompatActivity() {
                     edtPassword.setBackgroundResource(R.drawable.custom_edt_false)
                 }
             }
-
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
@@ -86,7 +82,7 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun handleListionerEdittexRetypePassword() {
+    private fun handleListionerRetypePasswordEditText() {
         edtRetypePassword.setOnFocusChangeListener { _, isFocus ->
             edtRetypePassword.isSelected = isFocus
         }
@@ -94,9 +90,7 @@ class MainActivity : AppCompatActivity() {
         edtRetypePassword.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
                 if (edtRetypePassword.text.toString() == edtPassword.text.toString() && isValidPassword(
-                        edtRetypePassword.text.toString()
-                    )
-                ) {
+                        edtRetypePassword.text.toString())) {
                     edtRetypePassword.setCompoundDrawablesWithIntrinsicBounds(0, 0,R.drawable.icon_tick, 0)
                     edtRetypePassword.setBackgroundResource(R.drawable.custom_edt_true)
                 } else {
@@ -117,15 +111,16 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "click Sign In", Toast.LENGTH_SHORT).show()
         }
     }
+    private fun isValidPassword(string: String) = string.isNotEmpty()&&
+            (string[0] == string[0].toUpperCase() && !string[0].isDigit()
+                    && string.length >= MIN_LENGTH_PASSWORD)
+
+
+    private fun isValidEmail(string: String) =
+        android.util.Patterns.EMAIL_ADDRESS.matcher(string).matches()
+
 }
 
-fun isValidEmail(string: String): Boolean {
-    return android.util.Patterns.EMAIL_ADDRESS.matcher(string).matches()
-}
 
-fun isValidPassword(string: String): Boolean {
-    if (string.isEmpty()) {
-        return false
-    }
-    return (string[0] == string[0].toUpperCase() && !string[0].isDigit() && string.length >= MIN_LENGTH_PASSWORD)
-}
+
+

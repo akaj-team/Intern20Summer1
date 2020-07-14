@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="corner_radius">100dp</dimen>
+    <color name="color_background_button">#23DD2C</color>
+    <dimen name="edit_text_height">50dp</dimen>
+    <dimen name="edit_text_width">238dp</dimen>
+    <dimen name="button_text_height">50dp</dimen>
+    <dimen name="button_text_width">238dp</dimen>
+    <dimen name="text_view_width">238dp</dimen>
+    <dimen name="text_view_height">14dp</dimen>
+    <dimen name="text_view_text_size">9sp</dimen>
+    <dimen name="length_button_to_image_view_link_profile">30dp</dimen>
+    <dimen name="length_image_view_logo_to_top">40dp</dimen>
+    <dimen name="length_email_text_view_to_image_view_logo">30dp</dimen>
+    <dimen name="length_text_view_to_edit_text">13dp</dimen>
+    <dimen name="length_edit_text_to_text_view">9dp</dimen>
+    <dimen name="length_text_view_sign_up_to_button">30dp</dimen>
+    <dimen name="length_text_view_link_profile_to_edit_text_password">31dp</dimen>
+    <dimen name="length_linear_layout_link_profile_to_text_view_link_profile">18dp</dimen>
+</resources>

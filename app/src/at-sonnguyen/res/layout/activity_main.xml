@@ -5,203 +5,170 @@
     android:layout_height="wrap_content">
 
     <RelativeLayout
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         tools:context=".MainActivity">
 
-        <LinearLayout
-            android:id="@+id/llLogo"
+        <ImageView
+            android:id="@+id/imgLogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/length_image_view_logo_to_top"
+            android:src="@drawable/logo" />
+
+        <TextView
+            android:id="@+id/tvEmail"
+            android:layout_width="@dimen/text_view_width"
+
+            android:layout_height="@dimen/text_view_height"
+            android:layout_below="@id/imgLogo"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/length_image_view_logo_to_top"
+            android:text="@string/email_edit_text_description"
+            android:textSize="@dimen/text_view_text_size"
+            tools:ignore="SmallSp" />
+
+        <EditText
+            android:id="@+id/edtEmail"
+            android:layout_width="@dimen/edit_text_width"
+            android:layout_height="@dimen/edit_text_height"
+            android:layout_below="@id/tvEmail"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/length_edit_text_to_text_view"
+            android:width="@dimen/edit_text_width"
+            android:background="@drawable/custom_edittext"
+            android:importantForAutofill="no"
+            android:inputType="textEmailAddress"
+            tools:ignore="LabelFor" />
+
+        <TextView
+            android:id="@+id/tvPassword"
+            android:layout_width="@dimen/text_view_width"
+            android:layout_height="@dimen/text_view_height"
+            android:layout_below="@+id/edtEmail"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/length_text_view_to_edit_text"
+            android:text="@string/tv_password"
+            android:textSize="@dimen/text_view_text_size"
+            tools:ignore="SmallSp" />
+
+        <EditText
+            android:id="@+id/edtPassword"
+            android:layout_width="@dimen/edit_text_width"
+            android:layout_height="@dimen/edit_text_height"
+            android:layout_below="@id/tvPassword"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/length_edit_text_to_text_view"
+            android:autofillHints="@string/hint_password"
+            android:background="@drawable/custom_edittext"
+            android:importantForAutofill="no"
+            android:inputType="textPassword"
+            tools:ignore="LabelFor" />
+
+        <TextView
+            android:id="@+id/tvRetypePassword"
+            android:layout_width="@dimen/text_view_width"
+            android:layout_height="@dimen/text_view_height"
+            android:layout_below="@id/edtPassword"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/length_text_view_to_edit_text"
+            android:text="@string/retype_password_edit_text_description"
+            android:textSize="@dimen/text_view_text_size"
+            tools:ignore="SmallSp" />
+
+        <EditText
+            android:id="@+id/edtRetypePassword"
+            android:layout_width="@dimen/edit_text_width"
+            android:layout_height="@dimen/edit_text_height"
+            android:layout_below="@id/tvRetypePassword"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/length_edit_text_to_text_view"
+            android:autofillHints="@string/hint_retype_password"
+            android:background="@drawable/custom_edittext"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:inputType="textPassword"
+            tools:ignore="LabelFor" />
+
+        <TextView
+            android:id="@+id/tvLinkProfile"
+            android:layout_width="@dimen/edit_text_width"
+            android:layout_height="@dimen/text_view_height"
+            android:textSize="@dimen/text_view_text_size"
+            android:layout_below="@id/edtRetypePassword"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/length_text_view_link_profile_to_edit_text_password"
+            android:gravity="center_horizontal"
+            android:text="@string/link_your_profile" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/llImageView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:layout_below="@id/tvLinkProfile"
+            android:layout_marginTop="@dimen/length_linear_layout_link_profile_to_text_view_link_profile"
+            android:gravity="center">
 
             <ImageView
-                android:id="@+id/imgLogo"
+                android:id="@+id/imgFacebook"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/logo" />
-        </LinearLayout>
+                android:src="@drawable/btn_facebook" />
 
-        <RelativeLayout
-            android:id="@+id/rlInformation"
+            <ImageView
+                android:id="@+id/imgTwitter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_toRightOf="@id/imgFacebook"
+                android:src="@drawable/btn_twitter" />
+
+            <ImageView
+                android:id="@+id/imgGoogle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_toRightOf="@id/imgTwitter"
+                android:src="@drawable/btn_google_plus" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+        <Button
+            android:id="@+id/btnSignIn"
+            android:layout_width="@dimen/button_text_width"
+            android:layout_height="@dimen/button_text_height"
+            android:layout_below="@+id/llImageView"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/length_button_to_image_view_link_profile"
+            android:background="@drawable/custom_button"
+            android:text="@string/button_text_description" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/llLogo"
-            android:layout_marginTop="20dp"
-            android:gravity="center">
+            android:layout_below="@+id/btnSignIn"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/length_text_view_sign_up_to_button"
+            >
 
             <TextView
-                android:id="@+id/tvEmail"
-                android:layout_width="238dp"
-                android:layout_height="14dp"
-                android:layout_marginTop="30dp"
-                android:text="@string/tv_email"
-                android:textSize="10sp"
-                tools:ignore="SmallSp" />
-
-            <EditText
-                android:id="@+id/edtEmail"
-                android:layout_width="238dp"
-                android:layout_height="50dp"
-                android:layout_below="@id/tvEmail"
-                android:layout_marginTop="9dp"
-                android:width="238dp"
-                android:importantForAutofill="no"
-                android:background="@drawable/custom_edittext"
-                android:inputType="textEmailAddress"
-                tools:ignore="LabelFor" />
+                android:id="@+id/txtNotSignIn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sign_up_ask_description" />
 
             <TextView
-                android:id="@+id/tvPassword"
-                android:layout_width="238dp"
-                android:layout_height="14dp"
-                android:layout_below="@+id/edtEmail"
-                android:layout_marginTop="13dp"
-                android:text="@string/tv_password"
-                android:textSize="10sp"
-                tools:ignore="SmallSp" />
-
-            <EditText
-                android:id="@+id/edtPassword"
-                android:layout_width="238dp"
-                android:layout_height="50dp"
-                android:layout_below="@id/tvPassword"
-                android:layout_marginTop="9dp"
-                android:autofillHints="@string/hint_password"
-                android:background="@drawable/custom_edittext"
-                android:importantForAutofill="no"
-                android:inputType="textPassword"
-                tools:ignore="LabelFor" />
-
-            <TextView
-                android:id="@+id/tvRetypePassword"
-                android:layout_width="238dp"
-                android:layout_height="14dp"
-                android:layout_below="@id/edtPassword"
-                android:layout_marginTop="13dp"
-                android:text="@string/tv_retype_password"
-                android:textSize="9sp"
-                tools:ignore="SmallSp" />
-
-            <EditText
-                android:id="@+id/edtRetypePassword"
-                android:layout_width="238dp"
-                android:layout_height="50dp"
-                android:layout_below="@id/tvRetypePassword"
-                android:layout_marginTop="9dp"
-                android:autofillHints="@string/hint_retype_password"
-                android:background="@drawable/custom_edittext"
-                android:inputType="textPassword"
-                android:focusableInTouchMode="true"
-                android:focusable="true"
-                tools:ignore="LabelFor" />
-
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/rlInformation"
-            android:layout_marginTop="50dp"
-            android:gravity="center">
-
-            <RelativeLayout
-                android:id="@+id/rltvLinkProfile"
-                android:layout_width="match_parent"
+                android:id="@+id/txtSignIn"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center">
-
-                <TextView
-                    android:id="@+id/tvLinkProfile"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:text="@string/link_your_profile" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/rlLinkProfile"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/rltvLinkProfile"
-                android:layout_marginTop="18dp"
-                android:gravity="center">
-
-                <ImageView
-                    android:id="@+id/imgFacebook"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/btn_facebook" />
-
-                <ImageView
-                    android:id="@+id/imgTwitter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_toRightOf="@id/imgFacebook"
-                    android:src="@drawable/btn_twitter" />
-
-                <ImageView
-
-                    android:id="@+id/imgGoogle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_toRightOf="@id/imgTwitter"
-                    android:src="@drawable/btn_google_plus" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/rlbtnSignup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/rlLinkProfile"
-                android:layout_marginTop="30dp"
-                android:gravity="center">
-
-                <Button
-                    android:id="@+id/btnSignIn"
-                    android:layout_width="238dp"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="4dp"
-                    android:background="@drawable/custom_button"
-                    android:gravity="center"
-                    android:text="@string/text_button" />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/rlSignin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/rlbtnSignup"
-                android:layout_marginTop="30dp"
-                android:gravity="center">
-
-                <TextView
-                    android:id="@+id/txtNotSignIn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:text="@string/tv_ask_signin" />
-
-                <TextView
-                    android:id="@+id/txtSignIn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:layout_toRightOf="@id/txtNotSignIn"
-                    android:text="@string/tv_signup"
-                    android:textColor="@color/test"
-                    tools:ignore="InvalidId" />
-            </RelativeLayout>
-        </RelativeLayout>
-
+                android:layout_toRightOf="@id/txtNotSignIn"
+                android:text="@string/sign_up_text_view_description"
+                android:textColor="@color/colorSignInText"
+                tools:ignore="InvalidId" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
     </RelativeLayout>
 </ScrollView>

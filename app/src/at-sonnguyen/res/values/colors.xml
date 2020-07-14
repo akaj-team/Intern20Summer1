@@ -6,7 +6,7 @@
     <color name="colorStrokeTrue">#99FF66</color>
     <color name="colorStrokeFalse">#FFB8261B</color>
     <color name="colorSolid">#FFF</color>
+    <color name="colorBackgroundButton">#23DD2C</color>
     <color name="colorSolidIsSelected">#F3C8C8</color>
-    <color name="colorBackgroundButton">#00FF00</color>
-    <color name="test">#ff00</color>
+    <color name="colorSignInText">#2654C8</color>
 </resources>
