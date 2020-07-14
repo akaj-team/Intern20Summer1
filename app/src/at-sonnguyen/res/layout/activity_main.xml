@@ -95,12 +95,12 @@
             android:id="@+id/tvLinkProfile"
             android:layout_width="@dimen/edit_text_width"
             android:layout_height="@dimen/text_view_height"
-            android:textSize="@dimen/text_view_text_size"
             android:layout_below="@id/edtRetypePassword"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/length_text_view_link_profile_to_edit_text_password"
             android:gravity="center_horizontal"
-            android:text="@string/link_your_profile" />
+            android:text="@string/link_your_profile"
+            android:textSize="@dimen/text_view_text_size" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/llImageView"
@@ -147,8 +147,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/btnSignIn"
-            android:gravity="center"
-            android:layout_marginTop="@dimen/length_text_view_sign_up_to_button">
+            android:layout_marginTop="@dimen/length_text_view_sign_up_to_button"
+            android:gravity="center">
 
             <TextView
                 android:id="@+id/txtNotSignIn"
