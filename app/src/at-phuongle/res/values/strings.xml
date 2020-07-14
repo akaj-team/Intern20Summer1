@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">[Phuong]Intern20Summer1</string>
-    <string name="email_tvEmail_text_view">Enter your email ID</string>
-    <string name="pass_tvPass_text_view">Type your password</string>
-    <string name="pass2_tvPass2_text_view">Retype your password</string>
-    <string name="link_tvLink_text_view">Link your social media profiles</string>
-    <string name="signUp_tvNotReg_text_view">Not registered? </string>
+    <string name="email_text_view_description">Enter your email ID</string>
+    <string name="password_text_view_description">Type your password</string>
+    <string name="retypePass_text_view_description">Retype your password</string>
+    <string name="link_text_view_description">Link your social media profiles</string>
+    <string name="signUp_tvNotReg_text_view">Not registered?</string>
     <string name="signUp_tvSignUp_text_view">Sign up!</string>
     <string name="signUp_btn_button">SIGNUP</string>
 </resources>

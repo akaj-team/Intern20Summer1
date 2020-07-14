@@ -8,17 +8,20 @@
     <dimen name="input_linear_layout_margin_top">30dp</dimen>
     <dimen name="container_margin_top">9dp</dimen>
     <dimen name="email_edt_padding_left">20dp</dimen>
-    <dimen name="icon_image_width">20dp</dimen>
+    <dimen name="icon_image_width">10dp</dimen>
     <dimen name="icon_image_height">10dp</dimen>
     <dimen name="icon_image_margin_right">20dp</dimen>
     <dimen name="pass_text_view_margin_top">13dp</dimen>
     <dimen name="pass_edt_padding_left">20dp</dimen>
-    <dimen name="pass2_text_view_margin_top">13dp</dimen>
-    <dimen name="pass2_edt_padding_left">20dp</dimen>
+    <dimen name="tvRetypePass_text_view_margin_top">13dp</dimen>
+    <dimen name="tvRetypePass_edt_padding_left">20dp</dimen>
     <dimen name="link_text_view_margin_top">30dp</dimen>
     <dimen name="link_linear_layout_margin_top">29dp</dimen>
     <dimen name="link_image_btn_margin_right">20dp</dimen>
     <dimen name="sign_up_btn_margin_top">30dp</dimen>
     <dimen name="sign_up_linear_layout_margin_top">42dp</dimen>
     <dimen name="sign_up_linear_layout_margin_bottom">29dp</dimen>
+    <dimen name="sign_up_text_view_margin_left">5dp</dimen>
+    <dimen name="radius">23dp</dimen>
+    <dimen name="stroke">1dp</dimen>
 </resources>

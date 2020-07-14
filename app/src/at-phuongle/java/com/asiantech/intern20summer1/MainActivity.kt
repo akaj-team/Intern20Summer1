@@ -5,34 +5,33 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.`at-phuongle`.activity_main.*
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
-
-private const val ICON_WIDTH = 20
-private const val PASSWORD_LENGTH = 6
-
 class MainActivity : AppCompatActivity() {
+    companion object {
+        private const val PASSWORD_LENGTH = 6
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val fieldEmail = findViewById<EditText>(R.id.edtEmail)
-        val imgEmail = findViewById<ImageView>(R.id.imgEmail)
-        val fieldPass = findViewById<EditText>(R.id.edtPass)
-        val imgPass = findViewById<ImageView>(R.id.imgPass)
-        val fieldPass2 = findViewById<EditText>(R.id.edtPass2)
-        val imgPass2 = findViewById<ImageView>(R.id.imgPass2)
+        handleEmailEditText()
 
-        onFocusEmailField(fieldEmail, imgEmail)
+        handlePasswordEditText()
 
-        onFocusPassField(fieldPass, imgPass)
+        handleRetypePasswordEditText()
 
-        onFocusPass2Field(fieldPass, fieldPass2, imgPass2)
+        handleSignUpButton()
+
+        handleSignUpTextView()
     }
 
     // Check valid email
@@ -40,46 +39,48 @@ class MainActivity : AppCompatActivity() {
         val expression = "^[\\w.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$"
         val pattern: Pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE)
         val matcher: Matcher = pattern.matcher(email.toString())
-
         return matcher.matches()
     }
 
     // Check valid password
-    private fun isPasswordValid(pass: String): Boolean {
-        var check = true
-
-        if (pass.length < PASSWORD_LENGTH) check = false
-
-        if (!pass[0].isUpperCase()) check = false
-
-        return check
-    }
+    private fun isPasswordValid(pass: String) =
+        (pass.length >= PASSWORD_LENGTH) && (pass[0].isUpperCase())
 
     // Check valid retype password
-    private fun isPassword2Valid(pass: String, pass2: String): Boolean {
-        return pass2 == pass
+    private fun isPassword2Valid(pass: String, retypePass: String) = (pass == retypePass)
+
+    // Handle event when click into button sign up
+    private fun handleSignUpButton() {
+        btn.setOnClickListener {
+            Toast.makeText(applicationContext, "Sign Up", Toast.LENGTH_SHORT).show()
+        }
     }
 
-    // handle event when click into button sign up
-    fun onSignUpBtn(view: View) {
-        Toast.makeText(applicationContext, "Sign Up", Toast.LENGTH_SHORT).show()
-        Log.d("onSignUpBtn", view.tag.toString())
-    }
-
-    // handle event when click into TextView sign up
-    fun onSignUp(view: View) {
-        Toast.makeText(applicationContext, "Sign up!", Toast.LENGTH_SHORT).show()
-        Log.d("onSignUp", view.tag.toString())
+    // Handle event when click into text view sign up
+    private fun handleSignUpTextView() {
+        tvSignUp.setOnClickListener {
+            Toast.makeText(applicationContext, "Sign up!", Toast.LENGTH_SHORT).show()
+        }
     }
 
     // Handle event when focus on Email field
-    private fun onFocusEmailField(fieldEmail: EditText, imgEmail: ImageView) {
-        fieldEmail.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
-            fieldEmail.addTextChangedListener(object : TextWatcher {
+    private fun handleEmailEditText() {
+        edtEmail.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+            edtEmail.addTextChangedListener(object : TextWatcher {
 
                 override fun afterTextChanged(s: Editable) {
-                    if (hasFocus && fieldEmail.text.toString().isEmpty()) {
-                        fieldEmail.setBackgroundResource(R.drawable.edit_text_border_normal)
+                    if (isEmailValid(s.toString())) {
+                        edtEmail.setBackgroundResource(R.drawable.edit_text_border)
+                        imgEmail.setBackgroundResource(R.drawable.icon_tick)
+                        imgEmail.visibility = View.VISIBLE
+                    } else {
+                        edtEmail.setBackgroundResource(R.drawable.edit_text_border_wrong)
+                        imgEmail.setBackgroundResource(R.drawable.icon_error)
+                        imgEmail.visibility = View.VISIBLE
+                    }
+
+                    if (hasFocus && s.toString().isEmpty()) {
+                        edtEmail.setBackgroundResource(R.drawable.edit_text_border_normal)
                         imgEmail.setBackgroundResource(0)
                     }
                 }
@@ -94,30 +95,29 @@ class MainActivity : AppCompatActivity() {
                     s: CharSequence, start: Int,
                     before: Int, count: Int
                 ) {
-                    if (isEmailValid(fieldEmail.text.toString())) {
-                        fieldEmail.setBackgroundResource(R.drawable.edit_text_border)
-                        imgEmail.setBackgroundResource(R.drawable.icon_tick)
-                        imgEmail.layoutParams.width = ICON_WIDTH
-                        imgEmail.requestLayout()
-                    } else {
-                        fieldEmail.setBackgroundResource(R.drawable.edit_text_border_wrong)
-                        imgEmail.setBackgroundResource(R.drawable.icon_error)
-                        imgEmail.layoutParams.width = ICON_WIDTH
-                        imgEmail.requestLayout()
-                    }
                 }
             })
         }
     }
 
     // Handle event when focus on Password field
-    private fun onFocusPassField(fieldPass: EditText, imgPass: ImageView) {
-        fieldPass.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
-            fieldPass.addTextChangedListener(object : TextWatcher {
+    private fun handlePasswordEditText() {
+        edtPass.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+            edtPass.addTextChangedListener(object : TextWatcher {
 
                 override fun afterTextChanged(s: Editable) {
-                    if (hasFocus && fieldPass.text.toString().isEmpty()) {
-                        fieldPass.setBackgroundResource(R.drawable.edit_text_border_normal)
+                    if (isPasswordValid(s.toString())) {
+                        edtPass.setBackgroundResource(R.drawable.edit_text_border)
+                        imgPass.setBackgroundResource(R.drawable.icon_tick)
+                        imgPass.visibility = View.VISIBLE
+                    } else {
+                        edtPass.setBackgroundResource(R.drawable.edit_text_border_wrong)
+                        imgPass.setBackgroundResource(R.drawable.icon_error)
+                        imgPass.visibility = View.VISIBLE
+                    }
+
+                    if (hasFocus && s.toString().isEmpty()) {
+                        edtPass.setBackgroundResource(R.drawable.edit_text_border_normal)
                         imgPass.setBackgroundResource(0)
                     }
                 }
@@ -132,31 +132,30 @@ class MainActivity : AppCompatActivity() {
                     s: CharSequence, start: Int,
                     before: Int, count: Int
                 ) {
-                    if (isPasswordValid(fieldPass.text.toString())) {
-                        fieldPass.setBackgroundResource(R.drawable.edit_text_border)
-                        imgPass.setBackgroundResource(R.drawable.icon_tick)
-                        imgPass.layoutParams.width = ICON_WIDTH
-                        imgPass.requestLayout()
-                    } else {
-                        fieldPass.setBackgroundResource(R.drawable.edit_text_border_wrong)
-                        imgPass.setBackgroundResource(R.drawable.icon_error)
-                        imgPass.layoutParams.width = ICON_WIDTH
-                        imgPass.requestLayout()
-                    }
                 }
             })
         }
     }
 
     // Handle event when focus on Password2 field
-    private fun onFocusPass2Field(fieldPass: EditText, fieldPass2: EditText, imgPass2: ImageView) {
-        fieldPass2.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
-            fieldPass2.addTextChangedListener(object : TextWatcher {
+    private fun handleRetypePasswordEditText() {
+        edtRetypePass.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+            edtRetypePass.addTextChangedListener(object : TextWatcher {
 
                 override fun afterTextChanged(s: Editable) {
-                    if (hasFocus && fieldPass2.text.toString().isEmpty()) {
-                        fieldPass2.setBackgroundResource(R.drawable.edit_text_border_normal)
-                        imgPass2.setBackgroundResource(0)
+                    if (isPassword2Valid(edtPass.text.toString(), s.toString())) {
+                        edtRetypePass.setBackgroundResource(R.drawable.edit_text_border)
+                        imgRetypePass.setBackgroundResource(R.drawable.icon_tick)
+                        imgRetypePass.visibility = View.VISIBLE
+                    } else {
+                        edtRetypePass.setBackgroundResource(R.drawable.edit_text_border_wrong)
+                        imgRetypePass.setBackgroundResource(R.drawable.icon_error)
+                        imgRetypePass.visibility = View.VISIBLE
+                    }
+
+                    if (hasFocus && s.toString().isEmpty()) {
+                        edtRetypePass.setBackgroundResource(R.drawable.edit_text_border_normal)
+                        imgRetypePass.setBackgroundResource(0)
                     }
                 }
 
@@ -170,17 +169,6 @@ class MainActivity : AppCompatActivity() {
                     s: CharSequence, start: Int,
                     before: Int, count: Int
                 ) {
-                    if (isPassword2Valid(fieldPass.text.toString(), fieldPass2.toString())) {
-                        fieldPass2.setBackgroundResource(R.drawable.edit_text_border)
-                        imgPass2.setBackgroundResource(R.drawable.icon_tick)
-                        imgPass2.layoutParams.width = ICON_WIDTH
-                        imgPass2.requestLayout()
-                    } else {
-                        fieldPass2.setBackgroundResource(R.drawable.edit_text_border_wrong)
-                        imgPass2.setBackgroundResource(R.drawable.icon_error)
-                        imgPass2.layoutParams.width = ICON_WIDTH
-                        imgPass2.requestLayout()
-                    }
                 }
             })
         }
