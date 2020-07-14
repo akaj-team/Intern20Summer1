@@ -2,7 +2,6 @@ package com.asiantech.intern20summer1
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -167,8 +166,8 @@ class MainActivity : AppCompatActivity() {
     /**
      * This function will handle for icon of edit text views
      */
-    private fun setIconTickOrErrorForEditText(view: EditText, icon: Int) {
-        view.setCompoundDrawablesWithIntrinsicBounds(0, 0, icon, 0)
+    private fun setIconTickOrErrorForEditText(editText: EditText, icon: Int) {
+        editText.setCompoundDrawablesWithIntrinsicBounds(0, 0, icon, 0)
     }
 
     /**
