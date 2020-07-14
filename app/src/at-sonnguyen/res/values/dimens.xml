@@ -17,4 +17,7 @@
     <dimen name="length_text_view_sign_up_to_button">30dp</dimen>
     <dimen name="length_text_view_link_profile_to_edit_text_password">31dp</dimen>
     <dimen name="length_linear_layout_link_profile_to_text_view_link_profile">18dp</dimen>
+    <dimen name="edit_text_padding_left">22dp</dimen>
+    <dimen name="edit_text_padding_right">22dp</dimen>
+    <dimen name="length_icon_to_icon">20dp</dimen>
 </resources>

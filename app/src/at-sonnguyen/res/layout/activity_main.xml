@@ -38,7 +38,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/length_edit_text_to_text_view"
             android:width="@dimen/edit_text_width"
-            android:background="@drawable/custom_edittext"
+            android:background="@drawable/bg_edit_text_non_selected"
             android:importantForAutofill="no"
             android:inputType="textEmailAddress"
             tools:ignore="LabelFor" />
@@ -62,7 +62,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/length_edit_text_to_text_view"
             android:autofillHints="@string/hint_password"
-            android:background="@drawable/custom_edittext"
+            android:background="@drawable/bg_edit_text_non_selected"
             android:importantForAutofill="no"
             android:inputType="textPassword"
             tools:ignore="LabelFor" />
@@ -86,7 +86,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/length_edit_text_to_text_view"
             android:autofillHints="@string/hint_retype_password"
-            android:background="@drawable/custom_edittext"
+            android:background="@drawable/bg_edit_text_non_selected"
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:inputType="textPassword"
@@ -121,7 +121,7 @@
                 android:id="@+id/imgTwitter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="@dimen/length_icon_to_icon"
                 android:layout_toRightOf="@id/imgFacebook"
                 android:src="@drawable/btn_twitter" />
 
@@ -129,7 +129,7 @@
                 android:id="@+id/imgGoogle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="@dimen/length_icon_to_icon"
                 android:layout_toRightOf="@id/imgTwitter"
                 android:src="@drawable/btn_google_plus" />
 
@@ -143,7 +143,7 @@
             android:layout_below="@+id/llImageView"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/length_button_to_image_view_link_profile"
-            android:background="@drawable/custom_button"
+            android:background="@drawable/bg_sign_in_button"
             android:text="@string/button_text_description" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
