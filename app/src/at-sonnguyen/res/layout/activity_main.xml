@@ -162,7 +162,7 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/txtNotSignIn"
                 android:text="@string/sign_up_text_view_description"
-                android:textColor="@color/colorSignInText"
+                android:textColor="@color/colorDeepSkyBlue1"
                 tools:ignore="InvalidId" />
         </androidx.appcompat.widget.LinearLayoutCompat>
     </RelativeLayout>
