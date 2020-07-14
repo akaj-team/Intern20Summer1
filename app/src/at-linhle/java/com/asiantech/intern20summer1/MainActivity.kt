@@ -1,9 +1,8 @@
 package com.asiantech.intern20summer1
 
+import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.View
 import android.view.WindowManager
 import android.widget.ImageView
@@ -21,6 +20,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         changeColorForStatusBar()
+        handleOnTouchScreen()
         handleEmailTextChanged()
         handlePasswordTextChanged()
         handleRetypePassTextChanged()
@@ -29,11 +29,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun changeColorForStatusBar() {
-        // clear FLAG_TRANSLUCENT_STATUS flag:
+        // Clear FLAG_TRANSLUCENT_STATUS flag:
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
         }
-        // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
+        // Add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
         // Change the color
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
@@ -41,70 +41,83 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
+    private fun handleOnTouchScreen() {
+        llMain?.setOnTouchListener { it, _ ->
+            it.requestFocus()
+            it.clearFocus()
+            this.hideSoftKeyboard()
+            true
+        }
+    }
+
     //Check Email
-    fun isEmailValid(email: String) = android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    private fun isEmailValid(email: String) =
+        android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
 
     //Check Password
-    fun isPasswordValid(password: String) = passwordPattern.matcher(password).matches()
+    private fun isPasswordValid(password: String) = passwordPattern.matcher(password).matches()
 
     // Handle email when nothing in edit text
     private fun handleEmailEditText() {
-        if (
-            imgEmailTick.visibility == View.INVISIBLE && imgEmailError.visibility == View.INVISIBLE
+        if (imgEmailTick.visibility == View.INVISIBLE
+            && imgEmailError.visibility == View.INVISIBLE
         ) {
             imgEmailError.visibility = View.VISIBLE
-            edtEmail.setBackgroundResource(R.drawable.edit_text_error)
+            edtEmail.setBackgroundResource(R.drawable.bg_edit_text_error)
         }
     }
 
     // Handle password when nothing in edit text
     private fun handlePasswordEditText() {
-        if (
-            imgPasswordTick.visibility == View.INVISIBLE && imgPasswordError.visibility == View.INVISIBLE
+        if (imgPasswordTick.visibility == View.INVISIBLE
+            && imgPasswordError.visibility == View.INVISIBLE
         ) {
             imgPasswordError.visibility = View.VISIBLE
-            edtPassword.setBackgroundResource(R.drawable.edit_text_error)
+            edtPassword.setBackgroundResource(R.drawable.bg_edit_text_error)
         }
     }
 
     // Handle retype password when nothing in edit text
     private fun handleRetypePasswordEditText() {
-        if (imgRetypePassTick.visibility == View.INVISIBLE && imgRetypePassError.visibility == View.INVISIBLE
+        if (imgRetypePassTick.visibility == View.INVISIBLE
+            && imgRetypePassError.visibility == View.INVISIBLE
         ) {
             imgRetypePassError.visibility = View.VISIBLE
-            edtRetype.setBackgroundResource(R.drawable.edit_text_error)
+            edtRetype.setBackgroundResource(R.drawable.bg_edit_text_error)
         }
     }
 
     // Handle event between password and retype password
     private fun handlePassword() {
-        if (edtRetype.text.toString() == edtPassword.text.toString() && isPasswordValid(edtRetype.text.toString())
+        if (edtRetype.text.toString() == edtPassword.text.toString()
+            && isPasswordValid(edtRetype.text.toString())
         ) {
             imgRetypePassTick.visibility = View.VISIBLE
             imgRetypePassError.visibility = View.INVISIBLE
-            edtRetype.setBackgroundResource(R.drawable.edit_text_focus_pass)
+            edtRetype.setBackgroundResource(R.drawable.bg_edit_text_focus_pass)
         } else {
             imgRetypePassError.visibility = View.VISIBLE
             imgRetypePassTick.visibility = View.INVISIBLE
-            edtRetype.setBackgroundResource(R.drawable.edit_text_focus_error)
+            edtRetype.setBackgroundResource(R.drawable.bg_edit_text_focus_error)
         }
     }
 
     // Handle event when focus on edit text
     private fun handleStatusFocusEditText(imgError: ImageView, editText: View) {
         if (imgError.visibility == View.VISIBLE) {
-            editText.setBackgroundResource(R.drawable.edit_text_focus_error)
+            editText.setBackgroundResource(R.drawable.bg_edit_text_focus_error)
         } else {
-            editText.setBackgroundResource(R.drawable.edit_text_focus_pass)
+            editText.setBackgroundResource(R.drawable.bg_edit_text_focus_pass)
         }
     }
 
     // Handle event when not focus on edit text
     private fun handleStatusNotFocusEditText(imgError: ImageView, editText: View) {
         if (imgError.visibility == View.VISIBLE) {
-            editText.setBackgroundResource(R.drawable.edit_text_error)
+            editText.setBackgroundResource(R.drawable.bg_edit_text_error)
         } else {
-            editText.setBackgroundResource(R.drawable.edit_view_shape)
+            editText.setBackgroundResource(R.drawable.bg_edit_view_shape)
         }
     }
 
@@ -112,31 +125,22 @@ class MainActivity : AppCompatActivity() {
     private fun handleEmailTextChanged() {
         // Event focus
         edtEmail.setOnFocusChangeListener { edtEmail, hasFocus ->
-            when (hasFocus) {
-                true -> handleStatusFocusEditText(imgEmailError, edtEmail)
-                else -> handleStatusNotFocusEditText(imgEmailError, edtEmail)
+            if (hasFocus) {
+                handleStatusFocusEditText(imgEmailError, edtEmail)
+            } else {
+                handleStatusNotFocusEditText(imgEmailError, edtEmail)
             }
         }
         // Event change
-        edtEmail.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {
-
-            }
-
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if (isEmailValid(p0.toString())) {
-                    imgEmailTick.visibility = View.VISIBLE
-                    imgEmailError.visibility = View.INVISIBLE
-                    edtEmail.setBackgroundResource(R.drawable.edit_text_focus_pass)
-                } else {
-                    imgEmailError.visibility = View.VISIBLE
-                    imgEmailTick.visibility = View.INVISIBLE
-                    edtEmail.setBackgroundResource(R.drawable.edit_text_focus_error)
-                }
+        edtEmail.addTextChanged(onTextChanged = { p0: CharSequence?, _, _, _ ->
+            if (isEmailValid(p0.toString())) {
+                imgEmailTick.visibility = View.VISIBLE
+                imgEmailError.visibility = View.INVISIBLE
+                edtEmail.setBackgroundResource(R.drawable.bg_edit_text_focus_pass)
+            } else {
+                imgEmailError.visibility = View.VISIBLE
+                imgEmailTick.visibility = View.INVISIBLE
+                edtEmail.setBackgroundResource(R.drawable.bg_edit_text_focus_error)
             }
         })
     }
@@ -152,31 +156,25 @@ class MainActivity : AppCompatActivity() {
             }
         }
         // Event change
-        edtPassword.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {
-                if (edtRetype.text.toString() == "") {
+        edtPassword.addTextChanged(
+            afterTextChanged = {
+                if (it.toString() == "") {
                     //Don't do anything
                 } else {
                     handlePassword()
                 }
-            }
-
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            },
+            onTextChanged = { p0: CharSequence?, _, _, _ ->
                 if (isPasswordValid(p0.toString())) {
                     imgPasswordTick.visibility = View.VISIBLE
                     imgPasswordError.visibility = View.INVISIBLE
-                    edtPassword.setBackgroundResource(R.drawable.edit_text_focus_pass)
+                    edtPassword.setBackgroundResource(R.drawable.bg_edit_text_focus_pass)
                 } else {
                     imgPasswordError.visibility = View.VISIBLE
                     imgPasswordTick.visibility = View.INVISIBLE
-                    edtPassword.setBackgroundResource(R.drawable.edit_text_focus_error)
+                    edtPassword.setBackgroundResource(R.drawable.bg_edit_text_focus_error)
                 }
-            }
-        })
+            })
     }
 
     private fun handleRetypePassTextChanged() {
@@ -187,27 +185,17 @@ class MainActivity : AppCompatActivity() {
                 handleStatusNotFocusEditText(imgRetypePassError, edtRetype)
             }
         }
-        edtRetype.addTextChangedListener(
-            object : TextWatcher {
-                override fun afterTextChanged(p0: Editable?) {
-
-                }
-
-                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-                }
-
-                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                    handlePassword()
-                }
-            })
+        edtRetype.addTextChanged(onTextChanged = { _, _, _, _ ->
+            handlePassword()
+        })
     }
 
     // Event click of button sign up
     private fun handleClickingSignUpButton() {
         btnSignUp.setOnClickListener {
-            if (
-                imgEmailTick.visibility == View.VISIBLE && imgPasswordTick.visibility == View.VISIBLE && imgRetypePassTick.visibility == View.VISIBLE
+            if (imgEmailTick.visibility == View.VISIBLE
+                && imgPasswordTick.visibility == View.VISIBLE
+                && imgRetypePassTick.visibility == View.VISIBLE
             ) {
                 Toast.makeText(
                     this@MainActivity, "Sign up success.", Toast.LENGTH_SHORT
@@ -227,7 +215,7 @@ class MainActivity : AppCompatActivity() {
     private fun handleClickingSignUpTextView() {
         tvSignUp.setOnClickListener {
             Toast.makeText(
-                this@MainActivity, "You are clicked sign up.", Toast.LENGTH_SHORT
+                this@MainActivity, "You clicked sign up.", Toast.LENGTH_SHORT
             ).show()
         }
     }
