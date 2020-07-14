@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,12 +7,10 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".MainActivity">
+        android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/imIcon"
+            android:id="@+id/imgIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -24,7 +21,7 @@
             android:id="@+id/rlEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/imIcon"
+            android:layout_below="@id/imgIcon"
             android:layout_marginLeft="@dimen/layout_margin_left"
             android:layout_marginTop="@dimen/relative_margin_top"
             android:layout_marginRight="@dimen/layout_margin_right">
@@ -42,9 +39,10 @@
                 android:layout_height="@dimen/height_edit_text"
                 android:layout_below="@id/tvEmail"
                 android:layout_marginTop="@dimen/edit_text_margin_top"
-                android:background="@drawable/custom_edit_text"
+                android:background="@drawable/bg_edit_text_state"
                 android:hint="@string/email_edit_text_hint"
                 android:importantForAutofill="no"
+                android:inputType="textEmailAddress"
                 android:paddingLeft="@dimen/edit_text_padding_left"
                 android:paddingRight="@dimen/edit_text_padding_right" />
         </RelativeLayout>
@@ -71,16 +69,16 @@
                 android:layout_height="@dimen/height_edit_text"
                 android:layout_below="@id/tvTypePassword"
                 android:layout_marginTop="@dimen/edit_text_margin_top"
-                android:background="@drawable/custom_edit_text"
+                android:background="@drawable/bg_edit_text_state"
                 android:hint="@string/password_edit_text_hint"
+                android:importantForAutofill="no"
                 android:inputType="textPassword"
                 android:paddingLeft="@dimen/edit_text_padding_left"
-                android:paddingRight="@dimen/edit_text_padding_right"
-                tools:ignore="UnknownId" />
+                android:paddingRight="@dimen/edit_text_padding_right" />
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/rlRetypePasswordd"
+            android:id="@+id/rlRetypePassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/rlTypePassword"
@@ -100,88 +98,78 @@
                 android:layout_height="@dimen/height_edit_text"
                 android:layout_below="@id/tvRetypePassword"
                 android:layout_marginTop="@dimen/edit_text_margin_top"
-                android:background="@drawable/custom_edit_text"
+                android:background="@drawable/bg_edit_text_state"
                 android:hint="@string/password_edit_text_hint"
+                android:importantForAutofill="no"
                 android:inputType="textPassword"
                 android:paddingLeft="@dimen/edit_text_padding_left"
-                android:paddingRight="@dimen/edit_text_padding_right"
-                tools:ignore="UnknownId" />
+                android:paddingRight="@dimen/edit_text_padding_right" />
 
         </RelativeLayout>
 
-        <RelativeLayout
-            android:id="@+id/rlEdit"
+        <TextView
+            android:id="@+id/tvLink"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/rlRetypePasswordd"
+            android:layout_below="@id/rlRetypePassword"
             android:layout_marginLeft="@dimen/layout_margin_left"
-            android:layout_marginTop="@dimen/relative_margin_top"
-            android:layout_marginRight="@dimen/layout_margin_right">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/edit_text_padding_left"
-                android:text="@string/link_media_text_view_description_text" />
-        </RelativeLayout>
+            android:layout_marginRight="@dimen/layout_margin_right"
+            android:gravity="center"
+            android:paddingLeft="@dimen/edit_text_padding_left"
+            android:paddingTop="30dp"
+            android:text="@string/link_media_text_view_description_text" />
 
         <RelativeLayout
             android:id="@+id/rlThreeIcon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/rlEdit"
+            android:layout_below="@id/tvLink"
             android:layout_marginLeft="@dimen/layout_margin_left"
             android:layout_marginTop="@dimen/relative_margin_top"
             android:layout_marginRight="@dimen/layout_margin_right"
             android:gravity="center">
 
             <ImageView
-                android:id="@+id/imIconOne"
+                android:id="@+id/imgIconOne"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/btn_facebook" />
 
             <ImageView
-                android:id="@+id/imIconTwo"
+                android:id="@+id/imgIconTwo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/imIconOne"
-                android:layout_toRightOf="@id/imIconOne"
+                android:layout_toEndOf="@id/imgIconOne"
+                android:layout_toRightOf="@id/imgIconOne"
                 android:paddingLeft="@dimen/icon_image_padding_left"
                 android:src="@drawable/btn_twitter" />
 
             <ImageView
-                android:id="@+id/imIconThree"
+                android:id="@+id/imgIconThree"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/imIconTwo"
-                android:layout_toRightOf="@id/imIconTwo"
+                android:layout_toEndOf="@id/imgIconTwo"
+                android:layout_toRightOf="@id/imgIconTwo"
                 android:paddingLeft="@dimen/icon_image_padding_left"
                 android:src="@drawable/btn_google_plus" />
         </RelativeLayout>
 
-        <RelativeLayout
-            android:id="@+id/rlButton"
+        <Button
+            android:id="@+id/btnLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/rlThreeIcon"
             android:layout_marginLeft="@dimen/layout_margin_left"
-            android:layout_marginTop="@dimen/relative_margin_top"
-            android:layout_marginRight="@dimen/layout_margin_right">
-
-            <Button
-                android:id="@+id/btnLogin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/custom_round_button"
-                android:text="@string/sign_up_button_description_text"
-                android:textColor="@color/colorWhite" />
-        </RelativeLayout>
+            android:layout_marginTop="@dimen/button_sign_up_margin_top"
+            android:layout_marginRight="@dimen/layout_margin_right"
+            android:background="@drawable/bg_signup_button_radius"
+            android:text="@string/sign_up_button_description_text"
+            android:textColor="@color/colorWhite" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/relative_height_end"
-            android:layout_below="@+id/rlButton"
+            android:layout_below="@+id/btnLogin"
             android:layout_marginLeft="@dimen/layout_margin_left"
             android:layout_marginTop="@dimen/relative_text_view_margin_top"
             android:layout_marginRight="@dimen/layout_margin_right"

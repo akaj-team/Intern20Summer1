@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/custom_edit_text_error_input" android:state_activated="true" android:state_selected="true" />
-    <item android:drawable="@drawable/custom_edit_text_begin_input" android:state_activated="false" android:state_selected="false" />
-    <item android:drawable="@drawable/custom_edit_text_inputting" android:state_activated="false" android:state_selected="true" />
-    <item android:drawable="@drawable/custom_edit_text_error_input_after" android:state_activated="true" android:state_selected="false" />
-</selector>
