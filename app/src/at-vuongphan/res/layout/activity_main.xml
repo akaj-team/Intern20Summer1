@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
@@ -10,113 +9,98 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/imgIcon"
+            android:id="@+id/imgLogo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/icon_image_margin_top"
             android:src="@drawable/logo" />
 
-        <RelativeLayout
-            android:id="@+id/rlEmail"
+        <TextView
+            android:id="@+id/tvEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/imgIcon"
+            android:layout_below="@id/imgLogo"
             android:layout_marginLeft="@dimen/layout_margin_left"
-            android:layout_marginTop="@dimen/relative_margin_top"
-            android:layout_marginRight="@dimen/layout_margin_right">
-
-            <TextView
-                android:id="@+id/tvEmail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/text_views_email_margin_top"
-                android:text="@string/email_id_text_view_description_text" />
-
-            <EditText
-                android:id="@+id/edtEmail"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/height_edit_text"
-                android:layout_below="@id/tvEmail"
-                android:layout_marginTop="@dimen/edit_text_margin_top"
-                android:background="@drawable/bg_edit_text_state"
-                android:hint="@string/email_edit_text_hint"
-                android:importantForAutofill="no"
-                android:inputType="textEmailAddress"
-                android:paddingLeft="@dimen/edit_text_padding_left"
-                android:paddingRight="@dimen/edit_text_padding_right" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/rlTypePassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/rlEmail"
-            android:layout_marginLeft="@dimen/layout_margin_left"
-            android:layout_marginTop="@dimen/relative_password_margin_top"
+            android:layout_marginTop="@dimen/text_views_email_margin_top"
             android:layout_marginRight="@dimen/layout_margin_right"
-            tools:ignore="InvalidId">
+            android:text="@string/email_id_text_view_description_text" />
 
-            <TextView
-                android:id="@+id/tvTypePassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/type_password_text_view_description_text" />
+        <EditText
+            android:id="@+id/edtEmail"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_edit_text"
+            android:layout_below="@id/tvEmail"
+            android:layout_marginLeft="@dimen/layout_margin_left"
+            android:layout_marginTop="@dimen/edit_text_margin_top"
+            android:layout_marginRight="@dimen/layout_margin_right"
+            android:background="@drawable/bg_edit_text_state"
+            android:hint="@string/email_edit_text_hint"
+            android:importantForAutofill="no"
+            android:inputType="textEmailAddress"
+            android:paddingLeft="@dimen/edit_text_padding_left"
+            android:paddingRight="@dimen/edit_text_padding_right" />
 
-            <EditText
-                android:id="@+id/edtTypePassword"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/height_edit_text"
-                android:layout_below="@id/tvTypePassword"
-                android:layout_marginTop="@dimen/edit_text_margin_top"
-                android:background="@drawable/bg_edit_text_state"
-                android:hint="@string/password_edit_text_hint"
-                android:importantForAutofill="no"
-                android:inputType="textPassword"
-                android:paddingLeft="@dimen/edit_text_padding_left"
-                android:paddingRight="@dimen/edit_text_padding_right" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/rlRetypePassword"
+        <TextView
+            android:id="@+id/tvTypePassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/rlTypePassword"
+            android:layout_below="@id/edtEmail"
             android:layout_marginLeft="@dimen/layout_margin_left"
-            android:layout_marginTop="@dimen/relative_password_margin_top"
-            android:layout_marginRight="@dimen/layout_margin_right">
+            android:layout_marginTop="@dimen/text_view_password_margin_top"
+            android:layout_marginRight="@dimen/layout_margin_right"
+            android:text="@string/type_password_text_view_description_text" />
 
-            <TextView
-                android:id="@+id/tvRetypePassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/retype_password_text_view_description_text" />
+        <EditText
+            android:id="@+id/edtTypePassword"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_edit_text"
+            android:layout_below="@id/tvTypePassword"
+            android:layout_marginLeft="@dimen/layout_margin_left"
+            android:layout_marginTop="@dimen/edit_text_margin_top"
+            android:layout_marginRight="@dimen/layout_margin_right"
+            android:background="@drawable/bg_edit_text_state"
+            android:hint="@string/password_edit_text_hint"
+            android:importantForAutofill="no"
+            android:inputType="textPassword"
+            android:paddingLeft="@dimen/edit_text_padding_left"
+            android:paddingRight="@dimen/edit_text_padding_right" />
 
-            <EditText
-                android:id="@+id/edtRetypePassword"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/height_edit_text"
-                android:layout_below="@id/tvRetypePassword"
-                android:layout_marginTop="@dimen/edit_text_margin_top"
-                android:background="@drawable/bg_edit_text_state"
-                android:hint="@string/password_edit_text_hint"
-                android:importantForAutofill="no"
-                android:inputType="textPassword"
-                android:paddingLeft="@dimen/edit_text_padding_left"
-                android:paddingRight="@dimen/edit_text_padding_right" />
+        <TextView
+            android:id="@+id/tvRetypePassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edtTypePassword"
+            android:layout_marginLeft="@dimen/layout_margin_left"
+            android:layout_marginTop="@dimen/text_view_password_margin_top"
+            android:layout_marginRight="@dimen/layout_margin_right"
+            android:text="@string/retype_password_text_view_description_text" />
 
-        </RelativeLayout>
+        <EditText
+            android:id="@+id/edtRetypePassword"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_edit_text"
+            android:layout_below="@id/tvRetypePassword"
+            android:layout_marginLeft="@dimen/layout_margin_left"
+            android:layout_marginTop="@dimen/edit_text_margin_top"
+            android:layout_marginRight="@dimen/layout_margin_right"
+            android:background="@drawable/bg_edit_text_state"
+            android:hint="@string/password_edit_text_hint"
+            android:importantForAutofill="no"
+            android:inputType="textPassword"
+            android:paddingLeft="@dimen/edit_text_padding_left"
+            android:paddingRight="@dimen/edit_text_padding_right" />
 
         <TextView
             android:id="@+id/tvLink"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/rlRetypePassword"
+            android:layout_below="@id/edtRetypePassword"
             android:layout_marginLeft="@dimen/layout_margin_left"
+            android:layout_marginTop="@dimen/text_view_link_margin_top"
             android:layout_marginRight="@dimen/layout_margin_right"
             android:gravity="center"
             android:paddingLeft="@dimen/edit_text_padding_left"
-            android:paddingTop="30dp"
             android:text="@string/link_media_text_view_description_text" />
 
         <RelativeLayout
@@ -179,7 +163,6 @@
                 android:id="@+id/tvRegister"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end"
                 android:text="@string/not_registered_text_view_description_tex" />
 
             <TextView
