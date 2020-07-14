@@ -128,6 +128,22 @@ class MainActivity : AppCompatActivity() {
                     s: CharSequence, start: Int,
                     before: Int, count: Int
                 ) {
+                    if (edtRetypePass.toString().isNotEmpty()) {
+                        if (isPassword2Valid(s.toString(), edtRetypePass.toString())) {
+                            edtRetypePass.setBackgroundResource(R.drawable.edit_text_border)
+                            imgRetypePass.setBackgroundResource(R.drawable.icon_tick)
+                            imgRetypePass.visibility = View.VISIBLE
+                        } else {
+                            edtRetypePass.setBackgroundResource(R.drawable.edit_text_border_wrong)
+                            imgRetypePass.setBackgroundResource(R.drawable.icon_error)
+                            imgRetypePass.visibility = View.VISIBLE
+                        }
+                    }
+
+                    if (hasFocus && s.toString().isEmpty()) {
+                        edtRetypePass.setBackgroundResource(R.drawable.edit_text_border_normal)
+                        imgRetypePass.setBackgroundResource(0)
+                    }
                 }
             })
         }
