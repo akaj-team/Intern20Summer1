@@ -173,9 +173,9 @@ class MainActivity : AppCompatActivity() {
     /**
      * This function will handle toast, it will used to show string to activity display
      */
-    private var toastStatus: Toast? = null
+    private var toastState: Toast? = null
     private fun toast(text: Any, duration: Int = Toast.LENGTH_SHORT) {
-        toastStatus?.cancel()
-        toastStatus = Toast.makeText(this@MainActivity, text.toString(), duration).apply { show() }
+        toastState?.cancel()
+        toastState = Toast.makeText(this@MainActivity, text.toString(), duration).apply { show() }
     }
 }
