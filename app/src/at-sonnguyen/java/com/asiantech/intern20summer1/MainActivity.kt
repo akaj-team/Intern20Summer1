@@ -17,22 +17,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        changeBackgroundForStatusBar()
         setContentView(R.layout.activity_main)
         handleListionerEmailEditText()
         handleListionerPasswordEditText()
         handleListionerRetypePasswordEditText()
         handleListionerButtonSignIn()
         handleListionerSignUpTextView()
-    }
-
-    private fun changeBackgroundForStatusBar() {
-        requestWindowFeature(Window.FEATURE_NO_TITLE)
-        supportActionBar?.hide()
-        this.window.setFlags(
-            WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN
-        )
     }
 
     private fun handleListionerSignUpTextView() {
