@@ -17,7 +17,7 @@
 
     <style name="EditTextSignUpDescription">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_height">@dimen/editText_layout_height</item>
         <item name="android:layout_marginTop">@dimen/editText_margin_top</item>
         <item name="android:background">@drawable/selector_edt</item>
         <item name="android:paddingLeft">@dimen/editText_padding_left</item>
@@ -26,11 +26,11 @@
     </style>
 
     <style name="ImageViewCheck">
-        <item name="android:layout_marginTop">@dimen/check_imageView_margin_top</item>
-        <item name="android:layout_marginRight">@dimen/check_imageView_margin_right</item>
-        <item name="android:layout_marginBottom">@dimen/check_imageView_margin_bottom</item>
-        <item name="android:paddingTop">@dimen/check_imageView_padding_top</item>
-        <item name="android:paddingBottom">@dimen/check_imageView_padding_bottom</item>
+        <item name="android:layout_marginTop">@dimen/imageView_check_margin_top</item>
+        <item name="android:layout_marginRight">@dimen/imageView_check_margin_right</item>
+        <item name="android:layout_marginBottom">@dimen/imageView_check_margin_bottom</item>
+        <item name="android:paddingTop">@dimen/imageView_check_padding_top</item>
+        <item name="android:paddingBottom">@dimen/imageView_check_padding_bottom</item>
         <item name="android:visibility">invisible</item>
     </style>
 </resources>

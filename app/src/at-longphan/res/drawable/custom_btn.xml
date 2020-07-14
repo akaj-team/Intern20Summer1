@@ -4,7 +4,5 @@
 
     <solid android:color="@color/colorSolidCustomBtn" />
 
-    <size
-        android:width="@dimen/custom_button_size_width"
-        android:height="@dimen/custom_button_size_height" />
+    <size android:height="@dimen/custom_button_size_height" />
 </shape>
