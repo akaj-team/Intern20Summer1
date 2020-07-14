@@ -1,13 +1,17 @@
 package com.asiantech.intern20summer1
 
 import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
+import android.view.View
 import android.widget.EditText
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import kotlinx.android.synthetic.`at-huybui`.activity_main.*
 
+@Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
     companion object {
         private const val REGEX_EMAIL = """^[a-zA-Z][a-zA-Z0-9_.]*[@][a-zA-Z0-9]+[.][a-zA-Z0-9]+$"""
@@ -18,9 +22,13 @@ class MainActivity : AppCompatActivity() {
     private var bufferPass = ""           // buffer variable for Password
     private var bufferRePass = false     // state variable for Rewrite password
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        // call handle function for api
+        handleStatusBarFollowSdk()
         // call handle function for views
         handleForEditTextEmail()
         handleForEditTextPass()
@@ -39,7 +47,6 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("ClickableViewAccessibility")
     private fun handleForListener() {
         container?.setOnTouchListener { view, _ ->
-            view.clearFocus()
             view.requestFocus()
             view.hideKeyboard()
             true
@@ -168,6 +175,18 @@ class MainActivity : AppCompatActivity() {
      */
     private fun setIconTickOrErrorForEditText(editText: EditText, icon: Int) {
         editText.setCompoundDrawablesWithIntrinsicBounds(0, 0, icon, 0)
+    }
+
+    /**
+     * This function will change color of status bar follow api of device
+     */
+    @RequiresApi(Build.VERSION_CODES.M)
+    private fun handleStatusBarFollowSdk(){
+        if (Build.VERSION.SDK_INT >= 23) {
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        } else{
+            window.statusBarColor = resources.getColor(R.color.status_bar)
+        }
     }
 
     /**

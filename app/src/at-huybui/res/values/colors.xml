@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#E6E6E6</color>
+    <color name="colorPrimaryDark">#FFFFFF</color>
     <color name="colorAccent">#03DAC5</color>
+    <color name="status_bar">#CCCCCC</color>
     <color name="sign_up_background_write">#FFFFFF</color>
     <color name="sign_up_button_sign_up">#A1E895</color>
     <color name="sign_up_edit_text_error">#FF00</color>
