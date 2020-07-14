@@ -2,19 +2,11 @@ package com.asiantech.intern20summer1
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.widget.addTextChangedListener
 import kotlinx.android.synthetic.`at-huybui`.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-
-    private val regexEmail = """^[a-zA-Z][a-zA-Z0-9_.]*[@][a-zA-Z0-9]+[.][a-zA-Z0-9]+$""".toRegex()
-    private val regexPass = """^[A-Z][a-zA-Z0-9]{5,}$""".toRegex() // regex for password
-    private var bufferEmail = ""          // buffer variable for Email
-    private var bufferPass = ""           // buffer variable for Password
-    private var bufferRepass = false     // state variable for Rewrite password
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -23,9 +15,9 @@ class MainActivity : AppCompatActivity() {
         imgTickPass.visibility = View.INVISIBLE
         imgTickRepass.visibility = View.INVISIBLE
         // call handle function for views
-        handleForEdittextEmail()
-        handleForEdittextPass()
-        handleForEdittextRePass()
+        handleForEdittextEmail(edtEmail,imgTickEmail)
+        handleForEdittextPass(edtPass,imgTickPass,edtRePass,imgTickRepass)
+        handleForEdittextRePass(edtRePass,imgTickRepass)
         handleForlistener()
     }
 
@@ -64,109 +56,6 @@ class MainActivity : AppCompatActivity() {
 
         imgGoogle?.setOnClickListener {
             resources.getString(R.string.text_goto_google).toast(this@MainActivity)
-        }
-    }
-
-    /**
-     * Handle function for email edit text
-     * This function will check text in box of  email edit text
-     * This will control image views to hide and show them
-     * This function will change color of box with state of text in box
-     */
-    private fun handleForEdittextEmail() {
-        edtEmail.addTextChangedListener {
-            Log.d("AAA", "change text Email")
-            val textEmail = edtEmail.text.toString()
-            if (textEmail.isNotEmpty()) {
-                imgTickEmail.visibility = View.VISIBLE
-                this.bufferEmail = if (textEmail.matches(regexEmail)) {
-                    imgTickEmail.setImageResource(R.drawable.icon_tick)
-                    edtEmail.setBackgroundResource(R.drawable.custom_edittext_tick)
-                    textEmail // set bufferEmail is textEmail variable
-                } else {
-                    imgTickEmail.setImageResource(R.drawable.icon_error)
-                    edtEmail.setBackgroundResource(R.drawable.custom_edittext_error)
-                    "" // set bufferEmail is empty
-                }
-            } else {
-                imgTickEmail.visibility = View.INVISIBLE
-                edtEmail.setBackgroundResource(R.drawable.custom_select_edittext)
-            }
-        }
-    }
-
-    /**
-     * This function same handle function for email
-     * They are just unlike at variables and views
-     *              - This function will check text in box of password edit text view
-     *              - It will change color of box
-     *              - It will control
-     *              - It will set invalid password for bufferPass variable
-     *              - Final, it wil do work of handle function of rewrite password edit text view
-     */
-
-    private fun handleForEdittextPass() {
-        edtPass.addTextChangedListener {
-            Log.d("AAA", "change text Password")
-            val textPass = edtPass.text.toString()
-            if (textPass.isNotEmpty()) {
-                imgTickPass.visibility = View.VISIBLE
-                this.bufferPass = if (textPass.matches(regexPass)) {
-                    imgTickPass.setImageResource(R.drawable.icon_tick)
-                    edtPass.setBackgroundResource(R.drawable.custom_edittext_tick)
-                    textPass // set bufferPass is textPass variable
-                } else {
-                    imgTickPass.setImageResource(R.drawable.icon_error)
-                    edtPass.setBackgroundResource(R.drawable.custom_edittext_error)
-                    "" // set bufferPass is empty
-                }
-            } else {
-                imgTickPass.visibility = View.INVISIBLE
-                edtPass.setBackgroundResource(R.drawable.custom_select_edittext)
-            }
-            val textRepass = edtRePass.text.toString()
-            if (textRepass.isNotEmpty()) {
-                imgTickRepass.visibility = View.VISIBLE
-                this.bufferRepass = if (textRepass == bufferPass) {
-                    imgTickRepass.setImageResource(R.drawable.icon_tick)
-                    edtRePass.setBackgroundResource(R.drawable.custom_edittext_tick)
-                    true
-                } else {
-                    imgTickRepass.setImageResource(R.drawable.icon_error)
-                    edtRePass.setBackgroundResource(R.drawable.custom_edittext_error)
-                    false
-                }
-            } else {
-                imgTickRepass.visibility = View.INVISIBLE
-                edtRePass.setBackgroundResource(R.drawable.custom_select_edittext)
-            }
-        }
-    }
-
-    /**
-     * This function will do :
-     *          - Check rewrite pass edit text view is empty or is not
-     *          - Compare password strings and rewrite password strings is match or not match
-     *          - Change color of box
-     */
-    private fun handleForEdittextRePass() {
-        edtRePass.addTextChangedListener {
-            val textRepass = edtRePass.text.toString()
-            if (textRepass.isNotEmpty()) {
-                imgTickRepass.visibility = View.VISIBLE
-                this.bufferRepass = if (textRepass == bufferPass) {
-                    imgTickRepass.setImageResource(R.drawable.icon_tick)
-                    edtRePass.setBackgroundResource(R.drawable.custom_edittext_tick)
-                    true
-                } else {
-                    imgTickRepass.setImageResource(R.drawable.icon_error)
-                    edtRePass.setBackgroundResource(R.drawable.custom_edittext_error)
-                    false
-                }
-            } else {
-                imgTickRepass.visibility = View.INVISIBLE
-                edtRePass.setBackgroundResource(R.drawable.custom_select_edittext)
-            }
         }
     }
 }
