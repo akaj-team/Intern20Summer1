@@ -56,7 +56,6 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/icon_image_margin_right"
                     android:visibility="gone" />
-
             </RelativeLayout>
 
             <TextView
