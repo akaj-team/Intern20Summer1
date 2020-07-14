@@ -13,16 +13,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initViews()
-        initListenerEditTextEmail()
-        initListenerEditTextTypePassword()
-        initListenEditTextRetypePassword()
+        initListenerEmailEditText()
+        initListenerTypePasswordEditText()
+        initListenerRetypePasswordEditText()
         initToast()
     }
 
     /*
      * Event handler edit text Email
      */
-    private fun initListenerEditTextEmail() {
+    private fun initListenerEmailEditText() {
         edtEmail.afterTextChanged {
             if (it.isValidEmail()) {
                 edtEmail.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.icon_tick, 0)
@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
     /*
      * Event handler edit text type password
      */
-    private fun initListenerEditTextTypePassword() {
+    private fun initListenerTypePasswordEditText() {
         edtTypePassword.afterTextChanged {
             if (it.isValidPassword()) {
                 edtTypePassword.setCompoundDrawablesWithIntrinsicBounds(
@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity() {
     /*
      * Event handler edit text retype password
      */
-    private fun initListenEditTextRetypePassword() {
+    private fun initListenerRetypePasswordEditText() {
         edtRetypePassword.afterTextChanged {
             if (it.isValidPassword() && (edtRetypePassword.text.toString() == edtTypePassword.text.toString())) {
                 edtRetypePassword.setCompoundDrawablesWithIntrinsicBounds(
