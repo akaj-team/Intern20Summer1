@@ -7,7 +7,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.`at-sonnguyen`.activity_main.*
 
-@Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
     companion object {
         private const val MIN_LENGTH_PASSWORD = 6
@@ -24,7 +23,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun handleListionerSignUpTextView() {
-        txtSignIn.setOnClickListener {
+        tvSignIn.setOnClickListener {
             Toast.makeText(this, "Sign Up !", Toast.LENGTH_SHORT).show()
         }
     }

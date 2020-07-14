@@ -157,7 +157,7 @@
                 android:text="@string/sign_up_ask_description" />
 
             <TextView
-                android:id="@+id/txtSignIn"
+                android:id="@+id/tvSignIn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/txtNotSignIn"
