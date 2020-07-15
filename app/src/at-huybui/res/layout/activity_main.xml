@@ -3,9 +3,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/sign_up_background_write"
-    android:clickable="true"
-    android:focusable="true"
+    android:background="@color/color_sign_up_background_write"
     android:focusableInTouchMode="true"
     android:orientation="vertical">
 
@@ -13,9 +11,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_weight="1"
-        android:paddingTop="@dimen/sign_up_logo_image_view_padding_top"
-        android:paddingBottom="@dimen/sign_up_logo_image_view_padding_bottom"
+        android:paddingTop="@dimen/dimen_sign_up_logo_image_view_padding_top"
+        android:paddingBottom="@dimen/dimen_sign_up_logo_image_view_padding_bottom"
         android:src="@drawable/logo" />
 
     <TextView
@@ -61,18 +58,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/sign_up_link_your_edit_text_margin_top"
-        android:layout_marginBottom="@dimen/sign_up_link_your_edit_text_margin_bottom"
-        android:gravity="center"
+        android:layout_marginTop="@dimen/dimen_sign_up_link_your_edit_text_margin_top"
+        android:layout_marginBottom="@dimen/dimen_sign_up_link_your_edit_text_margin_bottom"
         android:text="@string/sign_up_link_your_title"
-        android:textSize="@dimen/sign_up_register_text_view_size" />
+        android:textSize="@dimen/dimen_sign_up_register_text_view_size" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_weight="1"
-        android:orientation="horizontal">
+        android:layout_gravity="center">
 
         <ImageView
             android:id="@+id/imgFacebook"
@@ -88,44 +82,39 @@
             android:id="@+id/imgGoogle"
             style="@style/image_button"
             android:src="@drawable/btn_google_plus" />
-
     </LinearLayout>
 
     <Button
         android:id="@+id/btnSignUp"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/sign_up_button_height"
-        android:layout_gravity="center"
-        android:layout_marginLeft="@dimen/sign_up_button_left_right"
-        android:layout_marginTop="@dimen/sign_up_button_margin_top"
-        android:layout_marginRight="@dimen/sign_up_button_left_right"
-        android:layout_weight="1"
+        android:layout_height="@dimen/dimen_sign_up_button_height"
+        android:layout_marginLeft="@dimen/dimen_sign_up_button_left_right"
+        android:layout_marginTop="@dimen/dimen_sign_up_button_margin_top"
+        android:layout_marginRight="@dimen/dimen_sign_up_button_left_right"
         android:background="@drawable/bg_custom_button"
         android:text="@string/sign_up_text_in_button"
-        android:textColor="@color/sign_up_text_button" />
+        android:textColor="@color/color_sign_up_text_button" />
 
     <LinearLayout
         android:id="@+id/llTextRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/sign_up_ll_text_register_margin_top"
-        android:gravity="bottom"
-        android:orientation="horizontal"
-        android:paddingBottom="@dimen/sign_up_ll_text_register_padding_bottom">
+        android:layout_marginTop="@dimen/dimen_sign_up_ll_text_register_margin_top"
+        android:paddingBottom="@dimen/dimen_sign_up_ll_text_register_padding_bottom">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sign_up_text_view_not_register"
-            android:textSize="@dimen/sign_up_register_text_view_size" />
+            android:textSize="@dimen/dimen_sign_up_register_text_view_size" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/sign_up_sign_up_text_view_padding_left"
+            android:paddingLeft="@dimen/dimen_sign_up_sign_up_text_view_padding_left"
             android:text="@string/sign_up_text_view_sign_up"
-            android:textColor="@color/sign_up_sign_up_text"
-            android:textSize="@dimen/sign_up_register_text_view_size" />
+            android:textColor="@color/color_sign_up_sign_up_text"
+            android:textSize="@dimen/dimen_sign_up_register_text_view_size" />
     </LinearLayout>
 </LinearLayout>

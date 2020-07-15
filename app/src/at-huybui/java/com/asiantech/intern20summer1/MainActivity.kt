@@ -19,9 +19,8 @@ class MainActivity : AppCompatActivity() {
         private const val SDK_VERSION = 23
     }
 
-    private var bufferEmail = ""          // buffer variable for Email
+    private var toastState: Toast? = null // status variable of toast
     private var bufferPass = ""           // buffer variable for Password
-    private var bufferRePass = false     // state variable for Rewrite password
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -81,17 +80,15 @@ class MainActivity : AppCompatActivity() {
      * This function will change color of box with state of text in box
      */
     private fun handleForEditTextEmail() {
-        edtEmail.addTextChangedListener {
-            val textEmail = edtEmail.text.toString()
+        edtEmail.addTextChangedListener {text ->
+            val textEmail = text.toString()
             if (textEmail.isNotEmpty()) {
-                bufferEmail = if (textEmail.matches(REGEX_EMAIL.toRegex())) {
+              if (textEmail.matches(REGEX_EMAIL.toRegex())) {
                     setIconTickOrErrorForEditText(edtEmail, R.drawable.icon_tick)
                     edtEmail.setBackgroundResource(R.drawable.bg_custom_edit_text_tick)
-                    textEmail // set bufferEmail is textEmail variable
                 } else {
                     setIconTickOrErrorForEditText(edtEmail, R.drawable.icon_error)
                     edtEmail.setBackgroundResource(R.drawable.bg_custom_edit_text_error)
-                    "" // set bufferEmail is empty
                 }
             } else {
                 setIconTickOrErrorForEditText(edtEmail, 0)
@@ -129,14 +126,12 @@ class MainActivity : AppCompatActivity() {
             // handle for rewrite pass
             val textRePass = edtRePass.text.toString()
             if (textRePass.isNotEmpty()) {
-                bufferRePass = if (textRePass == bufferPass) {
+                if (textRePass == bufferPass) {
                     setIconTickOrErrorForEditText(edtRePass, R.drawable.icon_tick)
                     edtRePass.setBackgroundResource(R.drawable.bg_custom_edit_text_tick)
-                    true
                 } else {
                     setIconTickOrErrorForEditText(edtRePass, R.drawable.icon_error)
                     edtRePass.setBackgroundResource(R.drawable.bg_custom_edit_text_error)
-                    false
                 }
             } else {
                 setIconTickOrErrorForEditText(edtRePass, 0)
@@ -155,14 +150,12 @@ class MainActivity : AppCompatActivity() {
         edtRePass.addTextChangedListener { text ->
             val textRePass = text.toString()
             if (textRePass.isNotEmpty()) {
-                bufferRePass = if (textRePass == bufferPass) {
+                if (textRePass == bufferPass) {
                     setIconTickOrErrorForEditText(edtRePass, R.drawable.icon_tick)
                     edtRePass.setBackgroundResource(R.drawable.bg_custom_edit_text_tick)
-                    true
                 } else {
                     setIconTickOrErrorForEditText(edtRePass, R.drawable.icon_error)
                     edtRePass.setBackgroundResource(R.drawable.bg_custom_edit_text_error)
-                    false
                 }
             } else {
                 setIconTickOrErrorForEditText(edtRePass, 0)
@@ -186,14 +179,13 @@ class MainActivity : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= SDK_VERSION) {
             window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         } else{
-            window.statusBarColor = resources.getColor(R.color.status_bar)
+            window.statusBarColor = resources.getColor(R.color.color_status_bar)
         }
     }
 
     /**
      * This function will handle toast, it will used to show string to activity display
      */
-    private var toastState: Toast? = null
     private fun toast(text: Any, duration: Int = Toast.LENGTH_SHORT) {
         toastState?.cancel()
         toastState = Toast.makeText(this@MainActivity, text.toString(), duration).apply { show() }
