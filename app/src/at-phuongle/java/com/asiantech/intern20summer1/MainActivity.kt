@@ -1,9 +1,12 @@
 package com.asiantech.intern20summer1
 
+import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.`at-phuongle`.activity_main.*
@@ -62,127 +65,219 @@ class MainActivity : AppCompatActivity() {
     // Handle event when focus on Email field
     private fun handleEmailEditText() {
         edtEmail.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
-            edtEmail.addTextChangedListener(object : TextWatcher {
-
-                override fun afterTextChanged(s: Editable) {
-                    if (isEmailValid(s.toString())) {
-                        edtEmail.setBackgroundResource(R.drawable.edit_text_border)
-                        imgEmail.setBackgroundResource(R.drawable.icon_tick)
-                        imgEmail.visibility = View.VISIBLE
+            if (edtEmail.text.toString().isEmpty()) {
+                if (hasFocus) {
+                    setBackGroundActive(edtEmail, imgEmail)
+                } else {
+                    setBackGroundNormal(edtEmail, imgEmail)
+                }
+            } else {
+                if (hasFocus) {
+                    if (isEmailValid(edtEmail.text.toString())) {
+                        setBackGroundActiveRight(edtEmail, imgEmail)
                     } else {
-                        edtEmail.setBackgroundResource(R.drawable.edit_text_border_wrong)
-                        imgEmail.setBackgroundResource(R.drawable.icon_error)
-                        imgEmail.visibility = View.VISIBLE
+                        setBackGroundActiveWrong(edtEmail, imgEmail)
                     }
-
-                    if (hasFocus && s.toString().isEmpty()) {
-                        edtEmail.setBackgroundResource(R.drawable.edit_text_border_normal)
-                        imgEmail.setBackgroundResource(0)
+                } else {
+                    if (isEmailValid(edtEmail.text.toString())) {
+                        setBackGroundRight(edtEmail, imgEmail)
+                    } else {
+                        setBackGroundWrong(edtEmail, imgEmail)
                     }
                 }
-
-                override fun beforeTextChanged(
-                    s: CharSequence, start: Int,
-                    count: Int, after: Int
-                ) {
-                }
-
-                override fun onTextChanged(
-                    s: CharSequence, start: Int,
-                    before: Int, count: Int
-                ) {
-                }
-            })
+            }
         }
+
+        edtEmail.addTextChangedListener(object : TextWatcher {
+
+            override fun afterTextChanged(s: Editable) {
+                if (edtEmail.isFocusable) {
+                    when {
+                        s.toString().isEmpty() -> {
+                            setBackGroundActive(edtEmail, imgEmail)
+                        }
+                        isEmailValid(s.toString()) -> {
+                            setBackGroundActiveRight(edtEmail, imgEmail)
+                        }
+                        else -> {
+                            setBackGroundActiveWrong(edtEmail, imgEmail)
+                        }
+                    }
+                }
+            }
+
+            override fun beforeTextChanged(
+                s: CharSequence, start: Int,
+                count: Int, after: Int
+            ) {
+            }
+
+            override fun onTextChanged(
+                s: CharSequence, start: Int,
+                before: Int, count: Int
+            ) {
+            }
+        })
     }
 
     // Handle event when focus on Password field
     private fun handlePasswordEditText() {
         edtPass.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
-            edtPass.addTextChangedListener(object : TextWatcher {
-
-                override fun afterTextChanged(s: Editable) {
-                    if (isPasswordValid(s.toString())) {
-                        edtPass.setBackgroundResource(R.drawable.edit_text_border)
-                        imgPass.setBackgroundResource(R.drawable.icon_tick)
-                        imgPass.visibility = View.VISIBLE
+            if (edtPass.text.toString().isEmpty()) {
+                if (hasFocus) {
+                    setBackGroundActive(edtPass, imgPass)
+                } else {
+                    setBackGroundNormal(edtPass, imgPass)
+                }
+            } else {
+                if (hasFocus) {
+                    if (isPasswordValid(edtPass.text.toString())) {
+                        setBackGroundActiveRight(edtPass, imgPass)
                     } else {
-                        edtPass.setBackgroundResource(R.drawable.edit_text_border_wrong)
-                        imgPass.setBackgroundResource(R.drawable.icon_error)
-                        imgPass.visibility = View.VISIBLE
+                        setBackGroundActiveWrong(edtPass, imgPass)
                     }
-
-                    if (hasFocus && s.toString().isEmpty()) {
-                        edtPass.setBackgroundResource(R.drawable.edit_text_border_normal)
-                        imgPass.setBackgroundResource(0)
+                } else {
+                    if (isPasswordValid(edtPass.text.toString())) {
+                        setBackGroundRight(edtPass, imgPass)
+                    } else {
+                        setBackGroundWrong(edtPass, imgPass)
                     }
                 }
+            }
+        }
 
-                override fun beforeTextChanged(
-                    s: CharSequence, start: Int,
-                    count: Int, after: Int
-                ) {
-                }
+        edtPass.addTextChangedListener(object : TextWatcher {
 
-                override fun onTextChanged(
-                    s: CharSequence, start: Int,
-                    before: Int, count: Int
-                ) {
-                    if (edtRetypePass.toString().isNotEmpty()) {
-                        if (isPassword2Valid(s.toString(), edtRetypePass.toString())) {
-                            edtRetypePass.setBackgroundResource(R.drawable.edit_text_border)
-                            imgRetypePass.setBackgroundResource(R.drawable.icon_tick)
-                            imgRetypePass.visibility = View.VISIBLE
-                        } else {
-                            edtRetypePass.setBackgroundResource(R.drawable.edit_text_border_wrong)
-                            imgRetypePass.setBackgroundResource(R.drawable.icon_error)
-                            imgRetypePass.visibility = View.VISIBLE
+            override fun afterTextChanged(s: Editable) {
+                if (edtPass.isFocusable) {
+                    when {
+                        s.toString().isEmpty() -> {
+                            setBackGroundActive(edtPass, imgPass)
+                        }
+                        isPasswordValid(s.toString()) -> {
+                            setBackGroundActiveRight(edtPass, imgPass)
+                        }
+                        else -> {
+                            setBackGroundActiveWrong(edtPass, imgPass)
                         }
                     }
+                }
+            }
 
-                    if (hasFocus && s.toString().isEmpty()) {
-                        edtRetypePass.setBackgroundResource(R.drawable.edit_text_border_normal)
-                        imgRetypePass.setBackgroundResource(0)
+            override fun beforeTextChanged(
+                s: CharSequence, start: Int,
+                count: Int, after: Int
+            ) {
+            }
+
+            override fun onTextChanged(
+                s: CharSequence, start: Int,
+                before: Int, count: Int
+            ) {
+                if (edtRetypePass.text.toString().isNotEmpty()) {
+                    if (isPassword2Valid(s.toString(), edtRetypePass.toString())) {
+                        setBackGroundRight(edtRetypePass, imgRetypePass)
+                    } else {
+                        setBackGroundWrong(edtRetypePass, imgRetypePass)
                     }
                 }
-            })
-        }
+
+                if (edtPass.isFocusable && s.toString().isEmpty()) {
+                    setBackGroundNormal(edtRetypePass, imgRetypePass)
+                }
+            }
+        })
     }
 
     // Handle event when focus on Password2 field
     private fun handleRetypePasswordEditText() {
         edtRetypePass.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
-            edtRetypePass.addTextChangedListener(object : TextWatcher {
-
-                override fun afterTextChanged(s: Editable) {
-                    if (isPassword2Valid(edtPass.text.toString(), s.toString())) {
-                        edtRetypePass.setBackgroundResource(R.drawable.edit_text_border)
-                        imgRetypePass.setBackgroundResource(R.drawable.icon_tick)
-                        imgRetypePass.visibility = View.VISIBLE
+            if (edtRetypePass.text.toString().isEmpty()) {
+                if (hasFocus) {
+                    setBackGroundActive(edtRetypePass, imgRetypePass)
+                } else {
+                    setBackGroundNormal(edtRetypePass, imgRetypePass)
+                }
+            } else {
+                if (hasFocus) {
+                    if (isPassword2Valid(edtPass.text.toString(), edtRetypePass.text.toString())) {
+                        setBackGroundActiveRight(edtRetypePass, imgRetypePass)
                     } else {
-                        edtRetypePass.setBackgroundResource(R.drawable.edit_text_border_wrong)
-                        imgRetypePass.setBackgroundResource(R.drawable.icon_error)
-                        imgRetypePass.visibility = View.VISIBLE
+                        setBackGroundActiveWrong(edtRetypePass, imgRetypePass)
                     }
-
-                    if (hasFocus && s.toString().isEmpty()) {
-                        edtRetypePass.setBackgroundResource(R.drawable.edit_text_border_normal)
-                        imgRetypePass.setBackgroundResource(0)
+                } else {
+                    if (isPassword2Valid(edtPass.text.toString(), edtRetypePass.text.toString())) {
+                        setBackGroundRight(edtRetypePass, imgRetypePass)
+                    } else {
+                        setBackGroundWrong(edtRetypePass, imgRetypePass)
                     }
                 }
-
-                override fun beforeTextChanged(
-                    s: CharSequence, start: Int,
-                    count: Int, after: Int
-                ) {
-                }
-
-                override fun onTextChanged(
-                    s: CharSequence, start: Int,
-                    before: Int, count: Int
-                ) {
-                }
-            })
+            }
         }
+
+        edtRetypePass.addTextChangedListener(object : TextWatcher {
+
+            override fun afterTextChanged(s: Editable) {
+                if (edtRetypePass.isFocusable) {
+                    when {
+                        s.toString().isEmpty() -> {
+                            setBackGroundActive(edtRetypePass, imgRetypePass)
+                        }
+                        isPassword2Valid(edtPass.text.toString(), s.toString()) -> {
+                            setBackGroundActiveRight(edtRetypePass, imgRetypePass)
+                        }
+                        else -> {
+                            setBackGroundActiveWrong(edtRetypePass, imgRetypePass)
+                        }
+                    }
+                }
+            }
+
+            override fun beforeTextChanged(
+                s: CharSequence, start: Int,
+                count: Int, after: Int
+            ) {
+            }
+
+            override fun onTextChanged(
+                s: CharSequence, start: Int,
+                before: Int, count: Int
+            ) {
+            }
+        })
+    }
+
+    private fun setBackGroundNormal(edt: EditText, img: ImageView) {
+        edt.setBackgroundResource(R.drawable.edit_text_border_normal)
+        img.setBackgroundResource(0)
+    }
+
+    private fun setBackGroundActive(edt: EditText, img: ImageView) {
+        edt.setBackgroundResource(R.drawable.edit_text_border_active)
+        img.setBackgroundResource(0)
+    }
+
+    private fun setBackGroundRight(edt: EditText, img: ImageView) {
+        edt.setBackgroundResource(R.drawable.edit_text_border_right)
+        img.setBackgroundResource(R.drawable.icon_tick)
+        img.visibility = View.VISIBLE
+    }
+
+    private fun setBackGroundActiveRight(edt: EditText, img: ImageView) {
+        edt.setBackgroundResource(R.drawable.edit_text_border_active_right)
+        img.setBackgroundResource(R.drawable.icon_tick)
+        img.visibility = View.VISIBLE
+    }
+
+    private fun setBackGroundWrong(edt: EditText, img: ImageView) {
+        edt.setBackgroundResource(R.drawable.edit_text_border_wrong)
+        img.setBackgroundResource(R.drawable.icon_error)
+        img.visibility = View.VISIBLE
+    }
+
+    private fun setBackGroundActiveWrong(edt: EditText, img: ImageView) {
+        edt.setBackgroundResource(R.drawable.edit_text_border_active_wrong)
+        img.setBackgroundResource(R.drawable.icon_error)
+        img.visibility = View.VISIBLE
     }
 }

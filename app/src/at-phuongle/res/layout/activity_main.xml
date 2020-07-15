@@ -170,7 +170,7 @@
             android:layout_marginTop="@dimen/sign_up_btn_margin_top"
             android:background="@drawable/button_sign_up"
             android:text="@string/sign_up_button_description"
-            android:textColor="@color/colorTextBtnSignUp" />
+            android:textColor="@color/colorWhite" />
 
         <LinearLayout
             android:id="@+id/llSignUp"
@@ -198,7 +198,7 @@
                 android:focusable="true"
                 android:gravity="center_horizontal"
                 android:text="@string/sign_up_text_view_description"
-                android:textColor="@color/colorTvSignUp" />
+                android:textColor="@color/colorBlue" />
         </LinearLayout>
     </RelativeLayout>
 </ScrollView>
