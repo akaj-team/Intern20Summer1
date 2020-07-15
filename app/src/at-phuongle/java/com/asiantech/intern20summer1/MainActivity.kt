@@ -1,6 +1,5 @@
 package com.asiantech.intern20summer1
 
-import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
