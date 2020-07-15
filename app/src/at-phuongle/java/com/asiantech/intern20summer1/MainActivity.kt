@@ -246,34 +246,40 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    // Change background of Edit Text to normal
     private fun setBackGroundNormal(edt: EditText, img: ImageView) {
         edt.setBackgroundResource(R.drawable.edit_text_border_normal)
         img.visibility = View.GONE
     }
 
+    // Change background of Edit Text to active
     private fun setBackGroundActive(edt: EditText, img: ImageView) {
         edt.setBackgroundResource(R.drawable.edit_text_border_active)
         img.visibility = View.GONE
     }
 
+    // Change background of Edit Text to normal right
     private fun setBackGroundRight(edt: EditText, img: ImageView) {
         edt.setBackgroundResource(R.drawable.edit_text_border_right)
         img.setBackgroundResource(R.drawable.icon_tick)
         img.visibility = View.VISIBLE
     }
 
+    // Change background of Edit Text to active right
     private fun setBackGroundActiveRight(edt: EditText, img: ImageView) {
         edt.setBackgroundResource(R.drawable.edit_text_border_active_right)
         img.setBackgroundResource(R.drawable.icon_tick)
         img.visibility = View.VISIBLE
     }
 
+    // Change background of Edit Text to normal wrong
     private fun setBackGroundWrong(edt: EditText, img: ImageView) {
         edt.setBackgroundResource(R.drawable.edit_text_border_wrong)
         img.setBackgroundResource(R.drawable.icon_error)
         img.visibility = View.VISIBLE
     }
 
+    // Change background of Edit Text to active wrong
     private fun setBackGroundActiveWrong(edt: EditText, img: ImageView) {
         edt.setBackgroundResource(R.drawable.edit_text_border_active_wrong)
         img.setBackgroundResource(R.drawable.icon_error)
