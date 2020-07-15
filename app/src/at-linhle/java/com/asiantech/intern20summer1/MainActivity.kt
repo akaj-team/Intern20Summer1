@@ -158,9 +158,7 @@ class MainActivity : AppCompatActivity() {
         // Event change
         edtPassword.addTextChanged(
             afterTextChanged = {
-                if (it.toString() == "") {
-                    //Don't do anything
-                } else {
+                if (it.toString() != "") {
                     handlePassword()
                 }
             },

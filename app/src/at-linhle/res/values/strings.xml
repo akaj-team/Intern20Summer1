@@ -3,10 +3,10 @@
     <string name="email_id_text_view_description">Enter your email ID</string>
     <string name="password_text_view_description">Type your password</string>
     <string name="retype_password_text_view_description">Retype your password</string>
-    <string name="email_hint_edit_view_description">Email</string>
-    <string name="password_hint_edit_view_description">Password</string>
-    <string name="link_media_text_view_description">Link your social media profiles</string>
-    <string name="sign_up_button_description">SIGN UP</string>
+    <string name="email_edit_text_hint">Email</string>
+    <string name="email_edit_text_password">Password</string>
+    <string name="media_text_view_link">Link your social media profiles</string>
+    <string name="sign_up_button_text">SIGN UP</string>
     <string name="not_registered_text_view_description">Not registered yet?</string>
     <string name="sign_up_text_view_description">Sign up!</string>
 </resources>
