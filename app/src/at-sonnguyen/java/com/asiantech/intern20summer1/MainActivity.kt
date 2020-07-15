@@ -15,20 +15,20 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        handleListionerEmailEditText()
-        handleListionerPasswordEditText()
-        handleListionerRetypePasswordEditText()
-        handleListionerButtonSignUp()
-        handleListionerSignUpTextView()
+        handleListenerEmailEditText()
+        handleListenerPasswordEditText()
+        handleListenerRetypePasswordEditText()
+        handleListenerButtonSignUp()
+        handleListenerSignUpTextView()
     }
 
-    private fun handleListionerSignUpTextView() {
+    private fun handleListenerSignUpTextView() {
         tvSignIn.setOnClickListener {
             Toast.makeText(this, "Sign Up !", Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun handleListionerEmailEditText() {
+    private fun handleListenerEmailEditText() {
         edtEmail.setOnFocusChangeListener { _, isFocus ->
             edtEmail.isSelected = isFocus
         }
@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun handleListionerPasswordEditText() {
+    private fun handleListenerPasswordEditText() {
         edtPassword.setOnFocusChangeListener { _, isFocus ->
             edtPassword.isSelected = isFocus
         }
@@ -89,11 +89,10 @@ class MainActivity : AppCompatActivity() {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
         })
     }
 
-    private fun handleListionerRetypePasswordEditText() {
+    private fun handleListenerRetypePasswordEditText() {
         edtRetypePassword.setOnFocusChangeListener { _, isFocus ->
             edtRetypePassword.isSelected = isFocus
         }
@@ -127,7 +126,7 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun handleListionerButtonSignUp() {
+    private fun handleListenerButtonSignUp() {
         btnSignIn.setOnClickListener {
             Toast.makeText(this, "Sign Up ", Toast.LENGTH_SHORT).show()
         }
