@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
         (pass.length >= PASSWORD_LENGTH) && (pass[0].isUpperCase())
 
     // Check valid retype password
-    private fun isPassword2Valid(pass: String, retypePass: String) = (pass == retypePass)
+    private fun isRetypePassValid(pass: String, retypePass: String) = pass == retypePass
 
     // Handle event when click into button sign up
     private fun handleSignUpButton() {
@@ -174,7 +174,7 @@ class MainActivity : AppCompatActivity() {
                 before: Int, count: Int
             ) {
                 if (edtRetypePass.text.toString().isNotEmpty()) {
-                    if (isPassword2Valid(s.toString(), edtRetypePass.toString())) {
+                    if (isRetypePassValid(s.toString(), edtRetypePass.toString())) {
                         setBackGroundRight(edtRetypePass, imgRetypePass)
                     } else {
                         setBackGroundWrong(edtRetypePass, imgRetypePass)
@@ -199,13 +199,13 @@ class MainActivity : AppCompatActivity() {
                 }
             } else {
                 if (hasFocus) {
-                    if (isPassword2Valid(edtPass.text.toString(), edtRetypePass.text.toString())) {
+                    if (isRetypePassValid(edtPass.text.toString(), edtRetypePass.text.toString())) {
                         setBackGroundActiveRight(edtRetypePass, imgRetypePass)
                     } else {
                         setBackGroundActiveWrong(edtRetypePass, imgRetypePass)
                     }
                 } else {
-                    if (isPassword2Valid(edtPass.text.toString(), edtRetypePass.text.toString())) {
+                    if (isRetypePassValid(edtPass.text.toString(), edtRetypePass.text.toString())) {
                         setBackGroundRight(edtRetypePass, imgRetypePass)
                     } else {
                         setBackGroundWrong(edtRetypePass, imgRetypePass)
@@ -222,7 +222,7 @@ class MainActivity : AppCompatActivity() {
                         s.toString().isEmpty() -> {
                             setBackGroundActive(edtRetypePass, imgRetypePass)
                         }
-                        isPassword2Valid(edtPass.text.toString(), s.toString()) -> {
+                        isRetypePassValid(edtPass.text.toString(), s.toString()) -> {
                             setBackGroundActiveRight(edtRetypePass, imgRetypePass)
                         }
                         else -> {
@@ -248,12 +248,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun setBackGroundNormal(edt: EditText, img: ImageView) {
         edt.setBackgroundResource(R.drawable.edit_text_border_normal)
-        img.setBackgroundResource(0)
+        img.visibility = View.GONE
     }
 
     private fun setBackGroundActive(edt: EditText, img: ImageView) {
         edt.setBackgroundResource(R.drawable.edit_text_border_active)
-        img.setBackgroundResource(0)
+        img.visibility = View.GONE
     }
 
     private fun setBackGroundRight(edt: EditText, img: ImageView) {

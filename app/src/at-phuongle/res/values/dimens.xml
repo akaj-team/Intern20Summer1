@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="edt_width">238dp</dimen>
-    <dimen name="edt_height">47dp</dimen>
-    <dimen name="btn_signUp_width">238dp</dimen>
-    <dimen name="btn_signUp_height">47dp</dimen>
+    <dimen name="edit_text_width">238dp</dimen>
+    <dimen name="edit_text_height">47dp</dimen>
+    <dimen name="sign_up_button_width">238dp</dimen>
+    <dimen name="sign_up_button_height">47dp</dimen>
     <dimen name="logo_image_margin_top">40dp</dimen>
     <dimen name="input_linear_layout_margin_top">30dp</dimen>
     <dimen name="container_margin_top">9dp</dimen>
-    <dimen name="email_edt_padding_left">20dp</dimen>
+    <dimen name="email_edit_text_padding_left">20dp</dimen>
     <dimen name="icon_image_width">10dp</dimen>
     <dimen name="icon_image_height">10dp</dimen>
     <dimen name="icon_image_margin_right">20dp</dimen>
     <dimen name="pass_text_view_margin_top">13dp</dimen>
-    <dimen name="pass_edt_padding_left">20dp</dimen>
-    <dimen name="tvRetypePass_text_view_margin_top">13dp</dimen>
-    <dimen name="tvRetypePass_edt_padding_left">20dp</dimen>
+    <dimen name="pass_edit_text_padding_left">20dp</dimen>
+    <dimen name="retype_pass_text_view_margin_top">13dp</dimen>
+    <dimen name="retype_pass_edit_text_padding_left">20dp</dimen>
     <dimen name="link_text_view_margin_top">30dp</dimen>
     <dimen name="link_linear_layout_margin_top">29dp</dimen>
-    <dimen name="link_image_btn_margin_right">20dp</dimen>
-    <dimen name="sign_up_btn_margin_top">30dp</dimen>
+    <dimen name="link_image_button_margin_right">20dp</dimen>
+    <dimen name="sign_up_button_margin_top">30dp</dimen>
     <dimen name="sign_up_linear_layout_margin_top">42dp</dimen>
     <dimen name="sign_up_linear_layout_margin_bottom">29dp</dimen>
     <dimen name="sign_up_text_view_margin_left">5dp</dimen>

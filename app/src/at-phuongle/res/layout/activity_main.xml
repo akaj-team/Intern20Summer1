@@ -41,11 +41,11 @@
 
                 <EditText
                     android:id="@+id/edtEmail"
-                    android:layout_width="@dimen/edt_width"
-                    android:layout_height="@dimen/edt_height"
+                    android:layout_width="@dimen/edit_text_width"
+                    android:layout_height="@dimen/edit_text_height"
                     android:background="@drawable/edit_text_border_normal"
                     android:inputType="textEmailAddress"
-                    android:paddingLeft="@dimen/email_edt_padding_left" />
+                    android:paddingLeft="@dimen/email_edit_text_padding_left" />
 
                 <ImageView
                     android:id="@+id/imgEmail"
@@ -72,11 +72,11 @@
 
                 <EditText
                     android:id="@+id/edtPass"
-                    android:layout_width="@dimen/edt_width"
-                    android:layout_height="@dimen/edt_height"
+                    android:layout_width="@dimen/edit_text_width"
+                    android:layout_height="@dimen/edit_text_height"
                     android:background="@drawable/edit_text_border_normal"
                     android:inputType="textPassword"
-                    android:paddingLeft="@dimen/pass_edt_padding_left" />
+                    android:paddingLeft="@dimen/pass_edit_text_padding_left" />
 
                 <ImageView
                     android:id="@+id/imgPass"
@@ -92,8 +92,8 @@
                 android:id="@+id/tvRetypePass"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/tvRetypePass_text_view_margin_top"
-                android:text="@string/retypePass_text_view_description" />
+                android:layout_marginTop="@dimen/retype_pass_text_view_margin_top"
+                android:text="@string/retype_pass_text_view_description" />
 
             <RelativeLayout
                 android:id="@+id/rlRetypePass"
@@ -103,11 +103,11 @@
 
                 <EditText
                     android:id="@+id/edtRetypePass"
-                    android:layout_width="@dimen/edt_width"
-                    android:layout_height="@dimen/edt_height"
+                    android:layout_width="@dimen/edit_text_width"
+                    android:layout_height="@dimen/edit_text_height"
                     android:background="@drawable/edit_text_border_normal"
                     android:inputType="textPassword"
-                    android:paddingLeft="@dimen/tvRetypePass_edt_padding_left" />
+                    android:paddingLeft="@dimen/retype_pass_edit_text_padding_left" />
 
                 <ImageView
                     android:id="@+id/imgRetypePass"
@@ -141,7 +141,7 @@
                 android:id="@+id/imgBtnFb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/link_image_btn_margin_right"
+                android:layout_marginRight="@dimen/link_image_button_margin_right"
                 android:background="@android:color/transparent"
                 android:src="@drawable/btn_facebook" />
 
@@ -149,7 +149,7 @@
                 android:id="@+id/imgBtnGp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/link_image_btn_margin_right"
+                android:layout_marginRight="@dimen/link_image_button_margin_right"
                 android:background="@android:color/transparent"
                 android:src="@drawable/btn_google_plus" />
 
@@ -163,11 +163,11 @@
 
         <Button
             android:id="@+id/btnSignUp"
-            android:layout_width="@dimen/btn_signUp_width"
-            android:layout_height="@dimen/btn_signUp_height"
+            android:layout_width="@dimen/sign_up_button_width"
+            android:layout_height="@dimen/sign_up_button_height"
             android:layout_below="@id/llLink"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/sign_up_btn_margin_top"
+            android:layout_marginTop="@dimen/sign_up_button_margin_top"
             android:background="@drawable/button_sign_up"
             android:text="@string/sign_up_button_description"
             android:textColor="@color/colorWhite" />
@@ -193,8 +193,6 @@
                 android:id="@+id/tvSignUp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/sign_up_text_view_margin_left"
-                android:clickable="true"
                 android:focusable="true"
                 android:gravity="center_horizontal"
                 android:text="@string/sign_up_text_view_description"
