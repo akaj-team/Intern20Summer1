@@ -80,10 +80,10 @@ class MainActivity : AppCompatActivity() {
      * This function will change color of box with state of text in box
      */
     private fun handleForEditTextEmail() {
-        edtEmail.addTextChangedListener {text ->
+        edtEmail.addTextChangedListener { text ->
             val textEmail = text.toString()
             if (textEmail.isNotEmpty()) {
-              if (textEmail.matches(REGEX_EMAIL.toRegex())) {
+                if (textEmail.matches(REGEX_EMAIL.toRegex())) {
                     setIconTickOrErrorForEditText(edtEmail, R.drawable.icon_tick)
                     edtEmail.setBackgroundResource(R.drawable.bg_custom_edit_text_tick)
                 } else {
@@ -175,10 +175,10 @@ class MainActivity : AppCompatActivity() {
      * This function will change color of status bar follow api of device
      */
     @RequiresApi(Build.VERSION_CODES.M)
-    private fun handleStatusBarFollowSdk(){
+    private fun handleStatusBarFollowSdk() {
         if (Build.VERSION.SDK_INT >= SDK_VERSION) {
             window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-        } else{
+        } else {
             window.statusBarColor = resources.getColor(R.color.color_status_bar)
         }
     }
