@@ -54,7 +54,6 @@
                 android:layout_marginRight="@dimen/imageView_margin_right"
                 android:src="@mipmap/icon_tick"
                 android:visibility="invisible" />
-
         </RelativeLayout>
 
         <TextView

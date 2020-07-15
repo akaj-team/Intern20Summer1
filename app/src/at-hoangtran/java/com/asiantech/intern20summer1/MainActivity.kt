@@ -14,7 +14,6 @@ import android.widget.RelativeLayout
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.`at-hoangtran`.activity_main.*
-import kotlinx.android.synthetic.`at-hoangtran`.activity_main.view.*
 
 class MainActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
@@ -27,7 +26,6 @@ class MainActivity : AppCompatActivity() {
         edtPass.onFocusEditText(rlPass)
         edtRetype.onFocusEditText(rlRetype)
 
-
         lnMain?.setOnTouchListener { it, _ ->
             it.clearFocus()
             it.requestFocus()
@@ -35,15 +33,13 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
-        edtEmail.onTextChange(edtEmail, imgEmailTick, rlEmail)
-        edtPass.onTextChange(edtPass, imgPassTick, rlPass)
-        edtRetype.onTextChange(edtRetype, imgRetypeTick, rlRetype)
+        onTextChange(edtEmail, imgEmailTick, rlEmail)
+        onTextChange(edtPass, imgPassTick, rlPass)
+        onTextChange(edtRetype, imgRetypeTick, rlRetype)
 
         toastClick()
-        if(Build.VERSION.SDK_INT>=23){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             window.decorView.systemUiVisibility = SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-        } else {
-            window.statusBarColor = R.color.White
         }
     }
 
@@ -75,13 +71,13 @@ class MainActivity : AppCompatActivity() {
          }
      }
 
-    fun validPassword(password: String): Boolean {
+    fun isValidPassword(password: String): Boolean {
         val passwordPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{4,}$"
         return password.matches(passwordPattern.toRegex())
     }
 
-    private fun EditText.onTextChange(edt: EditText, tick: ImageView, rl: RelativeLayout) {
-        this.addTextChangedListener(object : TextWatcher {
+    private fun onTextChange(edt: EditText, tick: ImageView, rl: RelativeLayout) {
+        edt.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
             }
 
@@ -104,7 +100,7 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
                     edtPass -> {
-                        if (validPassword(str)) {
+                        if (isValidPassword(str)) {
                             tick.visibility = View.VISIBLE
                             tick.setImageResource(R.mipmap.icon_tick)
                             rl.setBackgroundResource(R.drawable.bg_edit_text_focus)
@@ -115,7 +111,7 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
                     edtRetype -> {
-                        if (str == edtPass.text.toString() && validPassword(str)) {
+                        if (str == edtPass.text.toString() && isValidPassword(str)) {
                             tick.visibility = View.VISIBLE
                             tick.setImageResource(R.mipmap.icon_tick)
                             rl.setBackgroundResource(R.drawable.bg_edit_text_focus)
