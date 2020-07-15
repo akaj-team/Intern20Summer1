@@ -61,31 +61,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // Handle event when focus on Email field
+    // Handle event email edit text
     private fun handleEmailEditText() {
-        edtEmail.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
-            if (edtEmail.text.toString().isEmpty()) {
-                if (hasFocus) {
-                    setBackGroundActive(edtEmail, imgEmail)
-                } else {
-                    setBackGroundNormal(edtEmail, imgEmail)
-                }
-            } else {
-                if (hasFocus) {
-                    if (isEmailValid(edtEmail.text.toString())) {
-                        setBackGroundActiveRight(edtEmail, imgEmail)
-                    } else {
-                        setBackGroundActiveWrong(edtEmail, imgEmail)
-                    }
-                } else {
-                    if (isEmailValid(edtEmail.text.toString())) {
-                        setBackGroundRight(edtEmail, imgEmail)
-                    } else {
-                        setBackGroundWrong(edtEmail, imgEmail)
-                    }
-                }
-            }
-        }
+        handleFocusEmailEditText(edtEmail, imgEmail)
 
         edtEmail.addTextChangedListener(object : TextWatcher {
 
@@ -119,31 +97,9 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    // Handle event when focus on Password field
+    // Handle event password edit text
     private fun handlePasswordEditText() {
-        edtPass.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
-            if (edtPass.text.toString().isEmpty()) {
-                if (hasFocus) {
-                    setBackGroundActive(edtPass, imgPass)
-                } else {
-                    setBackGroundNormal(edtPass, imgPass)
-                }
-            } else {
-                if (hasFocus) {
-                    if (isPasswordValid(edtPass.text.toString())) {
-                        setBackGroundActiveRight(edtPass, imgPass)
-                    } else {
-                        setBackGroundActiveWrong(edtPass, imgPass)
-                    }
-                } else {
-                    if (isPasswordValid(edtPass.text.toString())) {
-                        setBackGroundRight(edtPass, imgPass)
-                    } else {
-                        setBackGroundWrong(edtPass, imgPass)
-                    }
-                }
-            }
-        }
+        handleFocusPasswordEditText(edtPass, imgPass)
 
         edtPass.addTextChangedListener(object : TextWatcher {
 
@@ -188,31 +144,9 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    // Handle event when focus on Password2 field
+    // Handle event retype edit text
     private fun handleRetypePasswordEditText() {
-        edtRetypePass.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
-            if (edtRetypePass.text.toString().isEmpty()) {
-                if (hasFocus) {
-                    setBackGroundActive(edtRetypePass, imgRetypePass)
-                } else {
-                    setBackGroundNormal(edtRetypePass, imgRetypePass)
-                }
-            } else {
-                if (hasFocus) {
-                    if (isRetypePassValid(edtPass.text.toString(), edtRetypePass.text.toString())) {
-                        setBackGroundActiveRight(edtRetypePass, imgRetypePass)
-                    } else {
-                        setBackGroundActiveWrong(edtRetypePass, imgRetypePass)
-                    }
-                } else {
-                    if (isRetypePassValid(edtPass.text.toString(), edtRetypePass.text.toString())) {
-                        setBackGroundRight(edtRetypePass, imgRetypePass)
-                    } else {
-                        setBackGroundWrong(edtRetypePass, imgRetypePass)
-                    }
-                }
-            }
-        }
+        handleFocusRetypePasswordEditText(edtRetypePass, imgRetypePass)
 
         edtRetypePass.addTextChangedListener(object : TextWatcher {
 
@@ -244,6 +178,87 @@ class MainActivity : AppCompatActivity() {
             ) {
             }
         })
+    }
+
+    // Handle event when focus on email edit text
+    private fun handleFocusEmailEditText(edt: EditText, img: ImageView) {
+        edt.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+            if (edt.text.toString().isEmpty()) {
+                if (hasFocus) {
+                    setBackGroundActive(edt, img)
+                } else {
+                    setBackGroundNormal(edt, img)
+                }
+            } else {
+                if (hasFocus) {
+                    if (isEmailValid(edt.text.toString())) {
+                        setBackGroundActiveRight(edt, img)
+                    } else {
+                        setBackGroundActiveWrong(edt, img)
+                    }
+                } else {
+                    if (isEmailValid(edt.text.toString())) {
+                        setBackGroundRight(edt, img)
+                    } else {
+                        setBackGroundWrong(edt, img)
+                    }
+                }
+            }
+        }
+    }
+
+    // Handle event when focus on pass edit text
+    private fun handleFocusPasswordEditText(edt: EditText, img: ImageView) {
+        edt.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+            if (edt.text.toString().isEmpty()) {
+                if (hasFocus) {
+                    setBackGroundActive(edt, img)
+                } else {
+                    setBackGroundNormal(edt, img)
+                }
+            } else {
+                if (hasFocus) {
+                    if (isPasswordValid(edt.text.toString())) {
+                        setBackGroundActiveRight(edt, img)
+                    } else {
+                        setBackGroundActiveWrong(edt, img)
+                    }
+                } else {
+                    if (isPasswordValid(edt.text.toString())) {
+                        setBackGroundRight(edt, img)
+                    } else {
+                        setBackGroundWrong(edt, img)
+                    }
+                }
+            }
+        }
+    }
+
+    // Handle event when focus on retype password edit text
+    private fun handleFocusRetypePasswordEditText(edt: EditText, img: ImageView) {
+        edt.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+            if (edt.text.toString().isEmpty()) {
+                if (hasFocus) {
+                    setBackGroundActive(edt, img)
+                } else {
+                    setBackGroundNormal(edt, img)
+                }
+            } else {
+                if (hasFocus) {
+                    if (isRetypePassValid(edtPass.text.toString(), edt.text.toString())) {
+                        setBackGroundActiveRight(edt, img)
+                    } else {
+                        setBackGroundActiveWrong(edt, img)
+                    }
+                } else {
+                    if (isRetypePassValid(edtPass.text.toString(), edt.text.toString())) {
+                        setBackGroundRight(edt, img)
+                    } else {
+                        setBackGroundWrong(edt, img)
+                    }
+                }
+            }
+        }
     }
 
     // Change background of Edit Text to normal
