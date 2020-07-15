@@ -9,6 +9,10 @@ import utils.isValidEmail
 import utils.isValidPassword
 
 class MainActivity : AppCompatActivity() {
+    companion object {
+        const val LENGTH = 6
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
