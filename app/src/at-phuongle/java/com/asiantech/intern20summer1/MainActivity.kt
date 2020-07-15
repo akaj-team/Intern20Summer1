@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
 
     // Check valid password
     private fun isPasswordValid(pass: String) =
-        (pass.length >= PASSWORD_LENGTH) && (pass[0].isUpperCase())
+        pass.length >= PASSWORD_LENGTH && pass[0].isUpperCase()
 
     // Check valid retype password
     private fun isRetypePassValid(pass: String, retypePass: String) = pass == retypePass
