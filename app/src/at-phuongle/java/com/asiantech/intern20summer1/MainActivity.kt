@@ -182,9 +182,9 @@ class MainActivity : AppCompatActivity() {
 
     // Handle event when focus on email edit text
     private fun handleFocusEmailEditText(edt: EditText, img: ImageView) {
-        val email = edt.text.toString()
+        val email = edt.text
         edt.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
-            if (email.isEmpty()) {
+            if (email.toString().isEmpty()) {
                 if (hasFocus) {
                     setActiveBackground(edt, img)
                 } else {
@@ -192,13 +192,13 @@ class MainActivity : AppCompatActivity() {
                 }
             } else {
                 if (hasFocus) {
-                    if (isEmailValid(email)) {
+                    if (isEmailValid(email.toString())) {
                         setCorrectActiveBackground(edt, img)
                     } else {
                         setIncorrectActiveBackground(edt, img)
                     }
                 } else {
-                    if (isEmailValid(email)) {
+                    if (isEmailValid(email.toString())) {
                         setCorrectBackground(edt, img)
                     } else {
                         setIncorrectBackground(edt, img)
@@ -210,10 +210,10 @@ class MainActivity : AppCompatActivity() {
 
     // Handle event when focus on pass edit text
     private fun handleFocusPasswordEditText(edt: EditText, img: ImageView) {
-        val password = edt.text.toString()
+        val password = edt.text
 
         edt.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
-            if (password.isEmpty()) {
+            if (password.toString().isEmpty()) {
                 if (hasFocus) {
                     setActiveBackground(edt, img)
                 } else {
@@ -221,13 +221,13 @@ class MainActivity : AppCompatActivity() {
                 }
             } else {
                 if (hasFocus) {
-                    if (isPasswordValid(password)) {
+                    if (isPasswordValid(password.toString())) {
                         setCorrectActiveBackground(edt, img)
                     } else {
                         setIncorrectActiveBackground(edt, img)
                     }
                 } else {
-                    if (isPasswordValid(password)) {
+                    if (isPasswordValid(password.toString())) {
                         setCorrectBackground(edt, img)
                     } else {
                         setIncorrectBackground(edt, img)
@@ -239,11 +239,11 @@ class MainActivity : AppCompatActivity() {
 
     // Handle event when focus on retype password edit text
     private fun handleFocusRetypePasswordEditText(edt: EditText, img: ImageView) {
-        val password = edtPass.text.toString()
-        val retypePassword = edt.text.toString()
+        val password = edtPass.text
+        val retypePassword = edt.text
 
         edt.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
-            if (retypePassword.isEmpty()) {
+            if (retypePassword.toString().isEmpty()) {
                 if (hasFocus) {
                     setActiveBackground(edt, img)
                 } else {
@@ -251,13 +251,13 @@ class MainActivity : AppCompatActivity() {
                 }
             } else {
                 if (hasFocus) {
-                    if (isRetypePassValid(password, retypePassword)) {
+                    if (isRetypePassValid(password.toString(), retypePassword.toString())) {
                         setCorrectActiveBackground(edt, img)
                     } else {
                         setIncorrectActiveBackground(edt, img)
                     }
                 } else {
-                    if (isRetypePassValid(password, retypePassword)) {
+                    if (isRetypePassValid(password.toString(), retypePassword.toString())) {
                         setCorrectBackground(edt, img)
                     } else {
                         setIncorrectBackground(edt, img)

@@ -45,7 +45,8 @@
                     android:layout_height="@dimen/edit_text_height"
                     android:background="@drawable/edit_text_border_normal"
                     android:inputType="textEmailAddress"
-                    android:paddingLeft="@dimen/email_edit_text_padding_left" />
+                    android:paddingLeft="@dimen/email_edit_text_padding_left"
+                    android:paddingRight="@dimen/email_edit_text_padding_right" />
 
                 <ImageView
                     android:id="@+id/imgEmail"
@@ -76,7 +77,8 @@
                     android:layout_height="@dimen/edit_text_height"
                     android:background="@drawable/edit_text_border_normal"
                     android:inputType="textPassword"
-                    android:paddingLeft="@dimen/pass_edit_text_padding_left" />
+                    android:paddingLeft="@dimen/pass_edit_text_padding_left"
+                    android:paddingRight="@dimen/pass_edit_text_padding_right" />
 
                 <ImageView
                     android:id="@+id/imgPass"
@@ -107,7 +109,8 @@
                     android:layout_height="@dimen/edit_text_height"
                     android:background="@drawable/edit_text_border_normal"
                     android:inputType="textPassword"
-                    android:paddingLeft="@dimen/retype_pass_edit_text_padding_left" />
+                    android:paddingLeft="@dimen/retype_pass_edit_text_padding_left"
+                    android:paddingRight="@dimen/retype_pass_edit_text_padding_right" />
 
                 <ImageView
                     android:id="@+id/imgRetypePass"
