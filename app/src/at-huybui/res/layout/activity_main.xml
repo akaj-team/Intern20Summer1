@@ -3,7 +3,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_sign_up_background_write"
+    android:background="@color/background_write"
     android:focusableInTouchMode="true"
     android:orientation="vertical">
 
@@ -11,46 +11,46 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:paddingTop="@dimen/dimen_sign_up_logo_image_view_padding_top"
-        android:paddingBottom="@dimen/dimen_sign_up_logo_image_view_padding_bottom"
+        android:paddingTop="@dimen/logo_image_view_padding_top"
+        android:paddingBottom="@dimen/logo_image_view_padding_bottom"
         android:src="@drawable/logo" />
 
     <TextView
         android:id="@+id/tvEmailTile"
-        style="@style/sign_up_text_view_title_edit_text"
-        android:text="@string/sign_up_email_title" />
+        style="@style/text_view_description"
+        android:text="@string/email_title" />
 
     <EditText
         android:id="@+id/edtEmail"
         style="@style/edit_text"
         android:background="@drawable/bg_custom_select_edit_text"
-        android:hint="@string/sign_up_edit_text_email"
+        android:hint="@string/edit_text_email"
         android:importantForAutofill="no"
         android:inputType="textEmailAddress" />
 
     <TextView
         android:id="@+id/tvPassTile"
-        style="@style/sign_up_text_view_title_edit_text"
-        android:text="@string/sign_up_pass_title" />
+        style="@style/text_view_description"
+        android:text="@string/pass_title" />
 
     <EditText
         android:id="@+id/edtPass"
         style="@style/edit_text"
         android:background="@drawable/bg_custom_select_edit_text"
-        android:hint="@string/sign_up_edit_text_password"
+        android:hint="@string/edit_text_password"
         android:importantForAutofill="no"
         android:inputType="textPassword" />
 
     <TextView
         android:id="@+id/tvRePassTile"
-        style="@style/sign_up_text_view_title_edit_text"
-        android:text="@string/sign_up_rewrite_pass_title" />
+        style="@style/text_view_description"
+        android:text="@string/rewrite_pass_title" />
 
     <EditText
         android:id="@+id/edtRePass"
         style="@style/edit_text"
         android:background="@drawable/bg_custom_select_edit_text"
-        android:hint="@string/sign_up_edit_text_password"
+        android:hint="@string/edit_text_password"
         android:importantForAutofill="no"
         android:inputType="textPassword" />
 
@@ -58,10 +58,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/dimen_sign_up_link_your_edit_text_margin_top"
-        android:layout_marginBottom="@dimen/dimen_sign_up_link_your_edit_text_margin_bottom"
-        android:text="@string/sign_up_link_your_title"
-        android:textSize="@dimen/dimen_sign_up_register_text_view_size" />
+        android:layout_marginTop="@dimen/link_your_edit_text_margin_top"
+        android:layout_marginBottom="@dimen/link_your_edit_text_margin_bottom"
+        android:text="@string/link_your_title"
+        android:textSize="@dimen/register_text_view_size" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -87,34 +87,34 @@
     <Button
         android:id="@+id/btnSignUp"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_sign_up_button_height"
-        android:layout_marginLeft="@dimen/dimen_sign_up_button_left_right"
-        android:layout_marginTop="@dimen/dimen_sign_up_button_margin_top"
-        android:layout_marginRight="@dimen/dimen_sign_up_button_left_right"
+        android:layout_height="@dimen/button_height"
+        android:layout_marginLeft="@dimen/button_left_right"
+        android:layout_marginTop="@dimen/button_margin_top"
+        android:layout_marginRight="@dimen/button_left_right"
         android:background="@drawable/bg_custom_button"
-        android:text="@string/sign_up_text_in_button"
-        android:textColor="@color/color_sign_up_text_button" />
+        android:text="@string/text_in_button"
+        android:textColor="@color/text_button" />
 
     <LinearLayout
         android:id="@+id/llTextRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/dimen_sign_up_ll_text_register_margin_top"
-        android:paddingBottom="@dimen/dimen_sign_up_ll_text_register_padding_bottom">
+        android:layout_marginTop="@dimen/linear_layout_text_register_margin_top"
+        android:paddingBottom="@dimen/linear_layout_text_register_padding_bottom">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/sign_up_text_view_not_register"
-            android:textSize="@dimen/dimen_sign_up_register_text_view_size" />
+            android:text="@string/text_view_not_register"
+            android:textSize="@dimen/register_text_view_size" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/dimen_sign_up_sign_up_text_view_padding_left"
-            android:text="@string/sign_up_text_view_sign_up"
-            android:textColor="@color/color_sign_up_sign_up_text"
-            android:textSize="@dimen/dimen_sign_up_register_text_view_size" />
+            android:paddingLeft="@dimen/linear_layout_text_view_padding_left"
+            android:text="@string/sign_up_text_view"
+            android:textColor="@color/sign_up_text"
+            android:textSize="@dimen/register_text_view_size" />
     </LinearLayout>
 </LinearLayout>

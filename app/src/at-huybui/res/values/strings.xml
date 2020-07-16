@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Intern20Summer1</string>
-    <string name="sign_up_email_title">Enter your email ID</string>
-    <string name="sign_up_pass_title">Type your password</string>
-    <string name="sign_up_rewrite_pass_title">Retype your password</string>
-    <string name="sign_up_text_in_button">SIGNUP</string>
-    <string name="sign_up_link_your_title">Link your social media profiles</string>
-    <string name="sign_up_text_view_not_register">Not registered yet?</string>
-    <string name="sign_up_button_click">Sign Up</string>
-    <string name="sign_up_text_view_sign_up">Sign Up!</string>
-    <string name="sign_up_edit_text_email">Email</string>
-    <string name="sign_up_edit_text_password">Password</string>
-    <string name="sign_up_text_goto_register">Go to register page</string>
-    <string name="sign_up_text_goto_google">Go to Google page</string>
-    <string name="sign_up_text_goto_facebook">Go to Facebook</string>
-    <string name="sign_up_text_goto_twitter">Go to Twitter</string>
+    <string name="email_title">Enter your email ID</string>
+    <string name="pass_title">Type your password</string>
+    <string name="rewrite_pass_title">Retype your password</string>
+    <string name="text_in_button">SIGNUP</string>
+    <string name="link_your_title">Link your social media profiles</string>
+    <string name="text_view_not_register">Not registered yet?</string>
+    <string name="button_click">Sign Up</string>
+    <string name="sign_up_text_view">Sign Up!</string>
+    <string name="edit_text_email">Email</string>
+    <string name="edit_text_password">Password</string>
+    <string name="text_goto_register">Go to register page</string>
+    <string name="text_goto_google">Go to Google page</string>
+    <string name="text_goto_facebook">Go to Facebook</string>
+    <string name="text_goto_twitter">Go to Twitter</string>
 </resources>

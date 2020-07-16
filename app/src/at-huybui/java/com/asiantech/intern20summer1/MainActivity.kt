@@ -52,23 +52,23 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnSignUp.setOnClickListener {
-            toast(resources.getString(R.string.sign_up_button_click))
+            toast(resources.getString(R.string.button_click))
         }
 
         llTextRegister?.setOnClickListener {
-            toast(resources.getString(R.string.sign_up_text_view_sign_up))
+            toast(resources.getString(R.string.sign_up_text_view))
         }
 
         imgFacebook?.setOnClickListener {
-            toast(resources.getString(R.string.sign_up_text_goto_facebook))
+            toast(resources.getString(R.string.text_goto_facebook))
         }
 
         imgTwitter?.setOnClickListener {
-            toast(resources.getString(R.string.sign_up_text_goto_twitter))
+            toast(resources.getString(R.string.text_goto_twitter))
         }
 
         imgGoogle?.setOnClickListener {
-            toast(resources.getString(R.string.sign_up_text_goto_google))
+            toast(resources.getString(R.string.text_goto_google))
         }
     }
 
@@ -178,7 +178,7 @@ class MainActivity : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= SDK_VERSION) {
             window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         } else {
-            window.statusBarColor = resources.getColor(R.color.color_status_bar)
+            window.statusBarColor = resources.getColor(R.color.status_bar)
         }
     }
 

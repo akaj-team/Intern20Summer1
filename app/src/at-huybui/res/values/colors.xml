@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="color_primary">#6200EE</color>
-    <color name="color_primary_dark">#FFFFFF</color>
-    <color name="color_accent">#03DAC5</color>
-    <color name="color_status_bar">#CCCCCC</color>
-    <color name="color_sign_up_background_write">#FFFFFF</color>
-    <color name="color_sign_up_button_sign_up">#A1E895</color>
-    <color name="color_sign_up_edit_text_error">#FF00</color>
-    <color name="color_sign_up_edit_text_tick">#FF7ED321</color>
-    <color name="color_sign_up_edit_text_off">#A4E998</color>
-    <color name="color_sign_up_edit_text_on">#D15A6058</color>
-    <color name="color_sign_up_edit_text_background_on">#F2F2F2</color>
-    <color name="color_sign_up_sign_up_text">#0D2A93</color>
-    <color name="color_sign_up_text_button">#FAF4F1</color>
+    <color name="primary">#6200EE</color>
+    <color name="primary_dark">#FFFFFF</color>
+    <color name="accent">#03DAC5</color>
+    <color name="status_bar">#CCCCCC</color>
+    <color name="background_write">#FFFFFF</color>
+    <color name="button_sign_up">#A1E895</color>
+    <color name="edit_text_error">#FF00</color>
+    <color name="edit_text_tick">#FF7ED321</color>
+    <color name="edit_text_off">#A4E998</color>
+    <color name="edit_text_on">#D15A6058</color>
+    <color name="edit_text_background_on">#F2F2F2</color>
+    <color name="sign_up_text">#0D2A93</color>
+    <color name="text_button">#FAF4F1</color>
 </resources>
