@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Create UI</string>
+    <string name="app_name">Create UI W3</string>
     <string name="your_profile_link">Link your social media profile</string>
     <string name="email_text_view_description_text">Enter your Email ID</string>
     <string name="password_text_view_description_text">Type your password</string>
@@ -7,6 +7,6 @@
     <string name="retype_password_edit_text_description_hint">Retype your password</string>
     <string name="retype_password_hint">Retype your password</string>
     <string name="sign_up_button_description_text">SIGN UP</string>
-    <string name="sign_up_ask_description_text">not register yet ?</string>
-    <string name="sign_up_view_description_text">Sign up</string>
+    <string name="sign_up_ask_text_view_description_text">not register yet ?</string>
+    <string name="sign_up_text_view_description_text">Sign up</string>
 </resources>

@@ -153,17 +153,17 @@
                 android:id="@+id/txtNotSignIn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/text_view_text_size"
-                android:text="@string/sign_up_ask_description_text" />
+                android:text="@string/sign_up_ask_text_view_description_text"
+                android:textSize="@dimen/text_view_text_size" />
 
             <TextView
                 android:id="@+id/tvSignIn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/text_view_text_size"
                 android:layout_toRightOf="@id/txtNotSignIn"
-                android:text="@string/sign_up_view_description_text"
+                android:text="@string/sign_up_text_view_description_text"
                 android:textColor="@color/colorDeepSkyBlue1"
+                android:textSize="@dimen/text_view_text_size"
                 tools:ignore="InvalidId" />
         </androidx.appcompat.widget.LinearLayoutCompat>
     </RelativeLayout>

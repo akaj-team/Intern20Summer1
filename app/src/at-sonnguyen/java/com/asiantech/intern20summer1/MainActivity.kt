@@ -49,7 +49,8 @@ class MainActivity : AppCompatActivity() {
                     )
                     edtEmail.setBackgroundResource(R.drawable.bg_edit_text_input_pass)
                 } else {
-                    edtEmail.setCompoundDrawablesWithIntrinsicBounds(0,
+                    edtEmail.setCompoundDrawablesWithIntrinsicBounds(
+                        0,
                         0,
                         R.drawable.icon_error,
                         0
