@@ -10,27 +10,27 @@
     <style name="TextViewDescription">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginLeft">@dimen/textView_margin_left</item>
-        <item name="android:layout_marginTop">@dimen/textView_margin_top</item>
-        <item name="android:textSize">@dimen/textView_text_size</item>
+        <item name="android:layout_marginLeft">@dimen/text_view_margin_left</item>
+        <item name="android:layout_marginTop">@dimen/text_view_margin_top</item>
+        <item name="android:textSize">@dimen/text_view_text_size</item>
     </style>
 
     <style name="EditTextSignUpDescription">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/editText_layout_height</item>
-        <item name="android:layout_marginTop">@dimen/editText_margin_top</item>
+        <item name="android:layout_height">@dimen/edit_text_layout_height</item>
+        <item name="android:layout_marginTop">@dimen/edit_text_margin_top</item>
         <item name="android:background">@drawable/selector_edt</item>
-        <item name="android:paddingLeft">@dimen/editText_padding_left</item>
-        <item name="android:paddingRight">@dimen/editText_padding_right</item>
-        <item name="android:textSize">@dimen/editText_text_size</item>
+        <item name="android:paddingLeft">@dimen/edit_text_padding_left</item>
+        <item name="android:paddingRight">@dimen/edit_text_padding_right</item>
+        <item name="android:textSize">@dimen/edit_text_text_size</item>
     </style>
 
     <style name="ImageViewCheck">
-        <item name="android:layout_marginTop">@dimen/imageView_check_margin_top</item>
-        <item name="android:layout_marginRight">@dimen/imageView_check_margin_right</item>
-        <item name="android:layout_marginBottom">@dimen/imageView_check_margin_bottom</item>
-        <item name="android:paddingTop">@dimen/imageView_check_padding_top</item>
-        <item name="android:paddingBottom">@dimen/imageView_check_padding_bottom</item>
+        <item name="android:layout_marginTop">@dimen/image_view_check_margin_top</item>
+        <item name="android:layout_marginRight">@dimen/image_view_check_margin_right</item>
+        <item name="android:layout_marginBottom">@dimen/image_view_check_margin_bottom</item>
+        <item name="android:paddingTop">@dimen/image_view_check_padding_top</item>
+        <item name="android:paddingBottom">@dimen/image_view_check_padding_bottom</item>
         <item name="android:visibility">invisible</item>
     </style>
 </resources>

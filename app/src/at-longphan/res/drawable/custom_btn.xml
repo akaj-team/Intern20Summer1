@@ -2,7 +2,7 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <corners android:radius="@dimen/custom_button_corners_radius" />
 
-    <solid android:color="@color/colorSolidCustomBtn" />
+    <solid android:color="@color/colorCustomButtonSolid" />
 
     <size android:height="@dimen/custom_button_size_height" />
 </shape>

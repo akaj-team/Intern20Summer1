@@ -15,7 +15,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         // Set black text with light status bar.
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-
         handleEditTextEmailIdEvent()
         handleEditTextPasswordEvent()
         handleEditTextRetypePasswordEvent()
@@ -30,13 +29,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnSignUp.setOnClickListener {
-            val message = "Sign Up"
-            Toast.makeText(applicationContext, message, Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, "Sign Up", Toast.LENGTH_SHORT).show()
         }
 
         tvSignUp.setOnClickListener {
-            val message = "Sign Up!"
-            Toast.makeText(applicationContext, message, Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, "Sign Up!", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -44,23 +41,15 @@ class MainActivity : AppCompatActivity() {
         edtEmailId.addTextChangedListener {
             val emailId = edtEmailId.text.toString()
             if (emailId.isNotEmpty()) {
-                handleValid(
-                    isValidEmailId(emailId),
-                    imgCheckEmailId,
-                    edtEmailId
-                )
+                handleValid(isValidEmailId(emailId), imgCheckEmailId, edtEmailId)
             }
         }
 
         edtEmailId.setOnFocusChangeListener { view, hasFocus ->
             if (hasFocus) {
-                view.setBackgroundResource(R.drawable.custom_edt_focused)
+                view.setBackgroundResource(R.drawable.custom_focused_edt)
             } else {
-                handleValid(
-                    isValidEmailId(edtEmailId.text.toString()),
-                    imgCheckEmailId,
-                    edtEmailId
-                )
+                handleValid(isValidEmailId(edtEmailId.text.toString()), imgCheckEmailId, edtEmailId)
             }
         }
     }
@@ -69,23 +58,15 @@ class MainActivity : AppCompatActivity() {
         edtPassword.addTextChangedListener {
             val password = edtPassword.text.toString()
             if (password.isNotEmpty()) {
-                handleValid(
-                    isValidPassword(password),
-                    imgCheckPassword,
-                    edtPassword
-                )
+                handleValid(isValidPassword(password), imgCheckPassword, edtPassword)
             }
         }
 
         edtPassword.setOnFocusChangeListener { view, hasFocus ->
             if (hasFocus) {
-                view.setBackgroundResource(R.drawable.custom_edt_focused)
+                view.setBackgroundResource(R.drawable.custom_focused_edt)
             } else {
-                handleValid(
-                    isValidPassword(edtPassword.text.toString()),
-                    imgCheckPassword,
-                    edtPassword
-                )
+                handleValid(isValidPassword(edtPassword.text.toString()), imgCheckPassword, edtPassword)
             }
         }
     }
@@ -95,23 +76,15 @@ class MainActivity : AppCompatActivity() {
             val password = edtPassword.text.toString()
             val retypePassword = edtRetypePassword.text.toString()
             if (retypePassword.isNotEmpty()) {
-                handleValid(
-                    password == retypePassword,
-                    imgCheckRetypePassword,
-                    edtRetypePassword
-                )
+                handleValid(password == retypePassword, imgCheckRetypePassword, edtRetypePassword)
             }
         }
 
         edtRetypePassword.setOnFocusChangeListener { view, hasFocus ->
             if (hasFocus) {
-                view.setBackgroundResource(R.drawable.custom_edt_focused)
+                view.setBackgroundResource(R.drawable.custom_focused_edt)
             } else {
-                handleValid(
-                    edtPassword.text.toString() == edtRetypePassword.text.toString(),
-                    imgCheckRetypePassword,
-                    edtRetypePassword
-                )
+                handleValid(edtPassword.text.toString() == edtRetypePassword.text.toString(), imgCheckRetypePassword, edtRetypePassword)
             }
         }
     }
@@ -120,10 +93,10 @@ class MainActivity : AppCompatActivity() {
         imageView.visibility = View.VISIBLE
         if (expression) {
             imageView.setImageResource(R.drawable.icon_tick)
-            editText.setBackgroundResource(R.drawable.custom_edt_valid)
+            editText.setBackgroundResource(R.drawable.custom_valid_edt)
         } else {
             imageView.setImageResource(R.drawable.icon_error)
-            editText.setBackgroundResource(R.drawable.custom_edt_invalid)
+            editText.setBackgroundResource(R.drawable.custom_invalid_edt)
         }
     }
 
