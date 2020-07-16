@@ -71,13 +71,13 @@ class MainActivity : AppCompatActivity() {
                 if (edtEmail.isFocusable) {
                     when {
                         s.toString().isEmpty() -> {
-                            setBackGroundActive(edtEmail, imgEmail)
+                            setActiveBackground(edtEmail, imgEmail)
                         }
                         isEmailValid(s.toString()) -> {
-                            setBackGroundActiveRight(edtEmail, imgEmail)
+                            setCorrectActiveBackground(edtEmail, imgEmail)
                         }
                         else -> {
-                            setBackGroundActiveWrong(edtEmail, imgEmail)
+                            setIncorrectActiveBackground(edtEmail, imgEmail)
                         }
                     }
                 }
@@ -107,13 +107,13 @@ class MainActivity : AppCompatActivity() {
                 if (edtPass.isFocusable) {
                     when {
                         s.toString().isEmpty() -> {
-                            setBackGroundActive(edtPass, imgPass)
+                            setActiveBackground(edtPass, imgPass)
                         }
                         isPasswordValid(s.toString()) -> {
-                            setBackGroundActiveRight(edtPass, imgPass)
+                            setCorrectActiveBackground(edtPass, imgPass)
                         }
                         else -> {
-                            setBackGroundActiveWrong(edtPass, imgPass)
+                            setIncorrectActiveBackground(edtPass, imgPass)
                         }
                     }
                 }
@@ -131,14 +131,14 @@ class MainActivity : AppCompatActivity() {
             ) {
                 if (edtRetypePass.text.toString().isNotEmpty()) {
                     if (isRetypePassValid(s.toString(), edtRetypePass.toString())) {
-                        setBackGroundRight(edtRetypePass, imgRetypePass)
+                        setCorrectBackground(edtRetypePass, imgRetypePass)
                     } else {
-                        setBackGroundWrong(edtRetypePass, imgRetypePass)
+                        setIncorrectBackground(edtRetypePass, imgRetypePass)
                     }
                 }
 
                 if (edtPass.isFocusable && s.toString().isEmpty()) {
-                    setBackGroundNormal(edtRetypePass, imgRetypePass)
+                    setNormalBackGround(edtRetypePass, imgRetypePass)
                 }
             }
         })
@@ -154,13 +154,13 @@ class MainActivity : AppCompatActivity() {
                 if (edtRetypePass.isFocusable) {
                     when {
                         s.toString().isEmpty() -> {
-                            setBackGroundActive(edtRetypePass, imgRetypePass)
+                            setActiveBackground(edtRetypePass, imgRetypePass)
                         }
                         isRetypePassValid(edtPass.text.toString(), s.toString()) -> {
-                            setBackGroundActiveRight(edtRetypePass, imgRetypePass)
+                            setCorrectActiveBackground(edtRetypePass, imgRetypePass)
                         }
                         else -> {
-                            setBackGroundActiveWrong(edtRetypePass, imgRetypePass)
+                            setIncorrectActiveBackground(edtRetypePass, imgRetypePass)
                         }
                     }
                 }
@@ -182,25 +182,26 @@ class MainActivity : AppCompatActivity() {
 
     // Handle event when focus on email edit text
     private fun handleFocusEmailEditText(edt: EditText, img: ImageView) {
+        val email = edt.text.toString()
         edt.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
-            if (edt.text.toString().isEmpty()) {
+            if (email.isEmpty()) {
                 if (hasFocus) {
-                    setBackGroundActive(edt, img)
+                    setActiveBackground(edt, img)
                 } else {
-                    setBackGroundNormal(edt, img)
+                    setNormalBackGround(edt, img)
                 }
             } else {
                 if (hasFocus) {
-                    if (isEmailValid(edt.text.toString())) {
-                        setBackGroundActiveRight(edt, img)
+                    if (isEmailValid(email)) {
+                        setCorrectActiveBackground(edt, img)
                     } else {
-                        setBackGroundActiveWrong(edt, img)
+                        setIncorrectActiveBackground(edt, img)
                     }
                 } else {
-                    if (isEmailValid(edt.text.toString())) {
-                        setBackGroundRight(edt, img)
+                    if (isEmailValid(email)) {
+                        setCorrectBackground(edt, img)
                     } else {
-                        setBackGroundWrong(edt, img)
+                        setIncorrectBackground(edt, img)
                     }
                 }
             }
@@ -209,25 +210,27 @@ class MainActivity : AppCompatActivity() {
 
     // Handle event when focus on pass edit text
     private fun handleFocusPasswordEditText(edt: EditText, img: ImageView) {
+        val password = edt.text.toString()
+
         edt.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
-            if (edt.text.toString().isEmpty()) {
+            if (password.isEmpty()) {
                 if (hasFocus) {
-                    setBackGroundActive(edt, img)
+                    setActiveBackground(edt, img)
                 } else {
-                    setBackGroundNormal(edt, img)
+                    setNormalBackGround(edt, img)
                 }
             } else {
                 if (hasFocus) {
-                    if (isPasswordValid(edt.text.toString())) {
-                        setBackGroundActiveRight(edt, img)
+                    if (isPasswordValid(password)) {
+                        setCorrectActiveBackground(edt, img)
                     } else {
-                        setBackGroundActiveWrong(edt, img)
+                        setIncorrectActiveBackground(edt, img)
                     }
                 } else {
-                    if (isPasswordValid(edt.text.toString())) {
-                        setBackGroundRight(edt, img)
+                    if (isPasswordValid(password)) {
+                        setCorrectBackground(edt, img)
                     } else {
-                        setBackGroundWrong(edt, img)
+                        setIncorrectBackground(edt, img)
                     }
                 }
             }
@@ -236,25 +239,28 @@ class MainActivity : AppCompatActivity() {
 
     // Handle event when focus on retype password edit text
     private fun handleFocusRetypePasswordEditText(edt: EditText, img: ImageView) {
+        val password = edtPass.text.toString()
+        val retypePassword = edt.text.toString()
+
         edt.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
-            if (edt.text.toString().isEmpty()) {
+            if (retypePassword.isEmpty()) {
                 if (hasFocus) {
-                    setBackGroundActive(edt, img)
+                    setActiveBackground(edt, img)
                 } else {
-                    setBackGroundNormal(edt, img)
+                    setNormalBackGround(edt, img)
                 }
             } else {
                 if (hasFocus) {
-                    if (isRetypePassValid(edtPass.text.toString(), edt.text.toString())) {
-                        setBackGroundActiveRight(edt, img)
+                    if (isRetypePassValid(password, retypePassword)) {
+                        setCorrectActiveBackground(edt, img)
                     } else {
-                        setBackGroundActiveWrong(edt, img)
+                        setIncorrectActiveBackground(edt, img)
                     }
                 } else {
-                    if (isRetypePassValid(edtPass.text.toString(), edt.text.toString())) {
-                        setBackGroundRight(edt, img)
+                    if (isRetypePassValid(password, retypePassword)) {
+                        setCorrectBackground(edt, img)
                     } else {
-                        setBackGroundWrong(edt, img)
+                        setIncorrectBackground(edt, img)
                     }
                 }
             }
@@ -262,40 +268,40 @@ class MainActivity : AppCompatActivity() {
     }
 
     // Change background of Edit Text to normal
-    private fun setBackGroundNormal(edt: EditText, img: ImageView) {
+    private fun setNormalBackGround(edt: EditText, img: ImageView) {
         edt.setBackgroundResource(R.drawable.edit_text_border_normal)
         img.visibility = View.GONE
     }
 
     // Change background of Edit Text to active
-    private fun setBackGroundActive(edt: EditText, img: ImageView) {
+    private fun setActiveBackground(edt: EditText, img: ImageView) {
         edt.setBackgroundResource(R.drawable.edit_text_border_active)
         img.visibility = View.GONE
     }
 
     // Change background of Edit Text to normal right
-    private fun setBackGroundRight(edt: EditText, img: ImageView) {
+    private fun setCorrectBackground(edt: EditText, img: ImageView) {
         edt.setBackgroundResource(R.drawable.edit_text_border_right)
         img.setBackgroundResource(R.drawable.icon_tick)
         img.visibility = View.VISIBLE
     }
 
     // Change background of Edit Text to active right
-    private fun setBackGroundActiveRight(edt: EditText, img: ImageView) {
+    private fun setCorrectActiveBackground(edt: EditText, img: ImageView) {
         edt.setBackgroundResource(R.drawable.edit_text_border_active_right)
         img.setBackgroundResource(R.drawable.icon_tick)
         img.visibility = View.VISIBLE
     }
 
     // Change background of Edit Text to normal wrong
-    private fun setBackGroundWrong(edt: EditText, img: ImageView) {
+    private fun setIncorrectBackground(edt: EditText, img: ImageView) {
         edt.setBackgroundResource(R.drawable.edit_text_border_wrong)
         img.setBackgroundResource(R.drawable.icon_error)
         img.visibility = View.VISIBLE
     }
 
     // Change background of Edit Text to active wrong
-    private fun setBackGroundActiveWrong(edt: EditText, img: ImageView) {
+    private fun setIncorrectActiveBackground(edt: EditText, img: ImageView) {
         edt.setBackgroundResource(R.drawable.edit_text_border_active_wrong)
         img.setBackgroundResource(R.drawable.icon_error)
         img.visibility = View.VISIBLE
