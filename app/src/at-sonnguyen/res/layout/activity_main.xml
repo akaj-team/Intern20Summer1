@@ -20,11 +20,11 @@
         <TextView
             android:id="@+id/tvEmail"
             android:layout_width="@dimen/text_view_width"
-            android:layout_height="@dimen/text_view_height"
+            android:layout_height="wrap_content"
             android:layout_below="@id/imgLogo"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/length_image_view_logo_to_top"
-            android:text="@string/email_edit_text_description"
+            android:text="@string/email_text_view_description_text"
             android:textSize="@dimen/text_view_text_size"
             tools:ignore="SmallSp" />
 
@@ -44,11 +44,11 @@
         <TextView
             android:id="@+id/tvPassword"
             android:layout_width="@dimen/text_view_width"
-            android:layout_height="@dimen/text_view_height"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/edtEmail"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/length_text_view_to_edit_text"
-            android:text="@string/tv_password"
+            android:text="@string/password_text_view_description_text"
             android:textSize="@dimen/text_view_text_size"
             tools:ignore="SmallSp" />
 
@@ -59,7 +59,7 @@
             android:layout_below="@id/tvPassword"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/length_edit_text_to_text_view"
-            android:autofillHints="@string/hint_password"
+            android:autofillHints="@string/password_edit_text_description_hint"
             android:background="@drawable/bg_edit_text_non_selected"
             android:importantForAutofill="no"
             android:inputType="textPassword"
@@ -68,11 +68,11 @@
         <TextView
             android:id="@+id/tvRetypePassword"
             android:layout_width="@dimen/text_view_width"
-            android:layout_height="@dimen/text_view_height"
+            android:layout_height="wrap_content"
             android:layout_below="@id/edtPassword"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/length_text_view_to_edit_text"
-            android:text="@string/retype_password_edit_text_description"
+            android:text="@string/retype_password_edit_text_description_hint"
             android:textSize="@dimen/text_view_text_size"
             tools:ignore="SmallSp" />
 
@@ -83,7 +83,7 @@
             android:layout_below="@id/tvRetypePassword"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/length_edit_text_to_text_view"
-            android:autofillHints="@string/hint_retype_password"
+            android:autofillHints="@string/retype_password_edit_text_description_hint"
             android:background="@drawable/bg_edit_text_non_selected"
             android:focusable="true"
             android:focusableInTouchMode="true"
@@ -93,12 +93,12 @@
         <TextView
             android:id="@+id/tvLinkProfile"
             android:layout_width="@dimen/edit_text_width"
-            android:layout_height="@dimen/text_view_height"
+            android:layout_height="wrap_content"
             android:layout_below="@id/edtRetypePassword"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/length_text_view_link_profile_to_edit_text_password"
             android:gravity="center_horizontal"
-            android:text="@string/link_your_profile"
+            android:text="@string/your_profile_link"
             android:textSize="@dimen/text_view_text_size" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -140,7 +140,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/length_button_to_image_view_link_profile"
             android:background="@drawable/bg_sign_in_button"
-            android:text="@string/button_text_description" />
+            android:text="@string/sign_up_button_description_text" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -153,14 +153,16 @@
                 android:id="@+id/txtNotSignIn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/sign_up_ask_description" />
+                android:textSize="@dimen/text_view_text_size"
+                android:text="@string/sign_up_ask_description_text" />
 
             <TextView
                 android:id="@+id/tvSignIn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="@dimen/text_view_text_size"
                 android:layout_toRightOf="@id/txtNotSignIn"
-                android:text="@string/sign_up_text_view_description"
+                android:text="@string/sign_up_view_description_text"
                 android:textColor="@color/colorDeepSkyBlue1"
                 tools:ignore="InvalidId" />
         </androidx.appcompat.widget.LinearLayoutCompat>

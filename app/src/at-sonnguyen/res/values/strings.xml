@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">Create UI</string>
     <string name="your_profile_link">Link your social media profile</string>
-    <string name="email_edit_text_description">Enter your Email ID</string>
-    <string name="password_text_view_hint">Type your password</string>
-    <string name="hint_password">password</string>
-    <string name="retype_password_edit_text_description">Retype your password</string>
+    <string name="email_text_view_description_text">Enter your Email ID</string>
+    <string name="password_text_view_description_text">Type your password</string>
+    <string name="password_edit_text_description_hint">password</string>
+    <string name="retype_password_edit_text_description_hint">Retype your password</string>
     <string name="retype_password_hint">Retype your password</string>
     <string name="sign_up_button_description_text">SIGN UP</string>
     <string name="sign_up_ask_description_text">not register yet ?</string>
