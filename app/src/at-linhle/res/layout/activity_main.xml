@@ -48,7 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="@dimen/check_image_view_margin_right"
+                android:layout_marginRight="@dimen/image_view_check_margin_right"
                 android:src="@drawable/icon_tick"
                 android:visibility="invisible" />
 
@@ -57,7 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="@dimen/check_image_view_margin_right"
+                android:layout_marginRight="@dimen/image_view_check_margin_right"
                 android:src="@drawable/icon_error"
                 android:visibility="invisible" />
         </RelativeLayout>
@@ -91,7 +91,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="@dimen/check_image_view_margin_right"
+                android:layout_marginRight="@dimen/image_view_check_margin_right"
                 android:src="@drawable/icon_tick"
                 android:visibility="invisible" />
 
@@ -100,7 +100,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="@dimen/check_image_view_margin_right"
+                android:layout_marginRight="@dimen/image_view_check_margin_right"
                 android:src="@drawable/icon_error"
                 android:visibility="invisible" />
         </RelativeLayout>
@@ -133,7 +133,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="@dimen/check_image_view_margin_right"
+                android:layout_marginRight="@dimen/image_view_check_margin_right"
                 android:src="@drawable/icon_tick"
                 android:visibility="invisible" />
 
@@ -142,7 +142,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="@dimen/check_image_view_margin_right"
+                android:layout_marginRight="@dimen/image_view_check_margin_right"
                 android:src="@drawable/icon_error"
                 android:visibility="invisible" />
         </RelativeLayout>
@@ -151,8 +151,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="@dimen/link_media_margin_top"
-            android:layout_marginBottom="@dimen/link_media_margin_bottom"
+            android:layout_marginTop="@dimen/media_link_margin_top"
+            android:layout_marginBottom="@dimen/media_link_margin_bottom"
             android:text="@string/media_text_view_link" />
 
         <LinearLayout
