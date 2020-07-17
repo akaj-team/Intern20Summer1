@@ -7,8 +7,6 @@
         android:id="@+id/lnMain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        android:focusable="true"
         android:focusableInTouchMode="true"
         android:orientation="vertical">
 
@@ -16,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/logo_margin_top"
-            android:layout_marginBottom="@dimen/logo_margin_bot"
+            android:layout_marginBottom="@dimen/logo_margin_bottom"
             android:src="@mipmap/logo" />
 
         <TextView
@@ -24,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/description_margin_left"
-            android:layout_marginBottom="@dimen/description_margin_bot"
+            android:layout_marginBottom="@dimen/description_margin_bottom"
             android:text="@string/email_ID_description" />
 
         <RelativeLayout
@@ -32,17 +30,14 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/rl_layout_height"
             android:layout_marginLeft="@dimen/rl_layout_margin_left"
-            android:layout_marginRight="@dimen/rl_layout_margin_right"
-            android:background="@drawable/bg_edit_text">
+            android:layout_marginRight="@dimen/rl_layout_margin_right">
 
             <EditText
                 android:id="@+id/edtEmail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/editText_margin_left"
-                android:layout_marginRight="@dimen/editText_margin_right"
                 android:autofillHints="Email"
-                android:background="@null"
+                android:background="@drawable/bg_edit_text"
                 android:hint="@string/email_hint"
                 android:inputType="textEmailAddress" />
 
@@ -51,7 +46,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="@dimen/imageView_margin_right"
+                android:layout_marginRight="@dimen/image_view_margin_right"
                 android:src="@mipmap/icon_tick"
                 android:visibility="invisible" />
         </RelativeLayout>
@@ -61,7 +56,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/description_margin_left"
-            android:layout_marginBottom="@dimen/description_margin_bot"
+            android:layout_marginBottom="@dimen/description_margin_bottom"
             android:text="@string/password" />
 
         <RelativeLayout
@@ -69,17 +64,14 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/rl_layout_height"
             android:layout_marginLeft="@dimen/rl_layout_margin_left"
-            android:layout_marginRight="@dimen/rl_layout_margin_right"
-            android:background="@drawable/bg_edit_text">
+            android:layout_marginRight="@dimen/rl_layout_margin_right">
 
             <EditText
                 android:id="@+id/edtPass"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/editText_margin_left"
-                android:layout_marginRight="@dimen/editText_margin_right"
                 android:autofillHints="@string/pass_hint"
-                android:background="@null"
+                android:background="@drawable/bg_edit_text"
                 android:hint="@string/pass_hint"
                 android:inputType="textPassword" />
 
@@ -88,7 +80,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="@dimen/imageView_margin_right"
+                android:layout_marginRight="@dimen/image_view_margin_right"
                 android:src="@mipmap/icon_tick"
                 android:visibility="invisible" />
         </RelativeLayout>
@@ -98,7 +90,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/description_margin_left"
-            android:layout_marginBottom="@dimen/description_margin_bot"
+            android:layout_marginBottom="@dimen/description_margin_bottom"
             android:text="@string/retype" />
 
         <RelativeLayout
@@ -106,18 +98,15 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/rl_layout_height"
             android:layout_marginLeft="@dimen/rl_layout_margin_left"
-            android:layout_marginRight="@dimen/rl_layout_margin_right"
-            android:background="@drawable/bg_edit_text">
+            android:layout_marginRight="@dimen/rl_layout_margin_right">
 
             <EditText
                 android:id="@+id/edtRetype"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/editText_margin_left"
-                android:layout_marginRight="@dimen/editText_margin_right"
                 android:autofillHints="@string/password"
-                android:background="@null"
                 android:hint="@string/password"
+                android:background="@drawable/bg_edit_text"
                 android:inputType="textPassword" />
 
             <ImageView
@@ -125,7 +114,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="@dimen/imageView_margin_right"
+                android:layout_marginRight="@dimen/image_view_margin_right"
                 android:src="@mipmap/icon_tick"
                 android:visibility="invisible" />
         </RelativeLayout>
@@ -134,15 +123,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/tv_social_margin_top"
-            android:layout_marginBottom="@dimen/tv_social_margin_bot"
+            android:layout_marginTop="@dimen/text_view_social_margin_top"
+            android:layout_marginBottom="@dimen/text_view_social_margin_bottom"
             android:text="@string/link" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="@dimen/imageView_social_margin_bot">
+            android:layout_marginBottom="@dimen/image_view_social_margin_bottom">
 
             <ImageView
                 android:id="@+id/imgFB"
@@ -173,7 +162,7 @@
             android:layout_marginRight="@dimen/button_margin_right"
             android:background="@drawable/bg_button"
             android:text="@string/signUP"
-            android:textColor="@color/White" />
+            android:textColor="@color/colorWhite" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -187,15 +176,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:paddingRight="@dimen/register_tv_padding_right"
+                android:paddingRight="@dimen/register_text_view_padding_right"
                 android:text="@string/not" />
 
             <TextView
                 android:id="@+id/tvSignUp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:clickable="true"
-                android:focusable="true"
                 android:text="@string/sign"
                 android:textColor="@color/colorAccent" />
         </LinearLayout>

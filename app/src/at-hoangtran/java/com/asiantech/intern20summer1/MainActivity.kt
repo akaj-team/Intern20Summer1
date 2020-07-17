@@ -22,9 +22,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        edtEmail.onFocusEditText(rlEmail)
-        edtPass.onFocusEditText(rlPass)
-        edtRetype.onFocusEditText(rlRetype)
+        edtEmail.onFocusEditText()
+        edtPass.onFocusEditText()
+        edtRetype.onFocusEditText()
 
         lnMain?.setOnTouchListener { it, _ ->
             it.clearFocus()
@@ -33,23 +33,13 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
-        onTextChange(edtEmail, imgEmailTick, rlEmail)
-        onTextChange(edtPass, imgPassTick, rlPass)
-        onTextChange(edtRetype, imgRetypeTick, rlRetype)
+        onTextChange(edtEmail, imgEmailTick)
+        onTextChange(edtPass, imgPassTick)
+        onTextChange(edtRetype, imgRetypeTick)
 
         toastClick()
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             window.decorView.systemUiVisibility = SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-        }
-    }
-
-    private fun EditText.onFocusEditText(rl: RelativeLayout) {
-        this.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus) {
-                rl.setBackgroundResource(R.drawable.bg_edit_text_focus)
-            } else {
-                rl.setBackgroundResource(R.drawable.bg_edit_text)
-            }
         }
     }
 
@@ -72,11 +62,11 @@ class MainActivity : AppCompatActivity() {
      }
 
     fun isValidPassword(password: String): Boolean {
-        val passwordPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{4,}$"
+        val passwordPattern = "^[A-Z](?=.*[0-9])(?=.*[a-z])(?=.*[@#$%^&+=])(?=\\S+$).{6,}$"
         return password.matches(passwordPattern.toRegex())
     }
 
-    private fun onTextChange(edt: EditText, tick: ImageView, rl: RelativeLayout) {
+    private fun onTextChange(edt: EditText, tick: ImageView) {
         edt.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
             }
@@ -85,40 +75,36 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val str = edt.text.toString()
+                val s = edt.text
+                val str = s.toString()
+                tick.visibility = View.VISIBLE
                 if (str.isEmpty()) {
                     tick.visibility = View.INVISIBLE
-                    rl.setBackgroundResource(R.drawable.bg_edit_text_focus)
+                    edt.setBackgroundResource(R.drawable.bg_edit_text_focus)
                 } else when (edt) {
                     edtEmail -> {
                         if (Patterns.EMAIL_ADDRESS.matcher(str).matches()) {
-                            tick.visibility = View.VISIBLE
                             tick.setImageResource(R.mipmap.icon_tick)
                         } else {
-                            tick.visibility = View.VISIBLE
                             tick.setImageResource(R.mipmap.icon_error)
                         }
                     }
                     edtPass -> {
                         if (isValidPassword(str)) {
-                            tick.visibility = View.VISIBLE
                             tick.setImageResource(R.mipmap.icon_tick)
-                            rl.setBackgroundResource(R.drawable.bg_edit_text_focus)
+                            edt.setBackgroundResource(R.drawable.bg_edit_text_focus)
                         } else {
-                            tick.visibility = View.VISIBLE
                             tick.setImageResource(R.mipmap.icon_error)
-                            rl.setBackgroundResource(R.drawable.bg_wrong_password)
+                            edt.setBackgroundResource(R.drawable.bg_wrong_password)
                         }
                     }
                     edtRetype -> {
                         if (str == edtPass.text.toString() && isValidPassword(str)) {
-                            tick.visibility = View.VISIBLE
                             tick.setImageResource(R.mipmap.icon_tick)
-                            rl.setBackgroundResource(R.drawable.bg_edit_text_focus)
+                            edt.setBackgroundResource(R.drawable.bg_edit_text_focus)
                         } else {
-                            tick.visibility = View.VISIBLE
                             tick.setImageResource(R.mipmap.icon_error)
-                            rl.setBackgroundResource(R.drawable.bg_wrong_password)
+                            edt.setBackgroundResource(R.drawable.bg_wrong_password)
                         }
                     }
                 }
