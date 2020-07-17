@@ -10,7 +10,7 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-        val timer = object : CountDownTimer(5000, 1000) {
+        val timer = object : CountDownTimer(1000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 tvSplash.text = "Splast  ${millisUntilFinished / 1000}"
             }
