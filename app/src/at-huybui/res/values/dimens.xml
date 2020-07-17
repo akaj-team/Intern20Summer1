@@ -5,6 +5,9 @@
     <dimen name="sign_in_button_facebook_height">40dp</dimen>
     <dimen name="sign_in_button_margin_left_right">10dp</dimen>
     <dimen name="sign_in_icon_button_margin">10dp</dimen>
-    <dimen name="sign_in_button_margin_top">60dp</dimen>
-    <dimen name="sign_in_edit_text_margin_left">30dp</dimen>
+    <dimen name="sign_in_button_margin_top">20dp</dimen>
+    <dimen name="sign_in_edit_text_margin_left">10dp</dimen>
+    <dimen name="text_size_end_sign_up">20sp</dimen>
+
+    <dimen name="text_size_title_edit_text">10sp</dimen>
 </resources>

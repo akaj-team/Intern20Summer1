@@ -1,14 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageButton
+        android:id="@+id/btnBackToSignIn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/background_white"
+        android:paddingLeft="@dimen/sign_in_button_margin_left_right"
+        android:src="@drawable/ic_baseline_arrow_back_ios_24" />
 
     <TextView
-        android:id="@+id/tvSignUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/register_to_music_festival"
+        android:textSize="30sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/full_name"
+        android:textSize="@dimen/text_size_title_edit_text" />
+
+    <EditText
+        android:id="@+id/edtNameSingUp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Sign Up"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/sign_in_edit_text_margin_left"
+        android:layout_marginRight="@dimen/sign_in_edit_text_margin_left"
+        android:hint="@string/full_name"
+        android:importantForAutofill="no"
+        android:inputType="textEmailAddress" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/email"
+        android:textSize="@dimen/text_size_title_edit_text" />
+
+    <EditText
+        android:id="@+id/edtEmailSignUp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/sign_in_edit_text_margin_left"
+        android:layout_marginRight="@dimen/sign_in_edit_text_margin_left"
+        android:hint="@string/email"
+        android:importantForAutofill="no"
+        android:inputType="textEmailAddress" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/mobile_number"
+        android:textSize="@dimen/text_size_title_edit_text" />
+
+    <EditText
+        android:id="@+id/edtNumberSignUp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/sign_in_edit_text_margin_left"
+        android:layout_marginRight="@dimen/sign_in_edit_text_margin_left"
+        android:hint="@string/mobile_number"
+        android:importantForAutofill="no"
+        android:inputType="number" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/password"
+        android:textSize="@dimen/text_size_title_edit_text" />
+
+    <EditText
+        android:id="@+id/edtPasswordSignUp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/sign_in_edit_text_margin_left"
+        android:layout_marginRight="@dimen/sign_in_edit_text_margin_left"
+        android:hint="@string/password"
+        android:importantForAutofill="no"
+        android:inputType="textPassword" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/confirm_password"
+        android:textSize="@dimen/text_size_title_edit_text" />
+
+    <EditText
+        android:id="@+id/edtRePassSignUp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/sign_in_edit_text_margin_left"
+        android:layout_marginRight="@dimen/sign_in_edit_text_margin_left"
+        android:hint="@string/confirm_password"
+        android:importantForAutofill="no"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/btnRegister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/sign_in_edit_text_margin_left"
+        android:layout_marginTop="@dimen/sign_in_button_margin_left_right"
+        android:layout_marginRight="@dimen/sign_in_button_margin_left_right"
+        android:background="@color/button_login_register"
+        android:text="@string/register" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:gravity="center"
-        android:textColor="#FF00"
-        android:textSize="50sp" />
+        android:text="@string/by_registering_you_agree_to_terms_conditions_nand_privacy_policy_of_the_festival"
+        android:textSize="@dimen/text_size_end_sign_up" />
+
+
 </LinearLayout>

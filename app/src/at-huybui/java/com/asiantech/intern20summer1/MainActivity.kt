@@ -12,7 +12,7 @@ class MainActivity : AppCompatActivity() {
 
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
-        val fragment = SignUpFragment()
+        val fragment = SignInFragment()
         fragmentTransaction.add(R.id.llMain, fragment)
         fragmentTransaction.commit()
     }
