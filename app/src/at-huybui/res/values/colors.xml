@@ -4,4 +4,5 @@
     <color name="primary_dark">#3700B3</color>
     <color name="accent">#03DAC5</color>
     <color name="background_white">#FFFFFF</color>
+    <color name="button_login_register">#FF9900</color>
 </resources>
