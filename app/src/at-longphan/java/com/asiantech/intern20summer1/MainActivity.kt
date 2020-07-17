@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun handleEditTextEmailIdEvent() {
         edtEmailId.addTextChangedListener {
-            val emailId = edtEmailId.text.toString()
+            val emailId = it.toString()
             if (emailId.isNotEmpty()) {
                 handleValid(isValidEmailId(emailId), imgCheckEmailId, edtEmailId)
             }
@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
 
         edtEmailId.setOnFocusChangeListener { view, hasFocus ->
             if (hasFocus) {
-                view.setBackgroundResource(R.drawable.custom_focused_edt)
+                view.setBackgroundResource(R.drawable.bg_edit_text_focused)
             } else {
                 handleValid(isValidEmailId(edtEmailId.text.toString()), imgCheckEmailId, edtEmailId)
             }
@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun handleEditTextPasswordEvent() {
         edtPassword.addTextChangedListener {
-            val password = edtPassword.text.toString()
+            val password = it.toString()
             if (password.isNotEmpty()) {
                 handleValid(isValidPassword(password), imgCheckPassword, edtPassword)
             }
@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity() {
 
         edtPassword.setOnFocusChangeListener { view, hasFocus ->
             if (hasFocus) {
-                view.setBackgroundResource(R.drawable.custom_focused_edt)
+                view.setBackgroundResource(R.drawable.bg_edit_text_focused)
             } else {
                 handleValid(isValidPassword(edtPassword.text.toString()), imgCheckPassword, edtPassword)
             }
@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity() {
     private fun handleEditTextRetypePasswordEvent() {
         edtRetypePassword.addTextChangedListener {
             val password = edtPassword.text.toString()
-            val retypePassword = edtRetypePassword.text.toString()
+            val retypePassword = it.toString()
             if (retypePassword.isNotEmpty()) {
                 handleValid(password == retypePassword, imgCheckRetypePassword, edtRetypePassword)
             }
@@ -82,7 +82,7 @@ class MainActivity : AppCompatActivity() {
 
         edtRetypePassword.setOnFocusChangeListener { view, hasFocus ->
             if (hasFocus) {
-                view.setBackgroundResource(R.drawable.custom_focused_edt)
+                view.setBackgroundResource(R.drawable.bg_edit_text_focused)
             } else {
                 handleValid(edtPassword.text.toString() == edtRetypePassword.text.toString(), imgCheckRetypePassword, edtRetypePassword)
             }
@@ -93,10 +93,10 @@ class MainActivity : AppCompatActivity() {
         imageView.visibility = View.VISIBLE
         if (expression) {
             imageView.setImageResource(R.drawable.icon_tick)
-            editText.setBackgroundResource(R.drawable.custom_valid_edt)
+            editText.setBackgroundResource(R.drawable.bg_edit_text_valid)
         } else {
             imageView.setImageResource(R.drawable.icon_error)
-            editText.setBackgroundResource(R.drawable.custom_invalid_edt)
+            editText.setBackgroundResource(R.drawable.bg_edit_text_invalid)
         }
     }
 

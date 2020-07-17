@@ -147,7 +147,7 @@
                 android:id="@+id/btnSignUp"
                 style="@style/TextViewDescription"
                 android:layout_marginTop="@dimen/button_sign_up_margin_top"
-                android:background="@drawable/custom_btn"
+                android:background="@drawable/bg_button"
                 android:text="@string/button_sign_up"
                 android:textColor="@color/colorSignUpButtonText"
                 android:textSize="@dimen/button_sign_up_text_size" />
@@ -155,14 +155,14 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="@dimen/linear_layout_sign_up_description_padding_top"
+                android:paddingBottom="@dimen/linear_layout_sign_up_description_padding_bottom"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/tvNotRegister"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/text_view_sign_up_margin_top"
-                    android:layout_marginBottom="@dimen/text_view_sign_up_margin_bottom"
                     android:text="@string/text_view_not_registered_description"
                     android:textSize="@dimen/text_view_sign_up_text_size" />
 
@@ -171,8 +171,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/text_view_sign_up_margin_left"
-                    android:layout_marginTop="@dimen/text_view_sign_up_margin_top"
-                    android:layout_marginBottom="@dimen/text_view_sign_up_margin_bottom"
                     android:text="@string/text_view_sign_up_description"
                     android:textColor="@color/colorSignUpTextViewText"
                     android:textSize="@dimen/text_view_sign_up_text_size" />

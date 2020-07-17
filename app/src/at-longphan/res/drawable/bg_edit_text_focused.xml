@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <corners android:radius="@dimen/custom_edit_text_corners_radius" />
+    <corners android:radius="@dimen/background_edit_text_corners_radius" />
 
     <solid android:color="@color/colorCustomFocusedEditTextSolid" />
 
     <stroke
-        android:width="@dimen/custom_edit_text_focused_stroke_width"
+        android:width="@dimen/background_edit_text_focused_stroke_width"
         android:color="@color/colorCustomFocusedEditTextStroke" />
 </shape>

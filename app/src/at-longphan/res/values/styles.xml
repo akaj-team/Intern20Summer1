@@ -19,7 +19,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/edit_text_layout_height</item>
         <item name="android:layout_marginTop">@dimen/edit_text_margin_top</item>
-        <item name="android:background">@drawable/selector_edt</item>
+        <item name="android:background">@drawable/selector_edit_text</item>
         <item name="android:paddingLeft">@dimen/edit_text_padding_left</item>
         <item name="android:paddingRight">@dimen/edit_text_padding_right</item>
         <item name="android:textSize">@dimen/edit_text_text_size</item>
