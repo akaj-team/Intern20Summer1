@@ -8,7 +8,10 @@
         android:id="@+id/llMain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:focusableInTouchMode="true"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/text_view_margin_left_right"
+        android:paddingRight="@dimen/text_view_margin_left_right">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -21,15 +24,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/text_view_margin_left_right"
             android:layout_marginBottom="@dimen/text_view_margin_bottom"
             android:text="@string/email_id_text_view_description" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/relative_layout_height"
-            android:layout_marginLeft="@dimen/text_view_margin_left_right"
-            android:layout_marginRight="@dimen/text_view_margin_left_right"
             android:layout_marginBottom="@dimen/relative_layout_margin_bottom">
 
             <EditText
@@ -65,15 +65,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/text_view_margin_left_right"
             android:layout_marginBottom="@dimen/text_view_margin_bottom"
             android:text="@string/password_text_view_description" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/relative_layout_height"
-            android:layout_marginLeft="@dimen/text_view_margin_left_right"
-            android:layout_marginRight="@dimen/text_view_margin_left_right"
             android:layout_marginBottom="@dimen/relative_layout_margin_bottom">
 
             <EditText
@@ -108,15 +105,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/text_view_margin_left_right"
             android:layout_marginBottom="@dimen/text_view_margin_bottom"
             android:text="@string/retype_password_text_view_description" />
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/relative_layout_height"
-            android:layout_marginLeft="@dimen/text_view_margin_left_right"
-            android:layout_marginRight="@dimen/text_view_margin_left_right">
+            android:layout_height="@dimen/relative_layout_height">
 
             <EditText
                 android:id="@+id/edtRetype"
@@ -159,8 +153,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="@dimen/buttons_to_sign_up_linear_layout_margin_bottom"
-            android:orientation="horizontal">
+            android:layout_marginBottom="@dimen/buttons_to_sign_up_linear_layout_margin_bottom">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -184,9 +177,6 @@
             android:id="@+id/btnSignUp"
             android:layout_width="match_parent"
             android:layout_height="@dimen/relative_layout_height"
-            android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/text_view_margin_left_right"
-            android:layout_marginRight="@dimen/text_view_margin_left_right"
             android:background="@drawable/bg_sign_up_button"
             android:text="@string/sign_up_button_text"
             android:textColor="@color/colorWhite" />
@@ -196,13 +186,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/text_view_linear_margin_top"
-            android:layout_marginBottom="@dimen/text_view_linear_margin_bottom"
-            android:orientation="horizontal">
+            android:layout_marginBottom="@dimen/text_view_linear_margin_bottom">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:paddingRight="@dimen/sign_up_text_view_padding_right"
                 android:text="@string/not_registered_text_view_description" />
 
@@ -210,7 +198,6 @@
                 android:id="@+id/tvSignUp"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
                 android:text="@string/sign_up_text_view_description"
                 android:textColor="@color/colorBlue" />
         </LinearLayout>
