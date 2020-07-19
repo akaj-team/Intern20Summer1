@@ -16,6 +16,9 @@ import com.asiantech.intern20summer1.fragment.SignInFragment.Companion.REGEX_PAS
 import kotlinx.android.synthetic.`at-huybui`.fragment_sign_up.*
 
 class SignUpFragment : Fragment() {
+    companion object {
+        private val REGEX_NUMBER_PHONE = """^[0-9]{10}$""".toRegex()
+    }
 
     private var emailBuffer = ""
     private var nameBuffer = ""
@@ -36,6 +39,7 @@ class SignUpFragment : Fragment() {
         handleForBackToSignInButton()
         handleForEmailEditText()
         handleForPasswordEditText()
+        handleForNumberPhoneEditText()
 
     }
 
@@ -58,6 +62,10 @@ class SignUpFragment : Fragment() {
     }
 
     private fun handleForNumberPhoneEditText() {
+        edtNumberSignUp.addTextChangedListener { text ->
+            val pattern = text.toString().matches(REGEX_NUMBER_PHONE)
+            setIconForEditText(edtNumberSignUp, pattern)
+        }
 
     }
 
@@ -67,8 +75,6 @@ class SignUpFragment : Fragment() {
             setIconForEditText(edtPasswordSignUp, pattern)
             passwordBuffer = if (pattern) text.toString() else ""
         }
-
-
     }
 
     private fun handleForRewritePasswordEditText() {

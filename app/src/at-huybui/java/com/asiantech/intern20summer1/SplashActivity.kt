@@ -2,25 +2,22 @@ package com.asiantech.intern20summer1
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.CountDownTimer
+import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.`at-huybui`.activity_splash.*
 
 class SplashActivity : AppCompatActivity() {
+    companion object {
+        private const val TIME_FINISH_SPLASH = 1000
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-        val timer = object : CountDownTimer(1000, 1000) {
-            override fun onTick(millisUntilFinished: Long) {
-                tvSplash.text = "Splast  ${millisUntilFinished / 1000}"
-            }
-
-            override fun onFinish() {
-                val intent = Intent(this@SplashActivity, MainActivity::class.java)
-                startActivity(intent)
-            }
+        val runnable = Runnable {
+            val intent = Intent(this@SplashActivity, MainActivity::class.java)
+            startActivity(intent)
         }
-        timer.start()
+        Handler().postDelayed(runnable, TIME_FINISH_SPLASH.toLong())
     }
 
     override fun onStop() {
