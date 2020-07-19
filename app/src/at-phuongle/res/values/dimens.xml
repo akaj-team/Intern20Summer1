@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="link_text_view_radius">2dp</dimen>
+    <dimen name="logo_linear_layout_margin_top">40dp</dimen>
+    <dimen name="link_linear_layout_margin_left">20dp</dimen>
+    <dimen name="link_linear_layout_margin_right">20dp</dimen>
+    <dimen name="link_linear_layout_margin_top">40dp</dimen>
+    <dimen name="facebook_relative_layout_height">40dp</dimen>
+    <dimen name="google_relative_layout_height">40dp</dimen>
+    <dimen name="facebook_relative_layout_margin_right">20dp</dimen>
+    <dimen name="facebook_text_view_drawable_padding">5dp</dimen>
+    <dimen name="google_text_view_drawable_padding">5dp</dimen>
+    <dimen name="or_text_view_margin_top">20dp</dimen>
+    <dimen name="or_text_view_text_size">18sp</dimen>
+    <dimen name="input_relative_layout_margin_left">20dp</dimen>
+    <dimen name="input_relative_layout_margin_top">10dp</dimen>
+    <dimen name="input_relative_layout_margin_right">20dp</dimen>
+    <dimen name="email_text_view_text_size">12sp</dimen>
+    <dimen name="pass_text_view_text_size">12sp</dimen>
+    <dimen name="forgot_pass_text_view_margin_top">10dp</dimen>
+    <dimen name="login_button_margin_left">20dp</dimen>
+    <dimen name="login_button_margin_right">20dp</dimen>
+    <dimen name="login_button_margin_top">20dp</dimen>
+    <dimen name="register_text_view_margin_top">25dp</dimen>
+    <dimen name="register_text_view_text_size">12sp</dimen>
+</resources>

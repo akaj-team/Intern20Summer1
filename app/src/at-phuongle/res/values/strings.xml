@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">[Phuong]Intern20Summer1</string>
+    <string name="facebook_text_view_description">Facebook</string>
+    <string name="google_text_view_description">Google</string>
+    <string name="or_text_view_description">or</string>
+    <string name="email_text_view_description">Email ID</string>
+    <string name="hint_edit_text_description">Please input...</string>
+    <string name="password_text_view_description">Password</string>
+    <string name="forgot_password_text_view_description">Forgot Password?</string>
+    <string name="login_button_description">Login</string>
+    <string name="register_text_view_description">Don\'t have an account? Register Now</string>
 </resources>
