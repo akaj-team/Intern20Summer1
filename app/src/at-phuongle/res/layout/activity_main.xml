@@ -171,7 +171,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/sign_up_button_margin_top"
             android:background="@drawable/bg_sign_up_button"
-            android:text="@string/sign_up_button_description"
+            android:text="@string/sign_up_button_text"
             android:textColor="@color/colorWhite" />
 
         <LinearLayout
