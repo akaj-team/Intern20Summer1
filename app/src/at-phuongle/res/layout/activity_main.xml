@@ -7,8 +7,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/imgLogo"
@@ -43,7 +42,7 @@
                     android:id="@+id/edtEmail"
                     android:layout_width="@dimen/edit_text_width"
                     android:layout_height="@dimen/edit_text_height"
-                    android:background="@drawable/edit_text_border_normal"
+                    android:background="@drawable/bg_normal_edit_text"
                     android:inputType="textEmailAddress"
                     android:paddingLeft="@dimen/email_edit_text_padding_left"
                     android:paddingRight="@dimen/email_edit_text_padding_right" />
@@ -75,7 +74,7 @@
                     android:id="@+id/edtPass"
                     android:layout_width="@dimen/edit_text_width"
                     android:layout_height="@dimen/edit_text_height"
-                    android:background="@drawable/edit_text_border_normal"
+                    android:background="@drawable/bg_normal_edit_text"
                     android:inputType="textPassword"
                     android:paddingLeft="@dimen/pass_edit_text_padding_left"
                     android:paddingRight="@dimen/pass_edit_text_padding_right" />
@@ -107,7 +106,7 @@
                     android:id="@+id/edtRetypePass"
                     android:layout_width="@dimen/edit_text_width"
                     android:layout_height="@dimen/edit_text_height"
-                    android:background="@drawable/edit_text_border_normal"
+                    android:background="@drawable/bg_normal_edit_text"
                     android:inputType="textPassword"
                     android:paddingLeft="@dimen/retype_pass_edit_text_padding_left"
                     android:paddingRight="@dimen/retype_pass_edit_text_padding_right" />
@@ -171,7 +170,7 @@
             android:layout_below="@id/llLink"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/sign_up_button_margin_top"
-            android:background="@drawable/button_sign_up"
+            android:background="@drawable/bg_sign_up_button"
             android:text="@string/sign_up_button_description"
             android:textColor="@color/colorWhite" />
 
@@ -195,8 +194,6 @@
                 android:id="@+id/tvSignUp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:focusable="true"
-                android:gravity="center_horizontal"
                 android:text="@string/sign_up_text_view_description"
                 android:textColor="@color/colorBlue" />
         </LinearLayout>

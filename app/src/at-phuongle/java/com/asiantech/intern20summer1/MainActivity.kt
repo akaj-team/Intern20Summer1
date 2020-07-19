@@ -269,40 +269,40 @@ class MainActivity : AppCompatActivity() {
 
     // Change background of Edit Text to normal
     private fun setNormalBackGround(edt: EditText, img: ImageView) {
-        edt.setBackgroundResource(R.drawable.edit_text_border_normal)
+        edt.setBackgroundResource(R.drawable.bg_normal_edit_text)
         img.visibility = View.GONE
     }
 
     // Change background of Edit Text to active
     private fun setActiveBackground(edt: EditText, img: ImageView) {
-        edt.setBackgroundResource(R.drawable.edit_text_border_active)
+        edt.setBackgroundResource(R.drawable.bg_active_edit_text)
         img.visibility = View.GONE
     }
 
     // Change background of Edit Text to normal right
     private fun setCorrectBackground(edt: EditText, img: ImageView) {
-        edt.setBackgroundResource(R.drawable.edit_text_border_right)
+        edt.setBackgroundResource(R.drawable.bg_correct_edit_text)
         img.setBackgroundResource(R.drawable.icon_tick)
         img.visibility = View.VISIBLE
     }
 
     // Change background of Edit Text to active right
     private fun setCorrectActiveBackground(edt: EditText, img: ImageView) {
-        edt.setBackgroundResource(R.drawable.edit_text_border_active_right)
+        edt.setBackgroundResource(R.drawable.bg_correct_active_edit_text)
         img.setBackgroundResource(R.drawable.icon_tick)
         img.visibility = View.VISIBLE
     }
 
     // Change background of Edit Text to normal wrong
     private fun setIncorrectBackground(edt: EditText, img: ImageView) {
-        edt.setBackgroundResource(R.drawable.edit_text_border_wrong)
+        edt.setBackgroundResource(R.drawable.bg_incorrect_edit_text)
         img.setBackgroundResource(R.drawable.icon_error)
         img.visibility = View.VISIBLE
     }
 
     // Change background of Edit Text to active wrong
     private fun setIncorrectActiveBackground(edt: EditText, img: ImageView) {
-        edt.setBackgroundResource(R.drawable.edit_text_border_active_wrong)
+        edt.setBackgroundResource(R.drawable.bg_incorrect_active_edit_text)
         img.setBackgroundResource(R.drawable.icon_error)
         img.visibility = View.VISIBLE
     }
