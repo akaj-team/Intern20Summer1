@@ -15,12 +15,14 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         android:text="@string/register_to_music_festival"
         android:textSize="30sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/sign_in_button_margin_left_right"
         android:text="@string/full_name"
         android:textSize="@dimen/text_size_title_edit_text" />
 
@@ -37,6 +39,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/sign_in_button_margin_left_right"
         android:text="@string/email"
         android:textSize="@dimen/text_size_title_edit_text" />
 
@@ -53,6 +56,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/sign_in_button_margin_left_right"
         android:text="@string/mobile_number"
         android:textSize="@dimen/text_size_title_edit_text" />
 
@@ -69,6 +73,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/sign_in_button_margin_left_right"
         android:text="@string/password"
         android:textSize="@dimen/text_size_title_edit_text" />
 
@@ -85,6 +90,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/sign_in_button_margin_left_right"
         android:text="@string/confirm_password"
         android:textSize="@dimen/text_size_title_edit_text" />
 
@@ -111,9 +117,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/sign_in_button_margin_top"
         android:text="@string/by_registering_you_agree_to_terms_conditions_nand_privacy_policy_of_the_festival"
-        android:textSize="@dimen/text_size_end_sign_up" />
-
-
+        android:textSize="@dimen/by_registering_text_size" />
 </LinearLayout>
