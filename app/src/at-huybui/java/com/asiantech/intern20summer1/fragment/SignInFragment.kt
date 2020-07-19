@@ -1,9 +1,7 @@
 package com.asiantech.intern20summer1.fragment
 
 import android.annotation.SuppressLint
-import android.os.Build
 import android.os.Bundle
-import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +11,6 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import kotlinx.android.synthetic.`at-huybui`.fragment_sign_in.*
-import kotlinx.android.synthetic.`at-huybui`.fragment_sign_up.*
 
 @Suppress("DEPRECATION")
 class SignInFragment : Fragment() {

@@ -3,7 +3,6 @@ package com.asiantech.intern20summer1
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.asiantech.intern20summer1.fragment.SignInFragment
-import com.asiantech.intern20summer1.fragment.SignUpFragment
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
