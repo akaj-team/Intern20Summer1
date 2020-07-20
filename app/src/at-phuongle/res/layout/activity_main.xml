@@ -43,7 +43,6 @@
                     android:layout_width="@dimen/edit_text_width"
                     android:layout_height="@dimen/edit_text_height"
                     android:background="@drawable/bg_normal_edit_text"
-                    android:inputType="textEmailAddress"
                     android:paddingLeft="@dimen/email_edit_text_padding_left"
                     android:paddingRight="@dimen/email_edit_text_padding_right" />
 
