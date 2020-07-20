@@ -1,8 +1,10 @@
 package com.asiantech.intern20summer1.fragment
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +17,7 @@ import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.`class`.Account
 import com.asiantech.intern20summer1.fragment.SignInFragment.Companion.REGEX_PASSWORD
+import com.vansuita.pickimage.dialog.PickImageDialog
 import kotlinx.android.synthetic.`at-huybui`.fragment_sign_up.*
 
 class SignUpFragment : Fragment() {
@@ -50,6 +53,7 @@ class SignUpFragment : Fragment() {
         handleForRewritePasswordEditText()
         handleForRegisterButton()
         handleForFullNameEditText()
+        handleForAvatarImage()
     }
 
     /**
@@ -229,6 +233,18 @@ class SignUpFragment : Fragment() {
                         Account(nameBuffer, emailBuffer, numberPhoneBuffer, passwordBuffer)
                 }
             }
+        }
+    }
+
+    /**
+     * Handle function for avatar image view
+     */
+    private fun handleForAvatarImage() {
+        imgAvatarSignUp.setOnClickListener {
+            PickImageDialog.build()
+
+//            val takeIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+//            startActivityForResult(takeIntent, 0)
         }
     }
 

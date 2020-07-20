@@ -40,6 +40,19 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/sign_in_edit_text_margin_left"
+        android:text="@string/avatar" />
+
+    <ImageView
+        android:id="@+id/imgAvatarSignUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/sign_in_edit_text_margin_left"
+        android:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/sign_in_button_margin_left_right"
         android:text="@string/email"
         android:textSize="@dimen/text_size_title_edit_text" />
