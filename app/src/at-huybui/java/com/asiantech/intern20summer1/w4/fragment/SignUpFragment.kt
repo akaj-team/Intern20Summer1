@@ -13,11 +13,10 @@ import androidx.core.util.PatternsCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.w4.classanother.Account
-import com.asiantech.intern20summer1.w4.fragment.SignInFragmentW4.Companion.REGEX_PASSWORD
+import com.asiantech.intern20summer1.w4.fragment.SignInFragment.Companion.REGEX_PASSWORD
 import kotlinx.android.synthetic.`at-huybui`.fragment_sign_up.*
 
-class SignUpFragmentW4 : Fragment() {
+class SignUpFragment : Fragment() {
     companion object {
         private val REGEX_NUMBER_PHONE = """^[0-9]{10}$""".toRegex()
         private const val TICK_ICON: Int = 1
@@ -277,13 +276,13 @@ class SignUpFragmentW4 : Fragment() {
                 }
                 else -> {
                     showToast(getString(R.string.register_complete))
-                    val account =
-                        Account(
-                            nameBuffer,
-                            emailBuffer,
-                            numberPhoneBuffer,
-                            passwordBuffer
-                        )
+//                    val account =
+//                        Account(
+//                            nameBuffer,
+//                            emailBuffer,
+//                            numberPhoneBuffer,
+//                            passwordBuffer
+//                        )
                 }
             }
         }
