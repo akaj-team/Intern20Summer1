@@ -14,10 +14,10 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w4.classanother.Account
-import com.asiantech.intern20summer1.w4.fragment.W4_SignInFragment.Companion.REGEX_PASSWORD
+import com.asiantech.intern20summer1.w4.fragment.SignInFragmentW4.Companion.REGEX_PASSWORD
 import kotlinx.android.synthetic.`at-huybui`.fragment_sign_up.*
 
-class W4_SignUpFragment : Fragment() {
+class SignUpFragmentW4 : Fragment() {
     companion object {
         private val REGEX_NUMBER_PHONE = """^[0-9]{10}$""".toRegex()
         private const val TICK_ICON: Int = 1
@@ -70,12 +70,14 @@ class W4_SignUpFragment : Fragment() {
     private fun handleForFullNameEditText() {
         edtNameSingUp.addTextChangedListener { text ->
             nameBuffer = if (edtNameSingUp.text.isNotEmpty()) {
-                setIconForEditText(edtNameSingUp,
+                setIconForEditText(
+                    edtNameSingUp,
                     TICK_ICON
                 )
                 text.toString()
             } else {
-                setIconForEditText(edtNameSingUp,
+                setIconForEditText(
+                    edtNameSingUp,
                     HIDE_ICON
                 )
                 ""
@@ -92,18 +94,21 @@ class W4_SignUpFragment : Fragment() {
             val pattern = PatternsCompat.EMAIL_ADDRESS.matcher(text.toString()).matches()
             emailBuffer = if (text.toString().isNotEmpty()) {
                 if (pattern) {
-                    setIconForEditText(edtEmailSignUp,
+                    setIconForEditText(
+                        edtEmailSignUp,
                         TICK_ICON
                     )
                     text.toString()
                 } else {
-                    setIconForEditText(edtEmailSignUp,
+                    setIconForEditText(
+                        edtEmailSignUp,
                         ERROR_ICON
                     )
                     ""
                 }
             } else {
-                setIconForEditText(edtEmailSignUp,
+                setIconForEditText(
+                    edtEmailSignUp,
                     HIDE_ICON
                 )
                 ""
@@ -120,18 +125,21 @@ class W4_SignUpFragment : Fragment() {
             val pattern = text.toString().matches(REGEX_NUMBER_PHONE)
             numberPhoneBuffer = if (text.toString().isNotEmpty()) {
                 if (pattern) {
-                    setIconForEditText(edtNumberSignUp,
+                    setIconForEditText(
+                        edtNumberSignUp,
                         TICK_ICON
                     )
                     text.toString()
                 } else {
-                    setIconForEditText(edtNumberSignUp,
+                    setIconForEditText(
+                        edtNumberSignUp,
                         ERROR_ICON
                     )
                     ""
                 }
             } else {
-                setIconForEditText(edtNumberSignUp,
+                setIconForEditText(
+                    edtNumberSignUp,
                     HIDE_ICON
                 )
                 ""
@@ -149,18 +157,21 @@ class W4_SignUpFragment : Fragment() {
             val pattern = text.toString().matches(REGEX_PASSWORD)
             passwordBuffer = if (text.toString().isNotEmpty()) {
                 if (pattern) {
-                    setIconForEditText(edtPasswordSignUp,
+                    setIconForEditText(
+                        edtPasswordSignUp,
                         TICK_ICON
                     )
                     text.toString()
                 } else {
-                    setIconForEditText(edtPasswordSignUp,
+                    setIconForEditText(
+                        edtPasswordSignUp,
                         ERROR_ICON
                     )
                     ""
                 }
             } else {
-                setIconForEditText(edtPasswordSignUp,
+                setIconForEditText(
+                    edtPasswordSignUp,
                     HIDE_ICON
                 )
                 ""
@@ -168,18 +179,21 @@ class W4_SignUpFragment : Fragment() {
             //job of handle function for rewrite password edit text view
             rewritePassStatus = if (edtRePassSignUp.text.toString().isNotEmpty()) {
                 if (edtRePassSignUp.text.toString() == passwordBuffer) {
-                    setIconForEditText(edtRePassSignUp,
+                    setIconForEditText(
+                        edtRePassSignUp,
                         TICK_ICON
                     )
                     true
                 } else {
-                    setIconForEditText(edtRePassSignUp,
+                    setIconForEditText(
+                        edtRePassSignUp,
                         ERROR_ICON
                     )
                     false
                 }
             } else {
-                setIconForEditText(edtRePassSignUp,
+                setIconForEditText(
+                    edtRePassSignUp,
                     HIDE_ICON
                 )
                 false
@@ -196,18 +210,21 @@ class W4_SignUpFragment : Fragment() {
         edtRePassSignUp.addTextChangedListener { text ->
             rewritePassStatus = if (text.toString().isNotEmpty()) {
                 if (text.toString() == passwordBuffer) {
-                    setIconForEditText(edtRePassSignUp,
+                    setIconForEditText(
+                        edtRePassSignUp,
                         TICK_ICON
                     )
                     true
                 } else {
-                    setIconForEditText(edtRePassSignUp,
+                    setIconForEditText(
+                        edtRePassSignUp,
                         ERROR_ICON
                     )
                     false
                 }
             } else {
-                setIconForEditText(edtRePassSignUp,
+                setIconForEditText(
+                    edtRePassSignUp,
                     HIDE_ICON
                 )
                 false
@@ -236,30 +253,30 @@ class W4_SignUpFragment : Fragment() {
                 }
                 edtPasswordSignUp.text.isEmpty() -> {
                     edtPasswordSignUp.requestFocus()
-                    showToast("Enter input your password")
+                    showToast(getString(R.string.enter_input_your_password))
                 }
                 edtRePassSignUp.text.isEmpty() -> {
                     edtRePassSignUp.requestFocus()
-                    showToast("Please, rewrite your password")
+                    showToast(getString(R.string.please_rewrite_your_password))
                 }
                 emailBuffer.isEmpty() -> {
                     edtEmailSignUp.requestFocus()
-                    showToast("Invalid email")
+                    showToast(getString(R.string.invalid_email))
                 }
                 numberPhoneBuffer.isEmpty() -> {
                     edtNumberSignUp.requestFocus()
-                    showToast("Invalid number phone")
+                    showToast(getString(R.string.invalid_number_phone))
                 }
                 passwordBuffer.isEmpty() -> {
                     edtPasswordSignUp.requestFocus()
-                    showToast("Invalid password")
+                    showToast(getString(R.string.invalid_password))
                 }
                 !rewritePassStatus -> {
                     edtRePassSignUp.requestFocus()
-                    showToast("Password does not match")
+                    showToast(getString(R.string.password_does_not_match))
                 }
                 else -> {
-                    showToast("Register complete!")
+                    showToast(getString(R.string.register_complete))
                     val account =
                         Account(
                             nameBuffer,
@@ -277,7 +294,7 @@ class W4_SignUpFragment : Fragment() {
      */
     private fun handleForAvatarImage() {
         imgAvatarSignUp.setOnClickListener {
-         //   PickImageDialog.build()
+            //   PickImageDialog.build()
 
 //            val takeIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
 //            startActivityForResult(takeIntent, 0)

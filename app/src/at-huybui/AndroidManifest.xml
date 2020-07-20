@@ -9,8 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.asiantech.intern20summer1.w4.activity.W4_MainActivity"></activity>
-        <activity android:name="com.asiantech.intern20summer1.w4.activity.W4_SplashActivity">
+        <activity android:name="com.asiantech.intern20summer1.w4.activity.MainActivityW4"></activity>
+        <activity android:name="com.asiantech.intern20summer1.w4.activity.SplashActivityW4">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

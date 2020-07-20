@@ -30,9 +30,9 @@
         android:id="@+id/edtNameSingUp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:focusable="true"
         android:layout_marginLeft="@dimen/sign_in_edit_text_margin_left"
         android:layout_marginRight="@dimen/sign_in_edit_text_margin_left"
+        android:focusable="true"
         android:hint="@string/full_name"
         android:importantForAutofill="no"
         android:inputType="textEmailAddress" />

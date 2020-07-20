@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_white"
-    tools:context="com.asiantech.intern20summer1.w4.activity.W4_SplashActivity">
+    tools:context="com.asiantech.intern20summer1.w4.activity.SplashActivityW4">
 
     <TextView
         android:id="@+id/tvSplash"

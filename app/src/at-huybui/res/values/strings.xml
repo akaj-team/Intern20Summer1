@@ -19,4 +19,11 @@
     <string name="enter_input_your_name">Enter input your name</string>
     <string name="enter_input_your_email">Enter input your email</string>
     <string name="avatar">Avatar</string>
+    <string name="please_rewrite_your_password">Please, rewrite your password</string>
+    <string name="enter_input_your_password">Enter input your password</string>
+    <string name="invalid_email">Invalid email</string>
+    <string name="invalid_number_phone">Invalid number phone</string>
+    <string name="invalid_password">Invalid password</string>
+    <string name="password_does_not_match">Password does not match</string>
+    <string name="register_complete">Register complete!</string>
 </resources>
