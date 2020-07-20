@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/imgBtnBack_w4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/w4_fragment_sign_up_layout_margin_left"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/w4_icon_back" />
+
+        <TextView
+            android:id="@+id/tvBegin_w4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/imgBtnBack_w4"
+            android:layout_marginLeft="@dimen/w4_fragment_sign_up_layout_margin_left"
+            android:layout_marginTop="20dp"
+            android:text="@string/w4_title_text_view_description_text"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvFullName_w4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvBegin_w4"
+            android:layout_marginLeft="@dimen/w4_fragment_sign_up_layout_margin_left"
+            android:layout_marginTop="@dimen/w4_text_view_margin_top"
+            android:text="@string/w4_full_name_text_view_description_text" />
+
+        <EditText
+            android:id="@+id/edtFullName_w4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvFullName_w4"
+            android:layout_marginLeft="@dimen/w4_fragment_sign_up_layout_margin_left"
+            android:layout_marginTop="@dimen/w4_edit_text_sign_up_marin_top"
+            android:layout_marginRight="@dimen/w4_fragment_sign_up_layout_margin_right"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            tools:ignore="LabelFor" />
+
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/imgIconName_w4"
+            android:layout_width="@dimen/w4_avatar_sign_up"
+            android:layout_height="@dimen/w4_avatar_sign_up"
+            android:layout_below="@id/edtFullName_w4"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/w4_image_view_sign_up_margin_top"
+            android:src="@drawable/ic_launcher_background"
+            app:civ_border_color="@color/colorYellow"
+            app:civ_border_width="2dp" />
+
+        <TextView
+            android:id="@+id/tvEmailSignUp_w4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/imgIconName_w4"
+            android:layout_marginLeft="@dimen/w4_fragment_sign_up_layout_margin_left"
+            android:layout_marginTop="@dimen/w4_text_view_margin_top"
+            android:text="@string/w4_email_sign_up_text_view_description_text" />
+
+        <EditText
+            android:id="@+id/edtEmailSignUp_w4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvEmailSignUp_w4"
+            android:layout_marginLeft="@dimen/w4_fragment_sign_up_layout_margin_left"
+            android:layout_marginTop="@dimen/w4_edit_text_sign_up_marin_top"
+            android:layout_marginRight="@dimen/w4_fragment_sign_up_layout_margin_right"
+            android:importantForAutofill="no"
+            android:inputType="textEmailAddress"
+            tools:ignore="LabelFor" />
+
+        <TextView
+            android:id="@+id/tvNumber_w4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edtEmailSignUp_w4"
+            android:layout_marginLeft="@dimen/w4_fragment_sign_up_layout_margin_left"
+            android:layout_marginTop="@dimen/w4_text_view_margin_top"
+            android:text="@string/w4_number_text_view_description_text" />
+
+        <EditText
+            android:id="@+id/edtNumber_w4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvNumber_w4"
+            android:layout_marginLeft="@dimen/w4_fragment_sign_up_layout_margin_left"
+            android:layout_marginTop="@dimen/w4_edit_text_sign_up_marin_top"
+            android:layout_marginRight="@dimen/w4_fragment_sign_up_layout_margin_right"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            tools:ignore="LabelFor" />
+
+        <TextView
+            android:id="@+id/tvPasswordSignUp_w4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edtNumber_w4"
+            android:layout_marginLeft="@dimen/w4_fragment_sign_up_layout_margin_left"
+            android:layout_marginTop="@dimen/w4_text_view_margin_top"
+            android:text="@string/w4_password_text_view_description_text" />
+
+        <EditText
+            android:id="@+id/edtPasswordSignUp_w4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvPasswordSignUp_w4"
+            android:layout_marginLeft="@dimen/w4_fragment_sign_up_layout_margin_left"
+            android:layout_marginTop="@dimen/w4_edit_text_sign_up_marin_top"
+            android:layout_marginRight="@dimen/w4_fragment_sign_up_layout_margin_right"
+            android:importantForAutofill="no"
+            android:inputType="textPassword"
+            tools:ignore="LabelFor" />
+
+        <TextView
+            android:id="@+id/tvPasswordConfirm_w4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edtPasswordSignUp_w4"
+            android:layout_marginLeft="@dimen/w4_fragment_sign_up_layout_margin_left"
+            android:layout_marginTop="@dimen/w4_text_view_margin_top"
+            android:text="@string/w4_confirm_password_text_view_description_text" />
+
+        <EditText
+            android:id="@+id/edtPasswordConfirm_w4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvPasswordConfirm_w4"
+            android:layout_marginLeft="@dimen/w4_fragment_sign_up_layout_margin_left"
+            android:layout_marginTop="@dimen/w4_edit_text_sign_up_marin_top"
+            android:layout_marginRight="@dimen/w4_fragment_sign_up_layout_margin_right"
+            android:importantForAutofill="no"
+            android:inputType="textPassword"
+            tools:ignore="LabelFor" />
+
+        <Button
+            android:id="@+id/btnRegister_w4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edtPasswordConfirm_w4"
+            android:layout_marginLeft="@dimen/w4_fragment_sign_up_layout_margin_left"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="@dimen/w4_fragment_sign_up_layout_margin_right"
+            android:background="@drawable/w4_bg_button_radius"
+            android:enabled="false"
+            android:text="@string/w4_register_button_description_text" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btnRegister_w4"
+            android:layout_marginLeft="@dimen/w4_text_view_the_end_sign_up_margin_left"
+            android:layout_marginTop="@dimen/w4_text_view_the_end_sign_up_margin_top"
+            android:layout_marginRight="@dimen/w4_text_view_the_end_sign_up_margin_right"
+            android:gravity="center"
+            android:paddingTop="@dimen/w4_text_view_the_end_sign_up_padding_top"
+            android:text="@string/w4_the_end_text_view_description_text" />
+    </RelativeLayout>
+</ScrollView>

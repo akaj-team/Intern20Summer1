@@ -9,4 +9,22 @@
     <string name="sign_up_button_description_text">SIGN UP</string>
     <string name="not_registered_text_view_description_text">Not registered yet?</string>
     <string name="sign_up_text_view_description_text">Sign up!</string>
+    <string name="w4_facebook_id_button_description_text">Facebook</string>
+    <string name="w4_google_id_button_description_text">Google</string>
+    <string name="w4_email_id_text_view_description_text">Email ID</string>
+    <string name="w4_edit_text_hint">Please input</string>
+    <string name="w4_password_text_view_description_text">Password</string>
+    <string name="w4_password_forgot_text_view_description_text">Forgot Password?</string>
+    <string name="w4_login_button_description_text">Login</string>
+    <string name="w4_account_do_not_text_view_description_text">Don\'t have an account?</string>
+    <string name="w4_register_now_text_view_description_text">Register Now</string>
+    <string name="w4_or_text_view_description_text">or</string>
+    <string name="w4_title_text_view_description_text">Register to Music Festival</string>
+    <string name="w4_full_name_text_view_description_text">Full Name</string>
+    <string name="w4_email_sign_up_text_view_description_text">Email</string>
+    <string name="w4_number_text_view_description_text">Mobile Number</string>
+    <string name="w4_confirm_password_text_view_description_text">Confirm Password</string>
+    <string name="w4_register_button_description_text">Register</string>
+    <string name="w4_the_end_text_view_description_text">By registering you agree to Terms and
+        Conditions and Privacy of the Festival</string>
 </resources>

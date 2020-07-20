@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/imgLogo_w4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/w4_fragment_sign_in_image_view_margin_top"
+        android:src="@drawable/w4_icon_logo" />
+
+    <LinearLayout
+        android:id="@+id/rlButton_w4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/w4_fragment_sign_in_layout_margin_left"
+        android:layout_marginTop="@dimen/w4_linear_layout_margin_top"
+        android:layout_marginRight="@dimen/w4_fragment_sign_in_layout_margin_right"
+        android:weightSum="2">
+
+        <Button
+            android:id="@+id/btnFacebook_w4"
+            android:layout_width="@dimen/w4_icon_button_width"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/colorWhite"
+            android:drawableLeft="@drawable/w4_btn_facebook"
+            android:padding="@dimen/w4_icon_button_padding"
+            android:text="@string/w4_facebook_id_button_description_text"
+            android:textAllCaps="false"
+            tools:ignore="ButtonStyle" />
+
+        <Button
+            android:id="@+id/btnGoogle_w4"
+            android:layout_width="@dimen/w4_icon_button_width"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/w4_icon_google_margin_left"
+            android:layout_weight="1"
+            android:background="@color/colorWhite"
+            android:drawableLeft="@drawable/w4_btn_google_plus"
+            android:padding="@dimen/w4_icon_button_padding"
+            android:text="@string/w4_google_id_button_description_text"
+            android:textAllCaps="false"
+            tools:ignore="ButtonStyle" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/w4_text_view_margin_top"
+        android:text="@string/w4_or_text_view_description_text" />
+
+    <TextView
+        android:id="@+id/tvEmail_w4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/w4_fragment_sign_in_layout_margin_left"
+        android:layout_marginTop="@dimen/w4_text_view_margin_top"
+        android:text="@string/w4_email_id_text_view_description_text" />
+
+    <EditText
+        android:id="@+id/edtEmail_w4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/w4_fragment_sign_in_layout_margin_left"
+        android:layout_marginTop="@dimen/w4_edit_text_margin_top"
+        android:layout_marginRight="@dimen/w4_fragment_sign_in_layout_margin_right"
+        android:importantForAutofill="no"
+        android:inputType="textEmailAddress"
+        tools:ignore="LabelFor" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/w4_fragment_sign_in_layout_margin_left"
+        android:layout_marginTop="@dimen/w4_text_view_margin_top"
+        android:text="@string/w4_password_text_view_description_text" />
+
+    <EditText
+        android:id="@+id/edtPassword_w4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/w4_fragment_sign_in_layout_margin_left"
+        android:layout_marginTop="@dimen/w4_edit_text_margin_top"
+        android:layout_marginRight="@dimen/w4_fragment_sign_in_layout_margin_right"
+        android:importantForAutofill="no"
+        android:inputType="textPassword"
+        tools:ignore="LabelFor" />
+
+    <RelativeLayout
+        android:id="@+id/rlForgotPass_w4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/w4_fragment_sign_in_layout_margin_left"
+        android:layout_marginTop="@dimen/w4_fragment_sign_in_image_view_margin_top"
+        android:layout_marginRight="@dimen/w4_fragment_sign_in_layout_margin_right">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:paddingRight="@dimen/w4_text_view_forgot_password_padding"
+            android:text="@string/w4_password_forgot_text_view_description_text" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btnLogin_w4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/w4_fragment_sign_in_layout_margin_left"
+        android:layout_marginTop="@dimen/w4_button_login_margin_top"
+        android:layout_marginRight="@dimen/w4_fragment_sign_in_layout_margin_right"
+        android:background="@drawable/w4_bg_button_radius"
+        android:enabled="false"
+        android:text="@string/w4_login_button_description_text"
+        android:textAllCaps="false" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/w4_fragment_sign_in_layout_margin_left"
+        android:layout_marginTop="@dimen/w4_relative_layout_text_view_margin_top"
+        android:layout_marginRight="@dimen/w4_fragment_sign_in_layout_margin_right">
+
+        <TextView
+            android:id="@+id/tvAccountNo_w4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/w4_account_do_not_text_view_description_text" />
+
+        <TextView
+            android:id="@+id/tvRegisterNow_w4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/w4_text_view_register_now_margin_left"
+            android:layout_toRightOf="@id/tvAccountNo_w4"
+            android:text="@string/w4_register_now_text_view_description_text" />
+    </RelativeLayout>
+</LinearLayout>
