@@ -5,5 +5,6 @@
     <color name="colorAccent">#03DAC5</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorSilver">#C0C0C0</color>
-    <color name="colorOrange">#EFA536</color>
+    <color name="colorYellowSea">#EFA536</color>
+    <color name="colorCherokee">#F5C57E</color>
 </resources>
