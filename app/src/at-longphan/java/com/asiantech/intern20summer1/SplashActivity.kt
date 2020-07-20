@@ -8,17 +8,15 @@ import androidx.appcompat.app.AppCompatActivity
 
 class SplashActivity : AppCompatActivity() {
     companion object {
-        private const val SPLASH_TIME_OUT: Long = 2000
+        private const val SPLASH_TIME_OUT: Long = 1000
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //setContentView(R.layout.activity_splash)
         // Set black text with light status bar.
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         Handler().postDelayed({
-            var intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, SignInActivity::class.java))
             finish()
         }, SPLASH_TIME_OUT)
     }
