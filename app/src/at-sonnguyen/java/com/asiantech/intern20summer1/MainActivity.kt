@@ -99,7 +99,7 @@ class MainActivity : AppCompatActivity() {
         edtRetypePassword.setBackgroundResource(R.drawable.select_custom_edit_text)
         edtRetypePassword.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
-                if (edtRetypePassword.text.toString() == edtPassword.text.toString() &&
+                if (p0.toString() == edtPassword.text.toString() &&
                     isValidPassword(edtRetypePassword.text.toString())
                 ) {
                     edtRetypePassword.setCompoundDrawablesWithIntrinsicBounds(
