@@ -16,6 +16,7 @@ class W4LoginFragment :Fragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        "asdsadasdsad"
         return inflater.inflate(R.layout.w4_login_fragment,container,false)
     }
 
