@@ -129,7 +129,8 @@
                     android:id="@+id/imgBtnTwitter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginLeft="@dimen/image_button_social_margin_left"
+                    android:layout_marginRight="@dimen/image_button_social_margin_right"
                     android:background="@android:color/transparent"
                     app:srcCompat="@drawable/btn_twitter" />
 
