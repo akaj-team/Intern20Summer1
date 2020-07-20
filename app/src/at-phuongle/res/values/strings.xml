@@ -9,6 +9,5 @@
     <string name="forgot_password_text_view_description">Forgot Password?</string>
     <string name="login_button_description">Login</string>
     <string name="register_text_view_description">Don\'t have an account? Register Now</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="by_registering_text_view_description">By registering you agree to Temps &amp; Conditions</string>
 </resources>
