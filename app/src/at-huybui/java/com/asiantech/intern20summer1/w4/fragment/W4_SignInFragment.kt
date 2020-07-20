@@ -1,4 +1,4 @@
-package w4.fragment
+package com.asiantech.intern20summer1.w4.fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -13,7 +13,7 @@ import com.asiantech.intern20summer1.R
 import kotlinx.android.synthetic.`at-huybui`.fragment_sign_in.*
 
 @Suppress("DEPRECATION")
-class SignInFragment : Fragment() {
+class W4_SignInFragment : Fragment() {
 
     companion object {
         val REGEX_PASSWORD = """^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,16}$""".toRegex()
@@ -41,7 +41,7 @@ class SignInFragment : Fragment() {
     private fun handleOpenSignUpFragment() {
         val fragmentTransaction = fragmentManager?.beginTransaction()
         fragmentTransaction?.add(R.id.llMain,
-            SignUpFragment()
+            W4_SignUpFragment()
         )
         fragmentTransaction?.hide(this)
         fragmentTransaction?.addToBackStack(null)

@@ -1,4 +1,4 @@
-package w4.fragment
+package com.asiantech.intern20summer1.w4.fragment
 
 import android.annotation.SuppressLint
 import android.os.Build
@@ -13,11 +13,11 @@ import androidx.core.util.PatternsCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
-import w4.Account
-import w4.fragment.SignInFragment.Companion.REGEX_PASSWORD
+import com.asiantech.intern20summer1.w4.classanother.Account
+import com.asiantech.intern20summer1.w4.fragment.W4_SignInFragment.Companion.REGEX_PASSWORD
 import kotlinx.android.synthetic.`at-huybui`.fragment_sign_up.*
 
-class SignUpFragment : Fragment() {
+class W4_SignUpFragment : Fragment() {
     companion object {
         private val REGEX_NUMBER_PHONE = """^[0-9]{10}$""".toRegex()
         private const val TICK_ICON: Int = 1

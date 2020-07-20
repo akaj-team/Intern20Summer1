@@ -1,4 +1,4 @@
-package w4
+package com.asiantech.intern20summer1.w4.classanother
 
 data class Account(
     val name: String,

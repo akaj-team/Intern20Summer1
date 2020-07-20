@@ -1,4 +1,4 @@
-package w4.activity
+package com.asiantech.intern20summer1.w4.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,7 +6,7 @@ import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import com.asiantech.intern20summer1.R
 
-class SplashActivity : AppCompatActivity() {
+class W4_SplashActivity : AppCompatActivity() {
     companion object {
         private const val TIME_FINISH_SPLASH = 1000
     }
@@ -15,7 +15,7 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
         val runnable = Runnable {
-            val intent = Intent(this@SplashActivity, MainActivity::class.java)
+            val intent = Intent(this@W4_SplashActivity, W4_MainActivity::class.java)
             startActivity(intent)
         }
         Handler().postDelayed(runnable, TIME_FINISH_SPLASH.toLong())
