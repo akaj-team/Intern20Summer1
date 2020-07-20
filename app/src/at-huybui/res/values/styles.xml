@@ -2,9 +2,36 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/accent</item>
+    </style>
+
+    <style name="edit_text">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/edit_text_height</item>
+        <item name="android:layout_marginStart">@dimen/edit_text_margin_left_right</item>
+        <item name="android:layout_marginLeft">@dimen/edit_text_margin_left_right</item>
+        <item name="android:layout_marginEnd">@dimen/edit_text_margin_left_right</item>
+        <item name="android:layout_marginRight">@dimen/edit_text_margin_left_right</item>
+        <item name="android:layout_marginBottom">@dimen/edit_text_margin_bottom</item>
+        <item name="android:paddingLeft">@dimen/edit_text_padding_left_right</item>
+        <item name="android:paddingRight">@dimen/edit_text_padding_left_right</item>
+        <item name="android:lines">1</item>
+    </style>
+
+    <style name="image_button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingRight">@dimen/icon_image_view_padding_left_right</item>
+        <item name="android:paddingLeft">@dimen/icon_image_view_padding_left_right</item>
+    </style>
+
+    <style name="text_view_description">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/edit_text_margin_left_right</item>
+        <item name="android:layout_marginLeft">@dimen/edit_text_margin_left_right</item>
+        <item name="android:textSize">@dimen/title_text_view_size</item>
     </style>
 </resources>
-
