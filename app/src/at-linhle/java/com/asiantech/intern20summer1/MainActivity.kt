@@ -44,7 +44,6 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("ClickableViewAccessibility")
     private fun handleOnTouchScreen() {
         llMain?.setOnTouchListener { it, _ ->
-            it.requestFocus()
             it.clearFocus()
             this.hideSoftKeyboard()
             true
