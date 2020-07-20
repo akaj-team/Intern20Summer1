@@ -7,6 +7,8 @@
         android:id="@+id/lnMain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/relative_layout_margin_left"
+        android:layout_marginRight="@dimen/relative_layout_margin_right"
         android:focusableInTouchMode="true"
         android:orientation="vertical">
 
@@ -21,16 +23,13 @@
             android:id="@+id/emailText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/description_margin_left"
             android:layout_marginBottom="@dimen/description_margin_bottom"
             android:text="@string/email_ID_description" />
 
         <RelativeLayout
             android:id="@+id/rlEmail"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/rl_layout_height"
-            android:layout_marginLeft="@dimen/rl_layout_margin_left"
-            android:layout_marginRight="@dimen/rl_layout_margin_right">
+            android:layout_height="@dimen/relative_layout_height">
 
             <EditText
                 android:id="@+id/edtEmail"
@@ -55,16 +54,13 @@
             android:id="@+id/passText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/description_margin_left"
             android:layout_marginBottom="@dimen/description_margin_bottom"
             android:text="@string/password" />
 
         <RelativeLayout
             android:id="@+id/rlPass"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/rl_layout_height"
-            android:layout_marginLeft="@dimen/rl_layout_margin_left"
-            android:layout_marginRight="@dimen/rl_layout_margin_right">
+            android:layout_height="@dimen/relative_layout_height">
 
             <EditText
                 android:id="@+id/edtPass"
@@ -89,16 +85,13 @@
             android:id="@+id/retypePassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/description_margin_left"
             android:layout_marginBottom="@dimen/description_margin_bottom"
             android:text="@string/retype" />
 
         <RelativeLayout
             android:id="@+id/rlRetype"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/rl_layout_height"
-            android:layout_marginLeft="@dimen/rl_layout_margin_left"
-            android:layout_marginRight="@dimen/rl_layout_margin_right">
+            android:layout_height="@dimen/relative_layout_height">
 
             <EditText
                 android:id="@+id/edtRetype"
@@ -158,10 +151,8 @@
             android:id="@+id/btnSignUp"
             android:layout_width="match_parent"
             android:layout_height="@dimen/button_height"
-            android:layout_marginLeft="@dimen/button_margin_left"
-            android:layout_marginRight="@dimen/button_margin_right"
             android:background="@drawable/bg_button"
-            android:text="@string/signUP"
+            android:text="@string/sign_up_button"
             android:textColor="@color/colorWhite" />
 
         <LinearLayout
@@ -169,15 +160,13 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/register_layout_margin_top"
-            android:layout_marginBottom="@dimen/register_layout_margin_top"
-            android:orientation="horizontal">
+            android:layout_marginBottom="@dimen/register_layout_margin_top">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:paddingRight="@dimen/register_text_view_padding_right"
-                android:text="@string/not" />
+                android:text="@string/not_register" />
 
             <TextView
                 android:id="@+id/tvSignUp"

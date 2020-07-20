@@ -10,7 +10,6 @@ import android.view.View
 import android.view.View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.RelativeLayout
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.`at-hoangtran`.activity_main.*
@@ -27,7 +26,6 @@ class MainActivity : AppCompatActivity() {
         edtRetype.onFocusEditText()
 
         lnMain?.setOnTouchListener { it, _ ->
-            it.clearFocus()
             it.requestFocus()
             this.hideSoftKeyboard()
             true
@@ -70,12 +68,9 @@ class MainActivity : AppCompatActivity() {
         edt.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
             }
-
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
-
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val s = edt.text
                 val str = s.toString()
                 tick.visibility = View.VISIBLE
                 if (str.isEmpty()) {
