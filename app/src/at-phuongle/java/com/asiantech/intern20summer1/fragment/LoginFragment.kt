@@ -41,7 +41,7 @@ class LoginFragment : Fragment() {
 
     // Check valid password
     private fun isPasswordValid(password: String?): Boolean {
-        val regex: String = """^(?=.*\d)[A-Za-z\d]{8,}$"""
+        val regex = """^(?=.*\d)[A-Za-z\d]{8,}$"""
         return Pattern.matches(regex, password)
     }
 

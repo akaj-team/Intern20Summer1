@@ -1,8 +1,9 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.LoginFragment">
+    android:background="@color/colorWhite"
+    android:scrollbars="none">
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -11,8 +12,7 @@
         <LinearLayout
             android:id="@+id/llLogo"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/logo_linear_layout_margin_top"
+            android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:weightSum="9">
 
@@ -100,7 +100,7 @@
             <EditText
                 android:id="@+id/edtEmail"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/tvEmail"
                 android:hint="@string/hint_edit_text_description"
                 android:inputType="textEmailAddress" />
@@ -117,7 +117,7 @@
             <EditText
                 android:id="@+id/edtPass"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/tvPass"
                 android:hint="@string/hint_edit_text_description"
                 android:inputType="textPassword" />
@@ -135,7 +135,7 @@
         <Button
             android:id="@+id/btnLogin"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/tvForgotPass"
             android:layout_marginLeft="@dimen/login_button_margin_left"
             android:layout_marginTop="@dimen/login_button_margin_top"
@@ -154,4 +154,4 @@
             android:text="@string/register_text_view_description"
             android:textSize="@dimen/register_text_view_text_size" />
     </RelativeLayout>
-</FrameLayout>
+</ScrollView>
