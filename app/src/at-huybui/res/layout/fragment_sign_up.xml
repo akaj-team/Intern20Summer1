@@ -30,6 +30,7 @@
         android:id="@+id/edtNameSingUp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:focusable="true"
         android:layout_marginLeft="@dimen/sign_in_edit_text_margin_left"
         android:layout_marginRight="@dimen/sign_in_edit_text_margin_left"
         android:hint="@string/full_name"
@@ -119,6 +120,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/sign_in_button_margin_top"
-        android:text="@string/by_registering_you_agree_to_terms_conditions_nand_privacy_policy_of_the_festival"
+        android:text="@string/by_registering_you_agree_to_terms_conditions_and_privacy_policy_of_the_festival"
         android:textSize="@dimen/by_registering_text_size" />
 </LinearLayout>
