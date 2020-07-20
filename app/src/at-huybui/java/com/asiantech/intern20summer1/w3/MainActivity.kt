@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1
+package com.asiantech.intern20summer1.w3
 
 import android.annotation.SuppressLint
 import android.os.Build
@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
+import com.asiantech.intern20summer1.R
 import kotlinx.android.synthetic.`at-huybui`.activity_main.*
 
 @Suppress("DEPRECATION")
@@ -83,10 +84,16 @@ class MainActivity : AppCompatActivity() {
             val textEmail = text.toString()
             if (textEmail.isNotEmpty()) {
                 if (textEmail.matches(REGEX_EMAIL.toRegex())) {
-                    setIconTickOrErrorForEditText(edtEmail, R.drawable.icon_tick)
+                    setIconTickOrErrorForEditText(
+                        edtEmail,
+                        R.drawable.icon_tick
+                    )
                     edtEmail.setBackgroundResource(R.drawable.bg_custom_edit_text_tick)
                 } else {
-                    setIconTickOrErrorForEditText(edtEmail, R.drawable.icon_error)
+                    setIconTickOrErrorForEditText(
+                        edtEmail,
+                        R.drawable.icon_error
+                    )
                     edtEmail.setBackgroundResource(R.drawable.bg_custom_edit_text_error)
                 }
             } else {
@@ -110,11 +117,17 @@ class MainActivity : AppCompatActivity() {
             val textPass = text.toString()
             if (textPass.isNotEmpty()) {
                 bufferPass = if (textPass.matches(REGEX_PASSWORD.toRegex())) {
-                    setIconTickOrErrorForEditText(edtPass, R.drawable.icon_tick)
+                    setIconTickOrErrorForEditText(
+                        edtPass,
+                        R.drawable.icon_tick
+                    )
                     edtPass.setBackgroundResource(R.drawable.bg_custom_edit_text_tick)
                     textPass // set bufferPass is textPass variable
                 } else {
-                    setIconTickOrErrorForEditText(edtPass, R.drawable.icon_error)
+                    setIconTickOrErrorForEditText(
+                        edtPass,
+                        R.drawable.icon_error
+                    )
                     edtPass.setBackgroundResource(R.drawable.bg_custom_edit_text_error)
                     "" // set bufferPass is empty
                 }
@@ -126,10 +139,16 @@ class MainActivity : AppCompatActivity() {
             val textRePass = edtRePass.text.toString()
             if (textRePass.isNotEmpty()) {
                 if (textRePass == bufferPass) {
-                    setIconTickOrErrorForEditText(edtRePass, R.drawable.icon_tick)
+                    setIconTickOrErrorForEditText(
+                        edtRePass,
+                        R.drawable.icon_tick
+                    )
                     edtRePass.setBackgroundResource(R.drawable.bg_custom_edit_text_tick)
                 } else {
-                    setIconTickOrErrorForEditText(edtRePass, R.drawable.icon_error)
+                    setIconTickOrErrorForEditText(
+                        edtRePass,
+                        R.drawable.icon_error
+                    )
                     edtRePass.setBackgroundResource(R.drawable.bg_custom_edit_text_error)
                 }
             } else {
@@ -150,10 +169,16 @@ class MainActivity : AppCompatActivity() {
             val textRePass = text.toString()
             if (textRePass.isNotEmpty()) {
                 if (textRePass == bufferPass) {
-                    setIconTickOrErrorForEditText(edtRePass, R.drawable.icon_tick)
+                    setIconTickOrErrorForEditText(
+                        edtRePass,
+                        R.drawable.icon_tick
+                    )
                     edtRePass.setBackgroundResource(R.drawable.bg_custom_edit_text_tick)
                 } else {
-                    setIconTickOrErrorForEditText(edtRePass, R.drawable.icon_error)
+                    setIconTickOrErrorForEditText(
+                        edtRePass,
+                        R.drawable.icon_error
+                    )
                     edtRePass.setBackgroundResource(R.drawable.bg_custom_edit_text_error)
                 }
             } else {
