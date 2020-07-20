@@ -1,3 +1,24 @@
 <resources>
     <string name="app_name">[Linh]Intern20Summer1</string>
+    <string name="facebook_text_view_description">Facebook</string>
+    <string name="google_text_view_description">Google</string>
+    <string name="or_text_view_description">or</string>
+    <string name="email_id_text_view_description">Email ID</string>
+    <string name="email_edit_text_hint">Please input email</string>
+    <string name="password_text_view_description">Password</string>
+    <string name="full_name_edit_text_hint">Please input Full Name</string>
+    <string name="mobile_number_edit_text_hint">Please input mobile number</string>
+    <string name="password_edit_text_hint">Please input password</string>
+    <string name="confirm_password_edit_text_hint">Please input confirm password</string>
+    <string name="forgot_password_text_view_description">Forgot Password?</string>
+    <string name="login_button_text">Login</string>
+    <string name="do_not_have_an_account_text_view_description">Don\'t have an account?</string>
+    <string name="register_now_text_view_description">Register Now</string>
+    <string name="register_to_music_festival_text_view_description">Register to Music Festival</string>
+    <string name="full_name_text_view_description">Full Name</string>
+    <string name="email_text_view_description">Email</string>
+    <string name="mobile_number_text_view_description">Mobile Number</string>
+    <string name="confirm_password_description">Confirm Password</string>
+    <string name="register_button_text">Register</string>
+    <string name="policy_text_view_description">By registering you agree to Terms &amp; Conditions and Privacy Policy of the Festival</string>
 </resources>
