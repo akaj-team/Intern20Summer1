@@ -129,8 +129,7 @@
                     android:id="@+id/imgBtnTwitter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/image_button_social_margin_left"
-                    android:layout_marginRight="@dimen/image_button_social_margin_right"
+                    android:layout_marginHorizontal="10dp"
                     android:background="@android:color/transparent"
                     app:srcCompat="@drawable/btn_twitter" />
 
@@ -156,8 +155,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="@dimen/linear_layout_sign_up_description_padding_top"
-                android:paddingBottom="@dimen/linear_layout_sign_up_description_padding_bottom"
-                android:orientation="horizontal">
+                android:paddingBottom="@dimen/linear_layout_sign_up_description_padding_bottom">
 
                 <TextView
                     android:id="@+id/tvNotRegister"

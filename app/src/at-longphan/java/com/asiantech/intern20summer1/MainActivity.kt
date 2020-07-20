@@ -66,7 +66,11 @@ class MainActivity : AppCompatActivity() {
             if (hasFocus) {
                 view.setBackgroundResource(R.drawable.bg_edit_text_focused)
             } else {
-                handleValid(isValidPassword(edtPassword.text.toString()), imgCheckPassword, edtPassword)
+                handleValid(
+                    isValidPassword(edtPassword.text.toString()),
+                    imgCheckPassword,
+                    edtPassword
+                )
             }
         }
     }
@@ -84,7 +88,11 @@ class MainActivity : AppCompatActivity() {
             if (hasFocus) {
                 view.setBackgroundResource(R.drawable.bg_edit_text_focused)
             } else {
-                handleValid(edtPassword.text.toString() == edtRetypePassword.text.toString(), imgCheckRetypePassword, edtRetypePassword)
+                handleValid(
+                    edtPassword.text.toString() == edtRetypePassword.text.toString(),
+                    imgCheckRetypePassword,
+                    edtRetypePassword
+                )
             }
         }
     }
