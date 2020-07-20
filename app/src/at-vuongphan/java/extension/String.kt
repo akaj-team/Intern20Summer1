@@ -1,7 +1,6 @@
 package extension
 
 import activity.MainActivity.Companion.LENGTH
-import fragment.FragmentSignIn.Companion.HINT
 import fragment.FragmentSignIn.Companion.pattern
 import fragment.FragmentSignUp.Companion.LENGTH_PHONE_NUMBER
 
