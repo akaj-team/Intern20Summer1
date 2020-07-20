@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.w4.fragment
+package w4.activity
 
 import android.content.Intent
 import android.os.Bundle

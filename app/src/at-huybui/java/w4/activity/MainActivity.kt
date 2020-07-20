@@ -1,8 +1,9 @@
-package com.asiantech.intern20summer1.w4.fragment
+package w4.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.asiantech.intern20summer1.R
+import w4.fragment.SignInFragment
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -11,7 +12,8 @@ class MainActivity : AppCompatActivity() {
 
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
-        val fragment = SignInFragment()
+        val fragment =
+            SignInFragment()
         fragmentTransaction.add(R.id.llMain, fragment)
         fragmentTransaction.commit()
     }

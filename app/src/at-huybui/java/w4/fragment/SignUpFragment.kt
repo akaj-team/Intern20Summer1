@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.w4.fragment
+package w4.fragment
 
 import android.annotation.SuppressLint
 import android.os.Build
@@ -13,8 +13,8 @@ import androidx.core.util.PatternsCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.w4.fragment.`class`.Account
-import com.asiantech.intern20summer1.w4.fragment.SignInFragment.Companion.REGEX_PASSWORD
+import w4.Account
+import w4.fragment.SignInFragment.Companion.REGEX_PASSWORD
 import kotlinx.android.synthetic.`at-huybui`.fragment_sign_up.*
 
 class SignUpFragment : Fragment() {
@@ -70,10 +70,14 @@ class SignUpFragment : Fragment() {
     private fun handleForFullNameEditText() {
         edtNameSingUp.addTextChangedListener { text ->
             nameBuffer = if (edtNameSingUp.text.isNotEmpty()) {
-                setIconForEditText(edtNameSingUp, TICK_ICON)
+                setIconForEditText(edtNameSingUp,
+                    TICK_ICON
+                )
                 text.toString()
             } else {
-                setIconForEditText(edtNameSingUp, HIDE_ICON)
+                setIconForEditText(edtNameSingUp,
+                    HIDE_ICON
+                )
                 ""
             }
         }
@@ -88,14 +92,20 @@ class SignUpFragment : Fragment() {
             val pattern = PatternsCompat.EMAIL_ADDRESS.matcher(text.toString()).matches()
             emailBuffer = if (text.toString().isNotEmpty()) {
                 if (pattern) {
-                    setIconForEditText(edtEmailSignUp, TICK_ICON)
+                    setIconForEditText(edtEmailSignUp,
+                        TICK_ICON
+                    )
                     text.toString()
                 } else {
-                    setIconForEditText(edtEmailSignUp, ERROR_ICON)
+                    setIconForEditText(edtEmailSignUp,
+                        ERROR_ICON
+                    )
                     ""
                 }
             } else {
-                setIconForEditText(edtEmailSignUp, HIDE_ICON)
+                setIconForEditText(edtEmailSignUp,
+                    HIDE_ICON
+                )
                 ""
             }
         }
@@ -110,14 +120,20 @@ class SignUpFragment : Fragment() {
             val pattern = text.toString().matches(REGEX_NUMBER_PHONE)
             numberPhoneBuffer = if (text.toString().isNotEmpty()) {
                 if (pattern) {
-                    setIconForEditText(edtNumberSignUp, TICK_ICON)
+                    setIconForEditText(edtNumberSignUp,
+                        TICK_ICON
+                    )
                     text.toString()
                 } else {
-                    setIconForEditText(edtNumberSignUp, ERROR_ICON)
+                    setIconForEditText(edtNumberSignUp,
+                        ERROR_ICON
+                    )
                     ""
                 }
             } else {
-                setIconForEditText(edtNumberSignUp, HIDE_ICON)
+                setIconForEditText(edtNumberSignUp,
+                    HIDE_ICON
+                )
                 ""
             }
         }
@@ -133,27 +149,39 @@ class SignUpFragment : Fragment() {
             val pattern = text.toString().matches(REGEX_PASSWORD)
             passwordBuffer = if (text.toString().isNotEmpty()) {
                 if (pattern) {
-                    setIconForEditText(edtPasswordSignUp, TICK_ICON)
+                    setIconForEditText(edtPasswordSignUp,
+                        TICK_ICON
+                    )
                     text.toString()
                 } else {
-                    setIconForEditText(edtPasswordSignUp, ERROR_ICON)
+                    setIconForEditText(edtPasswordSignUp,
+                        ERROR_ICON
+                    )
                     ""
                 }
             } else {
-                setIconForEditText(edtPasswordSignUp, HIDE_ICON)
+                setIconForEditText(edtPasswordSignUp,
+                    HIDE_ICON
+                )
                 ""
             }
             //job of handle function for rewrite password edit text view
             rewritePassStatus = if (edtRePassSignUp.text.toString().isNotEmpty()) {
                 if (edtRePassSignUp.text.toString() == passwordBuffer) {
-                    setIconForEditText(edtRePassSignUp, TICK_ICON)
+                    setIconForEditText(edtRePassSignUp,
+                        TICK_ICON
+                    )
                     true
                 } else {
-                    setIconForEditText(edtRePassSignUp, ERROR_ICON)
+                    setIconForEditText(edtRePassSignUp,
+                        ERROR_ICON
+                    )
                     false
                 }
             } else {
-                setIconForEditText(edtRePassSignUp, HIDE_ICON)
+                setIconForEditText(edtRePassSignUp,
+                    HIDE_ICON
+                )
                 false
             }
         }
@@ -168,14 +196,20 @@ class SignUpFragment : Fragment() {
         edtRePassSignUp.addTextChangedListener { text ->
             rewritePassStatus = if (text.toString().isNotEmpty()) {
                 if (text.toString() == passwordBuffer) {
-                    setIconForEditText(edtRePassSignUp, TICK_ICON)
+                    setIconForEditText(edtRePassSignUp,
+                        TICK_ICON
+                    )
                     true
                 } else {
-                    setIconForEditText(edtRePassSignUp, ERROR_ICON)
+                    setIconForEditText(edtRePassSignUp,
+                        ERROR_ICON
+                    )
                     false
                 }
             } else {
-                setIconForEditText(edtRePassSignUp, HIDE_ICON)
+                setIconForEditText(edtRePassSignUp,
+                    HIDE_ICON
+                )
                 false
             }
         }
@@ -227,7 +261,12 @@ class SignUpFragment : Fragment() {
                 else -> {
                     showToast("Register complete!")
                     val account =
-                        Account(nameBuffer, emailBuffer, numberPhoneBuffer, passwordBuffer)
+                        Account(
+                            nameBuffer,
+                            emailBuffer,
+                            numberPhoneBuffer,
+                            passwordBuffer
+                        )
                 }
             }
         }

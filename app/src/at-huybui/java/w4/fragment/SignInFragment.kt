@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.w4.fragment
+package w4.fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -40,7 +40,9 @@ class SignInFragment : Fragment() {
 
     private fun handleOpenSignUpFragment() {
         val fragmentTransaction = fragmentManager?.beginTransaction()
-        fragmentTransaction?.add(R.id.llMain, SignUpFragment())
+        fragmentTransaction?.add(R.id.llMain,
+            SignUpFragment()
+        )
         fragmentTransaction?.hide(this)
         fragmentTransaction?.addToBackStack(null)
         fragmentTransaction?.commit()
