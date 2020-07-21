@@ -76,8 +76,8 @@ class FragmentRegister : Fragment() {
     }
 
     private fun cropImageGallery(data: Intent?) {
-        data?.data?.let {
-            handleCropImage(it)
+        data?.data.let {
+            it?.let { it1 -> handleCropImage(it1) }
         }
     }
 
