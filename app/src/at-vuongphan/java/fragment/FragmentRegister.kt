@@ -56,31 +56,39 @@ class FragmentRegister : Fragment() {
         if (resultCode == RESULT_OK) {
             when (requestCode) {
                 REQUEST_IMAGE_CAPTURE -> {
-                    (data?.extras?.get(KEY_IMAGE) as? Bitmap)?.let {
-                        getImageUri(it)?.let { uri -> handleCropImage(uri) }
-                    }
+                    cropImageCamera(data)
 
                 }
                 REQUEST_GET_CONTENT_IMAGE -> {
-                    data?.data?.let {
-                        handleCropImage(it)
-                    }
+                    cropImageGallery(data)
                 }
                 CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE -> {
-                    CropImage.getActivityResult(data).uri.apply {
-                        try {
-                            if (this != null) {
-                                val bitmap = Images.Media.getBitmap(
-                                    activity?.contentResolver,
-                                    this
-                                )
-                                imgIconName.setImageBitmap(bitmap)
-                            }
-                        } catch (e: Exception) {
-                            e.message
-                        }
-                    }
+                    showImage(data)
                 }
+            }
+        }
+    }
+
+    private fun cropImageCamera(data: Intent?) {
+        (data?.extras?.get(KEY_IMAGE) as? Bitmap)?.let {
+            getImageUri(it)?.let { uri -> handleCropImage(uri) }
+        }
+    }
+
+    private fun cropImageGallery(data: Intent?) {
+        data?.data?.let {
+            handleCropImage(it)
+        }
+    }
+
+    private fun showImage(data: Intent?) {
+        CropImage.getActivityResult(data).uri.apply {
+            if (this != null) {
+                val bitmap = Images.Media.getBitmap(
+                    activity?.contentResolver,
+                    this
+                )
+                imgIconName.setImageBitmap(bitmap)
             }
         }
     }
