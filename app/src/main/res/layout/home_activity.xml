@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -8,39 +9,109 @@
         android:id="@+id/tvTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/w4_text_view_information_text"
-        android:layout_marginTop="@dimen/w4_text_view_margin_top"
-        android:textSize="@dimen/w4_text_size_title"
+        android:layout_marginTop="@dimen/text_view_margin_top"
         android:gravity="center"
-        android:textColor="@color/colorYellow"/>
+        android:text="@string/text_view_information_text"
+        android:textColor="@color/colorYellow"
+        android:textSize="@dimen/text_size_title" />
+
     <TextView
-        android:id="@+id/tvFullNameHome"
+        android:id="@+id/tvFullName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tvTitle"
-        android:layout_marginTop="@dimen/w4_text_view_home_margin_top"
-        android:text="@string/w4_full_name_text_view_description_text" />
-    <TextView
-        android:id="@+id/tvEmailHome"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tvFullNameHome"
-        android:layout_marginTop="@dimen/w4_text_view_home_margin_top"
-        android:text="@string/w4_full_name_text_view_description_text" />
-    <TextView
-        android:id="@+id/tvNumberPhoneHome"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tvEmailHome"
-        android:layout_marginTop="@dimen/w4_text_view_home_margin_top"
-        android:text="@string/w4_full_name_text_view_description_text" />
-    <TextView
-        android:id="@+id/tvPasswordHome"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tvNumberPhoneHome"
-        android:layout_marginTop="@dimen/w4_text_view_home_margin_top"
-        android:text="@string/w4_full_name_text_view_description_text" />
+        android:layout_marginTop="@dimen/text_view_home_margin_top"
+        android:paddingLeft="@dimen/edit_text_padding_left"
+        android:text="@string/full_name_text_view_description_text"
+        android:textSize="@dimen/text_size_home" />
 
+    <EditText
+        android:id="@+id/edtFullNameHome"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_edit_text"
+        android:layout_below="@id/tvFullName"
+        android:layout_marginLeft="@dimen/layout_home_marin"
+        android:layout_marginTop="@dimen/text_view_home_margin_top"
+        android:layout_marginRight="@dimen/layout_home_marin"
+        android:autofillHints="no"
+        android:background="@drawable/bg_edit_text_non_selected_pass"
+        android:inputType="text"
+        android:paddingLeft="@dimen/edit_text_padding_left"
+        android:textSize="@dimen/text_size_home"
+        tools:ignore="LabelFor" />
 
+    <TextView
+        android:id="@+id/tvEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edtFullNameHome"
+        android:layout_marginTop="@dimen/text_view_home_margin_top"
+        android:paddingLeft="@dimen/edit_text_padding_left"
+        android:text="@string/email_sign_up_text_view_description_text"
+        android:textSize="@dimen/text_size_home" />
+
+    <EditText
+        android:id="@+id/edtEmailHome"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_edit_text"
+        android:layout_below="@id/tvEmail"
+        android:layout_marginLeft="@dimen/layout_home_marin"
+        android:layout_marginTop="@dimen/text_view_home_margin_top"
+        android:layout_marginRight="@dimen/layout_home_marin"
+        android:autofillHints=""
+        android:background="@drawable/bg_edit_text_non_selected_pass"
+        android:inputType="text"
+        android:paddingLeft="@dimen/edit_text_padding_left"
+        android:textSize="@dimen/text_size_home"
+        tools:ignore="LabelFor,TextFields" />
+
+    <TextView
+        android:id="@+id/tvNumberPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edtEmailHome"
+        android:layout_marginTop="@dimen/text_view_home_margin_top"
+        android:paddingLeft="@dimen/edit_text_padding_left"
+        android:text="@string/phone_number_text_view_description_text"
+        android:textSize="@dimen/text_size_home" />
+
+    <EditText
+        android:id="@+id/edtNumberPhoneHome"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_edit_text"
+        android:layout_below="@id/tvNumberPhone"
+        android:layout_marginLeft="@dimen/layout_home_marin"
+        android:layout_marginTop="@dimen/text_view_home_margin_top"
+        android:layout_marginRight="@dimen/layout_home_marin"
+        android:background="@drawable/bg_edit_text_non_selected_pass"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:paddingLeft="@dimen/edit_text_padding_left"
+        android:textSize="@dimen/text_size_home"
+        tools:ignore="LabelFor,TextFields" />
+
+    <TextView
+        android:id="@+id/tvPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edtNumberPhoneHome"
+        android:layout_marginTop="@dimen/text_view_home_margin_top"
+        android:paddingLeft="@dimen/edit_text_padding_left"
+        android:text="@string/password_text_view_description_text"
+        android:textSize="@dimen/text_size_home" />
+
+    <EditText
+        android:id="@+id/edtPasswordHome"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_edit_text"
+        android:layout_below="@id/tvPassword"
+        android:layout_marginLeft="@dimen/layout_home_marin"
+        android:layout_marginTop="@dimen/text_view_home_margin_top"
+        android:layout_marginRight="@dimen/layout_home_marin"
+        android:background="@drawable/bg_edit_text_non_selected_pass"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:paddingLeft="@dimen/edit_text_padding_left"
+        android:textSize="@dimen/text_size_home"
+        tools:ignore="LabelFor,TextFields" />
 </RelativeLayout>

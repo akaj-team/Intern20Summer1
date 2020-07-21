@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.asiantech.intern20summer1.R
-import kotlinx.android.synthetic.`at-vuongphan`.activity_main.*
 import extension.afterTextChanged
 import extension.isValidEmail
 import extension.isValidPassword
+import kotlinx.android.synthetic.`at-vuongphan`.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     companion object {
@@ -30,12 +30,16 @@ class MainActivity : AppCompatActivity() {
     private fun initListenerEmailEditText() {
         edtEmail.afterTextChanged {
             if (it.isValidEmail()) {
-                edtEmail.setCompoundDrawablesWithIntrinsicBounds(0, 0,
-                    R.drawable.icon_tick, 0)
+                edtEmail.setCompoundDrawablesWithIntrinsicBounds(
+                    0, 0,
+                    R.drawable.icon_tick, 0
+                )
                 edtEmail.isActivated = false
             } else {
-                edtEmail.setCompoundDrawablesWithIntrinsicBounds(0, 0,
-                    R.drawable.icon_error, 0)
+                edtEmail.setCompoundDrawablesWithIntrinsicBounds(
+                    0, 0,
+                    R.drawable.icon_error, 0
+                )
                 edtEmail.isActivated = true
             }
         }
