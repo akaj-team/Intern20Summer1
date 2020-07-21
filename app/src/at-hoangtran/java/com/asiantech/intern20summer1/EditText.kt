@@ -1,7 +1,6 @@
 package com.asiantech.intern20summer1
 
 import android.widget.EditText
-import android.widget.RelativeLayout
 
 fun EditText.onFocusEditText() {
     this.setOnFocusChangeListener { _, hasFocus ->
