@@ -8,4 +8,11 @@
     <string name="login">Login</string>
     <string name="facebook">Facebook</string>
     <string name="google">Google</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="register">Register</string>
+    <string name="mobile">Mobile Number</string>
+    <string name="name">Full Name</string>
+    <string name="avatar">Avatar</string>
+    <string name="register_to_music_festival">Register to Music Festival</string>
+    <string name="agreement">By registering you agree to Term &amp; Conditions and Privacy Policy of the Festival</string>
 </resources>
