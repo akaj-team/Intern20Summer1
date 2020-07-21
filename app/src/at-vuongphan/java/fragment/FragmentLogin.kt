@@ -38,7 +38,6 @@ class FragmentLogin : Fragment() {
                 }
             }
         }
-
     }
 
     override fun onCreateView(

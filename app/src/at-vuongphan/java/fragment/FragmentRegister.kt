@@ -95,7 +95,7 @@ class FragmentRegister : Fragment() {
 
     @SuppressLint("ClickableViewAccessibility")
     private fun initListenerHideKeyboardRegister() {
-        rlFragmentRegister?.setOnTouchListener { view, _ ->
+        rlFragmentRegister.setOnTouchListener { view, _ ->
             view.clearFocus()
             view.hideKeyboard()
             true

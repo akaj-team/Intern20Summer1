@@ -22,10 +22,10 @@ class SignInActivity : AppCompatActivity() {
     }
 
     internal fun openSignUp() {
-        replaceFragment(R.id.frContainer, FragmentRegister(), true)
+        replaceFragment(R.id.frContainer, FragmentRegister(), false)
     }
 
     internal fun openRegister(data: User) {
-        replaceFragment(R.id.frContainer, FragmentLogin.newInstance(data), true)
+        replaceFragment(R.id.frContainer, FragmentLogin.newInstance(data), false)
     }
 }
