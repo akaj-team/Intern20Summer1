@@ -29,16 +29,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/llLogo"
-            android:layout_marginLeft="@dimen/link_linear_layout_margin_left"
+            android:layout_marginLeft="@dimen/margin_left"
             android:layout_marginTop="@dimen/link_linear_layout_margin_top"
-            android:layout_marginRight="@dimen/link_linear_layout_margin_right"
+            android:layout_marginRight="@dimen/margin_right"
             android:orientation="horizontal"
             android:weightSum="2">
 
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/facebook_relative_layout_height"
-                android:layout_marginRight="@dimen/facebook_relative_layout_margin_right"
+                android:layout_marginRight="@dimen/margin_right"
                 android:layout_weight="1"
                 android:background="@drawable/bg_link_relative_layout"
                 android:gravity="center">
@@ -85,9 +85,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tvOr"
-            android:layout_marginLeft="@dimen/input_relative_layout_margin_left"
+            android:layout_marginLeft="@dimen/margin_left"
             android:layout_marginTop="@dimen/input_relative_layout_margin_top"
-            android:layout_marginRight="@dimen/input_relative_layout_margin_right">
+            android:layout_marginRight="@dimen/margin_right">
 
             <TextView
                 android:id="@+id/tvEmail"
@@ -137,15 +137,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvForgotPass"
-            android:layout_marginLeft="@dimen/login_button_margin_left"
+            android:layout_marginLeft="@dimen/margin_left"
             android:layout_marginTop="@dimen/login_button_margin_top"
-            android:layout_marginRight="@dimen/login_button_margin_right"
+            android:layout_marginRight="@dimen/margin_right"
             android:background="@drawable/bg_disable_login_button"
             android:enabled="false"
-            android:text="@string/login_button_description"
+            android:text="@string/login_button_text"
+            android:textAllCaps="false"
             android:textColor="@color/colorWhite" />
 
         <TextView
+            android:id="@+id/tvLoginRegister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/btnLogin"

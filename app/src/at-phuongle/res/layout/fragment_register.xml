@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorWhite">
@@ -8,8 +9,8 @@
         android:id="@+id/imgBtnBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginLeft="@dimen/margin_left"
+        android:layout_marginTop="@dimen/back_image_button_margin_top"
         android:background="@color/colorWhite"
         android:src="@drawable/back" />
 
@@ -18,11 +19,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/imgBtnBack"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:text="Register to Music Festival"
-        android:textColor="#000000"
-        android:textSize="20sp"
+        android:layout_marginLeft="@dimen/margin_left"
+        android:layout_marginTop="@dimen/title_text_view_margin_top"
+        android:text="@string/register_title_text_view_description"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/title_text_view_text_size"
         android:textStyle="bold" />
 
     <TextView
@@ -30,72 +31,81 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvTitle"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="30dp"
-        android:text="Full Name"
+        android:layout_marginLeft="@dimen/margin_left"
+        android:layout_marginTop="@dimen/full_name_text_view_margin_top"
+        android:text="@string/register_full_name_text_view_description"
         android:textColor="@color/colorSilver"
-        android:textSize="12sp" />
+        android:textSize="@dimen/full_name_text_view_text_size" />
 
     <EditText
         android:id="@+id/edtRegisterFullName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tvRegisterFullName"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp" />
+        android:layout_marginLeft="@dimen/margin_left"
+        android:layout_marginRight="@dimen/margin_right"
+        android:hint="@string/hint_edit_text_description" />
 
     <TextView
         android:id="@+id/tvRegisterAvatar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/edtRegisterFullName"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:text="Avatar"
+        android:layout_marginLeft="@dimen/margin_left"
+        android:layout_marginTop="@dimen/register_avatar_text_view_margin_top"
+        android:text="@string/register_avatar_text_view_description"
         android:textColor="@color/colorSilver"
-        android:textSize="12sp" />
+        android:textSize="@dimen/register_avatar_text_view_text_size" />
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgRegisterAvatar"
+        android:layout_width="@dimen/register_avatar_circle_image_view_width"
+        android:layout_height="@dimen/register_avatar_circle_image_view_height"
+        android:layout_below="@+id/tvRegisterAvatar"
+        android:layout_marginLeft="@dimen/margin_left"
+        android:src="@mipmap/ic_launcher"
+        app:civ_border_color="@color/colorBlack"
+        app:civ_border_width="@dimen/register_avatar_circle_image_view_border_width" />
 
     <TextView
         android:id="@+id/tvRegisterEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvRegisterAvatar"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:text="Email"
+        android:layout_below="@+id/imgRegisterAvatar"
+        android:layout_marginLeft="@dimen/margin_left"
+        android:layout_marginTop="@dimen/register_email_text_view_margin_top"
+        android:text="@string/register_email_text_view_description"
         android:textColor="@color/colorSilver"
-        android:textSize="12sp" />
+        android:textSize="@dimen/register_email_text_view_text_size" />
 
     <EditText
         android:id="@+id/edtRegisterEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tvRegisterEmail"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp" />
+        android:layout_marginLeft="@dimen/margin_left"
+        android:layout_marginRight="@dimen/margin_right"
+        android:hint="@string/hint_edit_text_description" />
 
     <TextView
         android:id="@+id/tvRegisterMobile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/edtRegisterEmail"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:text="Mobile Number"
+        android:layout_marginLeft="@dimen/margin_left"
+        android:layout_marginTop="@dimen/register_mobile_text_view_margin_top"
+        android:text="@string/register_mobile_text_view_description"
         android:textColor="@color/colorSilver"
-        android:textSize="12sp" />
+        android:textSize="@dimen/register_mobile_text_view_text_size" />
 
     <EditText
         android:id="@+id/edtRegisterMobile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tvRegisterMobile"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginLeft="@dimen/margin_left"
+        android:layout_marginRight="@dimen/margin_right"
+        android:hint="@string/hint_edit_text_description"
         android:inputType="number" />
 
     <TextView
@@ -103,19 +113,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/edtRegisterMobile"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:text="Password"
+        android:layout_marginLeft="@dimen/margin_left"
+        android:layout_marginTop="@dimen/register_password_text_view_margin_top"
+        android:text="@string/register_password_text_view_description"
         android:textColor="@color/colorSilver"
-        android:textSize="12sp" />
+        android:textSize="@dimen/register_password_text_view_text_size" />
 
     <EditText
         android:id="@+id/edtRegisterPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tvRegisterPassword"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginLeft="@dimen/margin_left"
+        android:layout_marginRight="@dimen/margin_right"
+        android:hint="@string/hint_edit_text_description"
         android:inputType="textPassword" />
 
     <TextView
@@ -123,19 +134,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/edtRegisterPassword"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:text="Confirm Password"
+        android:layout_marginLeft="@dimen/margin_left"
+        android:layout_marginTop="@dimen/register_confirm_password_text_view_margin_top"
+        android:text="@string/register_confirm_password_text_view_description"
         android:textColor="@color/colorSilver"
-        android:textSize="12sp" />
+        android:textSize="@dimen/register_confirm_password_text_view_text_size" />
 
     <EditText
         android:id="@+id/edtRegisterConfirmPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tvRegisterConfirmPassword"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginLeft="@dimen/margin_left"
+        android:layout_marginRight="@dimen/margin_right"
+        android:hint="@string/hint_edit_text_description"
         android:inputType="textPassword" />
 
     <Button
@@ -143,27 +155,31 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/edtRegisterConfirmPassword"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginLeft="@dimen/margin_left"
+        android:layout_marginTop="@dimen/register_button_margin_top"
+        android:layout_marginRight="@dimen/margin_right"
         android:background="@drawable/bg_disable_register_button"
         android:enabled="false"
-        android:text="Register"
+        android:text="@string/register_button_text"
+        android:textAllCaps="false"
         android:textColor="@color/colorWhite" />
 
     <TextView
-        android:id="@+id/tvByRegistering"
+        android:id="@+id/tvTemp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/btnRegister"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:text="@string/by_registering_text_view_description" />
+        android:layout_marginTop="@dimen/register_temp_text_view_margin_top"
+        android:text="@string/register_temp_text_view_description"
+        android:textSize="@dimen/register_temp_text_view_text_size" />
 
     <TextView
+        android:id="@+id/tvPolicy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tvByRegistering"
+        android:layout_below="@id/tvTemp"
         android:layout_centerHorizontal="true"
-        android:text="and Privacy Policy of the Festival" />
+        android:text="@string/register_policy_text_view_description"
+        android:textSize="@dimen/register_temp_text_view_text_size" />
 </RelativeLayout>
