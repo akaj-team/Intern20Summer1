@@ -6,8 +6,15 @@
     android:background="@color/background_white"
     android:orientation="vertical">
 
+    <ImageView
+        android:layout_width="@dimen/image_logo_width"
+        android:layout_height="@dimen/image_logo_height"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/logo_music" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewAvatar"
+        android:layout_marginTop="@dimen/sign_in_logo_image_view_margin_top"
         android:layout_width="@dimen/home_avatar_width"
         android:layout_height="@dimen/home_avatar_width"
         android:layout_gravity="center"
@@ -26,7 +33,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="@string/avatar" />
-
 
     <LinearLayout
         android:layout_width="match_parent"

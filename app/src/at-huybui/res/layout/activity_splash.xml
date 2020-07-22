@@ -7,20 +7,10 @@
     android:background="@color/background_white"
     tools:context="com.asiantech.intern20summer1.w4.activity.SplashActivity">
 
-    <TextView
-        android:id="@+id/tvSplash"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#ff00"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgSplash" />
-
     <ImageView
         android:id="@+id/imgSplash"
-        android:layout_width="180dp"
-        android:layout_height="90dp"
+        android:layout_width="@dimen/image_logo_width"
+        android:layout_height="@dimen/image_logo_height"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

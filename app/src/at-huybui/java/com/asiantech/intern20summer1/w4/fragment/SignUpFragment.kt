@@ -43,7 +43,7 @@ class SignUpFragment : Fragment() {
     private var passwordBuffer = ""
     private var rewritePassStatus = false
 
-    internal var onBackClicked: (Account) -> Unit = { }
+    internal var onRegisterClick: (Account) -> Unit = { }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -306,7 +306,7 @@ class SignUpFragment : Fragment() {
                             passwordBuffer,
                             imageUri.toString() + ""
                         )
-                    onBackClicked(use)
+                    onRegisterClick(use)
                     fragmentManager?.popBackStack()
                 }
             }

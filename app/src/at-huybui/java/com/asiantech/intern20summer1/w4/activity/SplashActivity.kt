@@ -8,7 +8,7 @@ import com.asiantech.intern20summer1.R
 
 class SplashActivity : AppCompatActivity() {
     companion object {
-        private const val TIME_FINISH_SPLASH = 1000
+        private const val TIME_FINISH_SPLASH = 1000L
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,7 +18,7 @@ class SplashActivity : AppCompatActivity() {
             val intent = Intent(this@SplashActivity, MainActivity::class.java)
             startActivity(intent)
         }
-        Handler().postDelayed(runnable, TIME_FINISH_SPLASH.toLong())
+        Handler().postDelayed(runnable, TIME_FINISH_SPLASH)
     }
 
     override fun onStop() {

@@ -5,4 +5,5 @@
     <color name="accent">#03DAC5</color>
     <color name="background_white">#FFFFFF</color>
     <color name="button_login_register">#FF9900</color>
+    <color name="custom_button_icon_stroke">#4D4D4D</color>
 </resources>

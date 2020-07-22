@@ -6,8 +6,8 @@
 
     <ImageView
         android:id="@+id/imgLogoSignIn"
-        android:layout_width="200dp"
-        android:layout_height="100dp"
+        android:layout_width="@dimen/image_logo_width"
+        android:layout_height="@dimen/image_logo_height"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
@@ -26,8 +26,8 @@
         android:layout_marginTop="@dimen/sign_in_button_margin_top">
 
         <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="@dimen/icon_in_button_facebook_and_google_size"
+            android:layout_height="@dimen/icon_in_button_facebook_and_google_size"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
@@ -39,7 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/custom_button_icon"
-            android:paddingLeft="30dp"
+            android:paddingLeft="@dimen/button_facebook_and_google_padding_left"
             android:text="@string/facebook" />
 
     </RelativeLayout>
@@ -56,8 +56,8 @@
         android:layout_marginRight="@dimen/sign_in_button_margin_left_right">
 
         <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="@dimen/icon_in_button_facebook_and_google_size"
+            android:layout_height="@dimen/icon_in_button_facebook_and_google_size"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
@@ -152,8 +152,8 @@
 
     <Button
         android:id="@+id/btnLoginSignIn"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_height"
         android:layout_below="@id/tvSignInForgot"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
@@ -171,8 +171,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="0dp"
-        android:gravity="center"
+        android:gravity="center_horizontal|bottom"
+        android:padding="@dimen/icon_in_button_facebook_and_google_size"
         android:text="@string/don_t_have_an_account_register_now" />
 </RelativeLayout>

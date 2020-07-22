@@ -56,7 +56,7 @@ class SignInFragment : Fragment() {
      */
     private fun handleForRegisterTextView() {
         val fragment = SignUpFragment()
-        fragment.onBackClicked = this::handleReceiverData
+        fragment.onRegisterClick = this::handleReceiverData
         tvRegisterNow.setOnClickListener {
             (activity as? MainActivity)?.addFragment(fragment, true)
         }
