@@ -9,4 +9,6 @@
     <color name="colorChartreuse3">#66CD00</color>
     <color name="colorSnow">#FFFAFA</color>
     <color name="colorDeepSkyBlue1">#00BFFF</color>
+    <color name="colorRegisterTextView">#5E6BE3</color>
+    <color name="colorTitleTextViewText">#000000</color>
 </resources>

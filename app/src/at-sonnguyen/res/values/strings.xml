@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Create UI W3</string>
+    <string name="app_name">W4 - Intent - Activity - Fragment</string>
     <string name="your_profile_link">Link your social media profile</string>
     <string name="email_text_view_description_text">Enter your Email ID</string>
     <string name="password_text_view_description_text">Type your password</string>
@@ -9,4 +9,23 @@
     <string name="sign_up_button_description_text">SIGN UP</string>
     <string name="sign_up_ask_text_view_description_text">not register yet ?</string>
     <string name="sign_up_text_view_description_text">Sign up</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="forgot_password_text_view_description_text">forgot password ?</string>
+    <string name="place_holder">Please input ...</string>
+    <string name="image_view_description_text">logo</string>
+    <string name="choose_text_view">OR</string>
+    <string name="w4_email_text_view_description_text">Email ID</string>
+    <string name="facebook_button_description_text">Facebook</string>
+    <string name="google_button_description_text">Google</string>
+    <string name="sign_in_button_description_text">SIGN IN</string>
+    <string name="w4_password_text_view_description_text">Password</string>
+    <string name="ask_account_text_view_description_text">Don\'t have an account ?</string>
+    <string name="register_now_text_view_description_text">Register now</string>
+    <string name="register_title_text_view_description_text">Register to Music Festival</string>
+    <string name="full_name_text_view_description_text">full name</string>
+    <string name="back_button_image_button_description">back button</string>
+    <string name="phone_number_text_view_description">Phone number</string>
+    <string name="confirm_password_text_view_description_text">Confirm Password</string>
+    <string name="register_button_description">Register</string>
+    <string name="policy_text_view_description_text"><![CDATA[By registering you agree to terms & conditions and private policy of the festival]]></string>
 </resources>

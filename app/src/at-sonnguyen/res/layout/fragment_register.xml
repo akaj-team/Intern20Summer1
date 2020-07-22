@@ -1,0 +1,146 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/linear_layout_margin_left"
+        android:layout_marginLeft="@dimen/linear_layout_margin_left"
+        android:layout_marginEnd="@dimen/linear_layout_margin_right"
+        android:layout_marginRight="@dimen/linear_layout_margin_right"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/back_button_margin_to_top"
+            android:contentDescription="@string/back_button_image_button_description"
+            android:src="@drawable/back_image_button" />
+
+        <TextView
+            android:id="@+id/tvTitleRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/register_title_text_view_description_text"
+            android:textColor="@color/colorTitleTextViewText"
+            android:textSize="@dimen/title_text_view_text_size" />
+
+        <TextView
+            android:id="@+id/tvRegisterFullName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/text_view_margin_to_edit_text"
+            android:text="@string/full_name_text_view_description_text"
+            android:textSize="@dimen/w4_text_view_text_size" />
+
+        <EditText
+            android:id="@+id/edtRegisterFullName"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/w4_edit_text_height"
+            android:layout_marginTop="@dimen/edit_text_margin_to_text_view"
+            android:autofillHints="no"
+            android:hint="@string/place_holder"
+            android:inputType="text" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgAvatar"
+            android:layout_width="@dimen/avatar_image_view_width"
+            android:layout_height="@dimen/avatar_image_view_height"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/avatar_image_view_margin_to_top"
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/tvRegisterEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/text_view_margin_to_edit_text"
+            android:text="@string/w4_email_text_view_description_text"
+            android:textSize="@dimen/w4_text_view_text_size" />
+
+        <EditText
+            android:id="@+id/edtRegisterEmail"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/w4_edit_text_height"
+            android:layout_marginTop="@dimen/edit_text_margin_to_text_view"
+            android:autofillHints="@string/place_holder"
+            android:hint="@string/place_holder"
+            android:inputType="textEmailAddress" />
+
+        <TextView
+            android:id="@+id/tvRegisterPhoneNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/text_view_margin_to_edit_text"
+            android:text="@string/phone_number_text_view_description"
+            android:textSize="@dimen/w4_text_view_text_size" />
+
+        <EditText
+            android:id="@+id/edtRegisterPhoneNumber"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/w4_edit_text_height"
+            android:layout_marginTop="@dimen/edit_text_margin_to_text_view"
+            android:autofillHints="@string/place_holder"
+            android:hint="@string/place_holder"
+            android:inputType="number"
+            tools:ignore="TextFields" />
+
+        <TextView
+            android:id="@+id/tvRegisterPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/text_view_margin_to_edit_text"
+            android:text="@string/w4_password_text_view_description_text"
+            android:textSize="@dimen/w4_text_view_text_size" />
+
+        <EditText
+            android:id="@+id/edtRegisterPassword"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/w4_edit_text_height"
+            android:layout_marginTop="@dimen/edit_text_margin_to_text_view"
+            android:autofillHints=""
+            android:hint="@string/place_holder"
+            android:inputType="textPassword" />
+
+        <TextView
+            android:id="@+id/tvRegisterRetypePassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/text_view_margin_to_edit_text"
+            android:text="@string/confirm_password_text_view_description_text"
+            android:textSize="@dimen/w4_text_view_text_size" />
+
+        <EditText
+            android:id="@+id/edtRegisterRetypePassword"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/w4_edit_text_height"
+            android:layout_marginTop="@dimen/edit_text_margin_to_text_view"
+            android:autofillHints="@string/place_holder"
+            android:hint="@string/place_holder"
+            android:inputType="textPassword" />
+
+        <Button
+            android:id="@+id/btnRegister"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginTop="@dimen/register_button_margin_to_edit_text"
+            android:background="@drawable/bg_button"
+            android:clickable="false"
+            android:enabled="false"
+            android:text="@string/register_button_description"
+            android:textAllCaps="false" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/policy_text_view_margin_to_register_button"
+            android:gravity="center"
+            android:text="@string/policy_text_view_description_text" />
+
+    </LinearLayout>
+</ScrollView>

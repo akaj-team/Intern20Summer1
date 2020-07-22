@@ -2,26 +2,22 @@
 set -x
 # simple script to cancel a github actions workflow given its name
 
-if [ -z "$GITHUB_WORKFLOW" ]
-then
+if [ -z "$GITHUB_WORKFLOW" ]; then
   echo "Must specify GITHUB_WORKFLOW"
   exit 1
 fi
 
-if [ -z "$GITHUB_TOKEN" ]
-then
+if [ -z "$GITHUB_TOKEN" ]; then
   echo "Must specify GITHUB_TOKEN"
   exit 1
 fi
 
-if [ -z "$GITHUB_REPOSITORY" ]
-then
+if [ -z "$GITHUB_REPOSITORY" ]; then
   echo "Must specify GITHUB_REPOSITORY"
   exit 1
 fi
 
-if [ -z "$GITHUB_HEAD_REF" ]
-then
+if [ -z "$GITHUB_HEAD_REF" ]; then
   # we have a push event
   BRANCH=${GITHUB_REF:11}
 else
@@ -47,8 +43,7 @@ run_ids=$(curl -s ${GITHUB_API}/repos/"${GITHUB_REPOSITORY}"/actions/workflows/"
 echo "run ids: $run_ids"
 
 # cancel the previous runs
-for run_id in $run_ids
-do
+for run_id in $run_ids; do
   curl -s -X POST -H "${auth_header}" ${GITHUB_API}/repos/"${GITHUB_REPOSITORY}"/actions/runs/"${run_id}"/cancel
   echo "Cancelled run $run_id"
 done
