@@ -21,10 +21,20 @@
     <dimen name="arrow_left_image_view_size">15dp</dimen>
     <dimen name="arrow_left_image_margin_top_bottom">20dp</dimen>
     <dimen name="text_view_margin_top_bottom">30dp</dimen>
-    <dimen name="text_view_text_size">20sp</dimen>
+    <dimen name="register_text_view_text_size">20sp</dimen>
     <dimen name="sign_up_linear_layout_margin_bottom">20dp</dimen>
     <dimen name="logo_image_view_height">130dp</dimen>
     <dimen name="image_view_height">95dp</dimen>
     <dimen name="facebook_linear_layout_margin_right">10dp</dimen>
     <dimen name="google_linear_layout_margin_left">10dp</dimen>
+    <dimen name="avatar_image_view_size">100dp</dimen>
+    <dimen name="home_image_view_height">300dp</dimen>
+    <dimen name="home_avatar_image_view_size">200dp</dimen>
+    <dimen name="home_avatar_image_view_margin_top">50dp</dimen>
+    <dimen name="home_linear_layout_padding">10dp</dimen>
+    <dimen name="home_full_name_linear_layout_margin_top">50dp</dimen>
+    <dimen name="home_text_view_margin_right">10dp</dimen>
+    <dimen name="home_text_view_text_size">20sp</dimen>
+    <dimen name="home_email_linear_layout_margin_top">50dp</dimen>
+    <dimen name="home_phone_linear_layout_margin_top">50dp</dimen>
 </resources>

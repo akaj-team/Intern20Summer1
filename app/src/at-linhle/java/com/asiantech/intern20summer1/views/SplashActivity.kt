@@ -6,7 +6,6 @@ import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import com.asiantech.intern20summer1.R
 
-
 class SplashActivity : AppCompatActivity() {
     companion object {
         private const val DELAY_SECOND_SPLASH: Long = 3000

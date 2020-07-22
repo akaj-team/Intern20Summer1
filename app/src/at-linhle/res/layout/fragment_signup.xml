@@ -25,7 +25,7 @@
             android:layout_marginBottom="@dimen/text_view_margin_top_bottom"
             android:text="@string/register_to_music_festival_text_view_description"
             android:textColor="@color/colorBlack"
-            android:textSize="@dimen/text_view_text_size"
+            android:textSize="@dimen/register_text_view_text_size"
             android:textStyle="bold" />
 
         <LinearLayout
@@ -40,6 +40,7 @@
                 android:text="@string/full_name_text_view_description" />
 
             <EditText
+                android:id="@+id/edtSignUpFullName"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:autofillHints=""
@@ -59,11 +60,32 @@
                 android:text="@string/email_text_view_description" />
 
             <EditText
+                android:id="@+id/edtSignUpEmail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:autofillHints=""
                 android:hint="@string/email_edit_text_hint"
                 android:inputType="textEmailAddress" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/linear_layout_margin_bottom"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/text_view_margin_top_bottom"
+                android:text="@string/avatar_text_view_description" />
+
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/profile_image"
+                android:layout_width="@dimen/avatar_image_view_size"
+                android:layout_height="@dimen/avatar_image_view_size"
+                android:src="@mipmap/ic_launcher"
+                app:civ_border_color="@color/colorWhite" />
         </LinearLayout>
 
         <LinearLayout
@@ -78,6 +100,7 @@
                 android:text="@string/mobile_number_text_view_description" />
 
             <EditText
+                android:id="@+id/edtSignUpPhone"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:autofillHints=""
@@ -97,6 +120,7 @@
                 android:text="@string/password_text_view_description" />
 
             <EditText
+                android:id="@+id/edtSignUpPassword"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:autofillHints=""
@@ -116,6 +140,7 @@
                 android:text="@string/confirm_password_description" />
 
             <EditText
+                android:id="@+id/edtSignUpConfirmPassword"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:autofillHints=""
@@ -124,6 +149,7 @@
         </LinearLayout>
 
         <Button
+            android:id="@+id/btnRegister"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="@dimen/login_button_margin_bottom"
@@ -137,6 +163,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/sign_up_linear_layout_margin_bottom"
             android:gravity="center"
             android:text="@string/policy_text_view_description"
             android:textColor="@color/colorBlack"

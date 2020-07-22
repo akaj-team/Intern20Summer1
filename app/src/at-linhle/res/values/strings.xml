@@ -21,4 +21,6 @@
     <string name="confirm_password_description">Confirm Password</string>
     <string name="register_button_text">Register</string>
     <string name="policy_text_view_description">By registering you agree to Terms &amp; Conditions and Privacy Policy of the Festival</string>
+    <string name="home_text_view_description">Home</string>
+    <string name="avatar_text_view_description">Avatar</string>
 </resources>
