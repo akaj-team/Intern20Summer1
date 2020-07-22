@@ -17,6 +17,14 @@
         android:textColor="@color/colorTitleTextViewText"
         android:textSize="@dimen/title_text_view_text_size" />
 
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgAvatarHome"
+        android:layout_width="@dimen/avatar_image_view_width"
+        android:layout_height="@dimen/avatar_image_view_height"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/avatar_image_view_margin_to_top"
+        android:src="@mipmap/ic_launcher" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -68,7 +76,7 @@
         android:autofillHints=""
         android:background="@drawable/bg_edit_text_non_selected"
         android:inputType="number"
-        tools:ignore="LabelFor" />
+        tools:ignore="LabelFor,TextFields" />
 
     <TextView
         android:layout_width="wrap_content"

@@ -4,6 +4,7 @@ import android.app.Activity.RESULT_OK
 import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -24,17 +25,20 @@ import java.io.ByteArrayOutputStream
 @Suppress("DEPRECATION")
 class SignUpFragment : Fragment() {
 
-    var emailText = ""
-    var passwordText = ""
-    var checkFullName = false
-    var checkRetypePassword = false
-    var checkPhoneNumber = false
+    private var emailText = ""
+    private var passwordText = ""
+    private var checkFullName = false
+    private var checkRetypePassword = false
+    private var checkPhoneNumber = false
+    private var avatarUri = ""
 
     companion object {
         private const val CAMERA_REQUEST_CODE = 111
         private const val GALLERY_REQUEST_CODE = 112
         private const val KEY_VALUE = "data"
-        private const val PHONE_NUMBER_LENGTH=10
+        private const val PHONE_NUMBER_LENGTH = 10
+        private const val MAX_LENGTH_PASSWORD = 16
+        private const val MIN_LENGTH_PASSWORD = 8
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -49,6 +53,7 @@ class SignUpFragment : Fragment() {
         handleListenerRegisterButton()
         handleBackButtonListener()
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -77,6 +82,7 @@ class SignUpFragment : Fragment() {
                     emailText = ""
                 }
             }
+
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
@@ -104,6 +110,7 @@ class SignUpFragment : Fragment() {
                     passwordText = ""
                 }
             }
+
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
         })
@@ -130,6 +137,7 @@ class SignUpFragment : Fragment() {
                     checkFullName = true
                 }
             }
+
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
@@ -142,6 +150,7 @@ class SignUpFragment : Fragment() {
             fragmentManager?.popBackStack()
         }
     }
+
     private fun handlePhoneNumberEditText() {
         edtRegisterPhoneNumber.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
@@ -163,6 +172,7 @@ class SignUpFragment : Fragment() {
                     checkPhoneNumber = false
                 }
             }
+
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
@@ -192,34 +202,43 @@ class SignUpFragment : Fragment() {
                     setEnableRegisterButton()
                 }
             }
+
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
         })
     }
+
     private fun handleListenerAvatarImageView() {
         imgAvatar.setOnClickListener {
             showListAlertDialog()
         }
     }
+
     private fun setEnableRegisterButton() {
         btnRegister.isEnabled =
             (isValidEmail(emailText) && isValidPassword(passwordText) && checkFullName
                     && checkPhoneNumber && checkRetypePassword)
     }
+
     private fun showListAlertDialog() {
         val builder = AlertDialog.Builder(context)
         builder.setTitle("Set avatar")
         val items = arrayOf("Gallery", "Camera")
         builder.setItems(items) { _, which ->
             when (which) {
-                0 -> { openGallery() }
-                1 -> { captureImage() }
+                0 -> {
+                    openGallery()
+                }
+                1 -> {
+                    captureImage()
+                }
             }
         }
         val dialog = builder.create()
         dialog.show()
     }
+
     private fun captureImage() {
         val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE)
@@ -247,6 +266,7 @@ class SignUpFragment : Fragment() {
                 val result: CropImage.ActivityResult = CropImage.getActivityResult(data)
                 if (resultCode == RESULT_OK) {
                     val resultUri: Uri = result.uri
+                    avatarUri = resultUri.toString()
                     imgAvatar.setImageURI(resultUri)
                 }
             }
@@ -260,6 +280,7 @@ class SignUpFragment : Fragment() {
             MediaStore.Images.Media.insertImage(activity?.contentResolver, inImage, "Title", null)
         return Uri.parse(path)
     }
+
     private fun cropImage(uri: Uri?) {
         context?.let { context ->
             CropImage.activity(uri)
@@ -270,11 +291,14 @@ class SignUpFragment : Fragment() {
 
     private fun handleListenerRegisterButton() {
         btnRegister.setOnClickListener {
+
             val user = User(
                 edtRegisterFullName.text.toString(),
                 edtRegisterEmail.text.toString(),
                 edtRegisterPhoneNumber.text.toString(),
-                edtRegisterPassword.text.toString()
+                edtRegisterPassword.text.toString(),
+                avatarUri
+
             )
             val bundle = Bundle()
             bundle.putSerializable(KEY_VALUE, user)
@@ -293,11 +317,12 @@ class SignUpFragment : Fragment() {
         intentImage.type = "image/*"
         startActivityForResult(intentImage, GALLERY_REQUEST_CODE)
     }
+
     fun isValidEmail(string: String) =
         android.util.Patterns.EMAIL_ADDRESS.matcher(string).matches()
 
     private fun isValidPassword(string: String): Boolean {
-        if (string.length !in 8..16) {
+        if (string.length !in MIN_LENGTH_PASSWORD..MAX_LENGTH_PASSWORD) {
             return false
         } else {
             for (i in string.indices) {

@@ -5,7 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w4.account.User
@@ -14,7 +16,7 @@ import kotlinx.android.synthetic.`at-sonnguyen`.fragment_log_in.*
 
 @Suppress("DEPRECATION")
 class SignInFragment : Fragment() {
-    private var userLogin = User("", "", "", "")
+    private var userLogin = User("", "", "", "", "")
     private var emailText: String = ""
     private var passwordText: String = ""
 
@@ -85,6 +87,7 @@ class SignInFragment : Fragment() {
             userLogin.password = it.password
             userLogin.phoneNumber = it.phoneNumber
             userLogin.fullName = it.fullName
+            userLogin.avatarUri = it.avatarUri
             edtSignInEmail.setText(it.email)
             edtSignInPassword.setText(it.password)
         }
