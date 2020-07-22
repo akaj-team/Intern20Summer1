@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.w4.fragment.SignInFragment
+import com.asiantech.intern20summer1.w4.fragment.LogInFragment
 
 class SignInActivity : AppCompatActivity() {
     companion object {
@@ -21,7 +21,7 @@ class SignInActivity : AppCompatActivity() {
     private fun addSignUpFragment() {
         val fragmentManager = supportFragmentManager
         val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
-        val fragment = SignInFragment()
+        val fragment = LogInFragment()
         fragmentTransaction.replace(R.id.llFragment, fragment, ADD_TO_BACK_STACK_KEY_NAME)
         fragmentTransaction.commit()
     }

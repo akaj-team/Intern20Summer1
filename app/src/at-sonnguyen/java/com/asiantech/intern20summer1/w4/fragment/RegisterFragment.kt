@@ -4,7 +4,6 @@ import android.app.Activity.RESULT_OK
 import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -18,12 +17,16 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w4.account.User
+import com.asiantech.intern20summer1.w4.extension.isValidEmail
+import com.asiantech.intern20summer1.w4.extension.isValidPassword
+import com.asiantech.intern20summer1.w4.extension.isValidPhoneNumber
 import com.theartofdev.edmodo.cropper.CropImage
 import kotlinx.android.synthetic.`at-sonnguyen`.fragment_register.*
 import java.io.ByteArrayOutputStream
 
+
 @Suppress("DEPRECATION")
-class SignUpFragment : Fragment() {
+class RegisterFragment : Fragment() {
 
     private var emailText = ""
     private var passwordText = ""
@@ -36,9 +39,9 @@ class SignUpFragment : Fragment() {
         private const val CAMERA_REQUEST_CODE = 111
         private const val GALLERY_REQUEST_CODE = 112
         private const val KEY_VALUE = "data"
-        private const val PHONE_NUMBER_LENGTH = 10
-        private const val MAX_LENGTH_PASSWORD = 16
-        private const val MIN_LENGTH_PASSWORD = 8
+        const val PHONE_NUMBER_LENGTH = 10
+        const val MAX_LENGTH_PASSWORD = 16
+        const val MIN_LENGTH_PASSWORD = 8
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -302,7 +305,7 @@ class SignUpFragment : Fragment() {
             )
             val bundle = Bundle()
             bundle.putSerializable(KEY_VALUE, user)
-            val signInFragment = SignInFragment()
+            val signInFragment = LogInFragment()
             val fragmentTransaction: FragmentTransaction? = fragmentManager?.beginTransaction()
             fragmentTransaction?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             signInFragment.arguments = bundle
@@ -318,29 +321,4 @@ class SignUpFragment : Fragment() {
         startActivityForResult(intentImage, GALLERY_REQUEST_CODE)
     }
 
-    fun isValidEmail(string: String) =
-        android.util.Patterns.EMAIL_ADDRESS.matcher(string).matches()
-
-    private fun isValidPassword(string: String): Boolean {
-        if (string.length !in MIN_LENGTH_PASSWORD..MAX_LENGTH_PASSWORD) {
-            return false
-        } else {
-            for (i in string.indices) {
-                if (string[i].isDigit()) return true
-            }
-        }
-        return false
-    }
-
-    private fun isValidPhoneNumber(string: String): Boolean {
-        if (string.length != PHONE_NUMBER_LENGTH) {
-            return false
-        }
-        for (i in string.indices) {
-            if (!string[i].isDigit()) {
-                return false
-            }
-        }
-        return true
-    }
 }

@@ -12,10 +12,12 @@ import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w4.account.User
 import com.asiantech.intern20summer1.w4.activity.HomeActivity
+import com.asiantech.intern20summer1.w4.extension.isValidEmail
+import com.asiantech.intern20summer1.w4.extension.isValidPassword
 import kotlinx.android.synthetic.`at-sonnguyen`.fragment_log_in.*
 
 @Suppress("DEPRECATION")
-class SignInFragment : Fragment() {
+class LogInFragment : Fragment() {
     private var userLogin = User("", "", "", "", "")
     private var emailText: String = ""
     private var passwordText: String = ""
@@ -25,8 +27,6 @@ class SignInFragment : Fragment() {
         private const val INCORRECT_ACCOUNT_DIALOG_MESSAGE =
             "your email or your password is incorrect"
         private const val KEY_VALUE = "data"
-        private const val MIN_LENGTH_PASSWORD = 8
-        private const val MAX_LENGTH_PASSWORD = 16
     }
 
     override fun onCreateView(
@@ -50,7 +50,7 @@ class SignInFragment : Fragment() {
 
     private fun replaceSignUpFragment() {
         val fragmentTransaction = fragmentManager?.beginTransaction()
-        fragmentTransaction?.replace(R.id.llFragment, SignUpFragment())
+        fragmentTransaction?.replace(R.id.llFragment, RegisterFragment())
         fragmentTransaction?.addToBackStack(null)
         fragmentTransaction?.commit()
     }
@@ -147,19 +147,5 @@ class SignInFragment : Fragment() {
             ) { _, _ -> }
             .setIcon(android.R.drawable.ic_dialog_alert)
             .show()
-    }
-
-    fun isValidEmail(string: String) =
-        android.util.Patterns.EMAIL_ADDRESS.matcher(string).matches()
-
-    fun isValidPassword(string: String): Boolean {
-        if (string.length !in MIN_LENGTH_PASSWORD..MAX_LENGTH_PASSWORD) {
-            return false
-        } else {
-            for (i in string.indices) {
-                if (string[i].isDigit()) return true
-            }
-        }
-        return false
     }
 }
