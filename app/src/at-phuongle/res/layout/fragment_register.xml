@@ -85,7 +85,8 @@
         android:layout_below="@id/tvRegisterEmail"
         android:layout_marginLeft="@dimen/margin_left"
         android:layout_marginRight="@dimen/margin_right"
-        android:hint="@string/hint_edit_text_description" />
+        android:hint="@string/hint_edit_text_description"
+        android:inputType="textEmailAddress" />
 
     <TextView
         android:id="@+id/tvRegisterMobile"

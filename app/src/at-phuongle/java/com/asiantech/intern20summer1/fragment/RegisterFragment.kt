@@ -1,7 +1,10 @@
 package com.asiantech.intern20summer1.fragment
 
+import android.app.Activity
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,8 +13,12 @@ import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.activity.SignInActivity
 import kotlinx.android.synthetic.`at-phuongle`.fragment_register.*
 
+
 class RegisterFragment : Fragment() {
     companion object {
+        const val IMAGE_PICK_CODE = 1000
+        const val CAMERA_REQUEST_CODE = 1001
+
         fun newInstance() = RegisterFragment()
     }
 
@@ -46,7 +53,14 @@ class RegisterFragment : Fragment() {
 
     private fun handleBackButton() {
         imgBtnBack.setOnClickListener {
-            (activity as SignInActivity).replaceFragment(LoginFragment.newInstance(), true)
+            (activity as SignInActivity).replaceFragment(LoginFragment.newInstance(), false)
+        }
+    }
+
+    fun handleRegisterButton() {
+        btnRegister.setOnClickListener {
+            val intent = Intent(activity as SignInActivity, SignInActivity::class.java)
+
         }
     }
 
@@ -57,11 +71,20 @@ class RegisterFragment : Fragment() {
 
         // Add a list
         val options = arrayOf("Take a picture", "Choose from gallery")
-        builder.setItems(options) { dialog, which ->
+        builder.setItems(options) { _, which ->
             when (which) {
-                0 -> { /* Gallery */
+                0 -> { /* Camera */
+                    val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                    startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE)
                 }
-                1 -> { /* Camera   */
+                1 -> { /* Gallery   */
+                    val intent = Intent()
+                    intent.type = "image/*"
+                    intent.action = Intent.ACTION_GET_CONTENT
+                    startActivityForResult(
+                        Intent.createChooser(intent, "Select Picture"),
+                        IMAGE_PICK_CODE
+                    )
                 }
             }
         }
@@ -69,5 +92,15 @@ class RegisterFragment : Fragment() {
         // Create and show the alert dialog
         val dialog = builder.create()
         dialog.show()
+    }
+
+    // Handle result of Avatar
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE) {
+            imgRegisterAvatar.setImageURI(data?.data)
+        }
+        if (resultCode == Activity.RESULT_OK && requestCode == CAMERA_REQUEST_CODE) {
+            imgRegisterAvatar.setImageURI(data?.data)
+        }
     }
 }

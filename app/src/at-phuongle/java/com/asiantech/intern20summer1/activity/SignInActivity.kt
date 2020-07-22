@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.fragment.LoginFragment
 import com.asiantech.intern20summer1.fragment.RegisterFragment
+import kotlinx.android.synthetic.`at-phuongle`.fragment_register.*
 import java.util.regex.Pattern
 
 class SignInActivity : AppCompatActivity() {
@@ -154,6 +155,14 @@ class SignInActivity : AppCompatActivity() {
                 s: CharSequence, start: Int,
                 before: Int, count: Int
             ) {
+                if (edtRegisterConfirmPassword.text.toString().isNotEmpty()) {
+                    validConfirmPassword = s.toString() == edtRegisterConfirmPassword.toString()
+                }
+
+                if (edtRegisterPassword.isFocusable && s.toString().isEmpty()) {
+                    validPassword = false
+                    validConfirmPassword = false
+                }
             }
         })
     }
@@ -162,7 +171,8 @@ class SignInActivity : AppCompatActivity() {
         confirm.addTextChangedListener(object : TextWatcher {
 
             override fun afterTextChanged(s: Editable) {
-                validConfirmPassword = s.toString() == password.text.toString()
+                validConfirmPassword = s.toString() == password.text.toString() &&
+                        validPassword == true
                 handleButton(btn)
             }
 
