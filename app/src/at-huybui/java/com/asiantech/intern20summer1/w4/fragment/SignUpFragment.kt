@@ -1,18 +1,26 @@
 package com.asiantech.intern20summer1.w4.fragment
 
-import android.annotation.SuppressLint
-import android.os.Build
+import android.Manifest
+import android.app.Activity.RESULT_OK
+import android.content.ContentValues
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
-import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.util.PatternsCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.w4.classanother.Account
 import com.asiantech.intern20summer1.w4.fragment.SignInFragment.Companion.REGEX_PASSWORD
 import kotlinx.android.synthetic.`at-huybui`.fragment_sign_up.*
 
@@ -22,14 +30,20 @@ class SignUpFragment : Fragment() {
         private const val TICK_ICON: Int = 1
         private const val ERROR_ICON: Int = 0
         private const val HIDE_ICON: Int = -1
+        private const val REQUEST_IMAGE_CAPTURE = 100
+        private const val REQUEST_SELECT_IMAGE_IN_ALBUM = 101
+        private const val PERMISSION_REQUEST_CODE = 200
     }
 
+    private var imageUri: Uri? = null
     private var toastStatus: Toast? = null
     private var emailBuffer = ""
     private var nameBuffer = ""
     private var numberPhoneBuffer = ""
     private var passwordBuffer = ""
     private var rewritePassStatus = false
+
+    internal var onBackClicked: (Account) -> Unit = { }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,9 +53,8 @@ class SignUpFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_sign_up, container, false)
     }
 
-    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         handleForBackToSignInButton()
         handleForEmailEditText()
         handleForPasswordEditText()
@@ -50,6 +63,15 @@ class SignUpFragment : Fragment() {
         handleForRegisterButton()
         handleForFullNameEditText()
         handleForAvatarImage()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            imgAvatarSignUp.setImageURI(imageUri)
+        } else if (requestCode == REQUEST_SELECT_IMAGE_IN_ALBUM && resultCode == RESULT_OK) {
+            imageUri = data?.data
+            imgAvatarSignUp.setImageURI(imageUri)
+        }
     }
 
     /**
@@ -276,13 +298,16 @@ class SignUpFragment : Fragment() {
                 }
                 else -> {
                     showToast(getString(R.string.register_complete))
-//                    val account =
-//                        Account(
-//                            nameBuffer,
-//                            emailBuffer,
-//                            numberPhoneBuffer,
-//                            passwordBuffer
-//                        )
+                    val use =
+                        Account(
+                            nameBuffer,
+                            emailBuffer,
+                            numberPhoneBuffer,
+                            passwordBuffer,
+                            imageUri.toString() + ""
+                        )
+                    onBackClicked(use)
+                    fragmentManager?.popBackStack()
                 }
             }
         }
@@ -293,10 +318,30 @@ class SignUpFragment : Fragment() {
      */
     private fun handleForAvatarImage() {
         imgAvatarSignUp.setOnClickListener {
-            //   PickImageDialog.build()
+            val builder = context?.let { it1 -> AlertDialog.Builder(it1) }
+            builder?.setTitle(getString(R.string.sellect))
+            val select = arrayOf(getString(R.string.camera), getString(R.string.gallery))
+            builder?.setItems(select) { _, which ->
 
-//            val takeIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-//            startActivityForResult(takeIntent, 0)
+                when (which) {
+                    0 -> {
+                        if (checkCameraPermission()) {
+                            openCamera()
+                        } else {
+                            requestCameraPermission()
+                        }
+                    }
+                    1 -> {
+                        if (checkGalleryPermission()) {
+                            openGallery()
+                        } else {
+                            requestGalleryPermission()
+                        }
+                    }
+                }
+            }
+            val dialog = builder?.create()
+            dialog?.show()
         }
     }
 
@@ -307,7 +352,6 @@ class SignUpFragment : Fragment() {
      * If argument is HIDE_ICON, hide icon of edit text view
      * Argument had defined in companion
      */
-    @SuppressLint("NewApi")
     private fun setIconForEditText(editText: EditText, status: Int) {
         when (status) {
             TICK_ICON -> editText.setCompoundDrawablesRelativeWithIntrinsicBounds(
@@ -329,6 +373,67 @@ class SignUpFragment : Fragment() {
                 0
             )
         }
+    }
+
+    /**
+     * This check permission enter camera of application
+     */
+    private fun checkCameraPermission(): Boolean {
+        return ContextCompat.checkSelfPermission(
+            requireContext(),
+            Manifest.permission.CAMERA
+        ) == PackageManager.PERMISSION_GRANTED
+    }
+
+    /**
+     * This function request permission enter to camera
+     */
+    private fun requestCameraPermission() {
+        ActivityCompat.requestPermissions(
+            requireActivity(), arrayOf(Manifest.permission.CAMERA),
+            PERMISSION_REQUEST_CODE
+        )
+    }
+
+    /**
+     * This function capture a image from camera
+     */
+    private fun openCamera() {
+        val values = ContentValues()
+        imageUri =
+            context?.contentResolver?.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
+        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
+        startActivityForResult(cameraIntent, REQUEST_IMAGE_CAPTURE)
+    }
+
+    /**
+     * This check permission enter gallery of application
+     */
+    private fun checkGalleryPermission(): Boolean {
+        return ContextCompat.checkSelfPermission(
+            requireContext(),
+            Manifest.permission.READ_EXTERNAL_STORAGE
+        ) == PackageManager.PERMISSION_GRANTED
+    }
+
+    /**
+     * This function request permission enter to gallery
+     */
+    private fun requestGalleryPermission() {
+        ActivityCompat.requestPermissions(
+            requireActivity(), arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+            PERMISSION_REQUEST_CODE
+        )
+    }
+
+    /**
+     * This function take a image from gallery
+     */
+    private fun openGallery() {
+        val intentGallery = Intent(Intent.ACTION_PICK)
+        intentGallery.type = "image/*"
+        startActivityForResult(intentGallery, REQUEST_SELECT_IMAGE_IN_ALBUM)
     }
 
     /**

@@ -8,7 +8,11 @@
     <dimen name="sign_in_button_margin_left_right">20dp</dimen>
     <dimen name="sign_in_edit_text_margin_left">20dp</dimen>
     <dimen name="text_size_end_sign_up">20sp</dimen>
-
     <dimen name="text_size_title_edit_text">10sp</dimen>
     <dimen name="by_registering_text_size">10sp</dimen>
+    <dimen name="home_edit_text_size">20sp</dimen>
+    <dimen name="home_edit_text_padding_left">10dp</dimen>
+    <dimen name="home_linear_layout_heigth">50dp</dimen>
+    <dimen name="home_avatar_width">150dp</dimen>
+    <dimen name="home_avatar_radius">100dp</dimen>
 </resources>

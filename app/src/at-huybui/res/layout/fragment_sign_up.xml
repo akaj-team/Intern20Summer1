@@ -2,6 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/background_white"
     android:orientation="vertical">
 
     <ImageButton
@@ -37,18 +39,26 @@
         android:importantForAutofill="no"
         android:inputType="textEmailAddress" />
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewAvatar"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        app:cardCornerRadius="50dp">
+
+        <ImageView
+            android:id="@+id/imgAvatarSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_launcher" />
+    </androidx.cardview.widget.CardView>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/sign_in_edit_text_margin_left"
+        android:layout_gravity="center"
         android:text="@string/avatar" />
-
-    <ImageView
-        android:id="@+id/imgAvatarSignUp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/sign_in_edit_text_margin_left"
-        android:src="@mipmap/ic_launcher" />
 
     <TextView
         android:layout_width="wrap_content"
