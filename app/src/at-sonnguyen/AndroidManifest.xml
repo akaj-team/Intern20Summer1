@@ -9,7 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".views.MainActivity2222">
+<<<<<<< HEAD
+        <activity android:name=".week4.views.MainActivity2222">
+=======
+        <activity android:name=".w3.MainActivity">
+>>>>>>> master
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -7,4 +7,7 @@
     <color name="colorBlack">#000000</color>
     <color name="colorGray">#CCCCCC</color>
     <color name="colorOrange">#FF9900</color>
+    <color name="colorSignUpButton">#99FF99</color>
+    <color name="colorBlue">#3333CC</color>
+    <color name="colorRed">#FF0000</color>
 </resources>
