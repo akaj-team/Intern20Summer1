@@ -16,9 +16,6 @@ class SignInActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
         addSignUpFragment()
-//        handleEnableButton()
-        //replaceSignInFragment()
-
     }
 
     private fun addSignUpFragment() {
@@ -26,26 +23,6 @@ class SignInActivity : AppCompatActivity() {
         val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
         val fragment = SignInFragment()
         fragmentTransaction.replace(R.id.llFragment, fragment, ADD_TO_BACK_STACK_KEY_NAME)
-//        fragmentTransaction.addToBackStack(ADD_TO_BACK_STACK_KEY_NAME)
         fragmentTransaction.commit()
     }
-
-
-//    private fun handleEnableButton() {
-//        btnSignIn.isEnabled = isValidEmail(edtSignInEmail.toString())&&isValidPassword(edtSignInPassword.toString())
-//    }
-
-//    fun isValidEmail(string: String) =
-//        android.util.Patterns.EMAIL_ADDRESS.matcher(string).matches()
-
-//    private fun isValidPassword(string: String): Boolean {
-//        if (string.length !in 8..16) {
-//            return false
-//        } else {
-//            for (i in string.indices) {
-//                if (string[i].isDigit()) return true
-//            }
-//        }
-//        return false
-//    }
 }

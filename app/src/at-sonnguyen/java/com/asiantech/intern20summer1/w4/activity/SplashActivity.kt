@@ -8,6 +8,9 @@ import com.asiantech.intern20summer1.R
 
 @Suppress("DEPRECATION")
 class SplashActivity : AppCompatActivity() {
+    companion object{
+        private const val DELAY_TIME_TO_CHANGE_ACTIVITY = 5000
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
@@ -15,6 +18,6 @@ class SplashActivity : AppCompatActivity() {
             val intent = Intent(this, SignInActivity::class.java)
             startActivity(intent)
             finish()
-        }, 5000)
+        }, DELAY_TIME_TO_CHANGE_ACTIVITY.toLong())
     }
 }

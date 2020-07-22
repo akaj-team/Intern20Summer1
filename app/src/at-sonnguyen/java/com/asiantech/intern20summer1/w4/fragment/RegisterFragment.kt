@@ -31,10 +31,11 @@ class SignUpFragment : Fragment() {
     var checkPhoneNumber = false
 
     companion object {
-        private const val CAMERA_REQUEST_CODE = 10
-        private const val GALLERY_REQUEST_CODE = 11
+        private const val CAMERA_REQUEST_CODE = 111
+        private const val GALLERY_REQUEST_CODE = 112
+        private const val KEY_VALUE = "data"
+        private const val PHONE_NUMBER_LENGTH=10
     }
-
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -48,14 +49,12 @@ class SignUpFragment : Fragment() {
         handleListenerRegisterButton()
         handleBackButtonListener()
     }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_register, container, false)
     }
-
 
     private fun handleEmailEditText() {
         edtRegisterEmail.addTextChangedListener(object : TextWatcher {
@@ -78,11 +77,9 @@ class SignUpFragment : Fragment() {
                     emailText = ""
                 }
             }
-
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
         })
     }
 
@@ -107,7 +104,6 @@ class SignUpFragment : Fragment() {
                     passwordText = ""
                 }
             }
-
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
         })
@@ -134,7 +130,6 @@ class SignUpFragment : Fragment() {
                     checkFullName = true
                 }
             }
-
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
@@ -147,7 +142,6 @@ class SignUpFragment : Fragment() {
             fragmentManager?.popBackStack()
         }
     }
-
     private fun handlePhoneNumberEditText() {
         edtRegisterPhoneNumber.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
@@ -169,11 +163,9 @@ class SignUpFragment : Fragment() {
                     checkPhoneNumber = false
                 }
             }
-
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
         })
     }
 
@@ -200,47 +192,34 @@ class SignUpFragment : Fragment() {
                     setEnableRegisterButton()
                 }
             }
-
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
         })
     }
-
     private fun handleListenerAvatarImageView() {
         imgAvatar.setOnClickListener {
             showListAlertDialog()
         }
     }
-
     private fun setEnableRegisterButton() {
         btnRegister.isEnabled =
             (isValidEmail(emailText) && isValidPassword(passwordText) && checkFullName
                     && checkPhoneNumber && checkRetypePassword)
     }
-
     private fun showListAlertDialog() {
         val builder = AlertDialog.Builder(context)
         builder.setTitle("Set avatar")
         val items = arrayOf("Gallery", "Camera")
         builder.setItems(items) { _, which ->
             when (which) {
-                0 -> {
-                    openGallery()
-                }
-                1 -> {
-
-                    //openCamera()
-                    captureImage()
-                }
+                0 -> { openGallery() }
+                1 -> { captureImage() }
             }
         }
         val dialog = builder.create()
         dialog.show()
     }
-
-
     private fun captureImage() {
         val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE)
@@ -255,21 +234,14 @@ class SignUpFragment : Fragment() {
                     (data.extras?.get("data") as Bitmap?)?.let {
                         getImageUri(it)?.let { it ->
                             cropImage(it)
-//                            imgAvatar.setImageURI(uri)
                         }
-
-
                     }
-//                    val thumbnail = data.extras?.get("data") as Bitmap?
-//                    imgAvatar.setImageBitmap(thumbnail)
                 }
             }
-
             GALLERY_REQUEST_CODE -> if (resultCode == RESULT_OK && data != null) {
                 data.data?.let {
                     cropImage(it)
                 }
-                //imgAvatar.setImageURI(data.data)
             }
             CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE -> {
                 val result: CropImage.ActivityResult = CropImage.getActivityResult(data)
@@ -279,7 +251,6 @@ class SignUpFragment : Fragment() {
                 }
             }
         }
-
     }
 
     private fun getImageUri(inImage: Bitmap): Uri? {
@@ -289,10 +260,9 @@ class SignUpFragment : Fragment() {
             MediaStore.Images.Media.insertImage(activity?.contentResolver, inImage, "Title", null)
         return Uri.parse(path)
     }
-
     private fun cropImage(uri: Uri?) {
         context?.let { context ->
-            CropImage.activity()
+            CropImage.activity(uri)
                 .setAspectRatio(1, 1)
                 .start(context, this)
         }
@@ -305,10 +275,9 @@ class SignUpFragment : Fragment() {
                 edtRegisterEmail.text.toString(),
                 edtRegisterPhoneNumber.text.toString(),
                 edtRegisterPassword.text.toString()
-
             )
             val bundle = Bundle()
-            bundle.putSerializable("data", user)
+            bundle.putSerializable(KEY_VALUE, user)
             val signInFragment = SignInFragment()
             val fragmentTransaction: FragmentTransaction? = fragmentManager?.beginTransaction()
             fragmentTransaction?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
@@ -316,8 +285,6 @@ class SignUpFragment : Fragment() {
             fragmentTransaction?.replace(R.id.llFragment, signInFragment)
             fragmentManager?.popBackStack()
             fragmentTransaction?.commit()
-
-
         }
     }
 
@@ -326,7 +293,6 @@ class SignUpFragment : Fragment() {
         intentImage.type = "image/*"
         startActivityForResult(intentImage, GALLERY_REQUEST_CODE)
     }
-
     fun isValidEmail(string: String) =
         android.util.Patterns.EMAIL_ADDRESS.matcher(string).matches()
 
@@ -342,7 +308,7 @@ class SignUpFragment : Fragment() {
     }
 
     private fun isValidPhoneNumber(string: String): Boolean {
-        if (string.length != 10) {
+        if (string.length != PHONE_NUMBER_LENGTH) {
             return false
         }
         for (i in string.indices) {
@@ -353,6 +319,3 @@ class SignUpFragment : Fragment() {
         return true
     }
 }
-
-
-
