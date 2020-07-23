@@ -19,4 +19,12 @@
     <dimen name="linear_layout_text_register_margin_top">20dp</dimen>
     <dimen name="linear_layout_text_register_padding_bottom">10dp</dimen>
     <dimen name="linear_layout_text_view_padding_left">2dp</dimen>
+    <dimen name="w5_icon_heart_size">40dp</dimen>
+    <dimen name="w5_icon_heart_margin">10dp</dimen>
+    <dimen name="w5_margin_left_right">20dp</dimen>
+    <dimen name="w5_icon_heart_red_size">15dp</dimen>
+    <dimen name="w5_margin_left_right_icon">30dp</dimen>
+    <dimen name="w5_icon_heart_black_margin_top">10dp</dimen>
+    <dimen name="w5_name_text_size">20dp</dimen>
+    <dimen name="w5_line_black_margin_top">10dp</dimen>
 </resources>
