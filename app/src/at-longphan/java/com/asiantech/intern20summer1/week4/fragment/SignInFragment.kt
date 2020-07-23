@@ -39,18 +39,14 @@ class SignInFragment : Fragment() {
     private fun handleListener() {
         edtEmailId.addTextChangedListener {
             btnSignIn.isEnabled =
-                isValidEmail(it.toString()) && isValidPassword(
-                    edtPassword.text.toString()
-                )
-            toggleSignInButton(btnSignIn.isEnabled)
+                isValidEmail(it.toString()) && isValidPassword(edtPassword.text.toString())
+            toggleSignInButton()
         }
 
         edtPassword.addTextChangedListener {
             btnSignIn.isEnabled =
-                isValidPassword(it.toString()) && isValidEmail(
-                    edtEmailId.text.toString()
-                )
-            toggleSignInButton(btnSignIn.isEnabled)
+                isValidPassword(it.toString()) && isValidEmail(edtEmailId.text.toString())
+            toggleSignInButton()
         }
 
         btnSignIn.setOnClickListener {
@@ -61,8 +57,8 @@ class SignInFragment : Fragment() {
         }
     }
 
-    private fun toggleSignInButton(expression: Boolean) {
-        if (expression) {
+    private fun toggleSignInButton() {
+        if (btnSignIn.isEnabled) {
             btnSignIn.setBackgroundResource(R.drawable.bg_button_enable)
         } else {
             btnSignIn.setBackgroundResource(R.drawable.bg_button_unable)
@@ -72,9 +68,7 @@ class SignInFragment : Fragment() {
     private fun openSignUpFragment() {
         tvRegisterNow.setOnClickListener {
             val transaction = fragmentManager?.beginTransaction()
-            transaction?.add(
-                R.id.fragmentContainer, SignUpFragment()
-                    .apply {
+            transaction?.add(R.id.fragmentContainer, SignUpFragment().apply {
                 onRegisterSuccess = { userRegister ->
                     userList.add(userRegister)
                     this@SignInFragment.edtEmailId.setText(userRegister.email)

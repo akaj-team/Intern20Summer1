@@ -19,4 +19,7 @@
     <color name="colorBackgroundHomeTitleStroke">#FFFFFF</color>
     <color name="colorBackgroundHomeTitleImageButtonSolid">#00FFFFFF</color>
     <color name="colorBackgroundButtonEnableSolid">#FF9800</color>
+    <color name="container_home_activity_background">#FFFFFF</color>
+    <color name="colorContainerSignInActivityBackground">#FFFFFF</color>
+    <color name="colorContainerSignInFragmentBackground">#FFFFFF</color>
 </resources>

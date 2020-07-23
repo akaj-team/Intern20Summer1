@@ -138,8 +138,7 @@ class SignUpFragment : Fragment() {
         edtEmail.addTextChangedListener {
             val email = it.toString()
             userRegister.email = email
-            checkEmail =
-                isValidEmail(email)
+            checkEmail = isValidEmail(email)
             checkSignUpButton()
         }
     }
@@ -148,10 +147,7 @@ class SignUpFragment : Fragment() {
         edtMobileNumber.addTextChangedListener {
             val mobileNumber = it.toString()
             userRegister.mobileNumber = mobileNumber
-            checkMobileNumber =
-                isValidMobileNumber(
-                    mobileNumber
-                )
+            checkMobileNumber = isValidMobileNumber(mobileNumber)
             checkSignUpButton()
         }
     }
@@ -160,10 +156,7 @@ class SignUpFragment : Fragment() {
         edtPassword.addTextChangedListener {
             val password = it.toString()
             userRegister.password = password
-            checkPassword =
-                isValidPassword(
-                    password
-                )
+            checkPassword = isValidPassword(password)
             checkSignUpButton()
         }
     }
@@ -214,8 +207,7 @@ class SignUpFragment : Fragment() {
         checkSignUp =
             checkFullName && checkEmail && checkMobileNumber && checkPassword && checkConfirmPassword
         toggleSignUpButton()
-        btnSignUp.isEnabled =
-            checkSignUp
+        btnSignUp.isEnabled = checkSignUp
     }
 
     private fun toggleSignUpButton() {
@@ -241,9 +233,7 @@ class SignUpFragment : Fragment() {
         image_uri =
             context?.contentResolver?.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        intent.putExtra(MediaStore.EXTRA_OUTPUT,
-            image_uri
-        )
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri)
         startActivityForResult(
             Intent.createChooser(intent, IntentTitle.OPEN_CAMERA_TITLE.string),
             RequestCode.OPEN_CAMERA_REQUEST.code

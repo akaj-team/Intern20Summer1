@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorContainerSignInFragmentBackground"
     tools:context="com.asiantech.intern20summer1.week4.fragment.SignInFragment">
 
     <LinearLayout
@@ -14,8 +15,8 @@
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="@dimen/image_view_music_app_logo_width"
+            android:layout_height="@dimen/image_view_music_app_logo_height"
             android:layout_marginTop="@dimen/image_view_logo_app_margin_top"
             android:src="@drawable/ic_music_logo" />
 
@@ -44,7 +45,6 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:singleLine="true"
                     android:text="@string/text_view_facebook"
                     android:textSize="@dimen/text_view_social_text_size" />
             </LinearLayout>
@@ -67,7 +67,6 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:singleLine="true"
                     android:text="@string/text_view_google"
                     android:textSize="@dimen/text_view_social_text_size" />
             </LinearLayout>

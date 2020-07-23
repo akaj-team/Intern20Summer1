@@ -61,4 +61,7 @@
     <dimen name="circle_image_view_register_avatar_margin_bottom">10dp</dimen>
     <dimen name="background_splash_screen_icon_width">72dp</dimen>
     <dimen name="background_splash_screen_icon_height">72dp</dimen>
+    <dimen name="linear_layout_title_home_padding">5dp</dimen>
+    <dimen name="image_view_music_app_logo_width">100dp</dimen>
+    <dimen name="image_view_music_app_logo_height">100dp</dimen>
 </resources>

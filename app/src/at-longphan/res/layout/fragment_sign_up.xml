@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            tools:src="?attr/actionModeCloseDrawable" />
+            android:src="?attr/actionModeCloseDrawable" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -41,10 +41,10 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imgAvatar"
-            android:layout_marginBottom="@dimen/circle_image_view_register_avatar_margin_bottom"
             android:layout_width="@dimen/circle_image_view_register_avatar_width"
             android:layout_height="@dimen/circle_image_view_register_avatar_height"
             android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/circle_image_view_register_avatar_margin_bottom"
             android:src="@mipmap/ic_launcher"
             app:civ_border_color="@color/colorCircleImageViewRegisterAvatarBorder"
             app:civ_border_width="@dimen/circle_image_view_register_avatar_border_width" />
