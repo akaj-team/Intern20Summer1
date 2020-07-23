@@ -23,6 +23,7 @@ class HomeActivity : AppCompatActivity() {
         user?.avatar?.let { loadImageFromStorage(it) }
     }
 
+    // Receive data
     private fun getUser() {
         val intent = intent
         user = intent.getParcelableExtra("user")
@@ -31,6 +32,7 @@ class HomeActivity : AppCompatActivity() {
         tvUserPhone.text = user?.phone
     }
 
+    // Load image
     private fun loadImageFromStorage(path: String) {
         try {
             val f = File(path, "profile.jpg")

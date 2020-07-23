@@ -20,17 +20,17 @@ import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week4.models.User
 import com.theartofdev.edmodo.cropper.CropImage
 import kotlinx.android.synthetic.`at-linhle`.fragment_signup.*
-import java.io.ByteArrayOutputStream
-import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
+import java.io.*
 import java.util.regex.Pattern
 
 class SignUpFragment : Fragment() {
 
+    // Interface to pass data
     internal var onRegisterSuccess: (user: User) -> Unit = {}
     private val user = User("", "", "", "", "")
+    // At least 1 digit
     private val passwordPattern = Pattern.compile("""^(?=.*[0-9]).{8,16}$""")
+    // Must have 10 digits
     private val phonePattern = Pattern.compile("""^([0-9]){10}$""")
     private var path: String? = ""
 
@@ -82,6 +82,7 @@ class SignUpFragment : Fragment() {
         passwordPattern.matcher(confirmPassword).matches()
                 && confirmPassword == edtSignUpPassword.text.toString()
 
+    // Check all edit text correct validate
     private fun isCorrectFormat(
         fullName: String,
         phone: String,
@@ -152,6 +153,7 @@ class SignUpFragment : Fragment() {
         })
     }
 
+    // Pass data when click button register
     private fun handleClickingRegisterButton() {
         btnRegister.setOnClickListener {
             user.avatar = path
@@ -226,7 +228,6 @@ class SignUpFragment : Fragment() {
         profile_image.setOnClickListener {
             val dialogBuilder = AlertDialog.Builder(context)
             dialogBuilder.setTitle("Choose an option:")
-            // add a list
             val optionList = arrayOf("Gallery", "Camera")
             dialogBuilder.setItems(optionList) { _, which ->
                 when (which) {
@@ -242,12 +243,13 @@ class SignUpFragment : Fragment() {
                     }
                 }
             }
-            // create and show the alert dialog
+            // Create and show the alert dialog
             val dialog = dialogBuilder.create()
             dialog.show()
         }
     }
 
+    // Save image to internal storage
     private fun saveToInternalStorage(bitmapImage: Bitmap): String? {
         val cw = ContextWrapper(context)
         // path to /data/data/yourApp/app_data/imageDir
@@ -259,7 +261,7 @@ class SignUpFragment : Fragment() {
             fos = FileOutputStream(myPath)
             // Use the compress method on the BitMap object to write image to the OutputStream
             bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos)
-        } catch (e: Exception) {
+        } catch (e: FileNotFoundException) {
             e.printStackTrace()
         } finally {
             try {
