@@ -94,5 +94,4 @@
         android:background="@drawable/bg_button"
         android:text="@string/confirm_button_description_text" />
 
-
 </LinearLayout>
