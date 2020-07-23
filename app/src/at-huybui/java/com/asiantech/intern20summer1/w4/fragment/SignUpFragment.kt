@@ -371,7 +371,6 @@ class SignUpFragment : Fragment() {
                     R.drawable.icon_tick,
                     0
                 )
-
                 ERROR_ICON -> editText.setCompoundDrawablesRelativeWithIntrinsicBounds(
                     0,
                     0,
