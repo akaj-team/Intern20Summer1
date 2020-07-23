@@ -10,4 +10,19 @@
     <style name="SplashscreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowBackground">@drawable/bg_splash_screen</item>
     </style>
+    
+    <style name="EditTextDescriptionMusicApp">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">@dimen/edit_text_register_margin_bottom</item>
+        <item name="android:hint">@string/edit_text_register_hint</item>
+        <item name="android:textSize">@dimen/edit_text_register_text_size</item>
+    </style>
+
+    <style name="TextViewDescriptionMusicApp">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/text_view_register_description_margin_left</item>
+        <item name="android:textSize">@dimen/text_view_register_description_text_size</item>
+    </style>
 </resources>

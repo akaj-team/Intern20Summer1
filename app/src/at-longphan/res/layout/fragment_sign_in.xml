@@ -1,83 +1,85 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.asiantech.intern20summer1.SignInFragment">
+    tools:context="com.asiantech.intern20summer1.week4.fragment.SignInFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="30dp"
-        android:layout_marginVertical="40dp"
+        android:layout_marginHorizontal="@dimen/linear_layout_second_bound_margin_horizontal"
+        android:layout_marginVertical="@dimen/linear_layout_second_bound_margin_vertical"
         android:gravity="center"
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:src="@mipmap/ic_launcher" />
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="@dimen/image_view_logo_app_margin_top"
+            android:src="@drawable/ic_music_logo" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="3dp"
-            android:layout_marginTop="100dp">
+            android:layout_marginHorizontal="@dimen/linear_layout_social_margin_horizontal"
+            android:layout_marginTop="@dimen/linear_layout_social_margin_top"
+            android:baselineAligned="false">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="@dimen/linear_layout_facebook_margin_right"
                 android:layout_weight="1"
                 android:background="@drawable/bg_social_button"
                 android:gravity="center"
-                android:paddingVertical="10dp">
+                android:paddingVertical="@dimen/linear_layout_facebook_padding_vertical">
 
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginRight="15dp"
-                    android:src="@mipmap/ic_launcher" />
+                    android:layout_width="@dimen/image_view_social_width"
+                    android:layout_height="@dimen/image_view_social_height"
+                    android:layout_marginRight="@dimen/image_view_social_margin_right"
+                    android:src="@drawable/ic_facebook" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
-                    android:text="Facebook"
-                    android:textSize="14sp" />
+                    android:text="@string/text_view_facebook"
+                    android:textSize="@dimen/text_view_social_text_size" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="@dimen/image_view_social_margin_left"
                 android:layout_weight="1"
                 android:background="@drawable/bg_social_button"
                 android:gravity="center"
-                android:paddingVertical="10dp">
+                android:paddingVertical="@dimen/linear_layout_facebook_padding_vertical">
 
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginRight="15dp"
-                    android:src="@mipmap/ic_launcher" />
+                    android:layout_width="@dimen/image_view_social_width"
+                    android:layout_height="@dimen/image_view_social_height"
+                    android:layout_marginRight="@dimen/image_view_social_margin_right"
+                    android:src="@drawable/ic_google" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
-                    android:text="Google"
-                    android:textSize="14sp" />
+                    android:text="@string/text_view_google"
+                    android:textSize="@dimen/text_view_social_text_size" />
             </LinearLayout>
         </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="10dp"
-            android:text="Or"
-            android:textSize="14sp" />
+            android:layout_marginTop="@dimen/text_view_or_description_margin_top"
+            android:layout_marginBottom="@dimen/text_view_or_description_margin_bottom"
+            android:text="@string/text_view_or_description"
+            android:textSize="@dimen/text_view_or_description_text_size" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -85,79 +87,67 @@
             android:orientation="vertical">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="3dp"
-                android:text="Email ID"
-                android:textSize="13sp" />
+                style="@style/TextViewDescriptionMusicApp"
+                android:text="@string/text_view_email_id_description" />
 
             <EditText
                 android:id="@+id/edtEmailId"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
+                style="@style/EditTextDescriptionMusicApp"
                 android:inputType="textEmailAddress"
-                android:textSize="15sp" />
+                app:backgroundTint="@color/colorMain" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="3dp"
-                android:text="Password"
-                android:textSize="13sp" />
+                style="@style/TextViewDescriptionMusicApp"
+                android:text="@string/text_view_password_description" />
 
             <EditText
                 android:id="@+id/edtPassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
+                style="@style/EditTextDescriptionMusicApp"
                 android:inputType="textPassword"
-                android:textSize="15sp" />
+                app:backgroundTint="@color/colorMain" />
         </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:layout_marginRight="3dp"
-            android:text="Forgot password?"
-            android:textColor="#000000"
-            android:textSize="14sp" />
+            android:layout_marginRight="@dimen/text_view_forgot_password_margin_right"
+            android:text="@string/text_view_forgot_password"
+            android:textColor="@color/colorForgotPasswordTextView"
+            android:textSize="@dimen/text_view_forgot_password_description_text_size" />
 
         <Button
             android:id="@+id/btnSignIn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:background="@drawable/bg_login_button"
+            android:layout_marginTop="@dimen/button_login_margin_top"
+            android:background="@drawable/bg_button_unable"
             android:enabled="false"
-            android:text="Login"
+            android:text="@string/button_login"
             android:textAllCaps="false"
-            android:textColor="#FFFFFF"
-            android:textSize="15sp"
+            android:textColor="@color/colorLoginButtonText"
+            android:textSize="@dimen/button_login_text_size"
             android:textStyle="bold" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
+            android:layout_marginTop="@dimen/linear_layout_not_have_account_margin_top"
             android:gravity="center">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Don't have an account?"
-                android:textSize="12sp" />
+                android:text="@string/text_view_do_not_have_account"
+                android:textSize="@dimen/text_view_do_not_have_account" />
 
             <TextView
                 android:id="@+id/tvRegisterNow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="3dp"
-                android:clickable="true"
-                android:text="Register Now"
-                android:textSize="12sp" />
+                android:layout_marginLeft="@dimen/text_view_register_now_margin_left"
+                android:text="@string/text_view_register_now"
+                android:textSize="@dimen/text_view_do_not_have_account" />
         </LinearLayout>
     </LinearLayout>
-
 </FrameLayout>

@@ -13,9 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".HomeActivity" />
+        <activity android:name="com.asiantech.intern20summer1.week4.activity.HomeActivity" />
         <activity
-            android:name=".SplashActivity"
+            android:name="com.asiantech.intern20summer1.week4.activity.SplashActivity"
             android:theme="@style/SplashscreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,7 +23,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignInActivity" />
+        <activity android:name="com.asiantech.intern20summer1.week4.activity.SignInActivity" />
     </application>
-
 </manifest>

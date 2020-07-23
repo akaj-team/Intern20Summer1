@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.model
+package com.asiantech.intern20summer1.week4.model
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
@@ -9,10 +9,6 @@ class User(
     var fullName: String? = null,
     var mobileNumber: String? = null,
     var password: String? = null,
-    var avatar: String? = null
-) : Parcelable {
-    constructor(email: String?, password: String?) : this(){
-        this.email = email
-        this.password = password
-    }
-}
+    var avatarUri: String? = null
+) : Parcelable
+

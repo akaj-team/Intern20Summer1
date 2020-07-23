@@ -5,4 +5,18 @@
     <color name="colorAccent">#FF9800</color>
     <color name="colorBackgroundSplashScreen">#FFFFFF</color>
     <color name="colorWhite">#FFFFFF</color>
+    <color name="colorMain">#FF9800</color>
+    <color name="colorBackgroundButtonUnableSolid">#cccccc</color>
+    <color name="colorBackgroundHomeContentSolid">#FEFECD</color>
+    <color name="colorBackgroundSocialButtonStroke">#D3D3D3</color>
+    <color name="colorBackgroundSocialButtonSolid">#00FFFFFF</color>
+    <color name="colorInformationTextViewText">#353509</color>
+    <color name="colorRegisterTitleTextView">#000000</color>
+    <color name="colorCircleImageViewRegisterAvatarBorder">#FF9800</color>
+    <color name="colorLoginButtonText">#FFFFFF</color>
+    <color name="colorRegisterButtonText">#FFFFFF</color>
+    <color name="colorForgotPasswordTextView">#000000</color>
+    <color name="colorBackgroundHomeTitleStroke">#FFFFFF</color>
+    <color name="colorBackgroundHomeTitleImageButtonSolid">#00FFFFFF</color>
+    <color name="colorBackgroundButtonEnableSolid">#FF9800</color>
 </resources>

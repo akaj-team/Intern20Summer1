@@ -1,6 +1,7 @@
-package com.asiantech.intern20summer1
+package com.asiantech.intern20summer1.week4.activity
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
@@ -13,11 +14,14 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // Set black text with light status bar.
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        }
         Handler().postDelayed({
             startActivity(Intent(this, SignInActivity::class.java))
             finish()
-        }, SPLASH_TIME_OUT)
+        },
+            SPLASH_TIME_OUT
+        )
     }
 }

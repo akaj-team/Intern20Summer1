@@ -3,6 +3,8 @@
     <item android:drawable="@color/colorBackgroundSplashScreen" />
 
     <item
-        android:drawable="@drawable/ic_launcher_foreground"
+        android:width="@dimen/background_splash_screen_icon_width"
+        android:height="@dimen/background_splash_screen_icon_height"
+        android:drawable="@drawable/ic_music_logo"
         android:gravity="center" />
 </layer-list>
