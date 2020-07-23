@@ -12,6 +12,13 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+        receiveData()
+    }
+
+    /**
+     * This function receive data from sign in fragment
+     */
+    private fun receiveData() {
         val use = intent.getSerializableExtra(KEY_USE) as Account
         if (use.avatarUri.isNotEmpty()) {
             imgAvatarHome.setImageURI(Uri.parse(use.avatarUri))

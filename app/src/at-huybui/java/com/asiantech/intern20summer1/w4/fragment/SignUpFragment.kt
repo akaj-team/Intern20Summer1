@@ -8,6 +8,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,6 +34,8 @@ class SignUpFragment : Fragment() {
         private const val REQUEST_IMAGE_CAPTURE = 100
         private const val REQUEST_SELECT_IMAGE_IN_ALBUM = 101
         private const val PERMISSION_REQUEST_CODE = 200
+
+        internal fun getNewInstance() = SignUpFragment()
     }
 
     private var imageUri: Uri? = null
@@ -72,6 +75,11 @@ class SignUpFragment : Fragment() {
             imageUri = data?.data
             imgAvatarSignUp.setImageURI(imageUri)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        d("XXXX", "DESTROY")
     }
 
     /**

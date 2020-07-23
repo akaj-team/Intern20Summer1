@@ -8,7 +8,7 @@ import com.asiantech.intern20summer1.R
 
 class SplashActivity : AppCompatActivity() {
     companion object {
-        private const val TIME_FINISH_SPLASH = 1000L
+        private const val TIME_FINISH_SPLASH = 5000L
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

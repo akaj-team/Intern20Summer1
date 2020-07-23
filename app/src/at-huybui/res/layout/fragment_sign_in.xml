@@ -171,7 +171,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/sign_in_margin_bottom_register_text"
         android:gravity="center_horizontal|bottom"
-        android:padding="@dimen/icon_in_button_facebook_and_google_size"
         android:text="@string/don_t_have_an_account_register_now" />
 </RelativeLayout>

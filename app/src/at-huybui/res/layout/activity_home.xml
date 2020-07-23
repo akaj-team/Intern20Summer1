@@ -9,16 +9,17 @@
     <ImageView
         android:layout_width="@dimen/image_logo_width"
         android:layout_height="@dimen/image_logo_height"
+        android:layout_marginTop="@dimen/sign_in_logo_image_view_margin_top"
         android:layout_gravity="center_horizontal"
         android:src="@drawable/logo_music" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewAvatar"
-        android:layout_marginTop="@dimen/sign_in_logo_image_view_margin_top"
-        android:layout_width="@dimen/home_avatar_width"
-        android:layout_height="@dimen/home_avatar_width"
+        android:layout_marginTop="@dimen/home_avatar_margin_top"
+        android:layout_width="@dimen/home_avatar_size"
+        android:layout_height="@dimen/home_avatar_size"
         android:layout_gravity="center"
-        app:cardCornerRadius="@dimen/home_avatar_radius">
+        app:cardCornerRadius="@dimen/home_avatar_corner_radius">
 
         <ImageView
             android:id="@+id/imgAvatarHome"
@@ -36,7 +37,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/home_linear_layout_heigth">
+        android:layout_height="@dimen/home_linear_layout_height">
 
         <TextView
             android:layout_width="wrap_content"
@@ -50,7 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:padding="10dp"
+            android:padding="@dimen/home_double_dot_padding"
             android:text="@string/char_double_dot"
             android:textSize="@dimen/home_edit_text_size" />
 
@@ -59,13 +60,12 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:text=""
             android:textSize="@dimen/home_edit_text_size" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/home_linear_layout_heigth">
+        android:layout_height="@dimen/home_linear_layout_height">
 
         <TextView
             android:layout_width="wrap_content"
@@ -79,7 +79,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:padding="10dp"
+            android:padding="@dimen/home_double_dot_padding"
             android:text="@string/char_double_dot"
             android:textSize="@dimen/home_edit_text_size" />
 
@@ -88,13 +88,12 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:text=""
             android:textSize="@dimen/home_edit_text_size" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/home_linear_layout_heigth">
+        android:layout_height="@dimen/home_linear_layout_height">
 
         <TextView
             android:layout_width="wrap_content"
@@ -108,7 +107,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:padding="10dp"
+            android:padding="@dimen/home_double_dot_padding"
             android:text="@string/char_double_dot"
             android:textSize="@dimen/home_edit_text_size" />
 
@@ -117,7 +116,6 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:text=""
             android:textSize="@dimen/home_edit_text_size" />
     </LinearLayout>
 </LinearLayout>
