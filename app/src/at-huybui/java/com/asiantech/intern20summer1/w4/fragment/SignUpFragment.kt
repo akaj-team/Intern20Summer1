@@ -198,28 +198,35 @@ class SignUpFragment : Fragment() {
                 )
                 ""
             }
-            //job of handle function for rewrite password edit text view
-            rewritePassStatus = if (edtRePassSignUp.text.toString().isNotEmpty()) {
-                if (edtRePassSignUp.text.toString() == passwordBuffer) {
-                    setIconForEditText(
-                        edtRePassSignUp,
-                        TICK_ICON
-                    )
-                    true
-                } else {
-                    setIconForEditText(
-                        edtRePassSignUp,
-                        ERROR_ICON
-                    )
-                    false
-                }
+            recheckForReWritePasswordEditText()
+        }
+    }
+
+    /**
+     * This function is rechecking fof rewrite password edittext
+     */
+    private fun recheckForReWritePasswordEditText() {
+        //job of handle function for rewrite password edit text view
+        rewritePassStatus = if (edtRePassSignUp.text.toString().isNotEmpty()) {
+            if (edtRePassSignUp.text.toString() == passwordBuffer) {
+                setIconForEditText(
+                    edtRePassSignUp,
+                    TICK_ICON
+                )
+                true
             } else {
                 setIconForEditText(
                     edtRePassSignUp,
-                    HIDE_ICON
+                    ERROR_ICON
                 )
                 false
             }
+        } else {
+            setIconForEditText(
+                edtRePassSignUp,
+                HIDE_ICON
+            )
+            false
         }
     }
 
