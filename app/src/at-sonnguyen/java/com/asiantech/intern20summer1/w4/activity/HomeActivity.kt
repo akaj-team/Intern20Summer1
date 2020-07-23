@@ -24,7 +24,6 @@ class HomeActivity : AppCompatActivity() {
             userHome.phoneNumber = it.phoneNumber
             userHome.password = it.password
             userHome.avatarUri = it.avatarUri
-            //imgAvatarHome.setImageURI(Uri.parse(userHome.avatarUri))
             edtHomePhoneNumber.setText("" + it.phoneNumber)
             edtHomeEmail.setText("" + it.email)
             edtHomeFullName.setText("" + it.fullName)

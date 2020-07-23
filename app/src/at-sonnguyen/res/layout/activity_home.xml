@@ -38,7 +38,6 @@
         android:layout_height="@dimen/w4_edit_text_height"
         android:layout_marginTop="@dimen/length_edit_text_to_text_view"
         android:autofillHints="no"
-        android:background="@drawable/bg_edit_text_non_selected"
         android:inputType="text"
         tools:ignore="LabelFor" />
 
@@ -57,7 +56,6 @@
         android:layout_height="@dimen/w4_edit_text_height"
         android:layout_marginTop="@dimen/length_edit_text_to_text_view"
         android:autofillHints="no"
-        android:background="@drawable/bg_edit_text_non_selected"
         android:inputType="textEmailAddress"
         tools:ignore="LabelFor" />
 
@@ -74,7 +72,6 @@
         android:layout_height="@dimen/w4_edit_text_height"
         android:layout_marginTop="@dimen/length_edit_text_to_text_view"
         android:autofillHints=""
-        android:background="@drawable/bg_edit_text_non_selected"
         android:inputType="number"
         tools:ignore="LabelFor,TextFields" />
 

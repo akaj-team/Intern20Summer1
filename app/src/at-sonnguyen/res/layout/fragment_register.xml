@@ -13,9 +13,9 @@
         android:layout_marginRight="@dimen/linear_layout_margin_right"
         android:orientation="vertical">
 
-        <ImageButton
+        <ImageView
             android:id="@+id/btnBack"
-            style="?android:attr/borderlessButtonStyle"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/back_button_margin_to_top"
