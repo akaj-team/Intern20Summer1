@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--    w3-layout ui-->
     <string name="app_name">[Huy]Intern20Summer1</string>
     <string name="don_t_have_an_account_register_now">Don\'t have an account? Register Now</string>
     <string name="forgot_password">Forgot password?</string>
@@ -29,11 +30,11 @@
     <string name="register_complete">Register complete!</string>
     <string name="char_double_dot">"  : "</string>
     <string name="invalid_account_or_password">Invalid account or password</string>
-    <string name="sellect">Select</string>
+    <string name="select">Select</string>
     <string name="camera">Camera</string>
     <string name="gallery">Gallery</string>
     <string name="enter_email_and_password">Enter your email and password</string>
-
+    <!--   W4-intent-fragment-activity-->
     <string name="email_title">Enter your email ID</string>
     <string name="pass_title">Type your password</string>
     <string name="rewrite_pass_title">Retype your password</string>

@@ -327,7 +327,7 @@ class SignUpFragment : Fragment() {
     private fun handleForAvatarImage() {
         imgAvatarSignUp.setOnClickListener {
             val builder = context?.let { it1 -> AlertDialog.Builder(it1) }
-            builder?.setTitle(getString(R.string.sellect))
+            builder?.setTitle(getString(R.string.select))
             val select = arrayOf(getString(R.string.camera), getString(R.string.gallery))
             builder?.setItems(select) { _, which ->
 

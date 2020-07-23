@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w4.activity.HomeActivity
-import com.asiantech.intern20summer1.w4.activity.MainActivity
+import com.asiantech.intern20summer1.w4.activity.MainActivityW4
 import com.asiantech.intern20summer1.w4.classanother.Account
 import kotlinx.android.synthetic.`at-huybui`.fragment_sign_in.*
 
@@ -18,7 +18,7 @@ class SignInFragment : Fragment() {
     companion object {
         val REGEX_PASSWORD = """^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,16}$""".toRegex()
         const val KEY_USE = "USE"
-       //internal fun newInstance() = SignInFragment()
+        //internal fun newInstance() = SignInFragment()
     }
 
     private var toastStatus: Toast? = null
@@ -59,7 +59,7 @@ class SignInFragment : Fragment() {
         tvRegisterNow.setOnClickListener {
             val fragment = SignUpFragment.newInstance()
             fragment.onRegisterClick = this::handleReceiverData
-            (activity as? MainActivity)?.addFragment(fragment, true)
+            (activity as? MainActivityW4)?.addFragment(fragment, true)
         }
     }
 
