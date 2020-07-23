@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="sign_in_logo_image_view_margin_top">20dp</dimen>
-    <dimen name="sign_in_button_facebook_width">150dp</dimen>
+    <dimen name="sign_in_button_facebook_width">120dp</dimen>
     <dimen name="sign_in_button_facebook_height">40dp</dimen>
     <dimen name="sign_in_icon_button_margin">10dp</dimen>
     <dimen name="sign_in_button_margin_top">20dp</dimen>
-    <dimen name="sign_in_button_margin_left_right">10dp</dimen>
-    <dimen name="sign_in_edit_text_margin_left">20dp</dimen>
+    <dimen name="sign_in_edit_text_margin_left_right">20dp</dimen>
     <dimen name="text_size_end_sign_up">20sp</dimen>
     <dimen name="text_size_title_edit_text">10sp</dimen>
     <dimen name="by_registering_text_size">10sp</dimen>
@@ -22,8 +21,9 @@
     <dimen name="button_height">50dp</dimen>
     <dimen name="home_avatar_margin_top">50dp</dimen>
     <dimen name="sign_up_avatar_size">100dp</dimen>
-    <dimen name="sign_in_margin_top_all">10dp</dimen>
+    <dimen name="sign_in_margin_top_all">20dp</dimen>
     <dimen name="home_double_dot_padding">10dp</dimen>
     <dimen name="sign_in_margin_bottom_register_text">10dp</dimen>
     <dimen name="home_avatar_corner_radius">75dp</dimen>
+    <dimen name="sign_up_title_text_size">25sp</dimen>
 </resources>

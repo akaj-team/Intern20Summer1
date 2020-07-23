@@ -21,17 +21,20 @@
         android:layout_below="@+id/imgLogoSignIn"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_marginStart="@dimen/sign_in_button_margin_left_right"
-        android:layout_marginLeft="@dimen/sign_in_button_margin_left_right"
+        android:layout_marginStart="@dimen/sign_in_edit_text_margin_left_right"
+        android:layout_marginLeft="@dimen/sign_in_edit_text_margin_left_right"
         android:layout_marginTop="@dimen/sign_in_button_margin_top">
 
         <ImageView
             android:layout_width="@dimen/icon_in_button_facebook_and_google_size"
             android:layout_height="@dimen/icon_in_button_facebook_and_google_size"
+            android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
-            android:layout_margin="@dimen/sign_in_icon_button_margin"
+            android:layout_marginTop="@dimen/sign_in_icon_button_margin"
+            android:layout_marginEnd="@dimen/sign_in_icon_button_margin"
+            android:layout_marginBottom="@dimen/sign_in_icon_button_margin"
             android:src="@drawable/ic_logo_facebook" />
 
         <Button
@@ -52,16 +55,19 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_marginTop="@dimen/sign_in_button_margin_top"
-        android:layout_marginEnd="@dimen/sign_in_button_margin_left_right"
-        android:layout_marginRight="@dimen/sign_in_button_margin_left_right">
+        android:layout_marginEnd="@dimen/sign_in_edit_text_margin_left_right"
+        android:layout_marginRight="@dimen/sign_in_edit_text_margin_left_right">
 
         <ImageView
             android:layout_width="@dimen/icon_in_button_facebook_and_google_size"
             android:layout_height="@dimen/icon_in_button_facebook_and_google_size"
+            android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
-            android:layout_margin="@dimen/sign_in_icon_button_margin"
+            android:layout_marginTop="@dimen/sign_in_icon_button_margin"
+            android:layout_marginEnd="@dimen/sign_in_icon_button_margin"
+            android:layout_marginBottom="@dimen/sign_in_icon_button_margin"
             android:src="@drawable/ic_logo_google" />
 
         <Button
@@ -90,8 +96,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tvOrText"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="@dimen/sign_in_edit_text_margin_left"
-        android:layout_marginTop="@dimen/sign_in_edit_text_margin_left"
+        android:layout_marginLeft="@dimen/sign_in_edit_text_margin_left_right"
+        android:layout_marginTop="@dimen/sign_in_edit_text_margin_left_right"
         android:text="@string/email_id" />
 
     <EditText
@@ -104,10 +110,10 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginStart="@dimen/sign_in_edit_text_margin_left"
-        android:layout_marginLeft="@dimen/sign_in_edit_text_margin_left"
-        android:layout_marginEnd="@dimen/sign_in_edit_text_margin_left"
-        android:layout_marginRight="@dimen/sign_in_edit_text_margin_left"
+        android:layout_marginStart="@dimen/sign_in_edit_text_margin_left_right"
+        android:layout_marginLeft="@dimen/sign_in_edit_text_margin_left_right"
+        android:layout_marginEnd="@dimen/sign_in_edit_text_margin_left_right"
+        android:layout_marginRight="@dimen/sign_in_edit_text_margin_left_right"
         android:autofillHints=""
         android:hint="@string/email"
         android:inputType="textEmailAddress" />
@@ -119,8 +125,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/edtSignInEmail"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="@dimen/sign_in_edit_text_margin_left"
-        android:layout_marginTop="@dimen/sign_in_edit_text_margin_left"
+        android:layout_marginLeft="@dimen/sign_in_edit_text_margin_left_right"
+        android:layout_marginTop="@dimen/sign_in_edit_text_margin_left_right"
         android:text="@string/password" />
 
     <EditText
@@ -132,10 +138,10 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginStart="@dimen/sign_in_edit_text_margin_left"
-        android:layout_marginLeft="@dimen/sign_in_edit_text_margin_left"
-        android:layout_marginEnd="@dimen/sign_in_edit_text_margin_left"
-        android:layout_marginRight="@dimen/sign_in_edit_text_margin_left"
+        android:layout_marginStart="@dimen/sign_in_edit_text_margin_left_right"
+        android:layout_marginLeft="@dimen/sign_in_edit_text_margin_left_right"
+        android:layout_marginEnd="@dimen/sign_in_edit_text_margin_left_right"
+        android:layout_marginRight="@dimen/sign_in_edit_text_margin_left_right"
         android:autofillHints=""
         android:hint="@string/password"
         android:inputType="textPassword" />
@@ -146,8 +152,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/edtSignInPassword"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="@dimen/sign_in_edit_text_margin_left"
-        android:layout_marginRight="@dimen/sign_in_edit_text_margin_left"
+        android:layout_marginTop="@dimen/sign_in_edit_text_margin_left_right"
+        android:layout_marginRight="@dimen/sign_in_edit_text_margin_left_right"
         android:text="@string/forgot_password" />
 
     <Button
