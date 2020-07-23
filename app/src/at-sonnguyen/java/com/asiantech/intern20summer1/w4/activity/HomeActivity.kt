@@ -24,10 +24,18 @@ class HomeActivity : AppCompatActivity() {
             userHome.phoneNumber = it.phoneNumber
             userHome.password = it.password
             userHome.avatarUri = it.avatarUri
-            imgAvatarHome.setImageURI(Uri.parse(userHome.avatarUri))
+            //imgAvatarHome.setImageURI(Uri.parse(userHome.avatarUri))
             edtHomePhoneNumber.setText("" + it.phoneNumber)
             edtHomeEmail.setText("" + it.email)
             edtHomeFullName.setText("" + it.fullName)
+        }
+        setImageViewResource(userHome.avatarUri)
+    }
+    private fun setImageViewResource(string: String){
+        if (string == ""){
+            imgAvatarHome.setImageResource(R.mipmap.ic_launcher)
+        } else {
+            imgAvatarHome.setImageURI(Uri.parse(string))
         }
     }
 }
