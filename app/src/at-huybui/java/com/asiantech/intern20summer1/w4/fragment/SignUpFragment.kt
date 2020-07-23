@@ -6,6 +6,7 @@ import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.LayoutInflater
@@ -26,7 +27,8 @@ import kotlinx.android.synthetic.`at-huybui`.fragment_sign_up.*
 
 class SignUpFragment : Fragment() {
     companion object {
-        private val REGEX_NUMBER_PHONE = """^[0-9]{10}$""".toRegex()
+        private const val SDK_VERSION = 16
+        private const val REGEX_NUMBER_PHONE = """^[0-9]{10}$"""
         private const val TICK_ICON: Int = 1
         private const val ERROR_ICON: Int = 0
         private const val HIDE_ICON: Int = -1
@@ -144,7 +146,7 @@ class SignUpFragment : Fragment() {
      */
     private fun handleForNumberPhoneEditText() {
         edtNumberSignUp.addTextChangedListener { text ->
-            val pattern = text.toString().matches(REGEX_NUMBER_PHONE)
+            val pattern = text.toString().matches(REGEX_NUMBER_PHONE.toRegex())
             numberPhoneBuffer = if (text.toString().isNotEmpty()) {
                 if (pattern) {
                     setIconForEditText(
@@ -176,7 +178,7 @@ class SignUpFragment : Fragment() {
      */
     private fun handleForPasswordEditText() {
         edtPasswordSignUp.addTextChangedListener { text ->
-            val pattern = text.toString().matches(REGEX_PASSWORD)
+            val pattern = text.toString().matches(REGEX_PASSWORD.toRegex())
             passwordBuffer = if (text.toString().isNotEmpty()) {
                 if (pattern) {
                     setIconForEditText(
@@ -267,7 +269,7 @@ class SignUpFragment : Fragment() {
      */
     private fun handleForRegisterButton() {
         btnRegister.setOnClickListener {
-            when (true) {
+            when {
                 edtNameSingUp.text.isEmpty() -> {
                     edtNameSingUp.requestFocus()
                     showToast(getString(R.string.enter_input_your_name))
@@ -361,25 +363,28 @@ class SignUpFragment : Fragment() {
      * Argument had defined in companion
      */
     private fun setIconForEditText(editText: EditText, status: Int) {
-        when (status) {
-            TICK_ICON -> editText.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                0,
-                0,
-                R.drawable.icon_tick,
-                0
-            )
-            ERROR_ICON -> editText.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                0,
-                0,
-                R.drawable.icon_error,
-                0
-            )
-            HIDE_ICON -> editText.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                0,
-                0,
-                0,
-                0
-            )
+        if (Build.VERSION.SDK_INT > 16) {
+            when (status) {
+                TICK_ICON -> editText.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                    0,
+                    0,
+                    R.drawable.icon_tick,
+                    0
+                )
+
+                ERROR_ICON -> editText.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                    0,
+                    0,
+                    R.drawable.icon_error,
+                    0
+                )
+                HIDE_ICON -> editText.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                    0,
+                    0,
+                    0,
+                    0
+                )
+            }
         }
     }
 

@@ -16,8 +16,8 @@ import kotlinx.android.synthetic.`at-huybui`.fragment_sign_in.*
 class SignInFragment : Fragment() {
 
     companion object {
-        val REGEX_PASSWORD = """^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,16}$""".toRegex()
-        const val KEY_USE = "USE"
+        internal const val REGEX_PASSWORD = """^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,16}$"""
+        internal const val KEY_USE = "USE"
         //internal fun newInstance() = SignInFragment()
     }
 
