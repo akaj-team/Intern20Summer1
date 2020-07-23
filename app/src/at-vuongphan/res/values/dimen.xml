@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="icon_image_margin_top">50dp</dimen>
+    <dimen name="text_views_email_margin_top">40dp</dimen>
+    <dimen name="button_sign_up_margin_top">30dp</dimen>
+    <dimen name="edit_text_margin_top">9dp</dimen>
+    <dimen name="edit_text_padding_left">22dp</dimen>
+    <dimen name="edit_text_padding_right">10dp</dimen>
+    <dimen name="height_edit_text">50dp</dimen>
+    <dimen name="height_button_sign_up">50dp</dimen>
+    <dimen name="text_view_password_margin_top">14dp</dimen>
+    <dimen name="text_view_link_margin_top">30dp</dimen>
+    <dimen name="icon_image_padding_left">20dp</dimen>
+    <dimen name="layout_margin_left">20dp</dimen>
+    <dimen name="layout_margin_right">20dp</dimen>
+    <dimen name="relative_margin_top">30dp</dimen>
+    <dimen name="relative_text_view_margin_top">42dp</dimen>
+    <dimen name="relative_height_end">20dp</dimen>
+    <dimen name="conner_radius">40dp</dimen>
+    <dimen name="custom_button_padding">5dp</dimen>
+</resources>

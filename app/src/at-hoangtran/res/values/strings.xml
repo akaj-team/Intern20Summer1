@@ -1,7 +1,15 @@
 <resources>
-    <string name="app_name">[Hoang]Intern20Summer1</string>
+    <string name="app_name">Intern20Summer1</string>
+    <string name="email_hint">Email</string>
+    <string name="pass_hint">Password</string>
+    <string name="email_ID_description">Enter your email ID</string>
+    <string name="password">Enter your password</string>
+    <string name="retype">Retype your password</string>
+    <string name="link">Link your social media profiles</string>
+    <string name="sign_up_button">SIGN UP</string>
+    <string name="not_register">Not Registered yet? </string>
+    <string name="sign">Sign up!</string>
     <string name="email_ID">Email ID</string>
-    <string name="password">Password</string>
     <string name="or">Or</string>
     <string name="forgot_password">Forgot Password?</string>
     <string name="register_now">Dont\'t have an account? Register Now</string>

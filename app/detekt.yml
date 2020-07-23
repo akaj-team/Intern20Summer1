@@ -39,10 +39,10 @@ processors:
 console-reports:
   active: true
   exclude:
-  #  - 'ProjectStatisticsReport'
-  #  - 'ComplexityReport'
-  #  - 'NotificationReport'
-  #  - 'FindingsReport'
+    #  - 'ProjectStatisticsReport'
+    #  - 'ComplexityReport'
+    #  - 'NotificationReport'
+    #  - 'FindingsReport'
     - 'BuildFailureReport'
 
 output-reports:
@@ -362,6 +362,6 @@ comments:
 migration:
   active: true
   imports:
-    # your.package.Class: new.package.or.Class
-    # for example:
-    # io.gitlab.arturbosch.detekt.api.Rule: io.gitlab.arturbosch.detekt.rule.Rule
+  # your.package.Class: new.package.or.Class
+  # for example:
+  # io.gitlab.arturbosch.detekt.api.Rule: io.gitlab.arturbosch.detekt.rule.Rule
