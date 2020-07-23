@@ -14,7 +14,6 @@ import com.asiantech.intern20summer1.week4.extensions.hideSoftKeyboard
 import com.asiantech.intern20summer1.week4.models.User
 import com.asiantech.intern20summer1.week4.views.HomeActivity
 import kotlinx.android.synthetic.`at-linhle`.fragment_signin.*
-import kotlinx.android.synthetic.`at-linhle`.fragment_signup.*
 import java.util.regex.Pattern
 
 class SignInFragment : Fragment() {
@@ -58,7 +57,7 @@ class SignInFragment : Fragment() {
         }
     }
 
-    // Pass data when click button login and change acivity
+    // Pass data when click button login and change activity
     private fun handleClickingLoginButton() {
         btnLogin.setOnClickListener {
             if (edtEmail.text.toString() == user.email
