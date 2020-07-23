@@ -16,14 +16,5 @@ fun isValidPassword(string: String): Boolean {
     return false
 }
 
-fun isValidPhoneNumber(string: String): Boolean {
-    if (string.length != RegisterFragment.PHONE_NUMBER_LENGTH) {
-        return false
-    }
-    for (i in string.indices) {
-        if (!string[i].isDigit()) {
-            return false
-        }
-    }
-    return true
-}
+fun isValidPhoneNumber(string: String) =
+    string.length != RegisterFragment.PHONE_NUMBER_LENGTH
