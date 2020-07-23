@@ -16,8 +16,12 @@ import kotlinx.android.synthetic.`at-phuongle`.fragment_register.*
 
 class RegisterFragment : Fragment() {
     companion object {
+        var avatarUri: String = ""
+
         const val IMAGE_PICK_CODE = 1000
         const val CAMERA_REQUEST_CODE = 1001
+        const val EMAIL_KEY = 100
+        const val PASSWORD_KEY = 101
 
         fun newInstance() = RegisterFragment()
     }
@@ -60,7 +64,6 @@ class RegisterFragment : Fragment() {
     fun handleRegisterButton() {
         btnRegister.setOnClickListener {
             val intent = Intent(activity as SignInActivity, SignInActivity::class.java)
-
         }
     }
 
@@ -97,9 +100,11 @@ class RegisterFragment : Fragment() {
     // Handle result of Avatar
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE) {
+            avatarUri = data?.data.toString()
             imgRegisterAvatar.setImageURI(data?.data)
         }
         if (resultCode == Activity.RESULT_OK && requestCode == CAMERA_REQUEST_CODE) {
+            avatarUri = data?.data.toString()
             imgRegisterAvatar.setImageURI(data?.data)
         }
     }
