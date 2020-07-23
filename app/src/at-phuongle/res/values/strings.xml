@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">[Phuong]Intern20Summer1</string>
+    <string name="email_text_view_description">Enter your email ID</string>
+    <string name="password_text_view_description">Type your password</string>
+    <string name="retype_pass_text_view_description">Retype your password</string>
+    <string name="link_text_view_description">Link your social media profiles</string>
+    <string name="not_registered_text_view_description">Not registered?</string>
+    <string name="sign_up_text_view_description">Sign up!</string>
+    <string name="sign_up_button_text">SIGN UP</string>
 </resources>

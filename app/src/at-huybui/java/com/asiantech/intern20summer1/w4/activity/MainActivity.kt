@@ -9,7 +9,7 @@ import com.asiantech.intern20summer1.w4.fragment.SignInFragment
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_main_w4)
         replaceFragment(SignInFragment())
     }
 
