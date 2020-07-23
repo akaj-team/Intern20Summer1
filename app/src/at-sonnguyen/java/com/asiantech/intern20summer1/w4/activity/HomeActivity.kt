@@ -1,11 +1,9 @@
 package com.asiantech.intern20summer1.w4.activity
 
-
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w4.account.User
@@ -30,10 +28,6 @@ class HomeActivity : AppCompatActivity() {
             edtHomePhoneNumber.setText("" + it.phoneNumber)
             edtHomeEmail.setText("" + it.email)
             edtHomeFullName.setText("" + it.fullName)
-
-        }
-        btnConfirm.setOnClickListener {
-            Toast.makeText(this, "" + userHome.password, Toast.LENGTH_SHORT).show()
         }
     }
 }

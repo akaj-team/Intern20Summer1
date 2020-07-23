@@ -12,7 +12,6 @@ class SignInActivity : AppCompatActivity() {
         private const val ADD_TO_BACK_STACK_KEY_NAME = "add to back Stack"
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)

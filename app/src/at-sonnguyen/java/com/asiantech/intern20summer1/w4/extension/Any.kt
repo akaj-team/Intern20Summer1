@@ -8,7 +8,6 @@ fun isValidEmail(string: String) =
 fun isValidPassword(string: String): Boolean {
     val passwordRegex = "^(?=.*[a-z])(?=.*\\d)[a-zA-Z\\d]{8,16}$".toRegex()
     return string.matches(passwordRegex)
-
 }
 
 fun isValidPhoneNumber(string: String) =
