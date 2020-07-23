@@ -1,6 +1,0 @@
-<resources>
-    <string name="app_name">Intern20Summer1</string>
-    <string name="change_password_text_view_description_text">Change password</string>
-    <string name="confirm_button_description_text">Confirm</string>
-    <string name="home_activity_title">Your Profile</string>
-</resources>
