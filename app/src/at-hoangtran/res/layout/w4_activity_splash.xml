@@ -6,7 +6,7 @@
 
     <ImageView
         android:id="@+id/splash_logo"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="@dimen/splash_size"
+        android:layout_height="@dimen/splash_size"
         android:src="@mipmap/ic_launcher" />
 </LinearLayout>

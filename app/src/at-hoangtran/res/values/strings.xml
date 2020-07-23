@@ -15,4 +15,5 @@
     <string name="avatar">Avatar</string>
     <string name="register_to_music_festival">Register to Music Festival</string>
     <string name="agreement">By registering you agree to Term &amp; Conditions and Privacy Policy of the Festival</string>
+    <string name="home">Home</string>
 </resources>

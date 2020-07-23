@@ -11,6 +11,7 @@
 
         <ImageView
             android:id="@+id/img_back"
+            android:src="@mipmap/ic_launcher"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_margin="10dp" />
@@ -43,17 +44,16 @@
             android:text="@string/avatar"
             android:textColor="@color/colorGray" />
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/img_avatar"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginBottom="20dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:src="@mipmap/ic_launcher" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/password"
+            android:text="@string/email_ID"
             android:textColor="@color/colorGray" />
 
         <EditText
@@ -111,6 +111,7 @@
             android:inputType="textPassword" />
 
         <Button
+            android:enabled="false"
             android:id="@+id/btn_register"
             android:layout_width="match_parent"
             android:layout_height="50dp"
