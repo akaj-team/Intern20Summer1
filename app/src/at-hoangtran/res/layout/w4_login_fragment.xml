@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
-    tools:context="com.asiantech.intern20summer1.W4LoginActivity">
+    tools:context="com.asiantech.intern20summer1.W4FragmentIntentActivity.W4LoginActivity">
 
     <LinearLayout
         android:id="@+id/ln_main_login"

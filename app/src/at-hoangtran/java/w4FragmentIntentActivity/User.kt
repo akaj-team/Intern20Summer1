@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1
+package w4FragmentIntentActivity
 
 import android.os.Parcel
 import android.os.Parcelable

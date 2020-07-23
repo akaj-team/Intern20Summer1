@@ -1,5 +1,6 @@
-package com.asiantech.intern20summer1
+package w4FragmentIntentActivity
 
+import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
 import android.app.AlertDialog
 import android.content.Intent
@@ -15,12 +16,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.fragment.app.Fragment
+import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.hideSoftKeyboard
 import com.theartofdev.edmodo.cropper.CropImage
 import kotlinx.android.synthetic.`at-hoangtran`.w4_sign_up_fragment.*
 import java.io.ByteArrayOutputStream
 
 @Suppress("DEPRECATION")
-class W4SignUpFragment : Fragment() {
+class SignUpFragment : Fragment() {
     companion object {
         internal var onRegisterSuccess: (user: User) -> Unit = {}
         private const val PICK_IMAGE_REQUEST = 2
@@ -52,9 +55,19 @@ class W4SignUpFragment : Fragment() {
         handleListener()
         handleBtnRegister()
         handleBtnBack()
+        hideKeyBoard()
     }
 
     private val user = User("", "", "", "", "")
+
+    @SuppressLint("ClickableViewAccessibility")
+    private fun hideKeyBoard() {
+        ln_main_sign_up.setOnTouchListener { it, _ ->
+            it.requestFocus()
+            it.hideSoftKeyboard()
+            true
+        }
+    }
 
     private fun isValidPassword(str: String): Boolean {
         val regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$".toRegex()
@@ -104,7 +117,9 @@ class W4SignUpFragment : Fragment() {
             user.pass = edt_password.text.toString()
             user.name = edt_name.text.toString()
             user.avatar = ava
-            onRegisterSuccess(user)
+            onRegisterSuccess(
+                user
+            )
             fragmentManager?.popBackStack()
         }
     }
@@ -142,12 +157,19 @@ class W4SignUpFragment : Fragment() {
                     0 -> {
                         val intentImage =
                             Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-                        intentImage.type = KEY_IMAGE
-                        startActivityForResult(intentImage, PICK_IMAGE_REQUEST)
+                        intentImage.type =
+                            KEY_IMAGE
+                        startActivityForResult(
+                            intentImage,
+                            PICK_IMAGE_REQUEST
+                        )
                     }
                     1 -> {
                         val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                        startActivityForResult(cameraIntent, OPEN_CAMERA_REQUEST)
+                        startActivityForResult(
+                            cameraIntent,
+                            OPEN_CAMERA_REQUEST
+                        )
                     }
                 }
             }

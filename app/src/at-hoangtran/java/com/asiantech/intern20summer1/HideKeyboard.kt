@@ -2,13 +2,14 @@
 
 package com.asiantech.intern20summer1
 
-import android.app.Activity
+import android.annotation.SuppressLint
+import android.content.Context
+import android.view.View
 import android.view.inputmethod.InputMethodManager
-import androidx.core.content.ContextCompat
 
-fun Activity.hideSoftKeyboard() {
-    currentFocus?.let {
-        val inputMethodManager = ContextCompat.getSystemService(this, InputMethodManager::class.java)
-        inputMethodManager?.hideSoftInputFromWindow(it.windowToken, 0)
-    }
+@SuppressLint("ServiceCast")
+internal fun View.hideSoftKeyboard() {
+    val inputMethodManager =
+        context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    inputMethodManager.hideSoftInputFromWindow(windowToken, 0)
 }

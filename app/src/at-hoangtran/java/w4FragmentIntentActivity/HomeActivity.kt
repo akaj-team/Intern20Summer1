@@ -1,17 +1,16 @@
-package com.asiantech.intern20summer1
+package w4FragmentIntentActivity
 
 import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.asiantech.intern20summer1.R
 import kotlinx.android.synthetic.`at-hoangtran`.activity_w4_home.*
 
 @Suppress("CAST_NEVER_SUCCEEDS")
-class W4HomeActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_w4_home)
-
-        val user = User("", "", "", "", "")
 
         val intent = intent
         ((intent.getParcelableExtra("user")) as? User)?.let {

@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
 
         lnMain?.setOnTouchListener { it, _ ->
             it.requestFocus()
-            this.hideSoftKeyboard()
+            it.hideSoftKeyboard()
             true
         }
 

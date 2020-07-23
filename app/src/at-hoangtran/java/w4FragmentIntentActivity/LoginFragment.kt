@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1
+package w4FragmentIntentActivity
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -10,11 +10,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.fragment.app.Fragment
-import com.asiantech.intern20summer1.W4SignUpFragment.Companion.onRegisterSuccess
+import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.hideSoftKeyboard
 import kotlinx.android.synthetic.`at-hoangtran`.w4_login_fragment.*
 import kotlinx.android.synthetic.`at-hoangtran`.w4_sign_up_fragment.*
+import w4FragmentIntentActivity.SignUpFragment.Companion.onRegisterSuccess
 
-class W4LoginFragment : Fragment() {
+class LoginFragment : Fragment() {
 
     private var user = User("", "", "", "", "")
     var emailCheck = false
@@ -28,7 +30,6 @@ class W4LoginFragment : Fragment() {
         return inflater.inflate(R.layout.w4_login_fragment, container, false)
     }
 
-    @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         handleSignUp()
@@ -37,16 +38,27 @@ class W4LoginFragment : Fragment() {
         handleLogin()
     }
 
+    @SuppressLint("ClickableViewAccessibility")
+    private fun hideKeyBoard() {
+        ln_main_sign_up.setOnTouchListener { it, _ ->
+            it.requestFocus()
+            it.hideSoftKeyboard()
+            true
+        }
+    }
+
     private fun handleSignUp() {
         tv_signUp.setOnClickListener {
             val trans = fragmentManager?.beginTransaction()
-            trans?.add(R.id.fl_container, W4SignUpFragment().apply {
-                onRegisterSuccess = { user ->
-                    this@W4LoginFragment.user = user
-                    this@W4LoginFragment.edt_login_email.setText(user.email)
-                    this@W4LoginFragment.edt_login_password.setText(user.pass)
-                }
-            })
+            trans?.add(
+                R.id.fl_container, SignUpFragment()
+                    .apply {
+                        onRegisterSuccess = { user ->
+                            this@LoginFragment.user = user
+                            this@LoginFragment.edt_login_email.setText(user.email)
+                            this@LoginFragment.edt_login_password.setText(user.pass)
+                        }
+                    })
                 ?.addToBackStack(null)
                 ?.hide(this)
                 ?.commit()
@@ -55,7 +67,7 @@ class W4LoginFragment : Fragment() {
 
     private fun handleLogin() {
         btn_login.setOnClickListener {
-            val intent = Intent(activity, W4HomeActivity::class.java)
+            val intent = Intent(activity, HomeActivity::class.java)
             intent.putExtra("user", user)
             activity?.startActivity(intent)
             activity?.finish()

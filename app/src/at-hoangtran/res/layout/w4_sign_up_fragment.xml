@@ -4,7 +4,9 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:id="@+id/ln_main_sign_up"
         android:layout_width="match_parent"
+        android:focusableInTouchMode="true"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:orientation="vertical">
