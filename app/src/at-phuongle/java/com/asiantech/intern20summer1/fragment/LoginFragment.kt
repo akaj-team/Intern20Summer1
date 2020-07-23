@@ -10,7 +10,12 @@ import com.asiantech.intern20summer1.activity.SignInActivity
 import kotlinx.android.synthetic.`at-phuongle`.fragment_login.*
 
 class LoginFragment : Fragment() {
+    private var email: String? = null
+    private var password: String? = null
+
     companion object {
+        const val EMAIL_DATA_KEY = "email_data"
+
         fun newInstance() = LoginFragment()
     }
 
@@ -26,14 +31,17 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         (activity as SignInActivity).handleEmailEditText(edtEmail, btnLogin)
         (activity as SignInActivity).handlePasswordEditText(edtPass, btnLogin)
+        handleLoginTextView()
+    }
 
-        tvLoginRegister.setOnClickListener {
-            (activity as SignInActivity).replaceFragment(RegisterFragment.newInstance(), true)
+    private fun handleLoginButton() {
+        btnLogin.setOnClickListener {
         }
     }
 
-    fun handleLoginButton() {
-        btnLogin.setOnClickListener {
+    private fun handleLoginTextView() {
+        tvLoginRegister.setOnClickListener {
+            (activity as SignInActivity).replaceFragment(RegisterFragment.newInstance(), true)
         }
     }
 }

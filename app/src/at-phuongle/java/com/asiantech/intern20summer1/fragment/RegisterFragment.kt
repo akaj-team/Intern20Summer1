@@ -11,17 +11,17 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.activity.SignInActivity
+import com.asiantech.intern20summer1.model.User
 import kotlinx.android.synthetic.`at-phuongle`.fragment_register.*
 
 
 class RegisterFragment : Fragment() {
-    companion object {
-        var avatarUri: String = ""
+    private var avatarUri: String = ""
 
+    companion object {
         const val IMAGE_PICK_CODE = 1000
         const val CAMERA_REQUEST_CODE = 1001
-        const val EMAIL_KEY = "EMAIL_KEY"
-        const val PASSWORD_KEY = "PASSWORD_KEY"
+        const val DATA_KEY = "data_register"
 
         fun newInstance() = RegisterFragment()
     }
@@ -64,11 +64,18 @@ class RegisterFragment : Fragment() {
 
     private fun handleRegisterButton() {
         btnRegister.setOnClickListener {
+            val user = User(
+                edtRegisterFullName.text.toString(),
+                avatarUri,
+                edtRegisterEmail.text.toString(),
+                edtRegisterMobile.text.toString(),
+                edtRegisterPassword.text.toString()
+            )
+
             val intent = Intent(activity as SignInActivity, SignInActivity::class.java)
-            val bundle = Bundle()
-            bundle.putString(EMAIL_KEY, edtRegisterEmail.text.toString())
-            intent.putExtras(bundle)
+            intent.putExtra(DATA_KEY, user)
             startActivity(intent)
+            (activity as SignInActivity).finish()
         }
     }
 
