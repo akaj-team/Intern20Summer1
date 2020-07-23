@@ -13,6 +13,7 @@ import com.asiantech.intern20summer1.fragment.RegisterFragment
 import kotlinx.android.synthetic.`at-phuongle`.fragment_register.*
 import java.util.regex.Pattern
 
+
 class SignInActivity : AppCompatActivity() {
     companion object {
         var validFullName: Boolean = false
@@ -20,6 +21,8 @@ class SignInActivity : AppCompatActivity() {
         var validMobile: Boolean = false
         var validPassword: Boolean = false
         var validConfirmPassword: Boolean = false
+
+        var email: String = ""
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,6 +30,8 @@ class SignInActivity : AppCompatActivity() {
         setContentView(R.layout.activity_sign_in)
 
         supportFragmentManager.beginTransaction().add(R.id.frameLayout, LoginFragment()).commit()
+
+        email = intent.extras?.getString(RegisterFragment.EMAIL_KEY).toString()
     }
 
     // Check valid email
@@ -189,5 +194,4 @@ class SignInActivity : AppCompatActivity() {
             }
         })
     }
-
 }

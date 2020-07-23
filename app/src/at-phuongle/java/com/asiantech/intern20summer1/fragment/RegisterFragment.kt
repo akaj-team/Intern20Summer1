@@ -20,8 +20,8 @@ class RegisterFragment : Fragment() {
 
         const val IMAGE_PICK_CODE = 1000
         const val CAMERA_REQUEST_CODE = 1001
-        const val EMAIL_KEY = 100
-        const val PASSWORD_KEY = 101
+        const val EMAIL_KEY = "EMAIL_KEY"
+        const val PASSWORD_KEY = "PASSWORD_KEY"
 
         fun newInstance() = RegisterFragment()
     }
@@ -47,6 +47,7 @@ class RegisterFragment : Fragment() {
             edtRegisterConfirmPassword,
             btnRegister
         )
+        handleRegisterButton()
     }
 
     private fun handleRegisterAvatar() {
@@ -61,9 +62,13 @@ class RegisterFragment : Fragment() {
         }
     }
 
-    fun handleRegisterButton() {
+    private fun handleRegisterButton() {
         btnRegister.setOnClickListener {
             val intent = Intent(activity as SignInActivity, SignInActivity::class.java)
+            val bundle = Bundle()
+            bundle.putString(EMAIL_KEY, edtRegisterEmail.text.toString())
+            intent.putExtras(bundle)
+            startActivity(intent)
         }
     }
 

@@ -31,4 +31,9 @@ class LoginFragment : Fragment() {
             (activity as SignInActivity).replaceFragment(RegisterFragment.newInstance(), true)
         }
     }
+
+    fun handleLoginButton() {
+        btnLogin.setOnClickListener {
+        }
+    }
 }
