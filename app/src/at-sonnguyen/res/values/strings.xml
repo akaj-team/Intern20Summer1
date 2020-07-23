@@ -27,5 +27,8 @@
     <string name="phone_number_text_view_description">Phone number</string>
     <string name="confirm_password_text_view_description_text">Confirm Password</string>
     <string name="register_button_description_text">Register</string>
+    <string name="home_activity_title">Your Profile</string>
+    <string name="change_password_text_view_description_text">change your password</string>
+    <string name="confirm_button_description_text">Confirm</string>
     <string name="policy_text_view_description_text"><![CDATA[By registering you agree to terms & conditions and private policy of the festival]]></string>
 </resources>

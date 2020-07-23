@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/titlr_margin_to_top"
+        android:layout_marginTop="@dimen/title_margin_to_top"
         android:text="@string/home_activity_title"
         android:textColor="@color/colorTitleTextViewText"
         android:textSize="@dimen/title_text_view_text_size" />
@@ -91,6 +91,7 @@
         android:layout_marginTop="@dimen/length_button_to_image_view_link_profile"
         android:width="@dimen/profile_button_width"
         android:height="@dimen/profile_button_height"
+        android:textAllCaps="false"
         android:background="@drawable/bg_button"
         android:text="@string/confirm_button_description_text" />
 

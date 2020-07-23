@@ -41,4 +41,5 @@
     <dimen name="avatar_image_view_height">80dp</dimen>
     <dimen name="avatar_image_view_width">80dp</dimen>
     <dimen name="avatar_image_view_margin_to_top">30dp</dimen>
+    <dimen name="title_margin_to_top">40dp</dimen>
 </resources>
