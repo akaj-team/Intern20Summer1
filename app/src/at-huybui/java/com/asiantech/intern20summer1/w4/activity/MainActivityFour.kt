@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w4.fragment.SignInFragment
 
-class MainActivityW4 : AppCompatActivity() {
+class MainActivityFour : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_w4)

@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 <<<<<<< HEAD
-        <activity android:name="com.asiantech.intern20summer1.w4.activity.MainActivityW4">
+        <activity android:name="com.asiantech.intern20summer1.w4.activity.MainActivityFour">
 =======
         <activity android:name=".w3.MainActivity">
 >>>>>>> master

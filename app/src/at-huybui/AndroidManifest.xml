@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".w4.activity.HomeActivity"/>
-        <activity android:name=".w4.activity.MainActivityW4" />
+        <activity android:name=".w4.activity.MainActivityFour" />
 <!--        <activity android:name=".w4.activity.SplashActivity"/>-->
         <activity android:name=".w3.MainActivity"/>
         <activity android:name=".w4.activity.SplashActivity">
