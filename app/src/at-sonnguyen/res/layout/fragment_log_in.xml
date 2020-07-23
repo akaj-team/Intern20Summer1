@@ -29,35 +29,35 @@
 
         <Button
             android:id="@+id/btnFacebook"
-            android:paddingLeft="@dimen/profile_image_padding_to_left"
-            android:textSize="@dimen/button_text_size"
             android:layout_width="@dimen/profile_button_width"
             android:layout_height="@dimen/profile_button_height"
             android:layout_gravity="center"
-            android:textColor="@color/colorButtonProfileText"
             android:background="@drawable/bg_w4_button_profile"
             android:drawableStart="@drawable/ic_week4_facebook"
             android:drawableLeft="@drawable/ic_week4_facebook"
             android:gravity="center"
+            android:paddingLeft="@dimen/profile_image_padding_to_left"
             android:text="@string/facebook_button_description_text"
             android:textAllCaps="false"
-            tools:ignore="ButtonStyle"/>
+            android:textColor="@color/colorButtonProfileText"
+            android:textSize="@dimen/button_text_size"
+            tools:ignore="ButtonStyle" />
 
         <Button
-            android:textSize="@dimen/button_text_size"
-            android:paddingLeft="@dimen/profile_image_padding_to_left"
             android:id="@+id/btnEmail"
             android:layout_width="@dimen/profile_button_width"
             android:layout_height="@dimen/profile_button_height"
             android:layout_gravity="center"
             android:layout_marginStart="@dimen/facebook_button_margin_google_button"
-            android:textColor="@color/colorButtonProfileText"
             android:layout_marginLeft="@dimen/facebook_button_margin_google_button"
             android:background="@drawable/bg_w4_button_profile"
             android:drawableStart="@drawable/ic_week4_google"
             android:drawableLeft="@drawable/ic_week4_google"
+            android:paddingLeft="@dimen/profile_image_padding_to_left"
             android:text="@string/google_button_description_text"
             android:textAllCaps="false"
+            android:textColor="@color/colorButtonProfileText"
+            android:textSize="@dimen/button_text_size"
             tools:ignore="ButtonStyle,SmallSp" />
     </LinearLayout>
 
@@ -139,6 +139,6 @@
             android:id="@+id/tvRegister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/register_now_text_view_description_text"/>
+            android:text="@string/register_now_text_view_description_text" />
     </LinearLayout>
 </LinearLayout>

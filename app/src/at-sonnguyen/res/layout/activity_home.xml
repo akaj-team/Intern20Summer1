@@ -88,8 +88,8 @@
         android:layout_marginTop="@dimen/length_button_to_image_view_link_profile"
         android:width="@dimen/profile_button_width"
         android:height="@dimen/button_text_height"
-        android:textAllCaps="false"
         android:background="@drawable/bg_w4_button"
-        android:text="@string/confirm_button_description_text" />
+        android:text="@string/confirm_button_description_text"
+        android:textAllCaps="false" />
 
 </LinearLayout>

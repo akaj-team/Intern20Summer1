@@ -30,8 +30,9 @@ class HomeActivity : AppCompatActivity() {
         }
         setImageViewResource(userHome.avatarUri)
     }
-    private fun setImageViewResource(string: String){
-        if (string == ""){
+
+    private fun setImageViewResource(string: String) {
+        if (string == "") {
             imgAvatarHome.setImageResource(R.mipmap.ic_launcher)
         } else {
             imgAvatarHome.setImageURI(Uri.parse(string))

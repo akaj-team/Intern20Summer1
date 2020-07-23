@@ -41,23 +41,23 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-     private fun toastClick(){
-         tvSignUp?.setOnClickListener {
-             "Sign up".toast(this@MainActivity)
-         }
-         imgFB?.setOnClickListener {
-             "Facebook".toast(this@MainActivity)
-         }
-         imgTwitter?.setOnClickListener {
-             "Twitter".toast(this@MainActivity)
-         }
-         imgGGPlus?.setOnClickListener {
-             "Google+".toast(this@MainActivity)
-         }
-         btnSignUp?.setOnClickListener {
-             "Sign up".toast(this@MainActivity)
-         }
-     }
+    private fun toastClick() {
+        tvSignUp?.setOnClickListener {
+            "Sign up".toast(this@MainActivity)
+        }
+        imgFB?.setOnClickListener {
+            "Facebook".toast(this@MainActivity)
+        }
+        imgTwitter?.setOnClickListener {
+            "Twitter".toast(this@MainActivity)
+        }
+        imgGGPlus?.setOnClickListener {
+            "Google+".toast(this@MainActivity)
+        }
+        btnSignUp?.setOnClickListener {
+            "Sign up".toast(this@MainActivity)
+        }
+    }
 
     fun isValidPassword(password: String): Boolean {
         val passwordPattern = "^[A-Z](?=.*[0-9])(?=.*[a-z])(?=.*[@#$%^&+=])(?=\\S+$).{6,}$"
@@ -68,8 +68,10 @@ class MainActivity : AppCompatActivity() {
         edt.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
             }
+
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
+
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val str = s.toString()
                 tick.visibility = View.VISIBLE
