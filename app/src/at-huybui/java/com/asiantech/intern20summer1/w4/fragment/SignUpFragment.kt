@@ -363,7 +363,7 @@ class SignUpFragment : Fragment() {
      * Argument had defined in companion
      */
     private fun setIconForEditText(editText: EditText, status: Int) {
-        if (Build.VERSION.SDK_INT > 16) {
+        if (Build.VERSION.SDK_INT > SDK_VERSION) {
             when (status) {
                 TICK_ICON -> editText.setCompoundDrawablesRelativeWithIntrinsicBounds(
                     0,
