@@ -3,20 +3,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorWhite"
     tools:context="com.asiantech.intern20summer1.W4LoginActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:focusableInTouchMode="true"
         android:layout_margin="@dimen/linear_layout_margin"
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/logo_height"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/logo_size"
+            android:layout_gravity="center"
             android:layout_marginTop="@dimen/logo_margin_top"
             android:layout_marginBottom="@dimen/logo_margin_bottom"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@drawable/logo_music" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -36,7 +39,7 @@
                     android:layout_width="@dimen/social_logo_size"
                     android:layout_height="@dimen/social_logo_size"
                     android:layout_margin="@dimen/social_logo_margin"
-                    android:src="@mipmap/ic_launcher" />
+                    android:src="@drawable/iconfinder_facebook_834722" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -57,7 +60,7 @@
                     android:layout_width="@dimen/social_logo_size"
                     android:layout_height="@dimen/social_logo_size"
                     android:layout_margin="@dimen/social_logo_margin"
-                    android:src="@mipmap/ic_launcher" />
+                    android:src="@drawable/iconfinder_google_circle_294707" />
 
                 <TextView
                     android:layout_width="wrap_content"

@@ -11,17 +11,17 @@
 
         <ImageView
             android:id="@+id/img_back"
-            android:src="@mipmap/ic_launcher"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_margin="10dp" />
+            android:src="@drawable/back"
+            android:layout_width="@dimen/back_size"
+            android:layout_height="@dimen/back_size"
+            android:layout_margin="@dimen/back_margin" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="@dimen/text_view_or_margin_bottom"
             android:text="@string/register_to_music_festival"
-            android:textSize="20sp" />
+            android:textSize="@dimen/title_text_size" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -33,7 +33,7 @@
             android:id="@+id/edt_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="@dimen/edit_text_margin_bottom"
             android:autofillHints="@string/name"
             android:hint="@string/name"
             android:inputType="text" />
@@ -46,8 +46,8 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/img_avatar"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="@dimen/avatar_size_sign_up"
+            android:layout_height="@dimen/avatar_size_sign_up"
             android:src="@mipmap/ic_launcher" />
 
         <TextView
@@ -60,7 +60,7 @@
             android:id="@+id/edt_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="@dimen/edit_text_margin_bottom"
             android:autofillHints="@string/email_ID"
             android:hint="@string/email_ID"
             android:inputType="textEmailAddress" />
@@ -75,7 +75,7 @@
             android:id="@+id/edt_mobile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="@dimen/edit_text_margin_bottom"
             android:autofillHints="@string/mobile"
             android:hint="@string/mobile"
             android:inputType="number" />
@@ -90,7 +90,7 @@
             android:id="@+id/edt_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="@dimen/edit_text_margin_bottom"
             android:autofillHints="@string/password"
             android:hint="@string/password"
             android:inputType="textPassword" />
@@ -105,7 +105,7 @@
             android:id="@+id/edt_confirm_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="@dimen/edit_text_margin_bottom"
             android:autofillHints="@string/confirm_password"
             android:hint="@string/confirm_password"
             android:inputType="textPassword" />
@@ -114,8 +114,8 @@
             android:enabled="false"
             android:id="@+id/btn_register"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginBottom="30dp"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginBottom="@dimen/button_margin_bottom"
             android:background="@drawable/bg_login_button"
             android:text="@string/register"
             android:textColor="@color/colorWhite" />
@@ -124,7 +124,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="@dimen/text_view_or_margin_bottom"
             android:gravity="center_horizontal"
             android:text="@string/agreement" />
     </LinearLayout>

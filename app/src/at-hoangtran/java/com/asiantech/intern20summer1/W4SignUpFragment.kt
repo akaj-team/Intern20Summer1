@@ -1,7 +1,6 @@
 package com.asiantech.intern20summer1
 
-import android.annotation.SuppressLint
-import android.app.Activity
+import android.app.Activity.RESULT_OK
 import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Bitmap
@@ -24,9 +23,10 @@ import java.io.ByteArrayOutputStream
 class W4SignUpFragment : Fragment() {
     companion object {
         internal var onRegisterSuccess: (user: User) -> Unit = {}
-        private const val PICK_IMAGE_REQUEST = 1
-        private const val OPEN_CAMERA_REQUEST: Int = 101
+        private const val PICK_IMAGE_REQUEST = 2
+        private const val OPEN_CAMERA_REQUEST = 1
         private const val KEY_IMAGE = "image/*"
+        private const val KEY_DATA = "data"
     }
 
     private var ava = ""
@@ -110,26 +110,24 @@ class W4SignUpFragment : Fragment() {
     }
 
     private fun handleBtnBack() {
-        btn_register.setOnClickListener {
+        img_back.setOnClickListener {
             fragmentManager?.popBackStack()
         }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        when (requestCode) {
-            PICK_IMAGE_REQUEST -> {
-                if (resultCode == Activity.RESULT_OK) {
-                    cropImageGallery(data)
-                }
-            }
-            OPEN_CAMERA_REQUEST -> {
-                if (resultCode == Activity.RESULT_OK) {
+        if (resultCode == RESULT_OK) {
+            when (requestCode) {
+                OPEN_CAMERA_REQUEST -> {
                     cropImageCamera(data)
                 }
-            }
-            CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE -> {
-                showImage(data)
+                PICK_IMAGE_REQUEST -> {
+                    cropImageGallery(data)
+                }
+                CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE -> {
+                    showImage(data)
+                }
             }
         }
     }
@@ -159,7 +157,7 @@ class W4SignUpFragment : Fragment() {
     }
 
     private fun cropImageCamera(data: Intent?) {
-        (data?.extras?.get(KEY_IMAGE) as? Bitmap)?.let {
+        (data?.extras?.get(KEY_DATA) as? Bitmap)?.let {
             getImageUri(it)?.let { uri -> handleCropImage(uri) }
         }
     }
