@@ -6,7 +6,7 @@
     <string name="email_id_text_view_description">Email ID</string>
     <string name="email_edit_text_hint">Please input email</string>
     <string name="password_text_view_description">Password</string>
-    <string name="full_name_edit_text_hint">Please input Full Name</string>
+    <string name="full_name_edit_text_hint">Please input full name</string>
     <string name="mobile_number_edit_text_hint">Please input mobile number</string>
     <string name="password_edit_text_hint">Please input password</string>
     <string name="confirm_password_edit_text_hint">Please input confirm password</string>
