@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@color/colorWhite"
     android:layout_height="match_parent"
+    android:background="@color/colorWhite"
     android:scrollbars="none">
 
     <LinearLayout
         android:id="@+id/llSignInMain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:focusableInTouchMode="true"
         android:orientation="vertical"
         android:paddingLeft="@dimen/linear_layout_padding_left_right"
         android:paddingRight="@dimen/linear_layout_padding_left_right">

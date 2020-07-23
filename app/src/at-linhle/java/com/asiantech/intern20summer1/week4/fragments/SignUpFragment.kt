@@ -3,11 +3,8 @@ package com.asiantech.intern20summer1.week4.fragments
 import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
 import android.app.AlertDialog
-import android.content.Context
-import android.content.ContextWrapper
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -22,7 +19,7 @@ import com.asiantech.intern20summer1.week4.extensions.hideSoftKeyboard
 import com.asiantech.intern20summer1.week4.models.User
 import com.theartofdev.edmodo.cropper.CropImage
 import kotlinx.android.synthetic.`at-linhle`.fragment_signup.*
-import java.io.*
+import java.io.ByteArrayOutputStream
 import java.util.regex.Pattern
 
 class SignUpFragment : Fragment() {
@@ -36,7 +33,7 @@ class SignUpFragment : Fragment() {
 
     // Must have 10 digits
     private val phonePattern = Pattern.compile("""^([0-9]){10}$""")
-    private var path: String? = ""
+    private var imageUri: String? = ""
 
     companion object {
         private const val KEY_IMAGE = "data"
@@ -170,7 +167,7 @@ class SignUpFragment : Fragment() {
     // Pass data when click button register
     private fun handleClickingRegisterButton() {
         btnRegister.setOnClickListener {
-            user.avatar = path
+            user.avatar = imageUri
             user.email = edtSignUpEmail.text.toString()
             user.fullName = edtSignUpFullName.text.toString()
             user.password = edtSignUpPassword.text.toString()
@@ -216,10 +213,10 @@ class SignUpFragment : Fragment() {
                     activity?.contentResolver,
                     this
                 )
+                imageUri = this.toString()
                 profile_image.setImageBitmap(bitmap)
             }
         }
-        path = saveToInternalStorage((profile_image.drawable as BitmapDrawable).bitmap)
     }
 
     private fun handleCropImage(uri: Uri) {
@@ -261,29 +258,5 @@ class SignUpFragment : Fragment() {
             val dialog = dialogBuilder.create()
             dialog.show()
         }
-    }
-
-    // Save image to internal storage
-    private fun saveToInternalStorage(bitmapImage: Bitmap): String? {
-        val cw = ContextWrapper(context)
-        // path to /data/data/yourApp/app_data/imageDir
-        val directory = cw.getDir("image", Context.MODE_PRIVATE)
-        // Create imageDir
-        val myPath = File(directory, "profile.jpg")
-        var fos: FileOutputStream? = null
-        try {
-            fos = FileOutputStream(myPath)
-            // Use the compress method on the BitMap object to write image to the OutputStream
-            bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos)
-        } catch (e: FileNotFoundException) {
-            e.printStackTrace()
-        } finally {
-            try {
-                fos!!.close()
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
-        }
-        return directory.absolutePath
     }
 }
