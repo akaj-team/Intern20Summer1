@@ -1,5 +1,6 @@
 package com.asiantech.intern20summer1.week4.fragments
 
+import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
 import android.app.AlertDialog
 import android.content.Context
@@ -17,6 +18,7 @@ import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.week4.extensions.hideSoftKeyboard
 import com.asiantech.intern20summer1.week4.models.User
 import com.theartofdev.edmodo.cropper.CropImage
 import kotlinx.android.synthetic.`at-linhle`.fragment_signup.*
@@ -28,8 +30,10 @@ class SignUpFragment : Fragment() {
     // Interface to pass data
     internal var onRegisterSuccess: (user: User) -> Unit = {}
     private val user = User("", "", "", "", "")
+
     // At least 1 digit
     private val passwordPattern = Pattern.compile("""^(?=.*[0-9]).{8,16}$""")
+
     // Must have 10 digits
     private val phonePattern = Pattern.compile("""^([0-9]){10}$""")
     private var path: String? = ""
@@ -57,6 +61,7 @@ class SignUpFragment : Fragment() {
         handleSignUpEmailTextChanged()
         handleSignUpPasswordTextChanged()
         handleSignUpConfirmPasswordTextChanged()
+        handleOnTouchScreen()
         handleClickingRegisterButton()
         handleClickingArrowLeft()
         handleListener()
@@ -81,6 +86,15 @@ class SignUpFragment : Fragment() {
     private fun isSignUpConfirmPassword(confirmPassword: String) =
         passwordPattern.matcher(confirmPassword).matches()
                 && confirmPassword == edtSignUpPassword.text.toString()
+
+    @SuppressLint("ClickableViewAccessibility")
+    private fun handleOnTouchScreen() {
+        llSignUpMain?.setOnTouchListener { it, _ ->
+            it.clearFocus()
+            it.hideSoftKeyboard()
+            true
+        }
+    }
 
     // Check all edit text correct validate
     private fun isCorrectFormat(

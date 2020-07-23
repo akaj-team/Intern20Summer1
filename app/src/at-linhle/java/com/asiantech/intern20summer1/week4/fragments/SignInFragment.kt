@@ -1,5 +1,6 @@
 package com.asiantech.intern20summer1.week4.fragments
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,9 +10,11 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.week4.extensions.hideSoftKeyboard
 import com.asiantech.intern20summer1.week4.models.User
 import com.asiantech.intern20summer1.week4.views.HomeActivity
 import kotlinx.android.synthetic.`at-linhle`.fragment_signin.*
+import kotlinx.android.synthetic.`at-linhle`.fragment_signup.*
 import java.util.regex.Pattern
 
 class SignInFragment : Fragment() {
@@ -32,6 +35,7 @@ class SignInFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         handleEmailTextChanged()
         handlePasswordTextChanged()
+        handleOnTouchScreen()
         handleClickingLoginButton()
         handleClickingRegisterTextView()
     }
@@ -44,6 +48,15 @@ class SignInFragment : Fragment() {
     // Check all edit text correct validate
     private fun isCorrectFormat(email: String, password: String) =
         isEmailValid(email) && isPasswordValid(password)
+
+    @SuppressLint("ClickableViewAccessibility")
+    private fun handleOnTouchScreen() {
+        llSignInMain?.setOnTouchListener { it, _ ->
+            it.clearFocus()
+            it.hideSoftKeyboard()
+            true
+        }
+    }
 
     // Pass data when click button login and change acivity
     private fun handleClickingLoginButton() {
