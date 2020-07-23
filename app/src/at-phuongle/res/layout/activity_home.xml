@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorSilver">
+
+    <RelativeLayout
+        android:id="@+id/rlAvatar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorYellowSea">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgHomeAvatarName"
+            android:layout_width="@dimen/register_avatar_circle_image_view_width"
+            android:layout_height="@dimen/register_avatar_circle_image_view_height"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            android:src="@mipmap/ic_launcher"
+            app:civ_border_color="@color/colorBlack"
+            app:civ_border_width="@dimen/register_avatar_circle_image_view_border_width" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imgHomeAvatarName"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:text="Full Name"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/llHomeEmailMobile"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_below="@+id/rlAvatar"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorWhite"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="20dp"
+        android:paddingRight="10dp">
+
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your email is here"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_below="@+id/llHomeEmailMobile"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorWhite"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="20dp"
+        android:paddingRight="10dp">
+
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Mobile Number"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0795710121"
+            android:textSize="20sp" />
+    </LinearLayout>
+</RelativeLayout>
