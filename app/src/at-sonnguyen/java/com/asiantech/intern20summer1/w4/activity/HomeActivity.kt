@@ -2,6 +2,7 @@ package com.asiantech.intern20summer1.w4.activity
 
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
@@ -17,6 +18,7 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+        window.decorView.setBackgroundColor(Color.WHITE)
         val intent1 = intent
         (intent1.getSerializableExtra("data") as? User)?.let {
             userHome.email = it.email

@@ -25,7 +25,7 @@ import kotlinx.android.synthetic.`at-sonnguyen`.fragment_register.*
 import java.io.ByteArrayOutputStream
 
 
-@Suppress("DEPRECATION")
+@Suppress("DEPRECATION", "NAME_SHADOWING")
 class RegisterFragment : Fragment() {
 
     private var emailText = ""
@@ -40,8 +40,6 @@ class RegisterFragment : Fragment() {
         private const val GALLERY_REQUEST_CODE = 112
         private const val KEY_VALUE = "data"
         const val PHONE_NUMBER_LENGTH = 10
-        const val MAX_LENGTH_PASSWORD = 16
-        const val MIN_LENGTH_PASSWORD = 8
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -254,9 +252,7 @@ class RegisterFragment : Fragment() {
             CAMERA_REQUEST_CODE -> if (data != null) {
                 if (resultCode == RESULT_OK) {
                     (data.extras?.get("data") as Bitmap?)?.let {
-                        getImageUri(it)?.let { it ->
-                            cropImage(it)
-                        }
+                        getImageUri(it)?.let(this@RegisterFragment::cropImage)
                     }
                 }
             }

@@ -9,8 +9,7 @@
     <color name="colorChartreuse3">#66CD00</color>
     <color name="colorSnow">#FFFAFA</color>
     <color name="colorDeepSkyBlue1">#00BFFF</color>
-    <color name="colorRegisterTextView">#5E6BE3</color>
     <color name="colorTitleTextViewText">#000000</color>
-    <color name="colorRelativeLayoutStroke">#7E7878</color>
+    <color name="colorRelativeLayoutStroke">#AEA9A9</color>
     <color name="colorRelativeLayoutSolid">#F8F8F8</color>
 </resources>

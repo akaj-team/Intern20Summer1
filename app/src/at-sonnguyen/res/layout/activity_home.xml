@@ -90,9 +90,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/length_button_to_image_view_link_profile"
         android:width="@dimen/profile_button_width"
-        android:height="@dimen/profile_button_height"
+        android:height="@dimen/button_text_height"
         android:textAllCaps="false"
-        android:background="@drawable/bg_button"
+        android:background="@drawable/bg_w4_button"
         android:text="@string/confirm_button_description_text" />
 
 </LinearLayout>

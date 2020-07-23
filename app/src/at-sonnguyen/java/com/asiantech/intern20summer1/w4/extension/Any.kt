@@ -6,15 +6,10 @@ fun isValidEmail(string: String) =
     android.util.Patterns.EMAIL_ADDRESS.matcher(string).matches()
 
 fun isValidPassword(string: String): Boolean {
-    if (string.length !in RegisterFragment.MIN_LENGTH_PASSWORD..RegisterFragment.MAX_LENGTH_PASSWORD) {
-        return false
-    } else {
-        for (i in string.indices) {
-            if (string[i].isDigit()) return true
-        }
-    }
-    return false
+    val passwordRegex = "^(?=.*[a-z])(?=.*\\d)[a-zA-Z\\d]{8,16}$".toRegex()
+    return string.matches(passwordRegex)
+
 }
 
 fun isValidPhoneNumber(string: String) =
-    string.length != RegisterFragment.PHONE_NUMBER_LENGTH
+    string.length == RegisterFragment.PHONE_NUMBER_LENGTH
