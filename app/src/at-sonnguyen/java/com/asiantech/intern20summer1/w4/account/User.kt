@@ -8,5 +8,4 @@ class User(
     var phoneNumber: String,
     var password: String,
     var avatarUri: String
-) :
-    Serializable
+) : Serializable

@@ -38,6 +38,7 @@
     <string name="register_fragment_choose_set_avatar_dialog_from_gallery">Gallery</string>
     <string name="register_fragment_choose_set_avatar_dialog_from_camera">Camera</string>
     <string name="image_title">Title</string>
+    <string name="permission_denied_toast">permission denied</string>
     <string name="add_to_back_stack_key">add to back Stack</string>
 
 </resources>

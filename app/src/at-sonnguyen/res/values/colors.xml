@@ -8,6 +8,7 @@
     <color name="colorWhiteSmoke">#F5F5F5</color>
     <color name="colorChartreuse3">#66CD00</color>
     <color name="colorSnow">#FFFAFA</color>
+    <color name="colorButtonProfileText">#333131</color>
     <color name="colorDeepSkyBlue1">#00BFFF</color>
     <color name="colorTitleTextViewText">#000000</color>
     <color name="colorRelativeLayoutStroke">#AEA9A9</color>

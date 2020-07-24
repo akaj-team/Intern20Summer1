@@ -1,7 +1,7 @@
 package com.asiantech.intern20summer1.w4.fragment
 
 import android.Manifest
-import android.app.Activity.RESULT_OK
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -40,6 +40,7 @@ class RegisterFragment : Fragment() {
     private var flag = false
 
     companion object {
+        private const val IMAGE_URI_QUALITY = 100
         private const val CAMERA_REQUEST_CODE = 111
         private const val GALLERY_REQUEST_CODE = 112
         const val PHONE_NUMBER_LENGTH = 10
@@ -64,6 +65,68 @@ class RegisterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_register, container, false)
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        when (requestCode) {
+            CAMERA_REQUEST_CODE -> {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    flag = true
+                    if (!checkGalleryPermission()) {
+                        requestGalleryPermission()
+                    }
+                    if (checkGalleryPermission()) {
+                        openCamera()
+                    }
+                } else {
+                    Toast.makeText(activity, resources.getString(R.string.permission_denied_toast), Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            GALLERY_REQUEST_CODE -> {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    if (!flag) {
+                        openGallery()
+                    } else {
+                        openCamera()
+                    }
+                } else {
+                    Toast.makeText(activity, resources.getString(R.string.permission_denied_toast), Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        imgAvatar.scaleType = ImageView.ScaleType.CENTER_CROP
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+                CAMERA_REQUEST_CODE -> {
+                    if (!checkGalleryPermission()) {
+                        requestGalleryPermission()
+                    } else {
+                        (data?.extras?.get(resources.getString(R.string.key_value)) as? Bitmap)?.let {
+                            getImageUri(it)?.let(this@RegisterFragment::cropImage)
+                        }
+                    }
+                }
+                GALLERY_REQUEST_CODE -> {
+                    cropImage(data?.data)
+                }
+                CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE -> {
+                    val result: CropImage.ActivityResult = CropImage.getActivityResult(data)
+                    val resultUri: Uri = result.uri
+                    avatarUri = resultUri.toString()
+                    imgAvatar.setImageURI(resultUri)
+                }
+            }
+        }
     }
 
     private fun handleEmailEditText() {
@@ -286,71 +349,9 @@ class RegisterFragment : Fragment() {
         startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE)
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        when (requestCode) {
-            CAMERA_REQUEST_CODE -> {
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    flag = true
-                    if (!checkGalleryPermission()) {
-                        requestGalleryPermission()
-                    }
-                    if (checkGalleryPermission()) {
-                        openCamera()
-                    }
-                } else {
-                    Toast.makeText(activity, "permission denied", Toast.LENGTH_SHORT).show()
-                }
-            }
-
-            GALLERY_REQUEST_CODE -> {
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    if (!flag) {
-                        openGallery()
-                    } else {
-                        openCamera()
-                    }
-                } else {
-                    Toast.makeText(activity, "permission denied", Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        imgAvatar.scaleType = ImageView.ScaleType.CENTER_CROP
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == RESULT_OK) {
-            when (requestCode) {
-                CAMERA_REQUEST_CODE -> {
-                    if (!checkGalleryPermission()) {
-                        requestGalleryPermission()
-                    } else {
-                        (data?.extras?.get(resources.getString(R.string.key_value)) as? Bitmap)?.let {
-                            getImageUri(it)?.let(this@RegisterFragment::cropImage)
-                        }
-                    }
-                }
-                GALLERY_REQUEST_CODE -> {
-                    cropImage(data?.data)
-                }
-                CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE -> {
-                    val result: CropImage.ActivityResult = CropImage.getActivityResult(data)
-                    val resultUri: Uri = result.uri
-                    avatarUri = resultUri.toString()
-                    imgAvatar.setImageURI(resultUri)
-                }
-            }
-        }
-    }
-
     private fun getImageUri(inImage: Bitmap): Uri? {
         val bytes = ByteArrayOutputStream()
-        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+        inImage.compress(Bitmap.CompressFormat.JPEG, IMAGE_URI_QUALITY, bytes)
         val path =
             MediaStore.Images.Media.insertImage(
                 activity?.contentResolver,
@@ -378,7 +379,6 @@ class RegisterFragment : Fragment() {
                 edtRegisterPhoneNumber.text.toString(),
                 edtRegisterPassword.text.toString(),
                 avatarUri
-
             )
             val bundle = Bundle()
             bundle.putSerializable(resources.getString(R.string.key_value), user)
