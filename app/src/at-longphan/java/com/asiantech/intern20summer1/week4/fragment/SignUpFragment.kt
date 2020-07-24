@@ -220,10 +220,10 @@ class SignUpFragment : Fragment() {
 
     private fun pickImage() {
         val intent = Intent()
-        intent.type = IntentType.IMAGE.string
+        intent.type = IntentType.IMAGE
         intent.action = Intent.ACTION_GET_CONTENT
         startActivityForResult(
-            Intent.createChooser(intent, IntentTitle.PICK_IMAGE_TITLE.string),
+            Intent.createChooser(intent, IntentTitle.PICK_IMAGE_TITLE),
             RequestCode.PICK_IMAGE_REQUEST
         )
     }
@@ -235,7 +235,7 @@ class SignUpFragment : Fragment() {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         intent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri)
         startActivityForResult(
-            Intent.createChooser(intent, IntentTitle.OPEN_CAMERA_TITLE.string),
+            Intent.createChooser(intent, IntentTitle.OPEN_CAMERA_TITLE),
             RequestCode.OPEN_CAMERA_REQUEST
         )
     }

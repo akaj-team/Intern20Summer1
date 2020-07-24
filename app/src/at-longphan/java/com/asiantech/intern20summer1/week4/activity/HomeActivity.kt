@@ -27,7 +27,7 @@ class HomeActivity : AppCompatActivity() {
 
     private fun initData() {
         userLogin = intent.getParcelableExtra(
-            SignInActivityData.SIGN_IN_USER.data
+            SignInActivityData.SIGN_IN_USER
         ) as User
     }
 

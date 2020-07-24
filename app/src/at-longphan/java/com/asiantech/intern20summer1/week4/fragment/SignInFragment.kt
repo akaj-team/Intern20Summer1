@@ -84,7 +84,7 @@ class SignInFragment : Fragment() {
     private fun loginApp() {
         val homeActivityIntent = Intent(this.context, HomeActivity::class.java)
         val user = loadUser(userLogin)
-        homeActivityIntent.putExtra(SignInActivityData.SIGN_IN_USER.data, user)
+        homeActivityIntent.putExtra(SignInActivityData.SIGN_IN_USER, user)
         startActivity(homeActivityIntent)
         this.activity?.finish()
     }
