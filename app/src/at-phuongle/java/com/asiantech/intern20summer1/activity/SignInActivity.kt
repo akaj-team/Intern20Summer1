@@ -3,7 +3,6 @@ package com.asiantech.intern20summer1.activity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
@@ -11,7 +10,6 @@ import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.fragment.LoginFragment
 import com.asiantech.intern20summer1.fragment.RegisterFragment
-import com.asiantech.intern20summer1.model.User
 import kotlinx.android.synthetic.`at-phuongle`.fragment_register.*
 import java.util.regex.Pattern
 
@@ -23,20 +21,16 @@ class SignInActivity : AppCompatActivity() {
     private var validPassword: Boolean = false
     private var validConfirmPassword: Boolean = false
 
-    private var user: Any? = null
-
     companion object {
-        const val DATA_KEY = "register_data"
-        const val EMAIL_DATA_KEY = "email_data"
-        const val PASSWORD_DATA_KEY = "password_data"
+        private const val DATA_KEY = "register_data"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
 
-        user = getDataFromRegisterFragment()
-        supportFragmentManager.beginTransaction().add(R.id.frameLayout, LoginFragment()).commit()
+        supportFragmentManager.beginTransaction().add(R.id.frameLayout, LoginFragment.newInstance())
+            .commit()
     }
 
     // Check valid email
@@ -70,27 +64,6 @@ class SignInActivity : AppCompatActivity() {
                 btn.setBackgroundResource(R.drawable.bg_disable_register_button)
             }
         }
-    }
-
-    private fun getDataFromRegisterFragment(): User {
-        val bundle: Bundle? = intent.extras
-        var user = User("", "", "", "", "")
-
-        bundle?.let {
-            bundle.apply {
-                //Parcelable Data
-                val data: User? = getParcelable(DATA_KEY)
-                if (data != null) {
-                    user.fullName = data.fullName
-                    user.avatarUri = data.avatarUri
-                    user.email = data.email
-                    user.mobileNumber = data.mobileNumber
-                    user.password = data.password
-                }
-            }
-        }
-
-        return user
     }
 
     internal fun replaceFragment(fragment: Fragment, isAddToBackTack: Boolean) {
@@ -186,13 +159,16 @@ class SignInActivity : AppCompatActivity() {
                 s: CharSequence, start: Int,
                 before: Int, count: Int
             ) {
-                if (edtRegisterConfirmPassword.text.toString().isNotEmpty()) {
-                    validConfirmPassword = s.toString() == edtRegisterConfirmPassword.toString()
-                }
+                var fragment = supportFragmentManager.findFragmentById(R.id.frameLayout)
+                if (fragment is RegisterFragment) {
+                    if (edtRegisterConfirmPassword.text.toString().isNotEmpty()) {
+                        validConfirmPassword = s.toString() == edtRegisterConfirmPassword.toString()
+                    }
 
-                if (edtRegisterPassword.isFocusable && s.toString().isEmpty()) {
-                    validPassword = false
-                    validConfirmPassword = false
+                    if (edtRegisterPassword.isFocusable && s.toString().isEmpty()) {
+                        validPassword = false
+                        validConfirmPassword = false
+                    }
                 }
             }
         })

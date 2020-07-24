@@ -21,7 +21,7 @@ class RegisterFragment : Fragment() {
     companion object {
         const val IMAGE_PICK_CODE = 1000
         const val CAMERA_REQUEST_CODE = 1001
-        const val DATA_KEY = "data_register"
+        const val DATA_KEY = "register_data"
 
         fun newInstance() = RegisterFragment()
     }
@@ -58,7 +58,10 @@ class RegisterFragment : Fragment() {
 
     private fun handleBackButton() {
         imgBtnBack.setOnClickListener {
-            (activity as SignInActivity).replaceFragment(LoginFragment.newInstance(), false)
+            (activity as SignInActivity).replaceFragment(
+                LoginFragment.newInstance(),
+                false
+            )
         }
     }
 
@@ -72,10 +75,12 @@ class RegisterFragment : Fragment() {
                 edtRegisterPassword.text.toString()
             )
 
-            val intent = Intent(activity as SignInActivity, SignInActivity::class.java)
-            intent.putExtra(DATA_KEY, user)
-            startActivity(intent)
-            (activity as SignInActivity).finish()
+            val fragment = LoginFragment()
+            val bundle = Bundle()
+            bundle.putParcelable(DATA_KEY, user)
+            fragment.arguments = bundle
+
+            (activity as SignInActivity).replaceFragment(fragment, false)
         }
     }
 
