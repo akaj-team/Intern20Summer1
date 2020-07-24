@@ -3,23 +3,28 @@ package com.asiantech.intern20summer1.fragment
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.activity.SignInActivity
 import com.asiantech.intern20summer1.model.User
+import com.bumptech.glide.Glide
+import com.theartofdev.edmodo.cropper.CropImage
+import com.theartofdev.edmodo.cropper.CropImageView
 import kotlinx.android.synthetic.`at-phuongle`.fragment_register.*
 
 
 class RegisterFragment : Fragment() {
-    private var avatarUri: String = ""
+    private var avatarUri: Uri? = null
 
     companion object {
-        const val IMAGE_PICK_CODE = 1000
+        const val GALLERY_REQUEST_CODE = 1000
         const val CAMERA_REQUEST_CODE = 1001
         const val REGISTER_DATA_KEY = "register_data"
 
@@ -69,7 +74,7 @@ class RegisterFragment : Fragment() {
         btnRegister.setOnClickListener {
             val user = User(
                 edtRegisterFullName.text.toString(),
-                avatarUri,
+                avatarUri.toString(),
                 edtRegisterEmail.text.toString(),
                 edtRegisterMobile.text.toString(),
                 edtRegisterPassword.text.toString()
@@ -94,17 +99,11 @@ class RegisterFragment : Fragment() {
         builder.setItems(options) { _, which ->
             when (which) {
                 0 -> { /* Camera */
-                    val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                    startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE)
+//                    val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+//                    startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE)
                 }
                 1 -> { /* Gallery   */
-                    val intent = Intent()
-                    intent.type = "image/*"
-                    intent.action = Intent.ACTION_GET_CONTENT
-                    startActivityForResult(
-                        Intent.createChooser(intent, "Select Picture"),
-                        IMAGE_PICK_CODE
-                    )
+                    pickFromGallery()
                 }
             }
         }
@@ -114,15 +113,47 @@ class RegisterFragment : Fragment() {
         dialog.show()
     }
 
+    private fun pickFromGallery() {
+        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        intent.type = "image/*"
+        val mimeTypes = arrayOf("image/jpeg", "image/png", "image/jpg")
+        intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)
+        intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+        startActivityForResult(intent, GALLERY_REQUEST_CODE)
+    }
+
     // Handle result of Avatar
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE) {
-            avatarUri = data?.data.toString()
-            imgRegisterAvatar.setImageURI(data?.data)
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+                GALLERY_REQUEST_CODE -> {
+                    data?.data?.let { uri ->
+                        launchImageCrop(uri)
+                    }
+                }
+
+                CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE -> {
+                    val result = CropImage.getActivityResult(data)
+                    Glide.with(this).load(result.uri).into(imgRegisterAvatar)
+                }
+
+                CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE -> {
+                    Toast.makeText(
+                        activity as SignInActivity,
+                        "Crop error",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
         }
-        if (resultCode == Activity.RESULT_OK && requestCode == CAMERA_REQUEST_CODE) {
-            avatarUri = data?.data.toString()
-            imgRegisterAvatar.setImageURI(data?.data)
-        }
+    }
+
+    private fun launchImageCrop(uri: Uri) {
+        CropImage.activity(uri)
+            .setGuidelines(CropImageView.Guidelines.ON)
+            .setAspectRatio(1, 1)
+            .start(activity as SignInActivity)
     }
 }
