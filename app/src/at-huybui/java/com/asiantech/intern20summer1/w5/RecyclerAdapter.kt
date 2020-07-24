@@ -48,6 +48,7 @@ class RecyclerAdapter(private val mutableList: MutableList<ItemRecycler>) :
 
             iconHeart.setOnClickListener {
                     item.statusHeart = !item.statusHeart
+
             }
         }
 

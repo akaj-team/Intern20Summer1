@@ -8,7 +8,7 @@ import kotlinx.android.synthetic.`at-huybui`.activity_recycler_view.*
 
 class RecyclerViewActivity : AppCompatActivity() {
     companion object{
-        internal interface onClickHeart
+        internal var onClickHeart : (Boolean) -> Unit =
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
