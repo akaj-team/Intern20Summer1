@@ -391,10 +391,13 @@ class SignUpFragment : Fragment() {
      * This check permission enter camera of application
      */
     private fun checkCameraPermission(): Boolean {
-        return ContextCompat.checkSelfPermission(
+        return (ContextCompat.checkSelfPermission(
             requireContext(),
             Manifest.permission.CAMERA
-        ) == PackageManager.PERMISSION_GRANTED
+        ) == PackageManager.PERMISSION_GRANTED) && ((ContextCompat.checkSelfPermission(
+            requireContext(),
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+        ) == PackageManager.PERMISSION_GRANTED))
     }
 
     /**
