@@ -1,8 +1,10 @@
 package com.asiantech.intern20summer1.w4.fragment
 
+import android.Manifest
 import android.app.Activity.RESULT_OK
 import android.app.AlertDialog
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
@@ -13,6 +15,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.asiantech.intern20summer1.R
@@ -40,6 +45,9 @@ class RegisterFragment : Fragment() {
         private const val GALLERY_REQUEST_CODE = 112
         private const val KEY_VALUE = "data"
         const val PHONE_NUMBER_LENGTH = 10
+        private const val DIALOG_TITTLE = "Set avatar"
+        private const val ITEM_1 = "gallery"
+        private const val ITEM_2 = "Camera"
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -146,9 +154,8 @@ class RegisterFragment : Fragment() {
     }
 
     private fun handleBackButtonListener() {
-        val fragmentManager = activity?.supportFragmentManager
-        btnBack.setOnClickListener {
-            fragmentManager?.popBackStack()
+        imgBack.setOnClickListener {
+            activity?.onBackPressed()
         }
     }
 
@@ -224,15 +231,23 @@ class RegisterFragment : Fragment() {
 
     private fun showListAlertDialog() {
         val builder = AlertDialog.Builder(context)
-        builder.setTitle("Set avatar")
-        val items = arrayOf("Gallery", "Camera")
+        builder.setTitle(DIALOG_TITTLE)
+        val items = arrayOf(ITEM_1, ITEM_2)
         builder.setItems(items) { _, which ->
             when (which) {
                 0 -> {
-                    openGallery()
+                    if (checkGalleryPermission()) {
+                        openGallery()
+                    } else {
+                        requestGalleryPermission()
+                    }
                 }
                 1 -> {
-                    captureImage()
+                    if (checkCameraPermission()) {
+                        openCamera()
+                    } else {
+                        requestCameraPermission()
+                    }
                 }
             }
         }
@@ -240,9 +255,67 @@ class RegisterFragment : Fragment() {
         dialog.show()
     }
 
-    private fun captureImage() {
+    private fun checkCameraPermission() = checkSelfPermission(
+        requireContext(),
+        Manifest.permission.CAMERA
+    ) == PackageManager.PERMISSION_GRANTED
+
+    private fun checkGalleryPermission() = checkSelfPermission(
+        requireContext(),
+        Manifest.permission.WRITE_EXTERNAL_STORAGE
+    ) == PackageManager.PERMISSION_GRANTED
+
+    private fun requestCameraPermission() {
+        activity?.let {
+            ActivityCompat.requestPermissions(
+                it,
+                arrayOf(Manifest.permission.CAMERA),
+                CAMERA_REQUEST_CODE
+            )
+        }
+    }
+
+    private fun requestGalleryPermission() {
+        activity?.let {
+            ActivityCompat.requestPermissions(
+                it,
+                arrayOf(
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ),
+                GALLERY_REQUEST_CODE
+            )
+        }
+    }
+
+    private fun openCamera() {
         val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE)
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+//        Toast.makeText(this.context,"$requestCode",Toast.LENGTH_SHORT).show()
+        when (requestCode) {
+            CAMERA_REQUEST_CODE -> {
+                Toast.makeText(activity?.applicationContext,"$CAMERA_REQUEST_CODE",Toast.LENGTH_SHORT).show()
+                if (grantResults.isNotEmpty()
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                ) {
+//                    Log.d("aaaaaaa", "onRequestPermissionsResult: ")
+                    openCamera()
+                }
+            }
+            GALLERY_REQUEST_CODE -> if (grantResults.isNotEmpty()
+                && grantResults[0] == PackageManager.PERMISSION_GRANTED
+            ) {
+                openGallery()
+            }
+    }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -313,7 +386,6 @@ class RegisterFragment : Fragment() {
 
     private fun openGallery() {
         val intentImage = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        intentImage.type = "image/*"
         startActivityForResult(intentImage, GALLERY_REQUEST_CODE)
     }
 

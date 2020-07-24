@@ -41,11 +41,14 @@ class LogInFragment : Fragment() {
         handleEmailEditText()
         handleSignInPasswordEditText()
         setEnableSignInButton()
+        handleListenerRegisterTextView()
+        handleListenerSignInButton()
+        getDataFromSignUpFragment()
+    }
+    private fun handleListenerRegisterTextView(){
         tvRegister.setOnClickListener {
             replaceSignUpFragment()
         }
-        handleListenerSignInButton()
-        getDataFromSignUpFragment()
     }
 
     private fun replaceSignUpFragment() {

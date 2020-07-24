@@ -17,6 +17,10 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
         window.decorView.setBackgroundColor(Color.WHITE)
+        changActivity()
+    }
+
+    private fun changActivity() {
         Handler().postDelayed({
             val intent = Intent(this, SignInActivity::class.java)
             startActivity(intent)
