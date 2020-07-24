@@ -1,4 +1,4 @@
-package w4
+package com.asiantech.intern20summer1.week4
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -14,7 +14,7 @@ import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.hideSoftKeyboard
 import kotlinx.android.synthetic.`at-hoangtran`.w4_login_fragment.*
 import kotlinx.android.synthetic.`at-hoangtran`.w4_sign_up_fragment.*
-import w4.SignUpFragment.Companion.onRegisterSuccess
+import com.asiantech.intern20summer1.week4.SignUpFragment.Companion.onRegisterSuccess
 
 class LoginFragment : Fragment() {
 

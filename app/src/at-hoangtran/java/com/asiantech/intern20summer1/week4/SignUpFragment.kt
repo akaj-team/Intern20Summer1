@@ -1,9 +1,11 @@
-package w4
+package com.asiantech.intern20summer1.week4
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
 import android.app.AlertDialog
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
@@ -15,6 +17,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.hideSoftKeyboard
@@ -22,12 +26,15 @@ import com.theartofdev.edmodo.cropper.CropImage
 import kotlinx.android.synthetic.`at-hoangtran`.w4_sign_up_fragment.*
 import java.io.ByteArrayOutputStream
 
+
 @Suppress("DEPRECATION")
 class SignUpFragment : Fragment() {
     companion object {
         internal var onRegisterSuccess: (user: User) -> Unit = {}
         private const val PICK_IMAGE_REQUEST = 2
         private const val OPEN_CAMERA_REQUEST = 1
+        private const val STORAGE_REQUEST = 0
+        private const val CAMERA_REQUEST = 3
         private const val KEY_IMAGE = "image/*"
         private const val KEY_DATA = "data"
         const val MOBILE_NUMBER_LENGTH = 10
@@ -136,7 +143,11 @@ class SignUpFragment : Fragment() {
         if (resultCode == RESULT_OK) {
             when (requestCode) {
                 OPEN_CAMERA_REQUEST -> {
-                    cropImageCamera(data)
+                    if (!checkStoragePermission()) {
+                        requestStoragePermission()
+                    } else {
+                        cropImageCamera(data)
+                    }
                 }
                 PICK_IMAGE_REQUEST -> {
                     cropImageGallery(data)
@@ -156,21 +167,32 @@ class SignUpFragment : Fragment() {
             dialogBuilder.setItems(optionList) { _, which ->
                 when (which) {
                     0 -> {
-                        val intentImage =
-                            Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-                        intentImage.type =
-                            KEY_IMAGE
-                        startActivityForResult(
-                            intentImage,
-                            PICK_IMAGE_REQUEST
-                        )
+                        if (checkStoragePermission()) {
+                            val intentImage =
+                                Intent(
+                                    Intent.ACTION_PICK,
+                                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+                                )
+                            intentImage.type =
+                                KEY_IMAGE
+                            startActivityForResult(
+                                intentImage,
+                                PICK_IMAGE_REQUEST
+                            )
+                        } else {
+                            requestStoragePermission()
+                        }
                     }
                     1 -> {
-                        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                        startActivityForResult(
-                            cameraIntent,
-                            OPEN_CAMERA_REQUEST
-                        )
+                        if (checkCameraPermission()) {
+                            val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                            startActivityForResult(
+                                cameraIntent,
+                                OPEN_CAMERA_REQUEST
+                            )
+                        } else {
+                            requestCameraPermission()
+                        }
                     }
                 }
             }
@@ -218,5 +240,42 @@ class SignUpFragment : Fragment() {
         val path =
             MediaStore.Images.Media.insertImage(context?.contentResolver, inImage, "Title", null)
         return Uri.parse(path)
+    }
+
+    private fun checkStoragePermission(): Boolean =
+        checkSelfPermission(
+            requireContext(),
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+        ) == PackageManager.PERMISSION_GRANTED
+
+    private fun checkCameraPermission(): Boolean =
+        checkSelfPermission(
+            requireContext(),
+            Manifest.permission.CAMERA
+        ) == PackageManager.PERMISSION_GRANTED
+
+    private fun requestStoragePermission() {
+        activity?.let {
+            ActivityCompat.requestPermissions(
+                it,
+                arrayOf(
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+                ),
+                STORAGE_REQUEST
+            )
+        }
+    }
+
+    private fun requestCameraPermission() {
+        activity?.let {
+            ActivityCompat.requestPermissions(
+                it,
+                arrayOf(
+                    Manifest.permission.CAMERA
+                ),
+                CAMERA_REQUEST
+            )
+        }
     }
 }
