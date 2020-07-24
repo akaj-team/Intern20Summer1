@@ -19,4 +19,6 @@
     <string name="register_button_text">Register</string>
     <string name="register_temp_text_view_description">By registering you agree to Temps &amp; Conditions</string>
     <string name="register_policy_text_view_description">and Privacy Policy of the Festival</string>
+    <string name="home_email_text_view_description">Email</string>
+    <string name="home_mobile_text_view_description">Mobile Number</string>
 </resources>

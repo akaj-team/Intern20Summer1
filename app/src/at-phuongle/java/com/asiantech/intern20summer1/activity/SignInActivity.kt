@@ -22,7 +22,6 @@ class SignInActivity : AppCompatActivity() {
     private var validConfirmPassword: Boolean = false
 
     companion object {
-        private const val DATA_KEY = "register_data"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

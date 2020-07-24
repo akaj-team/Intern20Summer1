@@ -21,7 +21,7 @@ class RegisterFragment : Fragment() {
     companion object {
         const val IMAGE_PICK_CODE = 1000
         const val CAMERA_REQUEST_CODE = 1001
-        const val DATA_KEY = "register_data"
+        const val REGISTER_DATA_KEY = "register_data"
 
         fun newInstance() = RegisterFragment()
     }
@@ -77,7 +77,7 @@ class RegisterFragment : Fragment() {
 
             val fragment = LoginFragment()
             val bundle = Bundle()
-            bundle.putParcelable(DATA_KEY, user)
+            bundle.putParcelable(REGISTER_DATA_KEY, user)
             fragment.arguments = bundle
 
             (activity as SignInActivity).replaceFragment(fragment, false)

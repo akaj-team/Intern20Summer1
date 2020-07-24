@@ -2,13 +2,14 @@ package com.asiantech.intern20summer1.fragment
 
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.activity.HomeActivity
 import com.asiantech.intern20summer1.activity.SignInActivity
 import com.asiantech.intern20summer1.model.User
 import kotlinx.android.synthetic.`at-phuongle`.fragment_login.*
@@ -16,11 +17,10 @@ import kotlinx.android.synthetic.`at-phuongle`.fragment_login.*
 
 class LoginFragment : Fragment() {
     private var user: User? = null
-    private var email: String? = null
-    private var password: String? = null
 
     companion object {
-        const val DATA_KEY = "register_data"
+        const val REGISTER_DATA_KEY = "register_data"
+        const val LOGIN_DATA_KEY = "login_data"
 
         fun newInstance() = LoginFragment()
     }
@@ -49,8 +49,10 @@ class LoginFragment : Fragment() {
     private fun handleLoginButton() {
         btnLogin.setOnClickListener {
             if (isValidAccount()) {
-                Toast.makeText(activity as SignInActivity, "Valid account!", Toast.LENGTH_SHORT)
-                    .show()
+                val intent = Intent(activity as SignInActivity, HomeActivity::class.java)
+                intent.putExtra(LOGIN_DATA_KEY, user)
+                startActivity(intent)
+                (activity as SignInActivity).finish()
             } else {
                 val dialog = AlertDialog.Builder(context)
                 dialog.setCancelable(false)
@@ -76,7 +78,7 @@ class LoginFragment : Fragment() {
     private fun getDataFromRegisterFragment(): User? {
         val bundle = this.arguments
         if (bundle != null) {
-            return bundle.getParcelable(DATA_KEY)
+            return bundle.getParcelable(REGISTER_DATA_KEY)
         }
         return null
     }
