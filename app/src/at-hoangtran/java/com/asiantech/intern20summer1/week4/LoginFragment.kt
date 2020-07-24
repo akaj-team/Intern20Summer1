@@ -12,13 +12,12 @@ import android.widget.EditText
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.hideSoftKeyboard
-import kotlinx.android.synthetic.`at-hoangtran`.w4_login_fragment.*
-import kotlinx.android.synthetic.`at-hoangtran`.w4_sign_up_fragment.*
 import com.asiantech.intern20summer1.week4.SignUpFragment.Companion.onRegisterSuccess
+import kotlinx.android.synthetic.`at-hoangtran`.w4_login_fragment.*
 
+@Suppress("DEPRECATION")
 class LoginFragment : Fragment() {
-
-    private var user = User("", "", "", "", "")
+    internal var user = User()
     var emailCheck = false
     var passCheck = false
 
@@ -36,12 +35,13 @@ class LoginFragment : Fragment() {
         handleEditText(edt_login_email)
         handleEditText(edt_login_password)
         handleLogin()
+        hideKeyBoard()
     }
 
     @SuppressLint("ClickableViewAccessibility")
     private fun hideKeyBoard() {
-        ln_main_sign_up.setOnTouchListener { it, _ ->
-            it.requestFocus()
+        ln_main_login?.setOnTouchListener { it, _ ->
+            it.clearFocus()
             it.hideSoftKeyboard()
             true
         }
@@ -77,24 +77,22 @@ class LoginFragment : Fragment() {
     private fun handleEditText(edt: EditText) {
         edt.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
+                val str = s.toString()
+                when (edt) {
+                    edt_login_email -> {
+                        emailCheck = (str == user.email)
+                    }
+                    edt_login_password -> {
+                        passCheck = (str == user.pass)
+                    }
+                }
+                btn_login.isEnabled = emailCheck && passCheck
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val str = s.toString()
-                when (edt) {
-                    edt_login_email -> {
-                        emailCheck = str == user.email
-                    }
-                    edt_password -> {
-                        passCheck = str == user.pass
-                    }
-                }
-                if (emailCheck) {
-                    btn_login.isEnabled = true
-                }
             }
         })
     }

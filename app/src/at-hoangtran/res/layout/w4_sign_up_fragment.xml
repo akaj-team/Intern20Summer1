@@ -119,8 +119,7 @@
             android:layout_height="@dimen/button_height"
             android:layout_marginBottom="@dimen/button_margin_bottom"
             android:background="@drawable/bg_login_button"
-            android:text="@string/register"
-            android:textColor="@color/colorWhite" />
+            android:text="@string/register" />
 
         <TextView
             android:layout_width="match_parent"

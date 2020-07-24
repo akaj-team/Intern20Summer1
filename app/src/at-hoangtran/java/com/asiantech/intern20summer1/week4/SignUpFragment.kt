@@ -17,7 +17,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import androidx.core.app.ActivityCompat
+import android.widget.Toast
 import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
@@ -40,6 +40,7 @@ class SignUpFragment : Fragment() {
         const val MOBILE_NUMBER_LENGTH = 10
     }
 
+    var flag = false
     private var ava = ""
     var emailCheck = false
     var passCheck = false
@@ -83,10 +84,12 @@ class SignUpFragment : Fragment() {
     }
 
     private fun isValidEmail(email: String) = Patterns.EMAIL_ADDRESS.matcher(email).matches()
+
     private fun isValidConfirmPassword(pass: String) =
         (pass == edt_password.text.toString() && isValidPassword(pass))
 
     private fun isValidMobileNumber(mobile: String) = mobile.length == MOBILE_NUMBER_LENGTH
+
     private fun handleEditText(edt: EditText) {
         edt.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -106,11 +109,15 @@ class SignUpFragment : Fragment() {
                         mobileCheck = isValidMobileNumber(str)
                     }
                 }
-                if (emailCheck && mobileCheck && passCheck && confirmPassCheck)
-                    btn_register.isEnabled = true
+                btn_register.isEnabled = emailCheck && mobileCheck && passCheck && confirmPassCheck
             }
 
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            override fun beforeTextChanged(
+                s: CharSequence?,
+                start: Int,
+                count: Int,
+                after: Int
+            ) {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -134,7 +141,7 @@ class SignUpFragment : Fragment() {
 
     private fun handleBtnBack() {
         img_back.setOnClickListener {
-            fragmentManager?.popBackStack()
+            activity?.onBackPressed()
         }
     }
 
@@ -145,8 +152,9 @@ class SignUpFragment : Fragment() {
                 OPEN_CAMERA_REQUEST -> {
                     if (!checkStoragePermission()) {
                         requestStoragePermission()
-                    } else
+                    } else {
                         cropImageCamera(data)
+                    }
                 }
                 PICK_IMAGE_REQUEST -> {
                     cropImageGallery(data)
@@ -200,33 +208,22 @@ class SignUpFragment : Fragment() {
         }
     }
 
-override fun onRequestPermissionsResult(
-    requestCode: Int,
-    permissions: Array<out String>,
-    grantResults: IntArray
-) {
-    super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-}
-
-private fun cropImageCamera(data: Intent?) {
-    (data?.extras?.get(KEY_DATA) as? Bitmap)?.let {
-        getImageUri(it)?.let { uri -> handleCropImage(uri) }
+    private fun cropImageCamera(data: Intent?) {
+        (data?.extras?.get(KEY_DATA) as? Bitmap)?.let {
+            getImageUri(it)?.let { uri -> handleCropImage(uri) }
+        }
     }
-}
 
-private fun cropImageGallery(data: Intent?) {
-    data?.data.let {
-        it?.let { it1 -> handleCropImage(it1) }
+    private fun cropImageGallery(data: Intent?) {
+        data?.data.let {
+            it?.let { it1 -> handleCropImage(it1) }
         }
     }
 
     private fun showImage(data: Intent?) {
         CropImage.getActivityResult(data).uri.apply {
             if (this != null) {
-                val bitmap = MediaStore.Images.Media.getBitmap(
-                    activity?.contentResolver,
-                    this
-                )
+                val bitmap = MediaStore.Images.Media.getBitmap(activity?.contentResolver, this)
                 ava = this.toString()
                 img_avatar.setImageBitmap(bitmap)
             }
@@ -245,7 +242,12 @@ private fun cropImageGallery(data: Intent?) {
         val bytes = ByteArrayOutputStream()
         inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
         val path =
-            MediaStore.Images.Media.insertImage(context?.contentResolver, inImage, "Title", null)
+            MediaStore.Images.Media.insertImage(
+                context?.contentResolver,
+                inImage,
+                "Title",
+                null
+            )
         return Uri.parse(path)
     }
 
@@ -262,27 +264,70 @@ private fun cropImageGallery(data: Intent?) {
         ) == PackageManager.PERMISSION_GRANTED
 
     private fun requestStoragePermission() {
-        activity?.let {
-            ActivityCompat.requestPermissions(
-                it,
-                arrayOf(
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                    Manifest.permission.READ_EXTERNAL_STORAGE
-                ),
-                STORAGE_REQUEST
-            )
-        }
+        requestPermissions(
+            arrayOf(
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            ),
+            STORAGE_REQUEST
+        )
     }
 
     private fun requestCameraPermission() {
-        activity?.let {
-            ActivityCompat.requestPermissions(
-                it,
-                arrayOf(
-                    Manifest.permission.CAMERA
-                ),
-                CAMERA_REQUEST
-            )
+        requestPermissions(
+            arrayOf(Manifest.permission.CAMERA), CAMERA_REQUEST
+        )
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String?>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == CAMERA_REQUEST) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                flag = true
+                if (!checkStoragePermission()) {
+                    requestStoragePermission()
+                } else {
+                    Toast.makeText(activity, "camera permission granted", Toast.LENGTH_LONG).show()
+                    val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                    startActivityForResult(
+                        cameraIntent,
+                        OPEN_CAMERA_REQUEST
+                    )
+                }
+            } else {
+                Toast.makeText(activity, "camera permission denied", Toast.LENGTH_LONG).show()
+            }
+        }
+        if (requestCode == STORAGE_REQUEST) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(activity, "storage permission granted", Toast.LENGTH_LONG).show()
+                if (!flag) {
+                    val intentImage =
+                        Intent(
+                            Intent.ACTION_PICK,
+                            MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+                        )
+                    intentImage.type =
+                        KEY_IMAGE
+                    startActivityForResult(
+                        intentImage,
+                        PICK_IMAGE_REQUEST
+                    )
+                } else {
+                    Toast.makeText(activity, "camera permission granted", Toast.LENGTH_LONG).show()
+                    val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                    startActivityForResult(
+                        cameraIntent,
+                        OPEN_CAMERA_REQUEST
+                    )
+                }
+            } else {
+                Toast.makeText(activity, "storage permission denied", Toast.LENGTH_LONG).show()
+            }
         }
     }
 }

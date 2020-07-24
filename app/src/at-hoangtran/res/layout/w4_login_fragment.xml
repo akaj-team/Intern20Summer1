@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorWhite"
-    tools:context="com.asiantech.intern20summer1.W4FragmentIntentActivity.W4LoginActivity">
+    android:background="@color/colorWhite">
 
     <LinearLayout
         android:id="@+id/ln_main_login"
@@ -123,8 +121,7 @@
             android:layout_marginBottom="@dimen/button_margin_bottom"
             android:enabled="false"
             android:background="@drawable/bg_login_button"
-            android:text="@string/login"
-            android:textColor="@color/colorWhite" />
+            android:text="@string/login" />
 
         <TextView
             android:id="@+id/tv_signUp"

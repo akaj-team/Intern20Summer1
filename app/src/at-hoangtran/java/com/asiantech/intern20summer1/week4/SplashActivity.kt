@@ -11,7 +11,7 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.w4_activity_splash)
 
-        splash_logo.animate().setDuration(5000).alpha(1f).withEndAction {
+        splash_logo.animate().setDuration(1000).alpha(1f).withEndAction {
             startActivity(
                 Intent(
                     this,
