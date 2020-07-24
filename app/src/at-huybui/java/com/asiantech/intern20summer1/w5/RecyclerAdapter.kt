@@ -3,6 +3,7 @@ package com.asiantech.intern20summer1.w5
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.asiantech.intern20summer1.R
@@ -22,15 +23,33 @@ class RecyclerAdapter(private val mutableList: MutableList<ItemRecycler>) :
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val currentItem = mutableList[position]
-        holder.name1.text = currentItem.name
-        holder.name2.text = currentItem.name
+        holder.bind(currentItem)
     }
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var name1 = itemView.tvName1W5
-        var name2 = itemView.tvName2W5
+        var name1: TextView = itemView.tvName1W5
+        var name2: TextView = itemView.tvName2W5
+        var image: ImageView = itemView.imgImageW5
+        var iconHeart: ImageView = itemView.imgIconHeartW5
+        var information: TextView = itemView.tvInformationW5
+        var amountHeart: TextView = itemView.tvAmountHeartW5
 
         fun bind(item: ItemRecycler) {
+            name1.text = item.name
+            name2.text = item.name
+            information.text = item.infomation
+            amountHeart.text = "  ${item.amountHeart} likes"
+            if (item.statusHeart) {
+                iconHeart.setImageResource(R.drawable.ic_heart_red)
+            } else {
+                iconHeart.setImageResource(R.drawable.ic_heart_transparent)
+            }
+            image.setImageResource(item.image)
+
+            iconHeart.setOnClickListener {
+                    item.statusHeart = !item.statusHeart
+            }
         }
+
     }
 }
