@@ -1,8 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#FF9800</color>
-    <color name="colorPrimaryDark">#FFFFFF</color>
-    <color name="colorAccent">#FF9800</color>
+    <color name="colorPrimary">#4CAF50</color>
+    <color name="colorPrimaryDark">#ffffff</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="colorSignUpButtonText">#ffffff</color>
+    <color name="colorSignUpTextViewText">#0000ff</color>
+    <color name="colorContainerBackground">#ffffff</color>
+    <color name="colorCustomButtonSolid">#b5de97</color>
+    <color name="colorCustomEditTextSolid">#ffffff</color>
+    <color name="colorCustomEditTextStoke">#d5edc5</color>
+    <color name="colorCustomInvalidEditTextStroke">#d4041c</color>
+    <color name="colorCustomValidEditTextStroke">#7cd424</color>
+    <color name="colorCustomFocusedEditTextSolid">#fbfef3</color>
+    <color name="colorCustomFocusedEditTextStroke">#649c30</color>
+    <color name="colorPrimaryWeek4">#FF9800</color>
+    <color name="colorPrimaryDarkWeek4">#FFFFFF</color>
+    <color name="colorAccentWeek4">#FF9800</color>
     <color name="colorBackgroundSplashScreen">#FFFFFF</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorMain">#FF9800</color>

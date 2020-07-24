@@ -40,7 +40,7 @@
                     android:layout_width="@dimen/image_view_social_width"
                     android:layout_height="@dimen/image_view_social_height"
                     android:layout_marginRight="@dimen/image_view_social_margin_right"
-                    android:src="@drawable/ic_facebook" />
+                    android:src="@drawable/ic_facebook_week_4" />
 
                 <TextView
                     android:layout_width="wrap_content"
