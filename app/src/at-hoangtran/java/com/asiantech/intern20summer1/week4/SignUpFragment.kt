@@ -145,9 +145,8 @@ class SignUpFragment : Fragment() {
                 OPEN_CAMERA_REQUEST -> {
                     if (!checkStoragePermission()) {
                         requestStoragePermission()
-                    } else {
+                    } else
                         cropImageCamera(data)
-                    }
                 }
                 PICK_IMAGE_REQUEST -> {
                     cropImageGallery(data)
@@ -201,15 +200,23 @@ class SignUpFragment : Fragment() {
         }
     }
 
-    private fun cropImageCamera(data: Intent?) {
-        (data?.extras?.get(KEY_DATA) as? Bitmap)?.let {
-            getImageUri(it)?.let { uri -> handleCropImage(uri) }
-        }
-    }
+override fun onRequestPermissionsResult(
+    requestCode: Int,
+    permissions: Array<out String>,
+    grantResults: IntArray
+) {
+    super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+}
 
-    private fun cropImageGallery(data: Intent?) {
-        data?.data.let {
-            it?.let { it1 -> handleCropImage(it1) }
+private fun cropImageCamera(data: Intent?) {
+    (data?.extras?.get(KEY_DATA) as? Bitmap)?.let {
+        getImageUri(it)?.let { uri -> handleCropImage(uri) }
+    }
+}
+
+private fun cropImageGallery(data: Intent?) {
+    data?.data.let {
+        it?.let { it1 -> handleCropImage(it1) }
         }
     }
 
