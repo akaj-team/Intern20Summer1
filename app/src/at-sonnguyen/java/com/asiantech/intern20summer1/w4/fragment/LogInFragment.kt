@@ -22,13 +22,6 @@ class LogInFragment : Fragment() {
     private var emailText: String = ""
     private var passwordText: String = ""
 
-    companion object {
-        private const val INCORRECT_ACCOUNT_DIALOG_TITLE = "WARNING"
-        private const val INCORRECT_ACCOUNT_DIALOG_MESSAGE =
-            "your email or your password is incorrect"
-        private const val KEY_VALUE = "data"
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,15 +38,16 @@ class LogInFragment : Fragment() {
         handleListenerSignInButton()
         getDataFromSignUpFragment()
     }
-    private fun handleListenerRegisterTextView(){
+
+    private fun handleListenerRegisterTextView() {
         tvRegister.setOnClickListener {
-            replaceSignUpFragment()
+            replaceRegisterFragment()
         }
     }
 
-    private fun replaceSignUpFragment() {
+    private fun replaceRegisterFragment() {
         val fragmentTransaction = fragmentManager?.beginTransaction()
-        fragmentTransaction?.replace(R.id.llFragment, RegisterFragment())
+        fragmentTransaction?.replace(R.id.llFragment, RegisterFragment.newInstance())
         fragmentTransaction?.addToBackStack(null)
         fragmentTransaction?.commit()
     }
@@ -85,7 +79,7 @@ class LogInFragment : Fragment() {
     }
 
     private fun getDataFromSignUpFragment() {
-        (arguments?.getSerializable(KEY_VALUE) as? User)?.let {
+        (arguments?.getSerializable(resources.getString(R.string.key_value)) as? User)?.let {
             userLogin.email = it.email
             userLogin.password = it.password
             userLogin.phoneNumber = it.phoneNumber
@@ -128,7 +122,7 @@ class LogInFragment : Fragment() {
         btnSignIn.setOnClickListener {
             if (emailText == userLogin.email && passwordText == userLogin.password) {
                 val intent = Intent(activity, HomeActivity::class.java)
-                intent.putExtra(KEY_VALUE, userLogin)
+                intent.putExtra(resources.getString(R.string.key_value), userLogin)
                 activity?.startActivity(intent)
                 activity?.finish()
             } else {
@@ -143,8 +137,8 @@ class LogInFragment : Fragment() {
 
     private fun showIncorrectAccountDialog() {
         AlertDialog.Builder(context)
-            .setTitle(INCORRECT_ACCOUNT_DIALOG_TITLE)
-            .setMessage(INCORRECT_ACCOUNT_DIALOG_MESSAGE)
+            .setTitle(resources.getString(R.string.log_in_fragment_incorrect_account_dialog_tittle))
+            .setMessage(resources.getString(R.string.log_in_fragment_incorrect_account_dialog_message))
             .setPositiveButton(
                 android.R.string.yes
             ) { _, _ -> }

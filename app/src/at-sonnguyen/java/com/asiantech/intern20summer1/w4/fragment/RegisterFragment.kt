@@ -16,7 +16,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -29,7 +28,6 @@ import com.theartofdev.edmodo.cropper.CropImage
 import kotlinx.android.synthetic.`at-sonnguyen`.fragment_register.*
 import java.io.ByteArrayOutputStream
 
-
 @Suppress("DEPRECATION", "NAME_SHADOWING")
 class RegisterFragment : Fragment() {
 
@@ -39,15 +37,13 @@ class RegisterFragment : Fragment() {
     private var checkRetypePassword = false
     private var checkPhoneNumber = false
     private var avatarUri = ""
+    private var flag = false
 
     companion object {
         private const val CAMERA_REQUEST_CODE = 111
         private const val GALLERY_REQUEST_CODE = 112
-        private const val KEY_VALUE = "data"
         const val PHONE_NUMBER_LENGTH = 10
-        private const val DIALOG_TITTLE = "Set avatar"
-        private const val ITEM_1 = "gallery"
-        private const val ITEM_2 = "Camera"
+        internal fun newInstance() = RegisterFragment()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -231,8 +227,11 @@ class RegisterFragment : Fragment() {
 
     private fun showListAlertDialog() {
         val builder = AlertDialog.Builder(context)
-        builder.setTitle(DIALOG_TITTLE)
-        val items = arrayOf(ITEM_1, ITEM_2)
+        builder.setTitle(resources.getString(R.string.register_fragment_set_avatar_dialog_list_title))
+        val items = arrayOf(
+            resources.getString(R.string.register_fragment_choose_set_avatar_dialog_from_gallery),
+            resources.getString(R.string.register_fragment_choose_set_avatar_dialog_from_camera)
+        )
         builder.setItems(items) { _, which ->
             when (which) {
                 0 -> {
@@ -243,7 +242,7 @@ class RegisterFragment : Fragment() {
                     }
                 }
                 1 -> {
-                    if (checkCameraPermission()) {
+                    if (checkCameraPermission() && checkGalleryPermission()) {
                         openCamera()
                     } else {
                         requestCameraPermission()
@@ -266,26 +265,20 @@ class RegisterFragment : Fragment() {
     ) == PackageManager.PERMISSION_GRANTED
 
     private fun requestCameraPermission() {
-        activity?.let {
-            ActivityCompat.requestPermissions(
-                it,
-                arrayOf(Manifest.permission.CAMERA),
-                CAMERA_REQUEST_CODE
-            )
-        }
+        requestPermissions(
+            arrayOf(Manifest.permission.CAMERA),
+            CAMERA_REQUEST_CODE
+        )
     }
 
     private fun requestGalleryPermission() {
-        activity?.let {
-            ActivityCompat.requestPermissions(
-                it,
-                arrayOf(
-                    Manifest.permission.READ_EXTERNAL_STORAGE,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE
-                ),
-                GALLERY_REQUEST_CODE
-            )
-        }
+        requestPermissions(
+            arrayOf(
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ),
+            GALLERY_REQUEST_CODE
+        )
     }
 
     private fun openCamera() {
@@ -298,45 +291,55 @@ class RegisterFragment : Fragment() {
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-//        Toast.makeText(this.context,"$requestCode",Toast.LENGTH_SHORT).show()
         when (requestCode) {
             CAMERA_REQUEST_CODE -> {
-                Toast.makeText(activity?.applicationContext,"$CAMERA_REQUEST_CODE",Toast.LENGTH_SHORT).show()
-                if (grantResults.isNotEmpty()
-                    && grantResults[0] == PackageManager.PERMISSION_GRANTED
-                ) {
-//                    Log.d("aaaaaaa", "onRequestPermissionsResult: ")
-                    openCamera()
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    flag = true
+                    if (!checkGalleryPermission()) {
+                        requestGalleryPermission()
+                    }
+                    if (checkGalleryPermission()) {
+                        openCamera()
+                    }
+                } else {
+                    Toast.makeText(activity, "permission denied", Toast.LENGTH_SHORT).show()
                 }
             }
-            GALLERY_REQUEST_CODE -> if (grantResults.isNotEmpty()
-                && grantResults[0] == PackageManager.PERMISSION_GRANTED
-            ) {
-                openGallery()
+
+            GALLERY_REQUEST_CODE -> {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    if (!flag) {
+                        openGallery()
+                    } else {
+                        openCamera()
+                    }
+                } else {
+                    Toast.makeText(activity, "permission denied", Toast.LENGTH_SHORT).show()
+                }
             }
-    }
+        }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         imgAvatar.scaleType = ImageView.ScaleType.CENTER_CROP
         super.onActivityResult(requestCode, resultCode, data)
-        when (requestCode) {
-            CAMERA_REQUEST_CODE -> if (data != null) {
-                if (resultCode == RESULT_OK) {
-                    (data.extras?.get("data") as Bitmap?)?.let {
-                        getImageUri(it)?.let(this@RegisterFragment::cropImage)
+        if (resultCode == RESULT_OK) {
+            when (requestCode) {
+                CAMERA_REQUEST_CODE -> {
+                    if (!checkGalleryPermission()) {
+                        requestGalleryPermission()
+                    } else {
+                        (data?.extras?.get(resources.getString(R.string.key_value)) as? Bitmap)?.let {
+                            getImageUri(it)?.let(this@RegisterFragment::cropImage)
+                        }
                     }
                 }
-            }
-            GALLERY_REQUEST_CODE -> if (resultCode == RESULT_OK && data != null) {
-                data.data?.let {
-                    cropImage(it)
+                GALLERY_REQUEST_CODE -> {
+                    cropImage(data?.data)
                 }
-            }
-            CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE -> {
-                val result: CropImage.ActivityResult = CropImage.getActivityResult(data)
-                if (resultCode == RESULT_OK) {
+                CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE -> {
+                    val result: CropImage.ActivityResult = CropImage.getActivityResult(data)
                     val resultUri: Uri = result.uri
                     avatarUri = resultUri.toString()
                     imgAvatar.setImageURI(resultUri)
@@ -349,7 +352,12 @@ class RegisterFragment : Fragment() {
         val bytes = ByteArrayOutputStream()
         inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
         val path =
-            MediaStore.Images.Media.insertImage(activity?.contentResolver, inImage, "Title", null)
+            MediaStore.Images.Media.insertImage(
+                activity?.contentResolver,
+                inImage,
+                resources.getString(R.string.image_title),
+                null
+            )
         return Uri.parse(path)
     }
 
@@ -373,7 +381,7 @@ class RegisterFragment : Fragment() {
 
             )
             val bundle = Bundle()
-            bundle.putSerializable(KEY_VALUE, user)
+            bundle.putSerializable(resources.getString(R.string.key_value), user)
             val signInFragment = LogInFragment()
             val fragmentTransaction: FragmentTransaction? = fragmentManager?.beginTransaction()
             fragmentTransaction?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
@@ -385,8 +393,8 @@ class RegisterFragment : Fragment() {
     }
 
     private fun openGallery() {
-        val intentImage = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        val intentImage =
+            Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         startActivityForResult(intentImage, GALLERY_REQUEST_CODE)
     }
-
 }

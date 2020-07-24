@@ -8,9 +8,6 @@ import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w4.fragment.LogInFragment
 
 class SignInActivity : AppCompatActivity() {
-    companion object {
-        private const val ADD_TO_BACK_STACK_KEY_NAME = "add to back Stack"
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,7 +20,11 @@ class SignInActivity : AppCompatActivity() {
         val fragmentManager = supportFragmentManager
         val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
         val fragment = LogInFragment()
-        fragmentTransaction.replace(R.id.llFragment, fragment, ADD_TO_BACK_STACK_KEY_NAME)
+        fragmentTransaction.replace(
+            R.id.llFragment,
+            fragment,
+            resources.getString(R.string.add_to_back_stack_key)
+        )
         fragmentTransaction.commit()
     }
 }
