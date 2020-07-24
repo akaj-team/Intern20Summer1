@@ -39,5 +39,95 @@ class RecyclerViewActivity : AppCompatActivity() {
     }
 
     private fun initData() {
+        for(i in 1..9){
+          handleAdd(i)
+        }
+    }
+
+
+    private fun handleAdd(item: Int) {
+        when (item) {
+            1 -> exampleLists.add(
+                ItemRecycler(
+                    resources.getString(R.string.w5_name_buoi_da_xanh),
+                    (0..1000).random(),
+                    R.drawable.img_fruit_buoi_da_xanh,
+                    false,
+                    resources.getString(R.string.w5_information_buoi_da_xanh)
+                )
+            )
+            2 -> exampleLists.add(
+                ItemRecycler(
+                    resources.getString(R.string.w5_name_chom_chom),
+                    (0..1000).random(),
+                    R.drawable.img_fruit_chom_chom,
+                    false,
+                    resources.getString(R.string.w5_information_chom_chom)
+                )
+            )
+            3 -> exampleLists.add(
+                ItemRecycler(
+                    resources.getString(R.string.w5_name_dua),
+                    (0..1000).random(),
+                    R.drawable.img_fruit_dua,
+                    false,
+                    resources.getString(R.string.w5_information_dua)
+                )
+            )
+            4 -> exampleLists.add(
+                ItemRecycler(
+                    resources.getString(R.string.w5_name_dua_nuoc),
+                    (0..1000).random(),
+                    R.drawable.img_fruit_dua_nuoc,
+                    false,
+                    resources.getString(R.string.w5_information_dua_nuoc)
+                )
+            )
+            5 -> exampleLists.add(
+                ItemRecycler(
+                    resources.getString(R.string.w5_name_mang_cut),
+                    (0..1000).random(),
+                    R.drawable.img_fruit_mang_cut,
+                    false,
+                    resources.getString(R.string.w5_information_mang_cut)
+                )
+            )
+            6 -> exampleLists.add(
+                ItemRecycler(
+                    resources.getString(R.string.w5_name_quyt_dong_thap),
+                    (0..1000).random(),
+                    R.drawable.img_fruit_quyt_dong_thap,
+                    false,
+                    resources.getString(R.string.w5_information_quyt_dong_thap)
+                )
+            )
+            7 -> exampleLists.add(
+                ItemRecycler(
+                    resources.getString(R.string.w5_name_sau_rieng),
+                    (0..1000).random(),
+                    R.drawable.img_fruit_sau_rieng,
+                    false,
+                    resources.getString(R.string.w5_information_sau_rieng)
+                )
+            )
+            8 -> exampleLists.add(
+                ItemRecycler(
+                    resources.getString(R.string.w5_name_thanh_tra),
+                    (0..1000).random(),
+                    R.drawable.img_fruit_thanh_tra,
+                    false,
+                    resources.getString(R.string.w5_information_thanh_tra)
+                )
+            )
+            9 -> exampleLists.add(
+                ItemRecycler(
+                    resources.getString(R.string.w5_name_vu_sua),
+                    (0..1000).random(),
+                    R.drawable.img_fruit_vu_sua,
+                    false,
+                    resources.getString(R.string.w5_information_vu_sua)
+                )
+            )
+        }
     }
 }

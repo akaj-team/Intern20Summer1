@@ -27,4 +27,6 @@
     <dimen name="w5_icon_heart_black_margin_top">10dp</dimen>
     <dimen name="w5_name_text_size">20dp</dimen>
     <dimen name="w5_line_black_margin_top">10dp</dimen>
+    <dimen name="w5_icon_heart_margin_top">20dp</dimen>
+    <dimen name="w5_name_top_margin_top">20dp</dimen>
 </resources>

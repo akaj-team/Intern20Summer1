@@ -1,18 +1,3 @@
 <resources>
     <string name="app_name">Intern20Summer1</string>
-    <string name="w5_name_1">Bé chocolate</string>
-    <string name="w5_name_2">Gấu con</string>
-    <string name="w5_name_3">Cún con</string>
-    <string name="w5_name_4">Mèo con</string>
-    <string name="w5_name_5">Bé ngok</string>
-    <string name="w5_name_sau_rieng">Sầu riêng</string>
-    <string name="w5_information_sau_rieng">Khi nhắc đến hoa quả đặc sản miền Nam, chắc hẳn bạn sẽ nghĩ ngay đến sầu riêng. Đây là loại trái cây đặc biệt với hương vị không thể nhầm lẫn đặc trưng cho mùa hè. Miền Tây với những vườn trồng sầu riêng khổng lồ cung cấp sản lượng lớn từ các loại sầu Thái, sầu riêng Ri6 thơm ngon, béo ngậy.  Tuy không phải ai cũng có thể thưởng thức loại quả này thế nhưng nếu bạn trót “yêu” sầu riêng thì khó lòng từ bỏ được. Nếu có cơ hội ghé thăm các tỉnh thành khu vực phía nam, chắc chắn sầu riêng chính là loại quả mà bạn không nên bỏ qua.</string>
-    <string name="w5_name_mang_cut">Măng cụt</string>
-    <string name="w5_information_mang_cut">Hương vị mà trái măng cụt mang đến cho người thưởng thức quả thực rất tuyệt vời.Vị ngọt ngọt vừa phải, chua chua không hề gắt hòa quyện với hương thơm của hoa quả tươi khiến măng cụt trở thành loại trái cây đặc sản miền nam không thể chối từ. Mùa hè chính là mùa của măng cụt. Thời điểm này, măng cụt ngọt và ngon nhất vụ. Không chỉ là loại quả thông thường, măng cụt còn có nhiều tác dụng đối với sức khỏe và làm đẹp như hỗ trợ điều trị bệnh tim mạch, tốt cho hệ tiêu hóa, giảm mệt mỏi, chống lại tác động của quá trình oxy hóa,...</string>
-    <string name="w5_name_chom_chom">Chôm chôm</string>
-    <string name="w5_information_chom_chom">Một loại quả không thể bỏ qua trong danh sách đặc sản miền Nam đó chính là quả chôm chôm. Chôm chôm được trồng nhiều tại các tỉnh như Bình Dương, Bến Tre, Đồng Nai,... và có nhiều loại. Trong số đó, chôm chôm tróc hạt, chôm chôm nhãn được yêu thích hơn cả nhờ vị ngọt và thịt giòn.  Với vẻ ngoài xù xì, đỏ tươi rất khác lạ, chôm chôm là món ngon miền nam lại mang trong mình hương vị ngọt chua thanh thanh. Bạn nên chọn những quả còn tươi, râu xung quanh còn xanh và cứng để đảm bảo độ tươi ngon nhất.</string>
-    <string name="w5_name_dua">Dừa sáp Trà Vinh</string>
-    <string name="w5_information_dua">Một ly nước dừa, thêm chút đá và thưởng thức giữa cái nóng nực của mùa hè là điều không thể tuyệt vời hơn. Dừa sáp ngon nhất là được trồng tại Trà Vinh, một tỉnh ven biển của đồng bằng sông Cửu Long. Dừa sáp Trà Vinh chính là một loại hoa quả đặc sản miền Nam với hương vị thơm ngon, sệt hơn so với các loại dừa khác.Thêm một điều đặc biệt nữa đó là lớp cùi của dừa sáp chiếm phần lớn của lõi. Lớp cùi này mềm và xốp chứ không chắc và cứng. Thế nhưng nhìn hình dáng bên ngoài trái dừa bạn khó lòng có thể phân biệt được đâu là dừa sáp. Một cây dừa sáp nhưng chỉ có khoảng 20% dừa là sáp nên bạn đừng bỏ qua cơ hội thưởng thức nhé.</string>
-    <string name="w5_name_dua_nuoc">Dừa nước</string>
-    <string name="w5_information_dua_nuoc">Dừa nước là loại cây mọc dại nhiều dọc hai bên các dòng sông tại miền Tây từ vùng biển Cần Giờ, Gò Công tới cửa sông Tiền, sông Cố Chiên, Hàm Luông, Vàm Cỏ…. Loài cây này không chỉ mang lại vẻ đẹp cho vùng đất mà còn là món giải khát tuyệt vời vào mùa hè. Dừa nước còn góp phần làm nên bao món ngon miền Nam như: chè, làm mứt dẻo, pha chế cocktail. Nước dừa ngọt thanh, ăn kèm với cùi dừa sần sật chính là những gì bạn có thể thưởng thức từ loại quả đặc biệt này.</string>
 </resources>
