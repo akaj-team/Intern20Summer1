@@ -1,4 +1,4 @@
-package w4FragmentIntentActivity
+package w4
 
 import android.os.Parcel
 import android.os.Parcelable

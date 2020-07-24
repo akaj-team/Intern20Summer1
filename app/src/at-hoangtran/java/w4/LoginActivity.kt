@@ -1,4 +1,4 @@
-package w4FragmentIntentActivity
+package w4
 
 import android.annotation.SuppressLint
 import android.os.Bundle

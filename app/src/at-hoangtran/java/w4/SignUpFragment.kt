@@ -1,4 +1,4 @@
-package w4FragmentIntentActivity
+package w4
 
 import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
@@ -30,6 +30,7 @@ class SignUpFragment : Fragment() {
         private const val OPEN_CAMERA_REQUEST = 1
         private const val KEY_IMAGE = "image/*"
         private const val KEY_DATA = "data"
+        const val MOBILE_NUMBER_LENGTH = 10
     }
 
     private var ava = ""
@@ -78,7 +79,7 @@ class SignUpFragment : Fragment() {
     private fun isValidConfirmPassword(pass: String) =
         (pass == edt_password.text.toString() && isValidPassword(pass))
 
-    private fun isValidMobileNumber(mobile: String) = mobile.length == 10
+    private fun isValidMobileNumber(mobile: String) = mobile.length == MOBILE_NUMBER_LENGTH
     private fun handleEditText(edt: EditText) {
         edt.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {

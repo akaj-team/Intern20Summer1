@@ -11,9 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="w4FragmentIntentActivity.HomeActivity"/>
-        <activity android:name="w4FragmentIntentActivity.LoginActivity" />
-        <activity android:name="w4FragmentIntentActivity.SplashActivity">
+        <activity android:name="w4.HomeActivity"/>
+        <activity android:name="w4.LoginActivity" />
+        <activity android:name="w4.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
