@@ -37,7 +37,7 @@
             android:id="@+id/edtFullName"
             style="@style/EditTextDescriptionMusicApp"
             android:inputType="textPersonName"
-            app:backgroundTint="@color/colorMain" />
+            app:backgroundTint="@color/colorMainWeek4" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imgAvatar"
@@ -57,7 +57,7 @@
             android:id="@+id/edtEmail"
             style="@style/EditTextDescriptionMusicApp"
             android:inputType="textEmailAddress"
-            app:backgroundTint="@color/colorMain" />
+            app:backgroundTint="@color/colorMainWeek4" />
 
         <TextView
             style="@style/TextViewDescriptionMusicApp"
@@ -67,7 +67,7 @@
             android:id="@+id/edtMobileNumber"
             style="@style/EditTextDescriptionMusicApp"
             android:inputType="number"
-            app:backgroundTint="@color/colorMain" />
+            app:backgroundTint="@color/colorMainWeek4" />
 
         <TextView
             style="@style/TextViewDescriptionMusicApp"
@@ -77,7 +77,7 @@
             android:id="@+id/edtPassword"
             style="@style/EditTextDescriptionMusicApp"
             android:inputType="textPassword"
-            app:backgroundTint="@color/colorMain" />
+            app:backgroundTint="@color/colorMainWeek4" />
 
         <TextView
             style="@style/TextViewDescriptionMusicApp"
@@ -87,7 +87,7 @@
             android:id="@+id/edtConfirmPassword"
             style="@style/EditTextDescriptionMusicApp"
             android:inputType="textPassword"
-            app:backgroundTint="@color/colorMain" />
+            app:backgroundTint="@color/colorMainWeek4" />
 
         <Button
             android:id="@+id/btnSignUp"

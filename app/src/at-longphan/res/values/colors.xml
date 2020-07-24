@@ -18,7 +18,7 @@
     <color name="colorAccentWeek4">#FF9800</color>
     <color name="colorBackgroundSplashScreen">#FFFFFF</color>
     <color name="colorWhite">#FFFFFF</color>
-    <color name="colorMain">#FF9800</color>
+    <color name="colorMainWeek4">#FF9800</color>
     <color name="colorBackgroundButtonUnableSolid">#cccccc</color>
     <color name="colorBackgroundHomeContentSolid">#FEFECD</color>
     <color name="colorBackgroundSocialButtonStroke">#D3D3D3</color>
@@ -32,7 +32,7 @@
     <color name="colorBackgroundHomeTitleStroke">#FFFFFF</color>
     <color name="colorBackgroundHomeTitleImageButtonSolid">#00FFFFFF</color>
     <color name="colorBackgroundButtonEnableSolid">#FF9800</color>
-    <color name="container_home_activity_background">#FFFFFF</color>
+    <color name="colorContainerHomeActivityBackground">#FFFFFF</color>
     <color name="colorContainerSignInActivityBackground">#FFFFFF</color>
     <color name="colorContainerSignInFragmentBackground">#FFFFFF</color>
 </resources>

@@ -93,7 +93,7 @@
                 android:id="@+id/edtEmailId"
                 style="@style/EditTextDescriptionMusicApp"
                 android:inputType="textEmailAddress"
-                app:backgroundTint="@color/colorMain" />
+                app:backgroundTint="@color/colorMainWeek4" />
 
             <TextView
                 style="@style/TextViewDescriptionMusicApp"
@@ -103,7 +103,7 @@
                 android:id="@+id/edtPassword"
                 style="@style/EditTextDescriptionMusicApp"
                 android:inputType="textPassword"
-                app:backgroundTint="@color/colorMain" />
+                app:backgroundTint="@color/colorMainWeek4" />
         </LinearLayout>
 
         <TextView
