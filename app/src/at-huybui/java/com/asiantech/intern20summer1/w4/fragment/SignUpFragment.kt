@@ -335,13 +335,11 @@ class SignUpFragment : Fragment() {
 
                 when (which) {
                     0 -> {
-                        if (!checkCameraPermission()) {
+                        if (checkCameraPermission()) {
+                            openCamera()
+                        } else {
                             requestCameraPermission()
                         }
-                        if(!checkWriteStorePermission()){
-                            requestWriteStorePermission()
-                        }
-                        openCamera()
                     }
                     1 -> {
                         if (checkGalleryPermission()) {
@@ -404,27 +402,8 @@ class SignUpFragment : Fragment() {
      */
     private fun requestCameraPermission() {
         ActivityCompat.requestPermissions(
-            requireActivity(), arrayOf(Manifest.permission.CAMERA),
-            PERMISSION_REQUEST_CODE
-        )
-    }
-
-    /**
-     * This check write store permission of application
-     */
-    private fun checkWriteStorePermission(): Boolean {
-        return ContextCompat.checkSelfPermission(
-            requireContext(),
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
-        ) == PackageManager.PERMISSION_GRANTED
-    }
-
-    /**
-     * This function request write store permission
-     */
-    private fun requestWriteStorePermission() {
-        ActivityCompat.requestPermissions(
-            requireActivity(), arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+            requireActivity(),
+            arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE),
             PERMISSION_REQUEST_CODE
         )
     }
