@@ -19,7 +19,6 @@ class SignInActivity : AppCompatActivity() {
 
     private fun openSignIn() {
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.flContainer, SignInFragment())
-            .commit()
+        transaction.replace(R.id.flContainer, SignInFragment()).commit()
     }
 }

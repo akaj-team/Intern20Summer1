@@ -23,10 +23,7 @@ class SignInFragment : Fragment() {
     private var user = User()
 
     companion object {
-        private const val KEY_STRING_USER = "user"
-        private const val TITLE_DIALOG = "Incorrect"
-        private const val MESSAGE_DIALOG = "Email or Password is incorrect"
-        private const val STRING_OK_BUTTON = "OK"
+        internal const val KEY_STRING_USER = "user"
     }
 
     override fun onCreateView(
@@ -96,11 +93,11 @@ class SignInFragment : Fragment() {
     private fun displayAlert() {
         activity?.let {
             AlertDialog.Builder(it)
-                .setTitle(TITLE_DIALOG)
-                .setMessage(MESSAGE_DIALOG)
+                .setTitle(R.string.sign_in_fragment_title_dialog)
+                .setMessage(R.string.sign_in_fragment_message_dialog)
                 .setPositiveButton(
-                    STRING_OK_BUTTON
-                ) { dialog, _ -> dialog.cancel() }.show()
+                    R.string.sign_in_fragment_ok_button_description
+                ) { _, _ -> }.show()
         }
     }
 
@@ -114,10 +111,7 @@ class SignInFragment : Fragment() {
                     this@SignInFragment.edtEmail.setText(user.email)
                     this@SignInFragment.edtPassword.setText(user.password)
                 }
-            })
-                ?.addToBackStack(null)
-                ?.hide(this)
-                ?.commit()
+            })?.addToBackStack(null)?.hide(this)?.commit()
         }
     }
 }

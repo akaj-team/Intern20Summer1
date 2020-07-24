@@ -23,6 +23,13 @@
     <string name="policy_text_view_description">By registering you agree to Terms &amp; Conditions and Privacy Policy of the Festival</string>
     <string name="home_text_view_description">Home</string>
     <string name="avatar_text_view_description">Avatar</string>
+    <string name="sign_in_fragment_title_dialog">Incorrect</string>
+    <string name="sign_in_fragment_message_dialog">Email or Password is incorrect</string>
+    <string name="sign_in_fragment_ok_button_description">OK</string>
+    <string name="sign_up_fragment_choose_option_dialog">Choose an option:</string>
+    <string name="sign_up_fragment_gallery">Gallery</string>
+    <string name="sign_up_fragment_camera">Camera</string>
+    <string name="sign_up_fragment_image_profile_title">title</string>
     <!--Week3-->
     <string name="week3_email_id_text_view_description">Enter your email ID</string>
     <string name="week3_password_text_view_description">Type your password</string>

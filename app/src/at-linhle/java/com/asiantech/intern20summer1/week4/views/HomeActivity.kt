@@ -7,16 +7,13 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week4.extensions.changeColorStatusBar
+import com.asiantech.intern20summer1.week4.fragments.SignInFragment.Companion.KEY_STRING_USER
 import com.asiantech.intern20summer1.week4.models.User
 import kotlinx.android.synthetic.`at-linhle`.activity_home.*
 
 class HomeActivity : AppCompatActivity() {
 
     private var user: User? = null
-
-    companion object {
-        private const val KEY_STRING_USER = "user"
-    }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,7 +25,6 @@ class HomeActivity : AppCompatActivity() {
 
     // Receive data
     private fun getUser() {
-        val intent = intent
         user = intent.getParcelableExtra(KEY_STRING_USER)
         tvUserEmail.text = user?.email
         tvUserFullName.text = user?.fullName

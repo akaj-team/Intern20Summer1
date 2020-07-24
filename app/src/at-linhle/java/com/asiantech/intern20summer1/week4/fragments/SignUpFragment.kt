@@ -1,9 +1,11 @@
 package com.asiantech.intern20summer1.week4.fragments
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
 import android.app.AlertDialog
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
@@ -12,6 +14,8 @@ import android.provider.MediaStore.Images
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
@@ -41,10 +45,6 @@ class SignUpFragment : Fragment() {
         private const val PICK_IMAGE_REQUEST = 2
         private const val KEY_IMAGE_GALLERY = "image/*"
         private const val HUNDRED = 100
-        private const val CHOOSE_OPTION_DIALOG = "Choose an option:"
-        private const val GALLERY = "Gallery"
-        private const val CAMERA = "Camera"
-        private const val TITLE = "title"
     }
 
     override fun onCreateView(
@@ -213,10 +213,7 @@ class SignUpFragment : Fragment() {
 
     private fun showImage(data: Intent?) {
         CropImage.getActivityResult(data).uri?.apply {
-            val bitmap = Images.Media.getBitmap(
-                activity?.contentResolver,
-                this
-            )
+            val bitmap = Images.Media.getBitmap(activity?.contentResolver, this)
             imageUri = this.toString()
             imgSignUpProfile.setImageBitmap(bitmap)
         }
@@ -233,26 +230,84 @@ class SignUpFragment : Fragment() {
     private fun getImageUri(inImage: Bitmap): Uri? {
         val bytes = ByteArrayOutputStream()
         inImage.compress(Bitmap.CompressFormat.JPEG, HUNDRED, bytes)
-        val path = Images.Media.insertImage(context?.contentResolver, inImage, TITLE, null)
+        val path =
+            Images.Media.insertImage(
+                context?.contentResolver,
+                inImage,
+                resources.getString(R.string.sign_up_fragment_image_profile_title),
+                null
+            )
         return Uri.parse(path)
+    }
+
+    private fun checkStoragePermissions(): Boolean {
+        val permission = checkSelfPermission(
+            requireContext(),
+            Manifest.permission.READ_EXTERNAL_STORAGE
+        )
+        return permission == PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun checkCameraPermissions(): Boolean {
+        val permissionCamera = checkSelfPermission(
+            requireContext(),
+            Manifest.permission.CAMERA
+        )
+        val permissionWrite = checkSelfPermission(
+            requireContext(),
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+        )
+        return (permissionCamera == PackageManager.PERMISSION_GRANTED
+                && permissionWrite == PackageManager.PERMISSION_GRANTED)
+    }
+
+    private fun makeStorageRequest() {
+        this.activity?.let {
+            ActivityCompat.requestPermissions(
+                it,
+                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                PICK_IMAGE_REQUEST
+            )
+        }
+    }
+
+    private fun makeCameraRequest() {
+        this.activity?.let {
+            ActivityCompat.requestPermissions(
+                it,
+                arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                OPEN_CAMERA_REQUEST
+            )
+        }
     }
 
     private fun handleListener() {
         imgSignUpProfile.setOnClickListener {
             val dialogBuilder = AlertDialog.Builder(context)
-            dialogBuilder.setTitle(CHOOSE_OPTION_DIALOG)
-            val optionList = arrayOf(GALLERY, CAMERA)
+            dialogBuilder.setTitle(R.string.sign_up_fragment_choose_option_dialog)
+            val optionList = arrayOf(
+                resources.getString(R.string.sign_up_fragment_gallery),
+                resources.getString(R.string.sign_up_fragment_camera)
+            )
             dialogBuilder.setItems(optionList) { _, which ->
                 when (which) {
                     0 -> {
-                        val intentImage =
-                            Intent(Intent.ACTION_PICK, Images.Media.EXTERNAL_CONTENT_URI)
-                        intentImage.type = KEY_IMAGE_GALLERY
-                        startActivityForResult(intentImage, PICK_IMAGE_REQUEST)
+                        if (checkStoragePermissions()) {
+                            val intentImage =
+                                Intent(Intent.ACTION_PICK, Images.Media.EXTERNAL_CONTENT_URI)
+                            intentImage.type = KEY_IMAGE_GALLERY
+                            startActivityForResult(intentImage, PICK_IMAGE_REQUEST)
+                        } else {
+                            makeStorageRequest()
+                        }
                     }
                     1 -> {
-                        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                        startActivityForResult(cameraIntent, OPEN_CAMERA_REQUEST)
+                        if (checkCameraPermissions()) {
+                            val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                            startActivityForResult(cameraIntent, OPEN_CAMERA_REQUEST)
+                        } else {
+                            makeCameraRequest()
+                        }
                     }
                 }
             }
