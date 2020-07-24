@@ -24,11 +24,10 @@ class RecyclerAdapter(private val mutableList: MutableList<ItemRecycler>) :
     override fun getItemCount() = mutableList.size
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        val currentItem = mutableList[position]
-        holder.bind(currentItem)
+        holder.bind()
     }
 
-    class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private var name1: TextView = itemView.tvName1W5
         private var name2: TextView = itemView.tvName2W5
         private var image: ImageView = itemView.imgImageW5
@@ -38,22 +37,23 @@ class RecyclerAdapter(private val mutableList: MutableList<ItemRecycler>) :
 
         init {
             iconHeart.setOnClickListener {
-
+                onItemClicked.invoke(adapterPosition)
             }
         }
 
-        fun bind(item: ItemRecycler) {
-            name1.text = item.name
-            name2.text = item.name
-            information.text = item.infomation
-            amountHeart.text = "  ${item.amountHeart} likes"
-            if (item.statusHeart) {
-                iconHeart.setImageResource(R.drawable.ic_heart_red)
-            } else {
-                iconHeart.setImageResource(R.drawable.ic_heart_transparent)
+        fun bind() {
+            mutableList[adapterPosition].let { item ->
+                name1.text = item.name
+                name2.text = item.name
+                information.text = item.infomation
+                amountHeart.text = "  ${item.amountHeart} likes"
+                if (item.statusHeart) {
+                    iconHeart.setImageResource(R.drawable.ic_heart_red)
+                } else {
+                    iconHeart.setImageResource(R.drawable.ic_heart_transparent)
+                }
+                image.setImageResource(item.image)
             }
-            image.setImageResource(item.image)
         }
-
     }
 }
