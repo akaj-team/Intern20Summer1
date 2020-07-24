@@ -49,14 +49,14 @@ class SignUpFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
-            RequestCode.PICK_IMAGE_REQUEST.code -> {
+            RequestCode.PICK_IMAGE_REQUEST -> {
                 if (resultCode == Activity.RESULT_OK) {
                     val uri: Uri? = data?.data
                     imgAvatar.setImageURI(uri)
                     userRegister.avatarUri = uri.toString()
                 }
             }
-            RequestCode.OPEN_CAMERA_REQUEST.code -> {
+            RequestCode.OPEN_CAMERA_REQUEST -> {
                 if (resultCode == Activity.RESULT_OK) {
                     imgAvatar.setImageURI(image_uri)
                     userRegister.avatarUri = image_uri.toString()
@@ -93,7 +93,7 @@ class SignUpFragment : Fragment() {
             ActivityCompat.requestPermissions(
                 it,
                 arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                RequestCode.STORAGE_REQUEST.code
+                RequestCode.STORAGE_REQUEST
             )
         }
     }
@@ -103,7 +103,7 @@ class SignUpFragment : Fragment() {
             ActivityCompat.requestPermissions(
                 it,
                 arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE),
-                RequestCode.OPEN_CAMERA_REQUEST.code
+                RequestCode.OPEN_CAMERA_REQUEST
             )
         }
     }
@@ -224,7 +224,7 @@ class SignUpFragment : Fragment() {
         intent.action = Intent.ACTION_GET_CONTENT
         startActivityForResult(
             Intent.createChooser(intent, IntentTitle.PICK_IMAGE_TITLE.string),
-            RequestCode.PICK_IMAGE_REQUEST.code
+            RequestCode.PICK_IMAGE_REQUEST
         )
     }
 
@@ -236,7 +236,7 @@ class SignUpFragment : Fragment() {
         intent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri)
         startActivityForResult(
             Intent.createChooser(intent, IntentTitle.OPEN_CAMERA_TITLE.string),
-            RequestCode.OPEN_CAMERA_REQUEST.code
+            RequestCode.OPEN_CAMERA_REQUEST
         )
     }
 }

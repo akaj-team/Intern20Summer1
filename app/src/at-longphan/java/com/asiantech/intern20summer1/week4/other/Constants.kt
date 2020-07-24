@@ -1,8 +1,10 @@
 package com.asiantech.intern20summer1.week4.other
 
-private const val STORAGE_REQUEST = 1
-private const val PICK_IMAGE_REQUEST = 2
-private const val OPEN_CAMERA_REQUEST = 3
+object RequestCode {
+    internal const val STORAGE_REQUEST = 1
+    internal const val PICK_IMAGE_REQUEST = 2
+    internal const val OPEN_CAMERA_REQUEST = 3
+}
 
 enum class SignInActivityData(val data: String) {
     SIGN_IN_USER("userLogin")
@@ -15,12 +17,6 @@ enum class IntentTitle(val string: String) {
 
 enum class IntentType(val string: String) {
     IMAGE("image/*")
-}
-
-enum class RequestCode(val code: RequestCode) {
-    STORAGE_REQUEST(STORAGE_REQUEST),
-    PICK_IMAGE_REQUEST(PICK_IMAGE_REQUEST),
-    OPEN_CAMERA_REQUEST(OPEN_CAMERA_REQUEST)
 }
 
 const val PASSWORD_REGEX = "^(?=.*[0-9]).{8,16}\$"
