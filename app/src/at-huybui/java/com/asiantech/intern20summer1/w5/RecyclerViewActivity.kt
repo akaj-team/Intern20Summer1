@@ -7,9 +7,6 @@ import com.asiantech.intern20summer1.R
 import kotlinx.android.synthetic.`at-huybui`.activity_recycler_view.*
 
 class RecyclerViewActivity : AppCompatActivity() {
-    companion object{
-        internal var onClickHeart : (Boolean) -> Unit =
-    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recycler_view)

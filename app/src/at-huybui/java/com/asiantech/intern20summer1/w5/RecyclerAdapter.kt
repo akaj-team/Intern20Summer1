@@ -13,6 +13,8 @@ import kotlinx.android.synthetic.`at-huybui`.recycler_item.view.*
 class RecyclerAdapter(private val mutableList: MutableList<ItemRecycler>) :
     RecyclerView.Adapter<RecyclerAdapter.ItemViewHolder>() {
 
+    internal var onItemClicked: (position: Int) -> Unit = {}
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val itemView =
             LayoutInflater.from(parent.context).inflate(R.layout.recycler_item, parent, false)
@@ -27,12 +29,18 @@ class RecyclerAdapter(private val mutableList: MutableList<ItemRecycler>) :
     }
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var name1: TextView = itemView.tvName1W5
-        var name2: TextView = itemView.tvName2W5
-        var image: ImageView = itemView.imgImageW5
-        var iconHeart: ImageView = itemView.imgIconHeartW5
-        var information: TextView = itemView.tvInformationW5
-        var amountHeart: TextView = itemView.tvAmountHeartW5
+        private var name1: TextView = itemView.tvName1W5
+        private var name2: TextView = itemView.tvName2W5
+        private var image: ImageView = itemView.imgImageW5
+        private var iconHeart: ImageView = itemView.imgIconHeartW5
+        private var information: TextView = itemView.tvInformationW5
+        private var amountHeart: TextView = itemView.tvAmountHeartW5
+
+        init {
+            iconHeart.setOnClickListener {
+
+            }
+        }
 
         fun bind(item: ItemRecycler) {
             name1.text = item.name
@@ -45,11 +53,6 @@ class RecyclerAdapter(private val mutableList: MutableList<ItemRecycler>) :
                 iconHeart.setImageResource(R.drawable.ic_heart_transparent)
             }
             image.setImageResource(item.image)
-
-            iconHeart.setOnClickListener {
-                    item.statusHeart = !item.statusHeart
-
-            }
         }
 
     }
