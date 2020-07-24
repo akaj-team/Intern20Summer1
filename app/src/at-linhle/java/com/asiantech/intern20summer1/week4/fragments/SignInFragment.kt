@@ -20,7 +20,14 @@ class SignInFragment : Fragment() {
 
     // At least 1 digit and have from 8 to 16 characters
     private val passwordPattern = Pattern.compile("""^(?=.*[0-9]).{8,16}$""")
-    private var user = User("", "", "", "", "")
+    private var user = User()
+
+    companion object {
+        private const val KEY_STRING_USER = "user"
+        private const val TITLE_DIALOG = "Incorrect"
+        private const val MESSAGE_DIALOG = "Email or Password is incorrect"
+        private const val STRING_OK_BUTTON = "OK"
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -64,7 +71,7 @@ class SignInFragment : Fragment() {
                 && edtPassword.text.toString() == user.password
             ) {
                 val intent = Intent(activity, HomeActivity::class.java)
-                intent.putExtra("user", user)
+                intent.putExtra(KEY_STRING_USER, user)
                 activity?.startActivity(intent)
                 activity?.finish()
             } else {
@@ -89,10 +96,10 @@ class SignInFragment : Fragment() {
     private fun displayAlert() {
         activity?.let {
             AlertDialog.Builder(it)
-                .setTitle("Incorrect")
-                .setMessage("Email or Password is incorrect")
+                .setTitle(TITLE_DIALOG)
+                .setMessage(MESSAGE_DIALOG)
                 .setPositiveButton(
-                    "OK"
+                    STRING_OK_BUTTON
                 ) { dialog, _ -> dialog.cancel() }.show()
         }
     }

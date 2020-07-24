@@ -26,7 +26,7 @@ class SignUpFragment : Fragment() {
 
     // Interface to pass data
     internal var onRegisterSuccess: (user: User) -> Unit = {}
-    private val user = User("", "", "", "", "")
+    private val user = User()
 
     // At least 1 digit
     private val passwordPattern = Pattern.compile("""^(?=.*[0-9]).{8,16}$""")
@@ -40,6 +40,11 @@ class SignUpFragment : Fragment() {
         private const val OPEN_CAMERA_REQUEST = 1
         private const val PICK_IMAGE_REQUEST = 2
         private const val KEY_IMAGE_GALLERY = "image/*"
+        private const val HUNDRED = 100
+        private const val CHOOSE_OPTION_DIALOG = "Choose an option:"
+        private const val GALLERY = "Gallery"
+        private const val CAMERA = "Camera"
+        private const val TITLE = "title"
     }
 
     override fun onCreateView(
@@ -201,45 +206,42 @@ class SignUpFragment : Fragment() {
     }
 
     private fun cropImageGallery(data: Intent?) {
-        data?.data.let {
-            it?.let { it1 -> handleCropImage(it1) }
+        data?.data?.let {
+            handleCropImage(it)
         }
     }
 
     private fun showImage(data: Intent?) {
-        CropImage.getActivityResult(data).uri.apply {
-            if (this != null) {
-                val bitmap = Images.Media.getBitmap(
-                    activity?.contentResolver,
-                    this
-                )
-                imageUri = this.toString()
-                profile_image.setImageBitmap(bitmap)
-            }
+        CropImage.getActivityResult(data).uri?.apply {
+            val bitmap = Images.Media.getBitmap(
+                activity?.contentResolver,
+                this
+            )
+            imageUri = this.toString()
+            imgSignUpProfile.setImageBitmap(bitmap)
         }
     }
 
     private fun handleCropImage(uri: Uri) {
-        context?.let { context ->
+        context?.let {
             CropImage.activity(uri)
                 .setAspectRatio(1, 1)
-                .start(context, this)
+                .start(it, this)
         }
     }
 
     private fun getImageUri(inImage: Bitmap): Uri? {
         val bytes = ByteArrayOutputStream()
-        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-        val path =
-            Images.Media.insertImage(context?.contentResolver, inImage, "Title", null)
+        inImage.compress(Bitmap.CompressFormat.JPEG, HUNDRED, bytes)
+        val path = Images.Media.insertImage(context?.contentResolver, inImage, TITLE, null)
         return Uri.parse(path)
     }
 
     private fun handleListener() {
-        profile_image.setOnClickListener {
+        imgSignUpProfile.setOnClickListener {
             val dialogBuilder = AlertDialog.Builder(context)
-            dialogBuilder.setTitle("Choose an option:")
-            val optionList = arrayOf("Gallery", "Camera")
+            dialogBuilder.setTitle(CHOOSE_OPTION_DIALOG)
+            val optionList = arrayOf(GALLERY, CAMERA)
             dialogBuilder.setItems(optionList) { _, which ->
                 when (which) {
                     0 -> {
