@@ -43,7 +43,7 @@ class RecyclerAdapter(private val mutableList: MutableList<ItemRecycler>) :
 
         fun bind() {
             mutableList[adapterPosition].let { item ->
-                name1.text = item.name
+                name1.text = "${adapterPosition}. ${item.name}"
                 name2.text = item.name
                 information.text = item.infomation
                 amountHeart.text = "  ${item.amountHeart} likes"

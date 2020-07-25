@@ -1,107 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
-
-    <TextView
-        android:id="@+id/tvName1W5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/w5_name_top_margin_top"
-        android:layout_marginLeft="@dimen/w5_margin_left_right"
-        android:text="name"
-        android:textColor="@color/black"
-        android:textSize="@dimen/w5_name_text_size"
-        android:textStyle="bold" />
-
-    <ImageView
-        android:id="@+id/imgImageW5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scaleType="fitXY"
-        android:adjustViewBounds="true"
-        android:layout_margin="@dimen/w5_margin_left_right"
-        android:src="@drawable/img_fruit_chom_chom"
-        />
+    app:cardElevation="@dimen/w5_card_view_elevation"
+    android:layout_margin="@dimen/w5_card_view_margin"
+    android:background="@color/status_bar">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/w5_margin_left_right_icon">
-
-        <ImageView
-            android:id="@+id/imgIconHeartW5"
-            android:layout_width="@dimen/w5_icon_heart_size"
-            android:layout_height="@dimen/w5_icon_heart_size"
-            android:src="@drawable/ic_heart_transparent" />
-
-        <ImageView
-            android:layout_width="@dimen/w5_icon_heart_size"
-            android:layout_height="@dimen/w5_icon_heart_size"
-            android:layout_marginLeft="@dimen/w5_margin_left_right"
-            android:layout_marginRight="@dimen/w5_margin_left_right"
-            android:src="@drawable/ic_messenger" />
-
-        <ImageView
-            android:layout_width="@dimen/w5_icon_heart_size"
-            android:layout_height="@dimen/w5_icon_heart_size"
-            android:src="@drawable/ic_plane" />
-    </LinearLayout>
-
-    <TextView
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginLeft="@dimen/w5_margin_left_right_icon"
-        android:layout_marginRight="@dimen/w5_margin_left_right_icon"
-        android:layout_marginTop="@dimen/w5_line_black_margin_top"
-        android:background="@color/black" />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/w5_margin_left_right_icon"
-        android:layout_marginTop="@dimen/w5_icon_heart_black_margin_top">
-
-        <ImageView
-            android:layout_width="@dimen/w5_icon_heart_red_size"
-            android:layout_height="@dimen/w5_icon_heart_red_size"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_heart_black" />
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tvAmountHeartW5"
+            android:id="@+id/tvName1W5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=" 12 like"
+            android:layout_marginLeft="@dimen/w5_margin_left_right"
+            android:layout_marginTop="@dimen/w5_name_top_margin_top"
+            android:text="name"
             android:textColor="@color/black"
-            android:textSize="15dp"
+            android:textSize="@dimen/w5_name_text_size"
             android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/imgImageW5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/w5_margin_left_right"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/img_fruit_chom_chom" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/w5_margin_left_right_icon">
+
+            <ImageView
+                android:id="@+id/imgIconHeartW5"
+                android:layout_width="@dimen/w5_icon_heart_size"
+                android:layout_height="@dimen/w5_icon_heart_size"
+                android:src="@drawable/ic_heart_transparent" />
+
+            <ImageView
+                android:layout_width="@dimen/w5_icon_heart_size"
+                android:layout_height="@dimen/w5_icon_heart_size"
+                android:layout_marginLeft="@dimen/w5_margin_left_right"
+                android:layout_marginRight="@dimen/w5_margin_left_right"
+                android:src="@drawable/ic_messenger" />
+
+            <ImageView
+                android:layout_width="@dimen/w5_icon_heart_size"
+                android:layout_height="@dimen/w5_icon_heart_size"
+                android:src="@drawable/ic_plane" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/w5_margin_left_right_icon"
+            android:layout_marginTop="@dimen/w5_line_black_margin_top"
+            android:layout_marginRight="@dimen/w5_margin_left_right_icon"
+            android:background="@color/accent" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/w5_margin_left_right_icon"
+            android:layout_marginTop="@dimen/w5_icon_heart_black_margin_top">
+
+            <ImageView
+                android:layout_width="@dimen/w5_icon_heart_red_size"
+                android:layout_height="@dimen/w5_icon_heart_red_size"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_heart_black" />
+
+            <TextView
+                android:id="@+id/tvAmountHeartW5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" 12 like"
+                android:textColor="@color/black"
+                android:textSize="15dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvName2W5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/w5_margin_left_right_icon"
+            android:text="name"
+            android:textColor="@color/black"
+            android:textSize="@dimen/w5_name_text_size"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvInformationW5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/w5_margin_left_right_icon"
+            android:text="infor"
+            android:textColor="@color/black"
+            android:textSize="@dimen/w5_name_text_size" />
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/tvName2W5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/w5_margin_left_right_icon"
-        android:text="name"
-        android:textColor="@color/black"
-        android:textSize="@dimen/w5_name_text_size"
-        android:textStyle="bold" />
-    <TextView
-        android:id="@+id/tvInformationW5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/w5_margin_left_right_icon"
-        android:text="infor"
-        android:textColor="@color/black"
-        android:textSize="@dimen/w5_name_text_size"
-         />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginLeft="@dimen/w5_margin_left_right"
-        android:layout_marginRight="@dimen/w5_margin_left_right"
-        android:background="@color/black" />
-
-</LinearLayout>
+</androidx.cardview.widget.CardView>

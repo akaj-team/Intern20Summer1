@@ -1,15 +1,25 @@
 package com.asiantech.intern20summer1.w5
 
 import android.os.Bundle
+import android.os.Handler
+import android.util.Log.d
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.asiantech.intern20summer1.R
 import kotlinx.android.synthetic.`at-huybui`.activity_recycler_view.*
 
 class RecyclerViewActivity : AppCompatActivity() {
+
+    companion object {
+        private const val DELAYS_PROGRESSBAR = 2000L
+    }
+
     private val exampleLists: MutableList<ItemRecycler> = mutableListOf()
     var adapterRecycler = RecyclerAdapter(exampleLists)
+    private var loading = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,7 +30,30 @@ class RecyclerViewActivity : AppCompatActivity() {
     }
 
 
+    var counter = 0
     private fun initAdapter() {
+        recycler_view.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val linearLayoutManager = recyclerView.layoutManager as LinearLayoutManager
+                val lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition()
+                if (!loading && (lastVisibleItem == exampleLists.size - 1)) {
+                        progressBar.visibility = View.VISIBLE
+                        Handler().postDelayed({
+                            loading = true
+                            progressBar.visibility = View.INVISIBLE
+                            initData()
+                            adapterRecycler.notifyDataSetChanged()
+                        }, DELAYS_PROGRESSBAR)
+
+                }
+                counter++
+                d("XXXX","size: ${exampleLists.size} :dy = $dy: last: $lastVisibleItem" )
+                loading = false
+            }
+        })
+
+
         adapterRecycler.onItemClicked = { position ->
             exampleLists[position].let {
                 it.statusHeart = !it.statusHeart
@@ -39,8 +72,8 @@ class RecyclerViewActivity : AppCompatActivity() {
     }
 
     private fun initData() {
-        for(i in 1..9){
-          handleAdd(i)
+        for (i in 1..5) {
+            handleAdd(i)
         }
     }
 
@@ -129,5 +162,9 @@ class RecyclerViewActivity : AppCompatActivity() {
                 )
             )
         }
+    }
+
+    interface loadMoreItem {
+        fun loadMore()
     }
 }
