@@ -14,7 +14,6 @@ import android.provider.MediaStore.Images
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -38,6 +37,7 @@ class SignUpFragment : Fragment() {
     // Must have 10 digits
     private val phonePattern = Pattern.compile("""^([0-9]){10}$""")
     private var imageUri: String? = ""
+    private var checkCameraStatus = false
 
     companion object {
         private const val KEY_IMAGE = "data"
@@ -187,7 +187,11 @@ class SignUpFragment : Fragment() {
         if (resultCode == RESULT_OK) {
             when (requestCode) {
                 OPEN_CAMERA_REQUEST -> {
-                    cropImageCamera(data)
+                    if (!checkStoragePermissions()) {
+                        makeStorageRequest()
+                    } else {
+                        cropImageCamera(data)
+                    }
                 }
                 PICK_IMAGE_REQUEST -> {
                     cropImageGallery(data)
@@ -221,9 +225,7 @@ class SignUpFragment : Fragment() {
 
     private fun handleCropImage(uri: Uri) {
         context?.let {
-            CropImage.activity(uri)
-                .setAspectRatio(1, 1)
-                .start(it, this)
+            CropImage.activity(uri).setAspectRatio(1, 1).start(it, this)
         }
     }
 
@@ -241,44 +243,68 @@ class SignUpFragment : Fragment() {
     }
 
     private fun checkStoragePermissions(): Boolean {
-        val permission = checkSelfPermission(
-            requireContext(),
-            Manifest.permission.READ_EXTERNAL_STORAGE
-        )
+        val permission =
+            checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
         return permission == PackageManager.PERMISSION_GRANTED
     }
 
     private fun checkCameraPermissions(): Boolean {
-        val permissionCamera = checkSelfPermission(
-            requireContext(),
-            Manifest.permission.CAMERA
-        )
-        val permissionWrite = checkSelfPermission(
-            requireContext(),
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
-        )
+        val permissionCamera = checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
+        val permissionWrite =
+            checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
         return (permissionCamera == PackageManager.PERMISSION_GRANTED
                 && permissionWrite == PackageManager.PERMISSION_GRANTED)
     }
 
     private fun makeStorageRequest() {
-        this.activity?.let {
-            ActivityCompat.requestPermissions(
-                it,
-                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                PICK_IMAGE_REQUEST
-            )
-        }
+        requestPermissions(
+            arrayOf(
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ), PICK_IMAGE_REQUEST
+        )
     }
 
     private fun makeCameraRequest() {
-        this.activity?.let {
-            ActivityCompat.requestPermissions(
-                it,
-                arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE),
-                OPEN_CAMERA_REQUEST
-            )
+        requestPermissions(arrayOf(Manifest.permission.CAMERA), OPEN_CAMERA_REQUEST)
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String?>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == OPEN_CAMERA_REQUEST) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                checkCameraStatus = true
+                if (!checkStoragePermissions()) {
+                    makeStorageRequest()
+                } else {
+                    openCamera()
+                }
+            }
         }
+        if (requestCode == PICK_IMAGE_REQUEST) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (!checkCameraStatus) {
+                    openStorage()
+                } else {
+                    openCamera()
+                }
+            }
+        }
+    }
+
+    private fun openStorage() {
+        val intentImage = Intent(Intent.ACTION_PICK, Images.Media.EXTERNAL_CONTENT_URI)
+        intentImage.type = KEY_IMAGE_GALLERY
+        startActivityForResult(intentImage, PICK_IMAGE_REQUEST)
+    }
+
+    private fun openCamera() {
+        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        startActivityForResult(cameraIntent, OPEN_CAMERA_REQUEST)
     }
 
     private fun handleListener() {
@@ -293,18 +319,14 @@ class SignUpFragment : Fragment() {
                 when (which) {
                     0 -> {
                         if (checkStoragePermissions()) {
-                            val intentImage =
-                                Intent(Intent.ACTION_PICK, Images.Media.EXTERNAL_CONTENT_URI)
-                            intentImage.type = KEY_IMAGE_GALLERY
-                            startActivityForResult(intentImage, PICK_IMAGE_REQUEST)
+                            openStorage()
                         } else {
                             makeStorageRequest()
                         }
                     }
                     1 -> {
                         if (checkCameraPermissions()) {
-                            val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                            startActivityForResult(cameraIntent, OPEN_CAMERA_REQUEST)
+                            openCamera()
                         } else {
                             makeCameraRequest()
                         }
