@@ -100,4 +100,5 @@
     <dimen name="background_button_week_3_corners_radius">25dp</dimen>
     <dimen name="background_edit_text_corners_radius">25dp</dimen>
     <dimen name="background_edit_text_focused_stroke_width">2dp</dimen>
+    <dimen name="text_view_agree_description_padding_horizontal">30dp</dimen>
 </resources>

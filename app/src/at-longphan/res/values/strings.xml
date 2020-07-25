@@ -30,7 +30,7 @@
     <string name="text_view_mobile_number_description">Mobile Number</string>
     <string name="text_view_confirm_password_description">Confirm Password</string>
     <string name="button_register">Register</string>
-    <string name="text_view_agree_description"><![CDATA[By registering you agree to Terms & Conditions and Privacy Policy of the Festival]]></string>
+    <string name="text_view_agree_description">By registering you agree to Terms &amp; Conditions and Privacy Policy of the Festival</string>
     <string name="text_view_home_title">Home</string>
     <string name="text_view_show_full_name">Full Name:</string>
     <string name="text_view_show_email">Email:</string>
