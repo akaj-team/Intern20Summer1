@@ -13,6 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppThemeWeek4">
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat" />
         <activity android:name="com.asiantech.intern20summer1.week4.activity.HomeActivity" />
         <activity
             android:name="com.asiantech.intern20summer1.week4.activity.SplashActivity"
@@ -24,7 +27,6 @@
             </intent-filter>
         </activity>
         <activity android:name="com.asiantech.intern20summer1.week4.activity.SignInActivity" />
-        
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

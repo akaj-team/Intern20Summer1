@@ -3,9 +3,9 @@ package com.asiantech.intern20summer1.week4.fragment
 import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
-import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -13,19 +13,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week4.model.User
 import com.asiantech.intern20summer1.week4.other.*
+import com.theartofdev.edmodo.cropper.CropImage
 import kotlinx.android.synthetic.`at-longphan`.fragment_sign_up.*
+import java.io.ByteArrayOutputStream
 
 class SignUpFragment : Fragment() {
     companion object {
+        private const val KEY_IMAGE = "data"
+        private const val HUNDRED = 100
         var userRegister = User()
-        var image_uri: Uri? = null
         var checkFullName = false
         var checkEmail = false
         var checkMobileNumber = false
@@ -49,17 +51,39 @@ class SignUpFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
-            RequestCode.PICK_IMAGE_REQUEST -> {
-                if (resultCode == Activity.RESULT_OK) {
-                    val uri: Uri? = data?.data
-                    imgAvatar.setImageURI(uri)
-                    userRegister.avatarUri = uri.toString()
+            RequestCode.PICK_IMAGE_REQUEST -> if (resultCode == Activity.RESULT_OK) cropImageGallery(data)
+            RequestCode.OPEN_CAMERA_REQUEST -> if (resultCode == Activity.RESULT_OK) cropImageCamera(data)
+            CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE -> showImage(data)
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            RequestCode.OPEN_CAMERA_REQUEST -> {
+                if (checkCameraPermissions()) {
+                    openCamera()
+                } else {
+                    Toast.makeText(
+                        context,
+                        getString(R.string.camera_permission_denied_toast),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
-            RequestCode.OPEN_CAMERA_REQUEST -> {
-                if (resultCode == Activity.RESULT_OK) {
-                    imgAvatar.setImageURI(image_uri)
-                    userRegister.avatarUri = image_uri.toString()
+            RequestCode.PICK_IMAGE_REQUEST -> {
+                if (checkStoragePermissions()) {
+                    pickImage()
+                } else {
+                    Toast.makeText(
+                        context,
+                        getString(R.string.storage_permission_denied_toast),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         }
@@ -86,26 +110,6 @@ class SignUpFragment : Fragment() {
         )
         return (permissionCamera == PackageManager.PERMISSION_GRANTED
                 && permissionWrite == PackageManager.PERMISSION_GRANTED)
-    }
-
-    private fun makeStorageRequest() {
-        this.activity?.let {
-            ActivityCompat.requestPermissions(
-                it,
-                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                RequestCode.STORAGE_REQUEST
-            )
-        }
-    }
-
-    private fun makeCameraRequest() {
-        this.activity?.let {
-            ActivityCompat.requestPermissions(
-                it,
-                arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE),
-                RequestCode.OPEN_CAMERA_REQUEST
-            )
-        }
     }
 
     private fun handleListener() {
@@ -181,11 +185,11 @@ class SignUpFragment : Fragment() {
                 when (which) {
                     0 -> {
                         if (checkStoragePermissions()) pickImage()
-                        else makeStorageRequest()
+                        else requestStoragePermissions()
                     }
                     1 -> {
                         if (checkCameraPermissions()) openCamera()
-                        else makeCameraRequest()
+                        else requestCameraPermissions()
                     }
                 }
             }
@@ -194,11 +198,67 @@ class SignUpFragment : Fragment() {
         }
     }
 
+    private fun cropImageCamera(data: Intent?) {
+        (data?.extras?.get(KEY_IMAGE) as? Bitmap)?.let {
+            getImageUri(it)?.let { uri -> handleCropImage(uri) }
+        }
+    }
+
+    private fun cropImageGallery(data: Intent?) {
+        data?.data?.let {
+            handleCropImage(it)
+        }
+    }
+
+    private fun showImage(data: Intent?) {
+        CropImage.getActivityResult(data).uri?.apply {
+            val bitmap = MediaStore.Images.Media.getBitmap(activity?.contentResolver, this)
+            userRegister.avatarUri = this.toString()
+            imgAvatar.setImageBitmap(bitmap)
+        }
+    }
+
+    private fun handleCropImage(uri: Uri) {
+        context?.let {
+            CropImage.activity(uri)
+                .setAspectRatio(1, 1)
+                .start(it, this)
+        }
+    }
+
+    private fun getImageUri(inImage: Bitmap): Uri? {
+        val bytes = ByteArrayOutputStream()
+        inImage.compress(Bitmap.CompressFormat.JPEG, HUNDRED, bytes)
+        val path =
+            MediaStore.Images.Media.insertImage(
+                context?.contentResolver,
+                inImage,
+                getString(R.string.image_path_title),
+                null
+            )
+        return Uri.parse(path)
+    }
+
+    private fun requestStoragePermissions() {
+        requestPermissions(
+            arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+            RequestCode.PICK_IMAGE_REQUEST
+        )
+    }
+
+    private fun requestCameraPermissions() {
+        requestPermissions(
+            arrayOf(
+                Manifest.permission.CAMERA,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ), RequestCode.OPEN_CAMERA_REQUEST
+        )
+    }
+
     private fun handleButtonSignUpListener() {
         btnSignUp.setOnClickListener {
             onRegisterSuccess(userRegister)
-            Toast.makeText(context, getString(R.string.text_sign_up_success), Toast.LENGTH_SHORT)
-                .show()
+            Toast.makeText(context, getString(R.string.text_sign_up_success), Toast.LENGTH_SHORT).show()
             fragmentManager?.popBackStack()
         }
     }
@@ -219,24 +279,13 @@ class SignUpFragment : Fragment() {
     }
 
     private fun pickImage() {
-        val intent = Intent()
+        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         intent.type = IntentType.IMAGE
-        intent.action = Intent.ACTION_GET_CONTENT
-        startActivityForResult(
-            Intent.createChooser(intent, IntentTitle.PICK_IMAGE_TITLE),
-            RequestCode.PICK_IMAGE_REQUEST
-        )
+        startActivityForResult(intent, RequestCode.PICK_IMAGE_REQUEST)
     }
 
     private fun openCamera() {
-        val values = ContentValues()
-        image_uri =
-            context?.contentResolver?.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri)
-        startActivityForResult(
-            Intent.createChooser(intent, IntentTitle.OPEN_CAMERA_TITLE),
-            RequestCode.OPEN_CAMERA_REQUEST
-        )
+        startActivityForResult(intent, RequestCode.OPEN_CAMERA_REQUEST)
     }
 }

@@ -16,7 +16,7 @@
     <dimen name="text_view_information_text_size">16sp</dimen>
     <dimen name="text_view_information_margin_left">10dp</dimen>
     <dimen name="linear_layout_second_bound_margin_horizontal">30dp</dimen>
-    <dimen name="linear_layout_second_bound_margin_vertical">40dp</dimen>
+    <dimen name="linear_layout_second_bound_margin_vertical">20dp</dimen>
     <dimen name="image_view_logo_app_margin_top">20dp</dimen>
     <dimen name="linear_layout_social_margin_horizontal">3dp</dimen>
     <dimen name="linear_layout_social_margin_top">80dp</dimen>

@@ -35,4 +35,7 @@
     <string name="text_view_show_full_name">Full Name:</string>
     <string name="text_view_show_email">Email:</string>
     <string name="text_view_show_mobile_number">Mobile Number:</string>
+    <string name="camera_permission_denied_toast">Camera permission denied</string>
+    <string name="storage_permission_denied_toast">Storage permission denied</string>
+    <string name="image_path_title">title</string>
 </resources>
