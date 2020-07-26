@@ -13,6 +13,10 @@ import kotlinx.android.synthetic.`at-huybui`.recycler_item.view.*
 class RecyclerAdapter(private val mutableList: MutableList<ItemRecycler>) :
     RecyclerView.Adapter<RecyclerAdapter.ItemViewHolder>() {
 
+    companion object {
+        private const val BLACK_HEART_SYMBOL = "\uD83D\uDDA4"
+    }
+
     internal var onItemClicked: (position: Int) -> Unit = {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
@@ -24,7 +28,7 @@ class RecyclerAdapter(private val mutableList: MutableList<ItemRecycler>) :
     override fun getItemCount() = mutableList.size
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        holder.bind()
+        holder.bindData()
     }
 
     inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -41,12 +45,14 @@ class RecyclerAdapter(private val mutableList: MutableList<ItemRecycler>) :
             }
         }
 
-        fun bind() {
+        fun bindData() {
             mutableList[adapterPosition].let { item ->
-                name1.text = "${adapterPosition}. ${item.name}"
+                val stName1 = "${adapterPosition + 1}. ${item.name}"
+                val stAmountHeart = "$BLACK_HEART_SYMBOL ${item.amountHeart} likes"
+                name1.text = stName1
                 name2.text = item.name
-                information.text = item.infomation
-                amountHeart.text = "  ${item.amountHeart} likes"
+                information.text = item.information
+                amountHeart.text = stAmountHeart
                 if (item.statusHeart) {
                     iconHeart.setImageResource(R.drawable.ic_heart_red)
                 } else {

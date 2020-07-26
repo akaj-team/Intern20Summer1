@@ -5,5 +5,5 @@ data class ItemRecycler(
     var amountHeart: Int,
     var image: Int,
     var statusHeart: Boolean,
-    var infomation: String
+    var information: String
 )
