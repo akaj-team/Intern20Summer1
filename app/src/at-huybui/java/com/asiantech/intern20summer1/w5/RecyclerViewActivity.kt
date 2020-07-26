@@ -16,6 +16,7 @@ class RecyclerViewActivity : AppCompatActivity() {
     companion object {
         private const val SDK_VERSION = 23
         private const val DELAYS_PROGRESS = 2000L
+        private const val MAX_RANDOM = 1000
     }
 
     private val exampleLists: MutableList<ItemRecycler> = mutableListOf()
@@ -84,7 +85,7 @@ class RecyclerViewActivity : AppCompatActivity() {
         exampleLists.add(
             ItemRecycler(
                 resources.getString(R.string.w5_name_buoi_da_xanh),
-                (0..1000).random(),
+                (0..MAX_RANDOM).random(),
                 R.drawable.img_fruit_buoi_da_xanh,
                 false,
                 resources.getString(R.string.w5_information_buoi_da_xanh)
@@ -93,7 +94,7 @@ class RecyclerViewActivity : AppCompatActivity() {
         exampleLists.add(
             ItemRecycler(
                 resources.getString(R.string.w5_name_chom_chom),
-                (0..1000).random(),
+                (0..MAX_RANDOM).random(),
                 R.drawable.img_fruit_chom_chom,
                 false,
                 resources.getString(R.string.w5_information_chom_chom)
@@ -102,7 +103,7 @@ class RecyclerViewActivity : AppCompatActivity() {
         exampleLists.add(
             ItemRecycler(
                 resources.getString(R.string.w5_name_dua),
-                (0..1000).random(),
+                (0..MAX_RANDOM).random(),
                 R.drawable.img_fruit_dua,
                 false,
                 resources.getString(R.string.w5_information_dua)
@@ -111,7 +112,7 @@ class RecyclerViewActivity : AppCompatActivity() {
         exampleLists.add(
             ItemRecycler(
                 resources.getString(R.string.w5_name_dua_nuoc),
-                (0..1000).random(),
+                (0..MAX_RANDOM).random(),
                 R.drawable.img_fruit_dua_nuoc,
                 false,
                 resources.getString(R.string.w5_information_dua_nuoc)
@@ -120,7 +121,7 @@ class RecyclerViewActivity : AppCompatActivity() {
         exampleLists.add(
             ItemRecycler(
                 resources.getString(R.string.w5_name_mang_cut),
-                (0..1000).random(),
+                (0..MAX_RANDOM).random(),
                 R.drawable.img_fruit_mang_cut,
                 false,
                 resources.getString(R.string.w5_information_mang_cut)
@@ -129,7 +130,7 @@ class RecyclerViewActivity : AppCompatActivity() {
         exampleLists.add(
             ItemRecycler(
                 resources.getString(R.string.w5_name_quyt_dong_thap),
-                (0..1000).random(),
+                (0..MAX_RANDOM).random(),
                 R.drawable.img_fruit_quyt_dong_thap,
                 false,
                 resources.getString(R.string.w5_information_quyt_dong_thap)
@@ -138,7 +139,7 @@ class RecyclerViewActivity : AppCompatActivity() {
         exampleLists.add(
             ItemRecycler(
                 resources.getString(R.string.w5_name_sau_rieng),
-                (0..1000).random(),
+                (0..MAX_RANDOM).random(),
                 R.drawable.img_fruit_sau_rieng,
                 false,
                 resources.getString(R.string.w5_information_sau_rieng)
@@ -147,7 +148,7 @@ class RecyclerViewActivity : AppCompatActivity() {
         exampleLists.add(
             ItemRecycler(
                 resources.getString(R.string.w5_name_thanh_tra),
-                (0..1000).random(),
+                (0..MAX_RANDOM).random(),
                 R.drawable.img_fruit_thanh_tra,
                 false,
                 resources.getString(R.string.w5_information_thanh_tra)
@@ -156,7 +157,7 @@ class RecyclerViewActivity : AppCompatActivity() {
         exampleLists.add(
             ItemRecycler(
                 resources.getString(R.string.w5_name_vu_sua),
-                (0..1000).random(),
+                (0..MAX_RANDOM).random(),
                 R.drawable.img_fruit_vu_sua,
                 false,
                 resources.getString(R.string.w5_information_vu_sua)
