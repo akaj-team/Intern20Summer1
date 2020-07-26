@@ -93,7 +93,7 @@
                 android:id="@+id/tvEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/email_text_view_description"
+                android:text="@string/w4_email_text_view_description"
                 android:textColor="@color/colorSilver"
                 android:textSize="@dimen/email_text_view_text_size" />
 
@@ -110,7 +110,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/edtEmail"
-                android:text="@string/password_text_view_description"
+                android:text="@string/w4_password_text_view_description"
                 android:textColor="@color/colorSilver"
                 android:textSize="@dimen/pass_text_view_text_size" />
 

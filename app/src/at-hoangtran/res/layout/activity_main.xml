@@ -1,15 +1,179 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/lnMain"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_marginLeft="@dimen/relative_layout_margin_left"
+        android:layout_marginRight="@dimen/relative_layout_margin_right"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/logo_margin_top"
+            android:layout_marginBottom="@dimen/logo_margin_bottom"
+            android:src="@mipmap/logo" />
+
+        <TextView
+            android:id="@+id/emailText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/description_margin_bottom"
+            android:text="@string/email_ID_description" />
+
+        <RelativeLayout
+            android:id="@+id/rlEmail"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/relative_layout_height">
+
+            <EditText
+                android:id="@+id/edtEmail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:autofillHints="Email"
+                android:background="@drawable/bg_edit_text"
+                android:hint="@string/email_hint"
+                android:inputType="textEmailAddress" />
+
+            <ImageView
+                android:id="@+id/imgEmailTick"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/image_view_margin_right"
+                android:src="@mipmap/icon_tick"
+                android:visibility="invisible" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/passText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/description_margin_bottom"
+            android:text="@string/password" />
+
+        <RelativeLayout
+            android:id="@+id/rlPass"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/relative_layout_height">
+
+            <EditText
+                android:id="@+id/edtPass"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:autofillHints="@string/pass_hint"
+                android:background="@drawable/bg_edit_text"
+                android:hint="@string/pass_hint"
+                android:inputType="textPassword" />
+
+            <ImageView
+                android:id="@+id/imgPassTick"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/image_view_margin_right"
+                android:src="@mipmap/icon_tick"
+                android:visibility="invisible" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/retypePassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/description_margin_bottom"
+            android:text="@string/retype" />
+
+        <RelativeLayout
+            android:id="@+id/rlRetype"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/relative_layout_height">
+
+            <EditText
+                android:id="@+id/edtRetype"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:autofillHints="@string/password"
+                android:hint="@string/password"
+                android:background="@drawable/bg_edit_text"
+                android:inputType="textPassword" />
+
+            <ImageView
+                android:id="@+id/imgRetypeTick"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/image_view_margin_right"
+                android:src="@mipmap/icon_tick"
+                android:visibility="invisible" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/text_view_social_margin_top"
+            android:layout_marginBottom="@dimen/text_view_social_margin_bottom"
+            android:text="@string/link" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/image_view_social_margin_bottom">
+
+            <ImageView
+                android:id="@+id/imgFB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/fb_margin_right"
+                android:src="@mipmap/btn_facebook" />
+
+            <ImageView
+                android:id="@+id/imgTwitter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/twitter_margin_right"
+                android:src="@mipmap/btn_twitter" />
+
+            <ImageView
+                android:id="@+id/imgGGPlus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/btn_google_plus" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            android:background="@drawable/bg_button"
+            android:text="@string/sign_up_button"
+            android:textColor="@color/colorWhite" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/register_layout_margin_top"
+            android:layout_marginBottom="@dimen/register_layout_margin_top">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="@dimen/register_text_view_padding_right"
+                android:text="@string/not_register" />
+
+            <TextView
+                android:id="@+id/tvSignUp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sign"
+                android:textColor="@color/colorAccent" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="logo_image_view_margin_bottom">30dp</dimen>
+    <dimen name="logo_image_view_margin_top">40dp</dimen>
+    <dimen name="text_view_margin_left_right">68dp</dimen>
+    <dimen name="text_view_margin_bottom">9dp</dimen>
+    <dimen name="relative_layout_height">50dp</dimen>
+    <dimen name="relative_layout_margin_bottom">14dp</dimen>
+    <dimen name="edit_text_padding_left">22dp</dimen>
+    <dimen name="image_view_check_margin_right">20dp</dimen>
+    <dimen name="media_link_margin_top">31dp</dimen>
+    <dimen name="media_link_margin_bottom">31dp</dimen>
+    <dimen name="buttons_to_sign_up_linear_layout_margin_bottom">30dp</dimen>
+    <dimen name="buttons_to_sign_up_image_view_padding_left">20dp</dimen>
+    <dimen name="text_view_linear_margin_top">40dp</dimen>
+    <dimen name="text_view_linear_margin_bottom">30dp</dimen>
+    <dimen name="sign_up_text_view_padding_right">5dp</dimen>
+    <dimen name="sign_up_button_corner_radius">100dp</dimen>
+    <dimen name="sign_up_button_stroke_width">1dp</dimen>
+    <dimen name="edit_text_corner_radius">100dp</dimen>
+    <dimen name="edit_text_stroke_width">1dp</dimen>
+</resources>

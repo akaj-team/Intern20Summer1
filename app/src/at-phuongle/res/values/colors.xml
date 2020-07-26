@@ -8,4 +8,9 @@
     <color name="colorYellowSea">#EFA536</color>
     <color name="colorCherokee">#F5C57E</color>
     <color name="colorBlack">#000000</color>
+    <color name="colorBlue">#0000FF</color>
+    <color name="colorGray">#808080</color>
+    <color name="colorGreen">#A8E490</color>
+    <color name="colorRed">#FF0000</color>
+    <color name="colorGainsboro">#F0F0F0</color>
 </resources>

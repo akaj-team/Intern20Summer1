@@ -1,11 +1,18 @@
 <resources>
     <string name="app_name">[Phuong]Intern20Summer1</string>
+    <string name="w3_email_text_view_description">Enter your email ID</string>
+    <string name="w3_password_text_view_description">Type your password</string>
+    <string name="retype_pass_text_view_description">Retype your password</string>
+    <string name="link_text_view_description">Link your social media profiles</string>
+    <string name="not_registered_text_view_description">Not registered?</string>
+    <string name="sign_up_text_view_description">Sign up!</string>
+    <string name="sign_up_button_text">SIGN UP</string>
     <string name="facebook_text_view_description">Facebook</string>
     <string name="google_text_view_description">Google</string>
     <string name="or_text_view_description">or</string>
-    <string name="email_text_view_description">Email ID</string>
+    <string name="w4_email_text_view_description">Email ID</string>
     <string name="hint_edit_text_description">Please input...</string>
-    <string name="password_text_view_description">Password</string>
+    <string name="w4_password_text_view_description">Password</string>
     <string name="forgot_password_text_view_description">Forgot Password?</string>
     <string name="login_button_text">Login</string>
     <string name="register_text_view_description">Don\'t have an account? Register Now</string>
