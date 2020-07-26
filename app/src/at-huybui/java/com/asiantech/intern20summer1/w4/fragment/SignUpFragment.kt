@@ -2,6 +2,7 @@ package com.asiantech.intern20summer1.w4.fragment
 
 import android.Manifest
 import android.app.Activity.RESULT_OK
+import android.content.ActivityNotFoundException
 import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -25,6 +26,7 @@ import com.asiantech.intern20summer1.w4.classanother.Account
 import com.asiantech.intern20summer1.w4.fragment.SignInFragment.Companion.REGEX_PASSWORD
 import kotlinx.android.synthetic.`at-huybui`.fragment_sign_up.*
 
+
 class SignUpFragment : Fragment() {
     companion object {
         private const val SDK_VERSION = 16
@@ -35,6 +37,7 @@ class SignUpFragment : Fragment() {
         private const val REQUEST_IMAGE_CAPTURE = 100
         private const val REQUEST_SELECT_IMAGE_IN_ALBUM = 101
         private const val PERMISSION_REQUEST_CODE = 200
+        private const val CROP_PIC = 102
         internal fun newInstance() = SignUpFragment()
     }
 
@@ -45,6 +48,8 @@ class SignUpFragment : Fragment() {
     private var numberPhoneBuffer = ""
     private var passwordBuffer = ""
     private var rewritePassStatus = false
+    private var isCheckCamera = false
+    private var isCheckGallery = false
 
     internal var onRegisterClick: (Account) -> Unit = { }
 
@@ -68,11 +73,19 @@ class SignUpFragment : Fragment() {
         handleForAvatarImage()
     }
 
+    override fun onResume() {
+        super.onResume()
+        handleCheckPermissionAfterRequest()
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            imgAvatarSignUp.setImageURI(imageUri)
+            performCrop()
         } else if (requestCode == REQUEST_SELECT_IMAGE_IN_ALBUM && resultCode == RESULT_OK) {
             imageUri = data?.data
+            performCrop()
+        } else if (requestCode == CROP_PIC && resultCode == RESULT_OK) {
+            showToast(getString(R.string.crop_complete))
             imgAvatarSignUp.setImageURI(imageUri)
         }
     }
@@ -335,16 +348,18 @@ class SignUpFragment : Fragment() {
 
                 when (which) {
                     0 -> {
-                        if (checkCameraPermission()) {
+                        if (isCheckCameraPermission()) {
                             openCamera()
                         } else {
+                            isCheckCamera = true
                             requestCameraPermission()
                         }
                     }
                     1 -> {
-                        if (checkGalleryPermission()) {
+                        if (isCheckGalleryPermission()) {
                             openGallery()
                         } else {
+                            isCheckGallery = true
                             requestGalleryPermission()
                         }
                     }
@@ -390,7 +405,7 @@ class SignUpFragment : Fragment() {
     /**
      * This check permission enter camera of application
      */
-    private fun checkCameraPermission(): Boolean {
+    private fun isCheckCameraPermission(): Boolean {
         return (ContextCompat.checkSelfPermission(
             requireContext(),
             Manifest.permission.CAMERA
@@ -426,7 +441,7 @@ class SignUpFragment : Fragment() {
     /**
      * This check permission enter gallery of application
      */
-    private fun checkGalleryPermission(): Boolean {
+    private fun isCheckGalleryPermission(): Boolean {
         return ContextCompat.checkSelfPermission(
             requireContext(),
             Manifest.permission.READ_EXTERNAL_STORAGE
@@ -453,10 +468,59 @@ class SignUpFragment : Fragment() {
     }
 
     /**
+     * This function check permission of camera and store after request to open camera or gallery now
+     */
+    private fun handleCheckPermissionAfterRequest() {
+        when {
+            isCheckCamera -> {
+                isCheckCamera = false
+                if (isCheckCameraPermission()) {
+                    openCamera()
+                }
+            }
+            isCheckGallery -> {
+                isCheckGallery = false
+                if (isCheckGalleryPermission()) {
+                    openGallery()
+                }
+            }
+        }
+    }
+
+    /**
      * This function will show a toast on display
      */
     private fun showToast(text: Any, duration: Int = Toast.LENGTH_SHORT) {
         toastStatus?.cancel()
         toastStatus = Toast.makeText(context, text.toString(), duration).apply { show() }
+    }
+
+
+    /**
+     *
+     */
+    private fun performCrop() {
+        try {
+            // call the standard crop action intent (the user device may not
+            // support it)
+            val cropIntent = Intent("com.android.camera.action.CROP")
+            // indicate image type and Uri
+            cropIntent.setDataAndType(imageUri, "image/*")
+            // set crop properties
+            cropIntent.putExtra("crop", "true")
+            // indicate aspect of desired crop
+            cropIntent.putExtra("aspectX", 1)
+            cropIntent.putExtra("aspectY", 1)
+            // indicate output X and Y
+            cropIntent.putExtra("outputX", 256)
+            cropIntent.putExtra("outputY", 256)
+            // retrieve data on return
+            cropIntent.putExtra("return-data", true)
+            // start the activity - we handle returning in onActivityResult
+            startActivityForResult(cropIntent, CROP_PIC)
+        } // respond to users whose devices do not support the crop action
+        catch (anfe: ActivityNotFoundException) {
+            showToast("This device doesn't support the crop action!")
+        }
     }
 }
