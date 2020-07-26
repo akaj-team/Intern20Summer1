@@ -38,41 +38,13 @@ class LoginFragment : Fragment() {
 
         (activity as SignInActivity).handleEmailEditText(edtEmail, btnLogin)
         (activity as SignInActivity).handlePasswordEditText(edtPass, btnLogin)
+
         handleLoginTextView()
 
         user = getDataFromRegisterFragment()
         bindDataToEditText(user)
 
         handleLoginButton()
-    }
-
-    private fun handleLoginButton() {
-        btnLogin.setOnClickListener {
-            if (isValidAccount()) {
-                val intent = Intent(activity as SignInActivity, HomeActivity::class.java)
-                intent.putExtra(LOGIN_DATA_KEY, user)
-                startActivity(intent)
-                (activity as SignInActivity).finish()
-            } else {
-                val dialog = AlertDialog.Builder(context)
-                dialog.setCancelable(false)
-                dialog.setTitle("Warning")
-                dialog.setMessage("Your email or password is wrong!")
-                dialog.setPositiveButton("Cancel",
-                    DialogInterface.OnClickListener { _, _ ->
-                        //Action for "Cancel".
-                    })
-
-                val alert: AlertDialog = dialog.create()
-                alert.show()
-            }
-        }
-    }
-
-    private fun handleLoginTextView() {
-        tvLoginRegister.setOnClickListener {
-            (activity as SignInActivity).replaceFragment(RegisterFragment.newInstance(), true)
-        }
     }
 
     private fun getDataFromRegisterFragment(): User? {
@@ -90,5 +62,34 @@ class LoginFragment : Fragment() {
 
     private fun isValidAccount(): Boolean {
         return edtEmail.text.toString() == user?.email && edtPass.text.toString() == user?.password
+    }
+
+    private fun handleLoginButton() {
+        btnLogin.setOnClickListener {
+            if (isValidAccount()) {
+                val intent = Intent(activity as SignInActivity, HomeActivity::class.java)
+                intent.putExtra(LOGIN_DATA_KEY, user)
+                startActivity(intent)
+                (activity as SignInActivity).finish()
+            } else {
+                val dialog = AlertDialog.Builder(context)
+                dialog.setCancelable(false)
+                dialog.setTitle(getString(R.string.crop_image_activity_title))
+                dialog.setMessage(getString(R.string.login_button_alert_message))
+                dialog.setPositiveButton(R.string.login_button_alert_positive_button,
+                    DialogInterface.OnClickListener { _, _ ->
+                        //Action for "Cancel".
+                    })
+
+                val alert: AlertDialog = dialog.create()
+                alert.show()
+            }
+        }
+    }
+
+    private fun handleLoginTextView() {
+        tvLoginRegister.setOnClickListener {
+            (activity as SignInActivity).replaceFragment(RegisterFragment.newInstance(), true)
+        }
     }
 }

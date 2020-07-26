@@ -33,7 +33,6 @@ class HomeActivity : AppCompatActivity() {
                 }
             }
         }
-
         return null
     }
 

@@ -21,9 +21,6 @@ class SignInActivity : AppCompatActivity() {
     private var validPassword: Boolean = false
     private var validConfirmPassword: Boolean = false
 
-    companion object {
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
@@ -32,39 +29,7 @@ class SignInActivity : AppCompatActivity() {
             .commit()
     }
 
-    // Check valid email
-    private fun isEmailValid(email: String?): Boolean {
-        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
-    }
-
-    // Check valid password
-    private fun isPasswordValid(password: String?): Boolean {
-        val regex = """^(?=.*\d)[A-Za-z\d]{8,}$"""
-        return Pattern.matches(regex, password)
-    }
-
-    private fun handleButton(btn: Button) {
-        var fragment = supportFragmentManager.findFragmentById(R.id.frameLayout)
-
-        if (fragment is LoginFragment) {
-            if (validEmail && validPassword) {
-                btn.isEnabled = true
-                btn.setBackgroundResource(R.drawable.bg_enable_login_button)
-            } else {
-                btn.isEnabled = false
-                btn.setBackgroundResource(R.drawable.bg_disable_login_button)
-            }
-        } else if (fragment is RegisterFragment) {
-            if (validFullName && validEmail && validMobile && validPassword && validConfirmPassword) {
-                btn.isEnabled = true
-                btn.setBackgroundResource(R.drawable.bg_enable_register_button)
-            } else {
-                btn.isEnabled = false
-                btn.setBackgroundResource(R.drawable.bg_disable_register_button)
-            }
-        }
-    }
-
+    // Replace fragment
     internal fun replaceFragment(fragment: Fragment, isAddToBackTack: Boolean) {
         val beginTransaction = supportFragmentManager.beginTransaction()
         beginTransaction.replace(R.id.frameLayout, fragment)
@@ -194,5 +159,39 @@ class SignInActivity : AppCompatActivity() {
             ) {
             }
         })
+    }
+
+    // Check valid email
+    private fun isEmailValid(email: String?): Boolean {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    }
+
+    // Check valid password
+    private fun isPasswordValid(password: String?): Boolean {
+        val regex = """^(?=.*\d)[A-Za-z\d]{8,}$"""
+        return Pattern.matches(regex, password)
+    }
+
+    // Handle button depend on which fragment
+    private fun handleButton(btn: Button) {
+        var fragment = supportFragmentManager.findFragmentById(R.id.frameLayout)
+
+        if (fragment is LoginFragment) {
+            if (validEmail && validPassword) {
+                btn.isEnabled = true
+                btn.setBackgroundResource(R.drawable.bg_enable_login_button)
+            } else {
+                btn.isEnabled = false
+                btn.setBackgroundResource(R.drawable.bg_disable_login_button)
+            }
+        } else if (fragment is RegisterFragment) {
+            if (validFullName && validEmail && validMobile && validPassword && validConfirmPassword) {
+                btn.isEnabled = true
+                btn.setBackgroundResource(R.drawable.bg_enable_register_button)
+            } else {
+                btn.isEnabled = false
+                btn.setBackgroundResource(R.drawable.bg_disable_register_button)
+            }
+        }
     }
 }
