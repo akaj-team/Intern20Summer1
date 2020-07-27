@@ -27,14 +27,11 @@ class SignUpFragment : Fragment() {
     companion object {
         private const val KEY_IMAGE = "data"
         private const val HUNDRED = 100
-        var userRegister = User()
-        var checkFullName = false
-        var checkEmail = false
-        var checkMobileNumber = false
-        var checkPassword = false
-        var checkConfirmPassword = false
-        var checkSignUp = false
+        private const val ASPECT_RATIO_X = 1
+        private const val ASPECT_RATIO_Y = 1
     }
+
+    internal var onRegisterSuccess: (user: User) -> Unit = {}
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,8 +48,12 @@ class SignUpFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
-            RequestCode.PICK_IMAGE_REQUEST -> if (resultCode == Activity.RESULT_OK) cropImageGallery(data)
-            RequestCode.OPEN_CAMERA_REQUEST -> if (resultCode == Activity.RESULT_OK) cropImageCamera(data)
+            RequestCode.PICK_IMAGE_REQUEST -> if (resultCode == Activity.RESULT_OK) cropImageGallery(
+                data
+            )
+            RequestCode.OPEN_CAMERA_REQUEST -> if (resultCode == Activity.RESULT_OK) cropImageCamera(
+                data
+            )
             CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE -> showImage(data)
         }
     }
@@ -89,15 +90,19 @@ class SignUpFragment : Fragment() {
         }
     }
 
-    internal var onRegisterSuccess: (user: User) -> Unit = {}
+    private var userRegister = User()
+    private var isFullNameValid = false
+    private var isEmailValid = false
+    private var isMobileNumberValid = false
+    private var isPasswordValid = false
+    private var isConfirmPasswordValid = false
+    private var isSignUpEnabled = false
 
-    private fun checkStoragePermissions(): Boolean {
-        val permission = checkSelfPermission(
+    private fun checkStoragePermissions() =
+        PackageManager.PERMISSION_GRANTED == checkSelfPermission(
             requireContext(),
             Manifest.permission.READ_EXTERNAL_STORAGE
         )
-        return permission == PackageManager.PERMISSION_GRANTED
-    }
 
     private fun checkCameraPermissions(): Boolean {
         val permissionCamera = checkSelfPermission(
@@ -133,7 +138,7 @@ class SignUpFragment : Fragment() {
         edtFullName.addTextChangedListener {
             val fullName = it.toString()
             userRegister.fullName = fullName
-            checkFullName = fullName.isNotBlank()
+            isFullNameValid = fullName.isNotBlank()
             checkSignUpButton()
         }
     }
@@ -142,7 +147,7 @@ class SignUpFragment : Fragment() {
         edtEmail.addTextChangedListener {
             val email = it.toString()
             userRegister.email = email
-            checkEmail = isValidEmail(email)
+            isEmailValid = isValidEmail(email)
             checkSignUpButton()
         }
     }
@@ -151,7 +156,7 @@ class SignUpFragment : Fragment() {
         edtMobileNumber.addTextChangedListener {
             val mobileNumber = it.toString()
             userRegister.mobileNumber = mobileNumber
-            checkMobileNumber = isValidMobileNumber(mobileNumber)
+            isMobileNumberValid = isValidMobileNumber(mobileNumber)
             checkSignUpButton()
         }
     }
@@ -160,7 +165,7 @@ class SignUpFragment : Fragment() {
         edtPassword.addTextChangedListener {
             val password = it.toString()
             userRegister.password = password
-            checkPassword = isValidPassword(password)
+            isPasswordValid = isValidPassword(password)
             checkSignUpButton()
         }
     }
@@ -168,7 +173,7 @@ class SignUpFragment : Fragment() {
     private fun handleEditTextConfirmPasswordListener() {
         edtConfirmPassword.addTextChangedListener {
             val confirmPassword = it.toString()
-            checkConfirmPassword = edtPassword.text.toString() == confirmPassword
+            isConfirmPasswordValid = edtPassword.text.toString() == confirmPassword
             checkSignUpButton()
         }
     }
@@ -184,12 +189,18 @@ class SignUpFragment : Fragment() {
             dialogBuilder.setItems(optionList) { _, which ->
                 when (which) {
                     0 -> {
-                        if (checkStoragePermissions()) pickImage()
-                        else requestStoragePermissions()
+                        if (checkStoragePermissions()) {
+                            pickImage()
+                        } else {
+                            requestStoragePermissions()
+                        }
                     }
                     1 -> {
-                        if (checkCameraPermissions()) openCamera()
-                        else requestCameraPermissions()
+                        if (checkCameraPermissions()) {
+                            openCamera()
+                        } else {
+                            requestCameraPermissions()
+                        }
                     }
                 }
             }
@@ -221,7 +232,7 @@ class SignUpFragment : Fragment() {
     private fun handleCropImage(uri: Uri) {
         context?.let {
             CropImage.activity(uri)
-                .setAspectRatio(1, 1)
+                .setAspectRatio(ASPECT_RATIO_X, ASPECT_RATIO_Y)
                 .start(it, this)
         }
     }
@@ -258,20 +269,21 @@ class SignUpFragment : Fragment() {
     private fun handleButtonSignUpListener() {
         btnSignUp.setOnClickListener {
             onRegisterSuccess(userRegister)
-            Toast.makeText(context, getString(R.string.text_sign_up_success), Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, getString(R.string.text_sign_up_success), Toast.LENGTH_SHORT)
+                .show()
             fragmentManager?.popBackStack()
         }
     }
 
     private fun checkSignUpButton() {
-        checkSignUp =
-            checkFullName && checkEmail && checkMobileNumber && checkPassword && checkConfirmPassword
+        isSignUpEnabled =
+            isFullNameValid && isEmailValid && isMobileNumberValid && isPasswordValid && isConfirmPasswordValid
         toggleSignUpButton()
-        btnSignUp.isEnabled = checkSignUp
+        btnSignUp.isEnabled = isSignUpEnabled
     }
 
     private fun toggleSignUpButton() {
-        if (checkSignUp) {
+        if (isSignUpEnabled) {
             btnSignUp.setBackgroundResource(R.drawable.bg_button_enable)
         } else {
             btnSignUp.setBackgroundResource(R.drawable.bg_button_unable)

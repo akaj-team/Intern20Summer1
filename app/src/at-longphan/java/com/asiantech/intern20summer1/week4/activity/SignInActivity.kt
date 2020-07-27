@@ -20,9 +20,7 @@ class SignInActivity : AppCompatActivity() {
 
     private fun addSignInFragment() {
         val transaction = fragmentManager.beginTransaction()
-        val signInFragment =
-            SignInFragment()
-        transaction.add(R.id.fragmentContainer, signInFragment)
+        transaction.add(R.id.fragmentContainer, SignInFragment())
         transaction.commit()
     }
 }

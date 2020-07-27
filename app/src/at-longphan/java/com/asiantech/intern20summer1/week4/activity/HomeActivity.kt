@@ -11,9 +11,7 @@ import com.asiantech.intern20summer1.week4.other.SignInActivityData
 import kotlinx.android.synthetic.`at-longphan`.activity_home.*
 
 class HomeActivity : AppCompatActivity() {
-    companion object {
-        var userLogin = User()
-    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +22,7 @@ class HomeActivity : AppCompatActivity() {
         initData()
         loadDataToView()
     }
+    private var userLogin = User()
 
     private fun initData() {
         userLogin = intent.getParcelableExtra(
@@ -35,8 +34,8 @@ class HomeActivity : AppCompatActivity() {
         tvFullName.text = userLogin.fullName
         tvEmail.text = userLogin.email
         tvMobileNumber.text = userLogin.mobileNumber
-        if (userLogin.avatarUri != null) {
-            imgAvatar.setImageURI(Uri.parse(userLogin.avatarUri))
+        userLogin.avatarUri?.let {
+            imgAvatar.setImageURI(Uri.parse(it))
         }
     }
 }

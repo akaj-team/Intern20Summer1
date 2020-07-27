@@ -18,11 +18,6 @@ import com.asiantech.intern20summer1.week4.other.isValidPassword
 import kotlinx.android.synthetic.`at-longphan`.fragment_sign_in.*
 
 class SignInFragment : Fragment() {
-    companion object {
-        val userList = mutableListOf<User>()
-        var userLogin = User()
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,28 +27,49 @@ class SignInFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        handleListener()
-        openSignUpFragment()
+        handleListeners()
     }
 
-    private fun handleListener() {
+    private var userLogin = User()
+
+    private fun handleListeners() {
+        handleEditTextEmailIdListener()
+        handleEditTextPasswordListener()
+        handleButtonSignInListener()
+        handleTextViewRegisterNowListener()
+    }
+
+    private fun handleEditTextEmailIdListener() {
         edtEmailId.addTextChangedListener {
             btnSignIn.isEnabled =
                 isValidEmail(it.toString()) && isValidPassword(edtPassword.text.toString())
             toggleSignInButton()
         }
+    }
 
+    private fun handleEditTextPasswordListener() {
         edtPassword.addTextChangedListener {
             btnSignIn.isEnabled =
                 isValidPassword(it.toString()) && isValidEmail(edtEmailId.text.toString())
             toggleSignInButton()
         }
+    }
 
+    private fun handleButtonSignInListener() {
         btnSignIn.setOnClickListener {
             userLogin.email = edtEmailId.text.toString()
             userLogin.password = edtPassword.text.toString()
-            if (checkSignIn(userLogin)) loginApp()
-            else showInvalidLoginDialog()
+            if (isSignInEnabled()) {
+                loginApp()
+            } else {
+                showInvalidLoginDialog()
+            }
+        }
+    }
+
+    private fun handleTextViewRegisterNowListener() {
+        tvRegisterNow.setOnClickListener {
+            openSignUpFragment()
         }
     }
 
@@ -66,24 +82,22 @@ class SignInFragment : Fragment() {
     }
 
     private fun openSignUpFragment() {
-        tvRegisterNow.setOnClickListener {
-            val transaction = fragmentManager?.beginTransaction()
-            transaction?.add(R.id.fragmentContainer, SignUpFragment().apply {
-                onRegisterSuccess = { userRegister ->
-                    userList.add(userRegister)
-                    this@SignInFragment.edtEmailId.setText(userRegister.email)
-                    this@SignInFragment.edtPassword.setText(userRegister.password)
-                }
-            })
-                ?.addToBackStack(null)
-                ?.hide(this)
-                ?.commit()
-        }
+        val transaction = fragmentManager?.beginTransaction()
+        transaction?.add(R.id.fragmentContainer, SignUpFragment().apply {
+            onRegisterSuccess = { userRegister ->
+                userLogin = userRegister
+                this@SignInFragment.edtEmailId.setText(userRegister.email)
+                this@SignInFragment.edtPassword.setText(userRegister.password)
+            }
+        })
+            ?.addToBackStack(null)
+            ?.hide(this)
+            ?.commit()
     }
 
     private fun loginApp() {
         val homeActivityIntent = Intent(this.context, HomeActivity::class.java)
-        val user = loadUser(userLogin)
+        val user = userLogin
         homeActivityIntent.putExtra(SignInActivityData.SIGN_IN_USER, user)
         startActivity(homeActivityIntent)
         this.activity?.finish()
@@ -96,8 +110,6 @@ class SignInFragment : Fragment() {
         builder.show()
     }
 
-    private fun checkSignIn(user: User): Boolean =
-        userList.firstOrNull { it.email.equals(user.email) && it.password.equals(user.password) } != null
-
-    private fun loadUser(user: User): User = userList.first { it.email.equals(user.email) }
+    private fun isSignInEnabled(): Boolean =
+        userLogin.email.equals(edtEmailId.text.toString()) && userLogin.password.equals(edtPassword.text.toString())
 }
