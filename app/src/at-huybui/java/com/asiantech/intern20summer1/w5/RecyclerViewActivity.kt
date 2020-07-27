@@ -156,6 +156,15 @@ class RecyclerViewActivity : AppCompatActivity() {
         )
         exampleLists.add(
             ItemRecycler(
+                resources.getString(R.string.w5_name_mang_cut),
+                (0..MAX_RANDOM).random(),
+                R.drawable.img_fruit_mang_cut,
+                false,
+                resources.getString(R.string.w5_information_mang_cut)
+            )
+        )
+        exampleLists.add(
+            ItemRecycler(
                 resources.getString(R.string.w5_name_vu_sua),
                 (0..MAX_RANDOM).random(),
                 R.drawable.img_fruit_vu_sua,

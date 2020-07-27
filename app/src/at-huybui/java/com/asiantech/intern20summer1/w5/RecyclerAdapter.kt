@@ -1,6 +1,7 @@
 package com.asiantech.intern20summer1.w5
 
 import android.view.LayoutInflater
+import android.view.SoundEffectConstants
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -42,6 +43,7 @@ class RecyclerAdapter(private val mutableList: MutableList<ItemRecycler>) :
         init {
             iconHeart.setOnClickListener {
                 onItemClicked.invoke(adapterPosition)
+                iconHeart.playSoundEffect(SoundEffectConstants.CLICK)
             }
         }
 
