@@ -1,12 +1,12 @@
-package activity
+package com.asiantech.intern20summer1.activity
 
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.asiantech.intern20summer1.R
-import extension.afterTextChanged
-import extension.isValidEmail
-import extension.isValidPassword
+import com.asiantech.intern20summer1.extension.afterTextChanged
+import com.asiantech.intern20summer1.extension.isValidEmail
+import com.asiantech.intern20summer1.extension.isValidPassword
 import kotlinx.android.synthetic.`at-vuongphan`.activity_main.*
 
 class MainActivity : AppCompatActivity() {

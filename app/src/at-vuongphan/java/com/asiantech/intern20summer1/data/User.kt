@@ -1,10 +1,15 @@
-package data
+package com.asiantech.intern20summer1.data
 
 import android.os.Parcel
 import android.os.Parcelable
 import java.io.Serializable
 
-data class User(var name: String, var email: String, var phoneNumber: String, var password: String) : Parcelable, Serializable {
+data class User(
+    var name: String,
+    var email: String,
+    var phoneNumber: String,
+    var password: String
+) : Parcelable, Serializable {
     constructor(parcel: Parcel) : this(
         parcel.readString() ?: "",
         parcel.readString() ?: "",

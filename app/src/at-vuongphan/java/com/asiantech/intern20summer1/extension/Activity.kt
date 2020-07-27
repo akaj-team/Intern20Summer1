@@ -1,4 +1,4 @@
-package extension
+package com.asiantech.intern20summer1.extension
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment

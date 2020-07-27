@@ -1,12 +1,12 @@
-package activity
+package com.asiantech.intern20summer1.activity
 
 import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.asiantech.intern20summer1.R
-import data.User
-import fragment.FragmentLogin.Companion.KEY_DATA_LOGIN
+import com.asiantech.intern20summer1.data.User
+import com.asiantech.intern20summer1.fragment.FragmentLogin.Companion.KEY_DATA_LOGIN
 import kotlinx.android.synthetic.main.home_activity.*
 
 class HomeActivity : AppCompatActivity() {

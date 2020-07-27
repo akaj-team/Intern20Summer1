@@ -1,6 +1,6 @@
-package extension
+package com.asiantech.intern20summer1.extension
 
-import activity.MainActivity.Companion.LENGTH
+import com.asiantech.intern20summer1.activity.MainActivity.Companion.LENGTH
 import java.util.regex.Pattern
 
 val patternPassword: Pattern = Pattern.compile("^(?=.*[0-9]).{8,16}\$")

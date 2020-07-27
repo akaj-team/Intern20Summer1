@@ -1,7 +1,5 @@
-package fragment
+package com.asiantech.intern20summer1.fragment
 
-import activity.HomeActivity
-import activity.SignInActivity
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.DialogInterface
@@ -12,11 +10,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
-import data.User
-import extension.hideKeyboard
-import extension.isValidEmail
-import extension.isValidPasswordW4
-import extension.textChangedListener
+import com.asiantech.intern20summer1.activity.HomeActivity
+import com.asiantech.intern20summer1.activity.SignInActivity
+import com.asiantech.intern20summer1.data.User
+import com.asiantech.intern20summer1.extension.hideKeyboard
+import com.asiantech.intern20summer1.extension.isValidEmail
+import com.asiantech.intern20summer1.extension.isValidPasswordW4
+import com.asiantech.intern20summer1.extension.textChangedListener
 import kotlinx.android.synthetic.`at-vuongphan`.fragment_sign_in.*
 
 class FragmentLogin : Fragment() {
@@ -50,11 +50,8 @@ class FragmentLogin : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        openSignUpFragment()
-        initEnableButtonLogin()
+        initListener()
         getDataFromRegister()
-        initLoginButton()
-        initListenerHideKeyboardLogin()
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -64,6 +61,13 @@ class FragmentLogin : Fragment() {
             view.hideKeyboard()
             true
         }
+    }
+
+    private fun initListener() {
+        openSignUpFragment()
+        initEnableButtonLogin()
+        initLoginButton()
+        initListenerHideKeyboardLogin()
     }
 
     private fun initLoginButton() {
@@ -95,13 +99,6 @@ class FragmentLogin : Fragment() {
         }
     }
 
-    private fun initListener() {
-        openSignUpFragment()
-        initEnableButtonLogin()
-        initLoginButton()
-        initListenerHideKeyboardLogin()
-    }
-
     private fun getDataFromRegister() {
         arguments?.getParcelable<User>(KEY_DATA_REGISTER)?.let {
             nameLogin = it.name
@@ -119,15 +116,15 @@ class FragmentLogin : Fragment() {
         }
     }
 
-    private fun isCorrectFormat(email: String, password: String) =
-        email.isValidEmail() && password.isValidPasswordW4()
+    private fun isCorrectFormat() =
+        edtEmail.text.toString().isValidEmail() && edtPassword.text.toString().isValidPasswordW4()
 
     private fun initEnableButtonLogin() {
-        edtEmail.textChangedListener(onTextChanged = { p0: CharSequence?, _, _, _ ->
-            btnLogin.isEnabled = isCorrectFormat(p0.toString(), edtPassword.text.toString())
+        edtEmail.textChangedListener(onTextChanged = { _: CharSequence?, _, _, _ ->
+            btnLogin.isEnabled = isCorrectFormat()
         })
-        edtPassword.textChangedListener(onTextChanged = { p0: CharSequence?, _, _, _ ->
-            btnLogin.isEnabled = isCorrectFormat(edtEmail.text.toString(), p0.toString())
+        edtPassword.textChangedListener(onTextChanged = { _: CharSequence?, _, _, _ ->
+            btnLogin.isEnabled = isCorrectFormat()
         })
     }
 

@@ -1,6 +1,5 @@
-package fragment
+package com.asiantech.intern20summer1.fragment
 
-import activity.SignInActivity
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
@@ -19,9 +18,10 @@ import android.widget.Toast
 import androidx.core.content.PermissionChecker.checkSelfPermission
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.activity.SignInActivity
+import com.asiantech.intern20summer1.data.User
+import com.asiantech.intern20summer1.extension.*
 import com.theartofdev.edmodo.cropper.CropImage
-import data.User
-import extension.*
 import kotlinx.android.synthetic.`at-vuongphan`.fragment_sign_up.*
 import java.io.ByteArrayOutputStream
 
@@ -49,11 +49,8 @@ class FragmentRegister : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initChooseImage()
-        enableRegisterButton()
-        sendDataLLoginFromRegister()
         initBackImageViewButton()
-        initListenerHideKeyboardRegister()
+        initListener()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -91,6 +88,13 @@ class FragmentRegister : Fragment() {
             }
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+
+    private fun initListener() {
+        initChooseImage()
+        sendDataLLoginFromRegister()
+        initListenerHideKeyboardRegister()
+        enableRegisterButton()
     }
 
     private fun initPermissionGallery(grantResults: IntArray) {
@@ -227,13 +231,6 @@ class FragmentRegister : Fragment() {
         }
     }
 
-    private fun initListener() {
-        initChooseImage()
-        sendDataLLoginFromRegister()
-        initListenerHideKeyboardRegister()
-        enableRegisterButton()
-    }
-
     private fun isCorrectFormatSignUp(
     ) = edtFullName.text.toString().isFullName()
             && edtEmailSignUp.text.toString().isValidEmail() && edtNumber.text.toString()
@@ -242,20 +239,20 @@ class FragmentRegister : Fragment() {
         .isConfirmPassword(edtPasswordSignUp.text.toString())
 
     private fun enableRegisterButton() {
-        edtFullName.textChangedListener(onTextChanged = { p0: CharSequence?, _, _, _ ->
+        edtFullName.textChangedListener(onTextChanged = { _: CharSequence?, _, _, _ ->
             btnRegister.isEnabled = isCorrectFormatSignUp()
         })
-        edtEmailSignUp.textChangedListener(onTextChanged = { p0: CharSequence?, _, _, _ ->
+        edtEmailSignUp.textChangedListener(onTextChanged = { _: CharSequence?, _, _, _ ->
             btnRegister.isEnabled = isCorrectFormatSignUp(
             )
         })
-        edtNumber.textChangedListener(onTextChanged = { p0: CharSequence?, _, _, _ ->
+        edtNumber.textChangedListener(onTextChanged = { _: CharSequence?, _, _, _ ->
             btnRegister.isEnabled = isCorrectFormatSignUp()
         })
-        edtPasswordSignUp.textChangedListener(onTextChanged = { p0: CharSequence?, _, _, _ ->
+        edtPasswordSignUp.textChangedListener(onTextChanged = { _: CharSequence?, _, _, _ ->
             btnRegister.isEnabled = isCorrectFormatSignUp()
         })
-        edtPasswordConfirm.textChangedListener(onTextChanged = { p0: CharSequence?, _, _, _ ->
+        edtPasswordConfirm.textChangedListener(onTextChanged = { _: CharSequence?, _, _, _ ->
             btnRegister.isEnabled = isCorrectFormatSignUp()
         })
     }
