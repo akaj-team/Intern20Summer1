@@ -317,16 +317,6 @@ class RegisterFragment : Fragment() {
         dialog.show()
     }
 
-    private fun checkCameraPermission() = checkSelfPermission(
-        requireContext(),
-        Manifest.permission.CAMERA
-    ) == PackageManager.PERMISSION_GRANTED
-
-    private fun checkGalleryPermission() = checkSelfPermission(
-        requireContext(),
-        Manifest.permission.WRITE_EXTERNAL_STORAGE
-    ) == PackageManager.PERMISSION_GRANTED
-
     private fun requestCameraPermission() {
         requestPermissions(
             arrayOf(Manifest.permission.CAMERA),
@@ -348,6 +338,22 @@ class RegisterFragment : Fragment() {
         val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE)
     }
+
+    private fun openGallery() {
+        val intentImage =
+            Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        startActivityForResult(intentImage, GALLERY_REQUEST_CODE)
+    }
+
+    private fun checkCameraPermission() = checkSelfPermission(
+        requireContext(),
+        Manifest.permission.CAMERA
+    ) == PackageManager.PERMISSION_GRANTED
+
+    private fun checkGalleryPermission() = checkSelfPermission(
+        requireContext(),
+        Manifest.permission.WRITE_EXTERNAL_STORAGE
+    ) == PackageManager.PERMISSION_GRANTED
 
     private fun getImageUri(inImage: Bitmap): Uri? {
         val bytes = ByteArrayOutputStream()
@@ -390,11 +396,5 @@ class RegisterFragment : Fragment() {
             fragmentManager?.popBackStack()
             fragmentTransaction?.commit()
         }
-    }
-
-    private fun openGallery() {
-        val intentImage =
-            Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        startActivityForResult(intentImage, GALLERY_REQUEST_CODE)
     }
 }
