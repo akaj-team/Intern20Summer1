@@ -43,18 +43,7 @@ class RegisterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        handleRegisterAvatar()
-        handleBackButton()
-        (activity as SignInActivity).handleFullNameEditText(edtRegisterFullName, btnRegister)
-        (activity as SignInActivity).handleEmailEditText(edtRegisterEmail, btnRegister)
-        (activity as SignInActivity).handleMobileEditText(edtRegisterMobile, btnRegister)
-        (activity as SignInActivity).handlePasswordEditText(edtRegisterPassword, btnRegister)
-        (activity as SignInActivity).handleConfirmPasswordEditText(
-            edtRegisterPassword,
-            edtRegisterConfirmPassword,
-            btnRegister
-        )
-        handleRegisterButton()
+        initListener()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -62,13 +51,13 @@ class RegisterFragment : Fragment() {
 
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
-                GALLERY_REQUEST_CODE -> {
+                CAMERA_REQUEST_CODE -> {
                     data?.data?.let { uri ->
                         launchImageCrop(uri)
                     }
                 }
 
-                CAMERA_REQUEST_CODE -> {
+                GALLERY_REQUEST_CODE -> {
                     data?.data?.let { uri ->
                         launchImageCrop(uri)
                     }
@@ -109,7 +98,34 @@ class RegisterFragment : Fragment() {
                     ).show()
                 }
             }
+
+            GALLERY_REQUEST_CODE -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    pickFromGallery()
+                } else {
+                    Toast.makeText(
+                        activity as SignInActivity,
+                        "Gallery Permission is Required to use camera.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
         }
+    }
+
+    private fun initListener() {
+        handleRegisterAvatar()
+        handleBackButton()
+        (activity as SignInActivity).handleFullNameEditText(edtRegisterFullName, btnRegister)
+        (activity as SignInActivity).handleEmailEditText(edtRegisterEmail, btnRegister)
+        (activity as SignInActivity).handleMobileEditText(edtRegisterMobile, btnRegister)
+        (activity as SignInActivity).handlePasswordEditText(edtRegisterPassword, btnRegister)
+        (activity as SignInActivity).handleConfirmPasswordEditText(
+            edtRegisterPassword,
+            edtRegisterConfirmPassword,
+            btnRegister
+        )
+        handleRegisterButton()
     }
 
     private fun handleBackButton() {
@@ -143,7 +159,7 @@ class RegisterFragment : Fragment() {
                     askCameraPermissions()
                 }
                 1 -> { /* Gallery   */
-                    pickFromGallery()
+                    askGalleryPermissions()
                 }
             }
         }
@@ -153,26 +169,49 @@ class RegisterFragment : Fragment() {
         dialog.show()
     }
 
+    private fun requestCameraPermission() {
+        requestPermissions(
+            arrayOf(
+                Manifest.permission.CAMERA,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ), CAMERA_REQUEST_CODE
+        )
+    }
+
+    private fun requestReadPermission() {
+        requestPermissions(
+            arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), GALLERY_REQUEST_CODE
+        )
+    }
+
     private fun askCameraPermissions() {
         val cameraPermission = checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
         val storagePermission =
             checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
 
-        if (cameraPermission == PackageManager.PERMISSION_GRANTED && storagePermission == PackageManager.PERMISSION_GRANTED) {
+        if (cameraPermission == PackageManager.PERMISSION_GRANTED &&
+            storagePermission == PackageManager.PERMISSION_GRANTED
+        ) {
             openCamera()
         } else {
-            requestPermissions(
-                arrayOf(
-                    Manifest.permission.CAMERA,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE
-                ), CAMERA_REQUEST_CODE
-            )
+            requestCameraPermission()
         }
     }
 
     private fun openCamera() {
         val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE)
+    }
+
+    private fun askGalleryPermissions() {
+        val readPermission =
+            checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
+
+        if (readPermission == PackageManager.PERMISSION_GRANTED) {
+            pickFromGallery()
+        } else {
+            requestReadPermission()
+        }
     }
 
     private fun pickFromGallery() {
@@ -215,5 +254,4 @@ class RegisterFragment : Fragment() {
             (activity as SignInActivity).replaceFragment(fragment, false)
         }
     }
-
 }
