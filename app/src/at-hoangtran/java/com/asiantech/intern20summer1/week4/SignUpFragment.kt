@@ -175,28 +175,14 @@ class SignUpFragment : Fragment() {
                 when (which) {
                     0 -> {
                         if (checkStoragePermission()) {
-                            val intentImage =
-                                Intent(
-                                    Intent.ACTION_PICK,
-                                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-                                )
-                            intentImage.type =
-                                KEY_IMAGE
-                            startActivityForResult(
-                                intentImage,
-                                PICK_IMAGE_REQUEST
-                            )
+                            openGallery()
                         } else {
                             requestStoragePermission()
                         }
                     }
                     1 -> {
                         if (checkCameraPermission()) {
-                            val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                            startActivityForResult(
-                                cameraIntent,
-                                OPEN_CAMERA_REQUEST
-                            )
+                            openCamera()
                         } else {
                             requestCameraPermission()
                         }
@@ -206,6 +192,28 @@ class SignUpFragment : Fragment() {
             val dialog = dialogBuilder.create()
             dialog.show()
         }
+    }
+
+    private fun openCamera() {
+        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        startActivityForResult(
+            cameraIntent,
+            OPEN_CAMERA_REQUEST
+        )
+    }
+
+    private fun openGallery() {
+        val intentImage =
+            Intent(
+                Intent.ACTION_PICK,
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+            )
+        intentImage.type =
+            KEY_IMAGE
+        startActivityForResult(
+            intentImage,
+            PICK_IMAGE_REQUEST
+        )
     }
 
     private fun cropImageCamera(data: Intent?) {
@@ -291,42 +299,17 @@ class SignUpFragment : Fragment() {
                 if (!checkStoragePermission()) {
                     requestStoragePermission()
                 } else {
-                    Toast.makeText(activity, "camera permission granted", Toast.LENGTH_LONG).show()
-                    val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                    startActivityForResult(
-                        cameraIntent,
-                        OPEN_CAMERA_REQUEST
-                    )
+                    openCamera()
                 }
-            } else {
-                Toast.makeText(activity, "camera permission denied", Toast.LENGTH_LONG).show()
             }
         }
         if (requestCode == STORAGE_REQUEST) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(activity, "storage permission granted", Toast.LENGTH_LONG).show()
                 if (!flag) {
-                    val intentImage =
-                        Intent(
-                            Intent.ACTION_PICK,
-                            MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-                        )
-                    intentImage.type =
-                        KEY_IMAGE
-                    startActivityForResult(
-                        intentImage,
-                        PICK_IMAGE_REQUEST
-                    )
+                    openGallery()
                 } else {
-                    Toast.makeText(activity, "camera permission granted", Toast.LENGTH_LONG).show()
-                    val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                    startActivityForResult(
-                        cameraIntent,
-                        OPEN_CAMERA_REQUEST
-                    )
+                    openCamera()
                 }
-            } else {
-                Toast.makeText(activity, "storage permission denied", Toast.LENGTH_LONG).show()
             }
         }
     }
