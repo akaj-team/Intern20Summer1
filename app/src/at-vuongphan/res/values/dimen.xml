@@ -22,7 +22,7 @@
     <dimen name="fragment_sign_in_layout_margin_right">30dp</dimen>
     <dimen name="linear_layout_margin_top">100dp</dimen>
     <dimen name="icon_button_padding">2dp</dimen>
-    <dimen name="icon_button_width">101dp</dimen>
+    <dimen name="icon_button_width">100dp</dimen>
     <dimen name="icon_google_margin_left">20dp</dimen>
     <dimen name="icon_logo_image_view">300dp</dimen>
     <dimen name="text_view_margin_top">20dp</dimen>
@@ -45,4 +45,6 @@
     <dimen name="image_button_margin_left">10dp</dimen>
     <dimen name="text_size_home">20dp</dimen>
     <dimen name="layout_home_marin">20dp</dimen>
+    <dimen name="link_text_view_radius">2dp</dimen>
+    <dimen name="text_view_padding">3dp</dimen>
 </resources>

@@ -84,39 +84,47 @@ class FragmentRegister : Fragment() {
     ) {
         when (requestCode) {
             REQUEST_IMAGE_CAPTURE -> {
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    flag = true
-                    if (!checkGalleryPermission()) {
-                        requestGalleryPermission()
-                    }
-                    if (checkGalleryPermission()) {
-                        openCamera()
-                    }
-                } else {
-                    Toast.makeText(
-                        activity,
-                        resources.getString(R.string.permission_denied),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
+                initPermissionCamera(grantResults)
             }
             REQUEST_GET_CONTENT_IMAGE -> {
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    if (!flag) {
-                        openGallery()
-                    } else {
-                        openCamera()
-                    }
-                } else {
-                    Toast.makeText(
-                        activity,
-                        resources.getString(R.string.permission_denied),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
+                initPermissionGallery(grantResults)
             }
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+
+    private fun initPermissionGallery(grantResults: IntArray) {
+        if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (!flag) {
+                openGallery()
+            } else {
+                openCamera()
+            }
+        } else {
+            Toast.makeText(
+                activity,
+                resources.getString(R.string.permission_denied),
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
+
+    private fun initPermissionCamera(grantResults: IntArray) {
+        if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            flag = true
+            if (!checkGalleryPermission()) {
+                requestGalleryPermission()
+            }
+            if (checkGalleryPermission()) {
+                openCamera()
+            }
+        } else {
+            Toast.makeText(
+                activity,
+                resources.getString(R.string.permission_denied),
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 
     private fun cropImageCamera(data: Intent?) {
@@ -154,7 +162,7 @@ class FragmentRegister : Fragment() {
 
     private fun sendDataLLoginFromRegister() {
         btnRegister.setOnClickListener {
-            (activity as? SignInActivity)?.openRegister(
+            (activity as? SignInActivity)?.openLogin(
                 User(
                     edtFullName.text.toString(),
                     edtEmailSignUp.text.toString(),
@@ -177,7 +185,6 @@ class FragmentRegister : Fragment() {
                 .setAspectRatio(1, 1)
                 .start(context, this)
         }
-
     }
 
     private fun getImageUri(inImage: Bitmap): Uri? {
@@ -220,61 +227,36 @@ class FragmentRegister : Fragment() {
         }
     }
 
+    private fun initListener() {
+        initChooseImage()
+        sendDataLLoginFromRegister()
+        initListenerHideKeyboardRegister()
+        enableRegisterButton()
+    }
+
     private fun isCorrectFormatSignUp(
-        name: String,
-        email: String,
-        phone: String,
-        password: String,
-        typePassword: String
-    ) = name.isFullName()
-            && email.isValidEmail() && phone.isPhoneNumber() && password.isValidPasswordW4()
-            && typePassword.isConfirmPassword(password)
+    ) = edtFullName.text.toString().isFullName()
+            && edtEmailSignUp.text.toString().isValidEmail() && edtNumber.text.toString()
+        .isPhoneNumber() && edtPasswordSignUp.text.toString().isValidPasswordW4()
+            && edtPasswordConfirm.text.toString()
+        .isConfirmPassword(edtPasswordSignUp.text.toString())
 
     private fun enableRegisterButton() {
         edtFullName.textChangedListener(onTextChanged = { p0: CharSequence?, _, _, _ ->
-            btnRegister.isEnabled = isCorrectFormatSignUp(
-                p0.toString(),
-                edtEmailSignUp.text.toString(),
-                edtNumber.text.toString(),
-                edtPasswordSignUp.text.toString(),
-                edtPasswordConfirm.text.toString()
-            )
+            btnRegister.isEnabled = isCorrectFormatSignUp()
         })
         edtEmailSignUp.textChangedListener(onTextChanged = { p0: CharSequence?, _, _, _ ->
             btnRegister.isEnabled = isCorrectFormatSignUp(
-                edtFullName.text.toString(),
-                p0.toString(),
-                edtNumber.text.toString(),
-                edtPasswordSignUp.text.toString(),
-                edtPasswordConfirm.text.toString()
             )
         })
         edtNumber.textChangedListener(onTextChanged = { p0: CharSequence?, _, _, _ ->
-            btnRegister.isEnabled = isCorrectFormatSignUp(
-                edtFullName.text.toString(),
-                edtEmailSignUp.text.toString(),
-                p0.toString(),
-                edtPasswordSignUp.text.toString(),
-                edtPasswordConfirm.text.toString()
-            )
+            btnRegister.isEnabled = isCorrectFormatSignUp()
         })
         edtPasswordSignUp.textChangedListener(onTextChanged = { p0: CharSequence?, _, _, _ ->
-            btnRegister.isEnabled = isCorrectFormatSignUp(
-                edtFullName.text.toString(),
-                edtEmailSignUp.text.toString(),
-                edtNumber.text.toString(),
-                p0.toString(),
-                edtPasswordConfirm.text.toString()
-            )
+            btnRegister.isEnabled = isCorrectFormatSignUp()
         })
         edtPasswordConfirm.textChangedListener(onTextChanged = { p0: CharSequence?, _, _, _ ->
-            btnRegister.isEnabled = isCorrectFormatSignUp(
-                edtFullName.text.toString(),
-                edtEmailSignUp.text.toString(),
-                edtNumber.text.toString(),
-                edtPasswordSignUp.text.toString(),
-                p0.toString()
-            )
+            btnRegister.isEnabled = isCorrectFormatSignUp()
         })
     }
 

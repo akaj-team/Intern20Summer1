@@ -95,6 +95,13 @@ class FragmentLogin : Fragment() {
         }
     }
 
+    private fun initListener() {
+        openSignUpFragment()
+        initEnableButtonLogin()
+        initLoginButton()
+        initListenerHideKeyboardLogin()
+    }
+
     private fun getDataFromRegister() {
         arguments?.getParcelable<User>(KEY_DATA_REGISTER)?.let {
             nameLogin = it.name
@@ -131,6 +138,5 @@ class FragmentLogin : Fragment() {
             setPositiveButton(TEXT_EXIT) { _: DialogInterface, _: Int -> }
             show()
         }
-
     }
 }
