@@ -1,5 +1,6 @@
 package com.asiantech.intern20summer1.w5
 
+import android.media.MediaPlayer
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -41,6 +42,7 @@ class RecyclerViewActivity : AppCompatActivity() {
                 } else {
                     it.amountHeart--
                 }
+                playSoundPop()
             }
             adapterRecycler.notifyItemChanged(position, null)
             (fruitRecyclerView.itemAnimator as? SimpleItemAnimator)?.supportsChangeAnimations =
@@ -51,7 +53,6 @@ class RecyclerViewActivity : AppCompatActivity() {
         fruitRecyclerView.setHasFixedSize(true)
     }
 
-
     private fun handleForLoadMoreAndRefreshListener() {
         swipeRefreshContainer.setOnRefreshListener {
             Handler().postDelayed({
@@ -59,6 +60,7 @@ class RecyclerViewActivity : AppCompatActivity() {
                 initData()
                 adapterRecycler.notifyDataSetChanged()
                 swipeRefreshContainer.isRefreshing = false
+                playSoundPop()
             }, DELAYS_PROGRESS)
         }
 
@@ -179,5 +181,10 @@ class RecyclerViewActivity : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= SDK_VERSION) {
             window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
+    }
+
+    private fun playSoundPop() {
+        val soundPop = MediaPlayer.create(this, R.raw.facebook_pop)
+        soundPop.start()
     }
 }

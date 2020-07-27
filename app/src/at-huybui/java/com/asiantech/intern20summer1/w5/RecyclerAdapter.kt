@@ -1,7 +1,6 @@
 package com.asiantech.intern20summer1.w5
 
 import android.view.LayoutInflater
-import android.view.SoundEffectConstants
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -17,7 +16,6 @@ class RecyclerAdapter(private val mutableList: MutableList<ItemRecycler>) :
     companion object {
         private const val BLACK_HEART_SYMBOL = "\uD83D\uDDA4"
     }
-
     internal var onItemClicked: (position: Int) -> Unit = {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
@@ -43,7 +41,6 @@ class RecyclerAdapter(private val mutableList: MutableList<ItemRecycler>) :
         init {
             iconHeart.setOnClickListener {
                 onItemClicked.invoke(adapterPosition)
-                iconHeart.playSoundEffect(SoundEffectConstants.CLICK)
             }
         }
 
