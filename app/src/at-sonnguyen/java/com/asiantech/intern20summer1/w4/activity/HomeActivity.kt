@@ -11,15 +11,16 @@ import kotlinx.android.synthetic.`at-sonnguyen`.activity_home.*
 
 class HomeActivity : AppCompatActivity() {
     private var userHome = User("", "", "", "", "")
-    companion object{
-        internal fun newInstance() = HomeActivity()
-    }
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         window.decorView.setBackgroundColor(Color.WHITE)
+        getDataFromLoginFragment()
+    }
+
+    private fun getDataFromLoginFragment() {
         val intent1 = intent
         (intent1.getSerializableExtra(resources.getString(R.string.key_value)) as? User)?.let {
             userHome.email = it.email

@@ -49,6 +49,17 @@ class RegisterFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        initListener()
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_register, container, false)
+    }
+
+    private fun initListener() {
         handleFullNameEditText()
         handleEmailEditText()
         handleSignUpPasswordEditText()
@@ -58,13 +69,6 @@ class RegisterFragment : Fragment() {
         handleListenerAvatarImageView()
         handleListenerRegisterButton()
         handleBackButtonListener()
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_register, container, false)
     }
 
     override fun onRequestPermissionsResult(
@@ -83,7 +87,11 @@ class RegisterFragment : Fragment() {
                         openCamera()
                     }
                 } else {
-                    Toast.makeText(activity, resources.getString(R.string.permission_denied_toast), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        activity,
+                        resources.getString(R.string.permission_denied_toast),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
 
@@ -95,7 +103,11 @@ class RegisterFragment : Fragment() {
                         openCamera()
                     }
                 } else {
-                    Toast.makeText(activity, resources.getString(R.string.permission_denied_toast), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        activity,
+                        resources.getString(R.string.permission_denied_toast),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         }

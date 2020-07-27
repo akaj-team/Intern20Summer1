@@ -22,10 +22,10 @@
             android:src="@drawable/ic_baseline_arrow_back_ios_24" />
 
         <TextView
-            android:layout_marginTop="@dimen/w4_login_title_margin_to_back_image_view"
             android:id="@+id/tvTitleRegister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/w4_login_title_margin_to_back_image_view"
             android:text="@string/register_title_text_view_description_text"
             android:textColor="@color/colorTitleTextViewText"
             android:textSize="@dimen/title_text_view_text_size" />

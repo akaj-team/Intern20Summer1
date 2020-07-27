@@ -54,9 +54,7 @@ class LogInFragment : Fragment() {
 
     private fun handleEmailEditText() {
         edtSignInEmail.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {}
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            override fun afterTextChanged(p0: Editable?) {
                 if (isValidEmail(p0.toString())) {
                     edtSignInEmail.setCompoundDrawablesWithIntrinsicBounds(
                         0,
@@ -75,6 +73,10 @@ class LogInFragment : Fragment() {
                     emailText = ""
                 }
             }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
         })
     }
 
@@ -92,9 +94,7 @@ class LogInFragment : Fragment() {
 
     private fun handleSignInPasswordEditText() {
         edtSignInPassword.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {}
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            override fun afterTextChanged(p0: Editable?) {
                 if (isValidPassword(p0.toString())) {
                     edtSignInPassword.setCompoundDrawablesWithIntrinsicBounds(
                         0,
@@ -114,6 +114,10 @@ class LogInFragment : Fragment() {
                     passwordText = ""
                     setEnableSignInButton()
                 }
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
         })
     }
