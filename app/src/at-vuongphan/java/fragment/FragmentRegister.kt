@@ -1,10 +1,12 @@
 package fragment
 
 import activity.SignInActivity
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
 import android.app.AlertDialog
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
@@ -13,6 +15,8 @@ import android.provider.MediaStore.Images
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.content.PermissionChecker.checkSelfPermission
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.theartofdev.edmodo.cropper.CropImage
@@ -21,8 +25,10 @@ import extension.*
 import kotlinx.android.synthetic.`at-vuongphan`.fragment_sign_up.*
 import java.io.ByteArrayOutputStream
 
+@SuppressLint("WrongConstant")
 @Suppress("DEPRECATION")
 class FragmentRegister : Fragment() {
+    var flag = false
 
     companion object {
         internal const val REQUEST_IMAGE_CAPTURE = 1
@@ -31,7 +37,6 @@ class FragmentRegister : Fragment() {
         internal const val TITLE_DIALOG_IMAGE = "Choose Avatar"
         internal const val IMAGE_CAMERA = "Camera"
         internal const val IMAGE_GALLERY = "Gallery"
-        internal const val KEY_IMAGE_GALLERY = "image/*"
     }
 
     override fun onCreateView(
@@ -56,8 +61,11 @@ class FragmentRegister : Fragment() {
         if (resultCode == RESULT_OK) {
             when (requestCode) {
                 REQUEST_IMAGE_CAPTURE -> {
-                    cropImageCamera(data)
-
+                    if (!checkGalleryPermission()) {
+                        requestGalleryPermission()
+                    } else {
+                        cropImageCamera(data)
+                    }
                 }
                 REQUEST_GET_CONTENT_IMAGE -> {
                     cropImageGallery(data)
@@ -67,6 +75,48 @@ class FragmentRegister : Fragment() {
                 }
             }
         }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        when (requestCode) {
+            REQUEST_IMAGE_CAPTURE -> {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    flag = true
+                    if (!checkGalleryPermission()) {
+                        requestGalleryPermission()
+                    }
+                    if (checkGalleryPermission()) {
+                        openCamera()
+                    }
+                } else {
+                    Toast.makeText(
+                        activity,
+                        resources.getString(R.string.permission_denied),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+            REQUEST_GET_CONTENT_IMAGE -> {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    if (!flag) {
+                        openGallery()
+                    } else {
+                        openCamera()
+                    }
+                } else {
+                    Toast.makeText(
+                        activity,
+                        resources.getString(R.string.permission_denied),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
     private fun cropImageCamera(data: Intent?) {
@@ -151,14 +201,18 @@ class FragmentRegister : Fragment() {
             setItems(items) { _, which ->
                 when (which) {
                     0 -> {
-                        val intentImage =
-                            Intent(Intent.ACTION_PICK, Images.Media.EXTERNAL_CONTENT_URI)
-                        intentImage.type = KEY_IMAGE_GALLERY
-                        startActivityForResult(intentImage, REQUEST_GET_CONTENT_IMAGE)
+                        if (checkGalleryPermission()) {
+                            openGallery()
+                        } else {
+                            requestGalleryPermission()
+                        }
                     }
                     1 -> {
-                        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                        startActivityForResult(cameraIntent, REQUEST_IMAGE_CAPTURE)
+                        if (checkCameraPermission() && checkGalleryPermission()) {
+                            openCamera()
+                        } else {
+                            requestCameraPermission()
+                        }
                     }
                 }
             }
@@ -223,4 +277,42 @@ class FragmentRegister : Fragment() {
             )
         })
     }
+
+    private fun requestCameraPermission() {
+        requestPermissions(
+            arrayOf(Manifest.permission.CAMERA),
+            REQUEST_IMAGE_CAPTURE
+        )
+    }
+
+    private fun requestGalleryPermission() {
+        requestPermissions(
+            arrayOf(
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ),
+            REQUEST_GET_CONTENT_IMAGE
+        )
+    }
+
+    private fun openCamera() {
+        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        startActivityForResult(cameraIntent, REQUEST_IMAGE_CAPTURE)
+    }
+
+    private fun openGallery() {
+        val intentImage =
+            Intent(Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI))
+        startActivityForResult(intentImage, REQUEST_GET_CONTENT_IMAGE)
+    }
+
+    private fun checkCameraPermission() = checkSelfPermission(
+        requireContext(),
+        Manifest.permission.CAMERA
+    ) == PackageManager.PERMISSION_GRANTED
+
+    private fun checkGalleryPermission() = checkSelfPermission(
+        requireContext(),
+        Manifest.permission.WRITE_EXTERNAL_STORAGE
+    ) == PackageManager.PERMISSION_GRANTED
 }
