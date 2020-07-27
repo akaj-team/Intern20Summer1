@@ -36,14 +36,15 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initListener()
+    }
+
+    private fun initListener() {
         (activity as SignInActivity).handleEmailEditText(edtEmail, btnLogin)
         (activity as SignInActivity).handlePasswordEditText(edtPass, btnLogin)
-
         handleLoginTextView()
-
         user = getDataFromRegisterFragment()
         bindDataToEditText(user)
-
         handleLoginButton()
     }
 

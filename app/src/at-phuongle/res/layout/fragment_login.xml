@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/llLogo"
             android:layout_marginLeft="@dimen/margin_left"
-            android:layout_marginTop="@dimen/link_linear_layout_margin_top"
+            android:layout_marginTop="@dimen/w4_link_linear_layout_margin_top"
             android:layout_marginRight="@dimen/margin_right"
             android:orientation="horizontal"
             android:weightSum="2">
