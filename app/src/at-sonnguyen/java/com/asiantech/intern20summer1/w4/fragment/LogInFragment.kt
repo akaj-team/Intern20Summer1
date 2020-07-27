@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w4.account.User
 import com.asiantech.intern20summer1.w4.activity.HomeActivity
+import com.asiantech.intern20summer1.w4.activity.HomeActivity.Companion.KEY_VALUE
 import com.asiantech.intern20summer1.w4.extension.isValidEmail
 import com.asiantech.intern20summer1.w4.extension.isValidPassword
 import kotlinx.android.synthetic.`at-sonnguyen`.fragment_log_in.*
@@ -81,7 +82,7 @@ class LogInFragment : Fragment() {
     }
 
     private fun getDataFromSignUpFragment() {
-        (arguments?.getSerializable(resources.getString(R.string.key_value)) as? User)?.let {
+        (arguments?.getSerializable(KEY_VALUE) as? User)?.let {
             userLogin.email = it.email
             userLogin.password = it.password
             userLogin.phoneNumber = it.phoneNumber
@@ -126,7 +127,7 @@ class LogInFragment : Fragment() {
         btnSignIn.setOnClickListener {
             if (emailText == userLogin.email && passwordText == userLogin.password) {
                 val intent = Intent(activity, HomeActivity::class.java)
-                intent.putExtra(resources.getString(R.string.key_value), userLogin)
+                intent.putExtra(KEY_VALUE, userLogin)
                 activity?.startActivity(intent)
                 activity?.finish()
             } else {
@@ -136,7 +137,7 @@ class LogInFragment : Fragment() {
     }
 
     private fun setEnableSignInButton() {
-        btnSignIn.isEnabled = (isValidEmail(emailText) && isValidPassword(passwordText))
+        btnSignIn.isEnabled = isValidEmail(emailText) && isValidPassword(passwordText)
     }
 
     private fun showIncorrectAccountDialog() {

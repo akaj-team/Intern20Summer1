@@ -7,7 +7,6 @@
     android:layout_marginLeft="@dimen/linear_layout_margin_left"
     android:layout_marginEnd="@dimen/linear_layout_margin_right"
     android:layout_marginRight="@dimen/linear_layout_margin_right"
-    android:clickable="true"
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical">

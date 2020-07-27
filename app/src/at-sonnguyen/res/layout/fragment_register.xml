@@ -141,6 +141,5 @@
             android:layout_marginTop="@dimen/policy_text_view_margin_to_register_button"
             android:gravity="center"
             android:text="@string/policy_text_view_description_text" />
-
     </LinearLayout>
 </ScrollView>

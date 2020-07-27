@@ -10,7 +10,9 @@ import com.asiantech.intern20summer1.w4.account.User
 import kotlinx.android.synthetic.`at-sonnguyen`.activity_home.*
 
 class HomeActivity : AppCompatActivity() {
-    private var userHome = User("", "", "", "", "")
+    companion object{
+        internal const val KEY_VALUE = "data"
+    }
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,8 +23,8 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun getDataFromLoginFragment() {
-        val intent1 = intent
-        (intent1.getSerializableExtra(resources.getString(R.string.key_value)) as? User)?.let {
+        var userHome = User()
+        (intent.getSerializableExtra(KEY_VALUE) as? User)?.let {
             userHome.email = it.email
             userHome.fullName = it.fullName
             userHome.phoneNumber = it.phoneNumber

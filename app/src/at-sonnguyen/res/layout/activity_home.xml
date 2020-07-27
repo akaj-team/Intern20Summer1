@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="30dp"
-    android:layout_marginRight="30dp"
+    android:layout_marginLeft="@dimen/linear_layout_margin_left"
+    android:layout_marginRight="@dimen/linear_layout_margin_right"
     android:orientation="vertical"
     tools:ignore="ExtraText">
 
@@ -91,5 +91,4 @@
         android:background="@drawable/bg_w4_button"
         android:text="@string/confirm_button_description_text"
         android:textAllCaps="false" />
-
 </LinearLayout>
