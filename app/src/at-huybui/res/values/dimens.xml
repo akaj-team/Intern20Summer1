@@ -47,4 +47,8 @@
     <dimen name="linear_layout_text_register_margin_top">20dp</dimen>
     <dimen name="linear_layout_text_register_padding_bottom">10dp</dimen>
     <dimen name="linear_layout_text_view_padding_left">2dp</dimen>
+    <dimen name="w4_crop_progress_bar_size">80dp</dimen>
+    <dimen name="w4_icon_crop_size">40dp</dimen>
+    <dimen name="w4_icon_crop_margin_left_right">10dp</dimen>
+    <dimen name="w4_crop_height_tool_bar">60dp</dimen>
 </resources>

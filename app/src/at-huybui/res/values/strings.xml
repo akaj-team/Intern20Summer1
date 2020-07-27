@@ -50,4 +50,5 @@
     <string name="text_goto_facebook">Go to Facebook</string>
     <string name="text_goto_twitter">Go to Twitter</string>
     <string name="crop_complete">Crop complete</string>
+    <string name="w4_crop_your_picture">Crop your picture</string>
 </resources>
