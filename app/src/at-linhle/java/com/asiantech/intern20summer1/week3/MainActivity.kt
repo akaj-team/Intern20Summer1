@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1
+package com.asiantech.intern20summer1.week3
 
 import android.annotation.SuppressLint
 import android.os.Build
@@ -8,6 +8,7 @@ import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.asiantech.intern20summer1.R
 import kotlinx.android.synthetic.`at-linhle`.activity_main.*
 import java.util.regex.Pattern
 
