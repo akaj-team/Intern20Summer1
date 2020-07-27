@@ -26,7 +26,6 @@ import com.asiantech.intern20summer1.w4.classanother.Account
 import com.asiantech.intern20summer1.w4.fragment.SignInFragment.Companion.REGEX_PASSWORD
 import kotlinx.android.synthetic.`at-huybui`.fragment_sign_up.*
 
-
 class SignUpFragment : Fragment() {
     companion object {
         private const val SDK_VERSION = 16

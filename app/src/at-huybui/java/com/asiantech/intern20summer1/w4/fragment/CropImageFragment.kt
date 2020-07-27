@@ -135,8 +135,8 @@ class CropImageFragment : Fragment() {
             try {
                 bitmap.compress(Bitmap.CompressFormat.PNG, QUALITY, outputStream)
                 outputStream.close()
-            } catch (e: Exception) {
-                e.printStackTrace()
+            } catch (exception: Exception) {
+                exception.printStackTrace()
             }
         }
     }
