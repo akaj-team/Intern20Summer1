@@ -13,7 +13,7 @@ import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week4.extensions.hideSoftKeyboard
 import com.asiantech.intern20summer1.week4.models.User
 import com.asiantech.intern20summer1.week4.views.HomeActivity
-import kotlinx.android.synthetic.`at-linhle`.fragment_signin.*
+import kotlinx.android.synthetic.`at-linhle`.fragment_sign_in.*
 import java.util.regex.Pattern
 
 class SignInFragment : Fragment() {
@@ -31,7 +31,7 @@ class SignInFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_signin, container, false)
+        return inflater.inflate(R.layout.fragment_sign_in, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

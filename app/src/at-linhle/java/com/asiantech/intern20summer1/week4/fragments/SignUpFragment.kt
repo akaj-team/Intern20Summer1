@@ -21,7 +21,7 @@ import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week4.extensions.hideSoftKeyboard
 import com.asiantech.intern20summer1.week4.models.User
 import com.theartofdev.edmodo.cropper.CropImage
-import kotlinx.android.synthetic.`at-linhle`.fragment_signup.*
+import kotlinx.android.synthetic.`at-linhle`.fragment_sign_up.*
 import java.io.ByteArrayOutputStream
 import java.util.regex.Pattern
 
@@ -52,7 +52,7 @@ class SignUpFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_signup, container, false)
+        return inflater.inflate(R.layout.fragment_sign_up, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -67,6 +67,54 @@ class SignUpFragment : Fragment() {
         handleClickingRegisterButton()
         handleClickingArrowLeft()
         handleListener()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK) {
+            when (requestCode) {
+                OPEN_CAMERA_REQUEST -> {
+                    if (!checkStoragePermissions()) {
+                        makeStorageRequest()
+                    } else {
+                        cropImageCamera(data)
+                    }
+                }
+                PICK_IMAGE_REQUEST -> {
+                    cropImageGallery(data)
+                }
+                CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE -> {
+                    showImage(data)
+                }
+            }
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String?>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == OPEN_CAMERA_REQUEST) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                checkCameraStatus = true
+                if (!checkStoragePermissions()) {
+                    makeStorageRequest()
+                } else {
+                    openCamera()
+                }
+            }
+        }
+        if (requestCode == PICK_IMAGE_REQUEST) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (!checkCameraStatus) {
+                    openStorage()
+                } else {
+                    openCamera()
+                }
+            }
+        }
     }
 
     private fun handleClickingArrowLeft() {
@@ -182,27 +230,6 @@ class SignUpFragment : Fragment() {
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == RESULT_OK) {
-            when (requestCode) {
-                OPEN_CAMERA_REQUEST -> {
-                    if (!checkStoragePermissions()) {
-                        makeStorageRequest()
-                    } else {
-                        cropImageCamera(data)
-                    }
-                }
-                PICK_IMAGE_REQUEST -> {
-                    cropImageGallery(data)
-                }
-                CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE -> {
-                    showImage(data)
-                }
-            }
-        }
-    }
-
     private fun cropImageCamera(data: Intent?) {
         (data?.extras?.get(KEY_IMAGE) as? Bitmap)?.let {
             getImageUri(it)?.let { uri -> handleCropImage(uri) }
@@ -242,11 +269,10 @@ class SignUpFragment : Fragment() {
         return Uri.parse(path)
     }
 
-    private fun checkStoragePermissions(): Boolean {
-        val permission =
-            checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
-        return permission == PackageManager.PERMISSION_GRANTED
-    }
+    private fun checkStoragePermissions() = checkSelfPermission(
+        requireContext(),
+        Manifest.permission.READ_EXTERNAL_STORAGE
+    ) == PackageManager.PERMISSION_GRANTED
 
     private fun checkCameraPermissions(): Boolean {
         val permissionCamera = checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
@@ -267,33 +293,6 @@ class SignUpFragment : Fragment() {
 
     private fun makeCameraRequest() {
         requestPermissions(arrayOf(Manifest.permission.CAMERA), OPEN_CAMERA_REQUEST)
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String?>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == OPEN_CAMERA_REQUEST) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                checkCameraStatus = true
-                if (!checkStoragePermissions()) {
-                    makeStorageRequest()
-                } else {
-                    openCamera()
-                }
-            }
-        }
-        if (requestCode == PICK_IMAGE_REQUEST) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                if (!checkCameraStatus) {
-                    openStorage()
-                } else {
-                    openCamera()
-                }
-            }
-        }
     }
 
     private fun openStorage() {
