@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnSignUp.setOnClickListener {
+            //Glide.with( this).load("https://scontent.f-2.fna.fbcdn.net/v/t1.0-9/p960x960/114709498_601899243857223_5635022684478067077_o.jpg?_nc_cat=1&_nc_sid=8024bb&_nc_ohc=OzdH9cDoMfMAX82EOqs&_nc_ht=scontent.fdad3-2.fna&_nc_tp=6&oh=b4f76e51167493843fb3380fb5607af9&oe=5F44E9CC").into(imgLogo)
             Toast.makeText(applicationContext, "Sign Up", Toast.LENGTH_SHORT).show()
         }
 

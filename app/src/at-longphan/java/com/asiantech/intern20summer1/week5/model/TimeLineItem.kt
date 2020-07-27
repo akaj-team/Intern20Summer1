@@ -29,17 +29,17 @@ class TimeLineItem() {
         this.isPluralLike = isPluralLike
     }
 
-    private  var lastTimeLineItemId = 0
+    private var lastTimeLineItemId = 0
 
     fun createTimeLineItemsList(numItems: Int): MutableList<TimeLineItem> {
         var timeLineItems = mutableListOf<TimeLineItem>()
         for (i in 1..numItems) {
-            var random = (1..10).random()
+            var random = (0..4).random()
             timeLineItems.add(
                 TimeLineItem(
                     "Name ${++lastTimeLineItemId}",
-                    "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ7Nd6wrunZbX3dGyoBjDWWAwro6Qj3T3IYrA&usqp=CAU",
-                    i % 2 == 0,
+                    "",
+                    random != 0 && i % 2 == 0,
                     random,
                     random > 1
                 )
