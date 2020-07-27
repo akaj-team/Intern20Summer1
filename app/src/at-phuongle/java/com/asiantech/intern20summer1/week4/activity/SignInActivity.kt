@@ -185,7 +185,7 @@ class SignInActivity : AppCompatActivity() {
                 btn.setBackgroundResource(R.drawable.bg_disable_login_button)
             }
         } else if (fragment is RegisterFragment) {
-            if (checkValidInfomation()) {
+            if (checkValidInformation()) {
                 btn.isEnabled = true
                 btn.setBackgroundResource(R.drawable.bg_enable_register_button)
             } else {
@@ -195,7 +195,7 @@ class SignInActivity : AppCompatActivity() {
         }
     }
 
-    private fun checkValidInfomation(): Boolean {
+    private fun checkValidInformation(): Boolean {
         return validFullName && validEmail && validMobile && validPassword && validConfirmPassword
     }
 }
