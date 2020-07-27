@@ -185,7 +185,12 @@ class SignInActivity : AppCompatActivity() {
                 btn.setBackgroundResource(R.drawable.bg_disable_login_button)
             }
         } else if (fragment is RegisterFragment) {
-            if (validFullName && validEmail && validMobile && validPassword && validConfirmPassword) {
+            if (validFullName &&
+                validEmail &&
+                validMobile &&
+                validPassword &&
+                validConfirmPassword
+            ) {
                 btn.isEnabled = true
                 btn.setBackgroundResource(R.drawable.bg_enable_register_button)
             } else {
