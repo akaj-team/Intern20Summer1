@@ -42,13 +42,13 @@ class TimeLineActivity : AppCompatActivity() {
         val dividerItemDecoration = DividerItemDecoration(this, LinearLayoutManager.VERTICAL)
         dividerItemDecoration.setDrawable(resources.getDrawable(R.drawable.bg_recycler_view_divider_decoration))
         recyclerViewMain.addItemDecoration(dividerItemDecoration)
-
     }
-    private fun initData(){
+
+    private fun initData() {
         items.addAll(getNewData())
     }
 
-    private fun initListener(){
+    private fun initListener() {
         initListenerLikeButton()
         initScrollViewLoadMoreListener()
         initRefreshPostListener()
@@ -87,7 +87,7 @@ class TimeLineActivity : AppCompatActivity() {
             R.mipmap.img_9,
             R.mipmap.img_10
         )
-        val user = arrayOf(
+        val userName = arrayOf(
             getString(R.string.w5_user1),
             getString(R.string.w5_user2),
             getString(R.string.w5_user3),
@@ -99,14 +99,26 @@ class TimeLineActivity : AppCompatActivity() {
             getString(R.string.w5_user9),
             getString(R.string.w5_user10)
         )
+        val description = arrayOf(
+            getString(R.string.w5_description_1),
+            getString(R.string.w5_description_2),
+            getString(R.string.w5_description_3),
+            getString(R.string.w5_description_4),
+            getString(R.string.w5_description_5),
+            getString(R.string.w5_description_6),
+            getString(R.string.w5_description_7),
+            getString(R.string.w5_description_8),
+            getString(R.string.w5_description_9),
+            getString(R.string.w5_description_10)
+        )
         for (i in 0 until MAX_DATA_NUMBER_ONE_TIME) {
             posts.add(
                 TimeLineItem(
                     images[Random.nextInt(1, MAX_DATA_NUMBER_ONE_TIME)],
                     Random.nextBoolean(),
                     Random.nextInt(0, MAX_LIKE_NUMBER),
-                    user[Random.nextInt(1, MAX_DATA_NUMBER_ONE_TIME)],
-                    "This is post number $i "
+                    userName[Random.nextInt(1, MAX_DATA_NUMBER_ONE_TIME)],
+                    description[Random.nextInt(1, MAX_DATA_NUMBER_ONE_TIME)]
                 )
             )
         }

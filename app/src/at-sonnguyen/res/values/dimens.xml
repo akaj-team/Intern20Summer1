@@ -67,7 +67,8 @@
     <dimen name="w5_user_name_text_view_height">40dp</dimen>
     <dimen name="w5_description_text_view_margin_top">20dp</dimen>
     <dimen name="w5_item_line_text_view_width">1dp</dimen>
-    <dimen name="recycler_view_divider_decoration_height">1dp</dimen>
-    <dimen name="recycler_view_divider_decoration_width">1dp</dimen>
+    <dimen name="w5_recycler_view_divider_decoration_height">1dp</dimen>
+    <dimen name="w5_recycler_view_divider_decoration_width">1dp</dimen>
     <dimen name="w5_line_text_view_height">2dp</dimen>
+    <dimen name="w5_like_number_text_view_margin_top">30dp</dimen>
 </resources>
