@@ -37,6 +37,7 @@ class CropImageFragment : Fragment() {
     private var toastStatus: Toast? = null
     private var uriBuf: Uri? = null
     internal var onCropImage: (Uri?) -> Unit = {}
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -49,7 +50,6 @@ class CropImageFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         cropView.setUri(uriBuf as Uri) // init image enter to frame
         initListener()
-
     }
 
     private fun initListener() {
@@ -130,7 +130,7 @@ class CropImageFragment : Fragment() {
     }
 
     private fun saveImageToStream(bitmap: Bitmap, outputStream: OutputStream?) {
-        if (outputStream != null) {
+        outputStream?.let {
             try {
                 bitmap.compress(Bitmap.CompressFormat.PNG, QUALITY, outputStream)
                 outputStream.close()

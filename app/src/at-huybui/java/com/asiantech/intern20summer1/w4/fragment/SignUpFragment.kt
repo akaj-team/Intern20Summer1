@@ -47,7 +47,7 @@ class SignUpFragment : Fragment() {
     private var numberPhoneBuffer = ""
     private var passwordBuffer = ""
     private var isRePassCorrect = false
-    private var isCheckCamera = false
+    private var isCameraAllowed = false
     private var isCheckGallery = false
 
     internal var onRegisterClick: (Account) -> Unit = { }
@@ -358,7 +358,7 @@ class SignUpFragment : Fragment() {
                         if (isCheckCameraPermission()) {
                             openCamera()
                         } else {
-                            isCheckCamera = true
+                            isCameraAllowed = true
                             requestCameraPermission()
                         }
                     }
@@ -479,8 +479,8 @@ class SignUpFragment : Fragment() {
      */
     private fun handleCheckPermissionAfterRequest() {
         when {
-            isCheckCamera -> {
-                isCheckCamera = false
+            isCameraAllowed -> {
+                isCameraAllowed = false
                 if (isCheckCameraPermission()) {
                     openCamera()
                 }
