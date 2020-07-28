@@ -1,4 +1,4 @@
-package utils
+package extension
 
 import android.text.Editable
 import android.text.TextWatcher

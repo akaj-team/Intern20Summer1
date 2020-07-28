@@ -26,4 +26,7 @@
     <string name="title_name_four">Ronaldo</string>
     <string name="title_name_five">Kaka</string>
     <string name="title_name_six">Congphuong</string>
+    <string name="information_description_text">information</string>
+    <string name="is_like_text_view_description_text">12k likes</string>
+    <string name="name_text_view_description_text">name</string>
 </resources>

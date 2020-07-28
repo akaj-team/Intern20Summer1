@@ -5,9 +5,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.asiantech.intern20summer1.R
 import kotlinx.android.synthetic.`at-vuongphan`.activity_main.*
-import utils.afterTextChanged
-import utils.isValidEmail
-import utils.isValidPassword
+import extension.afterTextChanged
+import extension.isValidEmail
+import extension.isValidPassword
 
 class MainActivity : AppCompatActivity() {
     companion object {

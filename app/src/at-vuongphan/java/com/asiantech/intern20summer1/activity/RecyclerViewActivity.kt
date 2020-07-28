@@ -27,6 +27,11 @@ class RecyclerViewActivity : AppCompatActivity() {
 
     companion object {
         private const val SDK_VERSION = 23
+        private const val END_LOOP = 9
+        private const val AVATAR_START = 0
+        private const val AVATAR_END = 4
+        private const val IMAGE_START = 0
+        private const val IMAGE_END = 10
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -79,12 +84,12 @@ class RecyclerViewActivity : AppCompatActivity() {
             R.string.title_name_five,
             R.string.title_name_six
         )
-        for (i in 0..9) {
+        for (i in 0..END_LOOP) {
             posts.add(
                 ItemRecycler(
-                    avatar[Random.nextInt(0, 4)],
+                    avatar[Random.nextInt(AVATAR_START, AVATAR_END)],
                     resources.getString(title.random()),
-                    images[Random.nextInt(1, 10)],
+                    images[Random.nextInt(IMAGE_START, IMAGE_END)],
                     false,
                     0,
                     resources.getString(user.random()),
