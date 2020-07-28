@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/w5_relative_layout_margin_left"
+    android:layout_marginTop="@dimen/w5_relative_layout_margin_top"
+    android:layout_marginRight="@dimen/w5_relative_layout_margin_right"
+    android:layout_marginStart="@dimen/w5_relative_layout_margin_left"
+    android:layout_marginEnd="@dimen/w5_relative_layout_margin_right">
+
+<!--    <ImageView-->
+<!--        android:id="@+id/imgLogo"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:src="@mipmap/ic_instagram"-->
+<!--        android:contentDescription="@string/w5_logo_image_view" />-->
+
+<!--    <TextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginLeft="@dimen/w5_title_text_view_margin_left"-->
+<!--        android:layout_toRightOf="@+id/imgLogo"-->
+<!--        android:text="@string/w5_instagram"-->
+<!--        android:textSize="@dimen/w5_title_text_view_size"-->
+<!--        android:textStyle="bold"-->
+<!--        android:layout_marginStart="@dimen/w5_title_text_view_margin_left"-->
+<!--        android:layout_toEndOf="@+id/imgLogo" />-->
+
+    <ImageView
+        android:id="@+id/imgCar"
+        android:layout_width="@dimen/w5_post_image_view_width"
+        android:layout_height="@dimen/w5_post_image_view_height"
+        android:layout_below="@+id/imgLogo"
+        android:src="@mipmap/ic_launcher"
+        android:contentDescription="@string/w5_image_view_picture" />
+
+    <LinearLayout
+        android:id="@+id/llReaction"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/w5_action_linear_layout_height"
+        android:layout_below="@+id/imgCar"
+        android:layout_marginTop="@dimen/w5_action_linear_layout_margin_top">
+
+        <ImageView
+            android:id="@+id/imgLike"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_non_liked"
+            android:contentDescription="@string/w5_like_image_view" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/w5_comment_image_view_margin_left"
+            android:src="@mipmap/ic_comment"
+            android:contentDescription="@string/w5_comment_image_view"
+            android:layout_marginStart="@dimen/w5_comment_image_view_margin_left" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/w5_send_image_view_margin_left"
+            android:src="@mipmap/ic_send"
+            android:contentDescription="@string/w5_send_image_view"
+            android:layout_marginStart="@dimen/w5_send_image_view_margin_left" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/llReaction"
+        android:layout_marginTop="@dimen/w5_divider_decoration_text_view_margin_top"
+        android:background="@drawable/bg_line_text_view" />
+
+    <TextView
+        android:id="@+id/tvLikeNumber"
+        android:layout_width="@dimen/w5_like_number_text_view_width"
+        android:layout_height="@dimen/w5_like_number_text_view_height"
+        android:layout_below="@id/llReaction"
+        android:gravity="center"
+        android:text="@string/w5_item_number_of_like"
+        android:textSize="@dimen/w5_text_view_text_size" />
+
+    <TextView
+        android:id="@+id/tvUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/w5_user_name_text_view_height"
+        android:layout_below="@id/tvLikeNumber"
+        android:gravity="fill_vertical"
+        android:textSize="@dimen/w5_text_view_text_size"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvUsername"
+        android:layout_marginBottom="@dimen/w5_description_text_view_margin_top" />
+</RelativeLayout>

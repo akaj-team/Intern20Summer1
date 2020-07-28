@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Inter-Summer</string>
+    <string name="app_name">Inter-Summer-W5</string>
     <string name="your_profile_link">Link your social media profile</string>
     <string name="email_text_view_description_text">Enter your Email ID</string>
     <string name="password_text_view_description_text">Type your password</string>
@@ -39,4 +39,21 @@
     <string name="image_title">Title</string>
     <string name="permission_denied_toast">permission denied</string>
     <string name="add_to_back_stack_key">add to back Stack</string>
+    <string name="w5_item_number_of_like">%d like</string>
+    <string name="w5_logo_image_view">logo_image_view</string>
+    <string name="w5_image_view_picture">image_view_picture</string>
+    <string name="w5_instagram">Instagram</string>
+    <string name="w5_like_image_view">like_image_view</string>
+    <string name="w5_comment_image_view">comment_image_view</string>
+    <string name="w5_send_image_view">send_image_view</string>
+    <string name="w5_user1">DavidDeGea01</string>
+    <string name="w5_user2">LukeShaw23</string>
+    <string name="w5_user3">HarryMaguire05</string>
+    <string name="w5_user4">AaronWan-bissaka29</string>
+    <string name="w5_user5">NemanjaMatic31</string>
+    <string name="w5_user6">PaulPogba06</string>
+    <string name="w5_user7">BrunoFesnandes18</string>
+    <string name="w5_user8">MarcusRashford10</string>
+    <string name="w5_user9">AnthonyMartial09</string>
+    <string name="w5_user10">MasonGreenWood26</string>
 </resources>
