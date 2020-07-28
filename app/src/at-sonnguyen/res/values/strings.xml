@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">W4 - Intent - Activity - Fragment</string>
+    <string name="app_name">Inter-Summer</string>
     <string name="your_profile_link">Link your social media profile</string>
     <string name="email_text_view_description_text">Enter your Email ID</string>
     <string name="password_text_view_description_text">Type your password</string>
@@ -31,7 +31,6 @@
     <string name="change_password_text_view_description_text">Change your password</string>
     <string name="confirm_button_description_text">Confirm</string>
     <string name="policy_text_view_description_text"><![CDATA[By registering you agree to terms & conditions and private policy of the festival]]></string>
-    <string name="key_value">data</string>
     <string name="log_in_fragment_incorrect_account_dialog_tittle">WARNING</string>
     <string name="log_in_fragment_incorrect_account_dialog_message">your username or password is incorrect</string>
     <string name="register_fragment_set_avatar_dialog_list_title">Set Avatar</string>

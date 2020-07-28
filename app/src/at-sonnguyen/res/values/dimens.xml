@@ -47,6 +47,4 @@
     <dimen name="w4_login_title_margin_to_back_image_view">15dp</dimen>
     <dimen name="w4_bg_profile_button_corner_radius">5dp</dimen>
     <dimen name="w4_bg_button_corner_radius">10dp</dimen>
-    <dimen name="linear_layout_margin_left">30dp</dimen>
-    <dimen name="linear_layout_margin_right">30dp</dimen>
 </resources>

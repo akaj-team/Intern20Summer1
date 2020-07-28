@@ -21,6 +21,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w4.account.User
+import com.asiantech.intern20summer1.w4.activity.HomeActivity.Companion.KEY_VALUE
 import com.asiantech.intern20summer1.w4.extension.isValidEmail
 import com.asiantech.intern20summer1.w4.extension.isValidPassword
 import com.asiantech.intern20summer1.w4.extension.isValidPhoneNumber
@@ -123,7 +124,7 @@ class RegisterFragment : Fragment() {
                     if (!checkGalleryPermission()) {
                         requestGalleryPermission()
                     } else {
-                        (data?.extras?.get(resources.getString(R.string.key_value)) as? Bitmap)?.let {
+                        (data?.extras?.get(KEY_VALUE) as? Bitmap)?.let {
                             getImageUri(it)?.let(this@RegisterFragment::cropImage)
                         }
                     }
@@ -399,7 +400,7 @@ class RegisterFragment : Fragment() {
                 avatarUri
             )
             val bundle = Bundle()
-            bundle.putSerializable(resources.getString(R.string.key_value), user)
+            bundle.putSerializable(KEY_VALUE, user)
             val signInFragment = LogInFragment()
             val fragmentTransaction: FragmentTransaction? = fragmentManager?.beginTransaction()
             fragmentTransaction?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
