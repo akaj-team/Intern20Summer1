@@ -8,9 +8,7 @@
         android:id="@+id/imgLogoSignIn"
         android:layout_width="@dimen/image_logo_width"
         android:layout_height="@dimen/image_logo_height"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/sign_in_logo_image_view_margin_top"
         android:src="@drawable/logo_music" />
 
@@ -44,7 +42,6 @@
             android:background="@drawable/custom_button_icon"
             android:paddingLeft="@dimen/button_facebook_and_google_padding_left"
             android:text="@string/facebook" />
-
     </RelativeLayout>
 
     <RelativeLayout
@@ -77,7 +74,6 @@
             android:background="@drawable/custom_button_icon"
             android:paddingLeft="30dp"
             android:text="@string/google" />
-
     </RelativeLayout>
 
     <TextView

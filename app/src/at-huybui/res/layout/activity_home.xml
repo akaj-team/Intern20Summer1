@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal"
     android:background="@color/background_white"
     android:orientation="vertical">
 
@@ -10,7 +11,6 @@
         android:layout_width="@dimen/image_logo_width"
         android:layout_height="@dimen/image_logo_height"
         android:layout_marginTop="@dimen/sign_in_logo_image_view_margin_top"
-        android:layout_gravity="center_horizontal"
         android:src="@drawable/logo_music" />
 
     <androidx.cardview.widget.CardView
@@ -37,20 +37,19 @@
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:gravity="center_vertical"
         android:layout_height="@dimen/home_linear_layout_height">
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
+            android:layout_height="wrap_content"
             android:paddingLeft="@dimen/home_edit_text_padding_left"
             android:text="@string/full_name"
             android:textSize="@dimen/home_edit_text_size" />
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
+            android:layout_height="wrap_content"
             android:padding="@dimen/home_double_dot_padding"
             android:text="@string/char_double_dot"
             android:textSize="@dimen/home_edit_text_size" />
@@ -58,27 +57,25 @@
         <TextView
             android:id="@+id/tvNameHome"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
+            android:layout_height="wrap_content"
             android:textSize="@dimen/home_edit_text_size" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:gravity="center_vertical"
         android:layout_height="@dimen/home_linear_layout_height">
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
+            android:layout_height="wrap_content"
             android:paddingLeft="@dimen/home_edit_text_padding_left"
             android:text="@string/email"
             android:textSize="@dimen/home_edit_text_size" />
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
+            android:layout_height="wrap_content"
             android:padding="@dimen/home_double_dot_padding"
             android:text="@string/char_double_dot"
             android:textSize="@dimen/home_edit_text_size" />
@@ -86,27 +83,25 @@
         <TextView
             android:id="@+id/tvEmailHome"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
+            android:layout_height="wrap_content"
             android:textSize="@dimen/home_edit_text_size" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:gravity="center_vertical"
         android:layout_height="@dimen/home_linear_layout_height">
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
+            android:layout_height="wrap_content"
             android:paddingLeft="@dimen/home_edit_text_padding_left"
             android:text="@string/mobile_number"
             android:textSize="@dimen/home_edit_text_size" />
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
+            android:layout_height="wrap_content"
             android:padding="@dimen/home_double_dot_padding"
             android:text="@string/char_double_dot"
             android:textSize="@dimen/home_edit_text_size" />
@@ -114,8 +109,7 @@
         <TextView
             android:id="@+id/tvNumberPhoneHome"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
+            android:layout_height="wrap_content"
             android:textSize="@dimen/home_edit_text_size" />
     </LinearLayout>
 </LinearLayout>

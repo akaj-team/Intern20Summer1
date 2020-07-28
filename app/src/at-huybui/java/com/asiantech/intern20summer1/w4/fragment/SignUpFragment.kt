@@ -21,12 +21,13 @@ import androidx.core.util.PatternsCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.w4.activity.MainActivityFour
-import com.asiantech.intern20summer1.w4.classanother.Account
+import com.asiantech.intern20summer1.w4.activity.MainActivity
 import com.asiantech.intern20summer1.w4.fragment.SignInFragment.Companion.REGEX_PASSWORD
+import com.asiantech.intern20summer1.w4.model.Account
 import kotlinx.android.synthetic.`at-huybui`.fragment_sign_up.*
 
 class SignUpFragment : Fragment() {
+
     companion object {
         private const val SDK_VERSION = 16
         private const val REGEX_NUMBER_PHONE = """^[0-9]{10}$"""
@@ -45,7 +46,7 @@ class SignUpFragment : Fragment() {
     private var nameBuffer = ""
     private var numberPhoneBuffer = ""
     private var passwordBuffer = ""
-    private var rewritePassStatus = false
+    private var isRePassCorrect = false
     private var isCheckCamera = false
     private var isCheckGallery = false
 
@@ -77,15 +78,17 @@ class SignUpFragment : Fragment() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            val fragment = CropImageFragment.newInstance(imageUri)
-            fragment.onCropImage = this::handleReceiverUriData
-            (activity as? MainActivityFour)?.addFragment(fragment, true)
-        } else if (requestCode == REQUEST_SELECT_IMAGE_IN_ALBUM && resultCode == RESULT_OK) {
-            imageUri = data?.data
-            val fragment = CropImageFragment.newInstance(imageUri)
-            fragment.onCropImage = this::handleReceiverUriData
-            (activity as? MainActivityFour)?.addFragment(fragment, true)
+        if (resultCode == RESULT_OK) {
+            if (requestCode == REQUEST_IMAGE_CAPTURE) {
+                val fragment = CropImageFragment.newInstance(imageUri)
+                fragment.onCropImage = this::handleReceiverUriData
+                (activity as? MainActivity)?.addFragment(fragment, true)
+            } else if (requestCode == REQUEST_SELECT_IMAGE_IN_ALBUM) {
+                imageUri = data?.data
+                val fragment = CropImageFragment.newInstance(imageUri)
+                fragment.onCropImage = this::handleReceiverUriData
+                (activity as? MainActivity)?.addFragment(fragment, true)
+            }
         }
     }
 
@@ -226,7 +229,7 @@ class SignUpFragment : Fragment() {
      */
     private fun recheckForReWritePasswordEditText() {
         //job of handle function for rewrite password edit text view
-        rewritePassStatus = if (edtRePassSignUp.text.toString().isNotEmpty()) {
+        isRePassCorrect = if (edtRePassSignUp.text.toString().isNotEmpty()) {
             if (edtRePassSignUp.text.toString() == passwordBuffer) {
                 setIconForEditText(
                     edtRePassSignUp,
@@ -256,7 +259,7 @@ class SignUpFragment : Fragment() {
      */
     private fun handleForRewritePasswordEditText() {
         edtRePassSignUp.addTextChangedListener { text ->
-            rewritePassStatus = if (text.toString().isNotEmpty()) {
+            isRePassCorrect = if (text.toString().isNotEmpty()) {
                 if (text.toString() == passwordBuffer) {
                     setIconForEditText(
                         edtRePassSignUp,
@@ -319,7 +322,7 @@ class SignUpFragment : Fragment() {
                     edtPasswordSignUp.requestFocus()
                     showToast(getString(R.string.invalid_password))
                 }
-                !rewritePassStatus -> {
+                !isRePassCorrect -> {
                     edtRePassSignUp.requestFocus()
                     showToast(getString(R.string.password_does_not_match))
                 }
@@ -331,7 +334,7 @@ class SignUpFragment : Fragment() {
                             emailBuffer,
                             numberPhoneBuffer,
                             passwordBuffer,
-                            imageUri.toString() + ""
+                            imageUri.toString()
                         )
                     onRegisterClick(use)
                     fragmentManager?.popBackStack()

@@ -14,10 +14,11 @@ import kotlinx.android.synthetic.`at-huybui`.activity_main_w3.*
 
 @Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
+
     companion object {
         private const val REGEX_EMAIL = """^[a-zA-Z][a-zA-Z0-9_.]*[@][a-zA-Z0-9]+[.][a-zA-Z0-9]+$"""
         private const val REGEX_PASSWORD = """^[A-Z][a-zA-Z0-9]{5,}$""" // regex for password
-        const val SDK_VERSION = 23
+        private const val SDK_VERSION = 23
     }
 
     private var toastState: Toast? = null // status variable of toast

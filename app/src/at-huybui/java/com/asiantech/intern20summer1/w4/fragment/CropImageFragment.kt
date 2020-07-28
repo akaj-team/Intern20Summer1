@@ -22,6 +22,7 @@ import java.io.FileOutputStream
 import java.io.OutputStream
 
 class CropImageFragment : Fragment() {
+
     companion object {
         private const val NAME_IMAGE = "/image/crop"
         private const val SDK_VERSION_SAVE_IMAGE = 29

@@ -51,4 +51,6 @@
     <dimen name="w4_icon_crop_size">40dp</dimen>
     <dimen name="w4_icon_crop_margin_left_right">10dp</dimen>
     <dimen name="w4_crop_height_tool_bar">60dp</dimen>
+    <dimen name="w4_button_icon_radius">5dp</dimen>
+    <dimen name="w4_back_icon_size">24dp</dimen>
 </resources>

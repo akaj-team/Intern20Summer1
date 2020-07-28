@@ -6,7 +6,8 @@ import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w4.fragment.SignInFragment
 
-class MainActivityFour : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_w4)
@@ -31,7 +32,9 @@ class MainActivityFour : AppCompatActivity() {
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.add(R.id.llMain, fragment)
-        if (backStack) fragmentTransaction.addToBackStack("")
+        if (backStack) {
+            fragmentTransaction.addToBackStack("")
+        }
         fragmentTransaction.commit()
     }
 }
