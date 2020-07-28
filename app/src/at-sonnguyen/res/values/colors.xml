@@ -15,4 +15,5 @@
     <color name="colorRelativeLayoutSolid">#F8F8F8</color>
     <color name="w4_bg_button_solid_color">#CA7900</color>
     <color name="colorLineTextViewW5">#606060</color>
+    <color name="colorRecyclerViewDividerDecorationSolid">#858583</color>
 </resources>

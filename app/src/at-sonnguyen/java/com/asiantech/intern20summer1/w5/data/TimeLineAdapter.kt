@@ -14,7 +14,8 @@ class TimeLineAdapter(private val cars: MutableList<TimeLineItem>) :
     internal var onItemClicked: (position: Int) -> Unit = {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.time_line_item, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.time_line_item, parent, false)
         return RecyclerViewHolder(view)
     }
 

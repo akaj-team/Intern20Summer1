@@ -21,14 +21,20 @@ class TimeLineActivity : AppCompatActivity() {
     private var isLoading = false
     private var items = mutableListOf<TimeLineItem>()
 
+    companion object{
+        private const val MAX_LIKE_NUMBER = 1000
+        private const val DELAY_TIME = 2000
+        private const val MAX_DATA_NUMBER_ONE_TIME =10
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_time_line)
         initAdapter()
-        items.addAll(newData())
+        items.addAll(getNewData())
         initListenerLikeButton()
         initScrollViewLoadMoreListener()
-        initRefreshPost()
+        initRefreshPostListener()
     }
 
     private fun initAdapter() {
@@ -60,7 +66,7 @@ class TimeLineActivity : AppCompatActivity() {
         adapter.notifyDataSetChanged()
     }
 
-    private fun newData(): MutableList<TimeLineItem> {
+    private fun getNewData(): MutableList<TimeLineItem> {
         val posts = mutableListOf<TimeLineItem>()
         val images = arrayOf(
             R.mipmap.img_1,
@@ -86,13 +92,13 @@ class TimeLineActivity : AppCompatActivity() {
             getString(R.string.w5_user9),
             getString(R.string.w5_user10)
         )
-        for (i in 0..9) {
+        for (i in 0 until MAX_DATA_NUMBER_ONE_TIME) {
             posts.add(
                 TimeLineItem(
-                    images[Random.nextInt(1, 10)],
+                    images[Random.nextInt(1, MAX_DATA_NUMBER_ONE_TIME)],
                     Random.nextBoolean(),
-                    Random.nextInt(0, 1000),
-                    user[Random.nextInt(1, 10)],
+                    Random.nextInt(0, MAX_LIKE_NUMBER),
+                    user[Random.nextInt(1, MAX_DATA_NUMBER_ONE_TIME)],
                     "This is post number $i "
                 )
             )
@@ -112,17 +118,17 @@ class TimeLineActivity : AppCompatActivity() {
                         progressBarMain.visibility = View.VISIBLE
                         Handler().postDelayed({
                             progressBarMain.visibility = View.INVISIBLE
-                            items.addAll(newData())
+                            items.addAll(getNewData())
                             reloadData()
                             isLoading = false
-                        }, 2000)
+                        }, DELAY_TIME.toLong())
                     }
                 }
             }
         })
     }
 
-    private fun initRefreshPost() {
+    private fun initRefreshPostListener() {
         pullToRefresh.setProgressBackgroundColorSchemeColor(
             ContextCompat.getColor(
                 this,
@@ -133,10 +139,10 @@ class TimeLineActivity : AppCompatActivity() {
         pullToRefresh.setOnRefreshListener {
             Handler().postDelayed({
                 items.clear()
-                items.addAll(newData())
+                items.addAll(getNewData())
                 reloadData()
                 pullToRefresh.isRefreshing = false
-            }, 1000)
+            }, DELAY_TIME.toLong())
         }
     }
 }

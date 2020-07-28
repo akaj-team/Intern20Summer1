@@ -6,4 +6,4 @@ data class TimeLineItem(
     var likeNumber: Int,
     var userName: String,
     var description: String
-) {}
+)
