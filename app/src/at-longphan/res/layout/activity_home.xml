@@ -34,6 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/linear_layout_home_content_margin_top"
+        android:gravity="center_horizontal"
         android:background="@drawable/bg_content_home"
         android:orientation="vertical">
 
@@ -41,7 +42,6 @@
             android:id="@+id/imgAvatar"
             android:layout_width="@dimen/circle_image_view_home_avatar_width"
             android:layout_height="@dimen/circle_image_view_home_avatar_height"
-            android:layout_gravity="center"
             android:layout_marginTop="@dimen/circle_image_view_home_avatar_margin_top"
             android:src="@mipmap/ic_launcher"
             app:civ_border_color="@color/colorMainWeek4"
@@ -50,7 +50,6 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:layout_marginTop="@dimen/relative_layout_information_margin_top"
             android:orientation="vertical">
 

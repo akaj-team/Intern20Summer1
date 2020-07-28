@@ -12,17 +12,21 @@ import kotlinx.android.synthetic.`at-longphan`.activity_home.*
 
 class HomeActivity : AppCompatActivity() {
 
+    private var userLogin = User()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-        }
+        configStatusBarColor()
         initData()
         loadDataToView()
     }
-    private var userLogin = User()
+
+    private fun configStatusBarColor(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        }
+    }
 
     private fun initData() {
         userLogin = intent.getParcelableExtra(

@@ -24,12 +24,21 @@ import kotlinx.android.synthetic.`at-longphan`.fragment_sign_up.*
 import java.io.ByteArrayOutputStream
 
 class SignUpFragment : Fragment() {
+
     companion object {
         private const val KEY_IMAGE = "data"
-        private const val HUNDRED = 100
+        private const val IMAGE_QUALITY_INDEX = 100
         private const val ASPECT_RATIO_X = 1
         private const val ASPECT_RATIO_Y = 1
     }
+
+    private var userRegister = User()
+    private var isFullNameValid = false
+    private var isEmailValid = false
+    private var isMobileNumberValid = false
+    private var isPasswordValid = false
+    private var isConfirmPasswordValid = false
+    private var isSignUpEnabled = false
 
     internal var onRegisterSuccess: (user: User) -> Unit = {}
 
@@ -48,13 +57,16 @@ class SignUpFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
-            RequestCode.PICK_IMAGE_REQUEST -> if (resultCode == Activity.RESULT_OK) cropImageGallery(
-                data
-            )
-            RequestCode.OPEN_CAMERA_REQUEST -> if (resultCode == Activity.RESULT_OK) cropImageCamera(
-                data
-            )
-            CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE -> showImage(data)
+            RequestCode.PICK_IMAGE_REQUEST ->
+                if (resultCode == Activity.RESULT_OK) {
+                    cropImageGallery(data)
+                }
+            RequestCode.OPEN_CAMERA_REQUEST ->
+                if (resultCode == Activity.RESULT_OK) {
+                    cropImageCamera(data)
+                }
+            CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE ->
+                showImage(data)
         }
     }
 
@@ -90,14 +102,6 @@ class SignUpFragment : Fragment() {
         }
     }
 
-    private var userRegister = User()
-    private var isFullNameValid = false
-    private var isEmailValid = false
-    private var isMobileNumberValid = false
-    private var isPasswordValid = false
-    private var isConfirmPasswordValid = false
-    private var isSignUpEnabled = false
-
     private fun checkStoragePermissions() =
         PackageManager.PERMISSION_GRANTED == checkSelfPermission(
             requireContext(),
@@ -113,8 +117,8 @@ class SignUpFragment : Fragment() {
             requireContext(),
             Manifest.permission.WRITE_EXTERNAL_STORAGE
         )
-        return (permissionCamera == PackageManager.PERMISSION_GRANTED
-                && permissionWrite == PackageManager.PERMISSION_GRANTED)
+        return permissionCamera == PackageManager.PERMISSION_GRANTED
+                && permissionWrite == PackageManager.PERMISSION_GRANTED
     }
 
     private fun handleListener() {
@@ -239,7 +243,7 @@ class SignUpFragment : Fragment() {
 
     private fun getImageUri(inImage: Bitmap): Uri? {
         val bytes = ByteArrayOutputStream()
-        inImage.compress(Bitmap.CompressFormat.JPEG, HUNDRED, bytes)
+        inImage.compress(Bitmap.CompressFormat.JPEG, IMAGE_QUALITY_INDEX, bytes)
         val path =
             MediaStore.Images.Media.insertImage(
                 context?.contentResolver,

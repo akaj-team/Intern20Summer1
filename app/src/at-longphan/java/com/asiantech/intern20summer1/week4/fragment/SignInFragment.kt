@@ -18,6 +18,9 @@ import com.asiantech.intern20summer1.week4.other.isValidPassword
 import kotlinx.android.synthetic.`at-longphan`.fragment_sign_in.*
 
 class SignInFragment : Fragment() {
+
+    private var userLogin = User()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -30,8 +33,6 @@ class SignInFragment : Fragment() {
         handleListeners()
     }
 
-    private var userLogin = User()
-
     private fun handleListeners() {
         handleEditTextEmailIdListener()
         handleEditTextPasswordListener()
@@ -43,7 +44,7 @@ class SignInFragment : Fragment() {
         edtEmailId.addTextChangedListener {
             btnSignIn.isEnabled =
                 isValidEmail(it.toString()) && isValidPassword(edtPassword.text.toString())
-            toggleSignInButton()
+            changeStatusForSignInButton()
         }
     }
 
@@ -51,7 +52,7 @@ class SignInFragment : Fragment() {
         edtPassword.addTextChangedListener {
             btnSignIn.isEnabled =
                 isValidPassword(it.toString()) && isValidEmail(edtEmailId.text.toString())
-            toggleSignInButton()
+            changeStatusForSignInButton()
         }
     }
 
@@ -73,7 +74,7 @@ class SignInFragment : Fragment() {
         }
     }
 
-    private fun toggleSignInButton() {
+    private fun changeStatusForSignInButton() {
         if (btnSignIn.isEnabled) {
             btnSignIn.setBackgroundResource(R.drawable.bg_button_enable)
         } else {
@@ -97,8 +98,7 @@ class SignInFragment : Fragment() {
 
     private fun loginApp() {
         val homeActivityIntent = Intent(this.context, HomeActivity::class.java)
-        val user = userLogin
-        homeActivityIntent.putExtra(SignInActivityData.SIGN_IN_USER, user)
+        homeActivityIntent.putExtra(SignInActivityData.SIGN_IN_USER, userLogin)
         startActivity(homeActivityIntent)
         this.activity?.finish()
     }
