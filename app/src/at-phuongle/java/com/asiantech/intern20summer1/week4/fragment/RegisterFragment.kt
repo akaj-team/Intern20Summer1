@@ -8,6 +8,8 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,9 +22,15 @@ import com.asiantech.intern20summer1.week4.model.User
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 import kotlinx.android.synthetic.`at-phuongle`.fragment_register.*
+import java.util.regex.Pattern
 
 
 class RegisterFragment : Fragment() {
+    private var validFullName: Boolean = false
+    private var validEmail: Boolean = false
+    private var validMobile: Boolean = false
+    private var validPassword: Boolean = false
+    private var validConfirmPassword: Boolean = false
     private var avatarUri: Uri? = null
 
     companion object {
@@ -92,7 +100,7 @@ class RegisterFragment : Fragment() {
                     openCamera()
                 } else {
                     Toast.makeText(
-                        activity as SignInActivity,
+                        activity as? SignInActivity,
                         "Camera Permission is Required to use camera.",
                         Toast.LENGTH_SHORT
                     ).show()
@@ -104,7 +112,7 @@ class RegisterFragment : Fragment() {
                     pickFromGallery()
                 } else {
                     Toast.makeText(
-                        activity as SignInActivity,
+                        activity as? SignInActivity,
                         "Gallery Permission is Required to use camera.",
                         Toast.LENGTH_SHORT
                     ).show()
@@ -116,21 +124,17 @@ class RegisterFragment : Fragment() {
     private fun initListener() {
         handleRegisterAvatar()
         handleBackButton()
-        (activity as SignInActivity).handleFullNameEditText(edtRegisterFullName, btnRegister)
-        (activity as SignInActivity).handleEmailEditText(edtRegisterEmail, btnRegister)
-        (activity as SignInActivity).handleMobileEditText(edtRegisterMobile, btnRegister)
-        (activity as SignInActivity).handlePasswordEditText(edtRegisterPassword, btnRegister)
-        (activity as SignInActivity).handleConfirmPasswordEditText(
-            edtRegisterPassword,
-            edtRegisterConfirmPassword,
-            btnRegister
-        )
+        handleRegisterFullNameEditText()
+        handleRegisterEmailEditText()
+        handleRegisterMobileEditText()
+        handleRegisterPasswordEditText()
+        handleRegisterConfirmPasswordEditText()
         handleRegisterButton()
     }
 
     private fun handleBackButton() {
         imgBtnBack.setOnClickListener {
-            (activity as SignInActivity).replaceFragment(
+            (activity as? SignInActivity)?.replaceFragment(
                 LoginFragment.newInstance(),
                 false
             )
@@ -251,8 +255,153 @@ class RegisterFragment : Fragment() {
             bundle.putParcelable(REGISTER_DATA_KEY, user)
             fragment.arguments = bundle
 
-            (activity as SignInActivity).replaceFragment(fragment, false)
+            (activity as? SignInActivity)?.replaceFragment(fragment, false)
         }
+    }
+
+    private fun handleRegisterFullNameEditText() {
+        edtRegisterFullName.addTextChangedListener(object : TextWatcher {
+
+            override fun afterTextChanged(s: Editable) {
+                validFullName = s.toString().isNotEmpty()
+                handleEnableRegisterButton()
+            }
+
+            override fun beforeTextChanged(
+                s: CharSequence, start: Int,
+                count: Int, after: Int
+            ) {
+            }
+
+            override fun onTextChanged(
+                s: CharSequence, start: Int,
+                before: Int, count: Int
+            ) {
+            }
+        })
+    }
+
+    private fun handleRegisterEmailEditText() {
+        edtRegisterEmail.addTextChangedListener(object : TextWatcher {
+
+            override fun afterTextChanged(s: Editable) {
+                validEmail = isEmailValid(s.toString())
+                handleEnableRegisterButton()
+            }
+
+            override fun beforeTextChanged(
+                s: CharSequence, start: Int,
+                count: Int, after: Int
+            ) {
+            }
+
+            override fun onTextChanged(
+                s: CharSequence, start: Int,
+                before: Int, count: Int
+            ) {
+            }
+        })
+    }
+
+    private fun handleRegisterMobileEditText() {
+        edtRegisterMobile.addTextChangedListener(object : TextWatcher {
+
+            override fun afterTextChanged(s: Editable) {
+                validMobile = s.length == 10
+                handleEnableRegisterButton()
+            }
+
+            override fun beforeTextChanged(
+                s: CharSequence, start: Int,
+                count: Int, after: Int
+            ) {
+            }
+
+            override fun onTextChanged(
+                s: CharSequence, start: Int,
+                before: Int, count: Int
+            ) {
+            }
+        })
+    }
+
+    private fun handleRegisterPasswordEditText() {
+        edtRegisterPassword.addTextChangedListener(object : TextWatcher {
+
+            override fun afterTextChanged(s: Editable) {
+                validPassword = isPasswordValid(s.toString())
+                handleEnableRegisterButton()
+            }
+
+            override fun beforeTextChanged(
+                s: CharSequence, start: Int,
+                count: Int, after: Int
+            ) {
+            }
+
+            override fun onTextChanged(
+                s: CharSequence, start: Int,
+                before: Int, count: Int
+            ) {
+                if (edtRegisterConfirmPassword.text.toString().isNotEmpty()) {
+                    validConfirmPassword = s.toString() == edtRegisterConfirmPassword.toString()
+                }
+
+                if (edtRegisterPassword.isFocusable && s.toString().isEmpty()) {
+                    validPassword = false
+                    validConfirmPassword = false
+                }
+            }
+        })
+    }
+
+    private fun handleRegisterConfirmPasswordEditText() {
+        edtRegisterConfirmPassword.addTextChangedListener(object : TextWatcher {
+
+            override fun afterTextChanged(s: Editable) {
+                validConfirmPassword = s.toString() == edtRegisterPassword.text.toString() &&
+                        validPassword == true
+                handleEnableRegisterButton()
+            }
+
+            override fun beforeTextChanged(
+                s: CharSequence, start: Int,
+                count: Int, after: Int
+            ) {
+            }
+
+            override fun onTextChanged(
+                s: CharSequence, start: Int,
+                before: Int, count: Int
+            ) {
+            }
+        })
+    }
+
+    // Check valid email
+    private fun isEmailValid(email: String?): Boolean {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    }
+
+    // Check valid password
+    private fun isPasswordValid(password: String?): Boolean {
+        val regex = """^(?=.*\d)[A-Za-z\d]{8,}$"""
+        return Pattern.matches(regex, password)
+    }
+
+    // Handle button depend on which fragment
+    private fun handleEnableRegisterButton() {
+        if (checkValidInformation()) {
+            btnRegister.isEnabled = true
+            btnRegister.setBackgroundResource(R.drawable.bg_enable_register_button)
+        } else {
+            btnRegister.isEnabled = false
+            btnRegister.setBackgroundResource(R.drawable.bg_disable_register_button)
+        }
+    }
+
+    private fun checkValidInformation(): Boolean {
+        return validFullName && validEmail && validMobile && validPassword && validConfirmPassword
     }
 }
 
