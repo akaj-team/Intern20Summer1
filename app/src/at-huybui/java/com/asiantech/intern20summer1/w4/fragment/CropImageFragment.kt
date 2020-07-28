@@ -1,6 +1,7 @@
 package com.asiantech.intern20summer1.w4.fragment
 
 import android.content.ContentValues
+import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
@@ -53,7 +54,7 @@ class CropImageFragment : Fragment() {
     private fun initListener() {
         cropView.addOnCropListener(object : OnCropListener {
             override fun onSuccess(bitmap: Bitmap) {
-                val uriImage = saveImage(bitmap)
+                val uriImage = saveImage(bitmap,context as Context)
                 Handler().postDelayed({
                     progressBarCropPicture.visibility = View.INVISIBLE
                     onCropImage(uriImage)
@@ -85,21 +86,18 @@ class CropImageFragment : Fragment() {
      * Functions save image to gallery
      */
     @Suppress("DEPRECATION")
-    private fun saveImage(bitmap: Bitmap): Uri? {
+    private fun saveImage(bitmap: Bitmap,context: Context): Uri? {
         val uri: Uri?
         if (android.os.Build.VERSION.SDK_INT >= SDK_VERSION_SAVE_IMAGE) {
             val values = contentValues()
-            values.put(MediaStore.Images.Media.RELATIVE_PATH, NAME_IMAGE)
+            values.put(MediaStore.Images.Media.RELATIVE_PATH, "Pictures/")
             values.put(MediaStore.Images.Media.IS_PENDING, true)
             // RELATIVE_PATH and IS_PENDING are introduced in API 29.
-            uri = context?.contentResolver?.insert(
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                values
-            )
+             uri = context.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
             if (uri != null) {
-                saveImageToStream(bitmap, context?.contentResolver?.openOutputStream(uri))
+                saveImageToStream(bitmap, context.contentResolver.openOutputStream(uri))
                 values.put(MediaStore.Images.Media.IS_PENDING, false)
-                context?.contentResolver?.update(uri, values, null, null)
+                context.contentResolver.update(uri, values, null, null)
             }
         } else {
             val directory =
@@ -114,7 +112,7 @@ class CropImageFragment : Fragment() {
             val values = contentValues()
             values.put(MediaStore.Images.Media.DATA, file.absolutePath)
             // .DATA is deprecated in API 29
-            uri = context?.contentResolver?.insert(
+            uri = context.contentResolver.insert(
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                 values
             )
