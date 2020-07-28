@@ -21,20 +21,18 @@ class TimeLineActivity : AppCompatActivity() {
     private var isLoading = false
     private var items = mutableListOf<TimeLineItem>()
 
-    companion object{
+    companion object {
         private const val MAX_LIKE_NUMBER = 1000
         private const val DELAY_TIME = 2000
-        private const val MAX_DATA_NUMBER_ONE_TIME =10
+        private const val MAX_DATA_NUMBER_ONE_TIME = 10
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_time_line)
         initAdapter()
-        items.addAll(getNewData())
-        initListenerLikeButton()
-        initScrollViewLoadMoreListener()
-        initRefreshPostListener()
+        initData()
+        initListener()
     }
 
     private fun initAdapter() {
@@ -45,6 +43,15 @@ class TimeLineActivity : AppCompatActivity() {
         dividerItemDecoration.setDrawable(resources.getDrawable(R.drawable.bg_recycler_view_divider_decoration))
         recyclerViewMain.addItemDecoration(dividerItemDecoration)
 
+    }
+    private fun initData(){
+        items.addAll(getNewData())
+    }
+
+    private fun initListener(){
+        initListenerLikeButton()
+        initScrollViewLoadMoreListener()
+        initRefreshPostListener()
     }
 
     private fun initListenerLikeButton() {

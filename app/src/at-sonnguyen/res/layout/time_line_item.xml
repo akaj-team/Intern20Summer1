@@ -12,7 +12,6 @@
         android:id="@+id/imgCar"
         android:layout_width="@dimen/w5_post_image_view_width"
         android:layout_height="@dimen/w5_post_image_view_height"
-        android:layout_below="@+id/imgLogo"
         android:contentDescription="@string/w5_image_view_picture"
         android:src="@mipmap/ic_launcher" />
 
@@ -49,7 +48,7 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="@dimen/w5_line_text_view_height"
         android:layout_below="@id/llReaction"
         android:layout_marginTop="@dimen/w5_divider_decoration_text_view_margin_top"
         android:background="@drawable/bg_line_text_view" />
