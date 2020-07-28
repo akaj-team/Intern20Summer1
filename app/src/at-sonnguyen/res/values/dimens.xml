@@ -48,4 +48,5 @@
     <dimen name="w4_bg_profile_button_corner_radius">5dp</dimen>
     <dimen name="w4_bg_button_corner_radius">10dp</dimen>
     <dimen name="w4_button_stroke_width">1dp</dimen>
+    <dimen name="w4_sign_in_button_margin_top">20dp</dimen>
 </resources>
