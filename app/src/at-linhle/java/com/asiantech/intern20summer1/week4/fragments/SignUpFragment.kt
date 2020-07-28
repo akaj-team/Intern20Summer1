@@ -33,6 +33,7 @@ class SignUpFragment : Fragment() {
         private const val PICK_IMAGE_REQUEST = 2
         private const val KEY_IMAGE_GALLERY = "image/*"
         private const val HUNDRED = 100
+        private const val ONE = 1
     }
 
     // Interface to pass data
@@ -254,7 +255,7 @@ class SignUpFragment : Fragment() {
 
     private fun handleCropImage(uri: Uri) {
         context?.let {
-            CropImage.activity(uri).setAspectRatio(1, 1).start(it, this)
+            CropImage.activity(uri).setAspectRatio(ONE, ONE).start(it, this)
         }
     }
 
