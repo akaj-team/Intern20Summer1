@@ -38,6 +38,10 @@ class FragmentLogin : Fragment() {
                 }
             }
         }
+
+        internal fun newInstance(): FragmentLogin {
+            return FragmentLogin().apply {}
+        }
     }
 
     override fun onCreateView(

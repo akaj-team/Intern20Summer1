@@ -19,11 +19,11 @@ class SignInActivity : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
-        openFragment(FragmentLogin())
+        openFragment(FragmentLogin.newInstance())
     }
 
     internal fun openSignUp() {
-        openFragment(FragmentRegister())
+        openFragment(FragmentRegister.newInstance())
     }
 
     internal fun openLogin(data: User) {

@@ -28,7 +28,7 @@ import java.io.ByteArrayOutputStream
 @SuppressLint("WrongConstant")
 @Suppress("DEPRECATION")
 class FragmentRegister : Fragment() {
-    var flag = false
+    private var flag = false
 
     companion object {
         internal const val REQUEST_IMAGE_CAPTURE = 1
@@ -37,6 +37,9 @@ class FragmentRegister : Fragment() {
         internal const val TITLE_DIALOG_IMAGE = "Choose Avatar"
         internal const val IMAGE_CAMERA = "Camera"
         internal const val IMAGE_GALLERY = "Gallery"
+        internal fun newInstance(): FragmentRegister {
+            return FragmentRegister().apply { }
+        }
     }
 
     override fun onCreateView(
@@ -281,7 +284,7 @@ class FragmentRegister : Fragment() {
 
     private fun openGallery() {
         val intentImage =
-            Intent(Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI))
+            Intent(Intent(Intent.ACTION_PICK, Images.Media.EXTERNAL_CONTENT_URI))
         startActivityForResult(intentImage, REQUEST_GET_CONTENT_IMAGE)
     }
 
