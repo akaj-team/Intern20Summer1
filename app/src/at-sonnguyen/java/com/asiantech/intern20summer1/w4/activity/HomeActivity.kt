@@ -10,7 +10,7 @@ import com.asiantech.intern20summer1.w4.account.User
 import kotlinx.android.synthetic.`at-sonnguyen`.activity_home.*
 
 class HomeActivity : AppCompatActivity() {
-    companion object{
+    companion object {
         internal const val KEY_VALUE = "data"
     }
 
