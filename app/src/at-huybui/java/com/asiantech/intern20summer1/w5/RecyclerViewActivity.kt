@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
@@ -20,24 +21,24 @@ class RecyclerViewActivity : AppCompatActivity() {
         private const val MAX_RANDOM = 1000
     }
 
-    private val exampleLists: MutableList<ItemRecycler> = mutableListOf()
-    var adapterRecycler = RecyclerAdapter(exampleLists)
+    private val fruitLists: MutableList<ItemRecycler> = mutableListOf()
+    private val adapterRecycler = RecyclerAdapter(fruitLists)
     private var isLoadMore = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recycler_view)
         handleStatusBarFollowSdk()
-        initData()
+        initFruitData()
         initAdapter()
         handleForLoadMoreAndRefreshListener()
     }
 
     private fun initAdapter() {
         adapterRecycler.onItemClicked = { position ->
-            exampleLists[position].let {
-                it.statusHeart = !it.statusHeart
-                if (it.statusHeart) {
+            fruitLists[position].let {
+                it.isStatusHeart = !it.isStatusHeart
+                if (it.isStatusHeart) {
                     it.amountHeart++
                 } else {
                     it.amountHeart--
@@ -56,8 +57,8 @@ class RecyclerViewActivity : AppCompatActivity() {
     private fun handleForLoadMoreAndRefreshListener() {
         swipeRefreshContainer.setOnRefreshListener {
             Handler().postDelayed({
-                exampleLists.clear()
-                initData()
+                fruitLists.clear()
+                initFruitData()
                 adapterRecycler.notifyDataSetChanged()
                 swipeRefreshContainer.isRefreshing = false
                 playSoundPop()
@@ -69,12 +70,12 @@ class RecyclerViewActivity : AppCompatActivity() {
                 super.onScrolled(recyclerView, dx, dy)
                 val linearLayoutManager = recyclerView.layoutManager as LinearLayoutManager
                 val lastVisibleItem = linearLayoutManager.findLastCompletelyVisibleItemPosition()
-                if (!isLoadMore && (lastVisibleItem == exampleLists.size - 1)) {
+                if (!isLoadMore && (lastVisibleItem == fruitLists.size - 1)) {
                     progressBar.visibility = View.VISIBLE
                     Handler().postDelayed({
                         isLoadMore = true
                         progressBar.visibility = View.INVISIBLE
-                        initData()
+                        initFruitData()
                         adapterRecycler.notifyDataSetChanged()
                     }, DELAYS_PROGRESS)
                 }
@@ -83,8 +84,8 @@ class RecyclerViewActivity : AppCompatActivity() {
         })
     }
 
-    private fun initData() {
-        exampleLists.add(
+    private fun initFruitData() {
+        fruitLists.add(
             ItemRecycler(
                 resources.getString(R.string.w5_name_buoi_da_xanh),
                 (0..MAX_RANDOM).random(),
@@ -93,7 +94,7 @@ class RecyclerViewActivity : AppCompatActivity() {
                 resources.getString(R.string.w5_information_buoi_da_xanh)
             )
         )
-        exampleLists.add(
+        fruitLists.add(
             ItemRecycler(
                 resources.getString(R.string.w5_name_chom_chom),
                 (0..MAX_RANDOM).random(),
@@ -102,7 +103,7 @@ class RecyclerViewActivity : AppCompatActivity() {
                 resources.getString(R.string.w5_information_chom_chom)
             )
         )
-        exampleLists.add(
+        fruitLists.add(
             ItemRecycler(
                 resources.getString(R.string.w5_name_dua),
                 (0..MAX_RANDOM).random(),
@@ -111,7 +112,7 @@ class RecyclerViewActivity : AppCompatActivity() {
                 resources.getString(R.string.w5_information_dua)
             )
         )
-        exampleLists.add(
+        fruitLists.add(
             ItemRecycler(
                 resources.getString(R.string.w5_name_dua_nuoc),
                 (0..MAX_RANDOM).random(),
@@ -120,7 +121,7 @@ class RecyclerViewActivity : AppCompatActivity() {
                 resources.getString(R.string.w5_information_dua_nuoc)
             )
         )
-        exampleLists.add(
+        fruitLists.add(
             ItemRecycler(
                 resources.getString(R.string.w5_name_mang_cut),
                 (0..MAX_RANDOM).random(),
@@ -129,7 +130,7 @@ class RecyclerViewActivity : AppCompatActivity() {
                 resources.getString(R.string.w5_information_mang_cut)
             )
         )
-        exampleLists.add(
+        fruitLists.add(
             ItemRecycler(
                 resources.getString(R.string.w5_name_quyt_dong_thap),
                 (0..MAX_RANDOM).random(),
@@ -138,7 +139,7 @@ class RecyclerViewActivity : AppCompatActivity() {
                 resources.getString(R.string.w5_information_quyt_dong_thap)
             )
         )
-        exampleLists.add(
+        fruitLists.add(
             ItemRecycler(
                 resources.getString(R.string.w5_name_sau_rieng),
                 (0..MAX_RANDOM).random(),
@@ -147,7 +148,7 @@ class RecyclerViewActivity : AppCompatActivity() {
                 resources.getString(R.string.w5_information_sau_rieng)
             )
         )
-        exampleLists.add(
+        fruitLists.add(
             ItemRecycler(
                 resources.getString(R.string.w5_name_thanh_tra),
                 (0..MAX_RANDOM).random(),
@@ -156,7 +157,7 @@ class RecyclerViewActivity : AppCompatActivity() {
                 resources.getString(R.string.w5_information_thanh_tra)
             )
         )
-        exampleLists.add(
+        fruitLists.add(
             ItemRecycler(
                 resources.getString(R.string.w5_name_mang_cut),
                 (0..MAX_RANDOM).random(),
@@ -165,7 +166,7 @@ class RecyclerViewActivity : AppCompatActivity() {
                 resources.getString(R.string.w5_information_mang_cut)
             )
         )
-        exampleLists.add(
+        fruitLists.add(
             ItemRecycler(
                 resources.getString(R.string.w5_name_vu_sua),
                 (0..MAX_RANDOM).random(),
@@ -174,12 +175,16 @@ class RecyclerViewActivity : AppCompatActivity() {
                 resources.getString(R.string.w5_information_vu_sua)
             )
         )
-        exampleLists.shuffle()
+        fruitLists.shuffle()
     }
 
     private fun handleStatusBarFollowSdk() {
         if (Build.VERSION.SDK_INT >= SDK_VERSION) {
             window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        } else {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                window.statusBarColor = ContextCompat.getColor(baseContext, R.color.status_bar)
+            }
         }
     }
 

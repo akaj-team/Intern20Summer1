@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.asiantech.intern20summer1.R
 import kotlinx.android.synthetic.`at-huybui`.recycler_item.view.*
 
-
 class RecyclerAdapter(private val mutableList: MutableList<ItemRecycler>) :
     RecyclerView.Adapter<RecyclerAdapter.ItemViewHolder>() {
 
@@ -52,7 +51,7 @@ class RecyclerAdapter(private val mutableList: MutableList<ItemRecycler>) :
                 name2.text = item.name
                 information.text = item.information
                 amountHeart.text = stAmountHeart
-                if (item.statusHeart) {
+                if (item.isStatusHeart) {
                     iconHeart.setImageResource(R.drawable.ic_heart_red)
                 } else {
                     iconHeart.setImageResource(R.drawable.ic_heart_transparent)

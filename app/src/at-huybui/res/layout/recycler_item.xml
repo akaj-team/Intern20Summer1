@@ -93,7 +93,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/w5_margin_left_right_icon"
             android:layout_marginRight="@dimen/w5_margin_left_right_icon"
-            tools:text="information nggg ggg gggg gggg g gggg ggggg gg ggggg"
+            tools:text="@string/w5_information_chom_chom"
             android:textColor="@color/black"
             android:textSize="@dimen/w5_name_text_size" />
     </LinearLayout>
