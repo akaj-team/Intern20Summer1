@@ -28,6 +28,9 @@ class TimeLineItemAdapter : RecyclerView.Adapter<TimeLineViewHolder> {
         val nameTextView: TextView? = viewHolder.nameTextView
         nameTextView?.text = timeLineItem.name
 
+        val nameTextViewAbove: TextView? = viewHolder.nameTextViewAbove
+        nameTextViewAbove?.text = timeLineItem.name
+
         val imageImageView = viewHolder.imageImageView
         imageImageView?.setImageResource(R.drawable.cat)
 
@@ -59,7 +62,6 @@ class TimeLineItemAdapter : RecyclerView.Adapter<TimeLineViewHolder> {
             isPluralLikeTextView?.setTypeface(null,Typeface.ITALIC)
         } else {
             likesTextView?.visibility = View.VISIBLE
-            isPluralLikeTextView?.setTypeface(null,Typeface.NORMAL)
         }
 
         // Comment & Share

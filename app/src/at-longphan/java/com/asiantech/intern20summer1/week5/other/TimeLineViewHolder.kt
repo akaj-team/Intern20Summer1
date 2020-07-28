@@ -8,6 +8,7 @@ import com.asiantech.intern20summer1.R
 
 class TimeLineViewHolder : RecyclerView.ViewHolder {
     var nameTextView: TextView? = null
+    var nameTextViewAbove: TextView? = null
     var imageImageView: ImageView? = null
     var isLikedImageView: ImageView? = null
     var likesTextView: TextView? = null
@@ -19,6 +20,7 @@ class TimeLineViewHolder : RecyclerView.ViewHolder {
 
     constructor(itemView: View) : super(itemView) {
         nameTextView = itemView.findViewById(R.id.tvNameUser) as? TextView
+        nameTextViewAbove = itemView.findViewById(R.id.tvNameUserAbove) as? TextView
         imageImageView = itemView.findViewById(R.id.imgImagePost) as? ImageView
         isLikedImageView = itemView.findViewById(R.id.imgIsLiked) as? ImageView
         likesTextView = itemView.findViewById(R.id.tvLikes) as? TextView
