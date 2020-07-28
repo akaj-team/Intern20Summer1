@@ -103,7 +103,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/w4_edit_text_height"
             android:layout_marginTop="@dimen/edit_text_margin_to_text_view"
-            android:autofillHints=""
+            android:autofillHints="@string/place_holder"
             android:hint="@string/place_holder"
             android:inputType="textPassword" />
 
