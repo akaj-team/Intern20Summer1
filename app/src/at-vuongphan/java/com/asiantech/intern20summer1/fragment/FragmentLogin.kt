@@ -26,11 +26,7 @@ class FragmentLogin : Fragment() {
     private var phoneLogin: String? = null
 
     companion object {
-        internal const val TITLE_DIALOG = "Title Sign In"
-        internal const val MESSAGE = "Fail username or password"
-        internal const val TEXT_EXIT = "Exit"
-        internal const val KEY_DATA_REGISTER = "data"
-        internal const val KEY_DATA_LOGIN = "login"
+        private const val KEY_DATA_REGISTER = "data"
         internal fun newInstance(data: User): FragmentLogin {
             return FragmentLogin().apply {
                 arguments = Bundle().apply {
@@ -93,7 +89,7 @@ class FragmentLogin : Fragment() {
                         }
                     }
                 }
-                bundle.putParcelable(KEY_DATA_LOGIN, data)
+                bundle.putParcelable(resources.getString(R.string.key_data_login), data)
                 intent.putExtras(bundle)
                 startActivity(intent)
                 activity?.finish()
@@ -104,7 +100,7 @@ class FragmentLogin : Fragment() {
     }
 
     private fun getDataFromRegister() {
-        arguments?.getParcelable<User>(KEY_DATA_REGISTER)?.let {
+        arguments?.getParcelable<User>(resources.getString(R.string.key_data_register))?.let {
             nameLogin = it.name
             emailLogin = it.email
             phoneLogin = it.phoneNumber
@@ -134,9 +130,9 @@ class FragmentLogin : Fragment() {
 
     private fun initDialogLoginError() {
         AlertDialog.Builder(activity).apply {
-            setTitle(TITLE_DIALOG)
-            setMessage(MESSAGE)
-            setPositiveButton(TEXT_EXIT) { _: DialogInterface, _: Int -> }
+            setTitle(resources.getString(R.string.title_dialog))
+            setMessage(resources.getString(R.string.message_dialog))
+            setPositiveButton(resources.getString(R.string.text_exit_dialog)) { _: DialogInterface, _: Int -> }
             show()
         }
     }

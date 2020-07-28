@@ -6,7 +6,6 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.data.User
-import com.asiantech.intern20summer1.fragment.FragmentLogin.Companion.KEY_DATA_LOGIN
 import kotlinx.android.synthetic.main.home_activity.*
 
 class HomeActivity : AppCompatActivity() {
@@ -20,7 +19,8 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun getDataFromLogin() {
-        val bun = intent.extras?.getParcelable(KEY_DATA_LOGIN) as? User
+        val bun =
+            intent.extras?.getParcelable(resources.getString(R.string.key_data_login)) as? User
         edtFullNameHome.setText(bun?.name)
         edtEmailHome.setText(bun?.email)
         edtNumberPhoneHome.setText(bun?.phoneNumber)

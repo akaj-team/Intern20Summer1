@@ -28,4 +28,13 @@
         Conditions and Privacy of the Festival</string>
     <string name="text_view_information_text">Your Profile</string>
     <string name="permission_denied">permission denied</string>
+    <string name="title_dialog">Title Sign In</string>
+    <string name="message_dialog">Fail username or password</string>
+    <string name="text_exit_dialog">Exit</string>
+    <string name="key_data_register">data</string>
+    <string name="key_data_login">login</string>
+    <string name="key_image">data</string>
+    <string name="title_dialog_image">Choose Avatar</string>
+    <string name="image_camera">Camera</string>
+    <string name="image_gallery">Gallery</string>
 </resources>

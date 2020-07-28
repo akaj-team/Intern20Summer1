@@ -33,10 +33,6 @@ class FragmentRegister : Fragment() {
     companion object {
         internal const val REQUEST_IMAGE_CAPTURE = 1
         internal const val REQUEST_GET_CONTENT_IMAGE = 2
-        internal const val KEY_IMAGE = "data"
-        internal const val TITLE_DIALOG_IMAGE = "Choose Avatar"
-        internal const val IMAGE_CAMERA = "Camera"
-        internal const val IMAGE_GALLERY = "Gallery"
         internal fun newInstance(): FragmentRegister {
             return FragmentRegister().apply { }
         }
@@ -135,7 +131,7 @@ class FragmentRegister : Fragment() {
     }
 
     private fun cropImageCamera(data: Intent?) {
-        (data?.extras?.get(KEY_IMAGE) as? Bitmap)?.let {
+        (data?.extras?.get(resources.getString(R.string.key_image)) as? Bitmap)?.let {
             getImageUri(it)?.let { uri -> handleCropImage(uri) }
         }
     }
@@ -149,10 +145,7 @@ class FragmentRegister : Fragment() {
     private fun showImage(data: Intent?) {
         CropImage.getActivityResult(data).uri.apply {
             if (this != null) {
-                val bitmap = Images.Media.getBitmap(
-                    activity?.contentResolver,
-                    this
-                )
+                val bitmap = Images.Media.getBitmap(activity?.contentResolver, this)
                 imgIconName.setImageBitmap(bitmap)
             }
         }
@@ -210,8 +203,11 @@ class FragmentRegister : Fragment() {
 
     private fun showListAlertDialog() {
         AlertDialog.Builder(context).apply {
-            setTitle(TITLE_DIALOG_IMAGE)
-            val items = arrayOf(IMAGE_GALLERY, IMAGE_CAMERA)
+            setTitle(resources.getString(R.string.title_dialog_image))
+            val items = arrayOf(
+                resources.getString(R.string.image_gallery),
+                resources.getString(R.string.image_camera)
+            )
             setItems(items) { _, which ->
                 when (which) {
                     0 -> {
