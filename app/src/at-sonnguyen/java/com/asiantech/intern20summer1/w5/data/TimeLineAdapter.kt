@@ -45,6 +45,7 @@ class TimeLineAdapter(private val cars: MutableList<TimeLineItem>) :
             val item = cars[adapterPosition]
             tvUsername.text = item.userName
             imgCar.setImageResource(item.image)
+            tvLikeNumber.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.ic_black_heart, 0, 0, 0)
             tvLikeNumber.text = String.format(
                 itemView.context.getString(
                     R.string.w5_item_number_of_like,

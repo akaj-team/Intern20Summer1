@@ -74,7 +74,7 @@ class TimeLineActivity : AppCompatActivity() {
     }
 
     private fun getNewData(): MutableList<TimeLineItem> {
-        val posts = mutableListOf<TimeLineItem>()
+        val items = mutableListOf<TimeLineItem>()
         val images = arrayOf(
             R.mipmap.img_1,
             R.mipmap.img_2,
@@ -112,7 +112,7 @@ class TimeLineActivity : AppCompatActivity() {
             getString(R.string.w5_description_10)
         )
         for (i in 0 until MAX_DATA_NUMBER_ONE_TIME) {
-            posts.add(
+            items.add(
                 TimeLineItem(
                     images[Random.nextInt(1, MAX_DATA_NUMBER_ONE_TIME)],
                     Random.nextBoolean(),
@@ -122,7 +122,7 @@ class TimeLineActivity : AppCompatActivity() {
                 )
             )
         }
-        return posts
+        return items
     }
 
     private fun initScrollViewLoadMoreListener() {

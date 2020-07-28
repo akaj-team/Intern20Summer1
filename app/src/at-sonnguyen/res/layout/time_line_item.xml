@@ -57,6 +57,7 @@
         android:id="@+id/tvLikeNumber"
         android:layout_width="@dimen/w5_like_number_text_view_width"
         android:layout_height="@dimen/w5_like_number_text_view_height"
+        android:textStyle="bold"
         android:layout_marginTop="@dimen/w5_like_number_text_view_margin_top"
         android:layout_below="@id/llReaction"
         android:gravity="center"
