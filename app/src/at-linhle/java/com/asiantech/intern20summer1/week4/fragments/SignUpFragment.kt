@@ -29,7 +29,6 @@ class SignUpFragment : Fragment() {
 
     // Interface to pass data
     internal var onRegisterSuccess: (user: User) -> Unit = {}
-    private val user = User()
 
     // At least 1 digit
     private val passwordPattern = Pattern.compile("""^(?=.*[0-9]).{8,16}$""")
@@ -219,6 +218,7 @@ class SignUpFragment : Fragment() {
 
     // Pass data when click button register
     private fun handleClickingRegisterButton() {
+        val user = User()
         btnRegister.setOnClickListener {
             user.avatar = imageUri
             user.email = edtSignUpEmail.text.toString()
