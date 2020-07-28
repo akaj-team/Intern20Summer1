@@ -9,4 +9,21 @@
     <string name="sign_up_button_description_text">SIGN UP</string>
     <string name="not_registered_text_view_description_text">Not registered yet?</string>
     <string name="sign_up_text_view_description_text">Sign up!</string>
+    <string name="data_user_name_car">Ô tô đẹp</string>
+    <string name="data_user_name_chicken">Thịt gà là một thức ăn bổ dưỡng cho sức khỏe</string>
+    <string name="data_user_name_cong_phuong">Công phượng là một cầu thủ bóng đá đến từ Hoàng anh gia lai</string>
+    <string name="data_user_name_fruit">Trái cây là một loại thực phẩm tốt cho sức khỏe mùa hè</string>
+    <string name="data_user_name_hamberger">Hamberger là một bánh mì giăm bông</string>
+    <string name="data_user_name_duc">Hoàng đức đến từ đội bóng Vietthel</string>
+    <string name="data_user_name_girl">Những cô gái xinh đẹp</string>
+    <string name="data_user_name_lam">Văn lâm là một thủ một xuất sắc</string>
+    <string name="data_user_name_viet_name">Đội bóng đá Việt Nam</string>
+    <string name="data_user_name_bride">Cây cầu xinh đẹp </string>
+    <string name="information">This is post number </string>
+    <string name="title_name_one">ThanhVuong</string>
+    <string name="title_name_two">Neymar</string>
+    <string name="title_name_three">Messi</string>
+    <string name="title_name_four">Ronaldo</string>
+    <string name="title_name_five">Kaka</string>
+    <string name="title_name_six">Congphuong</string>
 </resources>

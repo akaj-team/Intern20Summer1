@@ -10,4 +10,6 @@
     <color name="colorRed">#e9b5ae</color>
     <color name="colorButton">#b5de97</color>
     <color name="colorRoundButton">#cde9b9</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorBlackGray">#3A3838</color>
 </resources>

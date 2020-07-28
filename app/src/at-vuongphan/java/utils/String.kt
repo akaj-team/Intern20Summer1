@@ -1,6 +1,6 @@
 package utils
 
-import com.asiantech.intern20summer1.MainActivity.Companion.LENGTH
+import com.asiantech.intern20summer1.activity.MainActivity.Companion.LENGTH
 
 /*
  * Check Email by regex
