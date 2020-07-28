@@ -18,13 +18,13 @@ import java.util.regex.Pattern
 
 class SignInFragment : Fragment() {
 
-    // At least 1 digit and have from 8 to 16 characters
-    private val passwordPattern = Pattern.compile("""^(?=.*[0-9]).{8,16}$""")
-    private var user = User()
-
     companion object {
         internal const val KEY_STRING_USER = "user"
     }
+
+    // At least 1 digit and have from 8 to 16 characters
+    private val passwordPattern = Pattern.compile("""^(?=.*[0-9]).{8,16}$""")
+    private var user = User()
 
     override fun onCreateView(
         inflater: LayoutInflater,

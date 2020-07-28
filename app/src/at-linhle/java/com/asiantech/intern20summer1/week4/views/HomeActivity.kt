@@ -13,8 +13,6 @@ import kotlinx.android.synthetic.`at-linhle`.activity_home.*
 
 class HomeActivity : AppCompatActivity() {
 
-    private var user: User? = null
-
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +23,7 @@ class HomeActivity : AppCompatActivity() {
 
     // Receive data
     private fun getUser() {
-        user = intent.getParcelableExtra(KEY_STRING_USER)
+        val user: User? = intent.getParcelableExtra(KEY_STRING_USER)
         tvUserEmail.text = user?.email
         tvUserFullName.text = user?.fullName
         tvUserPhone.text = user?.phone

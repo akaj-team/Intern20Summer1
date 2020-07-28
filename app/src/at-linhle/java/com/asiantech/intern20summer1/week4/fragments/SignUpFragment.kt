@@ -27,6 +27,14 @@ import java.util.regex.Pattern
 
 class SignUpFragment : Fragment() {
 
+    companion object {
+        private const val KEY_IMAGE = "data"
+        private const val OPEN_CAMERA_REQUEST = 1
+        private const val PICK_IMAGE_REQUEST = 2
+        private const val KEY_IMAGE_GALLERY = "image/*"
+        private const val HUNDRED = 100
+    }
+
     // Interface to pass data
     internal var onRegisterSuccess: (user: User) -> Unit = {}
 
@@ -37,14 +45,6 @@ class SignUpFragment : Fragment() {
     private val phonePattern = Pattern.compile("""^([0-9]){10}$""")
     private var imageUri: String? = ""
     private var checkCameraStatus = false
-
-    companion object {
-        private const val KEY_IMAGE = "data"
-        private const val OPEN_CAMERA_REQUEST = 1
-        private const val PICK_IMAGE_REQUEST = 2
-        private const val KEY_IMAGE_GALLERY = "image/*"
-        private const val HUNDRED = 100
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -65,7 +65,7 @@ class SignUpFragment : Fragment() {
         handleOnTouchScreen()
         handleClickingRegisterButton()
         handleClickingArrowLeft()
-        handleListener()
+        handleProfileImage()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -73,7 +73,7 @@ class SignUpFragment : Fragment() {
         if (resultCode == RESULT_OK) {
             when (requestCode) {
                 OPEN_CAMERA_REQUEST -> {
-                    if (!checkStoragePermissions()) {
+                    if (!isStoragePermissionsAllowed()) {
                         makeStorageRequest()
                     } else {
                         cropImageCamera(data)
@@ -98,7 +98,7 @@ class SignUpFragment : Fragment() {
         if (requestCode == OPEN_CAMERA_REQUEST) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 checkCameraStatus = true
-                if (!checkStoragePermissions()) {
+                if (!isStoragePermissionsAllowed()) {
                     makeStorageRequest()
                 } else {
                     openCamera()
@@ -220,11 +220,13 @@ class SignUpFragment : Fragment() {
     private fun handleClickingRegisterButton() {
         val user = User()
         btnRegister.setOnClickListener {
-            user.avatar = imageUri
-            user.email = edtSignUpEmail.text.toString()
-            user.fullName = edtSignUpFullName.text.toString()
-            user.password = edtSignUpPassword.text.toString()
-            user.phone = edtSignUpPhone.text.toString()
+            user.apply {
+                avatar = imageUri
+                email = edtSignUpEmail.text.toString()
+                fullName = edtSignUpFullName.text.toString()
+                password = edtSignUpPassword.text.toString()
+                phone = edtSignUpPhone.text.toString()
+            }
             onRegisterSuccess(user)
             fragmentManager?.popBackStack()
         }
@@ -269,17 +271,17 @@ class SignUpFragment : Fragment() {
         return Uri.parse(path)
     }
 
-    private fun checkStoragePermissions() = checkSelfPermission(
+    private fun isStoragePermissionsAllowed() = checkSelfPermission(
         requireContext(),
         Manifest.permission.READ_EXTERNAL_STORAGE
     ) == PackageManager.PERMISSION_GRANTED
 
-    private fun checkCameraPermissions(): Boolean {
+    private fun isCameraPermissionAllowed(): Boolean {
         val permissionCamera = checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
         val permissionWrite =
             checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
-        return (permissionCamera == PackageManager.PERMISSION_GRANTED
-                && permissionWrite == PackageManager.PERMISSION_GRANTED)
+        return permissionCamera == PackageManager.PERMISSION_GRANTED
+                && permissionWrite == PackageManager.PERMISSION_GRANTED
     }
 
     private fun makeStorageRequest() {
@@ -306,7 +308,7 @@ class SignUpFragment : Fragment() {
         startActivityForResult(cameraIntent, OPEN_CAMERA_REQUEST)
     }
 
-    private fun handleListener() {
+    private fun handleProfileImage() {
         imgSignUpProfile.setOnClickListener {
             val dialogBuilder = AlertDialog.Builder(context)
             dialogBuilder.setTitle(R.string.sign_up_fragment_choose_option_dialog)
@@ -317,14 +319,14 @@ class SignUpFragment : Fragment() {
             dialogBuilder.setItems(optionList) { _, which ->
                 when (which) {
                     0 -> {
-                        if (checkStoragePermissions()) {
+                        if (isStoragePermissionsAllowed()) {
                             openStorage()
                         } else {
                             makeStorageRequest()
                         }
                     }
                     1 -> {
-                        if (checkCameraPermissions()) {
+                        if (isCameraPermissionAllowed()) {
                             openCamera()
                         } else {
                             makeCameraRequest()

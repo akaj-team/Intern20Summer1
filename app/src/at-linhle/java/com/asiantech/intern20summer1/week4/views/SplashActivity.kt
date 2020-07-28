@@ -24,9 +24,9 @@ class SplashActivity : AppCompatActivity() {
 
     private fun handleChangeActivityDelay() {
         Handler().postDelayed({
-            finish()
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
             startActivity(Intent(this, SignInActivity::class.java))
+            finish()
         }, DELAY_SECOND_SPLASH)
     }
 }
