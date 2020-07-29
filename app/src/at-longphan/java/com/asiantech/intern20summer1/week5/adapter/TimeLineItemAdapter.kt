@@ -18,12 +18,14 @@ class TimeLineItemAdapter : RecyclerView.Adapter<TimeLineViewHolder> {
     private var timeLineItems: MutableList<TimeLineItem>
     private var context: Context
 
+    constructor(context: Context, timeLineItems: MutableList<TimeLineItem>) {
+        this.timeLineItems = timeLineItems
+        this.context = context
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TimeLineViewHolder {
-        val timeLineItem = parent.context
-        val inflater = LayoutInflater.from(timeLineItem)
-
-        val timeLineView = inflater.inflate(R.layout.time_line_item_row, parent, false)
-
+        val inflater = LayoutInflater.from(parent.context)
+        val timeLineView = inflater.inflate(R.layout.item_list_time_line, parent, false)
         return TimeLineViewHolder(timeLineView)
     }
 
@@ -44,7 +46,6 @@ class TimeLineItemAdapter : RecyclerView.Adapter<TimeLineViewHolder> {
             else -> imageImageView?.setImageResource(R.drawable.cat)
         }
 
-
         val contentTextView = viewHolder.contentTextView
         contentTextView?.text = timeLineItem.content
 
@@ -56,7 +57,6 @@ class TimeLineItemAdapter : RecyclerView.Adapter<TimeLineViewHolder> {
         }
         isLikedImageView?.setOnClickListener {
             onIsLikedImageViewClick.invoke(position)
-
         }
 
         val likesTextView = viewHolder.likesTextView
@@ -68,7 +68,6 @@ class TimeLineItemAdapter : RecyclerView.Adapter<TimeLineViewHolder> {
         } else {
             isPluralLikeTextView?.text = "like"
         }
-
         if (timeLineItem.likes == 0) {
             likesTextView?.visibility = View.INVISIBLE
             isPluralLikeTextView?.text = "Be the first to like this"
@@ -80,14 +79,5 @@ class TimeLineItemAdapter : RecyclerView.Adapter<TimeLineViewHolder> {
 
     override fun getItemCount(): Int {
         return timeLineItems.size
-    }
-
-    constructor(context: Context, timeLineItems: MutableList<TimeLineItem>) {
-        this.timeLineItems = timeLineItems
-        this.context = context
-    }
-
-    private fun getContext(): Context {
-        return context
     }
 }

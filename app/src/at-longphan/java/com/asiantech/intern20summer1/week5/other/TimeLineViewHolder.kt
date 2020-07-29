@@ -17,8 +17,8 @@ class TimeLineViewHolder : RecyclerView.ViewHolder {
     internal var isPluralLikeTextView: TextView? = null
 
     constructor(itemView: View) : super(itemView) {
-        nameTextView = itemView.findViewById(R.id.tvNameUser) as? TextView
-        nameTextViewAbove = itemView.findViewById(R.id.tvNameUserAbove) as? TextView
+        nameTextView = itemView.findViewById(R.id.tvUserNameWeek5) as? TextView
+        nameTextViewAbove = itemView.findViewById(R.id.tvUserNameAboveWeek5) as? TextView
         imageImageView = itemView.findViewById(R.id.imgImagePost) as? ImageView
         contentTextView = itemView.findViewById(R.id.tvContent) as? TextView
         isLikedImageView = itemView.findViewById(R.id.imgIsLiked) as? ImageView

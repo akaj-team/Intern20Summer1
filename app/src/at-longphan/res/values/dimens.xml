@@ -34,4 +34,34 @@
     <dimen name="background_button_corners_radius">25dp</dimen>
     <dimen name="background_edit_text_corners_radius">25dp</dimen>
     <dimen name="background_edit_text_focused_stroke_width">2dp</dimen>
+    <dimen name="progress_bar_width_W5">50dp</dimen>
+    <dimen name="progress_bar_height">50dp</dimen>
+    <dimen name="linear_layout_name_above_margin">10dp</dimen>
+    <dimen name="text_view_name_above_text_size">15sp</dimen>
+    <dimen name="image_view_more_width">18dp</dimen>
+    <dimen name="image_view_more_height">18dp</dimen>
+    <dimen name="linear_layout_interact_padding">20dp</dimen>
+    <dimen name="image_view_is_liked_width">30dp</dimen>
+    <dimen name="image_view_is_liked_height">30dp</dimen>
+    <dimen name="image_view_is_liked_margin_horizontal">10dp</dimen>
+    <dimen name="image_view_comment_width">30dp</dimen>
+    <dimen name="image_view_comment_height">30dp</dimen>
+    <dimen name="image_view_comment_margin_horizontal">10dp</dimen>
+    <dimen name="image_view_share_width">30dp</dimen>
+    <dimen name="image_view_share_height">30dp</dimen>
+    <dimen name="image_view_share_margin_horizontal">10dp</dimen>
+    <dimen name="linear_layout_content_padding_horizontal">40dp</dimen>
+    <dimen name="linear_layout_likes_margin_top">20dp</dimen>
+    <dimen name="image_view_heart_width">15sp</dimen>
+    <dimen name="text_view_likes_margin_left">5dp</dimen>
+    <dimen name="text_view_likes_text_size">15sp</dimen>
+    <dimen name="text_view_like_description_margin_left">3dp</dimen>
+    <dimen name="text_view_like_description_text_size">15sp</dimen>
+    <dimen name="linear_layout_name_and_content_margin_top">15dp</dimen>
+    <dimen name="text_view_user_name_week_5">15sp</dimen>
+    <dimen name="text_view_content_margin_left_week_5">5dp</dimen>
+    <dimen name="text_view_content_text_size_week_5">15sp</dimen>
+    <dimen name="view_horizontal_rule_long_margin_top_week_5">10dp</dimen>
+    <item name="view_horizontal_rule_height" type="dimen" format="float">0.5dp</item>
+    <item name="view_horizontal_rule_long_height_week_5" type="dimen" format="float">0.5dp</item>
 </resources>

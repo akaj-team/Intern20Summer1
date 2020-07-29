@@ -5,23 +5,23 @@
     android:layout_height="match_parent"
     tools:context="com.asiantech.intern20summer1.week5.activity.TimeLineActivity">
 
-    <ScrollView
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeContainer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="none">
+        android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvTimeLineItems"
+            android:id="@+id/recycleViewTimeLine"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="vertical" />
 
-    </ScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:id="@+id/progressBarW5"
+        android:layout_width="@dimen/progress_bar_width_W5"
+        android:layout_height="@dimen/progress_bar_height"
         android:layout_centerInParent="true"
         android:visibility="invisible" />
 </RelativeLayout>

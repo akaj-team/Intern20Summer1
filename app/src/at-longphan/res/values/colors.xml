@@ -13,4 +13,12 @@
     <color name="colorCustomValidEditTextStroke">#7cd424</color>
     <color name="colorCustomFocusedEditTextSolid">#fbfef3</color>
     <color name="colorCustomFocusedEditTextStroke">#649c30</color>
+    <color name="colorContainerItemListTimeLineBackground">#FFFFFF</color>
+    <color name="colorTextViewNameUserAboveText">#000000</color>
+    <color name="colorViewHorizontalRuleBackground">#c0c0c0</color>
+    <color name="colorTextViewLikesText">#000000</color>
+    <color name="colorTextViewLikeDescriptionText">#000000</color>
+    <color name="colorTextViewNameText">#000000</color>
+    <color name="colorTextViewContentWeek5Text">#000000</color>
+    <color name="colorViewHorizontalRuleBackground">#c0c0c0</color>
 </resources>

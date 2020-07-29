@@ -8,17 +8,18 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week5.adapter.TimeLineItemAdapter
 import com.asiantech.intern20summer1.week5.model.TimeLineItem
 import kotlinx.android.synthetic.`at-longphan`.activity_time_line.*
 
-
-class TimeLineActivity : AppCompatActivity() {
+class TimeLineActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
 
     private var timeLineItemsAll = mutableListOf<TimeLineItem>()
     private var timeLineItemsShowed = mutableListOf<TimeLineItem>()
     private lateinit var rvTimeLineItems: RecyclerView
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var adapter: TimeLineItemAdapter
     private var isLoading = false
 
@@ -30,7 +31,14 @@ class TimeLineActivity : AppCompatActivity() {
         initData()
         initAdapter()
         assignRecyclerView()
+        initSwipeRefreshLayout()
         initScrollListener()
+    }
+
+    override fun onRefresh() {
+        swipeRefreshLayout.isRefreshing = true
+        reloadData()
+        swipeRefreshLayout.isRefreshing = false
     }
 
     private fun configStatusBar() {
@@ -40,12 +48,17 @@ class TimeLineActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView() {
-        rvTimeLineItems = findViewById(R.id.rvTimeLineItems)
+        rvTimeLineItems = findViewById(R.id.recycleViewTimeLine)
+    }
+
+    private fun initSwipeRefreshLayout() {
+        swipeRefreshLayout = findViewById(R.id.swipeContainer)
+        swipeRefreshLayout.setOnRefreshListener(this)
     }
 
     private fun initData() {
         timeLineItemsAll = TimeLineItem().createTimeLineItemsList(25)
-        timeLineItemsAll.shuffle()
+        //timeLineItemsAll.shuffle()
         for (i in 0..9) {
             timeLineItemsShowed.add(timeLineItemsAll[i])
         }
@@ -59,7 +72,9 @@ class TimeLineActivity : AppCompatActivity() {
                 if (it.isLiked) {
                     it.likes++
                 } else {
-                    if (it.likes > 0) it.likes--
+                    if (it.likes > 0) {
+                        it.likes--
+                    }
                 }
                 if (it.likes > 1) {
                     it.isPluralLike = true
@@ -88,7 +103,7 @@ class TimeLineActivity : AppCompatActivity() {
                         ) {
                             loadMore()
                             isLoading = true
-                            progressBar.visibility = View.VISIBLE
+                            progressBarW5.visibility = View.VISIBLE
                         }
                     }
                 }
@@ -106,7 +121,15 @@ class TimeLineActivity : AppCompatActivity() {
             }
             adapter.notifyDataSetChanged()
             isLoading = false
-            progressBar.visibility = View.INVISIBLE
+            progressBarW5.visibility = View.INVISIBLE
         }, 2000)
+    }
+
+    private fun reloadData() {
+        timeLineItemsShowed.clear()
+        for (i in 0..9) {
+            timeLineItemsShowed.add(timeLineItemsAll[i])
+        }
+        adapter.notifyDataSetChanged()
     }
 }
