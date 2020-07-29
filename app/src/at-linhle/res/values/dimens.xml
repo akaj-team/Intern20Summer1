@@ -20,16 +20,19 @@
     <dimen name="edit_text_corner_radius">100dp</dimen>
     <dimen name="edit_text_stroke_width">1dp</dimen>
     <!--week5-->
-    <dimen name="icon_width">24dp</dimen>
-    <dimen name="icon_height">24dp</dimen>
+    <dimen name="avatar_image_view_margin_left">16dp</dimen>
     <dimen name="heart_bold_icon_width">12dp</dimen>
     <dimen name="heart_bold_height">12dp</dimen>
     <dimen name="avatar_image_view_width">40dp</dimen>
     <dimen name="avatar_image_view_height">40dp</dimen>
+    <dimen name="icon_width">24dp</dimen>
+    <dimen name="icon_height">24dp</dimen>
+    <dimen name="relative_layout_margin_left">16dp</dimen>
     <dimen name="heart_bold_image_view_margin_left">4dp</dimen>
     <dimen name="text_view_margin_left">4dp</dimen>
-    <dimen name="avatar_image_view_margin_top">10dp</dimen>
+    <dimen name="margin_top">10dp</dimen>
     <dimen name="user_name_text_view_margin_left">12dp</dimen>
+    <dimen name="heart_bold_image_view_text_view_margin_top">6dp</dimen>
     <dimen name="image_view_margin_left">16dp</dimen>
     <dimen name="text_size_12sp">12sp</dimen>
     <dimen name="text_view_text_size">16sp</dimen>
