@@ -12,6 +12,12 @@ import com.asiantech.intern20summer1.week5.model.TimeLineItem
 import com.asiantech.intern20summer1.week5.other.TimeLineViewHolder
 
 class TimeLineItemAdapter : RecyclerView.Adapter<TimeLineViewHolder> {
+
+    internal var onIsLikedImageViewClick: (position: Int) -> Unit = {}
+
+    private var timeLineItems: MutableList<TimeLineItem>
+    private var context: Context
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TimeLineViewHolder {
         val timeLineItem = parent.context
         val inflater = LayoutInflater.from(timeLineItem)
@@ -22,7 +28,7 @@ class TimeLineItemAdapter : RecyclerView.Adapter<TimeLineViewHolder> {
     }
 
     override fun onBindViewHolder(viewHolder: TimeLineViewHolder, position: Int) {
-        val timeLineItem = TimeLineItem(timeLineItems[position])
+        val timeLineItem = timeLineItems[position]
 
         // Set itemView based on views and data model
         val nameTextView: TextView? = viewHolder.nameTextView
@@ -32,8 +38,15 @@ class TimeLineItemAdapter : RecyclerView.Adapter<TimeLineViewHolder> {
         nameTextViewAbove?.text = timeLineItem.name
 
         val imageImageView = viewHolder.imageImageView
-        imageImageView?.setImageResource(R.drawable.cat)
+        when {
+            position % 3 == 0 -> imageImageView?.setImageResource(R.drawable.cat3)
+            position % 2 == 0 -> imageImageView?.setImageResource(R.drawable.cat2)
+            else -> imageImageView?.setImageResource(R.drawable.cat)
+        }
 
+
+        val contentTextView = viewHolder.contentTextView
+        contentTextView?.text = timeLineItem.content
 
         val isLikedImageView = viewHolder.isLikedImageView
         if (timeLineItem.isLiked) {
@@ -43,7 +56,7 @@ class TimeLineItemAdapter : RecyclerView.Adapter<TimeLineViewHolder> {
         }
         isLikedImageView?.setOnClickListener {
             onIsLikedImageViewClick.invoke(position)
-            notifyItemChanged(position)
+
         }
 
         val likesTextView = viewHolder.likesTextView
@@ -59,29 +72,15 @@ class TimeLineItemAdapter : RecyclerView.Adapter<TimeLineViewHolder> {
         if (timeLineItem.likes == 0) {
             likesTextView?.visibility = View.INVISIBLE
             isPluralLikeTextView?.text = "Be the first to like this"
-            isPluralLikeTextView?.setTypeface(null,Typeface.ITALIC)
+            isPluralLikeTextView?.setTypeface(Typeface.DEFAULT, Typeface.ITALIC)
         } else {
             likesTextView?.visibility = View.VISIBLE
-        }
-
-        // Comment & Share
-        val commentImageView = viewHolder.comment
-        commentImageView?.setOnClickListener {
-            if (it.isInTouchMode) {
-                commentImageView.setImageResource(R.drawable.ic_comment_filled)
-            } else {
-                commentImageView.setImageResource(R.drawable.ic_comment)
-            }
         }
     }
 
     override fun getItemCount(): Int {
         return timeLineItems.size
     }
-
-    internal var onIsLikedImageViewClick: (position: Int) -> Unit = {}
-    private var timeLineItems: MutableList<TimeLineItem>
-    private var context: Context
 
     constructor(context: Context, timeLineItems: MutableList<TimeLineItem>) {
         this.timeLineItems = timeLineItems
