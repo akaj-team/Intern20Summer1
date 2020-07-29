@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.activity.HomeActivity
-import com.asiantech.intern20summer1.activity.SignInActivity
 import com.asiantech.intern20summer1.data.User
 import com.asiantech.intern20summer1.extension.hideKeyboard
 import com.asiantech.intern20summer1.extension.isValidEmail
@@ -26,15 +25,6 @@ class FragmentLogin : Fragment() {
     private var phoneLogin: String? = null
 
     companion object {
-        private const val KEY_DATA_REGISTER = "data"
-        internal fun newInstance(data: User): FragmentLogin {
-            return FragmentLogin().apply {
-                arguments = Bundle().apply {
-                    putParcelable(KEY_DATA_REGISTER, data)
-                }
-            }
-        }
-
         internal fun newInstance(): FragmentLogin {
             return FragmentLogin().apply {}
         }
@@ -51,7 +41,6 @@ class FragmentLogin : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initListener()
-        getDataFromRegister()
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -68,31 +57,34 @@ class FragmentLogin : Fragment() {
         initEnableButtonLogin()
         initLoginButton()
         initListenerHideKeyboardLogin()
+        getDataFromRegister()
     }
 
     private fun initLoginButton() {
         btnLogin.setOnClickListener {
             if (edtEmail.text.toString() == emailLogin && edtPassword.text.toString() == passwordLogin) {
-                val intent = Intent(activity, HomeActivity::class.java)
-                val bundle = Bundle()
-                val data = nameLogin?.let { it1 ->
-                    emailLogin?.let { it2 ->
-                        phoneLogin?.let { it3 ->
-                            passwordLogin?.let { it4 ->
-                                User(
-                                    it1,
-                                    it2,
-                                    it3,
-                                    it4
-                                )
+                Intent(activity, HomeActivity::class.java).apply {
+                    Bundle().let {
+                        val data = nameLogin?.let { it1 ->
+                            emailLogin?.let { it2 ->
+                                phoneLogin?.let { it3 ->
+                                    passwordLogin?.let { it4 ->
+                                        User(
+                                            it1,
+                                            it2,
+                                            it3,
+                                            it4
+                                        )
+                                    }
+                                }
                             }
                         }
+                        it.putParcelable(resources.getString(R.string.key_data_login), data)
+                        putExtras(it)
+                        startActivity(this)
+                        activity?.finish()
                     }
                 }
-                bundle.putParcelable(resources.getString(R.string.key_data_login), data)
-                intent.putExtras(bundle)
-                startActivity(intent)
-                activity?.finish()
             } else {
                 initDialogLoginError()
             }
@@ -112,7 +104,15 @@ class FragmentLogin : Fragment() {
 
     private fun openSignUpFragment() {
         tvRegisterNow.setOnClickListener {
-            (activity as? SignInActivity)?.openSignUp()
+            openFragmentRegister()
+        }
+    }
+
+    private fun openFragmentRegister() {
+        fragmentManager?.beginTransaction().let {
+            it?.replace(R.id.frContainer, FragmentRegister.newInstance())
+            it?.addToBackStack(null)
+            it?.commit()
         }
     }
 

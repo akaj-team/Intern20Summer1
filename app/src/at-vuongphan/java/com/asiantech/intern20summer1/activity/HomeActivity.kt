@@ -19,11 +19,11 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun getDataFromLogin() {
-        val bun =
-            intent.extras?.getParcelable(resources.getString(R.string.key_data_login)) as? User
-        edtFullNameHome.setText(bun?.name)
-        edtEmailHome.setText(bun?.email)
-        edtNumberPhoneHome.setText(bun?.phoneNumber)
-        edtPasswordHome.setText(bun?.password)
+        (intent.extras?.getParcelable(resources.getString(R.string.key_data_login)) as? User).let {
+            edtFullNameHome.setText(it?.name)
+            edtEmailHome.setText(it?.email)
+            edtNumberPhoneHome.setText(it?.phoneNumber)
+            edtPasswordHome.setText(it?.password)
+        }
     }
 }

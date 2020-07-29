@@ -17,8 +17,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.PermissionChecker.checkSelfPermission
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.activity.SignInActivity
 import com.asiantech.intern20summer1.data.User
 import com.asiantech.intern20summer1.extension.*
 import com.theartofdev.edmodo.cropper.CropImage
@@ -33,6 +33,7 @@ class FragmentRegister : Fragment() {
     companion object {
         internal const val REQUEST_IMAGE_CAPTURE = 1
         internal const val REQUEST_GET_CONTENT_IMAGE = 2
+        internal const val KEY_DATA_REGISTER = "data"
         internal fun newInstance(): FragmentRegister {
             return FragmentRegister().apply { }
         }
@@ -89,13 +90,6 @@ class FragmentRegister : Fragment() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
-    private fun initListener() {
-        initChooseImage()
-        sendDataLLoginFromRegister()
-        initListenerHideKeyboardRegister()
-        enableRegisterButton()
-    }
-
     private fun initPermissionGallery(grantResults: IntArray) {
         if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             if (!flag) {
@@ -130,6 +124,13 @@ class FragmentRegister : Fragment() {
         }
     }
 
+    private fun initListener() {
+        initChooseImage()
+        sendDataLLoginFromRegister()
+        initListenerHideKeyboardRegister()
+        enableRegisterButton()
+    }
+
     private fun cropImageCamera(data: Intent?) {
         (data?.extras?.get(resources.getString(R.string.key_image)) as? Bitmap)?.let {
             getImageUri(it)?.let { uri -> handleCropImage(uri) }
@@ -162,14 +163,22 @@ class FragmentRegister : Fragment() {
 
     private fun sendDataLLoginFromRegister() {
         btnRegister.setOnClickListener {
-            (activity as? SignInActivity)?.openLogin(
-                User(
-                    edtFullName.text.toString(),
-                    edtEmailSignUp.text.toString(),
-                    edtNumber.text.toString(),
-                    edtPasswordSignUp.text.toString()
-                )
+            val user = User(
+                edtFullName.text.toString(),
+                edtEmailSignUp.text.toString(),
+                edtNumber.text.toString(),
+                edtPasswordSignUp.text.toString()
             )
+            Bundle().apply {
+                putParcelable(KEY_DATA_REGISTER, user)
+                val loginFragment = FragmentLogin.newInstance()
+                val fragmentTransaction = fragmentManager?.beginTransaction()
+                fragmentTransaction?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                loginFragment.arguments = this
+                fragmentTransaction?.replace(R.id.frContainer, loginFragment)
+                fragmentManager?.popBackStack()
+                fragmentTransaction?.commit()
+            }
         }
     }
 
@@ -274,14 +283,20 @@ class FragmentRegister : Fragment() {
     }
 
     private fun openCamera() {
-        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        startActivityForResult(cameraIntent, REQUEST_IMAGE_CAPTURE)
+        startActivityForResult(Intent(MediaStore.ACTION_IMAGE_CAPTURE), REQUEST_IMAGE_CAPTURE)
+
     }
 
     private fun openGallery() {
-        val intentImage =
-            Intent(Intent(Intent.ACTION_PICK, Images.Media.EXTERNAL_CONTENT_URI))
-        startActivityForResult(intentImage, REQUEST_GET_CONTENT_IMAGE)
+        startActivityForResult(
+            (Intent(
+                Intent(
+                    Intent.ACTION_PICK,
+                    Images.Media.EXTERNAL_CONTENT_URI
+                )
+            )), REQUEST_GET_CONTENT_IMAGE
+        )
+
     }
 
     private fun checkCameraPermission() = checkSelfPermission(

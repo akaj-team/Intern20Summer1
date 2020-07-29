@@ -5,7 +5,7 @@ import android.text.TextWatcher
 import android.widget.EditText
 
 /*
- * Create extension funtion
+ * Create extension function
  */
 internal fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
     this.addTextChangedListener(object : TextWatcher {
