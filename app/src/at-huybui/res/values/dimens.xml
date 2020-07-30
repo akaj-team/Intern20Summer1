@@ -19,4 +19,8 @@
     <dimen name="linear_layout_text_register_margin_top">20dp</dimen>
     <dimen name="linear_layout_text_register_padding_bottom">10dp</dimen>
     <dimen name="linear_layout_text_view_padding_left">2dp</dimen>
+    <dimen name="w6_dot_indicator_width">100dp</dimen>
+    <dimen name="w6_dot_indicator_height">30dp</dimen>
+    <dimen name="w6_dot_indicator_radius">10dp</dimen>
+    <dimen name="w6_dot_indicator_margin">10dp</dimen>
 </resources>

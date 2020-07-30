@@ -1,15 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.asiantech.intern20summer1.w6.firstactivity.ViewPagerOneActivity">
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewpagerOne"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
     </androidx.viewpager.widget.ViewPager>
-</LinearLayout>
+    <com.itsronald.widget.ViewPagerIndicator
+        android:id="@+id/view_pager_indicator"
+        android:layout_width="@dimen/w6_dot_indicator_width"
+        android:layout_height="@dimen/w6_dot_indicator_height"
+        android:layout_marginLeft="@dimen/w6_dot_indicator_margin"
+        android:layout_marginBottom="@dimen/w6_dot_indicator_margin"
+        app:dotRadius="@dimen/w6_dot_indicator_radius"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:selectedDotColor="@color/w6_dot_indicator_color"
+        app:viewPagerId="@id/viewpagerOne"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

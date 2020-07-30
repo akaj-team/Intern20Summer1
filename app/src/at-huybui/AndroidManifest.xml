@@ -10,14 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".w6.secondactivity.ViewPagerTwoActivity"></activity>
-        <activity android:name=".w6.firstactivity.ViewPagerOneActivity" />
-        <activity android:name=".w3.MainActivity">
+        <activity android:name=".w3.MainActivity"></activity>
+        <activity android:name=".w6.firstactivity.ViewPagerOneActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>
-
 </manifest>
