@@ -15,6 +15,11 @@ import com.asiantech.intern20summer1.week5.other.TimeLineViewHolder
 
 class TimeLineItemAdapter : RecyclerView.Adapter<TimeLineViewHolder> {
 
+    companion object{
+        private const val PICTURE_2 = 2
+        private const val PICTURE_3 = 3
+    }
+
     internal var onIsLikedImageViewClick: (position: Int) -> Unit = {}
 
     private var timeLineItems: MutableList<TimeLineItem>
@@ -40,8 +45,8 @@ class TimeLineItemAdapter : RecyclerView.Adapter<TimeLineViewHolder> {
 
         val imageImageView = viewHolder.imageImageView
         when {
-            position % 3 == 0 -> imageImageView?.setImageResource(R.drawable.img_cat3)
-            position % 2 == 0 -> imageImageView?.setImageResource(R.drawable.img_cat2)
+            position % PICTURE_3 == 0 -> imageImageView?.setImageResource(R.drawable.img_cat3)
+            position % PICTURE_2 == 0 -> imageImageView?.setImageResource(R.drawable.img_cat2)
             else -> imageImageView?.setImageResource(R.drawable.img_cat)
         }
 

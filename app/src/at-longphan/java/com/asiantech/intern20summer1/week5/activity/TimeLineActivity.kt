@@ -16,8 +16,10 @@ import kotlinx.android.synthetic.`at-longphan`.activity_time_line.*
 
 class TimeLineActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
 
-    companion object{
+    companion object {
         private const val TIME_DELAY: Long = 2000
+        private const val ITEMS_INIT: Int = 25
+        private const val ITEMS_TAKE: Int = 10
     }
 
     private var timeLineItemsAll = mutableListOf<TimeLineItem>()
@@ -62,9 +64,8 @@ class TimeLineActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListen
     }
 
     private fun initData() {
-        timeLineItemsAll = TimeLineItem().createTimeLineItemsList(25)
-        //timeLineItemsAll.shuffle()
-        for (i in 0..9) {
+        timeLineItemsAll = TimeLineItem().createTimeLineItemsList(ITEMS_INIT)
+        for (i in 0 until ITEMS_TAKE) {
             timeLineItemsShowed.add(timeLineItemsAll[i])
         }
     }

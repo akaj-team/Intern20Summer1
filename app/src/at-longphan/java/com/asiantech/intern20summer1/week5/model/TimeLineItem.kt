@@ -2,6 +2,10 @@ package com.asiantech.intern20summer1.week5.model
 
 class TimeLineItem() {
 
+    companion object{
+        private const val RANDOM_LIKES_RANGE = 4
+    }
+
     internal var userName: String? = null
     internal var imageUri: String? = null
     internal var caption: String? = null
@@ -26,9 +30,9 @@ class TimeLineItem() {
     }
 
     fun createTimeLineItemsList(numItems: Int): MutableList<TimeLineItem> {
-        var timeLineItems = mutableListOf<TimeLineItem>()
+        val timeLineItems = mutableListOf<TimeLineItem>()
         for (i in 1..numItems) {
-            var random = (0..4).random()
+            val random = (0..RANDOM_LIKES_RANGE).random()
             timeLineItems.add(
                 TimeLineItem(
                     "Name $i",
