@@ -17,13 +17,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.Toast
 import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.hideSoftKeyboard
 import com.theartofdev.edmodo.cropper.CropImage
-import kotlinx.android.synthetic.`at-hoangtran`.w4_sign_up_fragment.*
+import kotlinx.android.synthetic.`at-hoangtran`.sign_up_fragment_w4.*
 import java.io.ByteArrayOutputStream
 
 
@@ -40,7 +39,7 @@ class SignUpFragment : Fragment() {
         const val MOBILE_NUMBER_LENGTH = 10
     }
 
-    var flag = false
+    private var flag = false
     private var ava = ""
     var emailCheck = false
     var passCheck = false
@@ -52,7 +51,7 @@ class SignUpFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.w4_sign_up_fragment, container, false)
+        return inflater.inflate(R.layout.sign_up_fragment_w4, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -229,8 +228,8 @@ class SignUpFragment : Fragment() {
     }
 
     private fun showImage(data: Intent?) {
-        CropImage.getActivityResult(data).uri.apply {
-            if (this != null) {
+        if (data != null) {
+            CropImage.getActivityResult(data).uri.apply {
                 val bitmap = MediaStore.Images.Media.getBitmap(activity?.contentResolver, this)
                 ava = this.toString()
                 img_avatar.setImageBitmap(bitmap)

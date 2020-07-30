@@ -8,8 +8,8 @@
         android:id="@+id/ln_main_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:focusableInTouchMode="true"
         android:layout_margin="@dimen/linear_layout_margin"
+        android:focusableInTouchMode="true"
         android:orientation="vertical">
 
         <ImageView
@@ -24,6 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/social_height"
             android:layout_marginBottom="@dimen/social_margin_bottom"
+            android:baselineAligned="false"
             android:weightSum="2">
 
             <LinearLayout
@@ -115,12 +116,12 @@
             android:text="@string/forgot_password" />
 
         <Button
-            android:layout_height="@dimen/button_height"
             android:id="@+id/btn_login"
             android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
             android:layout_marginBottom="@dimen/button_margin_bottom"
-            android:enabled="false"
             android:background="@drawable/bg_login_button"
+            android:enabled="false"
             android:text="@string/login" />
 
         <TextView

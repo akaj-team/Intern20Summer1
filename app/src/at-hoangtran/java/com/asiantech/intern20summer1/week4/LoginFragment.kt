@@ -13,10 +13,11 @@ import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.hideSoftKeyboard
 import com.asiantech.intern20summer1.week4.SignUpFragment.Companion.onRegisterSuccess
-import kotlinx.android.synthetic.`at-hoangtran`.w4_login_fragment.*
+import kotlinx.android.synthetic.`at-hoangtran`.login_fragment_w4.*
 
 @Suppress("DEPRECATION")
 class LoginFragment : Fragment() {
+
     internal var user = User()
     var emailCheck = false
     var passCheck = false
@@ -26,7 +27,7 @@ class LoginFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.w4_login_fragment, container, false)
+        return inflater.inflate(R.layout.login_fragment_w4, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -49,19 +50,13 @@ class LoginFragment : Fragment() {
 
     private fun handleSignUp() {
         tv_signUp.setOnClickListener {
-            val trans = fragmentManager?.beginTransaction()
-            trans?.add(
-                R.id.fl_container, SignUpFragment()
-                    .apply {
-                        onRegisterSuccess = { user ->
-                            this@LoginFragment.user = user
-                            this@LoginFragment.edt_login_email.setText(user.email)
-                            this@LoginFragment.edt_login_password.setText(user.pass)
-                        }
-                    })
-                ?.addToBackStack(null)
-                ?.hide(this)
-                ?.commit()
+            SignUpFragment().apply {
+                onRegisterSuccess = { user ->
+                    this@LoginFragment.user = user
+                    this@LoginFragment.edt_login_email.setText(user.email)
+                    this@LoginFragment.edt_login_password.setText(user.pass)
+                }
+            }
         }
     }
 
@@ -89,7 +84,12 @@ class LoginFragment : Fragment() {
                 btn_login.isEnabled = emailCheck && passCheck
             }
 
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            override fun beforeTextChanged(
+                s: CharSequence?,
+                start: Int,
+                count: Int,
+                after: Int
+            ) {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
