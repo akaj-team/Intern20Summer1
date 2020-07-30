@@ -1,5 +1,6 @@
 package com.asiantech.intern20summer1
 
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
@@ -10,31 +11,46 @@ import androidx.core.widget.addTextChangedListener
 import kotlinx.android.synthetic.`at-longphan`.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        // Set black text with light status bar.
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        configStatusBarColor()
+        handleListeners()
+    }
+
+    private fun handleListeners() {
+        handleLinearLayoutChildListener()
+        handleButtonSignUpListener()
         handleEditTextEmailIdEvent()
         handleEditTextPasswordEvent()
         handleEditTextRetypePasswordEvent()
-        handleListener()
+        handleTextViewSignUpListener()
     }
 
-    private fun handleListener() {
+    private fun configStatusBarColor(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        }
+    }
+
+    private fun handleLinearLayoutChildListener(){
         llChild?.setOnTouchListener { view, _ ->
             view.clearFocus()
             view.hideKeyboard()
             true
         }
+    }
 
-        btnSignUp.setOnClickListener {
-            //Glide.with( this).load("https://scontent.f-2.fna.fbcdn.net/v/t1.0-9/p960x960/114709498_601899243857223_5635022684478067077_o.jpg?_nc_cat=1&_nc_sid=8024bb&_nc_ohc=OzdH9cDoMfMAX82EOqs&_nc_ht=scontent.fdad3-2.fna&_nc_tp=6&oh=b4f76e51167493843fb3380fb5607af9&oe=5F44E9CC").into(imgLogo)
-            Toast.makeText(applicationContext, "Sign Up", Toast.LENGTH_SHORT).show()
-        }
-
+    private fun handleTextViewSignUpListener(){
         tvSignUp.setOnClickListener {
             Toast.makeText(applicationContext, "Sign Up!", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun handleButtonSignUpListener(){
+        btnSignUp.setOnClickListener {
+            Toast.makeText(applicationContext, "Sign Up", Toast.LENGTH_SHORT).show()
         }
     }
 

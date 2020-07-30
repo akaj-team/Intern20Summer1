@@ -59,20 +59,26 @@ class TimeLineItemAdapter : RecyclerView.Adapter<TimeLineViewHolder> {
         likesTextView?.text = timeLineItem.likes.toString()
 
         val isPluralLikeTextView = viewHolder.isPluralLikeTextView
-        if (timeLineItem.likes > 1) {
-            isPluralLikeTextView?.text =
-                context.getString(R.string.text_view_plural_like_description)
-        } else {
-            isPluralLikeTextView?.text =
-                context.getString(R.string.text_view_not_plural_like_description)
-        }
-        if (timeLineItem.likes == 0) {
-            likesTextView?.visibility = View.INVISIBLE
-            isPluralLikeTextView?.text =
-                context.getString(R.string.text_view_first_like_description)
-            isPluralLikeTextView?.setTypeface(Typeface.DEFAULT, Typeface.ITALIC)
-        } else {
-            likesTextView?.visibility = View.VISIBLE
+
+        when {
+            timeLineItem.likes > 1 -> {
+                isPluralLikeTextView?.text =
+                    context.getString(R.string.text_view_plural_like_description)
+                isPluralLikeTextView?.setTypeface(Typeface.DEFAULT_BOLD, Typeface.NORMAL)
+                likesTextView?.visibility = View.VISIBLE
+            }
+            timeLineItem.likes == 1 -> {
+                isPluralLikeTextView?.text =
+                    context.getString(R.string.text_view_not_plural_like_description)
+                isPluralLikeTextView?.setTypeface(Typeface.DEFAULT_BOLD, Typeface.NORMAL)
+                likesTextView?.visibility = View.VISIBLE
+            }
+            timeLineItem.likes == 0 -> {
+                likesTextView?.visibility = View.INVISIBLE
+                isPluralLikeTextView?.text =
+                    context.getString(R.string.text_view_first_like_description)
+                isPluralLikeTextView?.setTypeface(Typeface.DEFAULT, Typeface.ITALIC)
+            }
         }
 
         val userNameAndCaption = timeLineItem.userName + " " + timeLineItem.caption

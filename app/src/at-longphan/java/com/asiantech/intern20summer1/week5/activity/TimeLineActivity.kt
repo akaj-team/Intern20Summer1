@@ -88,6 +88,7 @@ class TimeLineActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListen
                     it.isPluralLike = true
                 }
             }
+            adapter.notifyItemChanged(position)
             // Remove flash animation when interact with a row item
             (rvTimeLineItems.itemAnimator as? SimpleItemAnimator)?.supportsChangeAnimations = false
         }
