@@ -16,8 +16,8 @@ import kotlin.random.Random
 class TimeLineActivity : AppCompatActivity(), LoadMore {
 
     companion object {
-        private const val TEN = 10
-        private const val HUNDRED = 100
+        private const val LAST_ITEM_POSITION = 10
+        private const val RANDOM_INDEX_MAX = 100
         private const val DELAY_TIME = 2000L
     }
 
@@ -42,7 +42,7 @@ class TimeLineActivity : AppCompatActivity(), LoadMore {
             timeLineItems.removeAt(timeLineItems.size - 1)
             val index = timeLineItems.size
             adapter.notifyItemRemoved(index)
-            val end = index + TEN
+            val end = index + LAST_ITEM_POSITION
             for (i in index until end) {
                 timeLineItems.add(timeLineItemsStorage[Random.nextInt(timeLineItemsStorage.size)])
             }
@@ -53,7 +53,7 @@ class TimeLineActivity : AppCompatActivity(), LoadMore {
 
     private fun initAdapter() {
         timeLineItemsStorage.shuffle()
-        timeLineItems = timeLineItemsStorage.subList(0, 10)
+        timeLineItems = timeLineItemsStorage.subList(0, LAST_ITEM_POSITION)
         adapter = TimeLineViewHolder(recyclerViewContainer, this, timeLineItems)
         adapter.onHeartClicked = { position ->
             timeLineItems[position]?.let {
@@ -77,7 +77,7 @@ class TimeLineActivity : AppCompatActivity(), LoadMore {
                 adapter.clear()
                 adapter.addAll(timeLineItemsStorage.apply {
                     shuffle()
-                    subList(0, 10)
+                    subList(0, LAST_ITEM_POSITION)
                 })
                 swipeContainer.isRefreshing = false
             }, DELAY_TIME)
@@ -92,7 +92,7 @@ class TimeLineActivity : AppCompatActivity(), LoadMore {
                     "Artemis",
                     R.drawable.img_profile,
                     R.drawable.ic_01,
-                    (0..HUNDRED).random(),
+                    (0..RANDOM_INDEX_MAX).random(),
                     false
                 )
             )
@@ -101,7 +101,7 @@ class TimeLineActivity : AppCompatActivity(), LoadMore {
                     "Annabella",
                     R.drawable.img_profile,
                     R.drawable.ic_02,
-                    (0..HUNDRED).random(),
+                    (0..RANDOM_INDEX_MAX).random(),
                     true
                 )
             )
@@ -110,7 +110,7 @@ class TimeLineActivity : AppCompatActivity(), LoadMore {
                     "Angela",
                     R.drawable.img_profile,
                     R.drawable.ic_03,
-                    (0..HUNDRED).random(),
+                    (0..RANDOM_INDEX_MAX).random(),
                     true
                 )
             )
@@ -119,7 +119,7 @@ class TimeLineActivity : AppCompatActivity(), LoadMore {
                     "Thekla",
                     R.drawable.img_profile,
                     R.drawable.ic_04,
-                    (0..HUNDRED).random(),
+                    (0..RANDOM_INDEX_MAX).random(),
                     false
                 )
             )
@@ -128,7 +128,7 @@ class TimeLineActivity : AppCompatActivity(), LoadMore {
                     "Calantha",
                     R.drawable.img_profile,
                     R.drawable.ic_05,
-                    (0..HUNDRED).random(),
+                    (0..RANDOM_INDEX_MAX).random(),
                     false
                 )
             )
@@ -137,7 +137,7 @@ class TimeLineActivity : AppCompatActivity(), LoadMore {
                     "Charmaine",
                     R.drawable.img_profile,
                     R.drawable.ic_06,
-                    (0..HUNDRED).random(),
+                    (0..RANDOM_INDEX_MAX).random(),
                     false
                 )
             )
@@ -146,7 +146,7 @@ class TimeLineActivity : AppCompatActivity(), LoadMore {
                     "Christabel",
                     R.drawable.img_profile,
                     R.drawable.ic_07,
-                    (0..HUNDRED).random(),
+                    (0..RANDOM_INDEX_MAX).random(),
                     true
                 )
             )
@@ -155,7 +155,7 @@ class TimeLineActivity : AppCompatActivity(), LoadMore {
                     "Cosima",
                     R.drawable.img_profile,
                     R.drawable.ic_08,
-                    (0..HUNDRED).random(),
+                    (0..RANDOM_INDEX_MAX).random(),
                     false
                 )
             )
@@ -164,7 +164,7 @@ class TimeLineActivity : AppCompatActivity(), LoadMore {
                     "Drusilla",
                     R.drawable.img_profile,
                     R.drawable.ic_09,
-                    (0..HUNDRED).random(),
+                    (0..RANDOM_INDEX_MAX).random(),
                     false
                 )
             )
@@ -173,7 +173,7 @@ class TimeLineActivity : AppCompatActivity(), LoadMore {
                     "Ermintrude",
                     R.drawable.img_profile,
                     R.drawable.ic_10,
-                    (0..HUNDRED).random(),
+                    (0..RANDOM_INDEX_MAX).random(),
                     true
                 )
             )
@@ -182,7 +182,7 @@ class TimeLineActivity : AppCompatActivity(), LoadMore {
                     "Esperanza",
                     R.drawable.img_profile,
                     R.drawable.ic_11,
-                    (0..HUNDRED).random(),
+                    (0..RANDOM_INDEX_MAX).random(),
                     false
                 )
             )
@@ -191,7 +191,7 @@ class TimeLineActivity : AppCompatActivity(), LoadMore {
                     "Euphemia",
                     R.drawable.img_profile,
                     R.drawable.ic_12,
-                    (0..HUNDRED).random(),
+                    (0..RANDOM_INDEX_MAX).random(),
                     false
                 )
             )
@@ -200,7 +200,7 @@ class TimeLineActivity : AppCompatActivity(), LoadMore {
                     "Genevieve",
                     R.drawable.img_profile,
                     R.drawable.ic_13,
-                    (0..HUNDRED).random(),
+                    (0..RANDOM_INDEX_MAX).random(),
                     true
                 )
             )
@@ -209,7 +209,7 @@ class TimeLineActivity : AppCompatActivity(), LoadMore {
                     "Guinevere",
                     R.drawable.img_profile,
                     R.drawable.ic_14,
-                    (0..HUNDRED).random(),
+                    (0..RANDOM_INDEX_MAX).random(),
                     false
                 )
             )
@@ -218,7 +218,7 @@ class TimeLineActivity : AppCompatActivity(), LoadMore {
                     "Iphigenia",
                     R.drawable.img_profile,
                     R.drawable.ic_15,
-                    (0..HUNDRED).random(),
+                    (0..RANDOM_INDEX_MAX).random(),
                     false
                 )
             )
@@ -227,7 +227,7 @@ class TimeLineActivity : AppCompatActivity(), LoadMore {
                     "Jocasta",
                     R.drawable.img_profile,
                     R.drawable.ic_16,
-                    (0..HUNDRED).random(),
+                    (0..RANDOM_INDEX_MAX).random(),
                     true
                 )
             )
@@ -236,7 +236,7 @@ class TimeLineActivity : AppCompatActivity(), LoadMore {
                     "Keelin",
                     R.drawable.img_profile,
                     R.drawable.ic_17,
-                    (0..HUNDRED).random(),
+                    (0..RANDOM_INDEX_MAX).random(),
                     false
                 )
             )
@@ -245,7 +245,7 @@ class TimeLineActivity : AppCompatActivity(), LoadMore {
                     "Kelsey",
                     R.drawable.img_profile,
                     R.drawable.ic_18,
-                    (0..HUNDRED).random(),
+                    (0..RANDOM_INDEX_MAX).random(),
                     false
                 )
             )
@@ -254,7 +254,7 @@ class TimeLineActivity : AppCompatActivity(), LoadMore {
                     "Lysandra",
                     R.drawable.ic_19,
                     R.drawable.img_profile,
-                    (0..HUNDRED).random(),
+                    (0..RANDOM_INDEX_MAX).random(),
                     true
                 )
             )
@@ -263,7 +263,7 @@ class TimeLineActivity : AppCompatActivity(), LoadMore {
                     "Martha",
                     R.drawable.img_profile,
                     R.drawable.ic_20,
-                    (0..HUNDRED).random(),
+                    (0..RANDOM_INDEX_MAX).random(),
                     false
                 )
             )
@@ -272,7 +272,7 @@ class TimeLineActivity : AppCompatActivity(), LoadMore {
                     "Miranda",
                     R.drawable.img_profile,
                     R.drawable.ic_21,
-                    (0..HUNDRED).random(),
+                    (0..RANDOM_INDEX_MAX).random(),
                     false
                 )
             )
@@ -281,7 +281,7 @@ class TimeLineActivity : AppCompatActivity(), LoadMore {
                     "Neala",
                     R.drawable.img_profile,
                     R.drawable.ic_22,
-                    (0..HUNDRED).random(),
+                    (0..RANDOM_INDEX_MAX).random(),
                     false
                 )
             )
@@ -290,7 +290,7 @@ class TimeLineActivity : AppCompatActivity(), LoadMore {
                     "Olwen",
                     R.drawable.img_profile,
                     R.drawable.ic_23,
-                    (0..HUNDRED).random(),
+                    (0..RANDOM_INDEX_MAX).random(),
                     true
                 )
             )
@@ -299,7 +299,7 @@ class TimeLineActivity : AppCompatActivity(), LoadMore {
                     "Philomena",
                     R.drawable.img_profile,
                     R.drawable.ic_24,
-                    (0..HUNDRED).random(),
+                    (0..RANDOM_INDEX_MAX).random(),
                     false
                 )
             )
@@ -308,7 +308,7 @@ class TimeLineActivity : AppCompatActivity(), LoadMore {
                     "Theodora",
                     R.drawable.img_profile,
                     R.drawable.ic_25,
-                    (0..HUNDRED).random(),
+                    (0..RANDOM_INDEX_MAX).random(),
                     false
                 )
             )
@@ -317,7 +317,7 @@ class TimeLineActivity : AppCompatActivity(), LoadMore {
                     "Tryphena",
                     R.drawable.img_profile,
                     R.drawable.ic_26,
-                    (0..HUNDRED).random(),
+                    (0..RANDOM_INDEX_MAX).random(),
                     false
                 )
             )
@@ -326,7 +326,7 @@ class TimeLineActivity : AppCompatActivity(), LoadMore {
                     "Veronica",
                     R.drawable.img_profile,
                     R.drawable.ic_27,
-                    (0..HUNDRED).random(),
+                    (0..RANDOM_INDEX_MAX).random(),
                     false
                 )
             )
@@ -335,7 +335,7 @@ class TimeLineActivity : AppCompatActivity(), LoadMore {
                     "Xavia",
                     R.drawable.img_profile,
                     R.drawable.ic_28,
-                    (0..HUNDRED).random(),
+                    (0..RANDOM_INDEX_MAX).random(),
                     false
                 )
             )
@@ -344,7 +344,7 @@ class TimeLineActivity : AppCompatActivity(), LoadMore {
                     "Winifred",
                     R.drawable.img_profile,
                     R.drawable.ic_29,
-                    (0..HUNDRED).random(),
+                    (0..RANDOM_INDEX_MAX).random(),
                     false
                 )
             )
@@ -353,7 +353,7 @@ class TimeLineActivity : AppCompatActivity(), LoadMore {
                     "Ula",
                     R.drawable.img_profile,
                     R.drawable.ic_30,
-                    (0..HUNDRED).random(),
+                    (0..RANDOM_INDEX_MAX).random(),
                     false
                 )
             )
