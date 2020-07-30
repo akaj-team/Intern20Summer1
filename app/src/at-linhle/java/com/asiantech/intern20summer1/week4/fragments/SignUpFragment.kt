@@ -32,8 +32,8 @@ class SignUpFragment : Fragment() {
         private const val OPEN_CAMERA_REQUEST = 1
         private const val PICK_IMAGE_REQUEST = 2
         private const val KEY_IMAGE_GALLERY = "image/*"
-        private const val HUNDRED = 100
-        private const val ONE = 1
+        private const val QUALITY_IMAGE_INDEX = 100
+        private const val ASPECT_IMAGE_RATIO = 1
     }
 
     // Interface to pass data
@@ -255,13 +255,14 @@ class SignUpFragment : Fragment() {
 
     private fun handleCropImage(uri: Uri) {
         context?.let {
-            CropImage.activity(uri).setAspectRatio(ONE, ONE).start(it, this)
+            CropImage.activity(uri).setAspectRatio(ASPECT_IMAGE_RATIO, ASPECT_IMAGE_RATIO)
+                .start(it, this)
         }
     }
 
     private fun getImageUri(inImage: Bitmap): Uri? {
         val bytes = ByteArrayOutputStream()
-        inImage.compress(Bitmap.CompressFormat.JPEG, HUNDRED, bytes)
+        inImage.compress(Bitmap.CompressFormat.JPEG, QUALITY_IMAGE_INDEX, bytes)
         val path =
             Images.Media.insertImage(
                 context?.contentResolver,
