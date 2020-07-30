@@ -136,7 +136,7 @@ class TimeLineActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListen
 
     private fun reloadData() {
         timeLineItemsShowed.clear()
-        for (i in 0..9) {
+        for (i in 0 until ITEMS_TAKE) {
             timeLineItemsShowed.add(timeLineItemsAll[i])
         }
         adapter.notifyDataSetChanged()
