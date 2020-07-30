@@ -2,6 +2,8 @@ package com.asiantech.intern20summer1.week5.adapter
 
 import android.content.Context
 import android.graphics.Typeface
+import android.text.SpannableString
+import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,21 +35,15 @@ class TimeLineItemAdapter : RecyclerView.Adapter<TimeLineViewHolder> {
         val timeLineItem = timeLineItems[position]
 
         // Set itemView based on views and data model
-        val nameTextView: TextView? = viewHolder.nameTextView
-        nameTextView?.text = timeLineItem.name
-
-        val nameTextViewAbove: TextView? = viewHolder.nameTextViewAbove
-        nameTextViewAbove?.text = timeLineItem.name
+        val userNameTextView: TextView? = viewHolder.userNameTextView
+        userNameTextView?.text = timeLineItem.userName
 
         val imageImageView = viewHolder.imageImageView
         when {
-            position % 3 == 0 -> imageImageView?.setImageResource(R.drawable.cat3)
-            position % 2 == 0 -> imageImageView?.setImageResource(R.drawable.cat2)
-            else -> imageImageView?.setImageResource(R.drawable.cat)
+            position % 3 == 0 -> imageImageView?.setImageResource(R.drawable.img_cat3)
+            position % 2 == 0 -> imageImageView?.setImageResource(R.drawable.img_cat2)
+            else -> imageImageView?.setImageResource(R.drawable.img_cat)
         }
-
-        val contentTextView = viewHolder.contentTextView
-        contentTextView?.text = timeLineItem.content
 
         val isLikedImageView = viewHolder.isLikedImageView
         if (timeLineItem.isLiked) {
@@ -64,17 +60,28 @@ class TimeLineItemAdapter : RecyclerView.Adapter<TimeLineViewHolder> {
 
         val isPluralLikeTextView = viewHolder.isPluralLikeTextView
         if (timeLineItem.likes > 1) {
-            isPluralLikeTextView?.text = "likes"
+            isPluralLikeTextView?.text =
+                context.getString(R.string.text_view_plural_like_description)
         } else {
-            isPluralLikeTextView?.text = "like"
+            isPluralLikeTextView?.text =
+                context.getString(R.string.text_view_not_plural_like_description)
         }
         if (timeLineItem.likes == 0) {
             likesTextView?.visibility = View.INVISIBLE
-            isPluralLikeTextView?.text = "Be the first to like this"
+            isPluralLikeTextView?.text =
+                context.getString(R.string.text_view_first_like_description)
             isPluralLikeTextView?.setTypeface(Typeface.DEFAULT, Typeface.ITALIC)
         } else {
             likesTextView?.visibility = View.VISIBLE
         }
+
+        val userNameAndCaption = timeLineItem.userName + " " + timeLineItem.caption
+        val spannableString = SpannableString(userNameAndCaption)
+        timeLineItem.userName?.length?.let {
+            spannableString.setSpan(StyleSpan(Typeface.BOLD), 0, it, 0)
+        }
+        val captionTextView: TextView? = viewHolder.captionTextView
+        captionTextView?.text = spannableString
     }
 
     override fun getItemCount(): Int {

@@ -16,6 +16,10 @@ import kotlinx.android.synthetic.`at-longphan`.activity_time_line.*
 
 class TimeLineActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
 
+    companion object{
+        private const val TIME_DELAY: Long = 2000
+    }
+
     private var timeLineItemsAll = mutableListOf<TimeLineItem>()
     private var timeLineItemsShowed = mutableListOf<TimeLineItem>()
     private lateinit var rvTimeLineItems: RecyclerView
@@ -30,6 +34,7 @@ class TimeLineActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListen
         initRecyclerView()
         initData()
         initAdapter()
+        initIsLikedImageViewClickListener()
         assignRecyclerView()
         initSwipeRefreshLayout()
         initScrollListener()
@@ -66,6 +71,9 @@ class TimeLineActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListen
 
     private fun initAdapter() {
         adapter = TimeLineItemAdapter(this, timeLineItemsShowed)
+    }
+
+    private fun initIsLikedImageViewClickListener() {
         adapter.onIsLikedImageViewClick = { position ->
             timeLineItemsShowed[position].let {
                 it.isLiked = !it.isLiked
@@ -80,7 +88,6 @@ class TimeLineActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListen
                     it.isPluralLike = true
                 }
             }
-            adapter.notifyItemChanged(position)
             // Remove flash animation when interact with a row item
             (rvTimeLineItems.itemAnimator as? SimpleItemAnimator)?.supportsChangeAnimations = false
         }
@@ -122,7 +129,7 @@ class TimeLineActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListen
             adapter.notifyDataSetChanged()
             isLoading = false
             progressBarW5.visibility = View.INVISIBLE
-        }, 2000)
+        }, TIME_DELAY)
     }
 
     private fun reloadData() {

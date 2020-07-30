@@ -59,9 +59,7 @@
     <dimen name="text_view_like_description_text_size">15sp</dimen>
     <dimen name="linear_layout_name_and_content_margin_top">15dp</dimen>
     <dimen name="text_view_user_name_week_5">15sp</dimen>
-    <dimen name="text_view_content_margin_left_week_5">5dp</dimen>
-    <dimen name="text_view_content_text_size_week_5">15sp</dimen>
     <dimen name="view_horizontal_rule_long_margin_top_week_5">10dp</dimen>
-    <item name="view_horizontal_rule_height" type="dimen" format="float">0.5dp</item>
-    <item name="view_horizontal_rule_long_height_week_5" type="dimen" format="float">0.5dp</item>
+    <dimen name="view_horizontal_rule_height" >0.5dp</dimen>
+    <dimen name="view_horizontal_rule_long_height_week_5" >0.5dp</dimen>
 </resources>

@@ -2,9 +2,9 @@ package com.asiantech.intern20summer1.week5.model
 
 class TimeLineItem() {
 
-    internal var name: String? = null
+    internal var userName: String? = null
     internal var imageUri: String? = null
-    internal var content: String? = null
+    internal var caption: String? = null
     internal var isLiked: Boolean = false
     internal var likes: Int = 0
     internal var isPluralLike: Boolean = false
@@ -12,26 +12,17 @@ class TimeLineItem() {
     constructor(
         name: String,
         imageUri: String,
-        content: String,
+        caption: String,
         isLiked: Boolean,
         likes: Int,
         isPluralLike: Boolean
     ) : this() {
-        this.name = name
+        this.userName = name
         this.imageUri = imageUri
-        this.content = content
+        this.caption = caption
         this.isLiked = isLiked
         this.likes = likes
         this.isPluralLike = isPluralLike
-    }
-
-    constructor(timeLineItem : TimeLineItem) : this() {
-        this.name = timeLineItem.name
-        this.imageUri = timeLineItem.imageUri
-        this.content = timeLineItem.content
-        this.isLiked = timeLineItem.isLiked
-        this.likes = timeLineItem.likes
-        this.isPluralLike = timeLineItem.isPluralLike
     }
 
     fun createTimeLineItemsList(numItems: Int): MutableList<TimeLineItem> {
