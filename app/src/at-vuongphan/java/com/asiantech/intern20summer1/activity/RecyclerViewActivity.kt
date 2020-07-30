@@ -22,7 +22,7 @@ import kotlin.random.Random
 @Suppress("DEPRECATION")
 class RecyclerViewActivity : AppCompatActivity() {
     private val exampleLists: MutableList<ItemRecycler> = mutableListOf()
-    var adapterRecycler = RecyclerAdapter(exampleLists)
+    private var adapterRecycler = RecyclerAdapter(exampleLists)
     private var isLoadMore = false
 
     companion object {
@@ -134,7 +134,7 @@ class RecyclerViewActivity : AppCompatActivity() {
             Handler().postDelayed({
                 exampleLists.clear()
                 exampleLists.addAll(newData())
-                reloadData()
+                adapterRecycler.notifyDataSetChanged()
                 swipeRefreshContainer.isRefreshing = false
             }, 1000)
         }
