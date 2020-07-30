@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.`at-sonnguyen`.fragment_log_in.*
 
 @Suppress("DEPRECATION")
 class LogInFragment : Fragment() {
-    private var userLogin = User("", "", "", "", "")
+    private var userLogin = User()
     private var emailText: String = ""
     private var passwordText: String = ""
 
