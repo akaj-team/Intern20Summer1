@@ -18,4 +18,9 @@
     <dimen name="relative_height_end">20dp</dimen>
     <dimen name="conner_radius">40dp</dimen>
     <dimen name="custom_button_padding">5dp</dimen>
+    <dimen name="view_pager_margin">10dp</dimen>
+    <dimen name="indicator_size">15dp</dimen>
+    <dimen name="text_view_next_text_size">15dp</dimen>
+    <dimen name="text_view_fragment_one_text_size">40sp</dimen>
+    <dimen name="relative_layout_radius">20dp</dimen>
 </resources>
