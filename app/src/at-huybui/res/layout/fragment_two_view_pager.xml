@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="@dimen/w6_card_view_margin_left_right"
-        android:layout_marginRight="@dimen/w6_card_view_margin_left_right"
         android:layout_marginTop="@dimen/w6_card_view_margin_top"
-        android:gravity="center"
+        android:layout_marginRight="@dimen/w6_card_view_margin_left_right"
         android:background="@android:color/white"
+        android:gravity="center"
         app:cardCornerRadius="@dimen/w6_card_view_radius"
         app:cardElevation="@dimen/w6_card_view_elevation">
 

@@ -23,5 +23,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:selectedDotColor="@color/w6_dot_indicator_color"
         app:unselectedDotColor="@android:color/white"
-        app:viewPagerId="@id/viewpagerOne"/>
+        app:viewPagerId="@id/viewpagerOne" />
 </androidx.constraintlayout.widget.ConstraintLayout>

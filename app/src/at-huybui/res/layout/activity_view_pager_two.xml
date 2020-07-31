@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/img_background_activity_two_w6"
     tools:context="com.asiantech.intern20summer1.w6.firstactivity.ViewPagerOneActivity">
 
     <com.google.android.material.tabs.TabLayout
-        android:background="@color/w6_background_activity_one"
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/w6_tab_layout_size"
-        android:scrollbars="horizontal"
+        android:background="@color/w6_background_activity_one"
         android:scrollbarSize="@dimen/w6_tab_layout_scroll_bar_size"
+        android:scrollbars="horizontal"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.viewpager.widget.ViewPager
