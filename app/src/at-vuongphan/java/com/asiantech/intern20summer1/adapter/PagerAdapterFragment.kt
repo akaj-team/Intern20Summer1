@@ -13,9 +13,9 @@ class PagerAdapterFragment(fragment: FragmentManager) : FragmentPagerAdapter(fra
 
     override fun getItem(position: Int): Fragment {
         return when (position) {
-            0 -> return list[position]
-            1 -> return list[position]
-            2 -> return list[position]
+            0 -> list[position]
+            1 -> list[position]
+            2 -> list[position]
             else -> list[0]
         }
     }
