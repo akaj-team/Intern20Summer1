@@ -15,4 +15,7 @@
     <string name="text_goto_google">Go to Google page</string>
     <string name="text_goto_facebook">Go to Facebook</string>
     <string name="text_goto_twitter">Go to Twitter</string>
+    <string name="w6_tab_layout_tab0_text">HOME</string>
+    <string name="w6_tab_layout_tab1_text">INFO</string>
+    <string name="w6_tab_layout_tab2_text">ANOTHER</string>
 </resources>

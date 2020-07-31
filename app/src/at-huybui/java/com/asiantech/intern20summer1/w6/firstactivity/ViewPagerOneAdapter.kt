@@ -14,13 +14,12 @@ class ViewPagerOneAdapter(fm: FragmentManager) : FragmentPagerAdapter(
     fm,
     BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
 ) {
-
     companion object {
         private const val NUMBER_OF_PAGER = 3
     }
 
     override fun getItem(position: Int): Fragment {
-        return  FragmentOne.newInstance(position)
+        return FragmentOne.newInstance(position)
     }
 
     override fun getCount() = NUMBER_OF_PAGER

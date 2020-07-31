@@ -25,4 +25,7 @@
     <dimen name="w6_dot_indicator_margin">10dp</dimen>
     <dimen name="w6_next_text_view_size">20sp</dimen>
     <dimen name="w6_center_text_view_size">60sp</dimen>
+    <dimen name="w6_tab_layout_size">50dp</dimen>
+    <dimen name="w6_tab_layout_scroll_bar_size">2dp</dimen>
+    <dimen name="w6_fragment_two_margin_vertical">30dp</dimen>
 </resources>
