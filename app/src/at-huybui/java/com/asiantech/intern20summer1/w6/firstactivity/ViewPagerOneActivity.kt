@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.`at-huybui`.activity_view_pager_one.*
  */
 
 class ViewPagerOneActivity : AppCompatActivity() {
+
     private val viewPagerAdapter by lazy { ViewPagerOneAdapter(supportFragmentManager) }
 
     override fun onCreate(savedInstanceState: Bundle?) {

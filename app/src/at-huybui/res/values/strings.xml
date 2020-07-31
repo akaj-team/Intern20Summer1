@@ -24,4 +24,7 @@
     <string name="w6_name_france_koala">Le Koala</string>
     <string name="w6_name_english_Platypus">Platypus</string>
     <string name="w6_name_france_platypus">Le Ornithorynque</string>
+    <string name="w6_text_next">Next</string>
+    <string name="w6_text_done">Done</string>
+    <string name="w6_text_step">Step </string>
 </resources>
