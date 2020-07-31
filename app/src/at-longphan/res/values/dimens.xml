@@ -129,4 +129,7 @@
     <dimen name="view_horizontal_rule_long_margin_top_week_5">10dp</dimen>
     <dimen name="view_horizontal_rule_height" >0.5dp</dimen>
     <dimen name="view_horizontal_rule_long_height_week_5" >0.5dp</dimen>
+
+    <dimen name="size_indicator">20dp</dimen>
+    <dimen name="space_size_indicator">15dp</dimen>
 </resources>

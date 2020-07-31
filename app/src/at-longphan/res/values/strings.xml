@@ -41,4 +41,7 @@
     <string name="text_view_plural_like_description">likes</string>
     <string name="text_view_not_plural_like_description">like</string>
     <string name="text_view_first_like_description">Be the first to like this</string>
+    <string name="red">RED</string>
+    <string name="blue">BLUE</string>
+    <string name="green">GREEN</string>
 </resources>
