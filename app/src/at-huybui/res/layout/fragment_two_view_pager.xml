@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent">
 
     <androidx.cardview.widget.CardView
@@ -34,24 +35,27 @@
                 android:layout_below="@+id/imgTopFlat"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/w6_top_text_margin_top"
-                android:text="Kangaroo"
-                android:textSize="30dp" />
+                tools:text="Kangaroo"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/w6_name_text_size" />
             <ImageView
                 android:id="@+id/imgCenterMain"
                 android:layout_width="match_parent"
                 android:layout_margin="@dimen/w6_fragment_two_margin_vertical"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tvNameEnglish"
-                android:src="@drawable/img_kangaroo"
+                tools:src="@drawable/img_kangaroo"
                 android:layout_centerHorizontal="true" />
+
             <TextView
                 android:id="@+id/tvNameFrance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/imgCenterMain"
                 android:layout_centerHorizontal="true"
-                android:text="Le Kangourou"
-                android:textSize="30dp" />
+                tools:text="Le Kangourou"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/w6_name_text_size" />
 
             <ImageView
                 android:id="@+id/imgBottomFlat"

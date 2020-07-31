@@ -18,4 +18,10 @@
     <string name="w6_tab_layout_tab0_text">HOME</string>
     <string name="w6_tab_layout_tab1_text">INFO</string>
     <string name="w6_tab_layout_tab2_text">ANOTHER</string>
+    <string name="w6_name_english_kangaroo">Kangaroo</string>
+    <string name="w6_name_france_kangaroo">Le Kangourou</string>
+    <string name="w6_name_english_koala">Koala</string>
+    <string name="w6_name_france_koala">Le Koala</string>
+    <string name="w6_name_english_Platypus">Platypus</string>
+    <string name="w6_name_france_platypus">Le Ornithorynque</string>
 </resources>
