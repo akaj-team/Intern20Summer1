@@ -4,7 +4,8 @@ data class TimelineItem(
     var avatar: String,
     var name: String,
     var image: String,
-    var like: String,
-    var comment: String
+    var like: Int,
+    var comment: String,
+    var isLiked: Boolean = false
 ) {
 }

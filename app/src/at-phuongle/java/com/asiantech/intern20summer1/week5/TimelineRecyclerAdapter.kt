@@ -1,5 +1,6 @@
 package com.asiantech.intern20summer1.week5
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,12 +12,9 @@ import com.bumptech.glide.request.RequestOptions
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.`at-phuongle`.layout_timeline_list_item.view.*
 
-class TimelineRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private var items: List<TimelineItem> = ArrayList()
 
-    companion object {
-        const val MAX_ITEM = 10
-    }
+class TimelineRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    var items: MutableList<TimelineItem> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return TimelineViewHolder(
@@ -26,18 +24,32 @@ class TimelineRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
     }
 
     override fun getItemCount(): Int {
-        return MAX_ITEM
+        return items.size
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is TimelineViewHolder -> {
-                holder.bind(items.random())
+                holder.bind(items[position])
+                holder.itemView.imgLike.setOnClickListener {
+                    if (!items[position].isLiked) {
+                        holder.itemView.imgLike.setImageResource(R.drawable.like)
+                        items[position].like++
+                        holder.itemView.tvLike.text = "${items[position].like} likes"
+                        items[position].isLiked = true
+                    } else {
+                        holder.itemView.imgLike.setImageResource(R.drawable.heart)
+                        items[position].like--
+                        holder.itemView.tvLike.text = "${items[position].like} likes"
+                        items[position].isLiked = false
+                    }
+                }
             }
         }
     }
 
-    fun submitList(timeLineList: List<TimelineItem>) {
+    fun submitList(timeLineList: MutableList<TimelineItem>) {
         items = timeLineList
     }
 
@@ -50,7 +62,7 @@ class TimelineRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
 
         fun bind(timeLine: TimelineItem) {
             timeLineName.text = timeLine.name
-            timeLineLike.text = timeLine.like + " likes"
+            timeLineLike.text = timeLine.like.toString() + " likes"
             timeLineComment.text = "${timeLine.name}  ${timeLine.comment}"
 
             val requestOptions = RequestOptions()
