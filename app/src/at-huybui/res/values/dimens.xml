@@ -23,4 +23,6 @@
     <dimen name="w6_dot_indicator_height">30dp</dimen>
     <dimen name="w6_dot_indicator_radius">10dp</dimen>
     <dimen name="w6_dot_indicator_margin">10dp</dimen>
+    <dimen name="w6_next_text_view_size">20sp</dimen>
+    <dimen name="w6_center_text_view_size">60sp</dimen>
 </resources>

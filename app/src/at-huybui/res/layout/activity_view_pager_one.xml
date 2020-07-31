@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/w6_background_activity_one"
     tools:context="com.asiantech.intern20summer1.w6.firstactivity.ViewPagerOneActivity">
 
     <androidx.viewpager.widget.ViewPager

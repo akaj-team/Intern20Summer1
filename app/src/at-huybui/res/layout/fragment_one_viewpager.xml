@@ -8,18 +8,20 @@
         android:id="@+id/tvCenterFm1W6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textStyle="bold"
         android:layout_centerInParent="true"
-        tools:text="xxx"
-        android:textSize="50sp"/>
+        tools:text="Step 1"
+        android:textSize="@dimen/w6_center_text_view_size"/>
 
     <TextView
         android:id="@+id/tvSkipFm1W6"
+        android:textColor="@android:color/black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginRight="@dimen/w6_dot_indicator_margin"
         android:layout_marginBottom="@dimen/w6_dot_indicator_margin"
-        android:textSize="50sp"
-        tools:text="xxx" />
+        android:textSize="@dimen/w6_next_text_view_size"
+        tools:text="Next" />
 </RelativeLayout>
