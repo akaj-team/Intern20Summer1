@@ -21,6 +21,9 @@ import kotlinx.android.synthetic.`at-huybui`.fragment_one_viewpager.*
 class FragmentOne : Fragment() {
 
     companion object {
+        private const val PAGE_ONE = 1
+        private const val PAGE_TWO = 2
+        private const val PAGE_THREE = 3
         private const val KEY_POS = "key"
         internal fun newInstance(position: Int) = FragmentOne().apply {
             arguments = Bundle().apply {
@@ -41,14 +44,14 @@ class FragmentOne : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         when (val position = arguments?.getInt(KEY_POS)?.plus(1)) {
-            1, 2 -> {
+            PAGE_ONE, PAGE_TWO -> {
                 tvCenterFm1W6.text = getString(w6_text_step) + position
                 tvSkipFm1W6.text = getString(R.string.w6_text_next)
                 tvSkipFm1W6.setOnClickListener {
                     (activity as ViewPagerOneActivity).handleNextFragment()
                 }
             }
-            3 -> {
+            PAGE_THREE -> {
                 tvCenterFm1W6.text = getString(w6_text_step) + position
                 tvSkipFm1W6.text = getString(R.string.w6_text_done)
                 tvSkipFm1W6.setOnClickListener {
