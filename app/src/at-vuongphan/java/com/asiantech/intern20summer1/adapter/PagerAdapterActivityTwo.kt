@@ -15,9 +15,9 @@ class PagerAdapterActivityTwo(
     private var title: List<String>,
     private var context: Context
 ) : PagerAdapter() {
-    private lateinit var img: ImageView
-    private lateinit var icon: ImageView
-    private lateinit var iconTwo: ImageView
+    private lateinit var imameView: ImageView
+    private lateinit var iconImageViewOne: ImageView
+    private lateinit var iconImageViewTwo: ImageView
     private lateinit var textViewOne: TextView
     private lateinit var textViewTwo: TextView
     private lateinit var layoutInflater: LayoutInflater
@@ -43,27 +43,28 @@ class PagerAdapterActivityTwo(
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
+        var title=" "
         when (position) {
-            0 -> return context.getString(R.string.tab_layout_description_one)
-            1 -> return context.getString(R.string.tab_layout_description_two)
-            2 -> return context.getString(R.string.tab_layout_description_three)
+            0 -> title=context.getString(R.string.tab_layout_description_one)
+            1 -> title=context.getString(R.string.tab_layout_description_two)
+            2 -> title=context.getString(R.string.tab_layout_description_three)
         }
-        return super.getPageTitle(position)
+        return title
     }
 
     private fun initViews(view: View) {
-        img=view.findViewById(R.id.imgView)
-        icon=view.findViewById(R.id.imgIcon)
-        iconTwo=view.findViewById(R.id.imgIconTwo)
+        imameView=view.findViewById(R.id.imgView)
+        iconImageViewOne=view.findViewById(R.id.imgIcon)
+        iconImageViewTwo=view.findViewById(R.id.imgIconTwo)
         textViewOne=view.findViewById(R.id.tvNameIcon)
         textViewTwo=view.findViewById(R.id.tvNameIconTwo)
     }
 
     private fun setData(position: Int) {
-        icon.setImageResource(ensign[position])
-        iconTwo.setImageResource(ensign[position])
+        iconImageViewOne.setImageResource(ensign[position])
+        iconImageViewTwo.setImageResource(ensign[position])
         textViewOne.text=title[position]
         textViewTwo.text=title[position]
-        img.setImageResource(list[position])
+        imameView.setImageResource(list[position])
     }
 }
