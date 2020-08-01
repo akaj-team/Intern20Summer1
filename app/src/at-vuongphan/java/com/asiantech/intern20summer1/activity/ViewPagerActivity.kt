@@ -11,18 +11,21 @@ import com.asiantech.intern20summer1.data.list
 import kotlinx.android.synthetic.main.activity_viewpager.*
 
 class ViewPagerActivity : AppCompatActivity() {
-    var pos: Int = 0
+    var pos: Int=0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_viewpager)
         supportActionBar?.hide()
-        viewPager.adapter =
-            PagerAdapterFragment(
-                supportFragmentManager
-            )
-        dotsIndicator.setViewPager(viewPager)
+        initViews()
         addChangeListener()
         initTextViewNextListener()
+    }
+
+    private fun initViews() {
+        viewPager?.apply {
+            adapter=PagerAdapterFragment(supportFragmentManager)
+            dotsIndicator.setViewPager(this)
+        }
     }
 
     private fun initTextViewNextListener() {
@@ -49,7 +52,12 @@ class ViewPagerActivity : AppCompatActivity() {
             }
 
             override fun onPageSelected(position: Int) {
-                pos = position
+                if (position < 2) {
+                    tvNext.text=getString(R.string.text_view_next_text)
+                } else {
+                    tvNext.text=getString(R.string.text_view_skip_text)
+                }
+                pos=position
             }
         })
     }

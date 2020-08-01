@@ -9,8 +9,14 @@
     <string name="sign_up_button_description_text">SIGN UP</string>
     <string name="not_registered_text_view_description_text">Not registered yet?</string>
     <string name="sign_up_text_view_description_text">Sign up!</string>
-    <string name="text_view_next_description_text">SKIP</string>
+    <string name="text_view_next_description_text">NEXT</string>
     <string name="text_view_fragment_one_description_text">Step 1</string>
     <string name="text_view_fragment_two_description_text">Step 2</string>
     <string name="text_view_fragment_three_description_text">Step 3</string>
+    <string name="tab_layout_description_one">HOME</string>
+    <string name="tab_layout_description_two">INFO</string>
+    <string name="tab_layout_description_three">ANOTHER</string>
+    <string name="portugal_text_view_description">Bồ đào nha là đất nước của Ronaldo</string>
+    <string name="viet_nam_text_view_description">Việt Nam là đát nước thân thiện</string>
+    <string name="my_text_view_description">Mỹ là một cường quốc</string>
 </resources>
