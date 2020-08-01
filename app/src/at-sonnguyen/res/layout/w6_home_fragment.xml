@@ -4,10 +4,17 @@
     android:layout_height="match_parent"
     android:background="@drawable/img_background">
 
-    <ImageView
-        android:id="@+id/imgHomeFragment"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="@dimen/w6_image_view_in_home_fragment_margin"
-        android:contentDescription="@string/w6_image_view_in_home_fragment" />
+        android:background="@drawable/w6_bg_relative">
+
+        <ImageView
+            android:id="@+id/imgHomeFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/w6_image_view_in_home_fragment" />
+
+    </RelativeLayout>
 </RelativeLayout>
