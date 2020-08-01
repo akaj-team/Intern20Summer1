@@ -18,4 +18,16 @@
     <dimen name="edit_text_padding_left">22dp</dimen>
     <dimen name="edit_text_padding_right">22dp</dimen>
     <dimen name="length_icon_to_icon">20dp</dimen>
+    <dimen name="w6_tab_layout_height">60dp</dimen>
+    <dimen name="w6_circle_indicator_width">120dp</dimen>
+    <dimen name="w6_text_view_text_size">20sp</dimen>
+    <dimen name="w6_next_text_view_margin_right">40dp</dimen>
+    <dimen name="w6_next_text_view_margin_bottom">40dp</dimen>
+    <dimen name="w6_next_text_view_margin_end">40dp</dimen>
+    <dimen name="W6_circle_indicator_height">30dp</dimen>
+    <dimen name="w6_circle_indicator_margin_start">40dp</dimen>
+    <dimen name="w6_circle_indicator_margin_bottom">40dp</dimen>
+    <dimen name="w6_circle_indicator_margin_left">40dp</dimen>
+    <dimen name="w6_step_text_view_size_in_step_fragment">25sp</dimen>
+    <dimen name="w6_image_view_in_home_fragment_margin">50dp</dimen>
 </resources>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Create UI W3</string>
+    <string name="app_name">ViewPager-Tablayout</string>
     <string name="your_profile_link">Link your social media profile</string>
     <string name="email_text_view_description_text">Enter your Email ID</string>
     <string name="password_text_view_description_text">Type your password</string>
@@ -9,4 +9,11 @@
     <string name="sign_up_button_description_text">SIGN UP</string>
     <string name="sign_up_ask_text_view_description_text">not register yet ?</string>
     <string name="sign_up_text_view_description_text">Sign up</string>
+    <string name="w6_step_fragment_text_view" >Step %d</string>
+    <string name="w6_next_text_view_next">Next</string>
+    <string name="w6_next_text_view_skip">Skip</string>
+    <string name="w6_image_view_in_home_fragment">image view in home fragment</string>
+    <string name="w6_information_tab_name">INFORMATION</string>
+    <string name="w6_another_tab_name">ANOTHER</string>
+    <string name="w6_home_tab_name">HOME</string>
 </resources>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/img_background">
+
+    <ImageView
+        android:id="@+id/imgHomeFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/w6_image_view_in_home_fragment_margin"
+        android:contentDescription="@string/w6_image_view_in_home_fragment" />
+</RelativeLayout>

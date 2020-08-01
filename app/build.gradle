@@ -105,6 +105,10 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     api 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
+    //noinspection GradleCompatible
+    implementation 'com.android.support:design:27.1.1'
+    implementation 'me.relex:circleindicator:2.1.4'
+    implementation 'com.google.android.material:material:1.1.0'
 }
 
 apply from: "ci-kotlin.gradle"
