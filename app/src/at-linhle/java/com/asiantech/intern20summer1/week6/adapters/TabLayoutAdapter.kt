@@ -1,8 +1,9 @@
-package com.asiantech.intern20summer1.week6.extensions
+package com.asiantech.intern20summer1.week6.adapters
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
+import com.asiantech.intern20summer1.week6.adapters.IndicatorAdapter.Companion.pageNumber
 import com.asiantech.intern20summer1.week6.fragments.TabFragment
 
 class TabLayoutAdapter(fm: FragmentManager) :
@@ -11,5 +12,5 @@ class TabLayoutAdapter(fm: FragmentManager) :
         return TabFragment.newInstance(position)
     }
 
-    override fun getCount(): Int = 3
+    override fun getCount(): Int = pageNumber
 }

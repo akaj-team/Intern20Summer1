@@ -7,8 +7,10 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bg_tab_layout"
-        android:layout_margin="50dp">
+        android:layout_marginLeft="@dimen/tab_layout_relative_layout_margin_left_right"
+        android:layout_marginTop="@dimen/tab_layout_relative_layout_margin_top"
+        android:layout_marginRight="@dimen/tab_layout_relative_layout_margin_left_right"
+        android:background="@drawable/bg_tab_layout">
 
         <ImageView
             android:id="@+id/imgTabLayout"
