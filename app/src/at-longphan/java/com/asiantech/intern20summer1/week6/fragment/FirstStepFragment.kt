@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 
-class Step1Fragment : Fragment() {
+class FirstStepFragment : Fragment() {
 
     companion object {
 
@@ -18,8 +18,8 @@ class Step1Fragment : Fragment() {
         var onTextViewNextClicked: () -> Unit = {}
 
         // newInstance constructor for creating fragment with arguments
-        fun newInstance(page: Int, step: String?): Step1Fragment {
-            val step1Fragment = Step1Fragment()
+        fun newInstance(page: Int, step: String?): FirstStepFragment {
+            val step1Fragment = FirstStepFragment()
             val args = Bundle()
             args.putInt(PAGE_KEY, page)
             args.putString(STEP_KEY, step)

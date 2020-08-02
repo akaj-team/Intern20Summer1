@@ -7,8 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week6.adapter.StepFragmentPagerAdapter
-import com.asiantech.intern20summer1.week6.fragment.Step1Fragment
-import com.asiantech.intern20summer1.week6.fragment.Step3Fragment
+import com.asiantech.intern20summer1.week6.fragment.FirstStepFragment
+import com.asiantech.intern20summer1.week6.fragment.ThirdStepFragment
 import com.zhpan.indicator.DrawableIndicator
 
 class FirstPageActivity : AppCompatActivity() {
@@ -40,16 +40,16 @@ class FirstPageActivity : AppCompatActivity() {
     }
 
     private fun setupAdapter() {
-        val step1Fragment = Step1Fragment.newInstance(
+        val step1Fragment = FirstStepFragment.newInstance(
             0,
             getString(R.string.text_view_step_description_fragment_step_1)
         )
-        val step2Fragment = Step1Fragment.newInstance(
+        val step2Fragment = FirstStepFragment.newInstance(
             1,
             getString(R.string.text_view_step_description_fragment_step_2)
         )
         val step3Fragment =
-            Step3Fragment.newInstance(getString(R.string.text_view_step_description_fragment_step_3))
+            ThirdStepFragment.newInstance(getString(R.string.text_view_step_description_fragment_step_3))
 
         adapter.addFragment(step1Fragment)
         adapter.addFragment(step2Fragment)
@@ -71,7 +71,7 @@ class FirstPageActivity : AppCompatActivity() {
     }
 
     private fun handleTextViewNextClickListener(){
-        Step1Fragment.onTextViewNextClicked = {
+        FirstStepFragment.onTextViewNextClicked = {
             viewPager.currentItem++
         }
     }

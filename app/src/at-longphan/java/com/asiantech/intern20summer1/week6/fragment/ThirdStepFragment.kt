@@ -10,15 +10,15 @@ import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week6.activity.SecondPageActivity
 
-class Step3Fragment : Fragment() {
+class ThirdStepFragment : Fragment() {
 
     companion object {
 
         private const val STEP_KEY = "step"
 
         // NewInstance constructor for creating fragment with arguments
-        fun newInstance(step: String?): Step3Fragment {
-            val fragmentFirst = Step3Fragment()
+        fun newInstance(step: String?): ThirdStepFragment {
+            val fragmentFirst = ThirdStepFragment()
             val args = Bundle()
             args.putString(STEP_KEY, step)
             fragmentFirst.arguments = args
