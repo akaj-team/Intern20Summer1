@@ -16,6 +16,10 @@ class TimelineActivity : AppCompatActivity() {
     private var isLoadMore: Boolean = false
     private var data: MutableList<TimelineItem> = DataSource.createDataSet()
 
+    companion object {
+        const val PROCESS_TIME = 2000L
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_timeline)
@@ -54,7 +58,7 @@ class TimelineActivity : AppCompatActivity() {
                         timeLineAdapter?.notifyDataSetChanged()
 
                         progressBar.visibility = View.GONE
-                    }, 4000)
+                    }, PROCESS_TIME)
 
                     isLoadMore = false
                 }

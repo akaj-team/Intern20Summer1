@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.`at-phuongle`.layout_timeline_list_item.view.*
 
 
 class TimelineRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    var items: MutableList<TimelineItem> = ArrayList()
+    private var items: MutableList<TimelineItem> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return TimelineViewHolder(
@@ -36,12 +36,14 @@ class TimelineRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
                     if (!items[position].isLiked) {
                         holder.itemView.imgLike.setImageResource(R.drawable.like)
                         items[position].like++
-                        holder.itemView.tvLike.text = "${items[position].like} likes"
+                        holder.itemView.tvLike.text =
+                            items[position].like.toString() + " " + "likes"
                         items[position].isLiked = true
                     } else {
                         holder.itemView.imgLike.setImageResource(R.drawable.heart)
                         items[position].like--
-                        holder.itemView.tvLike.text = "${items[position].like} likes"
+                        holder.itemView.tvLike.text =
+                            items[position].like.toString() + " " + "likes"
                         items[position].isLiked = false
                     }
                 }
@@ -60,9 +62,11 @@ class TimelineRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
         private val timeLineLike = itemView.tvLike
         private val timeLineComment = itemView.tvComment
 
+        @SuppressLint("SetTextI18n")
         fun bind(timeLine: TimelineItem) {
             timeLineName.text = timeLine.name
-            timeLineLike.text = timeLine.like.toString() + " likes"
+            timeLineLike.text =
+                timeLine.like.toString() + " " + "likes"
             timeLineComment.text = "${timeLine.name}  ${timeLine.comment}"
 
             val requestOptions = RequestOptions()
