@@ -1,58 +1,118 @@
 package com.asiantech.intern20summer1.week5
 
+import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.ProgressBar
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.asiantech.intern20summer1.R
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
+import kotlinx.android.synthetic.`at-hoangtran`.loading_layout.view.*
 import kotlinx.android.synthetic.`at-hoangtran`.recycler_item.view.*
 
-class RecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private var itemList: List<ItemRecycler> = ArrayList()
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerAdapter.ViewHolder {
-        return ViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.recycler_item, parent, false)
-        )
+class RecyclerAdapter(
+    recyclerView: RecyclerView,
+    internal var activity: Activity,
+    internal var itemRecycler: MutableList<ItemRecycler?>
+) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    companion object {
+        private const val VIEW_ITEM_TYPE = 1
+        private const val VIEW_LOADING_TYPE = 0
     }
 
-    override fun getItemCount(): Int {
-        return itemList.size
+    internal var onHeartClicked: (Int) -> Unit = {}
+    private var loadMore: LoadMore? = null
+    private var isLoading = false
+    private var lastVisibleItem = 0
+
+    init {
+        val linearLayoutManager = recyclerView.layoutManager as LinearLayoutManager
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition()
+                if (!isLoading && lastVisibleItem == itemRecycler.size - 1) {
+                    loadMore?.onLoadMore()
+                    isLoading = true
+                }
+            }
+        })
     }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return if (viewType == VIEW_ITEM_TYPE) {
+            val view =
+                LayoutInflater.from(activity).inflate(R.layout.recycler_view_layout, parent, false)
+            TimeLineViewHolder(view)
+        } else {
+            val view =
+                LayoutInflater.from(activity).inflate(R.layout.loading_layout, parent, false)
+            LoadingViewHolder(view)
+        }
+    }
+
+    override fun getItemCount() = itemRecycler.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when (holder) {
-            is ViewHolder -> {
-                holder.bind(itemList[position])
+        if (holder is TimeLineViewHolder) {
+            holder.onBindData(position)
+        }
+    }
+
+    override fun getItemViewType(position: Int) =
+        if (itemRecycler[position] == null) VIEW_LOADING_TYPE else VIEW_ITEM_TYPE
+
+    inner class LoadingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var progressBar: ProgressBar = itemView.progressBar
+    }
+
+    inner class TimeLineViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        fun onBindData(position: Int) {
+            val item = itemRecycler[position]
+            val imgItem = itemView.img_item
+            val imgHeart = itemView.img_heart
+            val tvHeartCount = itemView.tv_heart_count
+            val tvContent = itemView.tv_content
+
+            item.let {
+                Glide.with(itemView).load(it?.heart).into(imgHeart)
+                Glide.with(itemView).load(it?.image).into(imgItem)
+                tvContent.text = it?.content
+                tvHeartCount.text = it?.heartCount.toString()
+                if (it != null) {
+                    if (it.heartStatus) {
+                        imgHeart.setImageResource(R.mipmap.heart)
+                    } else {
+                        imgHeart.setImageResource(R.mipmap.heartless)
+                    }
+                }
+                imgHeart.setOnClickListener {
+                    onHeartClicked(position)
+                }
             }
         }
     }
 
-    fun submitList(list: List<ItemRecycler>) {
-        itemList = list
+    fun setLoaded() {
+        isLoading = false
     }
 
-    class ViewHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val imageItem: ImageView = itemView.img_item
-        private val imageHeartStatus: ImageView = itemView.img_heart
-        private val heartCount: TextView = itemView.tv_heart_count
-        private val content: TextView = itemView.tv_content
+    fun setLoadMore(loadMore: LoadMore) {
+        this.loadMore = loadMore
+    }
 
-        fun bind(itemRecycler: ItemRecycler) {
-            heartCount.setText(itemRecycler.heartCount)
-            content.text = itemRecycler.content
+    fun clear() {
+        itemRecycler.clear()
+        notifyDataSetChanged()
+    }
 
-            val requestOptions = RequestOptions()
-                .placeholder(R.drawable.ic_launcher_background)
-                .error((R.drawable.ic_launcher_background))
-            Glide.with(itemView.context).applyDefaultRequestOptions(requestOptions)
-                .load(itemRecycler.image).into(imageItem)
-            Glide.with(itemView.context).applyDefaultRequestOptions(requestOptions)
-                .load(itemRecycler.heartStatus).into(imageHeartStatus)
-        }
+    fun addAll(itemRecyclerNew: MutableList<ItemRecycler>) {
+        itemRecycler.addAll(itemRecyclerNew)
+        notifyDataSetChanged()
     }
 }
-
