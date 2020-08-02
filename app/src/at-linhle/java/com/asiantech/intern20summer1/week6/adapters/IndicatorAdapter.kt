@@ -8,9 +8,10 @@ import com.asiantech.intern20summer1.week6.fragments.IndicatorFragment
 class IndicatorAdapter(fm: FragmentManager) :
     FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
-    companion object{
+    companion object {
         internal const val pageNumber = 3
     }
+
     override fun getItem(position: Int): Fragment {
         return IndicatorFragment.newInstance(position)
     }
