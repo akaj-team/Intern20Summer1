@@ -16,4 +16,9 @@
     <string name="w6_information_tab_name">INFORMATION</string>
     <string name="w6_another_tab_name">ANOTHER</string>
     <string name="w6_home_tab_name">HOME</string>
+    <string name="w6_player_1">Anthony Martial</string>
+    <string name="w6_player_2">Marcus Rashford</string>
+    <string name="w6_player_3">Mason Greenwood</string>
+    <string name="w6_player_4">Bruno Fernandes</string>
+    <string name="w6_player_5">Paul Pogba</string>
 </resources>

@@ -8,13 +8,45 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="@dimen/w6_image_view_in_home_fragment_margin"
-        android:background="@drawable/w6_bg_relative">
+        android:background="@drawable/w6_bg_relative"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/imgLogoClub"
+            android:layout_width="@dimen/w6_ic_width"
+            android:layout_height="@dimen/w6_ic_height"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/ic_manchester_united" />
+
+        <TextView
+            android:id="@+id/tvPosition"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/w6_home_fragment_text_view_height"
+            android:layout_below="@id/imgLogoClub"
+            android:layout_centerHorizontal="true" />
 
         <ImageView
             android:id="@+id/imgHomeFragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="@dimen/w6_player_image_view_height"
+            android:layout_below="@id/tvPosition"
             android:contentDescription="@string/w6_image_view_in_home_fragment" />
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/w6_home_fragment_text_view_height"
+            android:layout_below="@id/imgHomeFragment"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/length_text_view_sign_up_to_button"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/imgNational"
+            android:layout_width="@dimen/w6_ic_width"
+            android:layout_height="@dimen/w6_ic_height"
+            android:layout_below="@id/tvName"
+            android:layout_centerHorizontal="true" />
 
     </RelativeLayout>
 </RelativeLayout>

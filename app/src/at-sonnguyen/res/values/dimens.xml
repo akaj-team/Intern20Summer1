@@ -30,4 +30,8 @@
     <dimen name="w6_circle_indicator_margin_left">40dp</dimen>
     <dimen name="w6_step_text_view_size_in_step_fragment">25sp</dimen>
     <dimen name="w6_image_view_in_home_fragment_margin">50dp</dimen>
+    <dimen name="w6_ic_width">80dp</dimen>
+    <dimen name="w6_ic_height">80dp</dimen>
+    <dimen name="w6_home_fragment_text_view_height">30dp</dimen>
+    <dimen name="w6_player_image_view_height">300dp</dimen>
 </resources>
