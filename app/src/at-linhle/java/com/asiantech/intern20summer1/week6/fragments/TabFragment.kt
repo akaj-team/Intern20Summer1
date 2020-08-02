@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.`at-linhle`.fragment_tab_layout.*
+import kotlin.random.Random
 
 class TabFragment : Fragment() {
 
@@ -21,6 +22,14 @@ class TabFragment : Fragment() {
         }
     }
 
+    private val imageList = arrayListOf(
+        R.drawable.img_01,
+        R.drawable.img_02,
+        R.drawable.img_03,
+        R.drawable.img_04,
+        R.drawable.img_05
+    )
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -32,9 +41,13 @@ class TabFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         when (arguments?.getInt(KEY_POS)) {
-            0 -> Glide.with(this).load(R.drawable.img_logo).into(imgTabLayout)
-            1 -> imgTabLayout.setImageResource(R.drawable.img_logo)
-            2 -> imgTabLayout.setImageResource(R.drawable.img_logo)
+            0 -> loadImage()
+            1 -> loadImage()
+            2 -> loadImage()
         }
     }
+
+    private fun randomImage() = imageList[Random.nextInt(0, imageList.size)]
+
+    private fun loadImage() = Glide.with(this).load(randomImage()).into(imgTabLayout)
 }

@@ -66,4 +66,7 @@
     <dimen name="step_text_view_size">40sp</dimen>
     <dimen name="tab_layout_relative_layout_margin_top">30dp</dimen>
     <dimen name="tab_layout_relative_layout_margin_left_right">50dp</dimen>
+    <dimen name="dot_indicator_corner_radius">8dp</dimen>
+    <dimen name="dot_indicator_size">16dp</dimen>
+    <dimen name="dot_indicator_spacing">4dp</dimen>
 </resources>
