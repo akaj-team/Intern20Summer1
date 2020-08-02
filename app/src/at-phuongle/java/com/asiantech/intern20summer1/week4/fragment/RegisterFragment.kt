@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week4.activity.SignInActivity
 import com.asiantech.intern20summer1.week4.model.User
+import com.squareup.picasso.Picasso
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 import kotlinx.android.synthetic.`at-phuongle`.fragment_register.*
@@ -73,7 +74,12 @@ class RegisterFragment : Fragment() {
 
                 CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE -> {
                     val result = CropImage.getActivityResult(data)
-                    imgRegisterAvatar.setImageURI(result.uri)
+
+//                    imgRegisterAvatar.setImageURI(result.uri)
+                    Picasso.with(activity as SignInActivity)
+                        .load(result.uri)
+                        .into(imgRegisterAvatar)
+
                     avatarUri = result.uri
                 }
 
