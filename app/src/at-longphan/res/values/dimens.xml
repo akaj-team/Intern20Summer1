@@ -131,5 +131,10 @@
     <dimen name="view_horizontal_rule_long_height_week_5" >0.5dp</dimen>
 
     <dimen name="size_indicator">20dp</dimen>
-    <dimen name="space_size_indicator">15dp</dimen>
+    <dimen name="size_indicator_selected">25dp</dimen>
+    <dimen name="space_size_indicator">10dp</dimen>
+    <dimen name="text_view_step_description_text_size">45sp</dimen>
+    <dimen name="text_view_next_description_padding">15dp</dimen>
+    <dimen name="text_view_next_description_text_size">20sp</dimen>
+    <dimen name="indicator_layout_margin">20dp</dimen>
 </resources>

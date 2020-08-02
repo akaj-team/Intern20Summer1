@@ -44,4 +44,11 @@
     <string name="red">RED</string>
     <string name="blue">BLUE</string>
     <string name="green">GREEN</string>
+    <string name="text_view_next_description">Next</string>
+    <string name="home_tab_title">Home</string>
+    <string name="info_tab_title">Info</string>
+    <string name="another_tab_title">Another</string>
+    <string name="text_view_step_description_fragment_step_1">Step 1</string>
+    <string name="text_view_step_description_fragment_step_2">Step 2</string>
+    <string name="text_view_step_description_fragment_step_3">Step 3</string>
 </resources>

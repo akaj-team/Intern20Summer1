@@ -42,4 +42,8 @@
     <color name="colorTextViewLikeDescriptionText">#000000</color>
     <color name="colorTextViewNameText">#000000</color>
     <color name="colorTextViewContentWeek5Text">#000000</color>
+    <color name="colorTabLayoutTabIndicatorWeek6">#FF9800</color>
+    <color name="colorTabLayoutTabSelectedTextWeek6">#FF9800</color>
+    <color name="colorHorizontalRuleTabLayoutBackground">#c6c4c4</color>
+    <color name="colorBackgroundWeek6">#FEFECD</color>
 </resources>

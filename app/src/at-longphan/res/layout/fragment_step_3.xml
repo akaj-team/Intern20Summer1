@@ -1,31 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@android:color/holo_blue_dark"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <TextView
+        android:id="@+id/tvStepDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Step 2"
-        android:layout_gravity="center_horizontal"
-        android:textSize="28sp"
+        android:layout_centerInParent="true"
         android:textColor="@android:color/black"
+        android:textSize="@dimen/text_view_step_description_text_size"
         android:textStyle="bold"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/textView" />
+        tools:text="Step 3" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/tvNextStep3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:padding="20dp"
-        android:text="Next"
+        android:padding="@dimen/text_view_next_description_padding"
+        android:text="@string/text_view_next_description"
         android:textColor="@android:color/black"
-        android:textSize="20sp"
+        android:textSize="@dimen/text_view_next_description_text_size"
         android:textStyle="bold" />
 </RelativeLayout>

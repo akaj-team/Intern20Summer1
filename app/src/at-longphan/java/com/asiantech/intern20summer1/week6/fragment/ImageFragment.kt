@@ -9,32 +9,25 @@ import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.bumptech.glide.Glide
 
-class MyFragment : Fragment() {
+class ImageFragment : Fragment() {
 
     companion object {
-        fun newInstance(image: Int): MyFragment {
 
-            val fragment = MyFragment()
+        private const val IMAGE_KEY = "image"
 
-            val bundle = Bundle(1)
-
-            bundle.putInt("image", image)
-
-            fragment.arguments = bundle
-
-            return fragment
+        fun newInstance(image: Int): ImageFragment {
+            val imageFragment = ImageFragment()
+            val bundle = Bundle()
+            bundle.putInt(IMAGE_KEY, image)
+            imageFragment.arguments = bundle
+            return imageFragment
         }
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view: View? = inflater.inflate(R.layout.fragment_home, container, false)
+        val view: View? = inflater.inflate(R.layout.fragment_random_image, container, false)
 
-        val image = arguments?.getInt("image")
-
+        val image = arguments?.getInt(IMAGE_KEY)
         val imageView: ImageView = view!!.findViewById(R.id.imgImageWeek6)
         Glide.with(view).load(image).into(imageView)
 
