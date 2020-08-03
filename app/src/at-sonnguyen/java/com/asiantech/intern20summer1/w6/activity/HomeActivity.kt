@@ -13,7 +13,16 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.w6_activity_home)
+        initView()
+    }
+
+    private fun initView() {
         viewPagerHome.adapter = adapter
-        tabHome.setupWithViewPager(viewPagerHome)
+        tabHome.apply {
+            setupWithViewPager(viewPagerHome)
+            getTabAt(0)?.text = getString(R.string.w6_tab1_name)
+            getTabAt(1)?.text = getString(R.string.w6_tab2_name)
+            getTabAt(2)?.text = getString(R.string.w6_tab3_name)
+        }
     }
 }

@@ -21,4 +21,17 @@
     <string name="w6_player_3">Mason Greenwood</string>
     <string name="w6_player_4">Bruno Fernandes</string>
     <string name="w6_player_5">Paul Pogba</string>
+    <string name="w6_player_6">Neimaja Matic</string>
+    <string name="w6_player_7">Luke Shaw</string>
+    <string name="w6_player_8">Harry Maguire</string>
+    <string name="w6_player_9">Victor Lindelof</string>
+    <string name="w6_player_10">Wan-Bissaka</string>
+    <string name="w6_player_11">David De Gea</string>
+    <string name="w6_position_Forward">FORWARD</string>
+    <string name="w6_position_Midfield">MIDFIELD</string>
+    <string name="w6_position_Defender">DEFENDER</string>
+    <string name="w6_position_Goalkeeper">GOALKEEPER</string>
+    <string name="w6_tab1_name">HOME</string>
+    <string name="w6_tab2_name">INFO</string>
+    <string name="w6_tab3_name">ANOTHER</string>
 </resources>

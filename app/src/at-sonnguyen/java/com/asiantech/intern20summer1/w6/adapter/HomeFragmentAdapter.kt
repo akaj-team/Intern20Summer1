@@ -18,11 +18,4 @@ class HomeFragmentAdapter(fragmentManager: FragmentManager) :
 
     override fun getItemPosition(`object`: Any) = PagerAdapter.POSITION_NONE
 
-    override fun getPageTitle(position: Int): CharSequence? {
-        return when (position) {
-            1 -> "info"
-            2 -> "another"
-            else -> "home"
-        }
-    }
 }
