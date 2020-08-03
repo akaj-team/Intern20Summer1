@@ -13,7 +13,7 @@
         android:id="@+id/llTitleMainActivity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="@dimen/linear_layout_title_main_activity_margin_top"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -29,18 +29,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="15dp"
-            android:text="INTERNSHIP\nSUMMER 2020"
-            android:textSize="20sp"
-            tools:ignore="RtlCompat" />
+            android:layout_marginLeft="@dimen/text_view_internship_summer_2020_description_margin_left"
+            android:text="@string/text_view_internship_summer_2020_description"
+            android:textSize="@dimen/text_view_internship_summer_2020_description_text_size" />
     </LinearLayout>
 
     <ScrollView
-        android:id="@+id/scrollView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginVertical="20dp"
+        android:layout_margin="@dimen/scroll_view_main_activity_margin"
         android:scrollbars="none"
         app:layout_constraintBottom_toTopOf="@+id/tvBottomDescription"
         app:layout_constraintEnd_toEndOf="parent"
@@ -56,31 +53,31 @@
                 android:id="@+id/btnWeek3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Week 3: Create And Handle UI"
+                android:text="@string/button_week_3_description"
                 android:textAllCaps="false" />
 
             <Button
                 android:id="@+id/btnWeek4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="Week 4: Intent - Activity - Fragment"
+                android:layout_marginTop="@dimen/button_week_description_activity_main_margin_top"
+                android:text="@string/button_week_4_description"
                 android:textAllCaps="false" />
 
             <Button
                 android:id="@+id/btnWeek5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="Week 5: RecyclerView"
+                android:layout_marginTop="@dimen/button_week_description_activity_main_margin_top"
+                android:text="@string/button_week_5_description"
                 android:textAllCaps="false" />
 
             <Button
                 android:id="@+id/btnWeek6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="Week 6: ViewPager - TabLayout"
+                android:layout_marginTop="@dimen/button_week_description_activity_main_margin_top"
+                android:text="@string/button_week_6_description"
                 android:textAllCaps="false" />
         </LinearLayout>
     </ScrollView>
@@ -89,9 +86,9 @@
         android:id="@+id/tvBottomDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:text="Phan Dang Phi Long - Android Intern"
-        android:textSize="12sp"
+        android:layout_marginBottom="@dimen/text_view_bottom_description_main_activity_margin_bottom"
+        android:text="@string/text_view_bottom_description_main_activity"
+        android:textSize="@dimen/text_view_bottom_description_main_activity_text_size"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
