@@ -37,4 +37,6 @@
     <dimen name="w6_card_view_radius">20dp</dimen>
     <dimen name="w6_card_view_elevation">20dp</dimen>
     <dimen name="w6_top_text_margin_top">10dp</dimen>
+    <dimen name="begin_margin_button">10dp</dimen>
+    <dimen name="begin_text_size">30dp</dimen>
 </resources>

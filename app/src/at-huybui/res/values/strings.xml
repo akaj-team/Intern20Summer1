@@ -27,4 +27,11 @@
     <string name="w6_text_next">Next</string>
     <string name="w6_text_done">Done</string>
     <string name="w6_text_step">Step </string>
+    <string name="intern_summer_2020">Intern Summer 2020</string>
+    <string name="w1_java">W1 JAVA</string>
+    <string name="w2_kotlin">W2 KOTLIN</string>
+    <string name="w3_layout">W3 LAYOUT</string>
+    <string name="w4_activity_fragment">W4 ACTIVITY + FRAGMENT</string>
+    <string name="w5_recycle_view">W5 RECYCLE VIEW</string>
+    <string name="w6_view_pager_tab_layout">W6 VIEW PAGER + TAB LAYOUT</string>
 </resources>
