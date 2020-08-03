@@ -39,4 +39,5 @@
     <dimen name="w6_top_text_margin_top">10dp</dimen>
     <dimen name="begin_margin_button">10dp</dimen>
     <dimen name="begin_text_size">30dp</dimen>
+    <dimen name="begin_padding_button">30dp</dimen>
 </resources>
