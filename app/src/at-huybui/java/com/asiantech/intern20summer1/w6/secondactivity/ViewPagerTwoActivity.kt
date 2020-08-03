@@ -36,14 +36,10 @@ class ViewPagerTwoActivity : AppCompatActivity() {
                 override fun onTabUnselected(tab: TabLayout.Tab?) {}
                 override fun onTabSelected(tab: TabLayout.Tab?) {
                     tab?.let {
-                        handleSelectItem(it.position)
+                        viewpagerTwo.setCurrentItem(it.position, true)
                     }
                 }
             })
         }
-    }
-
-    private fun handleSelectItem(position: Int, smoothScroll: Boolean = true) {
-        viewpagerTwo.setCurrentItem(position, smoothScroll)
     }
 }

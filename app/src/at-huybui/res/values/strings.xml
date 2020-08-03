@@ -26,7 +26,7 @@
     <string name="w6_name_france_platypus">Le Ornithorynque</string>
     <string name="w6_text_next">Next</string>
     <string name="w6_text_done">Done</string>
-    <string name="w6_text_step">Step </string>
+    <string name="w6_text_step">Step %s</string>
     <string name="intern_summer_2020">Intern Summer 2020</string>
     <string name="w1_java">W1 JAVA</string>
     <string name="w2_kotlin">W2 KOTLIN</string>

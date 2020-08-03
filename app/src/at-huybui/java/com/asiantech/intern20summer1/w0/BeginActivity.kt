@@ -21,12 +21,12 @@ class BeginActivity : AppCompatActivity() {
     }
 
     private fun initListener() {
-        btnBeginW6.setOnClickListener {
+        btnBeginW6?.setOnClickListener {
             val intent = Intent(this, ViewPagerOneActivity::class.java)
             startActivity(intent)
         }
 
-        btnBeginW3.setOnClickListener {
+        btnBeginW3?.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }

@@ -1,56 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical"
-    android:padding="@dimen/begin_padding_button"
+    android:layout_height="wrap_content"
     tools:context="com.asiantech.intern20summer1.w0.BeginActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/begin_margin_button"
-        android:text="@string/intern_summer_2020"
-        android:textSize="@dimen/begin_text_size"
-        android:textStyle="bold" />
-
-    <Button
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/begin_margin_button"
-        android:text="@string/w1_java" />
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="@dimen/begin_padding_button">
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/begin_margin_button"
-        android:text="@string/w2_kotlin" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/begin_margin_button"
+            android:text="@string/intern_summer_2020"
+            android:textSize="@dimen/begin_text_size"
+            android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/btnBeginW3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/begin_margin_button"
-        android:text="@string/w3_layout" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/begin_margin_button"
+            android:text="@string/w1_java" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/begin_margin_button"
-        android:text="@string/w4_activity_fragment" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/begin_margin_button"
+            android:text="@string/w2_kotlin" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/begin_margin_button"
-        android:text="@string/w5_recycle_view" />
+        <Button
+            android:id="@+id/btnBeginW3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/begin_margin_button"
+            android:text="@string/w3_layout" />
 
-    <Button
-        android:id="@+id/btnBeginW6"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/begin_margin_button"
-        android:text="@string/w6_view_pager_tab_layout" />
-</LinearLayout>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/begin_margin_button"
+            android:text="@string/w4_activity_fragment" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/begin_margin_button"
+            android:text="@string/w5_recycle_view" />
+
+        <Button
+            android:id="@+id/btnBeginW6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/begin_margin_button"
+            android:text="@string/w6_view_pager_tab_layout" />
+    </LinearLayout>
+</ScrollView>

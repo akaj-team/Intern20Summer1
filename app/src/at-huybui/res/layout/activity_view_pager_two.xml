@@ -10,6 +10,9 @@
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
+        app:tabGravity="fill"
+        app:tabMaxWidth="0dp"
+        app:tabMode="fixed"
         android:layout_height="@dimen/w6_tab_layout_size"
         android:background="@color/w6_background_activity_one"
         android:scrollbarSize="@dimen/w6_tab_layout_scroll_bar_size"

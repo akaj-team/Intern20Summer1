@@ -1,27 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:gravity="center"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/tvCenterFm1W6"
+        android:id="@+id/tvStep"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
         android:textSize="@dimen/w6_center_text_view_size"
         android:textStyle="bold"
         tools:text="Step 1" />
-
-    <TextView
-        android:id="@+id/tvSkipFm1W6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginRight="@dimen/w6_dot_indicator_margin"
-        android:layout_marginBottom="@dimen/w6_dot_indicator_margin"
-        android:textColor="@android:color/black"
-        android:textSize="@dimen/w6_next_text_view_size"
-        tools:text="Next" />
-</RelativeLayout>
+</LinearLayout>
