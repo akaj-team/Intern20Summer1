@@ -13,19 +13,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.asiantech.intern20summer1.week6.views.IndicatorActivity">
+        <activity android:name=".home.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.asiantech.intern20summer1.week6.views.TabLayoutActivity"/>
-        <activity android:name="com.asiantech.intern20summer1.week4.views.SignInActivity" />
-        <activity android:name="com.asiantech.intern20summer1.week4.views.HomeActivity" />
+        <activity android:name=".week6.views.IndicatorActivity" />
+        <activity android:name=".week6.views.TabLayoutActivity" />
+        <activity android:name=".week4.views.SignInActivity" />
+        <activity android:name=".week4.views.HomeActivity" />
+        <activity android:name=".week4.views.SplashActivity" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
         <activity android:name=".week3.MainActivity" />
     </application>
+
 </manifest>
