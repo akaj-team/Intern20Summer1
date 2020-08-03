@@ -19,4 +19,12 @@
     <string name="portugal_text_view_description">Bồ đào nha là đất nước của Ronaldo</string>
     <string name="viet_nam_text_view_description">Việt Nam là đát nước thân thiện</string>
     <string name="my_text_view_description">Mỹ là một cường quốc</string>
+    <string name="text_view_next_text">NEXT</string>
+    <string name="text_view_skip_text">SKIP</string>
+    <string name="button_exercise_w1">Exercise_W1</string>
+    <string name="button_exercise_w2">Exercise_W2</string>
+    <string name="button_exercise_w3">Exercise_W3</string>
+    <string name="button_exercise_w4">Exercise_W4</string>
+    <string name="button_exercise_w5">Exercise_W5</string>
+    <string name="button_exercise_w6">Exercise_W6</string>
 </resources>
