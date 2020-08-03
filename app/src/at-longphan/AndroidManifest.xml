@@ -16,16 +16,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppThemeWeek4">
-        <activity android:name=".week6.activity.SecondPageActivity">
-
-        </activity>
-        <activity android:name=".week6.activity.FirstPageActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".week3.LoginActivity" />
+        <activity
+            android:name=".week4.activity.SplashActivity"
+            android:theme="@style/SplashscreenTheme" />
+        <activity android:name=".week4.activity.SignInActivity" />
+        <activity android:name=".week4.activity.HomeActivity" />
+        <activity android:name=".week5.activity.TimeLineActivity" />
+        <activity android:name=".week6.activity.FirstPageActivity" />
+        <activity android:name=".week6.activity.SecondPageActivity" />
     </application>
-
 </manifest>

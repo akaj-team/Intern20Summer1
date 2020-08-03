@@ -19,7 +19,7 @@ class FirstPageActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_first_page)
+        setContentView(R.layout.activity_first_page_w6)
         configStatusBar()
         initViews()
         setupAdapter()

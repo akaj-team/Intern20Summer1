@@ -44,7 +44,7 @@ class FirstStepFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view: View = inflater.inflate(R.layout.fragment_step_1_2, container, false)
+        val view: View = inflater.inflate(R.layout.fragment_step_1_2_w6, container, false)
 
         val tvStep = view.findViewById(R.id.tvStepDescription) as? TextView
         tvStep?.text = step

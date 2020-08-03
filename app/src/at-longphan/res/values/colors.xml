@@ -46,4 +46,5 @@
     <color name="colorTabLayoutTabSelectedTextWeek6">#FF9800</color>
     <color name="colorHorizontalRuleTabLayoutBackground">#c6c4c4</color>
     <color name="colorBackgroundWeek6">#FEFECD</color>
+    <color name="colorMainActivityBackground">#FEFECD</color>
 </resources>

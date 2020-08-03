@@ -25,7 +25,7 @@ class ImageFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view: View? = inflater.inflate(R.layout.fragment_random_image, container, false)
+        val view: View? = inflater.inflate(R.layout.fragment_random_image_w6, container, false)
 
         val image = arguments?.getInt(IMAGE_KEY)
         val imageView: ImageView = view!!.findViewById(R.id.imgImageWeek6)
