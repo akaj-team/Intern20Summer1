@@ -62,6 +62,8 @@ class RecyclerViewActivity : AppCompatActivity(), LoadMore {
         adapter.setLoadMore(this)
     }
 
+
+
     private fun pullToRefresh() {
         swipeContainer.setOnRefreshListener {
             Handler().postDelayed({
