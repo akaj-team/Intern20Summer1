@@ -46,7 +46,7 @@ class RecyclerAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == VIEW_ITEM_TYPE) {
             val view =
-                LayoutInflater.from(activity).inflate(R.layout.recycler_view_layout, parent, false)
+                LayoutInflater.from(activity).inflate(R.layout.recycler_item, parent, false)
             TimeLineViewHolder(view)
         } else {
             val view =
@@ -60,6 +60,8 @@ class RecyclerAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is TimeLineViewHolder) {
             holder.onBindData(position)
+        } else if(holder is LoadingViewHolder){
+            holder.progressBar.isIndeterminate = true
         }
     }
 
