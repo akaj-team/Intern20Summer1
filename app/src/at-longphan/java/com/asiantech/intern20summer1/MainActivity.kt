@@ -1,5 +1,6 @@
 package com.asiantech.intern20summer1
 
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
@@ -10,30 +11,46 @@ import androidx.core.widget.addTextChangedListener
 import kotlinx.android.synthetic.`at-longphan`.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        // Set black text with light status bar.
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        configStatusBarColor()
+        handleListeners()
+    }
+
+    private fun handleListeners() {
+        handleLinearLayoutChildListener()
+        handleButtonSignUpListener()
         handleEditTextEmailIdEvent()
         handleEditTextPasswordEvent()
         handleEditTextRetypePasswordEvent()
-        handleListener()
+        handleTextViewSignUpListener()
     }
 
-    private fun handleListener() {
+    private fun configStatusBarColor(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        }
+    }
+
+    private fun handleLinearLayoutChildListener(){
         llChild?.setOnTouchListener { view, _ ->
             view.clearFocus()
             view.hideKeyboard()
             true
         }
+    }
 
-        btnSignUp.setOnClickListener {
-            Toast.makeText(applicationContext, "Sign Up", Toast.LENGTH_SHORT).show()
-        }
-
+    private fun handleTextViewSignUpListener(){
         tvSignUp.setOnClickListener {
             Toast.makeText(applicationContext, "Sign Up!", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun handleButtonSignUpListener(){
+        btnSignUp.setOnClickListener {
+            Toast.makeText(applicationContext, "Sign Up", Toast.LENGTH_SHORT).show()
         }
     }
 
