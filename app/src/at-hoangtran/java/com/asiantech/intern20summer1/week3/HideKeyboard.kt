@@ -1,6 +1,6 @@
 @file:Suppress("CAST_NEVER_SUCCEEDS")
 
-package com.asiantech.intern20summer1
+package com.asiantech.intern20summer1.week3
 
 import android.app.Activity
 import android.view.inputmethod.InputMethodManager

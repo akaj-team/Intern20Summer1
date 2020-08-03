@@ -1,6 +1,7 @@
-package com.asiantech.intern20summer1
+package com.asiantech.intern20summer1.week3
 
 import android.widget.EditText
+import com.asiantech.intern20summer1.R
 
 fun EditText.onFocusEditText() {
     this.setOnFocusChangeListener { _, hasFocus ->
