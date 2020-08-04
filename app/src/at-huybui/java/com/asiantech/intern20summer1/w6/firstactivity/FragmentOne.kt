@@ -37,8 +37,8 @@ class FragmentOne : Fragment() {
         return inflater.inflate(R.layout.fragment_one_viewpager, container, false)
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         initView()
     }
 

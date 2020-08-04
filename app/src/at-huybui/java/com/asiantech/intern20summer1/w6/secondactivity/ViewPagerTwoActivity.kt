@@ -31,15 +31,6 @@ class ViewPagerTwoActivity : AppCompatActivity() {
             getTabAt(0)?.text = context.getString(R.string.w6_tab_layout_tab0_text)
             getTabAt(1)?.text = context.getString(R.string.w6_tab_layout_tab1_text)
             getTabAt(2)?.text = context.getString(R.string.w6_tab_layout_tab2_text)
-            addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-                override fun onTabReselected(tab: TabLayout.Tab?) {}
-                override fun onTabUnselected(tab: TabLayout.Tab?) {}
-                override fun onTabSelected(tab: TabLayout.Tab?) {
-                    tab?.let {
-                        viewpagerTwo.setCurrentItem(it.position, true)
-                    }
-                }
-            })
         }
     }
 }
