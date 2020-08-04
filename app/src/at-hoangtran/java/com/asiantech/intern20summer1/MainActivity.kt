@@ -3,7 +3,7 @@ package com.asiantech.intern20summer1
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.asiantech.intern20summer1.week3.LayoutActivity
+import com.asiantech.intern20summer1.week4.LayoutActivity
 import com.asiantech.intern20summer1.week6.IndicatorActivity
 import kotlinx.android.synthetic.`at-hoangtran`.activity_main2.*
 

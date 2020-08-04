@@ -18,6 +18,6 @@
         </activity>
         <activity android:name=".week6.IndicatorActivity" />
         <activity android:name=".week6.TabLayoutActivity" />
-        <activity android:name=".week3.LayoutActivity" />
+        <activity android:name=".week4.LayoutActivity" />
     </application>
 </manifest>
