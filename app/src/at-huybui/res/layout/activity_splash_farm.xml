@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.asiantech.intern20summer1.w7.SplashFarmActivity">
+
+    <ImageView
+        android:id="@+id/imgSplashFarmLogo"
+        android:layout_width="@dimen/w7_splash_logo_size"
+        android:layout_height="@dimen/w7_splash_logo_size"
+        android:layout_centerInParent="true"
+        android:src="@drawable/img_farm_logo" />
+
+    <ProgressBar
+        android:id="@+id/progressBarFarm"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="@dimen/w7_splash_progress_bar_width"
+        android:layout_height="@dimen/w7_splash_progress_bar_height"
+        android:layout_below="@id/imgSplashFarmLogo"
+        android:layout_centerHorizontal="true"
+        tools:progress="50" />
+</RelativeLayout>
