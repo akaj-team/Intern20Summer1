@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.asiantech.intern20summer1.w7.SplashFarmActivity">
+    android:background="@color/background_white"
+    tools:context="com.asiantech.intern20summer1.w7.MainFarmActivity">
 
     <ImageView
         android:id="@+id/imgSplashFarmLogo"

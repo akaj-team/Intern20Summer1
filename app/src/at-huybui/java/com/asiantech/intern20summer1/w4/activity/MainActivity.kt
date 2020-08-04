@@ -21,7 +21,9 @@ class MainActivity : AppCompatActivity() {
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.llMain, fragment)
-        if (backStack) fragmentTransaction.addToBackStack("")
+        if (backStack) {
+            fragmentTransaction.addToBackStack("")
+        }
         fragmentTransaction.commit()
     }
 

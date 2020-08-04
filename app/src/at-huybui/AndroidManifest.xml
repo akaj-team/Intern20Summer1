@@ -13,11 +13,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".w7.RegisterFarmActivity"></activity>
         <activity android:name=".w4.activity.HomeActivity" />
         <activity android:name=".w4.activity.MainActivity" />
-        <activity android:name=".w4.activity.SplashActivity"/>
+        <activity android:name=".w4.activity.SplashActivity" />
         <activity android:name=".w3.MainActivity" />
-        <activity android:name=".w7.SplashFarmActivity">
+        <activity android:name=".w7.MainFarmActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

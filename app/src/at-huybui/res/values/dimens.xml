@@ -57,4 +57,7 @@
     <dimen name="w7_splash_logo_size">128dp</dimen>
     <dimen name="w7_splash_progress_bar_width">250dp</dimen>
     <dimen name="w7_splash_progress_bar_height">4dp</dimen>
+    <dimen name="w7_register_margin_left_right">16dp</dimen>
+    <dimen name="w7_register_text_margin_top">100dp</dimen>
+    <dimen name="w7_register_test_size">36sp</dimen>
 </resources>
