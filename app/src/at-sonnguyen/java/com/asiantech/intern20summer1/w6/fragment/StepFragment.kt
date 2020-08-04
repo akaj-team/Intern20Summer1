@@ -8,14 +8,15 @@ import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import kotlinx.android.synthetic.`at-sonnguyen`.w6_fragment_step.*
 
-class StepFragment : Fragment(){
+class StepFragment : Fragment() {
     private var position = 0
+
     companion object {
         private const val KEY_VALUE = " position"
-        fun newInstance(position: Int) : StepFragment{
+        fun newInstance(position: Int): StepFragment {
             val fragment = StepFragment()
             fragment.arguments = Bundle().apply {
-                putInt(KEY_VALUE,position)
+                putInt(KEY_VALUE, position)
             }
             return fragment
         }
@@ -26,12 +27,12 @@ class StepFragment : Fragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.w6_fragment_step,container,false)
+        return inflater.inflate(R.layout.w6_fragment_step, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         position = arguments?.getInt(KEY_VALUE) ?: 0
-        tvFragmentStep.text = getString(R.string.w6_step_fragment_text_view,position+1)
+        tvFragmentStep.text = getString(R.string.w6_step_fragment_text_view, position + 1)
     }
 }
