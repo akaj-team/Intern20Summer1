@@ -40,4 +40,13 @@
     <string name="sign_up_button_text">SIGN UP</string>
     <string name="not_registered_text_view_description">Not registered yet?</string>
     <string name="sign_up_text_view_description">Sign up!</string>
+    <!--Week6-->
+    <string name="text_view_next_description">Next</string>
+    <string name="tab_layout_activity_home_text_view">Home</string>
+    <string name="tab_layout_activity_info_text_view">Info</string>
+    <string name="tab_layout_activity_another_text_view">Another</string>
+    <string name="home_activity_step_text_view">Step</string>
+    <string name="week_three_button_description">Week 3</string>
+    <string name="week_four_button_description">Week 4</string>
+    <string name="week_six_button_description">Week 6</string>
 </resources>
