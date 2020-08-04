@@ -60,4 +60,7 @@
     <dimen name="w7_register_margin_left_right">16dp</dimen>
     <dimen name="w7_register_text_margin_top">100dp</dimen>
     <dimen name="w7_register_test_size">36sp</dimen>
+    <dimen name="w7_register_avatar_size">128dp</dimen>
+    <dimen name="w7_avatar_margin_top">160dp</dimen>
+    <dimen name="w7_edit_text_height">50dp</dimen>
 </resources>

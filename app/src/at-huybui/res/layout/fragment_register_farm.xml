@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent">
 
     <TextView
@@ -13,4 +14,27 @@
         android:text="@string/w7_register"
         android:textColor="@color/black"
         android:textSize="@dimen/w7_register_test_size" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewAvatarRegister"
+        android:layout_width="@dimen/home_avatar_size"
+        android:layout_height="@dimen/home_avatar_size"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/w7_avatar_margin_top"
+        app:cardCornerRadius="@dimen/home_avatar_corner_radius">
+
+        <ImageView
+            android:id="@+id/imgAvatarRegister"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/img_avatar_defau" />
+    </androidx.cardview.widget.CardView>
+
+    <EditText
+        android:layout_below="@id/cardViewAvatarRegister"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/w7_edit_text_height"/>
 </RelativeLayout>
