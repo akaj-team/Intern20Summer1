@@ -2,282 +2,259 @@ package com.asiantech.intern20summer1.week5
 
 import android.os.Bundle
 import android.os.Handler
+import android.os.PersistableBundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.asiantech.intern20summer1.R
+import kotlinx.android.synthetic.`at-hoangtran`.loading_layout.*
 import kotlinx.android.synthetic.`at-hoangtran`.recycler_view_layout.*
-import java.util.*
 
-class RecyclerViewActivity : AppCompatActivity(), LoadMore {
-
+class RecyclerViewActivity : AppCompatActivity() {
     companion object {
-        private const val TEN = 10
-        private const val HUNDRED = 100
-        private const val DELAY_TIME = 2000L
+        private const val HUNDED = 100
+        private const val DELAY = 5000L
     }
 
-    private lateinit var itemList: MutableList<ItemRecycler>
-    private lateinit var itemListStorage: MutableList<ItemRecycler>
-    private lateinit var adapter: RecyclerAdapter
+    private val itemList: MutableList<ItemRecycler> = mutableListOf()
+    private val adapter = RecyclerAdapter(itemList)
+    private var isLoadMore = false
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
+        super.onCreate(savedInstanceState, persistentState)
         setContentView(R.layout.recycler_view_layout)
-        initAdapter()
-        pullToRefresh()
-        putData()
-    }
 
-    override fun onLoadMore() {
-        adapter.notifyItemInserted(itemList.size - 1)
-        Handler().postDelayed({
-            itemList.removeAt(itemList.size - 1)
-            val index = itemList.size
-            adapter.notifyItemRemoved(index)
-            val end = index + TEN
-            for (i in index until end) {
-                itemList.add(itemListStorage[Random().nextInt(itemListStorage.size)])
-            }
-            adapter.notifyDataSetChanged()
-            adapter.setLoaded()
-        }, DELAY_TIME)
+        handleRefresh()
+        initAdapter()
+        initData()
     }
 
     private fun initAdapter() {
-        itemListStorage.shuffle()
-        itemList = itemListStorage.subList(0, 10)
-        adapter = RecyclerAdapter(rv_contact, this, itemList.toMutableList())
-        adapter.onHeartClicked = { position ->
+        adapter.onItemClick = { position ->
             itemList[position].let {
+                it.heartStatus = !it.heartStatus
                 if (it.heartStatus) {
-                    it.heartStatus = false
-                    it.heartCount--
-                } else {
-                    it.heartStatus = true
                     it.heartCount++
+                } else {
+                    it.heartCount--
                 }
-                adapter.notifyItemChanged(position)
             }
+            adapter.notifyItemChanged(position, null)
         }
         rv_contact.adapter = adapter
-        adapter.setLoadMore(this)
+        rv_contact.layoutManager = LinearLayoutManager(this)
+        rv_contact.setHasFixedSize(true)
     }
 
-    private fun pullToRefresh() {
+    private fun handleRefresh() {
         swipeContainer.setOnRefreshListener {
             Handler().postDelayed({
-                adapter.clear()
-                adapter.addAll(itemListStorage.apply {
-                    shuffle()
-                    subList(0, 10)
-                })
+                itemList.clear()
+                initData()
+                adapter.notifyDataSetChanged()
                 swipeContainer.isRefreshing = false
-            }, DELAY_TIME)
+            }, DELAY)
         }
+        rv_contact.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dy, dx)
+                val linearLayoutManager = recyclerView.layoutManager as? LinearLayoutManager
+                val lastVisibleItem = linearLayoutManager?.findLastCompletelyVisibleItemPosition()
+                if (!isLoadMore && (lastVisibleItem == itemList.size - 1)) {
+                    progressBar.visibility = View.VISIBLE
+                    Handler().postDelayed({
+                        isLoadMore = true
+                        progressBar.visibility = View.INVISIBLE
+                        initData()
+                        adapter.notifyDataSetChanged()
+                    }, DELAY)
+                }
+                isLoadMore = false
+            }
+        })
     }
 
-    fun putData() {
-        itemListStorage = mutableListOf()
-        itemListStorage.apply {
-            add(
-                ItemRecycler(
-                    R.mipmap.image1,
-                    R.mipmap.heartless,
-                    (0..HUNDRED).random(),
-                    "Chè Ngon Hà Nội & Món Ngon Đường Phố - Tô Hiệu\n" +
-                            "297 Tô Hiệu, Quận Cầu Giấy, Hà Nội",
-                    false
-                )
+    private fun initData() {
+        itemList.add(
+            ItemRecycler(
+                R.mipmap.image1,
+                R.mipmap.heartless,
+                (0..HUNDED).random(),
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                false
             )
-            add(
-                ItemRecycler(
-                    R.mipmap.image2,
-                    R.mipmap.heartless,
-                    (0..HUNDRED).random(),
-                    "Chè Ngon Hà Nội & Món Ngon Đường Phố - Tô Hiệu\n" +
-                            "297 Tô Hiệu, Quận Cầu Giấy, Hà Nội",
-                    false
-                )
+        )
+        itemList.add(
+            ItemRecycler(
+                R.mipmap.image2,
+                R.mipmap.heartless,
+                (0..HUNDED).random(),
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                false
             )
-            add(
-                ItemRecycler(
-                    R.mipmap.image3,
-                    R.mipmap.heartless,
-                    (0..HUNDRED).random(),
-                    "Chè Ngon Hà Nội & Món Ngon Đường Phố - Tô Hiệu\n" +
-                            "297 Tô Hiệu, Quận Cầu Giấy, Hà Nội",
-                    false
-                )
+        )
+        itemList.add(
+            ItemRecycler(
+                R.mipmap.image3,
+                R.mipmap.heartless,
+                (0..HUNDED).random(),
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                false
             )
-            add(
-                ItemRecycler(
-                    R.mipmap.image4,
-                    R.mipmap.heartless,
-                    (0..HUNDRED).random(),
-                    "Chè Ngon Hà Nội & Món Ngon Đường Phố - Tô Hiệu\n" +
-                            "297 Tô Hiệu, Quận Cầu Giấy, Hà Nội",
-                    false
-                )
+        )
+        itemList.add(
+            ItemRecycler(
+                R.mipmap.image4,
+                R.mipmap.heartless,
+                (0..HUNDED).random(),
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                false
             )
-            add(
-                ItemRecycler(
-                    R.mipmap.image5,
-                    R.mipmap.heartless,
-                    (0..HUNDRED).random(),
-                    "Chè Ngon Hà Nội & Món Ngon Đường Phố - Tô Hiệu\n" +
-                            "297 Tô Hiệu, Quận Cầu Giấy, Hà Nội",
-                    false
-                )
+        )
+        itemList.add(
+            ItemRecycler(
+                R.mipmap.image5,
+                R.mipmap.heartless,
+                (0..HUNDED).random(),
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                false
             )
-            add(
-                ItemRecycler(
-                    R.mipmap.image6,
-                    R.mipmap.heartless,
-                    (0..HUNDRED).random(),
-                    "Chè Ngon Hà Nội & Món Ngon Đường Phố - Tô Hiệu\n" +
-                            "297 Tô Hiệu, Quận Cầu Giấy, Hà Nội",
-                    false
-                )
+        )
+        itemList.add(
+            ItemRecycler(
+                R.mipmap.image6,
+                R.mipmap.heartless,
+                (0..HUNDED).random(),
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                false
             )
-            add(
-                ItemRecycler(
-                    R.mipmap.image7,
-                    R.mipmap.heartless,
-                    (0..HUNDRED).random(),
-                    "Chè Ngon Hà Nội & Món Ngon Đường Phố - Tô Hiệu\n" +
-                            "297 Tô Hiệu, Quận Cầu Giấy, Hà Nội",
-                    false
-                )
+        )
+        itemList.add(
+            ItemRecycler(
+                R.mipmap.image7,
+                R.mipmap.heartless,
+                (0..HUNDED).random(),
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                false
             )
-            add(
-                ItemRecycler(
-                    R.mipmap.image8,
-                    R.mipmap.heartless,
-                    (0..HUNDRED).random(),
-                    "Chè Ngon Hà Nội & Món Ngon Đường Phố - Tô Hiệu\n" +
-                            "297 Tô Hiệu, Quận Cầu Giấy, Hà Nội",
-                    false
-                )
+        )
+        itemList.add(
+            ItemRecycler(
+                R.mipmap.image8,
+                R.mipmap.heartless,
+                (0..HUNDED).random(),
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                false
             )
-            add(
-                ItemRecycler(
-                    R.mipmap.image9,
-                    R.mipmap.heartless,
-                    (0..HUNDRED).random(),
-                    "Chè Ngon Hà Nội & Món Ngon Đường Phố - Tô Hiệu\n" +
-                            "297 Tô Hiệu, Quận Cầu Giấy, Hà Nội",
-                    false
-                )
+        )
+        itemList.add(
+            ItemRecycler(
+                R.mipmap.image9,
+                R.mipmap.heartless,
+                (0..HUNDED).random(),
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                false
             )
-            add(
-                ItemRecycler(
-                    R.mipmap.image10,
-                    R.mipmap.heartless,
-                    (0..HUNDRED).random(),
-                    "Chè Ngon Hà Nội & Món Ngon Đường Phố - Tô Hiệu\n" +
-                            "297 Tô Hiệu, Quận Cầu Giấy, Hà Nội",
-                    false
-                )
+        )
+        itemList.add(
+            ItemRecycler(
+                R.mipmap.image10,
+                R.mipmap.heartless,
+                (0..HUNDED).random(),
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                false
             )
-            add(
-                ItemRecycler(
-                    R.mipmap.image11,
-                    R.mipmap.heartless,
-                    (0..HUNDRED).random(),
-                    "Chè Ngon Hà Nội & Món Ngon Đường Phố - Tô Hiệu\n" +
-                            "297 Tô Hiệu, Quận Cầu Giấy, Hà Nội",
-                    false
-                )
+        )
+        itemList.add(
+            ItemRecycler(
+                R.mipmap.image11,
+                R.mipmap.heartless,
+                (0..HUNDED).random(),
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                false
             )
-            add(
-                ItemRecycler(
-                    R.mipmap.image12,
-                    R.mipmap.heartless,
-                    (0..HUNDRED).random(),
-                    "Chè Ngon Hà Nội & Món Ngon Đường Phố - Tô Hiệu\n" +
-                            "297 Tô Hiệu, Quận Cầu Giấy, Hà Nội",
-                    false
-                )
+        )
+        itemList.add(
+            ItemRecycler(
+                R.mipmap.image12,
+                R.mipmap.heartless,
+                (0..HUNDED).random(),
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                false
             )
-            add(
-                ItemRecycler(
-                    R.mipmap.image13,
-                    R.mipmap.heartless,
-                    (0..HUNDRED).random(),
-                    "Chè Ngon Hà Nội & Món Ngon Đường Phố - Tô Hiệu\n" +
-                            "297 Tô Hiệu, Quận Cầu Giấy, Hà Nội",
-                    false
-                )
+        )
+        itemList.add(
+            ItemRecycler(
+                R.mipmap.image13,
+                R.mipmap.heartless,
+                (0..HUNDED).random(),
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                false
             )
-            add(
-                ItemRecycler(
-                    R.mipmap.image14,
-                    R.mipmap.heartless,
-                    (0..HUNDRED).random(),
-                    "Chè Ngon Hà Nội & Món Ngon Đường Phố - Tô Hiệu\n" +
-                            "297 Tô Hiệu, Quận Cầu Giấy, Hà Nội",
-                    false
-                )
+        )
+        itemList.add(
+            ItemRecycler(
+                R.mipmap.image14,
+                R.mipmap.heartless,
+                (0..HUNDED).random(),
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                false
             )
-            add(
-                ItemRecycler(
-                    R.mipmap.image15,
-                    R.mipmap.heartless,
-                    (0..HUNDRED).random(),
-                    "Chè Ngon Hà Nội & Món Ngon Đường Phố - Tô Hiệu\n" +
-                            "297 Tô Hiệu, Quận Cầu Giấy, Hà Nội",
-                    false
-                )
+        )
+        itemList.add(
+            ItemRecycler(
+                R.mipmap.image15,
+                R.mipmap.heartless,
+                (0..HUNDED).random(),
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                false
             )
-            add(
-                ItemRecycler(
-                    R.mipmap.image16,
-                    R.mipmap.heartless,
-                    (0..HUNDRED).random(),
-                    "Chè Ngon Hà Nội & Món Ngon Đường Phố - Tô Hiệu\n" +
-                            "297 Tô Hiệu, Quận Cầu Giấy, Hà Nội",
-                    false
-                )
+        )
+        itemList.add(
+            ItemRecycler(
+                R.mipmap.image16,
+                R.mipmap.heartless,
+                (0..HUNDED).random(),
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                false
             )
-            add(
-                ItemRecycler(
-                    R.mipmap.image17,
-                    R.mipmap.heartless,
-                    (0..HUNDRED).random(),
-                    "Chè Ngon Hà Nội & Món Ngon Đường Phố - Tô Hiệu\n" +
-                            "297 Tô Hiệu, Quận Cầu Giấy, Hà Nội",
-                    false
-                )
+        )
+        itemList.add(
+            ItemRecycler(
+                R.mipmap.image17,
+                R.mipmap.heartless,
+                (0..HUNDED).random(),
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                false
             )
-            add(
-                ItemRecycler(
-                    R.mipmap.image18,
-                    R.mipmap.heartless,
-                    (0..HUNDRED).random(),
-                    "Chè Ngon Hà Nội & Món Ngon Đường Phố - Tô Hiệu\n" +
-                            "297 Tô Hiệu, Quận Cầu Giấy, Hà Nội",
-                    false
-                )
+        )
+        itemList.add(
+            ItemRecycler(
+                R.mipmap.image18,
+                R.mipmap.heartless,
+                (0..HUNDED).random(),
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                false
             )
-            add(
-                ItemRecycler(
-                    R.mipmap.image19,
-                    R.mipmap.heartless,
-                    (0..HUNDRED).random(),
-                    "Chè Ngon Hà Nội & Món Ngon Đường Phố - Tô Hiệu\n" +
-                            "297 Tô Hiệu, Quận Cầu Giấy, Hà Nội",
-                    false
-                )
+        )
+        itemList.add(
+            ItemRecycler(
+                R.mipmap.image19,
+                R.mipmap.heartless,
+                (0..HUNDED).random(),
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                false
             )
-            add(
-                ItemRecycler(
-                    R.mipmap.image20,
-                    R.mipmap.heartless,
-                    (0..HUNDRED).random(),
-                    "Chè Ngon Hà Nội & Món Ngon Đường Phố - Tô Hiệu\n" +
-                            "297 Tô Hiệu, Quận Cầu Giấy, Hà Nội",
-                    false
-                )
+        )
+        itemList.add(
+            ItemRecycler(
+                R.mipmap.image20,
+                R.mipmap.heartless,
+                (0..HUNDED).random(),
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                false
             )
-        }
+        )
     }
 }
