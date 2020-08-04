@@ -14,11 +14,9 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.w4.activity.MainActivity
-import com.asiantech.intern20summer1.w4.fragment.CropImageFragment
-import com.asiantech.intern20summer1.w4.fragment.SignUpFragment
 import com.asiantech.intern20summer1.w7.MainFarmActivity
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
@@ -51,51 +49,77 @@ class RegisterFarmFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_register_farm, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        handleForListener()
+    }
+
     override fun onResume() {
         super.onResume()
         handleCheckPermissionAfterRequest()
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        handleForAvatarImage()
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == SignUpFragment.REQUEST_IMAGE_CAPTURE) {
-                val fragment = CropImageFragment.newInstance(imageUri)
-                fragment.onCropImage = this::handleReceiverUriData
-                (activity as? MainActivity)?.addFragment(fragment, true)
-            } else if (requestCode == SignUpFragment.REQUEST_SELECT_IMAGE_IN_ALBUM) {
-                imageUri = data?.data
-                val fragment = CropImageFragment.newInstance(imageUri)
-                fragment.onCropImage = this::handleReceiverUriData
-                (activity as? MainActivity)?.addFragment(fragment, true)
+            when (requestCode) {
+                REQUEST_IMAGE_CAPTURE -> {
+                    handleCrop(imageUri)
+                }
+                REQUEST_SELECT_IMAGE_IN_ALBUM -> {
+                    imageUri = data?.data
+                    handleCrop(imageUri)
+                }
+                CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE -> {
+                    val result = CropImage.getActivityResult(data)
+                    imageUri = result.uri
+                    imgAvatarRegister?.setImageURI(imageUri)
+                }
             }
         }
     }
 
-
-    /**
-     *
-     */
-
-    private fun handleCrop(uri: Uri?) {
-        CropImage.activity(uri).setCropShape(CropImageView.CropShape.RECTANGLE).setAspectRatio(1, 1)
-            .start((activity as MainFarmActivity))
+    private fun handleForListener() {
+        handleForButton()
+        handleForAvatarImage()
+        handleForEditText()
     }
 
-    /**
-     * Handle function for avatar image view
-     */
+    private fun handleForButton() {
+        btnRegisterNext?.isEnabled = false
+        btnRegisterNext.setOnClickListener {
+
+        }
+    }
+
+    private fun handleForEditText() {
+        edtUserName?.addTextChangedListener {
+            checkEditText()
+        }
+        edtUniversity?.addTextChangedListener {
+            checkEditText()
+        }
+        edtHomeTown?.addTextChangedListener {
+            checkEditText()
+        }
+    }
+
+    private fun checkEditText() {
+        if (edtUserName?.text.isNullOrEmpty() || edtUniversity?.text.isNullOrEmpty() || edtHomeTown?.text.isNullOrEmpty()) {
+            btnRegisterNext.setBackgroundResource(R.drawable.bg_w7_button_register_disable)
+            btnRegisterNext.isEnabled = false
+        } else {
+            btnRegisterNext.setBackgroundResource(R.drawable.bg_w7_select_register_button)
+            btnRegisterNext.isEnabled = true
+        }
+    }
+
     private fun handleForAvatarImage() {
         imgAvatarRegister.setOnClickListener {
             val builder = (activity as MainFarmActivity).let { it1 -> AlertDialog.Builder(it1) }
             builder.setTitle("Select")
             val select = arrayOf("Camera", "Gallery")
             builder.setItems(select) { _, which ->
-
                 when (which) {
                     0 -> {
                         if (isCheckCameraPermission()) {
@@ -121,27 +145,15 @@ class RegisterFarmFragment : Fragment() {
     }
 
     /**
-     * This check permission enter camera of application
+     * This function will start activity to crop image
      */
-    private fun isCheckCameraPermission(): Boolean {
-        return (ContextCompat.checkSelfPermission(
-            (activity as MainFarmActivity),
-            Manifest.permission.CAMERA
-        ) == PackageManager.PERMISSION_GRANTED) && ((ContextCompat.checkSelfPermission(
-            (activity as MainFarmActivity),
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
-        ) == PackageManager.PERMISSION_GRANTED))
-    }
 
-    /**
-     * This function request permission enter to cameraE
-     */
-    private fun requestCameraPermission() {
-        ActivityCompat.requestPermissions(
-            (activity as MainFarmActivity),
-            arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE),
-            PERMISSION_REQUEST_CODE
-        )
+    private fun handleCrop(uri: Uri?) {
+        context?.let {
+            CropImage.activity(uri).setCropShape(CropImageView.CropShape.RECTANGLE)
+                .setAspectRatio(1, 1)
+                .start(it, this@RegisterFarmFragment)
+        }
     }
 
     /**
@@ -160,26 +172,6 @@ class RegisterFarmFragment : Fragment() {
     }
 
     /**
-     * This check permission enter gallery of application
-     */
-    private fun isCheckGalleryPermission(): Boolean {
-        return ContextCompat.checkSelfPermission(
-            (activity as MainFarmActivity),
-            Manifest.permission.READ_EXTERNAL_STORAGE
-        ) == PackageManager.PERMISSION_GRANTED
-    }
-
-    /**
-     * This function request permission enter to gallery
-     */
-    private fun requestGalleryPermission() {
-        ActivityCompat.requestPermissions(
-            (activity as MainFarmActivity), arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-            PERMISSION_REQUEST_CODE
-        )
-    }
-
-    /**
      * This function take a image from gallery
      */
     private fun openGallery() {
@@ -188,9 +180,38 @@ class RegisterFarmFragment : Fragment() {
         startActivityForResult(intentGallery, REQUEST_SELECT_IMAGE_IN_ALBUM)
     }
 
-    /**
-     * This function check permission of camera and store after request to open camera or gallery now
-     */
+    private fun isCheckCameraPermission(): Boolean {
+        return (ContextCompat.checkSelfPermission(
+            (activity as MainFarmActivity),
+            Manifest.permission.CAMERA
+        ) == PackageManager.PERMISSION_GRANTED) && ((ContextCompat.checkSelfPermission(
+            (activity as MainFarmActivity),
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+        ) == PackageManager.PERMISSION_GRANTED))
+    }
+
+    private fun requestCameraPermission() {
+        ActivityCompat.requestPermissions(
+            (activity as MainFarmActivity),
+            arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE),
+            PERMISSION_REQUEST_CODE
+        )
+    }
+
+    private fun isCheckGalleryPermission(): Boolean {
+        return ContextCompat.checkSelfPermission(
+            (activity as MainFarmActivity),
+            Manifest.permission.READ_EXTERNAL_STORAGE
+        ) == PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun requestGalleryPermission() {
+        ActivityCompat.requestPermissions(
+            (activity as MainFarmActivity), arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+            PERMISSION_REQUEST_CODE
+        )
+    }
+
     private fun handleCheckPermissionAfterRequest() {
         when {
             isCameraAllowed -> {

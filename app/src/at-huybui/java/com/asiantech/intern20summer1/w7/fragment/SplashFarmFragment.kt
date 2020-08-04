@@ -20,8 +20,8 @@ import kotlinx.android.synthetic.`at-huybui`.fragment_splash_farm.*
 class SplashFarmFragment : Fragment() {
 
     companion object {
-        private const val SPLASH_TIMER = 5000L
-        private const val PROGRESS_BAR_STEP = 110L
+        private const val SPLASH_TIMER = 10000L
+        private const val PROGRESS_TIMER_STEP = 40L
         private const val PROGRESS_MAX_VALUE = 100
         internal fun newInstance() = SplashFarmFragment()
 
@@ -42,7 +42,7 @@ class SplashFarmFragment : Fragment() {
 
     private fun handleForProgressBar() {
         progressBarFarm?.progress = 0
-        object : CountDownTimer(SPLASH_TIMER, SPLASH_TIMER / PROGRESS_BAR_STEP) {
+        object : CountDownTimer(SPLASH_TIMER, PROGRESS_TIMER_STEP) {
             override fun onTick(millisUntilFinished: Long) {
                 progressBarFarm?.progress = progressBarFarm.progress + 1
                 if (progressBarFarm?.progress == PROGRESS_MAX_VALUE) {
