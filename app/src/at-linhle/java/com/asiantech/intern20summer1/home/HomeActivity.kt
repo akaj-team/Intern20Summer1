@@ -14,25 +14,19 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_container)
-        handleWeekThreeButtonClick()
-        handleWeekFourButtonClick()
-        handleWeekSixButtonClick()
+        initListeners()
     }
 
-    private fun handleWeekThreeButtonClick() {
-        weekThree.setOnClickListener {
+    private fun initListeners() {
+        weekThree?.setOnClickListener {
             startActivity(Intent(this, MainActivity::class.java))
         }
-    }
 
-    private fun handleWeekFourButtonClick() {
-        weekFour.setOnClickListener {
+        weekFour?.setOnClickListener {
             startActivity(Intent(this, SplashActivity::class.java))
         }
-    }
 
-    private fun handleWeekSixButtonClick() {
-        weekSix.setOnClickListener {
+        weekSix?.setOnClickListener {
             startActivity(Intent(this, IndicatorActivity::class.java))
         }
     }

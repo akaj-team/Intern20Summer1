@@ -9,12 +9,12 @@ class IndicatorAdapter(fm: FragmentManager) :
     FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     companion object {
-        internal const val pageNumber = 3
+        private const val PAGE_NUMBER = 3
     }
 
     override fun getItem(position: Int): Fragment {
         return IndicatorFragment.newInstance(position)
     }
 
-    override fun getCount(): Int = pageNumber
+    override fun getCount(): Int = PAGE_NUMBER
 }
