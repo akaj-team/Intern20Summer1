@@ -68,4 +68,5 @@
     <dimen name="w7_register_button_radius">6dp</dimen>
     <dimen name="w7_register_edit_text_width_stroke">2dp</dimen>
     <dimen name="w7_register_text_in_edit_text_size">15sp</dimen>
+    <dimen name="w7_register_text_in_edit_text_padding_left_right">17dp</dimen>
 </resources>
