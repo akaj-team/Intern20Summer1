@@ -44,7 +44,7 @@ class RegisterFragment : Fragment() {
         private const val IMAGE_URI_QUALITY = 100
         private const val CAMERA_REQUEST_CODE = 111
         private const val GALLERY_REQUEST_CODE = 112
-        const val PHONE_NUMBER_LENGTH = 10
+        internal const val PHONE_NUMBER_LENGTH = 10
         internal fun newInstance() = RegisterFragment()
     }
 
