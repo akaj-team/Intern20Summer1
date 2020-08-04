@@ -36,7 +36,7 @@ class IndicatorActivity : AppCompatActivity() {
     }
 
     private fun handleNextTextViewClick() {
-        tvNext.setOnClickListener {
+        tvNext?.setOnClickListener {
             if (pagePosition < 2) {
                 viewPagerIndicator.currentItem = pagePosition + 1
             } else {
