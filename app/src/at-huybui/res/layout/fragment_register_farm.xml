@@ -30,11 +30,66 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@drawable/img_avatar_defau" />
+            android:src="@drawable/img_avatar_default" />
     </androidx.cardview.widget.CardView>
 
     <EditText
-        android:layout_below="@id/cardViewAvatarRegister"
+        android:id="@+id/edtUserName"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/w7_edit_text_height"/>
+        android:layout_height="@dimen/w7_edit_text_height"
+        android:layout_marginLeft="@dimen/w7_register_margin_left_right"
+        android:layout_marginTop="@dimen/w7_register_edit_text_margin_top"
+        android:layout_marginRight="@dimen/w7_register_margin_left_right"
+        android:background="@drawable/bg_w7_edit_text"
+        android:layout_below="@id/cardViewAvatarRegister"
+        android:hint="@string/w7_user_name"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:paddingLeft="@dimen/w7_register_text_in_edit_text_padding_left_right"
+        android:paddingRight="@dimen/w7_register_text_in_edit_text_padding_left_right"
+        android:textSize="@dimen/w7_register_text_in_edit_text_size" />
+
+    <EditText
+        android:id="@+id/edtUniversity"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/w7_edit_text_height"
+        android:layout_below="@id/edtUserName"
+        android:layout_marginLeft="@dimen/w7_register_margin_left_right"
+        android:layout_marginTop="@dimen/w7_register_edit_text_margin_top"
+        android:layout_marginRight="@dimen/w7_register_margin_left_right"
+        android:autofillHints="no"
+        android:background="@drawable/bg_w7_edit_text"
+        android:hint="@string/w7_university"
+        android:inputType="text"
+        android:paddingLeft="@dimen/w7_register_text_in_edit_text_padding_left_right"
+        android:paddingRight="@dimen/w7_register_text_in_edit_text_padding_left_right"
+        android:textSize="@dimen/w7_register_text_in_edit_text_size" />
+
+    <EditText
+        android:id="@+id/edtHomeTown"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/w7_edit_text_height"
+        android:layout_below="@id/edtUniversity"
+        android:layout_marginLeft="@dimen/w7_register_margin_left_right"
+        android:layout_marginTop="@dimen/w7_register_edit_text_margin_top"
+        android:layout_marginRight="@dimen/w7_register_margin_left_right"
+        android:background="@drawable/bg_w7_edit_text"
+        android:hint="@string/w7_home_town"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:paddingLeft="@dimen/w7_register_text_in_edit_text_padding_left_right"
+        android:paddingRight="@dimen/w7_register_text_in_edit_text_padding_left_right"
+        android:textSize="@dimen/w7_register_text_in_edit_text_size" />
+
+    <Button
+        android:id="@+id/btnRegisterNext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/w7_register_margin_left_right"
+        android:layout_marginRight="@dimen/w7_register_margin_left_right"
+        android:layout_marginBottom="@dimen/w7_register_button_margin_bottom"
+        android:background="@drawable/bg_w7_button_register_disable"
+        android:text="@string/w7_next"
+        android:textColor="@color/register_text_button_disable" />
 </RelativeLayout>

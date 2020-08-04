@@ -16,4 +16,6 @@
     <color name="edit_text_background_on">#F2F2F2</color>
     <color name="sign_up_text">#0D2A93</color>
     <color name="text_button">#FAF4F1</color>
+    <color name="w7_button_disable">#666666</color>
+    <color name="register_text_button_disable">#C2C2C2</color>
 </resources>

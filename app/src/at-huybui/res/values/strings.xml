@@ -52,4 +52,8 @@
     <string name="crop_complete">Crop complete</string>
     <string name="w4_crop_your_picture">Crop your picture</string>
     <string name="w7_register">Register</string>
+    <string name="w7_user_name">User Name</string>
+    <string name="w7_university">University</string>
+    <string name="w7_next">Next</string>
+    <string name="w7_home_town">Home Town</string>
 </resources>

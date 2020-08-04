@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="w7_register_text_in_edit_text_padding_left_right">17dp</dimen>
+</resources>

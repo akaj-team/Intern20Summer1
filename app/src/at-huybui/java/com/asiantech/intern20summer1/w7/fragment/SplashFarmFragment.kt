@@ -10,6 +10,13 @@ import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w7.MainFarmActivity
 import kotlinx.android.synthetic.`at-huybui`.fragment_splash_farm.*
 
+/**
+ * Asian Tech Co., Ltd.
+ * Created by at-huybui on 08/04/20
+ * This is fragment class for splash fragments
+ */
+
+
 class SplashFarmFragment : Fragment() {
 
     companion object {

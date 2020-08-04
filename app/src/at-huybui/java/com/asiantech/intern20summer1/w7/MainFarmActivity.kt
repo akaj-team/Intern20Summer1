@@ -6,6 +6,12 @@ import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w7.fragment.SplashFarmFragment
 
+/**
+ * Asian Tech Co., Ltd.
+ * Created by at-huybui on 08/04/20
+ * This is activity class for activity main. This activity contain all fragment
+ */
+
 class MainFarmActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
