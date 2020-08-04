@@ -3,10 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginStart="@dimen/linear_layout_margin_left"
-    android:layout_marginLeft="@dimen/linear_layout_margin_left"
-    android:layout_marginEnd="@dimen/linear_layout_margin_right"
-    android:layout_marginRight="@dimen/linear_layout_margin_right"
+    android:layout_margin="@dimen/linear_layout_margin_right"
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical">
@@ -24,13 +21,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/linear_layout_profile_link_margin_to_logo_image_view">
+        android:layout_marginTop="@dimen/linear_layout_profile_link_margin_to_logo_image_view"
+        android:layout_weight="2">
 
         <Button
             android:id="@+id/btnFacebook"
-            android:layout_width="@dimen/profile_button_width"
+            android:layout_width="@dimen/w4_button_width"
             android:layout_height="@dimen/profile_button_height"
             android:layout_gravity="center"
+            android:layout_weight="1"
             android:background="@drawable/bg_w4_button_profile"
             android:drawableStart="@drawable/ic_week4_facebook"
             android:drawableLeft="@drawable/ic_week4_facebook"
@@ -44,11 +43,12 @@
 
         <Button
             android:id="@+id/btnEmail"
-            android:layout_width="@dimen/profile_button_width"
+            android:layout_width="@dimen/w4_button_width"
             android:layout_height="@dimen/profile_button_height"
             android:layout_gravity="center"
             android:layout_marginStart="@dimen/facebook_button_margin_google_button"
             android:layout_marginLeft="@dimen/facebook_button_margin_google_button"
+            android:layout_weight="1"
             android:background="@drawable/bg_w4_button_profile"
             android:drawableStart="@drawable/ic_week4_google"
             android:drawableLeft="@drawable/ic_week4_google"
@@ -122,7 +122,6 @@
         android:textAllCaps="false" />
 
     <LinearLayout
-
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
