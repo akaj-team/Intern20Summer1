@@ -18,6 +18,7 @@
         <activity android:name=".w3.MainActivity" />
         <activity android:name=".w4.activity.HomeActivity"/>
         <activity android:name=".w4.activity.MainActivity" />
+        <activity android:name=".w4.activity.SplashActivity"/>
         <activity android:name=".w0.BeginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
