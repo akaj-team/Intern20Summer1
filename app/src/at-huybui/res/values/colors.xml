@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="primary">#6200EE</color>
-    <color name="primary_dark">#4D4D4D</color>
+    <color name="background_white">#FFFFFF</color>
+    <color name="button_login_register">#FF9900</color>
+    <color name="custom_button_icon_stroke">#4D4D4D</color>
+    <color name="black">#000000</color>
+    <color name="primary_dark">#FFFFFF</color>
     <color name="accent">#03DAC5</color>
     <color name="status_bar">#CCCCCC</color>
-    <color name="background_write">#FFFFFF</color>
     <color name="button_sign_up">#A1E895</color>
     <color name="edit_text_error">#FF00</color>
     <color name="edit_text_tick">#FF7ED321</color>
