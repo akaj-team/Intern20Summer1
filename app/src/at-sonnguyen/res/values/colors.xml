@@ -10,4 +10,5 @@
     <color name="colorSnow">#FFFAFA</color>
     <color name="colorDeepSkyBlue1">#00BFFF</color>
     <color name="colorW6BackgroundRelative">#E9EBED</color>
+    <color name="colorBackgroundTablayout">#ea9a31</color>
 </resources>

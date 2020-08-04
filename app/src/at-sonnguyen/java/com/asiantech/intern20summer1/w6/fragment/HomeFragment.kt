@@ -14,17 +14,17 @@ class HomeFragment : Fragment() {
 
     private var position = 0
     private var players = arrayListOf<Player>(
-        Player( R.drawable.img_martial,  R.drawable.ic_france),
-        Player(R.drawable.img_marcus,  R.drawable.ic_england),
-        Player( R.drawable.img_greenwood, R.drawable.ic_england),
-        Player( R.drawable.img_bruno_fernandes,  R.drawable.ic_portugal),
-        Player( R.drawable.img_pogba_2,  R.drawable.ic_france),
-        Player(R.drawable.img_matic,  R.drawable.ic_serbia),
-        Player( R.drawable.img_luke_shaw, R.drawable.ic_england),
+        Player(R.drawable.img_martial, R.drawable.ic_france),
+        Player(R.drawable.img_marcus, R.drawable.ic_england),
+        Player(R.drawable.img_greenwood, R.drawable.ic_england),
+        Player(R.drawable.img_bruno_fernandes, R.drawable.ic_portugal),
+        Player(R.drawable.img_pogba_2, R.drawable.ic_france),
+        Player(R.drawable.img_matic, R.drawable.ic_serbia),
+        Player(R.drawable.img_luke_shaw, R.drawable.ic_england),
         Player(R.drawable.img_harry_maguire, R.drawable.ic_england),
-        Player(R.drawable.img_lindelof,  R.drawable.ic_sweden),
+        Player(R.drawable.img_lindelof, R.drawable.ic_sweden),
         Player(R.drawable.img_wanbi, R.drawable.ic_england),
-        Player(R.drawable.img_de_gea,R.drawable.ic_spain)
+        Player(R.drawable.img_de_gea, R.drawable.ic_spain)
     )
 
     companion object {
@@ -55,7 +55,8 @@ class HomeFragment : Fragment() {
             2 -> loadData()
         }
     }
-    private fun loadData(){
+
+    private fun loadData() {
         val player = players[Random.nextInt(1, players.size)]
         imgHomeFragment.setImageResource(player.image)
         imgNational.setImageResource(player.national)

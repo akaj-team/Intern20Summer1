@@ -9,7 +9,6 @@ import com.asiantech.intern20summer1.w6.adapter.StepFragmentAdapter
 import kotlinx.android.synthetic.`at-sonnguyen`.w6_activity_step.*
 
 class StepActivity : AppCompatActivity() {
-    private var currentPosition = 0
     private val adapter = StepFragmentAdapter(supportFragmentManager)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,8 +18,8 @@ class StepActivity : AppCompatActivity() {
     }
 
     private fun initAdapter() {
-        viewPagerStep.adapter = adapter
-        circleIndicatorStep.setViewPager(viewPagerStep)
+        viewPagerStep?.adapter = adapter
+        circleIndicatorStep?.setViewPager(viewPagerStep)
         viewPagerStep.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
             }
@@ -29,23 +28,21 @@ class StepActivity : AppCompatActivity() {
                 position: Int,
                 positionOffset: Float,
                 positionOffsetPixels: Int
-            ) {}
+            ) {
+            }
 
             override fun onPageSelected(position: Int) {
-                if (position < 2) {
-                    tvNext.text = resources.getString(R.string.w6_next_text_view_next)
-                } else {
-                    tvNext.text = resources.getString(R.string.w6_next_text_view_skip)
-                }
-                currentPosition = position
+                tvNext?.text =
+                    if (position < 2) resources.getString(R.string.w6_next_text_view_next)
+                    else resources.getString(R.string.w6_next_text_view_skip)
             }
         })
     }
 
     private fun initListener() {
         tvNext.setOnClickListener {
-            if (currentPosition < 2) {
-                viewPagerStep.currentItem = currentPosition + 1
+            if (viewPagerStep.currentItem < 2) {
+                viewPagerStep.currentItem += 1
             } else {
                 val intent = Intent(this, HomeActivity::class.java)
                 startActivity(intent)
