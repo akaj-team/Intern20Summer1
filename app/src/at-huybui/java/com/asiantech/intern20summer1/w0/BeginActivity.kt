@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w3.MainActivity
+import com.asiantech.intern20summer1.w4.activity.SplashActivity
 import com.asiantech.intern20summer1.w6.firstactivity.ViewPagerOneActivity
 import kotlinx.android.synthetic.`at-huybui`.activity_begin.*
 
@@ -28,6 +29,11 @@ class BeginActivity : AppCompatActivity() {
 
         btnBeginW3?.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
+
+        btnBeginW4?.setOnClickListener {
+            val intent = Intent(this, SplashActivity::class.java)
             startActivity(intent)
         }
     }

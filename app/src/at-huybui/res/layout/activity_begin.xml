@@ -40,6 +40,7 @@
             android:text="@string/w3_layout" />
 
         <Button
+            android:id="@+id/btnBeginW4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/begin_margin_button"
