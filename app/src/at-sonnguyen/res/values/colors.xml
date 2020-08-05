@@ -11,4 +11,6 @@
     <color name="colorDeepSkyBlue1">#00BFFF</color>
     <color name="colorW6BackgroundRelative">#E9EBED</color>
     <color name="colorBackgroundTablayout">#ea9a31</color>
+    <color name="colorTablayoutNonSelected">#0C0C0C</color>
+    <color name="colorTablayoutSelected">#F41515</color>
 </resources>

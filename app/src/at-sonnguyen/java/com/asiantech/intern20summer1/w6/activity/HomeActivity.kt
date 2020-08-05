@@ -1,5 +1,6 @@
 package com.asiantech.intern20summer1.w6.activity
 
+import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.asiantech.intern20summer1.R
@@ -18,6 +19,12 @@ class HomeActivity : AppCompatActivity() {
 
     private fun initView() {
         viewPagerHome.adapter = adapter
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            tabHome.setTabTextColors(
+                resources.getColor(R.color.colorTablayoutNonSelected,null),
+                resources.getColor(R.color.colorTablayoutSelected,null)
+            )
+        }
         tabHome.apply {
             setupWithViewPager(viewPagerHome)
             getTabAt(0)?.text = getString(R.string.w6_tab1_name)

@@ -27,7 +27,7 @@
         android:layout_marginEnd="@dimen/w6_next_text_view_margin_end"
         android:layout_marginRight="@dimen/w6_next_text_view_margin_right"
         android:layout_marginBottom="@dimen/w6_next_text_view_margin_bottom"
-        android:text="Next"
+        android:text="@string/w6_next_text_view_next"
         android:textSize="@dimen/w6_text_view_text_size"
         android:textStyle="bold" />
 </RelativeLayout>

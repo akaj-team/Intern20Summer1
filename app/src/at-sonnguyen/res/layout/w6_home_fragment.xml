@@ -47,6 +47,5 @@
             android:layout_height="@dimen/w6_ic_height"
             android:layout_below="@id/tvName"
             android:layout_centerHorizontal="true" />
-
     </RelativeLayout>
 </RelativeLayout>
