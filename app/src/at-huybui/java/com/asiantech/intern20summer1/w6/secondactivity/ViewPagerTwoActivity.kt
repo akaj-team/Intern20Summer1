@@ -3,7 +3,6 @@ package com.asiantech.intern20summer1.w6.secondactivity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.asiantech.intern20summer1.R
-import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.`at-huybui`.activity_view_pager_two.*
 
 /**
