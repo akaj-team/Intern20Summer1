@@ -9,4 +9,32 @@
     <string name="sign_up_button_description_text">SIGN UP</string>
     <string name="not_registered_text_view_description_text">Not registered yet?</string>
     <string name="sign_up_text_view_description_text">Sign up!</string>
+    <string name="facebook_id_button_description_text">Facebook</string>
+    <string name="google_id_button_description_text">Google</string>
+    <string name="edit_text_hint">Please input</string>
+    <string name="password_text_view_description_text">Password</string>
+    <string name="password_forgot_text_view_description_text">Forgot Password?</string>
+    <string name="login_button_description_text">Login</string>
+    <string name="account_do_not_text_view_description_text">Don\'t have an account?</string>
+    <string name="register_now_text_view_description_text">Register Now</string>
+    <string name="or_text_view_description_text">or</string>
+    <string name="title_text_view_description_text">Register to Music Festival</string>
+    <string name="full_name_text_view_description_text">Full Name</string>
+    <string name="email_sign_up_text_view_description_text">Email</string>
+    <string name="phone_number_text_view_description_text">Mobile Number</string>
+    <string name="confirm_password_text_view_description_text">Confirm Password</string>
+    <string name="register_button_description_text">Register</string>
+    <string name="the_end_text_view_description_text">By registering you agree to Terms and
+        Conditions and Privacy of the Festival</string>
+    <string name="text_view_information_text">Your Profile</string>
+    <string name="permission_denied">permission denied</string>
+    <string name="title_dialog">Title Sign In</string>
+    <string name="message_dialog">Fail username or password</string>
+    <string name="text_exit_dialog">Exit</string>
+    <string name="key_data_register">data</string>
+    <string name="key_data_login">login</string>
+    <string name="key_image">data</string>
+    <string name="title_dialog_image">Choose Avatar</string>
+    <string name="image_camera">Camera</string>
+    <string name="image_gallery">Gallery</string>
 </resources>
