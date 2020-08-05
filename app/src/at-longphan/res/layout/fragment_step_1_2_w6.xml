@@ -14,16 +14,4 @@
         android:textSize="@dimen/text_view_step_description_text_size"
         android:textStyle="bold"
         tools:text="Step 1" />
-
-    <TextView
-        android:id="@+id/tvNextStep1And2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:padding="@dimen/text_view_next_description_padding"
-        android:text="@string/text_view_next_description"
-        android:textColor="@android:color/black"
-        android:textSize="@dimen/text_view_next_description_text_size"
-        android:textStyle="bold" />
 </RelativeLayout>

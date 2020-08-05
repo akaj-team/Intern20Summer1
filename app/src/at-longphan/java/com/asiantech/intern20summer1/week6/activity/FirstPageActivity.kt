@@ -10,8 +10,6 @@ import com.asiantech.intern20summer1.week6.adapter.StepFragmentPagerAdapter
 import com.asiantech.intern20summer1.week6.fragment.FirstStepFragment
 import com.asiantech.intern20summer1.week6.fragment.ThirdStepFragment
 import kotlinx.android.synthetic.`at-longphan`.activity_first_page_w6.*
-import kotlinx.android.synthetic.`at-longphan`.fragment_step_1_2_w6.*
-import kotlinx.android.synthetic.`at-longphan`.fragment_step_3_w6.*
 
 class FirstPageActivity : AppCompatActivity() {
 
@@ -21,7 +19,6 @@ class FirstPageActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_first_page_w6)
         configStatusBar()
-        initAdapter()
         setupAdapter()
         setupIndicator()
         handleTextViewNextClickListener()
@@ -33,11 +30,8 @@ class FirstPageActivity : AppCompatActivity() {
         }
     }
 
-    private fun initAdapter() {
-        adapter = StepFragmentPagerAdapter(supportFragmentManager)
-    }
-
     private fun setupAdapter() {
+        adapter = StepFragmentPagerAdapter(supportFragmentManager)
         val step1Fragment = FirstStepFragment.newInstance(
             0,
             getString(R.string.text_view_step_description_fragment_step_1)
@@ -69,13 +63,14 @@ class FirstPageActivity : AppCompatActivity() {
     }
 
     private fun handleTextViewNextClickListener(){
-        tvNextStep1And2?.setOnClickListener {
-            viewPagerActivityFirstPage.currentItem++
-        }
-
-        tvNextStep3?.setOnClickListener {
-            startActivity(Intent(this, SecondPageActivity::class.java))
-            finish()
+        tvNextDescription?.setOnClickListener {
+            when(viewPagerActivityFirstPage.currentItem){
+                2 -> {
+                    startActivity(Intent(this, SecondPageActivity::class.java))
+                    finish()
+                }
+                else -> viewPagerActivityFirstPage.currentItem++
+            }
         }
     }
 }

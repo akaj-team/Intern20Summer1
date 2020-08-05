@@ -16,13 +16,11 @@ class FirstStepFragment : Fragment() {
         private const val STEP_KEY = "step"
 
         // newInstance constructor for creating fragment with arguments
-        fun newInstance(page: Int, step: String?): FirstStepFragment {
-            val step1Fragment = FirstStepFragment()
-            val args = Bundle()
-            args.putInt(PAGE_KEY, page)
-            args.putString(STEP_KEY, step)
-            step1Fragment.arguments = args
-            return step1Fragment
+        fun newInstance(page: Int, step: String?) = FirstStepFragment().apply {
+            arguments = Bundle().apply {
+                putInt(PAGE_KEY, page)
+                putString(STEP_KEY, step)
+            }
         }
     }
 
@@ -42,10 +40,15 @@ class FirstStepFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view: View = inflater.inflate(R.layout.fragment_step_1_2_w6, container, false)
+        return inflater.inflate(R.layout.fragment_step_1_2_w6, container, false)
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initView()
+    }
+
+    private fun initView() {
         tvStep1And2Description?.text = step
-
-        return view
     }
 }

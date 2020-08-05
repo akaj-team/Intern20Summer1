@@ -18,6 +18,10 @@ class ImageFragmentPagerAdapter(manager: FragmentManager) :
         return fragmentList[position]
     }
 
+    override fun getPageTitle(position: Int): CharSequence? {
+        return fragmentTitleList[position]
+    }
+
     fun addFragment(tabFragment: Fragment, tabTittle: String) {
         fragmentList.add(tabFragment)
         fragmentTitleList.add(tabTittle)

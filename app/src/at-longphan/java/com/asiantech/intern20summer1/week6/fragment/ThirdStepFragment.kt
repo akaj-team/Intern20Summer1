@@ -15,12 +15,8 @@ class ThirdStepFragment : Fragment() {
         private const val STEP_KEY = "step"
 
         // NewInstance constructor for creating fragment with arguments
-        fun newInstance(step: String?): ThirdStepFragment {
-            val fragmentFirst = ThirdStepFragment()
-            val args = Bundle()
-            args.putString(STEP_KEY, step)
-            fragmentFirst.arguments = args
-            return fragmentFirst
+        fun newInstance(step: String?)= ThirdStepFragment().apply {
+            arguments = Bundle().apply { putString(STEP_KEY, step) }
         }
     }
 
@@ -30,7 +26,7 @@ class ThirdStepFragment : Fragment() {
     // Store instance variables based on arguments passed
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        step = arguments!!.getString(STEP_KEY)
+        step = arguments?.getString(STEP_KEY)
     }
 
     // Inflate the view for the fragment based on layout XML
@@ -38,10 +34,15 @@ class ThirdStepFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view: View = inflater.inflate(R.layout.fragment_step_3_w6, container, false)
+        return inflater.inflate(R.layout.fragment_step_3_w6, container, false)
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initView()
+    }
+
+    private fun initView(){
         tvStep3Description?.text = step
-
-        return view
     }
 }

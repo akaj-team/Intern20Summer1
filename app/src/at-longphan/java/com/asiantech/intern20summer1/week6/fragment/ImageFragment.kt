@@ -15,21 +15,26 @@ class ImageFragment : Fragment() {
 
         private const val IMAGE_KEY = "image"
 
-        fun newInstance(image: Int): ImageFragment {
-            val imageFragment = ImageFragment()
-            val bundle = Bundle()
-            bundle.putInt(IMAGE_KEY, image)
-            imageFragment.arguments = bundle
-            return imageFragment
+        fun newInstance(image: Int) = ImageFragment().apply {
+            arguments = Bundle().apply { putInt(IMAGE_KEY, image) }
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view: View? = inflater.inflate(R.layout.fragment_random_image_w6, container, false)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_random_image_w6, container, false)
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initView()
+    }
+
+    private fun initView() {
         val image = arguments?.getInt(IMAGE_KEY)
         Glide.with(imgImageWeek6).load(image).into(imgImageWeek6)
-
-        return view
     }
 }
