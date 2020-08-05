@@ -13,20 +13,35 @@
         android:layout_width="match_parent"
         android:background="@color/edit_text_off"
         android:layout_height="104dp">
+
         <ImageView
             android:id="@+id/imgVegetable"
             android:layout_width="@dimen/w7_home_image_vegetable_size"
             android:layout_height="@dimen/w7_home_image_vegetable_size"
             tools:src="@drawable/icon_error"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true" />
+
         <TextView
+            android:id="@+id/tvNameVegetable"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="Name"
-            android:textSize="@dimen/w8_home_name_vegetable_size"
+            android:layout_marginLeft="@dimen/w7_home_name_vegetable_margin_top_left"
             android:textStyle="bold"
-            android:layout_marginTop="@dimen/w8_home_name_vegetable_margin_top_left"
+            android:layout_marginTop="@dimen/w7_home_name_vegetable_margin_top_left"
+            android:textSize="@dimen/w7_home_name_vegetable_size" />
+
+        <TextView
+            android:id="@+id/tvInformationVegetable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/w7_home_information_vegetable_margin_left"
+            android:layout_marginTop="@dimen/w7_home_information_vegetable_margin_top"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            tools:text="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" />
+
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
