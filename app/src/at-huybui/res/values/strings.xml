@@ -54,6 +54,13 @@
     <string name="w7_register">Register</string>
     <string name="w7_user_name">User Name</string>
     <string name="w7_university">University</string>
-    <string name="w7_next">Next</string>
+    <string name="w7_register_next">Next</string>
     <string name="w7_home_town">Home Town</string>
+    <string name="w7_vuon_rau">Vườn rau</string>
+    <string name="w7_trong_rau">Trồng rau</string>
+    <string name="w7_rau_sap_thu_hoach">Rau sắp thu hoạch</string>
+    <string name="w7_rau_bi_sau">Rau bị sâu</string>
+    <string name="w7_rau_bi_thieu_nuoc">Rau bị thiếu nước</string>
+    <string name="w7_header_university">University: %s</string>
+    <string name="w7_header_home_town">Home town: %s</string>
 </resources>

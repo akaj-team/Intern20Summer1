@@ -25,9 +25,7 @@
     <dimen name="sign_in_margin_top_all">20dp</dimen>
     <dimen name="home_double_dot_padding">10dp</dimen>
     <dimen name="sign_in_margin_bottom_register_text">10dp</dimen>
-    <dimen name="home_avatar_corner_radius">75dp</dimen>
     <dimen name="sign_up_title_text_size">25sp</dimen>
-<!--   W4-intent-fragment-activity-->
     <dimen name="logo_image_view_padding_top">40dp</dimen>
     <dimen name="logo_image_view_padding_bottom">15dp</dimen>
     <dimen name="title_text_view_size">12sp</dimen>
@@ -57,12 +55,13 @@
     <dimen name="w7_splash_logo_size">128dp</dimen>
     <dimen name="w7_splash_progress_bar_width">250dp</dimen>
     <dimen name="w7_splash_progress_bar_height">4dp</dimen>
+    <dimen name="w7_register_avatar_corner_radius">64dp</dimen>
     <dimen name="w7_register_margin_left_right">16dp</dimen>
     <dimen name="w7_register_text_margin_top">56dp</dimen>
     <dimen name="w7_register_test_size">36sp</dimen>
     <dimen name="w7_register_avatar_size">128dp</dimen>
-    <dimen name="w7_avatar_margin_top">116dp</dimen>
-    <dimen name="w7_edit_text_height">50dp</dimen>
+    <dimen name="w7_register_avatar_margin_top">116dp</dimen>
+    <dimen name="w7_register_edit_text_height">50dp</dimen>
     <dimen name="w7_register_edit_text_margin_top">26dp</dimen>
     <dimen name="w7_register_button_margin_bottom">32dp</dimen>
     <dimen name="w7_register_button_radius">6dp</dimen>
@@ -77,4 +76,15 @@
     <dimen name="w7_home_name_vegetable_margin_top_left">20dp</dimen>
     <dimen name="w7_home_information_vegetable_margin_top">52dp</dimen>
     <dimen name="w7_home_information_vegetable_margin_left">28dp</dimen>
+    <dimen name="w7_toolbar_height">78dp</dimen>
+    <dimen name="w7_recycler_view_margin_left_right">32dp</dimen>
+    <dimen name="w7_recycler_view_margin_bottom">50dp</dimen>
+    <dimen name="w7_navigation_avatar_margin_top">55dp</dimen>
+    <dimen name="w7_navigation_avatar_size">100dp</dimen>
+    <dimen name="w7_navigation_avatar_margin_left">39dp</dimen>
+    <dimen name="w7_navigation_header_height">200dp</dimen>
+    <dimen name="w7_navigation_name_text_margin_left">32dp</dimen>
+    <dimen name="w7_navigation_name_text_margin_top">60dp</dimen>
+    <dimen name="w7_navigation_avatar_corner_radius">50dp</dimen>
+    <dimen name="w7_navigation_name_size">20sp</dimen>
 </resources>

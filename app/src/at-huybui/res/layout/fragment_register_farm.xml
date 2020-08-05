@@ -17,13 +17,13 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewAvatarRegister"
-        android:layout_width="@dimen/home_avatar_size"
-        android:layout_height="@dimen/home_avatar_size"
+        android:layout_width="@dimen/w7_register_avatar_size"
+        android:layout_height="@dimen/w7_register_avatar_size"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/w7_avatar_margin_top"
-        app:cardCornerRadius="@dimen/home_avatar_corner_radius">
+        android:layout_marginTop="@dimen/w7_register_avatar_margin_top"
+        app:cardCornerRadius="@dimen/w7_register_avatar_corner_radius">
 
         <ImageView
             android:id="@+id/imgAvatarRegister"
@@ -36,7 +36,7 @@
     <EditText
         android:id="@+id/edtUserName"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/w7_edit_text_height"
+        android:layout_height="@dimen/w7_register_edit_text_height"
         android:layout_marginLeft="@dimen/w7_register_margin_left_right"
         android:layout_marginTop="@dimen/w7_register_edit_text_margin_top"
         android:layout_marginRight="@dimen/w7_register_margin_left_right"
@@ -52,7 +52,7 @@
     <EditText
         android:id="@+id/edtUniversity"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/w7_edit_text_height"
+        android:layout_height="@dimen/w7_register_edit_text_height"
         android:layout_below="@id/edtUserName"
         android:layout_marginLeft="@dimen/w7_register_margin_left_right"
         android:layout_marginTop="@dimen/w7_register_edit_text_margin_top"
@@ -68,7 +68,7 @@
     <EditText
         android:id="@+id/edtHomeTown"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/w7_edit_text_height"
+        android:layout_height="@dimen/w7_register_edit_text_height"
         android:layout_below="@id/edtUniversity"
         android:layout_marginLeft="@dimen/w7_register_margin_left_right"
         android:layout_marginTop="@dimen/w7_register_edit_text_margin_top"
@@ -90,6 +90,6 @@
         android:layout_marginRight="@dimen/w7_register_margin_left_right"
         android:layout_marginBottom="@dimen/w7_register_button_margin_bottom"
         android:background="@drawable/bg_w7_button_register_disable"
-        android:text="@string/w7_next"
+        android:text="@string/w7_register_next"
         android:textColor="@color/register_text_button_disable" />
 </RelativeLayout>

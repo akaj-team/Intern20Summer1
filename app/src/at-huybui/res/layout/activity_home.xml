@@ -19,7 +19,7 @@
         android:layout_width="@dimen/home_avatar_size"
         android:layout_height="@dimen/home_avatar_size"
         android:layout_gravity="center"
-        app:cardCornerRadius="@dimen/home_avatar_corner_radius">
+        app:cardCornerRadius="@dimen/w7_register_avatar_corner_radius">
 
         <ImageView
             android:id="@+id/imgAvatarHome"

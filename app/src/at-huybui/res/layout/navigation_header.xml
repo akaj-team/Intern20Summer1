@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/w7_navigation_header_height"
+    android:background="@color/w7_background_navigation_header">
+
+    <ImageView
+        android:id="@+id/imgIconBack"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/icon_back" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewAvatarHeader"
+        android:layout_width="@dimen/w7_navigation_avatar_size"
+        android:layout_height="@dimen/w7_navigation_avatar_size"
+        android:layout_marginLeft="@dimen/w7_navigation_avatar_margin_left"
+        android:layout_marginTop="@dimen/w7_navigation_avatar_margin_top"
+        app:cardCornerRadius="@dimen/w7_navigation_avatar_corner_radius">
+
+        <ImageView
+            android:id="@+id/imgAvatarHeader"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/img_avatar_default" />
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/tvNameHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/w7_navigation_name_text_margin_left"
+        android:layout_marginTop="@dimen/w7_navigation_name_text_margin_top"
+        android:layout_toRightOf="@+id/cardViewAvatarHeader"
+        android:textColor="@color/black"
+        android:textSize="@dimen/w7_navigation_name_size"
+        android:textStyle="bold"
+        tools:text="Admin" />
+
+    <TextView
+        android:id="@+id/tvUniversityHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvNameHeader"
+        android:layout_marginLeft="@dimen/w7_navigation_name_text_margin_left"
+        android:layout_toRightOf="@+id/cardViewAvatarHeader"
+        tools:text="@string/w7_university" />
+
+    <TextView
+        android:id="@+id/tvHomeTownHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvUniversityHeader"
+        android:layout_marginLeft="@dimen/w7_navigation_name_text_margin_left"
+        android:layout_toRightOf="@+id/cardViewAvatarHeader"
+        tools:text="@string/w7_home_town" />
+</RelativeLayout>
