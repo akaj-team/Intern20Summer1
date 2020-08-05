@@ -41,6 +41,8 @@ class RegisterFragment : Fragment() {
     private var flag = false
 
     companion object {
+        private const val CROP_IMAGE_HEIGHT = 1
+        private const val CROP_IMAGE_WIDTH = 1
         private const val IMAGE_URI_QUALITY = 100
         private const val CAMERA_REQUEST_CODE = 111
         private const val GALLERY_REQUEST_CODE = 112
@@ -81,10 +83,10 @@ class RegisterFragment : Fragment() {
             CAMERA_REQUEST_CODE -> {
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     flag = true
-                    if (!checkGalleryPermission()) {
+                    if (!isGalleryAllow()) {
                         requestGalleryPermission()
                     }
-                    if (checkGalleryPermission()) {
+                    if (isGalleryAllow()) {
                         openCamera()
                     }
                 } else {
@@ -121,7 +123,7 @@ class RegisterFragment : Fragment() {
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
                 CAMERA_REQUEST_CODE -> {
-                    if (!checkGalleryPermission()) {
+                    if (!isGalleryAllow()) {
                         requestGalleryPermission()
                     } else {
                         (data?.extras?.get(KEY_VALUE) as? Bitmap)?.let {
@@ -297,8 +299,8 @@ class RegisterFragment : Fragment() {
 
     private fun setEnableRegisterButton() {
         btnRegister.isEnabled =
-            (isValidEmail(emailText) && isValidPassword(passwordText) && checkFullName
-                    && checkPhoneNumber && checkRetypePassword)
+            isValidEmail(emailText) && isValidPassword(passwordText) && checkFullName
+                    && checkPhoneNumber && checkRetypePassword
     }
 
     private fun showListAlertDialog() {
@@ -311,14 +313,14 @@ class RegisterFragment : Fragment() {
         builder.setItems(items) { _, which ->
             when (which) {
                 0 -> {
-                    if (checkGalleryPermission()) {
+                    if (isGalleryAllow()) {
                         openGallery()
                     } else {
                         requestGalleryPermission()
                     }
                 }
                 1 -> {
-                    if (checkCameraPermission() && checkGalleryPermission()) {
+                    if (isCameraAllow() && isGalleryAllow()) {
                         openCamera()
                     } else {
                         requestCameraPermission()
@@ -358,12 +360,12 @@ class RegisterFragment : Fragment() {
         startActivityForResult(intentImage, GALLERY_REQUEST_CODE)
     }
 
-    private fun checkCameraPermission() = checkSelfPermission(
+    private fun isCameraAllow() = checkSelfPermission(
         requireContext(),
         Manifest.permission.CAMERA
     ) == PackageManager.PERMISSION_GRANTED
 
-    private fun checkGalleryPermission() = checkSelfPermission(
+    private fun isGalleryAllow() = checkSelfPermission(
         requireContext(),
         Manifest.permission.WRITE_EXTERNAL_STORAGE
     ) == PackageManager.PERMISSION_GRANTED
@@ -384,14 +386,13 @@ class RegisterFragment : Fragment() {
     private fun cropImage(uri: Uri?) {
         context?.let { context ->
             CropImage.activity(uri)
-                .setAspectRatio(1, 1)
+                .setAspectRatio(CROP_IMAGE_WIDTH, CROP_IMAGE_HEIGHT)
                 .start(context, this)
         }
     }
 
     private fun handleListenerRegisterButton() {
         btnRegister.setOnClickListener {
-
             val user = User(
                 edtRegisterFullName.text.toString(),
                 edtRegisterEmail.text.toString(),

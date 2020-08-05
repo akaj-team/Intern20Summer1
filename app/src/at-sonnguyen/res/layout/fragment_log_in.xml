@@ -18,11 +18,11 @@
         android:src="@drawable/festival_music" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/w4_profile_linear_layout_width"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/linear_layout_profile_link_margin_to_logo_image_view"
-        android:layout_weight="2">
+        android:layout_weight="1">
 
         <Button
             android:id="@+id/btnFacebook"

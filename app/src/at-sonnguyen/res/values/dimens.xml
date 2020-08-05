@@ -52,4 +52,5 @@
     <dimen name="w4_icon_back_width">16dp</dimen>
     <dimen name="w4_icon_back_height">16dp</dimen>
     <dimen name="w4_button_width">0dp</dimen>
+    <dimen name="w4_profile_linear_layout_width">280dp</dimen>
 </resources>
