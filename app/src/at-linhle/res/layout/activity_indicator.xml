@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPagerIndicator"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+        android:id="@+id/indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="@dimen/circle_indicator_margin_position"
+        android:layout_marginEnd="@dimen/circle_indicator_margin_position"
+        android:layout_marginBottom="@dimen/circle_indicator_margin_bottom"
+        app:dotsColor="@color/colorWhite"
+        app:dotsCornerRadius="@dimen/dot_indicator_corner_radius"
+        app:dotsSize="@dimen/dot_indicator_size"
+        app:dotsSpacing="@dimen/dot_indicator_spacing"
+        app:dotsWidthFactor="1"
+        app:selectedDotColor="@color/colorRed" />
+
+    <TextView
+        android:id="@+id/tvNext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="@dimen/text_view_next_margin_position"
+        android:layout_marginRight="@dimen/text_view_next_margin_position"
+        android:layout_marginBottom="@dimen/text_view_next_margin_position"
+        android:text="@string/text_view_next_description"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/text_view_next_size"
+        android:textStyle="bold" />
+
+</RelativeLayout>

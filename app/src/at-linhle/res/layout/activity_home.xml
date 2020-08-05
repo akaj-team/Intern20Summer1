@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite">
+
+    <ImageView
+        android:id="@+id/header_cover_image"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/home_image_view_height"
+        android:scaleType="centerCrop"
+        android:src="@drawable/nav_menu_header_bg" />
+
+    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/imgUserAvatar"
+        android:layout_width="@dimen/home_avatar_image_view_size"
+        android:layout_height="@dimen/home_avatar_image_view_size"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/home_avatar_image_view_margin_top"
+        android:src="@mipmap/ic_launcher"
+        app:civ_border_color="@color/colorWhite" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/header_cover_image"
+        android:orientation="vertical"
+        android:padding="@dimen/home_linear_layout_padding">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/home_full_name_linear_layout_margin_top">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/home_text_view_margin_right"
+                android:text="@string/full_name_text_view_description"
+                android:textSize="@dimen/home_text_view_text_size"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvUserFullName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/home_text_view_text_size" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/home_email_linear_layout_margin_top">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/home_text_view_margin_right"
+                android:text="@string/email_text_view_description"
+                android:textSize="@dimen/home_text_view_text_size"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvUserEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/home_text_view_text_size" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/home_phone_linear_layout_margin_top">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/home_text_view_margin_right"
+                android:text="@string/mobile_number_text_view_description"
+                android:textSize="@dimen/home_text_view_text_size"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvUserPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/home_text_view_text_size" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>
