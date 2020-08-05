@@ -1,27 +1,27 @@
 package com.asiantech.intern20summer1.week6.activity
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.viewpager.widget.ViewPager
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week6.adapter.StepFragmentPagerAdapter
 import com.asiantech.intern20summer1.week6.fragment.FirstStepFragment
 import com.asiantech.intern20summer1.week6.fragment.ThirdStepFragment
-import com.zhpan.indicator.DrawableIndicator
+import kotlinx.android.synthetic.`at-longphan`.activity_first_page_w6.*
+import kotlinx.android.synthetic.`at-longphan`.fragment_step_1_2_w6.*
+import kotlinx.android.synthetic.`at-longphan`.fragment_step_3_w6.*
 
 class FirstPageActivity : AppCompatActivity() {
 
-    private lateinit var viewPager: ViewPager
-    private lateinit var indicatorView: DrawableIndicator
     private lateinit var adapter: StepFragmentPagerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_first_page_w6)
         configStatusBar()
-        initViews()
+        initAdapter()
         setupAdapter()
         setupIndicator()
         handleTextViewNextClickListener()
@@ -33,10 +33,8 @@ class FirstPageActivity : AppCompatActivity() {
         }
     }
 
-    private fun initViews() {
-        viewPager = findViewById(R.id.viewpager)
+    private fun initAdapter() {
         adapter = StepFragmentPagerAdapter(supportFragmentManager)
-        indicatorView = findViewById(R.id.indicator_view)
     }
 
     private fun setupAdapter() {
@@ -55,14 +53,14 @@ class FirstPageActivity : AppCompatActivity() {
         adapter.addFragment(step2Fragment)
         adapter.addFragment(step3Fragment)
 
-        viewPager.adapter = adapter
+        viewPagerActivityFirstPage.adapter = adapter
     }
 
     private fun setupIndicator() {
         val sizeIndicator = resources.getDimensionPixelOffset(R.dimen.size_indicator)
         val sizeIndicatorSelected = resources.getDimensionPixelOffset(R.dimen.size_indicator_selected)
-        viewPager.let {
-            indicatorView
+        viewPagerActivityFirstPage?.let {
+            indicatorViewActivityFirstPage
                 .setIndicatorGap(resources.getDimensionPixelOffset(R.dimen.space_size_indicator))
                 .setIndicatorDrawable(R.drawable.ic_cat_indicator, R.drawable.ic_cat_indicator_selected)
                 .setIndicatorSize(sizeIndicator, sizeIndicator, sizeIndicatorSelected, sizeIndicatorSelected)
@@ -71,8 +69,13 @@ class FirstPageActivity : AppCompatActivity() {
     }
 
     private fun handleTextViewNextClickListener(){
-        FirstStepFragment.onTextViewNextClicked = {
-            viewPager.currentItem++
+        tvNextStep1And2?.setOnClickListener {
+            viewPagerActivityFirstPage.currentItem++
+        }
+
+        tvNextStep3?.setOnClickListener {
+            startActivity(Intent(this, SecondPageActivity::class.java))
+            finish()
         }
     }
 }

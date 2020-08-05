@@ -1,14 +1,12 @@
 package com.asiantech.intern20summer1.week6.fragment
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.week6.activity.SecondPageActivity
+import kotlinx.android.synthetic.`at-longphan`.fragment_step_3_w6.*
 
 class ThirdStepFragment : Fragment() {
 
@@ -41,15 +39,9 @@ class ThirdStepFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view: View = inflater.inflate(R.layout.fragment_step_3_w6, container, false)
-        val tvStep = view.findViewById(R.id.tvStepDescription) as? TextView
-        tvStep?.text = step
 
-        val tvNext = view.findViewById(R.id.tvNextStep3) as? TextView
-        tvNext?.setOnClickListener {
-            val intent = Intent(activity, SecondPageActivity::class.java)
-            startActivity(intent)
-            this.activity?.finish()
-        }
+        tvStep3Description?.text = step
+
         return view
     }
 }
