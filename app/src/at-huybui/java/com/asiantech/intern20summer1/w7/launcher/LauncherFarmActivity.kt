@@ -1,10 +1,9 @@
-package com.asiantech.intern20summer1.w7
+package com.asiantech.intern20summer1.w7.launcher
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.w7.fragment.SplashFarmFragment
 
 /**
  * Asian Tech Co., Ltd.
@@ -12,11 +11,11 @@ import com.asiantech.intern20summer1.w7.fragment.SplashFarmFragment
  * This is activity class for activity main. This activity contain all fragment
  */
 
-class MainFarmActivity : AppCompatActivity() {
+class LauncherFarmActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main_farm)
+        setContentView(R.layout.activity_launcher_farm)
         handleReplaceFragment(SplashFarmFragment.newInstance())
     }
 
@@ -27,7 +26,7 @@ class MainFarmActivity : AppCompatActivity() {
     ) {
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.containerMain, fragment)
+        fragmentTransaction.replace(R.id.containerLauncher, fragment)
         if (backStack) {
             fragmentTransaction.addToBackStack(nameBackStack)
         }

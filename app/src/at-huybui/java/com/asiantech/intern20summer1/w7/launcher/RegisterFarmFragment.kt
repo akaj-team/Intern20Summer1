@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.w7.fragment
+package com.asiantech.intern20summer1.w7.launcher
 
 import android.Manifest
 import android.app.Activity
@@ -17,10 +17,12 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.w7.MainFarmActivity
+import com.asiantech.intern20summer1.w7.main.MainFarmActivity
+import com.asiantech.intern20summer1.w7.model.Account
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 import kotlinx.android.synthetic.`at-huybui`.fragment_register_farm.*
+import java.io.Serializable
 
 /**
  * Asian Tech Co., Ltd.
@@ -34,6 +36,7 @@ class RegisterFarmFragment : Fragment() {
         private const val REQUEST_IMAGE_CAPTURE = 100
         private const val REQUEST_SELECT_IMAGE_IN_ALBUM = 101
         private const val PERMISSION_REQUEST_CODE = 200
+        internal const val KEY_PUT = "key_put"
         internal fun newInstance() = RegisterFarmFragment()
     }
 
@@ -88,7 +91,15 @@ class RegisterFarmFragment : Fragment() {
     private fun handleForButton() {
         btnRegisterNext?.isEnabled = false
         btnRegisterNext.setOnClickListener {
-
+            val intent = Intent(context, MainFarmActivity::class.java)
+            val name = edtUserName?.text.toString()
+            val university = edtUniversity?.text.toString()
+            val homeTown = edtHomeTown?.text.toString()
+            val imgUri = imageUri?.toString()
+            val user = Account(name, university, homeTown,imgUri)
+            intent.putExtra(KEY_PUT, user as Serializable)
+            startActivity(intent)
+            (activity as LauncherFarmActivity).finish()
         }
     }
 
@@ -116,7 +127,7 @@ class RegisterFarmFragment : Fragment() {
 
     private fun handleForAvatarImage() {
         imgAvatarRegister.setOnClickListener {
-            val builder = (activity as MainFarmActivity).let { it1 -> AlertDialog.Builder(it1) }
+            val builder = (activity as LauncherFarmActivity).let { it1 -> AlertDialog.Builder(it1) }
             builder.setTitle("Select")
             val select = arrayOf("Camera", "Gallery")
             builder.setItems(select) { _, which ->
@@ -162,13 +173,16 @@ class RegisterFarmFragment : Fragment() {
     private fun openCamera() {
         val values = ContentValues()
         imageUri =
-            (activity as MainFarmActivity).contentResolver.insert(
+            (activity as LauncherFarmActivity).contentResolver.insert(
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                 values
             )
         val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
-        startActivityForResult(cameraIntent, REQUEST_IMAGE_CAPTURE)
+        startActivityForResult(
+            cameraIntent,
+            REQUEST_IMAGE_CAPTURE
+        )
     }
 
     /**
@@ -177,22 +191,25 @@ class RegisterFarmFragment : Fragment() {
     private fun openGallery() {
         val intentGallery = Intent(Intent.ACTION_PICK)
         intentGallery.type = "image/*"
-        startActivityForResult(intentGallery, REQUEST_SELECT_IMAGE_IN_ALBUM)
+        startActivityForResult(
+            intentGallery,
+            REQUEST_SELECT_IMAGE_IN_ALBUM
+        )
     }
 
     private fun isCheckCameraPermission(): Boolean {
         return (ContextCompat.checkSelfPermission(
-            (activity as MainFarmActivity),
+            (activity as LauncherFarmActivity),
             Manifest.permission.CAMERA
         ) == PackageManager.PERMISSION_GRANTED) && ((ContextCompat.checkSelfPermission(
-            (activity as MainFarmActivity),
+            (activity as LauncherFarmActivity),
             Manifest.permission.WRITE_EXTERNAL_STORAGE
         ) == PackageManager.PERMISSION_GRANTED))
     }
 
     private fun requestCameraPermission() {
         ActivityCompat.requestPermissions(
-            (activity as MainFarmActivity),
+            (activity as LauncherFarmActivity),
             arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE),
             PERMISSION_REQUEST_CODE
         )
@@ -200,14 +217,14 @@ class RegisterFarmFragment : Fragment() {
 
     private fun isCheckGalleryPermission(): Boolean {
         return ContextCompat.checkSelfPermission(
-            (activity as MainFarmActivity),
+            (activity as LauncherFarmActivity),
             Manifest.permission.READ_EXTERNAL_STORAGE
         ) == PackageManager.PERMISSION_GRANTED
     }
 
     private fun requestGalleryPermission() {
         ActivityCompat.requestPermissions(
-            (activity as MainFarmActivity), arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+            (activity as LauncherFarmActivity), arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
             PERMISSION_REQUEST_CODE
         )
     }

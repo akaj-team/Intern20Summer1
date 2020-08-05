@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardElevation="@dimen/w7_card_view_elevation"
+    android:layout_margin="@dimen/w7_card_view_margin"
+    app:cardCornerRadius="@dimen/w7_card_view_radius"
+    android:background="@color/edit_text_off">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@color/edit_text_off"
+        android:layout_height="104dp">
+        <ImageView
+            android:id="@+id/imgVegetable"
+            android:layout_width="@dimen/w7_home_image_vegetable_size"
+            android:layout_height="@dimen/w7_home_image_vegetable_size"
+            tools:src="@drawable/icon_error"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Name"
+            android:textSize="@dimen/w8_home_name_vegetable_size"
+            android:textStyle="bold"
+            android:layout_marginTop="@dimen/w8_home_name_vegetable_margin_top_left"
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
