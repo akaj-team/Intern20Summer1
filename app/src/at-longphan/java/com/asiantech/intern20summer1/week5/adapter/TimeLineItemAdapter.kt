@@ -16,8 +16,8 @@ import com.asiantech.intern20summer1.week5.other.TimeLineViewHolder
 class TimeLineItemAdapter : RecyclerView.Adapter<TimeLineViewHolder> {
 
     companion object{
-        private const val PICTURE_2 = 2
-        private const val PICTURE_3 = 3
+        private const val DIVIDE_2 = 2
+        private const val DIVIDE_3 = 3
     }
 
     internal var onIsLikedImageViewClick: (position: Int) -> Unit = {}
@@ -45,8 +45,8 @@ class TimeLineItemAdapter : RecyclerView.Adapter<TimeLineViewHolder> {
 
         val imageImageView = viewHolder.imageImageView
         when {
-            position % PICTURE_3 == 0 -> imageImageView?.setImageResource(R.drawable.img_cat3)
-            position % PICTURE_2 == 0 -> imageImageView?.setImageResource(R.drawable.img_cat2)
+            position % DIVIDE_3 == 0 -> imageImageView?.setImageResource(R.drawable.img_cat3)
+            position % DIVIDE_2 == 0 -> imageImageView?.setImageResource(R.drawable.img_cat2)
             else -> imageImageView?.setImageResource(R.drawable.img_cat)
         }
 
@@ -60,6 +60,8 @@ class TimeLineItemAdapter : RecyclerView.Adapter<TimeLineViewHolder> {
             onIsLikedImageViewClick.invoke(position)
         }
 
+        val imgLikesImageView = viewHolder.imgLikesImageView
+
         val likesTextView = viewHolder.likesTextView
         likesTextView?.text = timeLineItem.likes.toString()
 
@@ -67,12 +69,14 @@ class TimeLineItemAdapter : RecyclerView.Adapter<TimeLineViewHolder> {
 
         when {
             timeLineItem.likes > 1 -> {
+                imgLikesImageView?.visibility = View.VISIBLE
                 isPluralLikeTextView?.text =
                     context.getString(R.string.text_view_plural_like_description)
                 isPluralLikeTextView?.setTypeface(Typeface.DEFAULT_BOLD, Typeface.NORMAL)
                 likesTextView?.visibility = View.VISIBLE
             }
             timeLineItem.likes == 1 -> {
+                imgLikesImageView?.visibility = View.VISIBLE
                 isPluralLikeTextView?.text =
                     context.getString(R.string.text_view_not_plural_like_description)
                 isPluralLikeTextView?.setTypeface(Typeface.DEFAULT_BOLD, Typeface.NORMAL)
@@ -80,12 +84,14 @@ class TimeLineItemAdapter : RecyclerView.Adapter<TimeLineViewHolder> {
             }
             timeLineItem.likes == 0 -> {
                 likesTextView?.visibility = View.INVISIBLE
+                imgLikesImageView?.visibility = View.INVISIBLE
                 isPluralLikeTextView?.text =
                     context.getString(R.string.text_view_first_like_description)
                 isPluralLikeTextView?.setTypeface(Typeface.DEFAULT, Typeface.ITALIC)
             }
         }
 
+        // Stick username and caption together in a text view
         val userNameAndCaption = timeLineItem.userName + " " + timeLineItem.caption
         val spannableString = SpannableString(userNameAndCaption)
         timeLineItem.userName?.length?.let {

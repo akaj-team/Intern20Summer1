@@ -13,6 +13,7 @@ import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week5.adapter.TimeLineItemAdapter
 import com.asiantech.intern20summer1.week5.model.TimeLineItem
 import kotlinx.android.synthetic.`at-longphan`.activity_time_line.*
+import kotlinx.android.synthetic.`at-longphan`.item_list_time_line.*
 
 class TimeLineActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
 
@@ -89,6 +90,8 @@ class TimeLineActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListen
                     it.isPluralLike = true
                 }
             }
+            imgLikes
+
             adapter.notifyItemChanged(position)
             // Remove flash animation when interact with a row item
             (rvTimeLineItems.itemAnimator as? SimpleItemAnimator)?.supportsChangeAnimations = false
@@ -104,11 +107,10 @@ class TimeLineActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListen
         rvTimeLineItems.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                val linearLayoutManager = recyclerView.layoutManager as? LinearLayoutManager?
+                val linearLayoutManager = recyclerView.layoutManager as? LinearLayoutManager
                 if (!isLoading) {
                     linearLayoutManager?.let {
                         if (it.findLastCompletelyVisibleItemPosition() == timeLineItemsShowed.size - 1
-                            && timeLineItemsShowed.size < timeLineItemsAll.size
                         ) {
                             loadMore()
                             isLoading = true
