@@ -1,15 +1,13 @@
 package com.asiantech.intern20summer1.w6.firstactivity
 
-import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.R.string.*
+import com.asiantech.intern20summer1.R.string.w6_text_step
 import com.asiantech.intern20summer1.w6.model.PagePosition
-import kotlinx.android.synthetic.`at-huybui`.activity_view_pager_one.*
 import kotlinx.android.synthetic.`at-huybui`.fragment_one_viewpager.*
 
 /**
@@ -46,11 +44,9 @@ class FragmentOne : Fragment() {
         when (val position = arguments?.getInt(KEY_POS)) {
             PagePosition.THREE.number -> {
                 tvStep?.text = getString(w6_text_step, position?.plus(1))
-                (activity as Activity).tvSkip?.text = getString(w6_text_done)
             }
             else -> {
                 tvStep?.text = getString(w6_text_step, position?.plus(1))
-                (activity as Activity).tvSkip?.text = getString(w6_text_next)
             }
         }
     }
