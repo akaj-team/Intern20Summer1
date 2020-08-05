@@ -28,19 +28,23 @@ class MainActivity : AppCompatActivity() {
      * Event handler edit text Email
      */
     private fun initListenerEmailEditText() {
-        edtEmail.afterTextChanged {
+        edtEmail?.afterTextChanged {
             if (it.isValidEmail()) {
-                edtEmail.setCompoundDrawablesWithIntrinsicBounds(0, 0,
-                    R.drawable.icon_tick, 0)
-                edtEmail.isActivated = false
+                edtEmail?.setCompoundDrawablesWithIntrinsicBounds(
+                    0, 0,
+                    R.drawable.icon_tick, 0
+                )
+                edtEmail?.isActivated = false
             } else {
-                edtEmail.setCompoundDrawablesWithIntrinsicBounds(0, 0,
-                    R.drawable.icon_error, 0)
-                edtEmail.isActivated = true
+                edtEmail?.setCompoundDrawablesWithIntrinsicBounds(
+                    0, 0,
+                    R.drawable.icon_error, 0
+                )
+                edtEmail?.isActivated = true
             }
         }
-        edtEmail.setOnFocusChangeListener { _, isFocus ->
-            edtEmail.isSelected = isFocus
+        edtEmail?.setOnFocusChangeListener { _, isFocus ->
+            edtEmail?.isSelected = isFocus
         }
     }
 
@@ -48,27 +52,27 @@ class MainActivity : AppCompatActivity() {
      * Event handler edit text type password
      */
     private fun initListenerTypePasswordEditText() {
-        edtTypePassword.afterTextChanged {
+        edtTypePassword?.afterTextChanged {
             if (it.isValidPassword()) {
-                edtTypePassword.setCompoundDrawablesWithIntrinsicBounds(
+                edtTypePassword?.setCompoundDrawablesWithIntrinsicBounds(
                     0,
                     0,
                     R.drawable.icon_tick,
                     0
                 )
-                edtTypePassword.isActivated = false
+                edtTypePassword?.isActivated = false
             } else {
-                edtTypePassword.setCompoundDrawablesWithIntrinsicBounds(
+                edtTypePassword?.setCompoundDrawablesWithIntrinsicBounds(
                     0,
                     0,
                     R.drawable.icon_error,
                     0
                 )
-                edtTypePassword.isActivated = true
+                edtTypePassword?.isActivated = true
             }
         }
-        edtTypePassword.setOnFocusChangeListener { _, isFocus ->
-            edtTypePassword.isSelected = isFocus
+        edtTypePassword?.setOnFocusChangeListener { _, isFocus ->
+            edtTypePassword?.isSelected = isFocus
         }
     }
 
@@ -76,27 +80,27 @@ class MainActivity : AppCompatActivity() {
      * Event handler edit text retype password
      */
     private fun initListenerRetypePasswordEditText() {
-        edtRetypePassword.afterTextChanged {
+        edtRetypePassword?.afterTextChanged {
             if (it.isValidPassword() && (edtRetypePassword.text.toString() == edtTypePassword.text.toString())) {
-                edtRetypePassword.setCompoundDrawablesWithIntrinsicBounds(
+                edtRetypePassword?.setCompoundDrawablesWithIntrinsicBounds(
                     0,
                     0,
                     R.drawable.icon_tick,
                     0
                 )
-                edtRetypePassword.isActivated = false
+                edtRetypePassword?.isActivated = false
             } else {
-                edtRetypePassword.setCompoundDrawablesWithIntrinsicBounds(
+                edtRetypePassword?.setCompoundDrawablesWithIntrinsicBounds(
                     0,
                     0,
                     R.drawable.icon_error,
                     0
                 )
-                edtRetypePassword.isActivated = true
+                edtRetypePassword?.isActivated = true
             }
         }
-        edtRetypePassword.setOnFocusChangeListener { _, isFocus ->
-            edtRetypePassword.isSelected = isFocus
+        edtRetypePassword?.setOnFocusChangeListener { _, isFocus ->
+            edtRetypePassword?.isSelected = isFocus
         }
     }
 
@@ -104,18 +108,18 @@ class MainActivity : AppCompatActivity() {
      * Initialize initial values for the interface
      */
     private fun initViews() {
-        edtEmail.isActivated = false
-        edtEmail.isSelected = false
+        edtEmail?.isActivated = false
+        edtEmail?.isSelected = false
     }
 
     /*
      * Handle events for SignIn TextView and Login Button
      */
     private fun initToast() {
-        tvSign.setOnClickListener {
+        tvSign?.setOnClickListener {
             Toast.makeText(this, "Sign up! ", Toast.LENGTH_SHORT).show()
         }
-        btnLogin.setOnClickListener {
+        btnLogin?.setOnClickListener {
             Toast.makeText(this, "Sign Up", Toast.LENGTH_SHORT).show()
         }
     }

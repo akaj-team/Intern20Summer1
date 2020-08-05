@@ -1,19 +1,22 @@
 package com.asiantech.intern20summer1.fragmennt
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.data.ensign
+import com.asiantech.intern20summer1.data.image
+import kotlinx.android.synthetic.main.fragment_two.*
 
 class FragmentTwo : Fragment() {
     companion object {
-        internal fun newInstance(): Fragment {
-            return FragmentTwo()
+        private const val KEY_POS = "key"
+        internal fun newInstance(position: Int) = FragmentTwo().apply {
+            arguments = Bundle().apply {
+                putInt(KEY_POS, position)
+            }
         }
     }
 
@@ -22,11 +25,37 @@ class FragmentTwo : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_one, container, false)
-        val name = view.findViewById(R.id.tvName) as? TextView
-        val fr = view.findViewById<FrameLayout>(R.id.frMain)
-        fr.setBackgroundColor(Color.CYAN)
-        name?.text = resources.getString(R.string.text_view_fragment_two_description_text)
-        return view
+        return inflater.inflate(R.layout.fragment_two, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initView()
+    }
+
+    private fun initView() {
+        when (arguments?.getInt(KEY_POS)) {
+            0 -> {
+                getData()
+                tvNameIconOne?.text = resources.getString(R.string.portugal_text_view_description)
+                tvNameIconTwo?.text = resources.getString(R.string.portugal_text_view_description)
+            }
+            1 -> {
+                getData()
+                tvNameIconOne?.text = resources.getString(R.string.viet_nam_text_view_description)
+                tvNameIconTwo?.text = resources.getString(R.string.viet_nam_text_view_description)
+            }
+            2 -> {
+                getData()
+                tvNameIconOne?.text = resources.getString(R.string.my_text_view_description)
+                tvNameIconTwo?.text = resources.getString(R.string.my_text_view_description)
+            }
+        }
+    }
+
+    private fun getData() {
+        imgIconOne?.setImageResource(ensign.random())
+        imgIconTwo?.setImageResource(ensign.random())
+        imgViewCenter?.setImageResource(image.random())
     }
 }

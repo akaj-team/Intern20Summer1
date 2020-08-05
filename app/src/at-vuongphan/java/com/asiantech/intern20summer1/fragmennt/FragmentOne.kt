@@ -6,11 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.R.string.text_step
+import kotlinx.android.synthetic.main.fragment_one.*
 
 class FragmentOne : Fragment() {
     companion object {
-        internal fun newInstance(): Fragment {
-            return FragmentOne()
+        private const val KEY_POS = "key"
+        internal fun newInstance(position: Int) = FragmentOne().apply {
+            arguments = Bundle().apply {
+                putInt(KEY_POS, position)
+            }
         }
     }
 
@@ -21,4 +26,24 @@ class FragmentOne : Fragment() {
     ): View? {
         return inflater.inflate(R.layout.fragment_one, container, false)
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initView()
+    }
+
+    private fun initView() {
+        when (val position = arguments?.getInt(KEY_POS)) {
+            PagePosition.THREE.number -> {
+                tvName?.text = getString(text_step, position?.plus(1))
+            }
+            else -> {
+                tvName?.text = getString(text_step, position?.plus(1))
+            }
+        }
+    }
+}
+
+enum class PagePosition(val number: Int?) {
+    THREE(2),
 }

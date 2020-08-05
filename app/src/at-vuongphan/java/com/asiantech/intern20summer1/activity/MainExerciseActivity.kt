@@ -15,13 +15,13 @@ class MainExerciseActivity : AppCompatActivity() {
     }
 
     private fun initListenerButtonW3() {
-        btnW3.setOnClickListener {
+        btnW3?.setOnClickListener {
             startActivity(Intent(this, MainActivity::class.java))
         }
     }
 
     private fun initListenerButtonW6() {
-        btnW6.setOnClickListener {
+        btnW6?.setOnClickListener {
             startActivity(Intent(this, ViewPagerActivity::class.java))
         }
     }

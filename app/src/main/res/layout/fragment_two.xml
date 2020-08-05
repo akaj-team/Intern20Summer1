@@ -12,7 +12,7 @@
         android:background="@drawable/bg_background_relative_layout_radius">
 
         <ImageView
-            android:id="@+id/imgIcon"
+            android:id="@+id/imgIconOne"
             android:layout_width="@dimen/image_view_width"
             android:layout_height="@dimen/image_view_height"
             android:layout_centerHorizontal="true"
@@ -20,15 +20,15 @@
             android:src="@drawable/portugal" />
 
         <TextView
-            android:id="@+id/tvNameIcon"
+            android:id="@+id/tvNameIconOne"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/imgIcon"
+            android:layout_below="@id/imgIconOne"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/view_pager_margin" />
 
         <ImageView
-            android:id="@+id/imgView"
+            android:id="@+id/imgViewCenter"
             android:layout_width="@dimen/image_view_center_width"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
