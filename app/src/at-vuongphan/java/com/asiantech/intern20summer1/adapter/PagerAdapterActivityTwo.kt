@@ -9,7 +9,11 @@ class PagerAdapterActivityTwo(fragment: FragmentManager) : FragmentPagerAdapter(
     fragment,
     BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
 ) {
-    override fun getCount() = 3
+    companion object {
+        private const val NUMBER_PAGER = 3
+    }
+
+    override fun getCount() = NUMBER_PAGER
     override fun getItem(position: Int): Fragment {
         return FragmentTwo.newInstance(position)
     }
