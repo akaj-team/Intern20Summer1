@@ -22,7 +22,7 @@ class RecyclerAdapter(private val mutableList: MutableList<RecyclerItem>) :
 
     override fun getItemCount() = mutableList.size
 
-    override fun onBindViewHolder(holder: RecyclerAdapter.ItemViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         holder.bindData()
     }
 
