@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+    
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/item_vuon_cay"
+            android:icon="@mipmap/ic_launcher"
+            android:title="@string/item_vuon_cay" />
+    </group>
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/item_trong_cay"
+            android:icon="@mipmap/ic_launcher"
+            android:title="@string/item_trong_cay" />
+    </group>
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/item_cay_sap_thu_hoach"
+            android:icon="@mipmap/ic_launcher"
+            android:title="@string/item_cay_sap_thu_hoach" />
+    </group>
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/item_cay_bi_sau"
+            android:icon="@mipmap/ic_launcher"
+            android:title="@string/item_cay_bi_sau" />
+    </group>
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/item_cay_bi_thieu_nuoc"
+            android:icon="@mipmap/ic_launcher"
+            android:title="@string/item_cay_bi_thieu_nuoc" />
+    </group>
+</menu>

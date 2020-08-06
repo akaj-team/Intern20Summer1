@@ -14,6 +14,7 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.`at-hoangtran`.activity_main.*
 
+@Suppress("DEPRECATION", "DEPRECATION", "DEPRECATION", "DEPRECATION")
 class MainActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     @SuppressLint("ClickableViewAccessibility", "ResourceAsColor")

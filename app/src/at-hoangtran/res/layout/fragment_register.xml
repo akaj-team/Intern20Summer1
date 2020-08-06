@@ -1,0 +1,64 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginHorizontal="20dp"
+    android:orientation="vertical"
+    tools:context="com.asiantech.intern20summer1.week7.RegisterFragment">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="30dp"
+        android:text="@string/text_view_register"
+        android:textSize="40sp"
+        android:textStyle="bold" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/img_avatar"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginBottom="20dp"
+        android:src="@mipmap/ic_launcher" />
+
+    <EditText
+        android:id="@+id/edt_user_name"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="20dp"
+        android:autofillHints="User Name"
+        android:background="@drawable/bg_edit_text_register_garden"
+        android:hint="@string/user_name"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/edt_university"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="20dp"
+        android:autofillHints="@string/edit_text_register_university"
+        android:background="@drawable/bg_edit_text_register_garden"
+        android:hint="@string/edit_text_register_university"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/edt_home_town"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="20dp"
+        android:autofillHints="@string/edit_text_register_home_town"
+        android:background="@drawable/bg_edit_text_register_garden"
+        android:hint="@string/edit_text_register_home_town"
+        android:inputType="text" />
+
+    <Button
+        android:id="@+id/btn_next"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="end"
+        android:background="@color/colorBlack"
+        android:enabled="true"
+        android:text="@string/btn_next"
+        android:textColor="@color/colorWhite" />
+</LinearLayout>
