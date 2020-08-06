@@ -16,4 +16,7 @@
     <color name="edit_text_background_on">#F2F2F2</color>
     <color name="sign_up_text">#0D2A93</color>
     <color name="text_button">#FAF4F1</color>
+    <color name="w6_dot_indicator_color">#ED3F40</color>
+    <color name="w6_background_activity_one">#FFEB4F</color>
+    <color name="red">#FF0000</color>
 </resources>
