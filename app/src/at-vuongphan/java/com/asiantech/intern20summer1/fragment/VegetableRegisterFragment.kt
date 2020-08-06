@@ -20,11 +20,13 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.activity.VegetableHomeActivity
+import com.asiantech.intern20summer1.data.VegetableUser
 import com.asiantech.intern20summer1.extension.hideKeyboard
 import com.asiantech.intern20summer1.extension.textChangedListener
 import com.theartofdev.edmodo.cropper.CropImage
 import kotlinx.android.synthetic.`at-vuongphan`.w7_register_fragment.*
 import java.io.ByteArrayOutputStream
+import java.io.Serializable
 
 class VegetableRegisterFragment : Fragment() {
     private var flag = false
@@ -98,6 +100,11 @@ class VegetableRegisterFragment : Fragment() {
     private fun initButtonNext() {
         btnNext.setOnClickListener {
             val intent = Intent(context, VegetableHomeActivity::class.java)
+            val name = edtUserName?.text.toString()
+            val university = edtUniversity?.text.toString()
+            val imgUri = imgAvatar?.toString()
+            val user = VegetableUser(name, university, imgUri)
+            intent.putExtra("image", user as? Serializable)
             startActivity(intent)
             (activity as? Activity)?.finish()
         }
@@ -191,7 +198,9 @@ class VegetableRegisterFragment : Fragment() {
         editText.textChangedListener(onTextChanged = { _, _, _, _ ->
             btnNext?.apply {
                 isEnabled = isCorrectFormat()
-                background = resources.getDrawable(R.drawable.bg_register_button_radius_enable)
+                if (isCorrectFormat()) {
+                    background = resources.getDrawable(R.drawable.bg_register_button_radius_enable)
+                }
             }
         })
     }

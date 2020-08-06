@@ -1,25 +1,21 @@
 package com.asiantech.intern20summer1.activity
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.data.VegetableUser
 import com.asiantech.intern20summer1.fragment.VegetableDialogFragment
 import com.asiantech.intern20summer1.fragment.VegetableFragmentRecyclerView
 import com.google.android.material.navigation.NavigationView
-import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.`at-vuongphan`.w7_home_activity.*
+import kotlinx.android.synthetic.`at-vuongphan`.w7_nav_header.view.*
 
 class VegetableHomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-    private lateinit var tvNameHeader: TextView
-    private lateinit var tvUniversityHeader: TextView
-    private lateinit var imgAvatarHeader: CircleImageView
-    private lateinit var imgBackHeader: ImageView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.w7_home_activity)
@@ -27,7 +23,6 @@ class VegetableHomeActivity : AppCompatActivity(), NavigationView.OnNavigationIt
         setSupportActionBar(toolBar)
         navView?.setNavigationItemSelectedListener(this)
         initView()
-        initViewHeader()
         initImageViewBack()
         openFragmentRecyclerView()
     }
@@ -84,16 +79,18 @@ class VegetableHomeActivity : AppCompatActivity(), NavigationView.OnNavigationIt
     }
 
     private fun initImageViewBack() {
-        imgBackHeader.setOnClickListener {
-            drawerLayout.closeDrawer(GravityCompat.START)
+        val user = intent.getSerializableExtra("image") as? VegetableUser
+        navView.getHeaderView(0).let { header ->
+            user.let {
+                header.tvName.text = it?.name
+                header.tvNameUniversity.text = it?.university
+                it?.avatarUri?.let {
+                    header.imgAvatar2?.setImageURI(Uri.parse(it))
+                }
+            }
+            header.imgBack.setOnClickListener {
+                drawerLayout.closeDrawer(GravityCompat.START)
+            }
         }
-    }
-
-    private fun initViewHeader() {
-        val header = navView.getHeaderView(0)
-        imgBackHeader = header.findViewById(R.id.imgBack)
-        tvNameHeader = header.findViewById(R.id.tvName)
-        tvUniversityHeader = header.findViewById(R.id.tvNameUniversity)
-        imgAvatarHeader = header.findViewById(R.id.imgAvatar2)
     }
 }
