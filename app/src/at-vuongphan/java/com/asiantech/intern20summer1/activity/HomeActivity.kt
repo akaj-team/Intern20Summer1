@@ -6,7 +6,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.data.User
-import kotlinx.android.synthetic.main.home_activity.*
+import kotlinx.android.synthetic.`at-vuongphan`.home_activity.*
 
 class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
