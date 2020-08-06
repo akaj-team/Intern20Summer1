@@ -9,6 +9,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.fragment.VegetableDialogFragment
 import com.asiantech.intern20summer1.fragment.VegetableFragmentRecyclerView
 import com.google.android.material.navigation.NavigationView
 import de.hdodenhof.circleimageview.CircleImageView
@@ -42,7 +43,7 @@ class VegetableHomeActivity : AppCompatActivity(), NavigationView.OnNavigationIt
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.navFarmer -> {
-                // W7FragmentDialog.newInstance().show(supportFragmentManager, "Vuon rau")
+                VegetableDialogFragment.newInstance().show(supportFragmentManager, "")
                 drawerLayout.closeDrawer(GravityCompat.START)
             }
             R.id.navGrowVegetable -> {

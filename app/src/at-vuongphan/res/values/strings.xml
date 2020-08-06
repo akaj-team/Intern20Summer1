@@ -62,4 +62,8 @@
     <string name="vegetable_three">Rau khoai lan</string>
     <string name="dialog_fragment">Trồng rau</string>
     <string name="text_button_ok">OK</string>
+    <string-array name="planets_array">
+        <item>Option 1</item>
+        <item>Option 2</item>
+    </string-array>
 </resources>

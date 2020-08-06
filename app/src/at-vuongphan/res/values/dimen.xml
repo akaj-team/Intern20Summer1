@@ -93,4 +93,5 @@
     <dimen name="margin_35dp">35dp</dimen>
     <dimen name="margin_14dp">14dp</dimen>
     <dimen name="margin_12dp">12dp</dimen>
+    <dimen name="margin_18dp">18dp</dimen>
 </resources>
