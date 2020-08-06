@@ -21,9 +21,9 @@
         <activity android:name=".activity.SignInActivity" />
         <activity android:name=".activity.MainActivity" />
         <activity android:name=".activity.HomeActivity" />
-        <activity android:name=".activity.W7HomeActivity" />
+        <activity android:name=".activity.VegetableHomeActivity" />
         <activity android:name=".activity.SplashActivity" />
-        <activity android:name=".activity.W7SplashActivity">
+        <activity android:name=".activity.VegetableSplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

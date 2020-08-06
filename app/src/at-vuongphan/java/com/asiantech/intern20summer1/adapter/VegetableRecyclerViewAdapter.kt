@@ -6,16 +6,16 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.data.W7ItemRecyclerView
+import com.asiantech.intern20summer1.data.VegetableItemRecyclerView
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.`at-vuongphan`.w7_item_recycler_view.view.*
 
-class W7RecyclerViewAdapter(private val mutableList: MutableList<W7ItemRecyclerView>) :
-    RecyclerView.Adapter<W7RecyclerViewAdapter.ItemViewHolder>() {
+class VegetableRecyclerViewAdapter(private val mutableList: MutableList<VegetableItemRecyclerView>) :
+    RecyclerView.Adapter<VegetableRecyclerViewAdapter.ItemViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): W7RecyclerViewAdapter.ItemViewHolder {
+    ): VegetableRecyclerViewAdapter.ItemViewHolder {
         val itemView =
             LayoutInflater.from(parent.context)
                 .inflate(R.layout.w7_item_recycler_view, parent, false)
@@ -24,7 +24,7 @@ class W7RecyclerViewAdapter(private val mutableList: MutableList<W7ItemRecyclerV
 
     override fun getItemCount() = mutableList.size
 
-    override fun onBindViewHolder(holder: W7RecyclerViewAdapter.ItemViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: VegetableRecyclerViewAdapter.ItemViewHolder, position: Int) {
         holder.bindData()
     }
 

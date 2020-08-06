@@ -5,13 +5,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.extension.replaceFragment
-import com.asiantech.intern20summer1.fragment.W7SplashFragment
+import com.asiantech.intern20summer1.fragment.VegetableSplashFragment
 
-class W7SplashActivity : AppCompatActivity() {
+class VegetableSplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.w7_splash_activity)
-        replaceFragment(R.id.frContainer, W7SplashFragment(), false)
+        replaceFragment(R.id.frContainer, VegetableSplashFragment(), false)
     }
 
     internal fun openFragment(

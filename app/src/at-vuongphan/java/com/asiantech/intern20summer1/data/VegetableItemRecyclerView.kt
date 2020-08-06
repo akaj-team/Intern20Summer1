@@ -1,6 +1,6 @@
 package com.asiantech.intern20summer1.data
 
-data class W7ItemRecyclerView(
+data class VegetableItemRecyclerView(
     var nameVegetable: String,
     var imageData: Int,
     var timerOne: String,

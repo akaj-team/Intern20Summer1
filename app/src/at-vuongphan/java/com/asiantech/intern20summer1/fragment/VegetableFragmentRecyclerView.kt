@@ -7,17 +7,17 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.adapter.W7RecyclerViewAdapter
-import com.asiantech.intern20summer1.data.W7ItemRecyclerView
+import com.asiantech.intern20summer1.adapter.VegetableRecyclerViewAdapter
+import com.asiantech.intern20summer1.data.VegetableItemRecyclerView
 import kotlinx.android.synthetic.`at-vuongphan`.w7_recycler_view_fragment.*
 
-class W7FragmentRecyclerView : Fragment() {
-    private val exampleLists = mutableListOf<W7ItemRecyclerView>()
-    private var adapterRecycler = W7RecyclerViewAdapter(exampleLists)
+class VegetableFragmentRecyclerView : Fragment() {
+    private val exampleLists = mutableListOf<VegetableItemRecyclerView>()
+    private var adapterRecycler = VegetableRecyclerViewAdapter(exampleLists)
 
     companion object {
-        internal fun newInstance(): W7FragmentRecyclerView {
-            return W7FragmentRecyclerView()
+        internal fun newInstance(): VegetableFragmentRecyclerView {
+            return VegetableFragmentRecyclerView()
         }
     }
 
@@ -41,8 +41,8 @@ class W7FragmentRecyclerView : Fragment() {
         recyclerView.setHasFixedSize(true)
     }
 
-    private fun newData(): MutableList<W7ItemRecyclerView> {
-        val pots = mutableListOf<W7ItemRecyclerView>()
+    private fun newData(): MutableList<VegetableItemRecyclerView> {
+        val pots = mutableListOf<VegetableItemRecyclerView>()
         val timerHarvest = listOf(
             R.string.timer_tow,
             R.string.timer_tow_two
@@ -57,7 +57,7 @@ class W7FragmentRecyclerView : Fragment() {
         )
         for (i in 0..9) {
             pots.add(
-                W7ItemRecyclerView(
+                VegetableItemRecyclerView(
                     resources.getString(nameVegetable.random()),
                     R.drawable.ic_splash,
                     resources.getString(timerGrow.random()),

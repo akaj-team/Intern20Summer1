@@ -7,10 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.activity.W7SplashActivity
+import com.asiantech.intern20summer1.activity.VegetableSplashActivity
 import kotlinx.android.synthetic.`at-vuongphan`.w7_splash_fragment.*
 
-class W7SplashFragment : Fragment() {
+class VegetableSplashFragment : Fragment() {
     companion object {
         const val START = 5000L
         const val STEP_PROGRESS_BAR = 120L
@@ -35,7 +35,7 @@ class W7SplashFragment : Fragment() {
             override fun onTick(p0: Long) {
                 progressSplash?.progress = progressSplash.progress + 1
                 if (progressSplash?.progress == STEP_FINISH) {
-                    (activity as? W7SplashActivity)?.openFragment(W7RegisterFragment.newInstance())
+                    (activity as? VegetableSplashActivity)?.openFragment(VegetableRegisterFragment.newInstance())
                     this.cancel()
                 }
             }

@@ -7,11 +7,11 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.fragment.W7FragmentRecyclerView
+import com.asiantech.intern20summer1.fragment.VegetableFragmentRecyclerView
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.`at-vuongphan`.w7_home_activity.*
 
-class W7HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class VegetableHomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.w7_home_activity)
@@ -32,11 +32,8 @@ class W7HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.imgBack -> {
-                drawerLayout.closeDrawer(GravityCompat.START)
-            }
             R.id.navFarmer -> {
-                // DialogFragment().show(supportFragmentManager, "Vuon rau")
+                // W7FragmentDialog.newInstance().show(supportFragmentManager, "Vuon rau")
                 drawerLayout.closeDrawer(GravityCompat.START)
             }
             R.id.navGrowVegetable -> {
@@ -55,13 +52,16 @@ class W7HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                 openFragmentRecyclerView()
                 drawerLayout.closeDrawer(GravityCompat.START)
             }
+            R.id.imgBack -> {
+                Toast.makeText(this, "aaa", Toast.LENGTH_SHORT).show()
+            }
         }
         return true
     }
 
     private fun openFragmentRecyclerView() {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.frContainerLayout, W7FragmentRecyclerView.newInstance()).commit()
+            .replace(R.id.frContainerLayout, VegetableFragmentRecyclerView.newInstance()).commit()
     }
 
     private fun initView() {

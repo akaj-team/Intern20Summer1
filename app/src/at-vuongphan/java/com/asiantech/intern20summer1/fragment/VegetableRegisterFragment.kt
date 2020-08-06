@@ -19,20 +19,19 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.activity.W7HomeActivity
+import com.asiantech.intern20summer1.activity.VegetableHomeActivity
 import com.asiantech.intern20summer1.extension.hideKeyboard
 import com.asiantech.intern20summer1.extension.textChangedListener
 import com.theartofdev.edmodo.cropper.CropImage
 import kotlinx.android.synthetic.`at-vuongphan`.w7_register_fragment.*
 import java.io.ByteArrayOutputStream
 
-@Suppress("DEPRECATION")
-class W7RegisterFragment : Fragment() {
+class VegetableRegisterFragment : Fragment() {
     private var flag = false
 
     companion object {
-        internal fun newInstance(): W7RegisterFragment {
-            return W7RegisterFragment()
+        internal fun newInstance(): VegetableRegisterFragment {
+            return VegetableRegisterFragment()
         }
 
         private const val REQUEST_IMAGE_CAPTURE = 111
@@ -98,7 +97,7 @@ class W7RegisterFragment : Fragment() {
 
     private fun initButtonNext() {
         btnNext.setOnClickListener {
-            val intent = Intent(context, W7HomeActivity::class.java)
+            val intent = Intent(context, VegetableHomeActivity::class.java)
             startActivity(intent)
             (activity as? Activity)?.finish()
         }
