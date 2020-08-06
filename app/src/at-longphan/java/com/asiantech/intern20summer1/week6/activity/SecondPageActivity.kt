@@ -26,19 +26,19 @@ class SecondPageActivity : AppCompatActivity() {
 
         val images = arrayOf(R.drawable.img_cat, R.drawable.img_cat2, R.drawable.img_cat3)
 
-        val firstFragment: ImageFragment = ImageFragment.newInstance(images[(images.indices).random()])
-        val secondFragment: ImageFragment = ImageFragment.newInstance(images[(images.indices).random()])
-        val thirdFragment: ImageFragment = ImageFragment.newInstance(images[(images.indices).random()])
+        val firstFragment = ImageFragment.newInstance(images[(images.indices).random()])
+        val secondFragment = ImageFragment.newInstance(images[(images.indices).random()])
+        val thirdFragment = ImageFragment.newInstance(images[(images.indices).random()])
 
         adapter.addFragment(firstFragment, getString(R.string.home_tab_title))
         adapter.addFragment(secondFragment, getString(R.string.info_tab_title))
         adapter.addFragment(thirdFragment, getString(R.string.another_tab_title))
 
-        viewPagerActivitySecondPage.adapter = adapter
+        viewPagerActivitySecondPage?.adapter = adapter
     }
 
-    private fun initTabLayout(){
-        tabLayoutActivitySecondPage.setupWithViewPager(viewPagerActivitySecondPage)
+    private fun initTabLayout() {
+        tabLayoutActivitySecondPage?.setupWithViewPager(viewPagerActivitySecondPage)
     }
 
     private fun configStatusBar() {

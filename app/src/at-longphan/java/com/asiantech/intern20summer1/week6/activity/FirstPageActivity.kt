@@ -40,14 +40,13 @@ class FirstPageActivity : AppCompatActivity() {
             1,
             getString(R.string.text_view_step_description_fragment_step_2)
         )
-        val step3Fragment =
-            ThirdStepFragment.newInstance(getString(R.string.text_view_step_description_fragment_step_3))
+        val step3Fragment = ThirdStepFragment.newInstance(getString(R.string.text_view_step_description_fragment_step_3))
 
         adapter.addFragment(step1Fragment)
         adapter.addFragment(step2Fragment)
         adapter.addFragment(step3Fragment)
 
-        viewPagerActivityFirstPage.adapter = adapter
+        viewPagerActivityFirstPage?.adapter = adapter
     }
 
     private fun setupIndicator() {
@@ -55,16 +54,24 @@ class FirstPageActivity : AppCompatActivity() {
         val sizeIndicatorSelected = resources.getDimensionPixelOffset(R.dimen.size_indicator_selected)
         viewPagerActivityFirstPage?.let {
             indicatorViewActivityFirstPage
-                .setIndicatorGap(resources.getDimensionPixelOffset(R.dimen.space_size_indicator))
-                .setIndicatorDrawable(R.drawable.ic_cat_indicator, R.drawable.ic_cat_indicator_selected)
-                .setIndicatorSize(sizeIndicator, sizeIndicator, sizeIndicatorSelected, sizeIndicatorSelected)
-                .setupWithViewPager(it)
+                ?.setIndicatorGap(resources.getDimensionPixelOffset(R.dimen.space_size_indicator))
+                ?.setIndicatorDrawable(
+                    R.drawable.ic_cat_indicator,
+                    R.drawable.ic_cat_indicator_selected
+                )
+                ?.setIndicatorSize(
+                    sizeIndicator,
+                    sizeIndicator,
+                    sizeIndicatorSelected,
+                    sizeIndicatorSelected
+                )
+                ?.setupWithViewPager(it)
         }
     }
 
-    private fun handleTextViewNextClickListener(){
+    private fun handleTextViewNextClickListener() {
         tvNextDescription?.setOnClickListener {
-            when(viewPagerActivityFirstPage.currentItem){
+            when (viewPagerActivityFirstPage?.currentItem) {
                 2 -> {
                     startActivity(Intent(this, SecondPageActivity::class.java))
                     finish()
