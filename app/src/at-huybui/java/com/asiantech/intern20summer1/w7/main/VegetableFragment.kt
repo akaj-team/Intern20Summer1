@@ -42,15 +42,51 @@ class VegetableFragment : Fragment() {
     }
 
     private fun initData() {
-        vegetableList.add(RecyclerItem("xxxx", "xxxxxxxxxxxxxxx", img_farm_logo))
-        vegetableList.add(RecyclerItem("2222", "xxxxxxxxxxxxxxx", img_farm_logo))
-        vegetableList.add(RecyclerItem("3333", "xxxxxxxxxxxxxxx", img_farm_logo))
-        vegetableList.add(RecyclerItem("4444", "xxxxxxxxxxxxxxx", img_farm_logo))
-        vegetableList.add(RecyclerItem("5555", "xxxxxxxxxxxxxxx", img_farm_logo))
-        vegetableList.add(RecyclerItem("6666", "xxxxxxxxxxxxxxx", img_farm_logo))
-        vegetableList.add(RecyclerItem("7777", "xxxxxxxxxxxxxxx", img_farm_logo))
-        vegetableList.add(RecyclerItem("8888", "xxxxxxxxxxxxxxx", img_farm_logo))
-        vegetableList.add(RecyclerItem("9999", "xxxxxxxxxxxxxxx", img_farm_logo))
-        vegetableList.add(RecyclerItem("yyyy", "xxxxxxxxxxxxxxx", img_farm_logo))
+        vegetableList.add(
+            RecyclerItem(
+                name = "Củ cải ",
+                statusWorm = true,
+                dateCultivation = "15/9/2000",
+                dateHarvest = "20/10/1999",
+                image = img_farm_logo
+            )
+        )
+        vegetableList.add(
+            RecyclerItem(
+                name = "Củ kieu ",
+                statusWorm = true,
+                dateCultivation = "15/9/2000",
+                dateHarvest = "20/10/1999",
+                image = img_farm_logo
+            )
+        )
+        vegetableList.add(
+            RecyclerItem(
+                name = "Củ cac ",
+                statusWorm = true,
+                dateCultivation = "15/9/2000",
+                dateHarvest = "20/10/1999",
+                image = img_farm_logo
+            )
+        )
+        vegetableList.add(
+            RecyclerItem(
+                name = "Củ cu ",
+                statusWorm = true,
+                dateCultivation = "15/9/2000",
+                dateHarvest = "20/10/1999",
+                image = img_farm_logo
+            )
+        )
+        vegetableList.add(
+            RecyclerItem(
+                name = "Củ cut ",
+                statusWorm = true,
+                dateCultivation = "15/9/2000",
+                dateHarvest = "20/10/1999",
+                image = img_farm_logo
+            )
+        )
+
     }
 }

@@ -28,13 +28,21 @@ class RecyclerAdapter(private val mutableList: MutableList<RecyclerItem>) :
 
     inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private var name: TextView = itemView.tvNameVegetable
-        private var information: TextView = itemView.tvInformationVegetable
-        private var img: ImageView = itemView.imgVegetable
+        private var dateCultivation: TextView = itemView.tvDateCultivation
+        private var dateHarvest: TextView = itemView.tvDateHarvest
+        private var image: ImageView = itemView.imgVegetable
+        private var iconStatusWorm = itemView.imgStatusWorm
         fun bindData() {
             mutableList[adapterPosition].let { item ->
                 name.text = item.name
-                information.text = item.infomation
-                img.setImageResource(item.image)
+                dateCultivation.text = item.dateCultivation
+                dateHarvest.text = item.dateCultivation
+                image.setImageResource(item.image)
+                if (item.statusWorm) {
+                    iconStatusWorm.visibility = View.VISIBLE
+                } else {
+                    iconStatusWorm.visibility = View.INVISIBLE
+                }
             }
         }
     }

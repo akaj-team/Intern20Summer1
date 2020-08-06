@@ -39,7 +39,7 @@ class MainFarmActivity : AppCompatActivity() {
     private fun handleReplaceFragment(
         fragment: Fragment,
         backStack: Boolean = false,
-        nameBackStack: String = "null"
+        nameBackStack: String = ""
     ) {
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()

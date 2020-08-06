@@ -32,14 +32,33 @@
             android:layout_marginTop="@dimen/w7_home_name_vegetable_margin_top_left"
             android:textSize="@dimen/w7_home_name_vegetable_size" />
 
+        <ImageView
+            android:id="@+id/imgStatusWorm"
+            android:layout_width="@dimen/w7_icon_item_worm_size"
+            android:layout_height="@dimen/w7_icon_item_worm_size"
+            android:layout_marginTop="@dimen/w7_home_name_vegetable_margin_top_left"
+            android:layout_marginRight="@dimen/w7_icon_item_worm_margin_left"
+            android:layout_toRightOf="@id/tvNameVegetable"
+            tools:src="@drawable/icon_worm" />
+
         <TextView
-            android:id="@+id/tvInformationVegetable"
+            android:id="@+id/tvDateCultivation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/w7_home_information_vegetable_margin_left"
             android:layout_marginTop="@dimen/w7_home_information_vegetable_margin_top"
             android:textColor="@color/black"
-            android:textSize="12sp"
-            tools:text="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" />
+            android:textSize="@dimen/w7_item_information_text_size"
+            tools:text="Trồng vào lúc: 03/08/20 12h10" />
+        <TextView
+            android:id="@+id/tvDateHarvest"
+            android:layout_below="@id/tvDateCultivation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/w7_item_text_time_harvest_margin_top"
+            android:layout_marginLeft="@dimen/w7_home_information_vegetable_margin_left"
+            android:textColor="@color/black"
+            android:textSize="@dimen/w7_item_information_text_size"
+            tools:text="Thời gian thu hoạch: 11/08/12h10" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
