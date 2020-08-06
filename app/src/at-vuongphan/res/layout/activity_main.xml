@@ -163,7 +163,7 @@
                 android:id="@+id/tvRegister"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/not_registered_text_view_description_tex" />
+                android:text="@string/not_registered_text_view_description_text" />
 
             <TextView
                 android:id="@+id/tvSign"
