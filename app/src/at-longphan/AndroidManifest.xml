@@ -11,14 +11,23 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppThemeWeek4">
-        <activity
+        <activity android:name=".week7.activity.RegisterWeekSevenActivity" />
+        <activity android:name=".week7.activity.SplashWeekSevenActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <!--<activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
-        <activity android:name="com.asiantech.intern20summer1.week4.activity.HomeActivity" />
+        <activity android:name=".week4.activity.HomeActivity" />
         <activity
-            android:name="com.asiantech.intern20summer1.week4.activity.SplashActivity"
+            android:name=".week4.activity.SplashActivity"
             android:theme="@style/SplashscreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,13 +35,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.asiantech.intern20summer1.week4.activity.SignInActivity" />
+        <activity android:name=".week4.activity.SignInActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity>-->
     </application>
+
 </manifest>
