@@ -87,4 +87,9 @@
     <dimen name="w7_navigation_name_text_margin_top">60dp</dimen>
     <dimen name="w7_navigation_avatar_corner_radius">50dp</dimen>
     <dimen name="w7_navigation_name_size">20sp</dimen>
+    <dimen name="w7_dialog_height">480dp</dimen>
+    <dimen name="w7_dialog_edit_text_margin_left_right">18dp</dimen>
+    <dimen name="w7_dialog_button_margin_bottom">35dp</dimen>
+    <dimen name="w7_dialog_back_icon_size">25dp</dimen>
+    <dimen name="w7_dialog_back_icon_margin">26dp</dimen>
 </resources>

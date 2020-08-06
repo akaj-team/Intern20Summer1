@@ -9,6 +9,7 @@ import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w7.launcher.RegisterFarmFragment
+import com.asiantech.intern20summer1.w7.main.recyclerview.DialogFragmentFarm
 import com.asiantech.intern20summer1.w7.model.Account
 import kotlinx.android.synthetic.`at-huybui`.activity_main_farm.*
 import kotlinx.android.synthetic.`at-huybui`.navigation_header.view.*
@@ -54,11 +55,9 @@ class MainFarmActivity : AppCompatActivity() {
         val actionBar = supportActionBar
         actionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
-            setHomeAsUpIndicator(R.drawable.icon_menu_hamburger)
+            setHomeAsUpIndicator(R.drawable.icon_menu_drawer)
 
         }
-
-        actionBar?
     }
 
     private fun initNavigationDrawer() {
@@ -79,14 +78,16 @@ class MainFarmActivity : AppCompatActivity() {
         navigationView?.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.itemGrowVegetable -> {
-                    Toast.makeText(
-                        this@MainFarmActivity,
-                        getString(R.string.w7_trong_rau),
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    handleShowDialogFragment()
                 }
             }
             return@setNavigationItemSelectedListener true
         }
+    }
+
+    private fun handleShowDialogFragment(){
+        val fragmentManager = supportFragmentManager
+        val fragment = DialogFragmentFarm.newInstance()
+        fragment.show(fragmentManager,null)
     }
 }

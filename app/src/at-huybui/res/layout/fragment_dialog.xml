@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/w7_card_view_radius"
+    app:cardElevation="@dimen/w7_card_view_elevation">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/w7_dialog_height">
+        <ImageView
+            android:id="@+id/imgBackIconDialog"
+            android:layout_width="@dimen/w7_dialog_back_icon_size"
+            android:layout_height="@dimen/w7_dialog_back_icon_size"
+            android:layout_margin="@dimen/w7_dialog_back_icon_margin"
+            android:background="@drawable/icon_back_dialog" />
+
+        <TextView
+            android:id="@+id/tvTitleDialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="60dp"
+            android:text="@string/w7_trong_cay"
+            android:textSize="36sp" />
+
+        <EditText
+            android:id="@+id/edtDialog"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/w7_register_edit_text_height"
+            android:layout_below="@id/tvTitleDialog"
+            android:layout_marginLeft="@dimen/w7_dialog_edit_text_margin_left_right"
+            android:layout_marginRight="@dimen/w7_dialog_edit_text_margin_left_right"
+            android:background="@drawable/bg_w7_edit_text"
+            android:importantForAutofill="no"
+            android:paddingLeft="@dimen/w7_register_text_in_edit_text_padding_left_right"
+            android:inputType="text"
+            android:hint="@string/w7_chon_cay_trong"/>
+
+        <Button
+            android:id="@+id/btnOkDialog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/w7_dialog_edit_text_margin_left_right"
+            android:layout_marginRight="@dimen/w7_dialog_edit_text_margin_left_right"
+            android:layout_marginBottom="@dimen/w7_dialog_button_margin_bottom"
+            android:background="@color/w7_button_disable"
+            android:text="@string/w7_ok" />
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

@@ -52,7 +52,6 @@ class SplashFarmFragment : Fragment() {
                     (activity as LauncherFarmActivity).handleReplaceFragment(RegisterFarmFragment.newInstance())
                 }
             }
-
             override fun onFinish() {}
         }.start()
     }

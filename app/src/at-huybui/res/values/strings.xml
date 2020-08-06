@@ -63,4 +63,7 @@
     <string name="w7_rau_bi_thieu_nuoc">Rau bị thiếu nước</string>
     <string name="w7_header_university">University: %s</string>
     <string name="w7_header_home_town">Home town: %s</string>
+    <string name="w7_trong_cay">Trồng Cây</string>
+    <string name="w7_ok">ok</string>
+    <string name="w7_chon_cay_trong">Chọn cây trồng</string>
 </resources>

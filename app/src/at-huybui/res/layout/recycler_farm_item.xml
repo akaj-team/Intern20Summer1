@@ -41,7 +41,5 @@
             android:textColor="@color/black"
             android:textSize="12sp"
             tools:text="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" />
-
-
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
