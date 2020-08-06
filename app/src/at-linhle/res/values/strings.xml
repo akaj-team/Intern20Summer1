@@ -49,4 +49,18 @@
     <string name="week_three_button_description">Week 3</string>
     <string name="week_four_button_description">Week 4</string>
     <string name="week_six_button_description">Week 6</string>
+    <string name="week_seven_button_description">Week 7</string>
+    <!--Week7-->
+    <string name="register_text_view_description">Register</string>
+    <string name="user_name_edit_text_hint">User Name</string>
+    <string name="university_edit_text_hint">University</string>
+    <string name="home_town_edit_text_hint">Home Town</string>
+    <string name="next_button_description">NEXT</string>
+    <string name="open_drawer_content_desc_rec">open</string>
+    <string name="close_drawer_content_desc_rec">close</string>
+    <string name="action_bar_title">Vegetable Garden</string>
+    <string name="share_preference_user_name_default">userName</string>
+    <string name="share_preference_university_default">university</string>
+    <string name="share_preference_home_town_default">homeTown</string>
+    <string name="share_preference_avatar_default">avatar</string>
 </resources>

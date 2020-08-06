@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:id="@+id/llRegisterMain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/register_text_view_margin_left"
+            android:layout_marginTop="@dimen/register_text_view_margin_top"
+            android:layout_marginBottom="@dimen/register_text_view_margin_bottom"
+            android:text="@string/register_text_view_description"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/register_launcher_text_view_text_size" />
+
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/imgSignUpUser"
+            android:layout_width="@dimen/user_image_view_size"
+            android:layout_height="@dimen/user_image_view_size"
+            android:layout_gravity="center"
+            android:src="@drawable/img_user"
+            app:civ_border_color="@color/colorWhite" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/register_linear_layout_margin_left"
+            android:layout_marginTop="@dimen/register_linear_layout_margin_top"
+            android:layout_marginRight="@dimen/register_linear_layout_margin_right"
+            android:layout_marginBottom="@dimen/register_linear_layout_margin_bottom"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/edtUserName"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/register_edit_text_layout_height"
+                android:layout_marginBottom="@dimen/user_name_edit_text_margin_bottom"
+                android:autofillHints=""
+                android:background="@drawable/bg_edit_text_register"
+                android:hint="@string/user_name_edit_text_hint"
+                android:inputType="text"
+                android:paddingLeft="@dimen/register_edit_text_padding_left" />
+
+            <EditText
+                android:id="@+id/edtUniversity"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/register_edit_text_layout_height"
+                android:layout_marginBottom="@dimen/user_name_edit_text_margin_bottom"
+                android:autofillHints=""
+                android:background="@drawable/bg_edit_text_register"
+                android:hint="@string/university_edit_text_hint"
+                android:inputType="text"
+                android:paddingLeft="@dimen/register_edit_text_padding_left" />
+
+            <EditText
+                android:id="@+id/edtHomeTown"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/register_edit_text_layout_height"
+                android:autofillHints=""
+                android:background="@drawable/bg_edit_text_register"
+                android:hint="@string/home_town_edit_text_hint"
+                android:inputType="text"
+                android:paddingLeft="@dimen/register_edit_text_padding_left" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnNext"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/next_button_height"
+            android:layout_marginLeft="@dimen/next_button_margin_left"
+            android:layout_marginRight="@dimen/next_button_margin_right"
+            android:layout_marginBottom="@dimen/next_button_margin_bottom"
+            android:background="@drawable/bg_next_button_disabled"
+            android:enabled="false"
+            android:text="@string/next_button_description"
+            android:textColor="@color/colorWhite" />
+    </LinearLayout>
+</ScrollView>

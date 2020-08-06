@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group>
+        <item
+            android:id="@+id/itemHome"
+            android:checked="true"
+            android:icon="@mipmap/ic_thump_up"
+            android:title="Vuon rau" />
+    </group>
+    <group>
+        <item
+            android:id="@+id/itemGrowVegetable"
+            android:icon="@mipmap/ic_grow"
+            android:title="Trong rau" />
+    </group>
+    <group>
+        <item
+            android:id="@+id/itemAlreadyHarvest"
+            android:icon="@mipmap/ic_harvest"
+            android:title="Rau sap thu hoach" />
+    </group>
+    <group>
+        <item
+            android:id="@+id/itemBadVegetable"
+            android:icon="@mipmap/ic_bad"
+            android:title="Rau bi sau" />
+    </group>
+    <group>
+        <item
+            android:id="@+id/itemNotEnoughWater"
+            android:icon="@mipmap/ic_bad"
+            android:title="Rau bi thieu nuoc" />
+    </group>
+</menu>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/header_linear_layout_height"
+    android:background="@color/colorYellow"
+    android:paddingLeft="@dimen/header_linear_layout_padding_left">
+
+    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/imgHomeUser"
+        android:layout_width="@dimen/header_image_view_size"
+        android:layout_height="@dimen/header_image_view_size"
+        android:layout_gravity="center"
+        android:src="@drawable/img_user"
+        app:civ_border_color="@color/colorWhite" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvHomeUserName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/header_text_view_margin_left"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/header_user_name_text_view_text_size"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvHomeHomeTown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/header_text_view_margin_left"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/header_home_town_text_view_text_size" />
+
+        <TextView
+            android:id="@+id/tvHomeUniversity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/header_text_view_margin_left"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/header_university_text_view_text_size" />
+    </LinearLayout>
+</LinearLayout>
