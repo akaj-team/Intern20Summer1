@@ -35,4 +35,6 @@
     <color name="colorContainerHomeActivityBackground">#FFFFFF</color>
     <color name="colorContainerSignInActivityBackground">#FFFFFF</color>
     <color name="colorContainerSignInFragmentBackground">#FFFFFF</color>
+    <color name="colorButtonNextRegisterEnableWeek7Text">#FFFFFF</color>
+    <color name="colorButtonNextRegisterDisableWeek7Text">#99FFFFFF</color>
 </resources>

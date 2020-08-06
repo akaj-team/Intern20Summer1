@@ -1,10 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/ic_music_logo"
+    android:background="@android:color/white"
+    android:paddingHorizontal="16dp"
+    android:paddingVertical="32dp"
     tools:context="com.asiantech.intern20summer1.week7.activity.RegisterWeekSevenActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Register"
+            android:textColor="@android:color/black"
+            android:textSize="36sp" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgAvatarWeek7"
+            android:layout_width="@dimen/circle_image_view_register_avatar_w7_width"
+            android:layout_height="@dimen/circle_image_view_register_avatar_w7_height"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="@dimen/circle_image_view_register_avatar_margin_bottom"
+            android:src="@mipmap/ic_launcher" />
+
+        <EditText
+            android:id="@+id/tvUsernameWeek7"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="26dp"
+            android:background="@drawable/bg_edit_text_register_w7"
+            android:foregroundTint="@android:color/transparent"
+            android:hint="User Name"
+            android:paddingHorizontal="17dp"
+            android:textSize="18sp"
+            tools:targetApi="lollipop" />
+
+        <EditText
+            android:id="@+id/tvUniversityWeek7"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/bg_edit_text_register_w7"
+            android:hint="University"
+            android:paddingHorizontal="17dp"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/tvHomeTownWeek7"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_edit_text_register_w7"
+            android:hint="Home Town"
+            android:paddingHorizontal="17dp"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnNextRegisterWeek7"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bg_button_next_register_disable_w7"
+        android:enabled="false"
+        android:text="Next"
+        android:textColor="@color/colorButtonNextRegisterDisableWeek7Text"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+</RelativeLayout>

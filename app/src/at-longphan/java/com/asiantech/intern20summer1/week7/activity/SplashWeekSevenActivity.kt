@@ -21,7 +21,7 @@ class SplashWeekSevenActivity : AppCompatActivity() {
         var progress = 0
         while (progress <= 100) {
             try {
-                Thread.sleep(500)
+                Thread.sleep(50)
                 progressBarSplashActivityW7.progress = progress
             } catch (e: Exception) {
                 e.printStackTrace()
