@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/margin_top_5dp"
+    android:background="@android:color/transparent"
+    app:cardCornerRadius="@dimen/margin_top_20dp"
+    app:cardElevation="@dimen/margin_top_20dp">
+
+    <RelativeLayout
+        android:id="@+id/rlVegetable"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent">
+
+        <RelativeLayout
+            android:id="@+id/rlName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvNameVegetable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_top_20dp"
+                android:layout_marginTop="@dimen/margin_top_20dp"
+                android:text="@string/text_view_name_description_text"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/text_size_22sp" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/circleData"
+                android:layout_width="@dimen/width_height_16dp"
+                android:layout_height="@dimen/width_height_16dp"
+                android:layout_marginLeft="@dimen/margin_left_5dp"
+                android:layout_marginTop="@dimen/margin_top_20dp"
+                android:layout_toRightOf="@id/tvNameVegetable"
+                android:paddingTop="@dimen/padding_top_3dp"
+                android:src="@drawable/ic_baseline_star_24"
+                app:civ_border_color="@color/colorBlack" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tvTimeOne"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rlName"
+            android:layout_marginLeft="@dimen/margin_left_28dp"
+            android:text="@string/text_view_description_recycler_view"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/text_size_12sp" />
+
+        <TextView
+            android:id="@+id/tvTimeTwo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvTimeOne"
+            android:layout_marginLeft="@dimen/margin_left_28dp"
+            android:layout_marginTop="@dimen/margin_top_9dp"
+            android:text="@string/text_view_description_recycler_view"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/text_size_12sp" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgVegetable"
+            android:layout_width="@dimen/width_height_80dp"
+            android:layout_height="@dimen/width_height_80dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="@dimen/margin_12dp"
+            android:layout_marginRight="@dimen/margin_top_20dp"
+            android:paddingTop="@dimen/padding_top_3dp"
+            android:src="@drawable/ic_baseline_star_24"
+            app:civ_border_color="@color/colorBlack" />
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

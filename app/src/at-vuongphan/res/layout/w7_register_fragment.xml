@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rlRegister"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite">
+
+    <TextView
+        android:id="@+id/tvRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_16dp"
+        android:layout_marginTop="100dp"
+        android:text="@string/text_view_register_description_text"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/text_size_36sp" />
+
+    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/imgAvatar"
+        android:layout_width="@dimen/layout_width_128dp"
+        android:layout_height="@dimen/layout_height_128dp"
+        android:layout_below="@id/tvRegister"
+        android:layout_marginLeft="@dimen/margin_left_142dp"
+        android:layout_marginTop="@dimen/margin_top_20dp"
+        android:src="@drawable/ic_launcher_background"
+        app:civ_border_width="1dp" />
+
+    <EditText
+        android:id="@+id/edtUserName"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_height_52dp"
+        android:layout_below="@id/imgAvatar"
+        android:layout_marginLeft="@dimen/margin_16dp"
+        android:layout_marginTop="@dimen/margin_26dp"
+        android:layout_marginRight="@dimen/margin_16dp"
+        android:background="@drawable/bg_register_edit_text_radius"
+        android:hint="@string/edit_text_user_name_hint"
+        android:importantForAutofill="no"
+        android:padding="@dimen/padding_17dp"
+        tools:ignore="TextFields" />
+
+    <EditText
+        android:id="@+id/edtUniversity"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_height_52dp"
+        android:layout_below="@id/edtUserName"
+        android:layout_marginLeft="@dimen/margin_16dp"
+        android:layout_marginTop="@dimen/margin_24dp"
+        android:layout_marginRight="@dimen/margin_16dp"
+        android:background="@drawable/bg_register_edit_text_radius"
+        android:hint="@string/edit_text_university_hint"
+        android:importantForAutofill="no"
+        android:padding="@dimen/padding_17dp"
+        tools:ignore="TextFields" />
+
+    <EditText
+        android:id="@+id/edtHome"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_height_52dp"
+        android:layout_below="@id/edtUniversity"
+        android:layout_marginLeft="@dimen/margin_16dp"
+        android:layout_marginTop="@dimen/margin_16dp"
+        android:layout_marginRight="@dimen/margin_16dp"
+        android:background="@drawable/bg_register_edit_text_radius"
+        android:hint="@string/edit_text_home_town_hint"
+        android:importantForAutofill="no"
+        android:padding="@dimen/padding_17dp"
+        tools:ignore="TextFields" />
+
+    <Button
+        android:id="@+id/btnNext"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_height_52dp"
+        android:layout_below="@id/edtHome"
+        android:layout_marginLeft="@dimen/margin_16dp"
+        android:layout_marginTop="@dimen/margin_top_137dp"
+        android:layout_marginRight="@dimen/margin_16dp"
+        android:background="@drawable/bg_register_button_radius_dis_enable"
+        android:enabled="false"
+        android:text="@string/button_register_description_text"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/text_size_13sp" />
+</RelativeLayout>

@@ -12,4 +12,7 @@
     <color name="colorRoundButton">#cde9b9</color>
     <color name="colorYellow">#FDD835</color>
     <color name="colorSilver">#C0C0C0</color>
+    <color name="colorHeader">#FFC300</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorGrayBlack">#354053</color>
 </resources>

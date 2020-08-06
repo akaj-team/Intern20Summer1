@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/navFarmer"
+            android:icon="@drawable/ic_baseline_thumb_up_24"
+            android:title="@string/icon_one" />
+        <item
+            android:id="@+id/navGrowVegetable"
+            android:icon="@drawable/ic_baseline_group_24"
+            android:title="@string/icon_two" />
+        <item
+            android:id="@+id/navHarvest"
+            android:icon="@drawable/ic_baseline_local_activity_24"
+            android:title="@string/icon_three" />
+        <item
+            android:id="@+id/navSau"
+            android:icon="@drawable/ic_baseline_star_24"
+            android:title="@string/icon_four" />
+        <item
+            android:id="@+id/navNuoc"
+            android:icon="@drawable/ic_baseline_star_24"
+            android:title="@string/icon_five" />
+    </group>
+</menu>

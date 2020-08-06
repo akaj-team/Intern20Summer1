@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="250dp"
+    android:background="@color/colorHeader"
+    android:gravity="bottom"
+    android:padding="@dimen/margin_16dp"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+    <ImageView
+        android:id="@+id/imgBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/imgAvatar2"
+        android:layout_marginLeft="@dimen/margin_16dp"
+        android:layout_marginBottom="@dimen/margin_16dp"
+        android:background="@drawable/ic_baseline_arrow_back_ios_24"
+        android:theme="@style/DrawerIcon" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgAvatar2"
+        android:layout_width="@dimen/avatar_width_100dp"
+        android:layout_height="@dimen/avatar_height_100dp"
+        android:layout_marginLeft="@dimen/margin_16dp"
+        android:layout_marginBottom="@dimen/margin_bottom_46dp"
+        android:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="@dimen/text_view_width_150dp"
+        android:layout_height="@dimen/text_view_height_50dp"
+        android:layout_marginLeft="@dimen/margin_left_19dp"
+        android:layout_toRightOf="@id/imgAvatar2"
+        android:gravity="center"
+        android:text="@string/text_view_name_description_text"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/text_size_18sp" />
+
+    <TextView
+        android:id="@+id/tvNameUniversity"
+        android:layout_width="@dimen/text_view_width_150dp"
+        android:layout_height="@dimen/text_view_height_50dp"
+        android:layout_below="@id/tvName"
+        android:layout_marginLeft="@dimen/margin_left_19dp"
+        android:layout_marginTop="@dimen/margin_top_5dp"
+        android:layout_marginBottom="@dimen/margin_bottom_46dp"
+        android:layout_toRightOf="@id/imgAvatar2"
+        android:gravity="center"
+        android:text="@string/text_view_university_description_text"
+        android:textColor="@color/colorGrayBlack"
+        android:textSize="@dimen/text_size_10sp" />
+</RelativeLayout>
