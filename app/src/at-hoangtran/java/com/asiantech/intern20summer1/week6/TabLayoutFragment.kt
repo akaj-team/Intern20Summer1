@@ -46,11 +46,7 @@ class TabLayoutFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        when (arguments?.getInt(KEY_POS)) {
-            0 -> loadImage()
-            1 -> loadImage()
-            2 -> loadImage()
-        }
+        loadImage()
     }
 
     private fun randomImage() = imageList[Random().nextInt(imageList.size)]

@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun handleWeek4Button() {
-        btn_week4.setOnClickListener {
+        btnWeek4?.setOnClickListener {
             val intent = Intent(this, LayoutActivity::class.java)
             startActivity(intent)
             finish()
@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
 //    }
 
     private fun handleWeek6Button() {
-        btn_week6.setOnClickListener {
+        btnWeek6?.setOnClickListener {
             val intent = Intent(this, IndicatorActivity::class.java)
             startActivity(intent)
             finish()
