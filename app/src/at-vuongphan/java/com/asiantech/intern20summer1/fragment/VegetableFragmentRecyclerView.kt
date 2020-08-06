@@ -16,6 +16,7 @@ class VegetableFragmentRecyclerView : Fragment() {
     private var adapterRecycler = VegetableRecyclerViewAdapter(exampleLists)
 
     companion object {
+        private const val FINISH_LOOP = 9
         internal fun newInstance(): VegetableFragmentRecyclerView {
             return VegetableFragmentRecyclerView()
         }
@@ -55,7 +56,7 @@ class VegetableFragmentRecyclerView : Fragment() {
             R.string.vegetable_one,
             R.string.vegetable_two, R.string.vegetable_three
         )
-        for (i in 0..9) {
+        for (i in 0..FINISH_LOOP) {
             pots.add(
                 VegetableItemRecyclerView(
                     resources.getString(nameVegetable.random()),
@@ -68,5 +69,4 @@ class VegetableFragmentRecyclerView : Fragment() {
         }
         return pots
     }
-
 }
