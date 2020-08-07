@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/w6_background_activity_one"
+    tools:context="com.asiantech.intern20summer1.w6.firstactivity.ViewPagerOneActivity">
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewpagerOne"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+        android:id="@+id/viewPagerIndicator"
+        android:layout_width="@dimen/w6_dot_indicator_width"
+        android:layout_height="@dimen/w6_dot_indicator_height"
+        android:layout_marginLeft="@dimen/w6_dot_indicator_margin"
+        android:layout_marginBottom="@dimen/w6_dot_indicator_margin"
+        app:dotRadius="@dimen/w6_dot_indicator_radius"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        app:selectedDotColor="@color/w6_dot_indicator_color"
+        app:unselectedDotColor="@android:color/white"
+        app:viewPagerId="@id/viewpagerOne" />
+
+    <TextView
+        android:id="@+id/tvSkip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="@dimen/w6_dot_indicator_margin"
+        android:layout_marginBottom="@dimen/w6_dot_indicator_margin"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/w6_next_text_view_size"
+        android:textStyle="bold"
+        tools:text="Next" />
+</RelativeLayout>

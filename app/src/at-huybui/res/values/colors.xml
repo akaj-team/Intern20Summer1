@@ -19,4 +19,7 @@
     <color name="w7_button_disable">#666666</color>
     <color name="register_text_button_disable">#C2C2C2</color>
     <color name="w7_background_navigation_header">#FFC300</color>
+    <color name="w6_dot_indicator_color">#ED3F40</color>
+    <color name="w6_background_activity_one">#FFEB4F</color>
+    <color name="red">#FF0000</color>
 </resources>

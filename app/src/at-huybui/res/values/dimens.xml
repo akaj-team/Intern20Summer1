@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<!--    w3-layout ui-->
+    <!--    w3-layout ui-->
     <dimen name="sign_in_logo_image_view_margin_top">20dp</dimen>
     <dimen name="sign_in_button_facebook_width">120dp</dimen>
     <dimen name="sign_in_button_facebook_height">40dp</dimen>
@@ -26,6 +26,7 @@
     <dimen name="home_double_dot_padding">10dp</dimen>
     <dimen name="sign_in_margin_bottom_register_text">10dp</dimen>
     <dimen name="sign_up_title_text_size">25sp</dimen>
+    <!--   W4-intent-fragment-activity-->
     <dimen name="logo_image_view_padding_top">40dp</dimen>
     <dimen name="logo_image_view_padding_bottom">15dp</dimen>
     <dimen name="title_text_view_size">12sp</dimen>
@@ -45,6 +46,27 @@
     <dimen name="linear_layout_text_register_margin_top">20dp</dimen>
     <dimen name="linear_layout_text_register_padding_bottom">10dp</dimen>
     <dimen name="linear_layout_text_view_padding_left">2dp</dimen>
+    <dimen name="w6_dot_indicator_width">100dp</dimen>
+    <dimen name="w6_dot_indicator_height">30dp</dimen>
+    <dimen name="w6_dot_indicator_radius">10dp</dimen>
+    <dimen name="w6_dot_indicator_margin">10dp</dimen>
+    <dimen name="w6_next_text_view_size">25sp</dimen>
+    <dimen name="w6_center_text_view_size">60sp</dimen>
+    <dimen name="w6_tab_layout_size">50dp</dimen>
+    <dimen name="w6_tab_layout_scroll_bar_size">2dp</dimen>
+    <dimen name="w6_fragment_two_margin_vertical">10dp</dimen>
+    <dimen name="w6_top_flat_margin_top">5dp</dimen>
+    <dimen name="w6_flat_width">80dp</dimen>
+    <dimen name="w6_flat_height">40dp</dimen>
+    <dimen name="w6_card_view_margin_left_right">40dp</dimen>
+    <dimen name="w6_card_view_margin_top">10dp</dimen>
+    <dimen name="w6_name_text_size">25dp</dimen>
+    <dimen name="w6_card_view_radius">20dp</dimen>
+    <dimen name="w6_card_view_elevation">20dp</dimen>
+    <dimen name="w6_top_text_margin_top">10dp</dimen>
+    <dimen name="begin_margin_button">10dp</dimen>
+    <dimen name="begin_text_size">30dp</dimen>
+    <dimen name="begin_padding_button">30dp</dimen>
     <dimen name="w4_crop_progress_bar_size">80dp</dimen>
     <dimen name="w4_icon_crop_size">40dp</dimen>
     <dimen name="w4_icon_crop_margin_left_right">10dp</dimen>
