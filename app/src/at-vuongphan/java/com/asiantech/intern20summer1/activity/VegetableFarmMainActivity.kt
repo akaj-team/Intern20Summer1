@@ -35,22 +35,19 @@ class VegetableFarmMainActivity : AppCompatActivity(),
     private fun getUser() {
         val header = navigationView.getHeaderView(0)
         val sharedRef = this.getSharedPreferences(
-            VegetableRegisterFragment.SHARED_PREFERENCE_FILE,
+            VegetableRegisterFragment.SHARED_FILE,
             Context.MODE_PRIVATE
         )
         header.tvName.text =
             sharedRef.getString(
-                VegetableRegisterFragment.SHARED_PREFERENCE_USER_NAME_KEY,
-                getString(R.string.text_view_name_description_text)
+                VegetableRegisterFragment.SHARED_USER_NAME_KEY,""
             )
         header.tvNameUniversity.text =
             sharedRef.getString(
-                VegetableRegisterFragment.SHARED_PREFERENCE_UNIVERSITY_KEY,
-                getString(R.string.text_view_university_description_text)
+                VegetableRegisterFragment.SHARED_UNIVERSITY_KEY,""
             )
         if (sharedRef.getString(
-                VegetableRegisterFragment.SHARED_PREFERENCE_AVATAR_KEY,
-                getString(R.string.share_preference_avatar_default)
+                VegetableRegisterFragment.SHARED_AVATAR_KEY,""
             ) == ""
         ) {
             header.imgAvatar2.setImageResource(R.drawable.ic_splash)
@@ -58,8 +55,7 @@ class VegetableFarmMainActivity : AppCompatActivity(),
             header.imgAvatar2.setImageURI(
                 Uri.parse(
                     sharedRef.getString(
-                        VegetableRegisterFragment.SHARED_PREFERENCE_AVATAR_KEY,
-                        getString(R.string.share_preference_avatar_default)
+                        VegetableRegisterFragment.SHARED_AVATAR_KEY,""
                     )
                 )
             )

@@ -38,11 +38,10 @@ class VegetableRegisterFragment : Fragment() {
 
         private const val REQUEST_IMAGE_CAPTURE = 111
         private const val REQUEST_GET_CONTENT_IMAGE = 222
-        internal const val SHARED_PREFERENCE_FILE = "userSharedPreference"
-        internal const val SHARED_PREFERENCE_USER_NAME_KEY = "userName"
-        internal const val SHARED_PREFERENCE_UNIVERSITY_KEY = "university"
-        internal const val SHARED_PREFERENCE_HOME_TOWN_KEY = "homeTown"
-        internal const val SHARED_PREFERENCE_AVATAR_KEY = "avatar"
+        internal const val SHARED_FILE = "userSharedPreference"
+        internal const val SHARED_USER_NAME_KEY = "userName"
+        internal const val SHARED_UNIVERSITY_KEY = "university"
+        internal const val SHARED_AVATAR_KEY = "avatar"
     }
 
     override fun onCreateView(
@@ -104,16 +103,15 @@ class VegetableRegisterFragment : Fragment() {
 
     private fun initButtonNext() {
         val sharedPreferences = activity?.getSharedPreferences(
-            SHARED_PREFERENCE_FILE,
+            SHARED_FILE,
             Context.MODE_PRIVATE
         )
         btnNext.setOnClickListener {
             val editor: SharedPreferences.Editor? = sharedPreferences?.edit()
             editor?.apply {
-                putString(SHARED_PREFERENCE_USER_NAME_KEY, edtUserName.text.toString())
-                putString(SHARED_PREFERENCE_UNIVERSITY_KEY, edtUniversity.text.toString())
-                putString(SHARED_PREFERENCE_HOME_TOWN_KEY, edtHome.text.toString())
-                putString(SHARED_PREFERENCE_AVATAR_KEY, imageUri)
+                putString(SHARED_USER_NAME_KEY, edtUserName.text.toString())
+                putString(SHARED_UNIVERSITY_KEY, edtUniversity.text.toString())
+                putString(SHARED_AVATAR_KEY, imageUri)
                 apply()
             }
             val intent = Intent(activity, VegetableFarmMainActivity::class.java)

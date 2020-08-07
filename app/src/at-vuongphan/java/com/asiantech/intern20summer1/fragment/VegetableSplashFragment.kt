@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.activity.VegetableFarmMainActivity
 import com.asiantech.intern20summer1.activity.VegetableSplashActivity
-import com.asiantech.intern20summer1.fragment.VegetableRegisterFragment.Companion.SHARED_PREFERENCE_FILE
+import com.asiantech.intern20summer1.fragment.VegetableRegisterFragment.Companion.SHARED_FILE
 import kotlinx.android.synthetic.`at-vuongphan`.w7_splash_fragment.*
 
 class VegetableSplashFragment : Fragment() {
@@ -63,7 +63,7 @@ class VegetableSplashFragment : Fragment() {
     }
 
     private fun checkUser(): Boolean {
-        val sharedRef = activity?.getSharedPreferences(SHARED_PREFERENCE_FILE, Context.MODE_PRIVATE)
+        val sharedRef = activity?.getSharedPreferences(SHARED_FILE, Context.MODE_PRIVATE)
         if (sharedRef?.getString("userName", null) == null) {
             return true
         }
