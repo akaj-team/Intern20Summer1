@@ -16,4 +16,5 @@
     <string name="tab_layout_text_view_info">Info</string>
     <string name="tab_layout_text_view_another">Another</string>
     <string name="next">Next</string>
+    <string name="step_count">Step ${arguments?.getInt(KEY_POS)}</string>
 </resources>

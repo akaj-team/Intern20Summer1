@@ -8,7 +8,7 @@
     tools:context="com.asiantech.intern20summer1.MainActivity">
 
     <Button
-        android:id="@+id/btn_week4"
+        android:id="@+id/btnWeek4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
@@ -16,7 +16,7 @@
         android:textSize="40sp" />
 
     <Button
-        android:id="@+id/btn_week5"
+        android:id="@+id/btnWeek5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
@@ -24,7 +24,7 @@
         android:textSize="40sp" />
 
     <Button
-        android:id="@+id/btn_week6"
+        android:id="@+id/btnWeek6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
