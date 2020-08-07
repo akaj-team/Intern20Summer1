@@ -3,7 +3,9 @@ package com.asiantech.intern20summer1.fragment
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
@@ -18,7 +20,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.activity.SplashActivity
 import com.asiantech.intern20summer1.activity.VegetableHomeActivity
 import com.asiantech.intern20summer1.extension.hideKeyboard
 import com.asiantech.intern20summer1.extension.textChangedListener
@@ -28,6 +29,7 @@ import java.io.ByteArrayOutputStream
 
 class VegetableRegisterFragment : Fragment() {
     private var flag = false
+    private var imageUri: String? = ""
 
     companion object {
         internal fun newInstance(): VegetableRegisterFragment {
@@ -36,6 +38,11 @@ class VegetableRegisterFragment : Fragment() {
 
         private const val REQUEST_IMAGE_CAPTURE = 111
         private const val REQUEST_GET_CONTENT_IMAGE = 222
+        internal const val SHARED_PREFERENCE_FILE = "userSharedPreference"
+        internal const val SHARED_PREFERENCE_USER_NAME_KEY = "userName"
+        internal const val SHARED_PREFERENCE_UNIVERSITY_KEY = "university"
+        internal const val SHARED_PREFERENCE_HOME_TOWN_KEY = "homeTown"
+        internal const val SHARED_PREFERENCE_AVATAR_KEY = "avatar"
     }
 
     override fun onCreateView(
@@ -43,8 +50,7 @@ class VegetableRegisterFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.w7_register_fragment, container, false)
-        return view
+        return inflater.inflate(R.layout.w7_register_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -97,10 +103,22 @@ class VegetableRegisterFragment : Fragment() {
     }
 
     private fun initButtonNext() {
+        val sharedPreferences = activity?.getSharedPreferences(
+            SHARED_PREFERENCE_FILE,
+            Context.MODE_PRIVATE
+        )
         btnNext.setOnClickListener {
-            val intent = Intent(context, VegetableHomeActivity::class.java)
-            startActivity(intent)
-            (activity as? SplashActivity)?.finish()
+            val editor: SharedPreferences.Editor? = sharedPreferences?.edit()
+            editor?.apply {
+                putString(SHARED_PREFERENCE_USER_NAME_KEY, edtUserName.text.toString())
+                putString(SHARED_PREFERENCE_UNIVERSITY_KEY, edtUniversity.text.toString())
+                putString(SHARED_PREFERENCE_HOME_TOWN_KEY, edtHome.text.toString())
+                putString(SHARED_PREFERENCE_AVATAR_KEY, imageUri)
+                apply()
+            }
+            val intent = Intent(activity, VegetableHomeActivity::class.java)
+            activity?.startActivity(intent)
+            activity?.finish()
         }
     }
 
@@ -136,7 +154,7 @@ class VegetableRegisterFragment : Fragment() {
     private fun getImageUri(inImage: Bitmap): Uri? {
         val bytes = ByteArrayOutputStream()
         inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-        val path =
+        @Suppress("DEPRECATION") val path =
             MediaStore.Images.Media.insertImage(context?.contentResolver, inImage, "Title", null)
         return Uri.parse(path)
     }
@@ -171,7 +189,6 @@ class VegetableRegisterFragment : Fragment() {
                             requestGalleryPermission()
                         }
                     }
-
                     setNeutralButton("Cancel") { _, _ ->
                     }
                 }.create().show()
@@ -193,9 +210,17 @@ class VegetableRegisterFragment : Fragment() {
         editText.textChangedListener(onTextChanged = { _, _, _, _ ->
             btnNext.apply {
                 isEnabled = isCorrectFormat()
-                background = resources.getDrawable(R.drawable.bg_register_button_radius_enable)
             }
+            setBackgroundColor()
         })
+    }
+
+    private fun setBackgroundColor() {
+        if (btnNext.isEnabled) {
+            btnNext.setBackgroundResource(R.drawable.bg_register_button_radius_enable)
+        } else {
+            btnNext.setBackgroundResource(R.drawable.bg_register_button_radius_dis_enable)
+        }
     }
 
     private fun initPermissionGallery(grantResults: IntArray) {

@@ -48,6 +48,7 @@
     <string name="app_name_toolbar">Vegetable garden</string>
     <string name="icon_two">Trồng Rau</string>
     <string name="icon_three">Sắp thu hoạch</string>
+    <string name="share_preference_avatar_default">avatar</string>
     <string name="text_view_register_description_text">Register</string>
     <string name="icon_four">Rau bị sâu</string>
     <string name="icon_five">Rau thiếu nước</string>
@@ -66,4 +67,42 @@
         <item>Option 1</item>
         <item>Option 2</item>
     </string-array>
+    <string name="lorem">Infrequent/Mild Mature/Suggestive Themes
+ Infrequent/Mild Alcohol, Tobacco, or Drug Use or References
+ Infrequent/Mild Sexual Content and Nudity
+ Infrequent/Mild Medical/Treatment Information
+ Infrequent/Mild Simulated Gambling
+ Infrequent/Mild Realistic Violence
+ Infrequent/Mild Profanity or Crude Humor
+ Infrequent/Mild Horror/Fear Themes
+        Infrequent/Mild Alcohol, Tobacco, or Drug Use or References
+ Infrequent/Mild Sexual Content and Nudity
+ Infrequent/Mild Medical/Treatment Information
+ Infrequent/Mild Simulated Gambling
+ Infrequent/Mild Realistic Violence
+ Infrequent/Mild Profanity or Crude Humor
+ Infrequent/Mild Horror/Fear Themes
+         Infrequent/Mild Alcohol, Tobacco, or Drug Use or References
+ Infrequent/Mild Sexual Content and Nudity
+ Infrequent/Mild Medical/Treatment Information
+ Infrequent/Mild Simulated Gambling
+ Infrequent/Mild Realistic Violence
+ Infrequent/Mild Profanity or Crude Humor
+ Infrequent/Mild Horror/Fear Themes
+         Infrequent/Mild Alcohol, Tobacco, or Drug Use or References
+ Infrequent/Mild Sexual Content and Nudity
+ Infrequent/Mild Medical/Treatment Information
+ Infrequent/Mild Simulated Gambling
+ Infrequent/Mild Realistic Violence
+ Infrequent/Mild Profanity or Crude Humor
+ Infrequent/Mild Horror/Fear Themes
+         Infrequent/Mild Alcohol, Tobacco, or Drug Use or References
+ Infrequent/Mild Sexual Content and Nudity
+ Infrequent/Mild Medical/Treatment Information
+ Infrequent/Mild Simulated Gambling
+ Infrequent/Mild Realistic Violence
+ Infrequent/Mild Profanity or Crude Humor
+ Infrequent/Mild Horror/Fear Themes
+ </string>
+    <string name="detail">initDetail</string>
 </resources>
