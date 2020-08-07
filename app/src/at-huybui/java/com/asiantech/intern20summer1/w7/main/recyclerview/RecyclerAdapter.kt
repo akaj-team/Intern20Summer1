@@ -7,10 +7,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.w7.model.TreeClass
 import kotlinx.android.synthetic.`at-huybui`.recycler_farm_item.view.*
 
-class RecyclerAdapter(private val mutableList: MutableList<RecyclerItem>) :
+class RecyclerAdapter(private val mutableList: MutableList<TreeClass>) :
     RecyclerView.Adapter<RecyclerAdapter.ItemViewHolder>() {
+
+    internal var onItemClicked: (position: Int) -> Unit = {}
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -32,6 +36,13 @@ class RecyclerAdapter(private val mutableList: MutableList<RecyclerItem>) :
         private var dateHarvest: TextView = itemView.tvDateHarvest
         private var image: ImageView = itemView.imgVegetable
         private var iconStatusWorm = itemView.imgStatusWorm
+
+        init {
+            itemView.setOnClickListener {
+                onItemClicked.invoke(adapterPosition)
+            }
+        }
+
         fun bindData() {
             mutableList[adapterPosition].let { item ->
                 name.text = item.name
@@ -46,5 +57,4 @@ class RecyclerAdapter(private val mutableList: MutableList<RecyclerItem>) :
             }
         }
     }
-
 }

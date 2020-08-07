@@ -20,11 +20,9 @@ class SplashFarmFragment : Fragment() {
 
     companion object {
         private const val SPLASH_TIMER = 10000L
-        private const val PROGRESS_TIMER_STEP = 40L
+        private const val PROGRESS_TIMER_STEP = 5L
         private const val PROGRESS_MAX_VALUE = 100
-        internal fun newInstance() =
-            SplashFarmFragment()
-
+        internal fun newInstance() = SplashFarmFragment()
     }
 
     override fun onCreateView(
@@ -50,6 +48,7 @@ class SplashFarmFragment : Fragment() {
                 progressBarFarm?.progress = progressBarFarm.progress + 1
                 if (progressBarFarm?.progress == PROGRESS_MAX_VALUE) {
                     (activity as LauncherFarmActivity).handleReplaceFragment(RegisterFarmFragment.newInstance())
+//                    (activity as LauncherFarmActivity).handleReplaceFragment(TreeInformationFragment.newInstance())
                 }
             }
             override fun onFinish() {}

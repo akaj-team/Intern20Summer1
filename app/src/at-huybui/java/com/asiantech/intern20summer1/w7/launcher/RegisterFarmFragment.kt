@@ -18,7 +18,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w7.main.MainFarmActivity
-import com.asiantech.intern20summer1.w7.model.Account
+import com.asiantech.intern20summer1.w7.model.AccountClass
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 import kotlinx.android.synthetic.`at-huybui`.fragment_register_farm.*
@@ -96,7 +96,7 @@ class RegisterFarmFragment : Fragment() {
             val university = edtUniversity?.text.toString()
             val homeTown = edtHomeTown?.text.toString()
             val imgUri = imageUri?.toString()
-            val user = Account(name, university, homeTown,imgUri)
+            val user = AccountClass(name, university, homeTown,imgUri)
             intent.putExtra(KEY_PUT, user as Serializable)
             startActivity(intent)
             (activity as LauncherFarmActivity).finish()

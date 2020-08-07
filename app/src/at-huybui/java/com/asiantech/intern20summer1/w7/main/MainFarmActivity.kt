@@ -3,14 +3,14 @@ package com.asiantech.intern20summer1.w7.main
 import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w7.launcher.RegisterFarmFragment
-import com.asiantech.intern20summer1.w7.main.recyclerview.DialogFragmentFarm
-import com.asiantech.intern20summer1.w7.model.Account
+import com.asiantech.intern20summer1.w7.main.fragment.DialogFragmentFarm
+import com.asiantech.intern20summer1.w7.main.fragment.TreeRecyclerFragment
+import com.asiantech.intern20summer1.w7.model.AccountClass
 import kotlinx.android.synthetic.`at-huybui`.activity_main_farm.*
 import kotlinx.android.synthetic.`at-huybui`.navigation_header.view.*
 
@@ -20,10 +20,9 @@ class MainFarmActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_farm)
-        handleReplaceFragment(VegetableFragment.newInstance())
+        handleReplaceFragment(TreeRecyclerFragment.newInstance(), parent = R.id.containerMain)
         initToolBar()
         initNavigationDrawer()
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -36,14 +35,15 @@ class MainFarmActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun handleReplaceFragment(
+    internal fun handleReplaceFragment(
         fragment: Fragment,
         backStack: Boolean = false,
+        parent: Int,
         nameBackStack: String = ""
     ) {
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.containerMain, fragment)
+        fragmentTransaction.replace(parent, fragment)
         if (backStack) {
             fragmentTransaction.addToBackStack(nameBackStack)
         }
@@ -61,7 +61,7 @@ class MainFarmActivity : AppCompatActivity() {
     }
 
     private fun initNavigationDrawer() {
-        val user = intent.getSerializableExtra(RegisterFarmFragment.KEY_PUT) as? Account
+        val user = intent.getSerializableExtra(RegisterFarmFragment.KEY_PUT) as? AccountClass
         navigationView.getHeaderView(0)?.let { hd ->
             user?.let { u ->
                 hd.tvNameHeader.text = u.userName
@@ -85,9 +85,10 @@ class MainFarmActivity : AppCompatActivity() {
         }
     }
 
-    private fun handleShowDialogFragment(){
+    private fun handleShowDialogFragment() {
         val fragmentManager = supportFragmentManager
         val fragment = DialogFragmentFarm.newInstance()
-        fragment.show(fragmentManager,null)
+        drawerLayout.closeDrawer(GravityCompat.START)
+        fragment.show(fragmentManager, null)
     }
 }

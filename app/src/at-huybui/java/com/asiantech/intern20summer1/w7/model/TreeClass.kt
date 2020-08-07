@@ -1,6 +1,6 @@
-package com.asiantech.intern20summer1.w7.main.recyclerview
+package com.asiantech.intern20summer1.w7.model
 
-data class RecyclerItem(
+data class TreeClass(
     val id: Int? = null,
     val userGrowId: Int? = null,
     val planId: Int? = null,

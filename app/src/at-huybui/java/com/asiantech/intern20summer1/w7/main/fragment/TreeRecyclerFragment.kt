@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.w7.main
+package com.asiantech.intern20summer1.w7.main.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,17 +8,19 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.R.drawable.img_farm_logo
+import com.asiantech.intern20summer1.w7.main.MainFarmActivity
 import com.asiantech.intern20summer1.w7.main.recyclerview.RecyclerAdapter
-import com.asiantech.intern20summer1.w7.main.recyclerview.RecyclerItem
+import com.asiantech.intern20summer1.w7.model.TreeClass
 import kotlinx.android.synthetic.`at-huybui`.fragment_farm_vegetable.*
 
-class VegetableFragment : Fragment() {
+class TreeRecyclerFragment : Fragment() {
 
     companion object {
-        internal fun newInstance() = VegetableFragment()
+        internal fun newInstance() =
+            TreeRecyclerFragment()
     }
 
-    private val vegetableList: MutableList<RecyclerItem> = mutableListOf()
+    private val vegetableList: MutableList<TreeClass> = mutableListOf()
     private val adapterRecycler = RecyclerAdapter(vegetableList)
 
     override fun onCreateView(
@@ -33,6 +35,7 @@ class VegetableFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initData()
         initAdapter()
+        handleOnItemClick()
     }
 
     private fun initAdapter() {
@@ -41,9 +44,20 @@ class VegetableFragment : Fragment() {
         recyclerViewVegetable.setHasFixedSize(true)
     }
 
+    private fun handleOnItemClick() {
+        adapterRecycler.onItemClicked = { position ->
+            val fragment = TreeInformationFragment.newInstance()
+            (activity as MainFarmActivity).handleReplaceFragment(
+                fragment,
+                true,
+                parent = R.id.relativeLayoutContainerMain
+            )
+        }
+    }
+
     private fun initData() {
         vegetableList.add(
-            RecyclerItem(
+            TreeClass(
                 name = "Củ cải ",
                 statusWorm = true,
                 dateCultivation = "15/9/2000",
@@ -52,7 +66,7 @@ class VegetableFragment : Fragment() {
             )
         )
         vegetableList.add(
-            RecyclerItem(
+            TreeClass(
                 name = "Củ kieu ",
                 statusWorm = true,
                 dateCultivation = "15/9/2000",
@@ -61,7 +75,7 @@ class VegetableFragment : Fragment() {
             )
         )
         vegetableList.add(
-            RecyclerItem(
+            TreeClass(
                 name = "Củ cac ",
                 statusWorm = true,
                 dateCultivation = "15/9/2000",
@@ -70,7 +84,7 @@ class VegetableFragment : Fragment() {
             )
         )
         vegetableList.add(
-            RecyclerItem(
+            TreeClass(
                 name = "Củ cu ",
                 statusWorm = true,
                 dateCultivation = "15/9/2000",
@@ -79,7 +93,7 @@ class VegetableFragment : Fragment() {
             )
         )
         vegetableList.add(
-            RecyclerItem(
+            TreeClass(
                 name = "Củ cut ",
                 statusWorm = true,
                 dateCultivation = "15/9/2000",
