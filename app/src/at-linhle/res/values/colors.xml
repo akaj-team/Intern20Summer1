@@ -3,9 +3,12 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+    <color name="colorWhite">#FFF</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorGray">#CCCCCC</color>
+    <color name="colorOrange">#FF9900</color>
     <color name="colorSignUpButton">#99FF99</color>
     <color name="colorBlue">#3333CC</color>
-    <color name="colorWhite">#FFFF</color>
     <color name="colorRed">#FF0000</color>
-    <color name="colorGray">#EEEEEE</color>
+    <color name="colorYellow">#FFCC00</color>
 </resources>
