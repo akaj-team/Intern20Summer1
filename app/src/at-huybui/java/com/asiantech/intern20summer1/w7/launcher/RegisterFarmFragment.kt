@@ -33,6 +33,11 @@ import kotlinx.android.synthetic.`at-huybui`.fragment_register_farm.*
 
 class RegisterFarmFragment : Fragment() {
 
+    private var imageUri: Uri? = null
+    private var isCameraAllowed = false
+    private var isCheckGallery = false
+    private var dataBase: ConnectDataBase? = null
+
     companion object {
         private const val REQUEST_IMAGE_CAPTURE = 100
         private const val REQUEST_SELECT_IMAGE_IN_ALBUM = 101
@@ -41,23 +46,17 @@ class RegisterFarmFragment : Fragment() {
         internal fun newInstance() = RegisterFarmFragment()
     }
 
-    private var imageUri: Uri? = null
-    private var isCameraAllowed = false
-    private var isCheckGallery = false
-    private var dataBase: ConnectDataBase? = null
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         return inflater.inflate(R.layout.fragment_register_farm, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        dataBase = ConnectDataBase.getInMemoryDatabase(requireContext())
+        dataBase = ConnectDataBase.dataBaseConnect(requireContext())
         handleForListener()
     }
 
