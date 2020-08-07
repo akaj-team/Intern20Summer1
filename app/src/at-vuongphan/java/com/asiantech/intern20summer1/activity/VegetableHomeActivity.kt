@@ -7,7 +7,6 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.data.VegetableUser
 import com.asiantech.intern20summer1.fragment.VegetableDialogFragment
 import com.asiantech.intern20summer1.fragment.VegetableFragmentRecyclerView
 import com.google.android.material.navigation.NavigationView
@@ -78,18 +77,11 @@ class VegetableHomeActivity : AppCompatActivity(), NavigationView.OnNavigationIt
     }
 
     private fun initImageViewBack() {
-        val user = intent.getSerializableExtra("image") as? VegetableUser
         navView.getHeaderView(0).let { header ->
-            user.let {
-                header.tvName.text = it?.name
-                header.tvNameUniversity.text = it?.university
-                it?.avatarUri?.let {
-                    //   header.imgAvatar2?.setImageBitmap()
-                }
-            }
             header.imgBack.setOnClickListener {
                 drawerLayout.closeDrawer(GravityCompat.START)
             }
         }
     }
 }
+

@@ -24,8 +24,6 @@ abstract class VegetableDB : RoomDatabase() {
                         context.assets.open("plants.json").use { inputStream ->
                             JsonReader(inputStream.reader()).use { jsonReader ->
                                 val planType = object : TypeToken<List<Plant>>() {}.type
-                                //  val plants: List<Plant> = Gson().fromJson(jsonReader, planType)
-                                //  instance(context).plantDao().insertPlant(plants)
                             }
                         }
                     }
@@ -33,3 +31,4 @@ abstract class VegetableDB : RoomDatabase() {
             }).build()
     }
 }
+

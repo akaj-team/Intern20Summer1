@@ -25,5 +25,4 @@ interface CultivationDao {
 
     @Query("DELETE FROM cultivation_table WHERE id =:id")
     fun deleteCultivationId(id: Int)
-
 }
