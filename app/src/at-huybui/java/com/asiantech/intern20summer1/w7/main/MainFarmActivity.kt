@@ -6,9 +6,8 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
-import androidx.room.Database
-import androidx.room.Room
 import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.w7.database.ConnectDataBase
 import com.asiantech.intern20summer1.w7.launcher.RegisterFarmFragment
 import com.asiantech.intern20summer1.w7.main.fragment.DialogFragmentFarm
 import com.asiantech.intern20summer1.w7.main.fragment.TreeRecyclerFragment
@@ -19,9 +18,12 @@ import kotlinx.android.synthetic.`at-huybui`.navigation_header.view.*
 
 class MainFarmActivity : AppCompatActivity() {
 
+    private var dataBase: ConnectDataBase? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_farm)
+        dataBase = ConnectDataBase.dataBaseConnect(applicationContext)
         handleReplaceFragment(TreeRecyclerFragment.newInstance(), parent = R.id.containerMain)
         initToolBar()
         initNavigationDrawer()
@@ -72,7 +74,7 @@ class MainFarmActivity : AppCompatActivity() {
     }
 
     private fun initNavigationDrawer() {
-        val user = intent.getSerializableExtra(RegisterFarmFragment.KEY_PUT) as? UserModel
+        val user = dataBase?.accountDao()?.getUser()
         navigationView.getHeaderView(0)?.let { hd ->
             user?.let { u ->
                 hd.tvNameHeader.text = u.userName

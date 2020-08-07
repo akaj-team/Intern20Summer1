@@ -9,8 +9,9 @@ import java.io.Serializable
 data class PlantModel(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "plantId") val plantId: Int = 0,
-    @ColumnInfo(name = "userName")val plantName: String = "",
-    @ColumnInfo(name = "university")val plantDescription: String = "",
-    @ColumnInfo(name = "homeTown")val homeTown: String = "",
-    @ColumnInfo(name = "imgUri")val imgUri: String? = null
+    @ColumnInfo(name = "userName") val plantName: String = "",
+    @ColumnInfo(name = "plantDescription") val plantDescription: String = "",
+    @ColumnInfo(name = "growZoneNumber") val growZoneNumber: Int = 0,
+    @ColumnInfo(name = "wateringInterval") val wateringInterval: Int = 0,
+    @ColumnInfo(name = "imgUrl") val imgUrl: String? = null
 ) : Serializable

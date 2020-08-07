@@ -94,7 +94,6 @@ class RegisterFarmFragment : Fragment() {
     private fun handleForButton() {
         btnRegisterNext?.isEnabled = false
         btnRegisterNext.setOnClickListener {
-            val intent = Intent(context, MainFarmActivity::class.java)
             val name = edtUserName?.text.toString()
             val university = edtUniversity?.text.toString()
             val homeTown = edtHomeTown?.text.toString()
@@ -107,15 +106,10 @@ class RegisterFarmFragment : Fragment() {
             )
 
             dataBase?.accountDao()?.insertUser(user)
-
             val userModel = dataBase?.accountDao()?.getUser()
-            var st = "${userModel?.userName} \n ${userModel?.homeTown}\n ${userModel?.userId}"
-
-            Toast.makeText(context, st, Toast.LENGTH_SHORT).show()
-
-//            intent.putExtra(KEY_PUT, user as Serializable)
-//            startActivity(intent)
-//            (activity as LauncherFarmActivity).finish()
+            val intent = Intent(context, MainFarmActivity::class.java)
+            startActivity(intent)
+            (activity as LauncherFarmActivity).finish()
         }
     }
 

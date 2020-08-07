@@ -1,5 +1,6 @@
 package com.asiantech.intern20summer1.w7.launcher
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.LayoutInflater
@@ -7,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.w7.database.ConnectDataBase
+import com.asiantech.intern20summer1.w7.main.MainFarmActivity
 import kotlinx.android.synthetic.`at-huybui`.fragment_splash_farm.*
 
 /**
@@ -25,6 +28,8 @@ class SplashFarmFragment : Fragment() {
         internal fun newInstance() = SplashFarmFragment()
     }
 
+    private var dataBase: ConnectDataBase? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -35,10 +40,13 @@ class SplashFarmFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        dataBase = ConnectDataBase.dataBaseConnect(requireContext())
         handleForProgressBar()
     }
 
     private fun handleForProgressBar() {
+
+        val user = dataBase?.accountDao()?.getUser()
         progressBarFarm?.progress = 0
         object : CountDownTimer(
             SPLASH_TIMER,
@@ -47,8 +55,15 @@ class SplashFarmFragment : Fragment() {
             override fun onTick(millisUntilFinished: Long) {
                 progressBarFarm?.progress = progressBarFarm.progress + 1
                 if (progressBarFarm?.progress == PROGRESS_MAX_VALUE) {
-                    (activity as LauncherFarmActivity).handleReplaceFragment(RegisterFarmFragment.newInstance())
-//                    (activity as LauncherFarmActivity).handleReplaceFragment(TreeInformationFragment.newInstance())
+                    if (user == null) {
+                        (activity as LauncherFarmActivity).handleReplaceFragment(
+                            RegisterFarmFragment.newInstance()
+                        )
+                    } else {
+                        val intent = Intent(context, MainFarmActivity::class.java)
+                        startActivity(intent)
+                        (activity as LauncherFarmActivity).finish()
+                    }
                 }
             }
             override fun onFinish() {}
