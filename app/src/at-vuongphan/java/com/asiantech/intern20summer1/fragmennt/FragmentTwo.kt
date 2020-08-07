@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.data.ensign
 import com.asiantech.intern20summer1.data.image
-import kotlinx.android.synthetic.main.fragment_two.*
+import kotlinx.android.synthetic.`at-vuongphan`.fragment_two.*
 
 class FragmentTwo : Fragment() {
     companion object {

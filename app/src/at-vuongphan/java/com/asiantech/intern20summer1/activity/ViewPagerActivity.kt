@@ -8,7 +8,7 @@ import androidx.viewpager.widget.ViewPager
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.adapter.PagerAdapterFragment
 import com.asiantech.intern20summer1.fragmennt.PagePosition
-import kotlinx.android.synthetic.main.activity_viewpager.*
+import kotlinx.android.synthetic.`at-vuongphan`.activity_viewpager.*
 
 class ViewPagerActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

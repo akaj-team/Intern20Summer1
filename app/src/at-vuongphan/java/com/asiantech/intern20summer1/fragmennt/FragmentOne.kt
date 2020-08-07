@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.R.string.text_step
-import kotlinx.android.synthetic.main.fragment_one.*
+import kotlinx.android.synthetic.`at-vuongphan`.fragment_one.*
 
 class FragmentOne : Fragment() {
     companion object {
