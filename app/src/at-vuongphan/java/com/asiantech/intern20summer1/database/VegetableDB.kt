@@ -22,7 +22,7 @@ abstract class VegetableDB : RoomDatabase() {
                     super.onCreate(db)
                     Executors.newFixedThreadPool(2).execute {
                         context.assets.open("plants.json").use { inputStream ->
-                            JsonReader(inputStream.reader()).use { jsonReader ->
+                            JsonReader(inputStream.reader()).use { _ ->
                                 val planType = object : TypeToken<List<Plant>>() {}.type
                             }
                         }
