@@ -9,6 +9,25 @@
     <string name="sign_up_button_description_text">SIGN UP</string>
     <string name="not_registered_text_view_description_text">Not registered yet?</string>
     <string name="sign_up_text_view_description_text">Sign up!</string>
+    <string name="text_view_next_description_text">NEXT</string>
+    <string name="text_view_fragment_one_description_text">Step 1</string>
+    <string name="text_view_fragment_two_description_text">Step 2</string>
+    <string name="text_view_fragment_three_description_text">Step 3</string>
+    <string name="tab_layout_description_one">HOME</string>
+    <string name="tab_layout_description_two">INFO</string>
+    <string name="tab_layout_description_three">ANOTHER</string>
+    <string name="portugal_text_view_description">Bồ đào nha là đất nước của Ronaldo</string>
+    <string name="viet_nam_text_view_description">Việt Nam là đát nước thân thiện</string>
+    <string name="my_text_view_description">Mỹ là một cường quốc</string>
+    <string name="text_view_next_text">NEXT</string>
+    <string name="text_view_skip_text">SKIP</string>
+    <string name="text_step">Step %s</string>
+    <string name="button_exercise_w1">Exercise_W1</string>
+    <string name="button_exercise_w2">Exercise_W2</string>
+    <string name="button_exercise_w3">Exercise_W3</string>
+    <string name="button_exercise_w4">Exercise_W4</string>
+    <string name="button_exercise_w5">Exercise_W5</string>
+    <string name="button_exercise_w6">Exercise_W6</string>
     <string name="facebook_id_button_description_text">Facebook</string>
     <string name="google_id_button_description_text">Google</string>
     <string name="edit_text_hint">Please input</string>
@@ -37,4 +56,5 @@
     <string name="title_dialog_image">Choose Avatar</string>
     <string name="image_camera">Camera</string>
     <string name="image_gallery">Gallery</string>
+    <string name="enter_input_your_email">Enter input your number phone</string>
 </resources>
