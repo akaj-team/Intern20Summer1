@@ -1,6 +1,5 @@
 package com.asiantech.intern20summer1.activity
 
-import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
@@ -85,7 +84,7 @@ class VegetableHomeActivity : AppCompatActivity(), NavigationView.OnNavigationIt
                 header.tvName.text = it?.name
                 header.tvNameUniversity.text = it?.university
                 it?.avatarUri?.let {
-                    header.imgAvatar2?.setImageURI(Uri.parse(it))
+                    //   header.imgAvatar2?.setImageBitmap()
                 }
             }
             header.imgBack.setOnClickListener {

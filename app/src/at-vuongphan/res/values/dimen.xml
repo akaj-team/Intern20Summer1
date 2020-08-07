@@ -63,7 +63,7 @@
     <dimen name="text_size_12sp">12sp</dimen>
     <dimen name="text_size_22sp">22sp</dimen>
     <dimen name="text_size_18sp">18sp</dimen>
-    <dimen name="text_size_10sp">10sp</dimen>
+    <dimen name="text_size_10sp">13sp</dimen>
     <dimen name="text_size_36sp">36sp</dimen>
     <dimen name="margin_top_137dp">137dp</dimen>
     <dimen name="layout_height_52dp">52dp</dimen>
