@@ -98,7 +98,7 @@
     <dimen name="w7_home_name_vegetable_margin_top_left">20dp</dimen>
     <dimen name="w7_home_information_vegetable_margin_top">52dp</dimen>
     <dimen name="w7_home_information_vegetable_margin_left">28dp</dimen>
-    <dimen name="w7_toolbar_height">78dp</dimen>
+    <dimen name="w7_toolbar_height">60dp</dimen>
     <dimen name="w7_recycler_view_margin_left_right">32dp</dimen>
     <dimen name="w7_recycler_view_margin_bottom">50dp</dimen>
     <dimen name="w7_navigation_avatar_margin_top">55dp</dimen>

@@ -6,11 +6,13 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
+import androidx.room.Database
+import androidx.room.Room
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w7.launcher.RegisterFarmFragment
 import com.asiantech.intern20summer1.w7.main.fragment.DialogFragmentFarm
 import com.asiantech.intern20summer1.w7.main.fragment.TreeRecyclerFragment
-import com.asiantech.intern20summer1.w7.model.AccountClass
+import com.asiantech.intern20summer1.w7.model.UserModel
 import kotlinx.android.synthetic.`at-huybui`.activity_main_farm.*
 import kotlinx.android.synthetic.`at-huybui`.navigation_header.view.*
 
@@ -50,6 +52,15 @@ class MainFarmActivity : AppCompatActivity() {
         fragmentTransaction.commit()
     }
 
+//    @Database(entities = arrayOf(User::))
+//    private fun handleDataBase(){
+//        val dataBase = Room.databaseBuilder(
+//            applicationContext
+//        Appda::class.java,
+//            "plant.db"
+//        )
+//    }
+
     private fun initToolBar() {
         setSupportActionBar(toolbarHome)
         val actionBar = supportActionBar
@@ -61,7 +72,7 @@ class MainFarmActivity : AppCompatActivity() {
     }
 
     private fun initNavigationDrawer() {
-        val user = intent.getSerializableExtra(RegisterFarmFragment.KEY_PUT) as? AccountClass
+        val user = intent.getSerializableExtra(RegisterFarmFragment.KEY_PUT) as? UserModel
         navigationView.getHeaderView(0)?.let { hd ->
             user?.let { u ->
                 hd.tvNameHeader.text = u.userName

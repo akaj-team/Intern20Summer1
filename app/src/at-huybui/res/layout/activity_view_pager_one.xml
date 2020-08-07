@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+    <com.itsronald.widget.ViewPagerIndicator
         android:id="@+id/viewPagerIndicator"
         android:layout_width="@dimen/w6_dot_indicator_width"
         android:layout_height="@dimen/w6_dot_indicator_height"

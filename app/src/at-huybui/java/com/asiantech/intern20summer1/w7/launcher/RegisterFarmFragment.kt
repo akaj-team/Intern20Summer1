@@ -11,18 +11,19 @@ import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.w7.database.ConnectDataBase
 import com.asiantech.intern20summer1.w7.main.MainFarmActivity
-import com.asiantech.intern20summer1.w7.model.AccountClass
+import com.asiantech.intern20summer1.w7.model.UserModel
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 import kotlinx.android.synthetic.`at-huybui`.fragment_register_farm.*
-import java.io.Serializable
 
 /**
  * Asian Tech Co., Ltd.
@@ -43,17 +44,20 @@ class RegisterFarmFragment : Fragment() {
     private var imageUri: Uri? = null
     private var isCameraAllowed = false
     private var isCheckGallery = false
+    private var dataBase: ConnectDataBase? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         return inflater.inflate(R.layout.fragment_register_farm, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        dataBase = ConnectDataBase.getInMemoryDatabase(requireContext())
         handleForListener()
     }
 
@@ -96,10 +100,23 @@ class RegisterFarmFragment : Fragment() {
             val university = edtUniversity?.text.toString()
             val homeTown = edtHomeTown?.text.toString()
             val imgUri = imageUri?.toString()
-            val user = AccountClass(name, university, homeTown,imgUri)
-            intent.putExtra(KEY_PUT, user as Serializable)
-            startActivity(intent)
-            (activity as LauncherFarmActivity).finish()
+            val user = UserModel(
+                userName = name,
+                university = university,
+                homeTown = homeTown,
+                imgUri = imgUri
+            )
+
+            dataBase?.accountDao()?.insertUser(user)
+
+            val userModel = dataBase?.accountDao()?.getUser()
+            var st = "${userModel?.userName} \n ${userModel?.homeTown}\n ${userModel?.userId}"
+
+            Toast.makeText(context, st, Toast.LENGTH_SHORT).show()
+
+//            intent.putExtra(KEY_PUT, user as Serializable)
+//            startActivity(intent)
+//            (activity as LauncherFarmActivity).finish()
         }
     }
 
