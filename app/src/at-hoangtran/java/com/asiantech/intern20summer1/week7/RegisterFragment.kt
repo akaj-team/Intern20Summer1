@@ -3,7 +3,9 @@ package com.asiantech.intern20summer1.week7
 import android.Manifest
 import android.app.Activity.RESULT_OK
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
@@ -31,15 +33,16 @@ class RegisterFragment : Fragment() {
         const val CAMERA_REQUEST = 4
         const val KEY_DATA = "data"
         const val KEY_IMAGE = "image/*"
+        const val SHARE_PREFERENCE_KEY = "userKey"
+        const val USER_NAME_KEY = "userName"
+        const val UNIVERSITY_KEY = "university"
+        const val HOME_TOWN_KEY = "homeTown"
+        const val AVATAR_KEY = "avatar"
     }
 
+    private var imageUri: String = ""
     private var flag = false
     private var ava = ""
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -63,12 +66,6 @@ class RegisterFragment : Fragment() {
     private fun handleEditText(edt: EditText) {
         edt.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
-            }
-
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 when (edt) {
                     edt_user_name -> {
                         checkUserName()
@@ -82,11 +79,29 @@ class RegisterFragment : Fragment() {
                 }
                 btn_next.isEnabled = (checkHome() && checkUniversity() && checkUserName())
             }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
         })
     }
 
     private fun handleButton() {
+        val sharedPreferences = activity?.getSharedPreferences(
+            SHARE_PREFERENCE_KEY,
+            Context.MODE_PRIVATE
+        )
         btn_next.setOnClickListener {
+            val editor: SharedPreferences.Editor? = sharedPreferences?.edit()
+            editor?.apply {
+                putString(USER_NAME_KEY, edt_user_name.text.toString())
+                putString(UNIVERSITY_KEY, edt_university.text.toString())
+                putString(HOME_TOWN_KEY, edt_home_town.text.toString())
+                putString(AVATAR_KEY, imageUri)
+                apply()
+            }
             val intent = Intent(activity, GardenActivity::class.java)
             activity?.startActivity(intent)
             activity?.finish()
