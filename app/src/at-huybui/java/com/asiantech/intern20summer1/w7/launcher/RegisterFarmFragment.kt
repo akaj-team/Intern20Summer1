@@ -11,7 +11,6 @@ import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -105,8 +104,8 @@ class RegisterFarmFragment : Fragment() {
                 imgUri = imgUri
             )
 
-            dataBase?.accountDao()?.insertUser(user)
-            val userModel = dataBase?.accountDao()?.getUser()
+            dataBase?.userDao()?.insertUser(user)
+            val userModel = dataBase?.userDao()?.getUser()
             val intent = Intent(context, MainFarmActivity::class.java)
             startActivity(intent)
             (activity as LauncherFarmActivity).finish()

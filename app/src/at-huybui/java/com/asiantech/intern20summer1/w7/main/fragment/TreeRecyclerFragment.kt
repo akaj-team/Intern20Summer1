@@ -1,16 +1,18 @@
 package com.asiantech.intern20summer1.w7.main.fragment
 
 import android.os.Bundle
+import android.os.Handler
+import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.R.drawable.img_farm_logo
+import com.asiantech.intern20summer1.w7.database.ConnectDataBase
 import com.asiantech.intern20summer1.w7.main.MainFarmActivity
-import com.asiantech.intern20summer1.w7.main.recyclerview.RecyclerAdapter
-import com.asiantech.intern20summer1.w7.model.TreeClass
+import com.asiantech.intern20summer1.w7.main.adapter.RecyclerAdapter
+import com.asiantech.intern20summer1.w7.model.PlantModel
 import kotlinx.android.synthetic.`at-huybui`.fragment_farm_vegetable.*
 
 class TreeRecyclerFragment : Fragment() {
@@ -20,7 +22,7 @@ class TreeRecyclerFragment : Fragment() {
             TreeRecyclerFragment()
     }
 
-    private val vegetableList: MutableList<TreeClass> = mutableListOf()
+    private var vegetableList: MutableList<PlantModel> = mutableListOf()
     private val adapterRecycler = RecyclerAdapter(vegetableList)
 
     override fun onCreateView(
@@ -56,51 +58,16 @@ class TreeRecyclerFragment : Fragment() {
     }
 
     private fun initData() {
-        vegetableList.add(
-            TreeClass(
-                name = "Củ cải ",
-                statusWorm = true,
-                dateCultivation = "15/9/2000",
-                dateHarvest = "20/10/1999",
-                image = img_farm_logo
-            )
-        )
-        vegetableList.add(
-            TreeClass(
-                name = "Củ kieu ",
-                statusWorm = true,
-                dateCultivation = "15/9/2000",
-                dateHarvest = "20/10/1999",
-                image = img_farm_logo
-            )
-        )
-        vegetableList.add(
-            TreeClass(
-                name = "Củ cac ",
-                statusWorm = true,
-                dateCultivation = "15/9/2000",
-                dateHarvest = "20/10/1999",
-                image = img_farm_logo
-            )
-        )
-        vegetableList.add(
-            TreeClass(
-                name = "Củ cu ",
-                statusWorm = true,
-                dateCultivation = "15/9/2000",
-                dateHarvest = "20/10/1999",
-                image = img_farm_logo
-            )
-        )
-        vegetableList.add(
-            TreeClass(
-                name = "Củ cut ",
-                statusWorm = true,
-                dateCultivation = "15/9/2000",
-                dateHarvest = "20/10/1999",
-                image = img_farm_logo
-            )
-        )
-
+        val database: ConnectDataBase? = ConnectDataBase.dataBaseConnect(requireContext())
+        val plants = database?.plantDao()?.getAllPlant()
+        Handler().postDelayed({
+            plants?.let { plant ->
+                d("XXXX", "load data")
+                plant.forEach {
+                    vegetableList.add(it)
+                }
+            }
+            adapterRecycler.notifyDataSetChanged()
+        }, 2000)
     }
 }

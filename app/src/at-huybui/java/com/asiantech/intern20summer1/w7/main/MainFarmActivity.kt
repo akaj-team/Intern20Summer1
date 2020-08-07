@@ -8,10 +8,8 @@ import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w7.database.ConnectDataBase
-import com.asiantech.intern20summer1.w7.launcher.RegisterFarmFragment
 import com.asiantech.intern20summer1.w7.main.fragment.DialogFragmentFarm
 import com.asiantech.intern20summer1.w7.main.fragment.TreeRecyclerFragment
-import com.asiantech.intern20summer1.w7.model.UserModel
 import kotlinx.android.synthetic.`at-huybui`.activity_main_farm.*
 import kotlinx.android.synthetic.`at-huybui`.navigation_header.view.*
 
@@ -74,7 +72,7 @@ class MainFarmActivity : AppCompatActivity() {
     }
 
     private fun initNavigationDrawer() {
-        val user = dataBase?.accountDao()?.getUser()
+        val user = dataBase?.userDao()?.getUser()
         navigationView.getHeaderView(0)?.let { hd ->
             user?.let { u ->
                 hd.tvNameHeader.text = u.userName

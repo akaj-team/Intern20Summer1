@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.io.Serializable
 
-@Entity(tableName = "user")
+@Entity(tableName = "cultivation")
 data class CultivationModel(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "cultivationId") val cultivationId: Int = 0,
