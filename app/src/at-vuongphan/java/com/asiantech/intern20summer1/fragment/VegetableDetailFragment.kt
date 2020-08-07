@@ -20,6 +20,6 @@ class VegetableDetailFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.vegetable_detail, container, false)
+        return inflater.inflate(R.layout.w7_vegetable_detail, container, false)
     }
 }

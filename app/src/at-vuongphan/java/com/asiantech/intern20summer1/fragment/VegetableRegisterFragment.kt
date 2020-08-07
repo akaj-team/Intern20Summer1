@@ -20,7 +20,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.activity.VegetableHomeActivity
+import com.asiantech.intern20summer1.activity.VegetableFarmMainActivity
 import com.asiantech.intern20summer1.extension.hideKeyboard
 import com.asiantech.intern20summer1.extension.textChangedListener
 import com.theartofdev.edmodo.cropper.CropImage
@@ -116,7 +116,7 @@ class VegetableRegisterFragment : Fragment() {
                 putString(SHARED_PREFERENCE_AVATAR_KEY, imageUri)
                 apply()
             }
-            val intent = Intent(activity, VegetableHomeActivity::class.java)
+            val intent = Intent(activity, VegetableFarmMainActivity::class.java)
             activity?.startActivity(intent)
             activity?.finish()
         }
@@ -164,6 +164,7 @@ class VegetableRegisterFragment : Fragment() {
             if (this != null) {
                 @Suppress("DEPRECATION") val bitmap =
                     MediaStore.Images.Media.getBitmap(activity?.contentResolver, this)
+                imageUri = this.toString()
                 imgAvatar.setImageBitmap(bitmap)
             }
         }

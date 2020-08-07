@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.`at-vuongphan`.w7_item_recycler_view.view.*
 
 class VegetableRecyclerViewAdapter(private val mutableList: MutableList<VegetableItemRecyclerView>) :
     RecyclerView.Adapter<VegetableRecyclerViewAdapter.ItemViewHolder>() {
+    internal var onItemClicked: (position: Int) -> Unit = {}
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -24,7 +25,10 @@ class VegetableRecyclerViewAdapter(private val mutableList: MutableList<Vegetabl
 
     override fun getItemCount() = mutableList.size
 
-    override fun onBindViewHolder(holder: VegetableRecyclerViewAdapter.ItemViewHolder, position: Int) {
+    override fun onBindViewHolder(
+        holder: VegetableRecyclerViewAdapter.ItemViewHolder,
+        position: Int
+    ) {
         holder.bindData()
     }
 
@@ -34,6 +38,12 @@ class VegetableRecyclerViewAdapter(private val mutableList: MutableList<Vegetabl
         private var timerOne: TextView = itemView.tvTimeOne
         private var timerTwo: TextView = itemView.tvTimeTwo
         private var avatar: CircleImageView = itemView.imgVegetable
+
+        init {
+            itemView.setOnClickListener {
+                onItemClicked.invoke(adapterPosition)
+            }
+        }
 
         fun bindData() {
             mutableList[adapterPosition].let {

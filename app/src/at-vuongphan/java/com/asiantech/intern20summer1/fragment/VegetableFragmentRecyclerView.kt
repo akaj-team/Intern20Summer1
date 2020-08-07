@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.activity.VegetableFarmMainActivity
 import com.asiantech.intern20summer1.adapter.VegetableRecyclerViewAdapter
 import com.asiantech.intern20summer1.data.VegetableItemRecyclerView
 import kotlinx.android.synthetic.`at-vuongphan`.w7_recycler_view_fragment.*
@@ -34,12 +35,25 @@ class VegetableFragmentRecyclerView : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initAdapter()
         exampleLists.addAll(newData())
+        handleOnItemClick()
     }
 
     private fun initAdapter() {
         recyclerView.adapter = adapterRecycler
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.setHasFixedSize(true)
+    }
+
+
+    private fun handleOnItemClick() {
+        adapterRecycler.onItemClicked = { _ ->
+            val fragment = VegetableDetailFragment.newInstance()
+            (activity as VegetableFarmMainActivity).handleReplaceFragment(
+                fragment,
+                true,
+                parent = R.id.rlContainer
+            )
+        }
     }
 
     private fun newData(): MutableList<VegetableItemRecyclerView> {

@@ -1,5 +1,7 @@
 package com.asiantech.intern20summer1.fragment
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.LayoutInflater
@@ -7,7 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.activity.VegetableFarmMainActivity
 import com.asiantech.intern20summer1.activity.VegetableSplashActivity
+import com.asiantech.intern20summer1.fragment.VegetableRegisterFragment.Companion.SHARED_PREFERENCE_FILE
 import kotlinx.android.synthetic.`at-vuongphan`.w7_splash_fragment.*
 
 class VegetableSplashFragment : Fragment() {
@@ -35,8 +39,20 @@ class VegetableSplashFragment : Fragment() {
             override fun onTick(p0: Long) {
                 progressSplash?.progress = progressSplash.progress + 1
                 if (progressSplash?.progress == STEP_FINISH) {
-                    (activity as? VegetableSplashActivity)?.openFragment(VegetableRegisterFragment.newInstance())
                     this.cancel()
+                    if (checkUser()) {
+                        (activity as? VegetableSplashActivity)?.openFragment(
+                            VegetableRegisterFragment.newInstance()
+                        )
+                    } else {
+                        activity?.startActivity(
+                            Intent(
+                                activity,
+                                VegetableFarmMainActivity::class.java
+                            )
+                        )
+                        activity?.finish()
+                    }
                 }
             }
 
@@ -44,5 +60,13 @@ class VegetableSplashFragment : Fragment() {
             }
         }
         timer.start()
+    }
+
+    private fun checkUser(): Boolean {
+        val sharedRef = activity?.getSharedPreferences(SHARED_PREFERENCE_FILE, Context.MODE_PRIVATE)
+        if (sharedRef?.getString("userName", null) == null) {
+            return true
+        }
+        return false
     }
 }
