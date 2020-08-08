@@ -3,13 +3,12 @@ package com.asiantech.intern20summer1.w7.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.io.Serializable
 
 @Entity(tableName = "cultivation")
 data class CultivationModel(
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    @ColumnInfo(name = "userGrowId") val userGrowId: Int = 0,
-    @ColumnInfo(name = "plantId") val plantId: String = "",
-    @ColumnInfo(name = "dateCultivation") val dateCultivation: String = "",
-    @ColumnInfo(name = "dateWatering") val dateWatering: String = ""
-) : Serializable
+    @PrimaryKey(autoGenerate = true) var id: Int? = null,
+    @ColumnInfo(name = "userGrowId") var userGrowId: Int? = null,
+    @ColumnInfo(name = "plantId") var plantId: String? = null,
+    @ColumnInfo(name = "dateCultivation") var dateCultivation: String? = null,
+    @ColumnInfo(name = "dateWatering") var dateWatering: String? = null
+)

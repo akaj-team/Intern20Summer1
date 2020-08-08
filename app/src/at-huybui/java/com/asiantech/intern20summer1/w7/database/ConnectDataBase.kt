@@ -6,6 +6,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.asiantech.intern20summer1.w7.model.CultivationModel
 import com.asiantech.intern20summer1.w7.model.PlantModel
 import com.asiantech.intern20summer1.w7.model.UserModel
 import com.google.gson.Gson
@@ -13,11 +14,12 @@ import com.google.gson.reflect.TypeToken
 import com.google.gson.stream.JsonReader
 import java.util.concurrent.Executors
 
-@Database(entities = [UserModel::class, PlantModel::class], version = 1, exportSchema = false)
+@Database(entities = [UserModel::class, PlantModel::class,CultivationModel::class], version = 1, exportSchema = false)
 abstract class ConnectDataBase : RoomDatabase() {
 
     abstract fun userDao(): UserDAO
     abstract fun plantDao(): PlantDAO
+    abstract fun cultivationDao(): CultivationDAO
 
     companion object {
         const val NAME_DATA_BASE = "plant.db"

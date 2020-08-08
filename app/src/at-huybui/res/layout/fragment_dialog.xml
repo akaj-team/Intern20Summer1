@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     app:cardCornerRadius="@dimen/w7_card_view_radius"
     app:cardElevation="@dimen/w7_card_view_elevation">
 
@@ -35,6 +36,30 @@
             android:layout_height="@dimen/w7_register_edit_text_height"
             android:overScrollMode="never" />
 
+        <ImageView
+            android:id="@+id/imgDialogPlant"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/spinnerTree"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="@dimen/w7_dialog_edit_text_margin_left_right"
+            android:layout_marginTop="@dimen/w7_dialog_text_information_margin"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            tools:src="@drawable/logo_music" />
+
+        <TextView
+            android:id="@+id/tvInformationDialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/btnOkDialog"
+            android:layout_centerHorizontal="true"
+            android:layout_marginEnd="@dimen/w7_dialog_text_information_margin"
+            android:layout_marginRight="@dimen/w7_dialog_text_information_margin"
+            android:layout_marginBottom="20dp"
+            android:textSize="20sp"
+            tools:text="xxxxx\nxxxx" />
+
         <Button
             android:id="@+id/btnOkDialog"
             android:layout_width="match_parent"
@@ -43,7 +68,8 @@
             android:layout_marginLeft="@dimen/w7_dialog_edit_text_margin_left_right"
             android:layout_marginRight="@dimen/w7_dialog_edit_text_margin_left_right"
             android:layout_marginBottom="@dimen/w7_dialog_button_margin_bottom"
-            android:background="@color/w7_button_disable"
+            android:background="@drawable/bg_w7_select_register_button"
+            android:textColor="@color/text_button"
             android:text="@string/w7_ok" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

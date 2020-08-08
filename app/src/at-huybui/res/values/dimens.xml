@@ -120,4 +120,5 @@
     <dimen name="w7_item_information_text_size">12sp</dimen>
     <dimen name="w7_dialog_title_text_margin_top">60dp</dimen>
     <dimen name="w7_dialog_title_text_size">36sp</dimen>
+    <dimen name="w7_dialog_text_information_margin">20dp</dimen>
 </resources>
