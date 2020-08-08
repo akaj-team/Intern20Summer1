@@ -14,6 +14,9 @@ interface CultivationDAO {
     @Query("select * from cultivation")
     fun getAllCultivation(): List<CultivationModel>
 
+    @Query("select * from cultivation where id =:id")
+    fun getCultivation(id: Int?): CultivationModel
+
 //    @Delete
 //    fun deleteCultivation(cultivation: CultivationModel)
 }

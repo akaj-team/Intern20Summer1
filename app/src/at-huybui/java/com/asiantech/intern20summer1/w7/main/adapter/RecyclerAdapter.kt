@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.`at-huybui`.recycler_farm_item.view.*
 class RecyclerAdapter(private val mutableList: MutableList<CultivationModel>) :
     RecyclerView.Adapter<RecyclerAdapter.ItemViewHolder>() {
     private var dataBase: ConnectDataBase? = null
-    internal var onItemClicked: (position: Int) -> Unit = {}
+    internal var onItemClicked: (id: Int?) -> Unit = {}
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -46,7 +46,7 @@ class RecyclerAdapter(private val mutableList: MutableList<CultivationModel>) :
         init {
             d("XXX", "init")
             itemView.setOnClickListener {
-                onItemClicked.invoke(adapterPosition)
+                onItemClicked.invoke(mutableList[adapterPosition].id)
             }
         }
 

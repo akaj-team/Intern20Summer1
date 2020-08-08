@@ -48,8 +48,8 @@ class TreeRecyclerFragment : Fragment() {
     }
 
     private fun handleOnItemClick() {
-        adapterRecycler.onItemClicked = { position ->
-            val fragment = TreeInformationFragment.newInstance()
+        adapterRecycler.onItemClicked = { id ->
+            val fragment = TreeInformationFragment.newInstance(id)
             (activity as MainFarmActivity).handleReplaceFragment(
                 fragment,
                 true,
