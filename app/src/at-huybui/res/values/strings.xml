@@ -49,6 +49,25 @@
     <string name="text_goto_google">Go to Google page</string>
     <string name="text_goto_facebook">Go to Facebook</string>
     <string name="text_goto_twitter">Go to Twitter</string>
+    <string name="w6_tab_layout_tab0_text">HOME</string>
+    <string name="w6_tab_layout_tab1_text">INFO</string>
+    <string name="w6_tab_layout_tab2_text">ANOTHER</string>
+    <string name="w6_name_english_kangaroo">Kangaroo</string>
+    <string name="w6_name_france_kangaroo">Le Kangourou</string>
+    <string name="w6_name_english_koala">Koala</string>
+    <string name="w6_name_france_koala">Le Koala</string>
+    <string name="w6_name_english_Platypus">Platypus</string>
+    <string name="w6_name_france_platypus">Le Ornithorynque</string>
+    <string name="w6_text_next">Next</string>
+    <string name="w6_text_done">Done</string>
+    <string name="w6_text_step">Step %s</string>
+    <string name="intern_summer_2020">Intern Summer 2020</string>
+    <string name="w1_java">W1 JAVA</string>
+    <string name="w2_kotlin">W2 KOTLIN</string>
+    <string name="w3_layout">W3 LAYOUT</string>
+    <string name="w4_activity_fragment">W4 ACTIVITY + FRAGMENT</string>
+    <string name="w5_recycle_view">W5 RECYCLE VIEW</string>
+    <string name="w6_view_pager_tab_layout">W6 VIEW PAGER + TAB LAYOUT</string>
     <string name="crop_complete">Crop complete</string>
     <string name="w4_crop_your_picture">Crop your picture</string>
 </resources>

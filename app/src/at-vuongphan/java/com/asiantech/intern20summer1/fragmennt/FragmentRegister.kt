@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.fragment
+package com.asiantech.intern20summer1.fragmennt
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -283,7 +283,9 @@ class FragmentRegister : Fragment() {
     }
 
     private fun openCamera() {
-        startActivityForResult(Intent(MediaStore.ACTION_IMAGE_CAPTURE), REQUEST_IMAGE_CAPTURE)
+        startActivityForResult(Intent(MediaStore.ACTION_IMAGE_CAPTURE),
+            REQUEST_IMAGE_CAPTURE
+        )
 
     }
 
@@ -294,7 +296,8 @@ class FragmentRegister : Fragment() {
                     Intent.ACTION_PICK,
                     Images.Media.EXTERNAL_CONTENT_URI
                 )
-            )), REQUEST_GET_CONTENT_IMAGE
+            )),
+            REQUEST_GET_CONTENT_IMAGE
         )
 
     }
