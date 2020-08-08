@@ -13,4 +13,11 @@
     <color name="colorBackgroundTablayout">#ea9a31</color>
     <color name="colorTablayoutNonSelected">#0C0C0C</color>
     <color name="colorTablayoutSelected">#F41515</color>
+    <color name="colorLightCoral">#F08080</color>
+    <color name="colorFuchsia">#FF00FF</color>
+    <color name="colorLavender">#E6E6FA</color>
+    <color name="colorKhaki">#F0E68C</color>
+    <color name="colorHeader">#FFC300</color>
+    <color name="colorItem">#AFDCCE</color>
+    <color name="colorWeek7CircleImageViewBorder">#28E4DE</color>
 </resources>

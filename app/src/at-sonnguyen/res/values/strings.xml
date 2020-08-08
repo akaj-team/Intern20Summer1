@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ViewPager-Tablayout</string>
+    <string name="app_name">[SonNguyen]InterSummer1</string>
     <string name="your_profile_link">Link your social media profile</string>
     <string name="email_text_view_description_text">Enter your Email ID</string>
     <string name="password_text_view_description_text">Type your password</string>
@@ -38,4 +38,30 @@
     <string name="w7_button_text">Week 7</string>
     <string name="begin_week6_button_text">Week 6</string>
     <string name="w6_app_name">Week 6 - ViewPager - TabLayout</string>
+    <string name="w7_permission_denied">permission denied</string>
+    <string name="w7_image_title">Title</string>
+    <string name="w7_open">open</string>
+    <string name="w7_close">Close</string>
+    <string name="Plants_default">Loại rau muốn trồng</string>
+    <string name="w7_register_fragment_user_name_text_view_hint">Username</string>
+    <string name="w7_register_fragment_university_edit_text_hint">University</string>
+    <string name="w7_register_fragment_home_town_hint">Hometown</string>
+    <string name="w7_register_fragment_next_button_text">NEXT</string>
+    <string name="w7_register_fragment_title_text">Register</string>
+    <string name="w7_header_university_text_view_default_text">Da Nang University of Technology</string>
+    <string name="w7_header_username_text_view_default_text">Son Nguyen V.</string>
+    <string name="w7_header_back_image_view_description">back Image view</string>
+    <string name="w7_menu_item1_title">Vườn Rau</string>
+    <string name="w7_menu_item2_title">Trồng cây</string>
+    <string name="w7_menu_item3_title">Sắp thu hoạch</string>
+    <string name="w7_menu_item4_title">Rau bị sâu</string>
+    <string name="w_7menu_item5_title">Rau bị thiếu nước</string>
+    <string name="w7_dialog_fragment_title">Trồng cây</string>
+    <string-array name="Plants">
+        <item> "aaaaa"</item>
+        <item>bbbb</item>
+        <item>ccc</item>
+        <item>ddd</item>
+        <item>eeee</item>
+    </string-array>
 </resources>

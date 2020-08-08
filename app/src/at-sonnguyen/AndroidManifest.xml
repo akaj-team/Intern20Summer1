@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.asiantech.intern20summer1">
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -18,6 +21,11 @@
         </activity>
         <activity android:name=".w6.activity.StepActivity"/>
         <activity android:name=".w6.activity.HomeActivity"/>
+        <activity android:name=".w7.activity.SplashActivity"/>
+        <activity android:name=".w7.activity.HomeActivity"/>
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat" />
     </application>
 
 </manifest>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/w7_recycler_view_item_height"
+    android:layout_marginTop="@dimen/w7_recycler_view_item_margin_top"
+    android:background="@drawable/w6_bg_relative_layout">
+
+    <LinearLayout
+        android:id="@+id/llName"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/w7_recycler_view_name_linear_layout_height"
+        android:layout_marginStart="@dimen/w7_recycler_view_linear_layout_margin_left"
+        android:layout_marginLeft="@dimen/w7_recycler_view_linear_layout_margin_left"
+        android:gravity="center"
+        tools:ignore="RelativeOverlap">
+
+        <TextView
+            android:id="@+id/tvPlantName"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/w7_recycler_name_view_text_view_height"
+            android:gravity="center"
+            android:text="@string/app_name"
+            android:textSize="@dimen/w7_recycler_view_name_text_view_text_size"
+            android:textStyle="bold" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="@dimen/w7_recycler_view_image_avatar_width"
+            android:layout_height="@dimen/w7_recycler_view_image_avatar_height"
+            android:src="@drawable/ic_worm"
+            app:civ_border_color="@color/colorWeek7CircleImageViewBorder"
+            app:civ_border_width="@dimen/w7_register_fragment_avatar_image_border_width" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvGrowZoneNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/w7_recycler_view_text_view_height"
+        android:layout_below="@+id/llName"
+        android:layout_marginStart="@dimen/w7_recycler_view_date_grow_text_view_margin_left"
+        android:layout_marginLeft="@dimen/w7_recycler_view_date_grow_text_view_margin_left"
+        android:layout_marginTop="@dimen/w7_recycler_view_date_grow_text_view_margin_top"
+        android:textSize="@dimen/w7_text_view_text_size" />
+
+    <TextView
+        android:id="@+id/tvDateHarvest"
+        android:layout_width="wrap_content"
+        android:layout_height="14dp"
+        android:layout_below="@id/tvGrowZoneNumber"
+        android:layout_marginStart="@dimen/w7_recycler_view_date_grow_text_view_margin_left"
+        android:layout_marginLeft="@dimen/w7_recycler_view_date_grow_text_view_margin_left"
+        android:layout_marginTop="@dimen/w7_recycler_view_date_grow_text_view_margin_top"
+        android:textSize="@dimen/w7_text_view_text_size" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgVegetable"
+        android:layout_width="@dimen/w7_recycler_view_plant_image_width"
+        android:layout_height="@dimen/w7_recycler_view_plant_image_height"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/w7_recycler_view_plant_image_margin_right"
+        android:layout_marginRight="@dimen/w7_recycler_view_plant_image_margin_right"
+        android:src="@mipmap/ic_launcher"
+        app:civ_border_color="@color/colorWeek7CircleImageViewBorder"
+        app:civ_border_width="@dimen/w7_register_fragment_avatar_image_border_width" />
+</RelativeLayout>
