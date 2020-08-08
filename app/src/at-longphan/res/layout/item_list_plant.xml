@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/containerItemListPlant"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    android:background="@drawable/bg_item_tree"
+    android:gravity="center"
+    android:weightSum="2">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/tvNamePlant"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cải thảo"
+                android:textSize="22sp" />
+
+            <ImageView
+                android:id="@+id/imgStatusPlant"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginLeft="5dp"
+                android:src="@drawable/ic_music_logo" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvDateCultivation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="Trồng vào lúc: 03/08/20 12h10"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tvDateHarvest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Thời gian thu hoạc: 03/08/20 12h10"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgDisplayPlant"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginVertical="12dp"
+        android:src="@mipmap/ic_launcher" />
+</LinearLayout>

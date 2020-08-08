@@ -1,9 +1,8 @@
-package com.asiantech.intern20summer1.activity
+package com.asiantech.intern20summer1
 
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.extension.afterTextChanged
 import com.asiantech.intern20summer1.extension.isValidEmail
 import com.asiantech.intern20summer1.extension.isValidPassword
@@ -28,19 +27,19 @@ class MainActivity : AppCompatActivity() {
      * Event handler edit text Email
      */
     private fun initListenerEmailEditText() {
-        edtEmail.afterTextChanged {
+        edtEmail?.afterTextChanged {
             if (it.isValidEmail()) {
-                edtEmail.setCompoundDrawablesWithIntrinsicBounds(
+                edtEmail?.setCompoundDrawablesWithIntrinsicBounds(
                     0, 0,
                     R.drawable.icon_tick, 0
                 )
-                edtEmail.isActivated = false
+                edtEmail?.isActivated = false
             } else {
-                edtEmail.setCompoundDrawablesWithIntrinsicBounds(
+                edtEmail?.setCompoundDrawablesWithIntrinsicBounds(
                     0, 0,
                     R.drawable.icon_error, 0
                 )
-                edtEmail.isActivated = true
+                edtEmail?.isActivated = true
             }
         }
         edtEmail.setOnFocusChangeListener { _, isFocus ->

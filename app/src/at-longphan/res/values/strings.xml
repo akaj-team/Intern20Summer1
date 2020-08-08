@@ -38,4 +38,23 @@
     <string name="camera_permission_denied_toast">Camera permission denied</string>
     <string name="storage_permission_denied_toast">Storage permission denied</string>
     <string name="image_path_title">title</string>
+    <string name="text_view_plural_like_description">likes</string>
+    <string name="text_view_not_plural_like_description">like</string>
+    <string name="text_view_first_like_description">Be the first to like this</string>
+    <string name="text_view_next_description">Next</string>
+    <string name="home_tab_title">Home</string>
+    <string name="info_tab_title">Info</string>
+    <string name="another_tab_title">Another</string>
+    <string name="text_view_step_description_fragment_step_1">Step 1</string>
+    <string name="text_view_step_description_fragment_step_2">Step 2</string>
+    <string name="text_view_step_description_fragment_step_3">Step 3</string>
+    <string name="button_week_3_description">Week 3: Create And Handle UI</string>
+    <string name="button_week_4_description">Week 4: Intent - Activity - Fragment</string>
+    <string name="button_week_5_description">Week 5: RecyclerView</string>
+    <string name="button_week_6_description">Week 6: ViewPager - TabLayout</string>
+    <string name="text_view_bottom_description_main_activity">Phan Dang Phi Long - Android Intern</string>
+    <string name="text_view_internship_summer_2020_description">INTERNSHIP\nSUMMER 2020</string>
+    <string name="button_week_7_description">Week 7: Menu - Database</string>
+    <string name="text_view_plant_at_description">Trồng vào lúc: </string>
+    <string name="text_view_harvest_time_description">Thời gian thu hoạch: </string>
 </resources>

@@ -5,23 +5,23 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/navFarmer"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@drawable/ic_music_logo"
             android:title="Vườn Cây" />
         <item
             android:id="@+id/navGrowVegetable"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@drawable/ic_music_logo"
             android:title="Trồng Cây" />
         <item
             android:id="@+id/navHarvest"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@drawable/ic_music_logo"
             android:title="Cây sắp thu hoạch" />
         <item
             android:id="@+id/navSau"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@drawable/ic_music_logo"
             android:title="Cây bị sâu" />
         <item
             android:id="@+id/navNuoc"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@drawable/ic_music_logo"
             android:title="Cây bị thiếu nước" />
     </group>
 </menu>
