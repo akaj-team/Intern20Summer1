@@ -105,7 +105,6 @@ class RegisterFarmFragment : Fragment() {
             )
 
             dataBase?.userDao()?.insertUser(user)
-            val userModel = dataBase?.userDao()?.getUser()
             val intent = Intent(context, MainFarmActivity::class.java)
             startActivity(intent)
             (activity as LauncherFarmActivity).finish()

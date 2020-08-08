@@ -3,10 +3,12 @@ package com.asiantech.intern20summer1.w7.main.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w7.model.PlantModel
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.`at-huybui`.recycler_farm_item.view.*
 
 class RecyclerAdapter(private val mutableList: MutableList<PlantModel>) :
@@ -33,6 +35,7 @@ class RecyclerAdapter(private val mutableList: MutableList<PlantModel>) :
         private var name: TextView = itemView.tvNameVegetable
         private var dateCultivation: TextView = itemView.tvDateCultivation
         private var dateHarvest: TextView = itemView.tvDateHarvest
+        private var imgPlant: ImageView = itemView.imgVegetable
 
         init {
             itemView.setOnClickListener {
@@ -43,8 +46,10 @@ class RecyclerAdapter(private val mutableList: MutableList<PlantModel>) :
         fun bindData() {
             mutableList[adapterPosition].let { item ->
                 name.text = item.name
-                dateCultivation.text = item.description
                 dateHarvest.text = item.imageUrl
+                Glide.with(itemView)
+                    .load(item.imageUrl)
+                    .into(imgPlant)
             }
         }
     }

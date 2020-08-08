@@ -33,6 +33,7 @@ class SplashFarmFragment : Fragment() {
         private const val SPLASH_TIMER = 10000L
         private const val PROGRESS_TIMER_STEP = 20L
         private const val PROGRESS_MAX_VALUE = 100
+        private const val JSON_FILE_NAME = "plants.json"
         internal fun newInstance() = SplashFarmFragment()
     }
 
@@ -66,7 +67,7 @@ class SplashFarmFragment : Fragment() {
                 if (progressBarFarm?.progress == 50) {
                     if (plants?.size == 0) {
                         d("XXXX", "data tree null, add data")
-                        providerDatabase(requireContext())
+                        saveData(requireContext())
                     } else {
                         d("XXXX", plants.toString())
                     }
@@ -90,14 +91,13 @@ class SplashFarmFragment : Fragment() {
         }.start()
     }
 
-    private fun addData(context: Context) {
+    private fun saveData(context: Context) {
         Executors.newFixedThreadPool(2).execute {
-            context.assets.open("plants.json").use { inputStream ->
+            context.assets.open(JSON_FILE_NAME).use { inputStream ->
                 JsonReader(inputStream.reader()).use { jsonReader ->
                     val plantType = object : TypeToken<List<PlantModel>>() {}.type
                     d("XXXX", jsonReader.toString())
                     val plants: List<PlantModel> = Gson().fromJson(jsonReader, plantType)
-
                     dataBase?.plantDao()?.insertPlants(plants)
                 }
             }

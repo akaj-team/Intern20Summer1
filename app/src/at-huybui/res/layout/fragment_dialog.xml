@@ -25,18 +25,15 @@
             android:text="@string/w7_trong_cay"
             android:textSize="@dimen/w7_dialog_title_text_size" />
 
-        <EditText
-            android:id="@+id/edtDialog"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/w7_register_edit_text_height"
+        <Spinner
+            android:id="@+id/spinnerTree"
             android:layout_below="@id/tvTitleDialog"
-            android:layout_marginLeft="@dimen/w7_dialog_edit_text_margin_left_right"
-            android:layout_marginRight="@dimen/w7_dialog_edit_text_margin_left_right"
-            android:background="@drawable/bg_w7_edit_text"
-            android:importantForAutofill="no"
-            android:paddingLeft="@dimen/w7_register_text_in_edit_text_padding_left_right"
-            android:inputType="text"
-            android:hint="@string/w7_chon_cay_trong"/>
+            android:layout_marginLeft="@dimen/w7_register_margin_left_right"
+            android:layout_width="match_parent"
+            android:layout_marginRight="@dimen/w7_register_margin_left_right"
+            android:background="@drawable/bg_w7_select_spinner"
+            android:layout_height="@dimen/w7_register_edit_text_height"
+            android:overScrollMode="never" />
 
         <Button
             android:id="@+id/btnOkDialog"

@@ -20,10 +20,12 @@ abstract class ConnectDataBase : RoomDatabase() {
     abstract fun plantDao(): PlantDAO
 
     companion object {
+        const val NAME_DATA_BASE = "plant.db"
+
         private var INSTANCE: ConnectDataBase? = null
         fun dataBaseConnect(context: Context): ConnectDataBase? {
             return if (INSTANCE == null) {
-                Room.databaseBuilder(context, ConnectDataBase::class.java, "plant.db")
+                Room.databaseBuilder(context, ConnectDataBase::class.java, NAME_DATA_BASE)
                     .allowMainThreadQueries()
                     .build()
             } else {
@@ -32,7 +34,7 @@ abstract class ConnectDataBase : RoomDatabase() {
         }
 
         fun providerDatabase(context: Context): ConnectDataBase? {
-            return Room.databaseBuilder(context, ConnectDataBase::class.java, "plant.db")
+            return Room.databaseBuilder(context, ConnectDataBase::class.java, NAME_DATA_BASE)
                 .allowMainThreadQueries()
                 .addCallback(object : RoomDatabase.Callback() {
                     override fun onCreate(db: SupportSQLiteDatabase) {

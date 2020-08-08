@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape>
+            <stroke
+                android:width="@dimen/w7_register_edit_text_width_stroke"
+                android:color="@color/black" />
+        </shape>
+    </item>
+    <item>
+        <bitmap
+            android:gravity="center_vertical|right"
+            android:src="@drawable/icon_drop_spinner_off" />
+    </item>
+</layer-list>

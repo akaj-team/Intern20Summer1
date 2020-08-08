@@ -52,15 +52,6 @@ class MainFarmActivity : AppCompatActivity() {
         fragmentTransaction.commit()
     }
 
-//    @Database(entities = arrayOf(User::))
-//    private fun handleDataBase(){
-//        val dataBase = Room.databaseBuilder(
-//            applicationContext
-//        Appda::class.java,
-//            "plant.db"
-//        )
-//    }
-
     private fun initToolBar() {
         setSupportActionBar(toolbarHome)
         val actionBar = supportActionBar

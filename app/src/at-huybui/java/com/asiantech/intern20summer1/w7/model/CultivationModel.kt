@@ -7,8 +7,7 @@ import java.io.Serializable
 
 @Entity(tableName = "cultivation")
 data class CultivationModel(
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "cultivationId") val cultivationId: Int = 0,
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
     @ColumnInfo(name = "userGrowId") val userGrowId: Int = 0,
     @ColumnInfo(name = "plantId") val plantId: String = "",
     @ColumnInfo(name = "dateCultivation") val dateCultivation: String = "",
