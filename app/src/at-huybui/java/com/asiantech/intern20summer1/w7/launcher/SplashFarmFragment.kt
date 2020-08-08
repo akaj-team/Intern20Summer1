@@ -8,10 +8,11 @@ import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w7.database.ConnectDataBase
-import com.asiantech.intern20summer1.w7.database.ConnectDataBase.Companion.providerDatabase
+import com.asiantech.intern20summer1.w7.launcher.asynctask.DownLoadImage
 import com.asiantech.intern20summer1.w7.main.MainFarmActivity
 import com.asiantech.intern20summer1.w7.model.PlantModel
 import com.google.gson.Gson
@@ -30,14 +31,16 @@ import java.util.concurrent.Executors
 class SplashFarmFragment : Fragment() {
 
     companion object {
-        private const val SPLASH_TIMER = 10000L
-        private const val PROGRESS_TIMER_STEP = 20L
+        private const val SPLASH_TIMER = 50000L
+        private const val PROGRESS_TIMER_STEP = 100L
         private const val PROGRESS_MAX_VALUE = 100
         private const val JSON_FILE_NAME = "plants.json"
         internal fun newInstance() = SplashFarmFragment()
     }
 
     private var dataBase: ConnectDataBase? = null
+    private var stepProgressBar = 1
+    private var isLoadDataUrl = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,52 +58,88 @@ class SplashFarmFragment : Fragment() {
 
     private fun handleForProgressBar() {
         val user = dataBase?.userDao()?.getUser()
-        val plants = dataBase?.plantDao()?.getAllPlant()
+        var plants = dataBase?.plantDao()?.getAllPlant()
         progressBarFarm?.progress = 0
         object : CountDownTimer(
             SPLASH_TIMER,
             PROGRESS_TIMER_STEP
         ) {
             override fun onTick(millisUntilFinished: Long) {
-                progressBarFarm?.progress = progressBarFarm.progress + 1
+                progressBarFarm?.progress = progressBarFarm.progress + stepProgressBar
 
-                if (progressBarFarm?.progress == 50) {
-                    if (plants?.size == 0) {
-                        d("XXXX", "data tree null, add data")
-                        saveData(requireContext())
-                    } else {
-                        d("XXXX", plants.toString())
+                when (progressBarFarm?.progress) {
+                    10 -> {
+                        if (plants?.size == 0) {
+                            showToast("Giải nén dữ liệu")
+                            isLoadDataUrl = true
+                            saveDataFromJsonFile(requireContext())
+                        } else {
+                            stepProgressBar = 5
+                        }
+                    }
+                    20 -> {
+                        plants = dataBase?.plantDao()?.getAllPlant()
+                        d("XXXX", "get all plant")
+                    }
+                    30 -> {
+                        if (isLoadDataUrl) {
+                            if (plants?.size == 0) {
+                                progressBarFarm?.progress = 0
+                            } else {
+                                plants?.forEach { plant ->
+                                    plant.plantId?.let {
+                                        DownLoadImage(requireContext(), it).execute(
+                                            plant.imageUrl
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    PROGRESS_MAX_VALUE -> {
+                        val part = requireContext().getDir("imagePlants", Context.MODE_PRIVATE)
+                        plants?.forEach { plant ->
+                            plant.plantId?.let {
+                                dataBase?.plantDao()?.editUri("$part/${it}.jpg", it)
+                            }
+                        }
+                        if (user == null) {
+                            (activity as LauncherFarmActivity).handleReplaceFragment(
+                                RegisterFarmFragment.newInstance()
+                            )
+                        } else {
+                            val intent = Intent(context, MainFarmActivity::class.java)
+                            startActivity(intent)
+                            (activity as LauncherFarmActivity).finish()
+                        }
+                        this.cancel()
                     }
                 }
-                if (progressBarFarm?.progress == PROGRESS_MAX_VALUE) {
-                    this.cancel()
-                    if (user == null) {
-                        (activity as LauncherFarmActivity).handleReplaceFragment(
-                            RegisterFarmFragment.newInstance()
-                        )
-                    } else {
-                        val intent = Intent(context, MainFarmActivity::class.java)
-                        startActivity(intent)
-                        (activity as LauncherFarmActivity).finish()
-                    }
 
-                }
             }
 
             override fun onFinish() {}
         }.start()
     }
 
-    private fun saveData(context: Context) {
+    private fun saveDataFromJsonFile(context: Context) {
         Executors.newFixedThreadPool(2).execute {
             context.assets.open(JSON_FILE_NAME).use { inputStream ->
                 JsonReader(inputStream.reader()).use { jsonReader ->
                     val plantType = object : TypeToken<List<PlantModel>>() {}.type
-                    d("XXXX", jsonReader.toString())
                     val plants: List<PlantModel> = Gson().fromJson(jsonReader, plantType)
                     dataBase?.plantDao()?.insertPlants(plants)
                 }
             }
         }
+    }
+
+    private fun initUriForImage() {
+
+    }
+
+    fun showToast(text: Any, duration: Int = Toast.LENGTH_SHORT) {
+        Toast.makeText(requireContext(), text.toString(), duration).show()
     }
 }

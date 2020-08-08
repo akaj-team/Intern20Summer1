@@ -1,5 +1,6 @@
 package com.asiantech.intern20summer1.w7.main.adapter
 
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +9,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w7.model.PlantModel
-import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.`at-huybui`.recycler_farm_item.view.*
 
 class RecyclerAdapter(private val mutableList: MutableList<PlantModel>) :
@@ -47,9 +47,7 @@ class RecyclerAdapter(private val mutableList: MutableList<PlantModel>) :
             mutableList[adapterPosition].let { item ->
                 name.text = item.name
                 dateHarvest.text = item.imageUrl
-                Glide.with(itemView)
-                    .load(item.imageUrl)
-                    .into(imgPlant)
+                imgPlant.setImageURI(Uri.parse(item.imageUri))
             }
         }
     }

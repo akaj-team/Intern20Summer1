@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        tools:context="com.asiantech.intern20summer1.test.TestActivity">
+
+        <ImageView
+            android:id="@+id/imgTest"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:src="@drawable/logo_music" />
+
+        <EditText
+            android:id="@+id/edtTestUrl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:hint="enter URL" />
+
+        <EditText
+            android:id="@+id/edtTestName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:hint="Name" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/btnTestSave"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ok save" />
+
+            <Button
+                android:id="@+id/btnLoadUrl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ok load url" />
+
+            <Button
+                android:id="@+id/btnLoadStore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ok load stro" />
+
+            <Button
+                android:id="@+id/btnClear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ok Clear" />
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

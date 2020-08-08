@@ -13,5 +13,7 @@ data class PlantModel(
     @ColumnInfo(name = "description") val description: String? = null,
     @ColumnInfo(name = "growZoneNumber") val growZoneNumber: Int? = null,
     @ColumnInfo(name = "wateringInterval") val wateringInterval: Int? = null,
-    @ColumnInfo(name = "imageUrl") val imageUrl: String? = null
+    @ColumnInfo(name = "imageUrl") val imageUrl: String? = null,
+    @ColumnInfo(name = "imageUri") val imageUri: String? = null
+
 )
