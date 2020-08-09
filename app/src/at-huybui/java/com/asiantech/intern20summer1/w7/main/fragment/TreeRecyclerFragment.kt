@@ -47,7 +47,7 @@ class TreeRecyclerFragment : Fragment() {
 
     private fun handleOnItemClick() {
         adapterRecycler.onItemClicked = { id ->
-            val fragment = TreeInformationFragment.newInstance(id)
+            val fragment = PlantDetailFragment.newInstance(id)
             (activity as MainFarmActivity).handleReplaceFragment(
                 fragment,
                 backStack = true,

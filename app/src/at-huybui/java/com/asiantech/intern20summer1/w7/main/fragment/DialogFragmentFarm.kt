@@ -103,11 +103,8 @@ open class DialogFragmentFarm : DialogFragment() {
 
     private fun setOnSelectPlantFromSpinner(position: Int) {
         listPlants?.get(position)?.let {
-//            var text = "Grow Zone: " + it.growZoneNumber + "\nWatering: " + it.wateringInterval
-            val text = getString(
-                R.string.w7_text_grow_zone_watering,
-                arrayOf(it.growZoneNumber, it.wateringInterval)
-            )
+            var text = getString(R.string.w7_text_grow_zone, it.growZoneNumber)
+            text += getString(R.string.w7_text_watering, it.wateringInterval)
             tvInformationDialog?.text = text
             imgDialogPlant?.setImageURI(Uri.parse(it.imageUri))
             plantSelected = it

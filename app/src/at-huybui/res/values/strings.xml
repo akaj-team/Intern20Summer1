@@ -91,5 +91,6 @@
     <string name="w7_chua_co_cay_nao_duoc_trong">Chưa có cây nào được trồng\nClick để trồng cây</string>
     <string name="w7_text_cultivation">Trồng lúc: %s</string>
     <string name="w7_text_harvest">Thu Hoạch: %s</string>
-    <string name="w7_text_grow_zone_watering">Grow Zone: %s \nWatering: %s </string>
+    <string name="w7_text_grow_zone">Grow Zone: %s </string>
+    <string name="w7_text_watering">Watering: %s </string>
 </resources>

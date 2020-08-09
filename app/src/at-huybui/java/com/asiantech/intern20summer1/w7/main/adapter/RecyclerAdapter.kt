@@ -62,7 +62,7 @@ class RecyclerAdapter(private val mutableList: MutableList<CultivationModel>) :
                     tvDateHarvest.text =
                         itemView.context.getString(R.string.w7_text_harvest, harvest)
                     tvName.text = plant.name
-                    imgPlant.setImageURI(Uri.parse(plant.imageUri))
+                    imgPlant.setImageURI(Uri.parse(plant.imageUri))                                                                             
                 }
             }
         }

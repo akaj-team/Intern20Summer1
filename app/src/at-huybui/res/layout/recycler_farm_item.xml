@@ -39,7 +39,7 @@
             android:layout_marginTop="@dimen/w7_home_name_vegetable_margin_top_left"
             android:layout_marginRight="@dimen/w7_icon_item_worm_margin_left"
             android:layout_toRightOf="@id/tvNameVegetable"
-            tools:src="@drawable/icon_worm" />
+            tools:src="@drawable/icon_is_worm" />
 
         <TextView
             android:id="@+id/tvDateCultivation"

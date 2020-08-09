@@ -1,5 +1,6 @@
 package com.asiantech.intern20summer1.w7.main.fragment
 
+import android.annotation.SuppressLint
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,16 +11,19 @@ import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w7.database.ConnectDataBase
 import com.asiantech.intern20summer1.w7.main.MainFarmActivity
+import com.asiantech.intern20summer1.w7.main.companion.AppCompanion
 import com.asiantech.intern20summer1.w7.model.CultivationModel
 import kotlinx.android.synthetic.`at-huybui`.fragment_information_tree.*
+import java.text.SimpleDateFormat
+import java.util.*
 
-class TreeInformationFragment : Fragment() {
+class PlantDetailFragment : Fragment() {
 
     private var dataBase: ConnectDataBase? = null
 
     companion object {
         private const val KEY_POS = "key_pos"
-        internal fun newInstance(id: Int?) = TreeInformationFragment().apply {
+        internal fun newInstance(id: Int?) = PlantDetailFragment().apply {
             arguments = Bundle().apply {
                 id?.let { putInt(KEY_POS, it) }
             }
@@ -54,6 +58,7 @@ class TreeInformationFragment : Fragment() {
     private fun initListener() {
         handleForButtonBackListener()
         handleForButtonClearPlant()
+        handleForButtonWatering()
     }
 
     private fun handleForButtonBackListener() {
@@ -73,6 +78,17 @@ class TreeInformationFragment : Fragment() {
                     fragment,
                     parent = R.id.containerMain
                 )
+            }
+        }
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    private fun handleForButtonWatering() {
+        btnWatering_detail?.setOnClickListener {
+            cultivation?.let {
+                val dateFormat = SimpleDateFormat(AppCompanion.FORMAT_CODE_DATE)
+                dataBase?.cultivationDao()?.waterPlant(it.id, dateFormat.format(Date()))
+                showToast("Đã tưới cây thành công")
             }
         }
     }

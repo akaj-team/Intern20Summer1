@@ -20,4 +20,7 @@ interface CultivationDAO {
 
     @Delete
     fun deleteCultivation(cultivation: CultivationModel)
+
+    @Query("update cultivation set dateWatering = :time where id = :id")
+    fun waterPlant(id: Int?, time: String?)
 }
