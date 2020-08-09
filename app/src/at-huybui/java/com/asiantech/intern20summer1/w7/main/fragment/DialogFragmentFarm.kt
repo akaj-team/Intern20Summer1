@@ -12,6 +12,7 @@ import androidx.fragment.app.DialogFragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w7.database.ConnectDataBase
 import com.asiantech.intern20summer1.w7.main.MainFarmActivity
+import com.asiantech.intern20summer1.w7.main.companion.AppCompanion
 import com.asiantech.intern20summer1.w7.model.CultivationModel
 import com.asiantech.intern20summer1.w7.model.PlantModel
 import kotlinx.android.synthetic.`at-huybui`.fragment_dialog.*
@@ -21,7 +22,6 @@ import java.util.*
 open class DialogFragmentFarm : DialogFragment() {
 
     companion object {
-        private const val FORMAT_CODE_DATE = "dd/MM/yyyy HH:mm"
         internal fun newInstance() = DialogFragmentFarm()
     }
 
@@ -62,13 +62,12 @@ open class DialogFragmentFarm : DialogFragment() {
     @SuppressLint("SimpleDateFormat")
     private fun handleListenerForButtonOk() {
         btnOkDialog?.setOnClickListener {
-            val sdf = SimpleDateFormat(FORMAT_CODE_DATE)
-            val currentDate = sdf.format(Date())
-
+            val dateFormat = SimpleDateFormat(AppCompanion.FORMAT_CODE_DATE)
+            val dateCurrent = dateFormat.format(Date())
             plantSelected?.let {
                 val cultivationNew = CultivationModel()
                 cultivationNew.plantId = it.plantId.toString()
-                cultivationNew.dateCultivation = Date().toString()
+                cultivationNew.dateCultivation = dateCurrent
                 dataBase?.cultivationDao()?.addCultivation(cultivationNew)
                 (activity as MainFarmActivity).handleReplaceFragment(
                     TreeRecyclerFragment.newInstance(),
@@ -104,7 +103,11 @@ open class DialogFragmentFarm : DialogFragment() {
 
     private fun setOnSelectPlantFromSpinner(position: Int) {
         listPlants?.get(position)?.let {
-            val text = "Grow Zone: ${it.growZoneNumber}\nWatering: ${it.wateringInterval}"
+//            var text = "Grow Zone: " + it.growZoneNumber + "\nWatering: " + it.wateringInterval
+            val text = getString(
+                R.string.w7_text_grow_zone_watering,
+                arrayOf(it.growZoneNumber, it.wateringInterval)
+            )
             tvInformationDialog?.text = text
             imgDialogPlant?.setImageURI(Uri.parse(it.imageUri))
             plantSelected = it
