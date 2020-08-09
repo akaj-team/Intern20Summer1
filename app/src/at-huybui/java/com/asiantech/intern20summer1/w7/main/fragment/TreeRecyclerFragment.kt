@@ -1,6 +1,7 @@
 package com.asiantech.intern20summer1.w7.main.fragment
 
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,6 +38,7 @@ class TreeRecyclerFragment : Fragment() {
         initData()
         initAdapter()
         handleOnItemClick()
+        replaceData()
     }
 
     private fun initAdapter() {
@@ -76,5 +78,17 @@ class TreeRecyclerFragment : Fragment() {
         tvNotPlant?.setOnClickListener {
             (activity as MainFarmActivity).handleShowDialogFragment()
         }
+    }
+
+    private fun replaceData() {
+        object : CountDownTimer(10000, 10000) {
+            override fun onFinish() {
+                initData()
+                this.start()
+            }
+
+            override fun onTick(millisUntilFinished: Long) {
+            }
+        }.start()
     }
 }

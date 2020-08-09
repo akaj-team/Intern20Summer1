@@ -88,6 +88,10 @@ class PlantDetailFragment : Fragment() {
             cultivation?.let {
                 val dateFormat = SimpleDateFormat(AppCompanion.FORMAT_CODE_DATE)
                 dataBase?.cultivationDao()?.waterPlant(it.id, dateFormat.format(Date()))
+                (activity as MainFarmActivity).handleReplaceFragment(
+                    TreeRecyclerFragment.newInstance(),
+                    parent = R.id.containerMain
+                )
                 showToast("Đã tưới cây thành công")
             }
         }

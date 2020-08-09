@@ -39,11 +39,13 @@ class RecyclerAdapter(private val mutableList: MutableList<CultivationModel>) :
         holder.bindData()
     }
 
+    @Suppress("DEPRECATION")
     inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private var tvName: TextView = itemView.tvNameVegetable
         private var tvDateCultivation: TextView = itemView.tvDateCultivation
         private var tvDateHarvest: TextView = itemView.tvDateHarvest
         private var imgPlant: ImageView = itemView.imgVegetable
+        private var imgWorm: ImageView = itemView.imgStatusWorm
 
 
         init {
@@ -62,7 +64,12 @@ class RecyclerAdapter(private val mutableList: MutableList<CultivationModel>) :
                     tvDateHarvest.text =
                         itemView.context.getString(R.string.w7_text_harvest, harvest)
                     tvName.text = plant.name
-                    imgPlant.setImageURI(Uri.parse(plant.imageUri))                                                                             
+                    imgPlant.setImageURI(Uri.parse(plant.imageUri))
+                    if (isPlantWormed(plant, culPlant)) {
+                        imgWorm.visibility = View.VISIBLE
+                    } else {
+                        imgWorm.visibility = View.INVISIBLE
+                    }
                 }
             }
         }
@@ -77,6 +84,36 @@ class RecyclerAdapter(private val mutableList: MutableList<CultivationModel>) :
                 return dateFormat.format(calendar.time)
             }
             return "null"
+        }
+
+//        private fun isPlantWormed(plant: PlantModel,culti: CultivationModel) : Boolean{
+//            culti.dateWatering?.let {dateWatering->
+//                val dateFormat = SimpleDateFormat(AppCompanion.FORMAT_CODE_DATE)
+//                val calendar = Calendar.getInstance()
+//                calendar.time = Date()
+//                dateFormat.parse(dateWatering)?.let {date->
+//                    plant.wateringInterval?.let {interval->
+//                        calendar.add(Calendar.MINUTE,interval)
+//                    }
+//                }
+//            }
+//        }
+
+        @SuppressLint("SimpleDateFormat")
+        private fun isPlantWormed(plant: PlantModel, culti: CultivationModel): Boolean {
+            culti.dateWatering?.let { dateWatering ->
+                val dateFormat = SimpleDateFormat(AppCompanion.FORMAT_CODE_DATE)
+                var beforTime = 0
+                dateFormat.parse(dateWatering)?.let { waterTime ->
+                    beforTime = waterTime.minutes * 60 + waterTime.seconds
+                }
+                val current = Date().minutes * 60 + Date().seconds
+
+                plant.wateringInterval?.let {
+                    return (current - beforTime) > (it * 60)
+                }
+            }
+            return false
         }
     }
 }

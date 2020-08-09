@@ -62,13 +62,15 @@ open class DialogFragmentFarm : DialogFragment() {
     @SuppressLint("SimpleDateFormat")
     private fun handleListenerForButtonOk() {
         btnOkDialog?.setOnClickListener {
-            val dateFormat = SimpleDateFormat(AppCompanion.FORMAT_CODE_DATE)
-            val dateCurrent = dateFormat.format(Date())
             plantSelected?.let {
-                val cultivationNew = CultivationModel()
-                cultivationNew.plantId = it.plantId.toString()
-                cultivationNew.dateCultivation = dateCurrent
-                dataBase?.cultivationDao()?.addCultivation(cultivationNew)
+                CultivationModel().apply {
+                    val dateFormat = SimpleDateFormat(AppCompanion.FORMAT_CODE_DATE)
+                    val dateCurrent = dateFormat.format(Date())
+                    plantId = it.plantId
+                    dateCultivation = dateCurrent
+                    dateWatering = dateCurrent
+                    dataBase?.cultivationDao()?.addCultivation(this)
+                }
                 (activity as MainFarmActivity).handleReplaceFragment(
                     TreeRecyclerFragment.newInstance(),
                     parent = R.id.containerMain
