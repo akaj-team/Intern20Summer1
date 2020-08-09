@@ -79,6 +79,10 @@ class MainFarmActivity : AppCompatActivity() {
         }
         navigationView?.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
+                R.id.itemGarden -> {
+                    finish()
+                    startActivity(intent)
+                }
                 R.id.itemGrowVegetable -> {
                     handleShowDialogFragment()
                 }
@@ -87,7 +91,7 @@ class MainFarmActivity : AppCompatActivity() {
         }
     }
 
-    private fun handleShowDialogFragment() {
+    internal fun handleShowDialogFragment() {
         val fragmentManager = supportFragmentManager
         val fragment = DialogFragmentFarm.newInstance()
         drawerLayout.closeDrawer(GravityCompat.START)

@@ -1,8 +1,8 @@
 package com.asiantech.intern20summer1.w7.main.fragment
 
+import android.annotation.SuppressLint
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,10 +15,13 @@ import com.asiantech.intern20summer1.w7.main.MainFarmActivity
 import com.asiantech.intern20summer1.w7.model.CultivationModel
 import com.asiantech.intern20summer1.w7.model.PlantModel
 import kotlinx.android.synthetic.`at-huybui`.fragment_dialog.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 open class DialogFragmentFarm : DialogFragment() {
 
     companion object {
+        private const val FORMAT_CODE_DATE = "dd/MM/yyyy HH:mm"
         internal fun newInstance() = DialogFragmentFarm()
     }
 
@@ -56,12 +59,16 @@ open class DialogFragmentFarm : DialogFragment() {
         }
     }
 
+    @SuppressLint("SimpleDateFormat")
     private fun handleListenerForButtonOk() {
         btnOkDialog?.setOnClickListener {
+            val sdf = SimpleDateFormat(FORMAT_CODE_DATE)
+            val currentDate = sdf.format(Date())
+
             plantSelected?.let {
                 val cultivationNew = CultivationModel()
                 cultivationNew.plantId = it.plantId.toString()
-                d("XXX",cultivationNew.toString())
+                cultivationNew.dateCultivation = Date().toString()
                 dataBase?.cultivationDao()?.addCultivation(cultivationNew)
                 (activity as MainFarmActivity).handleReplaceFragment(
                     TreeRecyclerFragment.newInstance(),

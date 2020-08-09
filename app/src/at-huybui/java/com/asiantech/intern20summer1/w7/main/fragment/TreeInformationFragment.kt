@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w7.database.ConnectDataBase
+import com.asiantech.intern20summer1.w7.main.MainFarmActivity
 import com.asiantech.intern20summer1.w7.model.CultivationModel
 import kotlinx.android.synthetic.`at-huybui`.fragment_information_tree.*
 
@@ -67,7 +68,11 @@ class TreeInformationFragment : Fragment() {
                 dataBase?.cultivationDao()?.deleteCultivation(it)
                 showToast("Nhổ Cây Thành Công")
                 fragmentManager?.popBackStack()
-
+                val fragment = TreeRecyclerFragment.newInstance()
+                (activity as MainFarmActivity).handleReplaceFragment(
+                    fragment,
+                    parent = R.id.containerMain
+                )
             }
         }
     }

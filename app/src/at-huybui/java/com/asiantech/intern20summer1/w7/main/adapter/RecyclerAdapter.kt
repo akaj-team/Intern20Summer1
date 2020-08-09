@@ -1,7 +1,8 @@
 package com.asiantech.intern20summer1.w7.main.adapter
 
+import android.annotation.SuppressLint
 import android.net.Uri
-import android.util.Log.d
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,9 +13,15 @@ import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w7.database.ConnectDataBase
 import com.asiantech.intern20summer1.w7.model.CultivationModel
 import kotlinx.android.synthetic.`at-huybui`.recycler_farm_item.view.*
+import java.time.LocalDate
 
 class RecyclerAdapter(private val mutableList: MutableList<CultivationModel>) :
     RecyclerView.Adapter<RecyclerAdapter.ItemViewHolder>() {
+
+    companion object {
+        private const val FORMAT_CODE_DATE = "dd/MM/yyyy HH:mm"
+    }
+
     private var dataBase: ConnectDataBase? = null
     internal var onItemClicked: (id: Int?) -> Unit = {}
 
@@ -25,14 +32,12 @@ class RecyclerAdapter(private val mutableList: MutableList<CultivationModel>) :
         dataBase = ConnectDataBase.dataBaseConnect(parent.context)
         val itemView =
             LayoutInflater.from(parent.context).inflate(R.layout.recycler_farm_item, parent, false)
-        d("XXX", "create")
         return ItemViewHolder(itemView)
     }
 
     override fun getItemCount() = mutableList.size
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        d("XXX", "holder")
         holder.bindData()
     }
 
@@ -44,18 +49,18 @@ class RecyclerAdapter(private val mutableList: MutableList<CultivationModel>) :
 
 
         init {
-            d("XXX", "init")
             itemView.setOnClickListener {
                 onItemClicked.invoke(mutableList[adapterPosition].id)
             }
         }
 
+        @SuppressLint("SetTextI18n", "SimpleDateFormat")
         fun bindData() {
-            d("XXX", "bind")
             mutableList[adapterPosition].let { item ->
                 val plant = dataBase?.plantDao()?.getPlant(item.plantId)
-                d("XXX", "plant adapter" + plant.toString())
                 name.text = plant?.name
+                val dateCul = item.dateCultivation
+                dateCultivation.text = "Trồng lúc: $dateCul"
                 imgPlant.setImageURI(Uri.parse(plant?.imageUri))
             }
         }

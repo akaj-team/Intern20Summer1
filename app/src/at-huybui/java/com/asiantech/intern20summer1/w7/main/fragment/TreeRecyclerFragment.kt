@@ -1,7 +1,6 @@
 package com.asiantech.intern20summer1.w7.main.fragment
 
 import android.os.Bundle
-import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,8 +16,7 @@ import kotlinx.android.synthetic.`at-huybui`.fragment_farm_vegetable.*
 class TreeRecyclerFragment : Fragment() {
 
     companion object {
-        internal fun newInstance() =
-            TreeRecyclerFragment()
+        internal fun newInstance() = TreeRecyclerFragment()
     }
 
     private var dataBase: ConnectDataBase? = null
@@ -52,19 +50,31 @@ class TreeRecyclerFragment : Fragment() {
             val fragment = TreeInformationFragment.newInstance(id)
             (activity as MainFarmActivity).handleReplaceFragment(
                 fragment,
-                true,
+                backStack = true,
                 parent = R.id.relativeLayoutContainerMain
             )
         }
     }
 
     private fun initData() {
+        vegetableList.clear()
         dataBase?.cultivationDao()?.getAllCultivation()?.let {list->
             list.forEach {
                 vegetableList.add(it)
+                tvNotPlant?.visibility = View.INVISIBLE
+            }
+
+            if (vegetableList.isNullOrEmpty()) {
+                tvNotPlant?.apply {
+                    visibility = View.VISIBLE
+                    text = getString(R.string.w7_chua_co_cay_nao_duoc_trong)
+                }
             }
             adapterRecycler.notifyDataSetChanged()
-            d("XXX", vegetableList.toString())
+        }
+
+        tvNotPlant?.setOnClickListener {
+            (activity as MainFarmActivity).handleShowDialogFragment()
         }
     }
 }
