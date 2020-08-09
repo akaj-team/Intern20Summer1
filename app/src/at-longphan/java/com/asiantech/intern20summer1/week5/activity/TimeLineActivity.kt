@@ -12,7 +12,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week5.adapter.TimeLineItemAdapter
 import com.asiantech.intern20summer1.week5.model.TimeLineItem
-import kotlinx.android.synthetic.`at-longphan`.activity_time_line.*
+import kotlinx.android.synthetic.`at-longphan`.activity_time_line_w5.*
 import kotlinx.android.synthetic.`at-longphan`.item_list_time_line.*
 
 class TimeLineActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
@@ -32,7 +32,7 @@ class TimeLineActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListen
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_time_line)
+        setContentView(R.layout.activity_time_line_w5)
         configStatusBar()
         initRecyclerView()
         initData()
@@ -114,7 +114,7 @@ class TimeLineActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListen
                         ) {
                             loadMore()
                             isLoading = true
-                            progressBarW5.visibility = View.VISIBLE
+                            progressBarWeek5.visibility = View.VISIBLE
                         }
                     }
                 }
@@ -132,7 +132,7 @@ class TimeLineActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListen
             }
             adapter.notifyDataSetChanged()
             isLoading = false
-            progressBarW5.visibility = View.INVISIBLE
+            progressBarWeek5.visibility = View.INVISIBLE
         }, TIME_DELAY)
     }
 

@@ -18,7 +18,7 @@
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <ProgressBar
-        android:id="@+id/progressBarW5"
+        android:id="@+id/progressBarWeek5"
         android:layout_width="@dimen/progress_bar_width_W5"
         android:layout_height="@dimen/progress_bar_height"
         android:layout_centerInParent="true"
