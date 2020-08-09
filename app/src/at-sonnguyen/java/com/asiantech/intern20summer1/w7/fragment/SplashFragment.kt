@@ -14,9 +14,11 @@ import com.asiantech.intern20summer1.w7.fragment.RegisterFragment.Companion.SHAR
 import com.asiantech.intern20summer1.w7.fragment.RegisterFragment.Companion.SHARED_PREFERENCE_USER_NAME_KEY
 import kotlinx.android.synthetic.`at-sonnguyen`.w7_fragment_splash.*
 
-class FlashFragment : Fragment() {
+class SplashFragment : Fragment() {
     companion object {
-        fun newInstance() = FlashFragment()
+        private const val MILLIS_IN_FEATURE = 10000L
+        private const val COUNT_DOWN_INTERVAL = 100L
+        fun newInstance() = SplashFragment()
     }
 
     override fun onCreateView(
@@ -45,7 +47,7 @@ class FlashFragment : Fragment() {
         }
     }
 
-    private val timer = object : CountDownTimer(10000, 100) {
+    private val timer = object : CountDownTimer(MILLIS_IN_FEATURE, COUNT_DOWN_INTERVAL) {
         override fun onTick(millisUntilFinished: Long) {
             progressBarSplash.progress += 1
         }

@@ -11,8 +11,6 @@ import com.asiantech.intern20summer1.w7.data.Vegetable
 
 class VegetableAdapter(private val vegetables: MutableList<Vegetable>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    companion object {
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.w7_item_line, parent, false)
