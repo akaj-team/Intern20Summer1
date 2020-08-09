@@ -1,6 +1,7 @@
 package com.asiantech.intern20summer1.w7.database
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import com.asiantech.intern20summer1.w7.model.CultivationModel
@@ -17,6 +18,6 @@ interface CultivationDAO {
     @Query("select * from cultivation where id =:id")
     fun getCultivation(id: Int?): CultivationModel
 
-//    @Delete
-//    fun deleteCultivation(cultivation: CultivationModel)
+    @Delete
+    fun deleteCultivation(cultivation: CultivationModel)
 }

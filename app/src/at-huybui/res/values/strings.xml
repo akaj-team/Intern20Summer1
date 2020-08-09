@@ -86,4 +86,6 @@
     <string name="w7_ok">ok</string>
     <string name="w7_chon_cay_trong">Chọn cây trồng</string>
     <string name="w7_toolbar_menu_drawerlayout_database">W7-Toolbar, Menu, DrawerLayout, Database</string>
+    <string name="w7_detail_chat_bo">Chặt bỏ</string>
+    <string name="w7_detail_tuoi_nuoc">Tứoi nước</string>
 </resources>

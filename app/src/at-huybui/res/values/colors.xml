@@ -22,4 +22,5 @@
     <color name="w6_dot_indicator_color">#ED3F40</color>
     <color name="w6_background_activity_one">#FFEB4F</color>
     <color name="red">#FF0000</color>
+    <color name="w7_detail_buton_watering">#5250DF</color>
 </resources>
