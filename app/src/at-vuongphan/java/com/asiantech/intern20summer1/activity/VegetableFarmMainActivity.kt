@@ -10,9 +10,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.fragment.VegetableDialogFragment
-import com.asiantech.intern20summer1.fragment.VegetableFragmentRecyclerView
-import com.asiantech.intern20summer1.fragment.VegetableRegisterFragment
+import com.asiantech.intern20summer1.fragmennt.VegetableDialogFragment
+import com.asiantech.intern20summer1.fragmennt.VegetableFragmentRecyclerView
+import com.asiantech.intern20summer1.fragmennt.VegetableRegisterFragment
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.`at-vuongphan`.w7_activity_main_farm.*
 import kotlinx.android.synthetic.`at-vuongphan`.w7_nav_header.view.*

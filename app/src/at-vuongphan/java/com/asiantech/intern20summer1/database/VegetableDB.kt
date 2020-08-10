@@ -10,7 +10,7 @@ import com.google.gson.reflect.TypeToken
 import java.util.concurrent.Executors
 
 @Database(
-    entities = arrayOf(User::class, Plant::class, Cultivation::class),
+    entities = [User::class, Plant::class, Cultivation::class],
     version = 1
 )
 abstract class VegetableDB : RoomDatabase() {

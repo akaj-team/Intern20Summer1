@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.fragment
+package com.asiantech.intern20summer1.fragmennt
 
 import android.content.Context
 import android.content.Intent
@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.activity.VegetableFarmMainActivity
 import com.asiantech.intern20summer1.activity.VegetableSplashActivity
-import com.asiantech.intern20summer1.fragment.VegetableRegisterFragment.Companion.SHARED_FILE
+import com.asiantech.intern20summer1.fragmennt.VegetableRegisterFragment.Companion.SHARED_FILE
 import kotlinx.android.synthetic.`at-vuongphan`.w7_splash_fragment.*
 
 class VegetableSplashFragment : Fragment() {
