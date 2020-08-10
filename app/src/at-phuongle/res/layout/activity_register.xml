@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/rlRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvRegisterTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="100dp"
+            android:lineHeight="40sp"
+            android:text="Register"
+            android:textColor="#000000"
+            android:textSize="36sp" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgRegisterAvatar"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:layout_below="@+id/tvRegisterTitle"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:src="@mipmap/ic_launcher_round" />
+
+        <EditText
+            android:id="@+id/edtRegisterUserName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imgRegisterAvatar"
+            android:layout_centerHorizontal="true"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="26dp"
+            android:background="@drawable/bg_register_edit_text"
+            android:hint="User Name"
+            android:inputType="text"
+            android:lineHeight="18sp"
+            android:maxLines="1"
+            android:padding="17dp"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/edtRegisterUniversity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edtRegisterUserName"
+            android:layout_centerHorizontal="true"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/bg_register_edit_text"
+            android:hint="University"
+            android:inputType="text"
+            android:lineHeight="18sp"
+            android:maxLines="1"
+            android:padding="17dp"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/edtRegisterHomeTown"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edtRegisterUniversity"
+            android:layout_centerHorizontal="true"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/bg_register_edit_text"
+            android:hint="Home Town"
+            android:inputType="text"
+            android:lineHeight="18sp"
+            android:maxLines="1"
+            android:padding="17dp"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btnRegisterNext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edtRegisterHomeTown"
+            android:layout_centerHorizontal="true"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="137dp"
+            android:layout_marginBottom="32dp"
+            android:background="@drawable/bg_inactive_register_next_button"
+            android:enabled="false"
+            android:paddingVertical="19dp"
+            android:text="NEXT"
+            android:textColor="@color/colorWhite" />
+    </RelativeLayout>
+</ScrollView>
