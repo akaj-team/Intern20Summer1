@@ -2,10 +2,6 @@ package com.asiantech.intern20summer1.week7.model
 
 class Plant {
 
-    companion object {
-        //private const val RANDOM_LIKES_RANGE = 4
-    }
-
     internal var category: String? = null
     internal var name: String? = null
     internal var description: String? = null
@@ -28,22 +24,4 @@ class Plant {
         this.wateringInterval = wateringInterval
         this.imageUrl = imageUrl
     }
-
-    /*fun createTreesList(numItems: Int): MutableList<Plant> {
-        val timeLineItems = mutableListOf<Plant>()
-        for (i in 1..numItems) {
-            val random = (0..RANDOM_LIKES_RANGE).random()
-            timeLineItems.add(
-                Plant(
-                    "Name $i",
-                    "",
-                    "This is content, this is content this is content this is content",
-                    random != 0 && i % 2 == 0,
-                    random,
-                    random > 1
-                )
-            )
-        }
-        return timeLineItems
-    }*/
 }

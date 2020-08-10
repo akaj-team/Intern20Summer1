@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week7.model.PlantRecyclerViewItem
 import com.asiantech.intern20summer1.week7.viewholder.PlantViewHolder
+import com.bumptech.glide.Glide
 
 class PlantAdapter : RecyclerView.Adapter<PlantViewHolder> {
 
@@ -45,9 +46,18 @@ class PlantAdapter : RecyclerView.Adapter<PlantViewHolder> {
 
         val displayImageView = viewHolder.displayImageView
         when {
-            position % PICTURE_3 == 0 -> displayImageView?.setImageResource(R.drawable.img_cat3)
-            position % PICTURE_2 == 0 -> displayImageView?.setImageResource(R.drawable.img_cat2)
-            else -> displayImageView?.setImageResource(R.drawable.img_cat)
+            position % PICTURE_3 == 0 -> displayImageView?.let {
+                Glide.with(it)
+                    .load("https://upload.wikimedia.org/wikipedia/commons/5/55/Apple_orchard_in_Tasmania.jpg")
+            }
+            position % PICTURE_2 == 0 -> displayImageView?.let {
+                Glide.with(it)
+                    .load("https://upload.wikimedia.org/wikipedia/commons/2/29/Beetroot_jm26647.jpg")
+            }
+            else -> displayImageView?.let {
+                Glide.with(it)
+                    .load("https://upload.wikimedia.org/wikipedia/commons/1/17/Cherry_tomatoes_red_and_green_2009_16x9.jpg")
+            }
         }
 
         val statusImageView = viewHolder.statusImageView
@@ -61,11 +71,13 @@ class PlantAdapter : RecyclerView.Adapter<PlantViewHolder> {
 
         val dateCultivationTextView = viewHolder.dateCultivationTextView
         dateCultivationTextView?.text =
-            context.getString(R.string.text_view_plant_at_description).plus(plant.dateCultivation)
+            context.getString(R.string.text_view_plant_at_description)
+                .plus(" " + plant.dateCultivation)
 
         val dateHarvestTextView = viewHolder.dateHarvestTextView
         dateHarvestTextView?.text =
-            context.getString(R.string.text_view_harvest_time_description).plus(plant.dateHarvest)
+            context.getString(R.string.text_view_harvest_time_description)
+                .plus(" " + plant.dateHarvest)
     }
 
     override fun getItemCount(): Int {

@@ -2,26 +2,27 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
+
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/navFarmer"
-            android:icon="@drawable/ic_music_logo"
+            android:id="@+id/navGarden"
+            android:icon="@drawable/ic_heart_filled"
             android:title="Vườn Cây" />
         <item
-            android:id="@+id/navGrowVegetable"
-            android:icon="@drawable/ic_music_logo"
+            android:id="@+id/navPlantNew"
+            android:icon="@drawable/ic_heart_filled"
             android:title="Trồng Cây" />
         <item
-            android:id="@+id/navHarvest"
-            android:icon="@drawable/ic_music_logo"
+            android:id="@+id/navAboutToHarvest"
+            android:icon="@drawable/ic_heart_filled"
             android:title="Cây sắp thu hoạch" />
         <item
-            android:id="@+id/navSau"
-            android:icon="@drawable/ic_music_logo"
+            android:id="@+id/navWormedPlant"
+            android:icon="@drawable/ic_heart_filled"
             android:title="Cây bị sâu" />
         <item
-            android:id="@+id/navNuoc"
-            android:icon="@drawable/ic_music_logo"
+            android:id="@+id/navDehydratedPlant"
+            android:icon="@drawable/ic_heart_filled"
             android:title="Cây bị thiếu nước" />
     </group>
 </menu>

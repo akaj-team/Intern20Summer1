@@ -138,19 +138,19 @@ class RegisterWeekSevenActivity : AppCompatActivity() {
     }
 
     private fun handleEditTextUsernameListener() {
-        tvUsernameWeek7?.addTextChangedListener {
+        edtUsernameWeek7?.addTextChangedListener {
             isButtonNextEnable()
         }
     }
 
     private fun handleEditTextUniversityListener() {
-        tvUniversityWeek7?.addTextChangedListener {
+        edtUniversityWeek7?.addTextChangedListener {
             isButtonNextEnable()
         }
     }
 
     private fun handleEditTextHomeTownListener() {
-        tvHomeTownWeek7?.addTextChangedListener {
+        edtHomeTownWeek7?.addTextChangedListener {
             isButtonNextEnable()
         }
     }
@@ -158,9 +158,9 @@ class RegisterWeekSevenActivity : AppCompatActivity() {
     @SuppressLint("ResourceType")
     private fun isButtonNextEnable() {
         btnNextRegisterWeek7?.let {
-            if (tvUsernameWeek7.text.toString().isNotEmpty()
-                && tvUniversityWeek7.text.toString().isNotEmpty()
-                && tvHomeTownWeek7.text.toString().isNotEmpty()
+            if (edtUsernameWeek7.text.toString().isNotEmpty()
+                && edtUniversityWeek7.text.toString().isNotEmpty()
+                && edtHomeTownWeek7.text.toString().isNotEmpty()
             ) {
                 it.setBackgroundResource(R.drawable.bg_button_next_register_enable_w7)
                 it.setTextColor(Color.parseColor(resources.getString(R.color.colorButtonNextRegisterEnableWeek7Text)))
