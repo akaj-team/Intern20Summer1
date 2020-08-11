@@ -99,4 +99,6 @@
     <string name="w7_loading_data">Đang tải giữ liệu ban đầu</string>
     <string name="w7_clear_plant_complete">Nhổ Cây Thành Công</string>
     <string name="w7_watering_complete">Đã tưới cây thành công</string>
+    <string name="w7_detail_plant_is_wormed">Cây bị sâu, cần được tưới nước</string>
+    <string name="w7_detail_cay_khoe_manh">Cây khỏe mạnh</string>
 </resources>

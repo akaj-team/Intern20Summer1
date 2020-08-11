@@ -94,10 +94,10 @@
     <dimen name="w7_card_view_radius">16dp</dimen>
     <dimen name="w7_card_view_margin">4dp</dimen>
     <dimen name="w7_home_image_vegetable_size">80dp</dimen>
-    <dimen name="w7_home_name_vegetable_size">22sp</dimen>
-    <dimen name="w7_home_name_vegetable_margin_top_left">20dp</dimen>
+    <dimen name="w7_home_name_vegetable_size">20sp</dimen>
+    <dimen name="w7_home_name_vegetable_margin_top_left">15dp</dimen>
     <dimen name="w7_home_information_vegetable_margin_top">52dp</dimen>
-    <dimen name="w7_home_information_vegetable_margin_left">28dp</dimen>
+    <dimen name="w7_home_information_vegetable_margin_left">20dp</dimen>
     <dimen name="w7_toolbar_height">60dp</dimen>
     <dimen name="w7_recycler_view_margin_left_right">32dp</dimen>
     <dimen name="w7_recycler_view_margin_bottom">50dp</dimen>
@@ -121,4 +121,6 @@
     <dimen name="w7_dialog_title_text_margin_top">60dp</dimen>
     <dimen name="w7_dialog_title_text_size">36sp</dimen>
     <dimen name="w7_dialog_text_information_margin">20dp</dimen>
+    <dimen name="w7_icon_in_item_vegetable_margin_right">5dp</dimen>
+    <dimen name="w7_icon_in_item_vegetable_margin_top">10dp</dimen>
 </resources>

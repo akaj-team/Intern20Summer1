@@ -28,6 +28,7 @@
 
         <Spinner
             android:id="@+id/spinnerTree"
+            style="@style/OverflowMenu"
             android:layout_below="@id/tvTitleDialog"
             android:layout_marginLeft="@dimen/w7_register_margin_left_right"
             android:layout_width="match_parent"

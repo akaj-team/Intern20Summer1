@@ -1,6 +1,8 @@
 package com.asiantech.intern20summer1.w7.main.fragment
 
 import android.annotation.SuppressLint
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,9 +12,9 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.DialogFragment
 import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.w7.companion.App
 import com.asiantech.intern20summer1.w7.database.ConnectDataBase
 import com.asiantech.intern20summer1.w7.main.MainFarmActivity
-import com.asiantech.intern20summer1.w7.companion.AppCompanion
 import com.asiantech.intern20summer1.w7.model.CultivationModel
 import com.asiantech.intern20summer1.w7.model.PlantModel
 import kotlinx.android.synthetic.`at-huybui`.w7_fragment_dialog.*
@@ -51,16 +53,13 @@ open class DialogFragmentFarm : DialogFragment() {
     }
 
     private fun initView() {
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         handleListenerForButtonBack()
         handleListenerForButtonOk()
     }
 
     private fun handleListenerForButtonBack() {
         imgBackIconDialog.setOnClickListener {
-            val plant = spinnerTree?.selectedItemPosition?.let { it1 -> listPlants?.get(it1) }
-            val cultivation = CultivationModel()
-            cultivation.plantId = plant?.plantId
-            dataBase?.cultivationDao()?.addCultivation(cultivation)
             dialog?.dismiss()
         }
     }
@@ -68,19 +67,16 @@ open class DialogFragmentFarm : DialogFragment() {
     @SuppressLint("SimpleDateFormat")
     private fun handleListenerForButtonOk() {
         btnOkDialog?.setOnClickListener {
-            plantSelected?.let {
+            plantSelected?.let { plant ->
                 CultivationModel().apply {
-                    val dateFormat = SimpleDateFormat(AppCompanion.FORMAT_CODE_DATE)
+                    val dateFormat = SimpleDateFormat(App.FORMAT_CODE_DATE)
                     val dateCurrent = dateFormat.format(Date())
-                    plantId = it.plantId
+                    plantId = plant.plantId
                     dateCultivation = dateCurrent
                     dateWatering = dateCurrent
                     dataBase?.cultivationDao()?.addCultivation(this)
                 }
-                (activity as MainFarmActivity).handleReplaceFragment(
-                    TreeRecyclerFragment.newInstance(),
-                    parent = R.id.containerMain
-                )
+                (activity as MainFarmActivity).apply { fragment.initData(fragment.mode) }
                 dialog?.dismiss()
             }
         }
@@ -110,12 +106,12 @@ open class DialogFragmentFarm : DialogFragment() {
     }
 
     private fun setOnSelectPlantFromSpinner(position: Int) {
-        listPlants?.get(position)?.let {
-            var text = getString(R.string.w7_text_grow_zone, it.growZoneNumber)
-            text += getString(R.string.w7_text_watering, it.wateringInterval)
+        listPlants?.get(position)?.let { plant ->
+            var text = getString(R.string.w7_text_grow_zone, plant.growZoneNumber)
+            text += "\n${getString(R.string.w7_text_watering, plant.wateringInterval)}"
             tvInformationDialog?.text = text
-            imgDialogPlant?.setImageURI(Uri.parse(it.imageUri))
-            plantSelected = it
+            imgDialogPlant?.setImageURI(Uri.parse(plant.imageUri))
+            plantSelected = plant
         }
     }
 }

@@ -115,8 +115,8 @@
     "plantId": "aquilegia-coerulea",
     "name": "Rocky Mountain Columbine",
     "description": "Aquilegia coerulea, the state flower of Colorado, is a species of flowering plant in the buttercup family Ranunculaceae, native to the Rocky Mountains from Montana south to New Mexico and west to Idaho and Arizona. Its common name is Colorado blue columbine; sometimes it is called \"Rocky Mountain columbine,\" but this also refers to Aquilegia saximontana.\n\n(From  \"https://en.wikipedia.org/wiki/Aquilegia_coerulea\">Wikipedia )",
-    "growZoneNumber": 5,
-    "wateringInterval": 1,
+    "growZoneNumber": 20,
+    "wateringInterval": 6,
     "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/9/94/Aquilegia_caerulea.jpg"
   },
   {

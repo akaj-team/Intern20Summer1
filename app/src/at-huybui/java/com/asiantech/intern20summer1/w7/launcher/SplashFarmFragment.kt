@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.w7.companion.AppCompanion
+import com.asiantech.intern20summer1.w7.companion.App
 import com.asiantech.intern20summer1.w7.database.ConnectDataBase
 import com.asiantech.intern20summer1.w7.launcher.asynctask.DownLoadImage
 import com.asiantech.intern20summer1.w7.main.MainFarmActivity
@@ -139,10 +139,10 @@ class SplashFarmFragment : Fragment() {
     }
 
     private fun initUriForImage(plants: List<PlantModel>?) {
-        val part = requireContext().getDir(AppCompanion.NAME_DIR, Context.MODE_PRIVATE)
+        val part = requireContext().getDir(App.NAME_DIR, Context.MODE_PRIVATE)
         plants?.forEach { plant ->
             plant.plantId?.let {
-                dataBase?.plantDao()?.editUri("$part/${it}${AppCompanion.FILE_TAIL}", it)
+                dataBase?.plantDao()?.editUri("$part/${it}${App.FILE_TAIL}", it)
             }
         }
     }

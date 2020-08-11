@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.w7.companion.App
 import com.asiantech.intern20summer1.w7.database.ConnectDataBase
 import com.asiantech.intern20summer1.w7.main.MainFarmActivity
 import com.asiantech.intern20summer1.w7.main.adapter.RecyclerAdapter
@@ -27,6 +28,7 @@ class TreeRecyclerFragment : Fragment() {
         internal fun newInstance() = TreeRecyclerFragment()
     }
 
+    internal var mode = 1
     private var dataBase: ConnectDataBase? = null
     private var vegetableList: MutableList<CultivationModel> = mutableListOf()
     private val adapterRecycler = RecyclerAdapter(vegetableList)
@@ -46,6 +48,7 @@ class TreeRecyclerFragment : Fragment() {
         initAdapter()
         handleOnItemClick()
         replaceData()
+        handleReceiveEventOnclickItemDrawer()
     }
 
     private fun initAdapter() {
@@ -65,37 +68,72 @@ class TreeRecyclerFragment : Fragment() {
         }
     }
 
-    private fun initData() {
-        vegetableList.clear()
-        dataBase?.cultivationDao()?.getAllCultivation()?.let {list->
-            list.forEach {
-                vegetableList.add(it)
-                tvNotPlant?.visibility = View.INVISIBLE
-            }
-
-            if (vegetableList.isNullOrEmpty()) {
-                tvNotPlant?.apply {
-                    visibility = View.VISIBLE
-                    text = getString(R.string.w7_chua_co_cay_nao_duoc_trong)
-                }
-            }
-            adapterRecycler.notifyDataSetChanged()
-        }
-
-        tvNotPlant?.setOnClickListener {
-            (activity as MainFarmActivity).handleShowDialogFragment()
-        }
-    }
-
     private fun replaceData() {
         object : CountDownTimer(TIMER_REFRESH, TIMER_REFRESH) {
             override fun onFinish() {
-                initData()
+                initData(mode)
                 this.start()
             }
 
             override fun onTick(millisUntilFinished: Long) {
             }
         }.start()
+    }
+
+    private fun handleReceiveEventOnclickItemDrawer() {
+        (activity as MainFarmActivity).onClickPlants = {
+            mode = it
+            initData(mode)
+        }
+        (activity as MainFarmActivity).onClickPlantHarvest = {
+            mode = it
+            initData(mode)
+        }
+        (activity as MainFarmActivity).onClickPlantWormed = {
+            mode = it
+            initData(mode)
+        }
+        (activity as MainFarmActivity).onClickLackWater = {
+            mode = it
+            initData(mode)
+        }
+    }
+
+    internal fun initData(mode: Int = 1) {
+        vegetableList.clear()
+        dataBase?.cultivationDao()?.getAllCultivation()?.let { list ->
+            list.toCollection(vegetableList)
+            tvNotPlant?.visibility = View.INVISIBLE
+        }
+
+        if (vegetableList.isNullOrEmpty()) {
+            tvNotPlant?.apply {
+                visibility = View.VISIBLE
+                text = getString(R.string.w7_chua_co_cay_nao_duoc_trong)
+            }
+        } else {
+            when (mode) {
+                1 -> {
+                    adapterRecycler.notifyDataSetChanged()
+                }
+                2 -> {
+                    val list = mutableListOf<CultivationModel>()
+                    vegetableList.forEach { culti ->
+                        dataBase?.plantDao()?.getPlant(culti.plantId)?.let { plant ->
+                            if (App().isPlantWormed(plant, culti)) {
+                                list.add(culti)
+                            }
+                        }
+                    }
+                    vegetableList.clear()
+                    list.toCollection(vegetableList)
+                    adapterRecycler.notifyDataSetChanged()
+                }
+            }
+        }
+
+        tvNotPlant?.setOnClickListener {
+            (activity as MainFarmActivity).handleShowDialogFragment()
+        }
     }
 }

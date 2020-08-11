@@ -1,6 +1,7 @@
 package com.asiantech.intern20summer1.w7.main.fragment
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,7 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.w7.companion.AppCompanion
+import com.asiantech.intern20summer1.w7.companion.App
 import com.asiantech.intern20summer1.w7.database.ConnectDataBase
 import com.asiantech.intern20summer1.w7.main.MainFarmActivity
 import com.asiantech.intern20summer1.w7.model.CultivationModel
@@ -28,10 +29,10 @@ class PlantDetailFragment : Fragment() {
     private var dataBase: ConnectDataBase? = null
 
     companion object {
-        private const val KEY_POS = "key_pos"
+        private const val KEY_POS_ID = "key_pos_id"
         internal fun newInstance(id: Int?) = PlantDetailFragment().apply {
             arguments = Bundle().apply {
-                id?.let { putInt(KEY_POS, it) }
+                id?.let { putInt(KEY_POS_ID, it) }
             }
         }
     }
@@ -54,11 +55,18 @@ class PlantDetailFragment : Fragment() {
     }
 
     private fun initView() {
-        cultivation = dataBase?.cultivationDao()?.getCultivation(arguments?.getInt(KEY_POS))
+        cultivation = dataBase?.cultivationDao()?.getCultivation(arguments?.getInt(KEY_POS_ID))
         val plant = dataBase?.plantDao()?.getPlant(cultivation?.plantId)
+        if (App().isPlantWormed(plant, cultivation)) {
+            tvWormed_detail?.text = getString(R.string.w7_detail_plant_is_wormed)
+            tvWormed_detail?.setTextColor(Color.RED)
+        } else {
+            tvWormed_detail?.text = getString(R.string.w7_detail_cay_khoe_manh)
+            tvWormed_detail?.setTextColor(Color.BLUE)
+        }
         detail_imgCultivation?.setImageURI(Uri.parse(plant?.imageUri))
-        tv1?.text = plant?.name
-        tv2?.text = plant?.description
+        tv2?.text = "water ring: " + cultivation?.dateWatering
+        tv3?.text = cultivation?.dateCultivation
     }
 
     private fun initListener() {
@@ -77,13 +85,9 @@ class PlantDetailFragment : Fragment() {
         btnClearPlant_detail?.setOnClickListener {
             cultivation?.let {
                 dataBase?.cultivationDao()?.deleteCultivation(it)
+                (activity as MainFarmActivity).apply { fragment.initData(fragment.mode) }
                 showToast(getString(R.string.w7_clear_plant_complete))
                 fragmentManager?.popBackStack()
-                val fragment = TreeRecyclerFragment.newInstance()
-                (activity as MainFarmActivity).handleReplaceFragment(
-                    fragment,
-                    parent = R.id.containerMain
-                )
             }
         }
     }
@@ -92,12 +96,10 @@ class PlantDetailFragment : Fragment() {
     private fun handleForButtonWatering() {
         btnWatering_detail?.setOnClickListener {
             cultivation?.let {
-                val dateFormat = SimpleDateFormat(AppCompanion.FORMAT_CODE_DATE)
+                val dateFormat = SimpleDateFormat(App.FORMAT_CODE_DATE)
                 dataBase?.cultivationDao()?.waterPlant(it.id, dateFormat.format(Date()))
-                (activity as MainFarmActivity).handleReplaceFragment(
-                    TreeRecyclerFragment.newInstance(),
-                    parent = R.id.containerMain
-                )
+                (activity as MainFarmActivity).apply { fragment.initData(fragment.mode) }
+                initView()
                 showToast(getString(R.string.w7_watering_complete))
             }
         }

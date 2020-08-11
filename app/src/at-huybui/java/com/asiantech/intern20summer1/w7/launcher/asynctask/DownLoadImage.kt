@@ -3,7 +3,7 @@ package com.asiantech.intern20summer1.w7.launcher.asynctask
 import android.content.Context
 import android.graphics.Bitmap
 import android.os.AsyncTask
-import com.asiantech.intern20summer1.w7.companion.AppCompanion
+import com.asiantech.intern20summer1.w7.companion.App
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.DownsampleStrategy
@@ -39,8 +39,8 @@ class DownLoadImage(context: Context, private var name: String) :
                 .get()
 
             try {
-                directory = it.getDir(AppCompanion.NAME_DIR, Context.MODE_PRIVATE)
-                val path = File(directory, "$name${AppCompanion.FILE_TAIL}")
+                directory = it.getDir(App.NAME_DIR, Context.MODE_PRIVATE)
+                val path = File(directory, "$name${App.FILE_TAIL}")
                 val out = FileOutputStream(path)
                 bitmap.compress(Bitmap.CompressFormat.JPEG, QUALITY_IMAGE, out)
                 out.flush()

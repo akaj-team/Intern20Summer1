@@ -10,8 +10,8 @@ import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w7.database.ConnectDataBase
 import com.asiantech.intern20summer1.w7.main.fragment.DialogFragmentFarm
 import com.asiantech.intern20summer1.w7.main.fragment.TreeRecyclerFragment
-import kotlinx.android.synthetic.`at-huybui`.w7_activity_main_farm.*
 import kotlinx.android.synthetic.`at-huybui`.navigation_header.view.*
+import kotlinx.android.synthetic.`at-huybui`.w7_activity_main_farm.*
 
 /**
  * Asian Tech Co., Ltd.
@@ -22,12 +22,17 @@ import kotlinx.android.synthetic.`at-huybui`.navigation_header.view.*
 class MainFarmActivity : AppCompatActivity() {
 
     private var dataBase: ConnectDataBase? = null
+    internal var onClickPlants: (mode: Int) -> Unit = {}
+    internal var onClickPlantWormed: (mode: Int) -> Unit = {}
+    internal var onClickPlantHarvest: (mode: Int) -> Unit = {}
+    internal var onClickLackWater: (mode: Int) -> Unit = {}
+    internal val fragment = TreeRecyclerFragment.newInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.w7_activity_main_farm)
         dataBase = ConnectDataBase.dataBaseConnect(applicationContext)
-        handleReplaceFragment(TreeRecyclerFragment.newInstance(), parent = R.id.containerMain)
+        handleReplaceFragment(fragment, parent = R.id.containerMain)
         initToolBar()
         initNavigationDrawer()
     }
@@ -85,11 +90,23 @@ class MainFarmActivity : AppCompatActivity() {
         navigationView?.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.itemGarden -> {
-                    finish()
-                    startActivity(intent)
+                    onClickPlants.invoke(1)
+                    drawerLayout.closeDrawer(GravityCompat.START)
                 }
                 R.id.itemGrowVegetable -> {
                     handleShowDialogFragment()
+                }
+                R.id.itemWorm -> {
+                    onClickPlantWormed.invoke(2)
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                }
+                R.id.itemHarvest -> {
+                    onClickPlantHarvest.invoke(3)
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                }
+                R.id.itemWater -> {
+                    onClickLackWater.invoke(4)
+                    drawerLayout.closeDrawer(GravityCompat.START)
                 }
             }
             return@setNavigationItemSelectedListener true

@@ -9,7 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.w7.companion.AppCompanion
+import com.asiantech.intern20summer1.w7.companion.App
 import com.asiantech.intern20summer1.w7.database.ConnectDataBase
 import com.asiantech.intern20summer1.w7.model.CultivationModel
 import com.asiantech.intern20summer1.w7.model.PlantModel
@@ -25,11 +25,6 @@ import java.util.*
 
 class RecyclerAdapter(private val mutableList: MutableList<CultivationModel>) :
     RecyclerView.Adapter<RecyclerAdapter.ItemViewHolder>() {
-
-    companion object {
-        private const val MINUTES = 60
-    }
-
     private var dataBase: ConnectDataBase? = null
     internal var onItemClicked: (id: Int?) -> Unit = {}
 
@@ -49,13 +44,14 @@ class RecyclerAdapter(private val mutableList: MutableList<CultivationModel>) :
         holder.bindData()
     }
 
-    @Suppress("DEPRECATION")
     inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private var tvName: TextView = itemView.tvNameVegetable
         private var tvDateCultivation: TextView = itemView.tvDateCultivation
         private var tvDateHarvest: TextView = itemView.tvDateHarvest
         private var imgPlant: ImageView = itemView.imgVegetable
         private var imgWorm: ImageView = itemView.imgStatusWorm
+        private var imgLackWater:ImageView= itemView.imgStatusWatering
+        private var imgHarvest:ImageView= itemView.imgStatusHarvest
 
 
         init {
@@ -75,10 +71,20 @@ class RecyclerAdapter(private val mutableList: MutableList<CultivationModel>) :
                         itemView.context.getString(R.string.w7_text_harvest, harvest)
                     tvName.text = plant.name
                     imgPlant.setImageURI(Uri.parse(plant.imageUri))
-                    if (isPlantWormed(plant, culPlant)) {
+                    if (App().isPlantWormed(plant, culPlant)) {
                         imgWorm.visibility = View.VISIBLE
                     } else {
                         imgWorm.visibility = View.INVISIBLE
+                    }
+                    if(App().isPlantLackWater(plant,culPlant)){
+                        imgLackWater.visibility = View.VISIBLE
+                    }else{
+                        imgLackWater.visibility = View.INVISIBLE
+                    }
+                    if(App().isPlantHarvest(plant,culPlant)){
+                        imgHarvest.visibility = View.VISIBLE
+                    }else{
+                        imgHarvest.visibility = View.INVISIBLE
                     }
                 }
             }
@@ -87,29 +93,13 @@ class RecyclerAdapter(private val mutableList: MutableList<CultivationModel>) :
         @SuppressLint("SimpleDateFormat")
         private fun getDateHarvest(cultivation: String?, plant: PlantModel): String {
             cultivation?.let { cul ->
-                val dateFormat = SimpleDateFormat(AppCompanion.FORMAT_CODE_DATE)
+                val dateFormat = SimpleDateFormat(App.FORMAT_CODE_DATE)
                 val calendar = Calendar.getInstance()
                 dateFormat.parse(cul)?.let { calendar.time = it }
                 plant.growZoneNumber?.let { calendar.add(Calendar.DATE, it) }
                 return dateFormat.format(calendar.time)
             }
             return "null"
-        }
-
-        @SuppressLint("SimpleDateFormat")
-        private fun isPlantWormed(plant: PlantModel, culti: CultivationModel): Boolean {
-            culti.dateWatering?.let { dateWatering ->
-                val dateFormat = SimpleDateFormat(AppCompanion.FORMAT_CODE_DATE)
-                var beforeTime = 0
-                dateFormat.parse(dateWatering)?.let { waterTime ->
-                    beforeTime = waterTime.minutes * MINUTES + waterTime.seconds
-                }
-                val current = Date().minutes * MINUTES + Date().seconds
-                plant.wateringInterval?.let {
-                    return (current - beforeTime) > (it * MINUTES)
-                }
-            }
-            return false
         }
     }
 }
