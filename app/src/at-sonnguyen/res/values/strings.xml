@@ -38,4 +38,5 @@
     <string name="w7_button_text">Week 7</string>
     <string name="begin_week6_button_text">Week 6</string>
     <string name="w6_app_name">Week 6 - ViewPager - TabLayout</string>
+    <string name="w4_app_name">Week 4 - Activity - Intent - Fragment</string>
 </resources>

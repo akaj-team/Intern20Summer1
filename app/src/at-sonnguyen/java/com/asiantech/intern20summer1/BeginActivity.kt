@@ -1,9 +1,9 @@
-package com.asiantech.intern20summer1.w6.activity
+package com.asiantech.intern20summer1
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.w6.activity.StepActivity
 import kotlinx.android.synthetic.`at-sonnguyen`.activity_begin.*
 
 class BeginActivity : AppCompatActivity(){
@@ -15,7 +15,8 @@ class BeginActivity : AppCompatActivity(){
     }
     private fun initListener(){
         btnWeek6.setOnClickListener {
-            val intent = Intent(this,StepActivity::class.java)
+            val intent = Intent(this,
+                StepActivity::class.java)
             startActivity(intent)
             finish()
         }
