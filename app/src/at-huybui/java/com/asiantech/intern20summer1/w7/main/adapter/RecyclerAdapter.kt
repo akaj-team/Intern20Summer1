@@ -9,16 +9,26 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.w7.companion.AppCompanion
 import com.asiantech.intern20summer1.w7.database.ConnectDataBase
-import com.asiantech.intern20summer1.w7.main.companion.AppCompanion
 import com.asiantech.intern20summer1.w7.model.CultivationModel
 import com.asiantech.intern20summer1.w7.model.PlantModel
 import kotlinx.android.synthetic.`at-huybui`.recycler_farm_item.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
+/**
+ * Asian Tech Co., Ltd.
+ * Created by at-huybui on 08/04/20
+ * This is Adapter class for recycle view
+ */
+
 class RecyclerAdapter(private val mutableList: MutableList<CultivationModel>) :
     RecyclerView.Adapter<RecyclerAdapter.ItemViewHolder>() {
+
+    companion object {
+        private const val MINUTES = 60
+    }
 
     private var dataBase: ConnectDataBase? = null
     internal var onItemClicked: (id: Int?) -> Unit = {}
@@ -86,31 +96,17 @@ class RecyclerAdapter(private val mutableList: MutableList<CultivationModel>) :
             return "null"
         }
 
-//        private fun isPlantWormed(plant: PlantModel,culti: CultivationModel) : Boolean{
-//            culti.dateWatering?.let {dateWatering->
-//                val dateFormat = SimpleDateFormat(AppCompanion.FORMAT_CODE_DATE)
-//                val calendar = Calendar.getInstance()
-//                calendar.time = Date()
-//                dateFormat.parse(dateWatering)?.let {date->
-//                    plant.wateringInterval?.let {interval->
-//                        calendar.add(Calendar.MINUTE,interval)
-//                    }
-//                }
-//            }
-//        }
-
         @SuppressLint("SimpleDateFormat")
         private fun isPlantWormed(plant: PlantModel, culti: CultivationModel): Boolean {
             culti.dateWatering?.let { dateWatering ->
                 val dateFormat = SimpleDateFormat(AppCompanion.FORMAT_CODE_DATE)
-                var beforTime = 0
+                var beforeTime = 0
                 dateFormat.parse(dateWatering)?.let { waterTime ->
-                    beforTime = waterTime.minutes * 60 + waterTime.seconds
+                    beforeTime = waterTime.minutes * MINUTES + waterTime.seconds
                 }
-                val current = Date().minutes * 60 + Date().seconds
-
+                val current = Date().minutes * MINUTES + Date().seconds
                 plant.wateringInterval?.let {
-                    return (current - beforTime) > (it * 60)
+                    return (current - beforeTime) > (it * MINUTES)
                 }
             }
             return false

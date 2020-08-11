@@ -17,7 +17,7 @@ import java.io.*
 
 class TestActivity : AppCompatActivity() {
 
-    var pathInStore: String? = null
+    private var pathInStore: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,10 +59,8 @@ class TestActivity : AppCompatActivity() {
 
     private fun saveToInternalStorage(bitmapImage: Bitmap, imageName: String) {
         val cw = ContextWrapper(applicationContext)
-        // path to /data/data/yourapp/app_data/imageDir
         val directory: File = cw.getDir("imageDir", Context.MODE_PRIVATE)
         pathInStore = directory.absolutePath
-        // Create imageDir
         val mypath = File(directory, "$imageName.jpg")
         var fos: FileOutputStream? = null
         try {

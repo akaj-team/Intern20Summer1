@@ -1,7 +1,6 @@
 package com.asiantech.intern20summer1.w7.database
 
 import android.content.Context
-import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -14,6 +13,12 @@ import com.google.gson.reflect.TypeToken
 import com.google.gson.stream.JsonReader
 import java.util.concurrent.Executors
 
+/**
+ * Asian Tech Co., Ltd.
+ * Created by at-huybui on 08/11/20
+ * This is entities for database
+ */
+
 @Database(entities = [UserModel::class, PlantModel::class,CultivationModel::class], version = 1, exportSchema = false)
 abstract class ConnectDataBase : RoomDatabase() {
 
@@ -22,7 +27,9 @@ abstract class ConnectDataBase : RoomDatabase() {
     abstract fun cultivationDao(): CultivationDAO
 
     companion object {
-        const val NAME_DATA_BASE = "plant.db"
+        private const val NAME_DATA_BASE = "plant.db"
+        private const val JSON_NAME = "plants.json"
+        private const val THREADS = 10
 
         private var INSTANCE: ConnectDataBase? = null
         fun dataBaseConnect(context: Context): ConnectDataBase? {
@@ -41,17 +48,12 @@ abstract class ConnectDataBase : RoomDatabase() {
                 .addCallback(object : RoomDatabase.Callback() {
                     override fun onCreate(db: SupportSQLiteDatabase) {
                         super.onCreate(db)
-                        Executors.newFixedThreadPool(10).execute {
-                            Log.d("XXXX", "open file")
-                            context.assets.open("plants.json").use { inputStream ->
+                        Executors.newFixedThreadPool(THREADS).execute {
+                            context.assets.open(JSON_NAME).use { inputStream ->
                                 JsonReader(inputStream.reader()).use { jsonReader ->
                                     val plantType = object : TypeToken<List<PlantModel>>() {}.type
                                     val plants: List<PlantModel> =
                                         Gson().fromJson(jsonReader, plantType)
-
-                                    plants.forEach {
-                                        Log.d("XXXX", it.toString())
-                                    }
                                     providerDatabase(context)?.plantDao()?.insertPlants(plants)
                                 }
                             }

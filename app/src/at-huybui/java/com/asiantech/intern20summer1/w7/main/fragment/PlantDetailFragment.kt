@@ -9,13 +9,19 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.w7.companion.AppCompanion
 import com.asiantech.intern20summer1.w7.database.ConnectDataBase
 import com.asiantech.intern20summer1.w7.main.MainFarmActivity
-import com.asiantech.intern20summer1.w7.main.companion.AppCompanion
 import com.asiantech.intern20summer1.w7.model.CultivationModel
 import kotlinx.android.synthetic.`at-huybui`.fragment_information_tree.*
 import java.text.SimpleDateFormat
 import java.util.*
+
+/**
+ * Asian Tech Co., Ltd.
+ * Created by at-huybui on 08/04/20
+ * This is fragment class for detail fragment
+ */
 
 class PlantDetailFragment : Fragment() {
 
@@ -30,7 +36,7 @@ class PlantDetailFragment : Fragment() {
         }
     }
 
-    var cultivation: CultivationModel? = null
+    private var cultivation: CultivationModel? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -71,7 +77,7 @@ class PlantDetailFragment : Fragment() {
         btnClearPlant_detail?.setOnClickListener {
             cultivation?.let {
                 dataBase?.cultivationDao()?.deleteCultivation(it)
-                showToast("Nhổ Cây Thành Công")
+                showToast(getString(R.string.w7_clear_plant_complete))
                 fragmentManager?.popBackStack()
                 val fragment = TreeRecyclerFragment.newInstance()
                 (activity as MainFarmActivity).handleReplaceFragment(
@@ -92,7 +98,7 @@ class PlantDetailFragment : Fragment() {
                     TreeRecyclerFragment.newInstance(),
                     parent = R.id.containerMain
                 )
-                showToast("Đã tưới cây thành công")
+                showToast(getString(R.string.w7_watering_complete))
             }
         }
     }

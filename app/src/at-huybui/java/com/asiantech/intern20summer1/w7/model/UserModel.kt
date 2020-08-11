@@ -5,12 +5,17 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.io.Serializable
 
+/**
+ * Asian Tech Co., Ltd.
+ * Created by at-huybui on 08/04/20
+ * This is data class for user model
+ */
+
 @Entity(tableName = "user")
 data class UserModel(
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "userId") val userId: Int = 0,
-    @ColumnInfo(name = "userName")val userName: String = "",
-    @ColumnInfo(name = "university")val university: String = "",
-    @ColumnInfo(name = "homeTown")val homeTown: String = "",
-    @ColumnInfo(name = "imgUri")val imgUri: String? = null
+    @PrimaryKey(autoGenerate = true) val userId: Int? = null,
+    @ColumnInfo(name = "userName") val userName: String? = null,
+    @ColumnInfo(name = "university") val university: String? = null,
+    @ColumnInfo(name = "homeTown") val homeTown: String? = null,
+    @ColumnInfo(name = "imgUri") val imgUri: String? = null
 ) : Serializable

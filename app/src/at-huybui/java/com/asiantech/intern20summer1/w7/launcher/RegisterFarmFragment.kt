@@ -41,7 +41,7 @@ class RegisterFarmFragment : Fragment() {
         private const val REQUEST_IMAGE_CAPTURE = 100
         private const val REQUEST_SELECT_IMAGE_IN_ALBUM = 101
         private const val PERMISSION_REQUEST_CODE = 200
-        internal const val KEY_PUT = "key_put"
+        private const val TYPE_IMAGE = "image/*"
         internal fun newInstance() = RegisterFarmFragment()
     }
 
@@ -136,8 +136,8 @@ class RegisterFarmFragment : Fragment() {
     private fun handleForAvatarImage() {
         imgAvatarRegister.setOnClickListener {
             val builder = (activity as LauncherFarmActivity).let { it1 -> AlertDialog.Builder(it1) }
-            builder.setTitle("Select")
-            val select = arrayOf("Camera", "Gallery")
+            builder.setTitle(getString(R.string.w7_select))
+            val select = arrayOf(getString(R.string.w7_camera), getString(R.string.w7_gallery))
             builder.setItems(select) { _, which ->
                 when (which) {
                     0 -> {
@@ -198,7 +198,7 @@ class RegisterFarmFragment : Fragment() {
      */
     private fun openGallery() {
         val intentGallery = Intent(Intent.ACTION_PICK)
-        intentGallery.type = "image/*"
+        intentGallery.type = TYPE_IMAGE
         startActivityForResult(
             intentGallery,
             REQUEST_SELECT_IMAGE_IN_ALBUM

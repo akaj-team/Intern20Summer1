@@ -4,6 +4,12 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
+/**
+ * Asian Tech Co., Ltd.
+ * Created by at-huybui on 08/04/20
+ * This is data class for cultivation model
+ */
+
 @Entity(tableName = "cultivation")
 data class CultivationModel(
     @PrimaryKey(autoGenerate = true) var id: Int? = null,

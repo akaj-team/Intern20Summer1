@@ -93,4 +93,10 @@
     <string name="w7_text_harvest">Thu Hoạch: %s</string>
     <string name="w7_text_grow_zone">Grow Zone: %s </string>
     <string name="w7_text_watering">Watering: %s </string>
+    <string name="w7_select">Select</string>
+    <string name="w7_camera">Camera</string>
+    <string name="w7_gallery">Gallery</string>
+    <string name="w7_loading_data">Đang tải giữ liệu ban đầu</string>
+    <string name="w7_clear_plant_complete">Nhổ Cây Thành Công</string>
+    <string name="w7_watering_complete">Đã tưới cây thành công</string>
 </resources>

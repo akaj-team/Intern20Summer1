@@ -10,9 +10,14 @@ import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w7.database.ConnectDataBase
 import com.asiantech.intern20summer1.w7.main.fragment.DialogFragmentFarm
 import com.asiantech.intern20summer1.w7.main.fragment.TreeRecyclerFragment
-import kotlinx.android.synthetic.`at-huybui`.activity_main_farm.*
+import kotlinx.android.synthetic.`at-huybui`.w7_activity_main_farm.*
 import kotlinx.android.synthetic.`at-huybui`.navigation_header.view.*
 
+/**
+ * Asian Tech Co., Ltd.
+ * Created by at-huybui on 08/04/20
+ * This is class for main activity
+ */
 
 class MainFarmActivity : AppCompatActivity() {
 
@@ -20,7 +25,7 @@ class MainFarmActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main_farm)
+        setContentView(R.layout.w7_activity_main_farm)
         dataBase = ConnectDataBase.dataBaseConnect(applicationContext)
         handleReplaceFragment(TreeRecyclerFragment.newInstance(), parent = R.id.containerMain)
         initToolBar()

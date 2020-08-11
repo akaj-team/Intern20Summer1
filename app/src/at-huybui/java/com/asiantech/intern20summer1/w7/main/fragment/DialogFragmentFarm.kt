@@ -12,12 +12,18 @@ import androidx.fragment.app.DialogFragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w7.database.ConnectDataBase
 import com.asiantech.intern20summer1.w7.main.MainFarmActivity
-import com.asiantech.intern20summer1.w7.main.companion.AppCompanion
+import com.asiantech.intern20summer1.w7.companion.AppCompanion
 import com.asiantech.intern20summer1.w7.model.CultivationModel
 import com.asiantech.intern20summer1.w7.model.PlantModel
-import kotlinx.android.synthetic.`at-huybui`.fragment_dialog.*
+import kotlinx.android.synthetic.`at-huybui`.w7_fragment_dialog.*
 import java.text.SimpleDateFormat
 import java.util.*
+
+/**
+ * Asian Tech Co., Ltd.
+ * Created by at-huybui on 08/04/20
+ * This is fragment class for dialog fragment
+ */
 
 open class DialogFragmentFarm : DialogFragment() {
 
@@ -34,7 +40,7 @@ open class DialogFragmentFarm : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_dialog, container, false)
+        return inflater.inflate(R.layout.w7_fragment_dialog, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

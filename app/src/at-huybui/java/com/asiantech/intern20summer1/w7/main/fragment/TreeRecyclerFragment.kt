@@ -14,6 +14,12 @@ import com.asiantech.intern20summer1.w7.main.adapter.RecyclerAdapter
 import com.asiantech.intern20summer1.w7.model.CultivationModel
 import kotlinx.android.synthetic.`at-huybui`.fragment_farm_vegetable.*
 
+/**
+ * Asian Tech Co., Ltd.
+ * Created by at-huybui on 08/04/20
+ * This is fragment class for recycler fragment
+ */
+
 class TreeRecyclerFragment : Fragment() {
 
     companion object {

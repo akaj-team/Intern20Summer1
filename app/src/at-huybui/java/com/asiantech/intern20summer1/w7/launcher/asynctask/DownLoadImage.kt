@@ -3,7 +3,7 @@ package com.asiantech.intern20summer1.w7.launcher.asynctask
 import android.content.Context
 import android.graphics.Bitmap
 import android.os.AsyncTask
-import android.util.Log.d
+import com.asiantech.intern20summer1.w7.companion.AppCompanion
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.DownsampleStrategy
@@ -14,17 +14,23 @@ import java.lang.ref.WeakReference
 
 class DownLoadImage(context: Context, private var name: String) :
     AsyncTask<String, Unit, String>() {
-    private var mContext: WeakReference<Context> = WeakReference(context)
+
+    companion object {
+        private const val SIZE_IMAGE = 500
+        private const val QUALITY_IMAGE = 100
+    }
+
+    private var context: WeakReference<Context> = WeakReference(context)
     private var directory: File? = null
 
     override fun doInBackground(vararg params: String?): String? {
         val url = params[0]
-        val requestOptions = RequestOptions().override(500, 500)
+        val requestOptions = RequestOptions().override(SIZE_IMAGE, SIZE_IMAGE)
             .downsample(DownsampleStrategy.CENTER_INSIDE)
             .skipMemoryCache(true)
             .diskCacheStrategy(DiskCacheStrategy.NONE)
 
-        mContext.get()?.let {
+        context.get()?.let {
             val bitmap = Glide.with(it)
                 .asBitmap()
                 .load(url)
@@ -33,15 +39,13 @@ class DownLoadImage(context: Context, private var name: String) :
                 .get()
 
             try {
-                directory = it.getDir("imagePlants", Context.MODE_PRIVATE)
-                val path = File(directory, "$name.jpg")
+                directory = it.getDir(AppCompanion.NAME_DIR, Context.MODE_PRIVATE)
+                val path = File(directory, "$name${AppCompanion.FILE_TAIL}")
                 val out = FileOutputStream(path)
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out)
+                bitmap.compress(Bitmap.CompressFormat.JPEG, QUALITY_IMAGE, out)
                 out.flush()
                 out.close()
-                d("Seiggailion", "Image saved.")
             } catch (e: Exception) {
-                d("Seiggailion", "Failed to save image.")
             }
         }
         return directory?.absolutePath.toString()
