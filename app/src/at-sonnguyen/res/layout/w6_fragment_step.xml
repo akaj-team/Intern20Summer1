@@ -12,5 +12,4 @@
         android:text="@string/w6_step_fragment_text_view"
         android:textSize="@dimen/w6_step_text_view_size_in_step_fragment"
         android:textStyle="bold" />
-
 </RelativeLayout>
