@@ -10,4 +10,5 @@
     <color name="colorSignUpButton">#99FF99</color>
     <color name="colorBlue">#3333CC</color>
     <color name="colorRed">#FF0000</color>
+    <color name="colorYellow">#FFCC00</color>
 </resources>

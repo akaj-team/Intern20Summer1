@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorLightYellow">
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/pageIndicatorView"
+        android:layout_centerInParent="true"
+        android:clipToPadding="false"
+        android:overScrollMode="never" />
+
+    <com.rd.PageIndicatorView
+        android:id="@+id/pageIndicatorView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/indicator_margin_left"
+        android:layout_marginBottom="@dimen/indicator_margin_bottom"
+        app:piv_animationType="none"
+        app:piv_dynamicCount="true"
+        app:piv_interactiveAnimation="true"
+        app:piv_selectedColor="@color/colorRed"
+        app:piv_unselectedColor="@color/colorWhite"
+        app:piv_viewPager="@id/viewPager" />
+
+    <TextView
+        android:id="@+id/tvNext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="@dimen/next_text_view_margin_right"
+        android:layout_marginBottom="@dimen/next_text_view_margin_bottom"
+        android:text="@string/next_text_view_description"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/next_text_view_text_size"
+        android:textStyle="bold" />
+</RelativeLayout>
