@@ -4,19 +4,14 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "plant_table")
+@Entity(tableName = "plants")
 data class Plant(
-    @PrimaryKey(autoGenerate = false)
-    @ColumnInfo(name = "plantId")
-    var plantId: String = "",
-    @ColumnInfo(name = "name")
-    var name: String = "",
-    @ColumnInfo(name = "description")
-    var description: String = "",
-    @ColumnInfo(name = "growZoneNumber")
-    var growZoneNumber: Int = 0,
-    @ColumnInfo(name = "wateringInterval")
-    var wateringInterval: Int = 0,
-    @ColumnInfo(name = "imageUri")
-    var imageUri: String = ""
+
+    @PrimaryKey(autoGenerate = true) val id: Int? = null,
+    @ColumnInfo(name = "plantId") val plantId: String? = null,
+    @ColumnInfo(name = "name") val name: String? = null,
+    @ColumnInfo(name = "description") val description: String? = null,
+    @ColumnInfo(name = "growZoneNumber") val growZoneNumber: Int? = null,
+    @ColumnInfo(name = "wateringInterval") val wateringInterval: Int? = null,
+    @ColumnInfo(name = "imageUrl") val imageUrl: String? = null
 )

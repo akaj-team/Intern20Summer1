@@ -34,7 +34,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="@dimen/margin_18dp"
         android:layout_marginTop="@dimen/margin_25dp"
-        android:background="@drawable/ic_baseline_arrow_drop_down_24" />
+        android:background="@drawable/bg_register_edit_text_radius" />
 
     <Button
         android:layout_width="@dimen/layout_width_320dp"

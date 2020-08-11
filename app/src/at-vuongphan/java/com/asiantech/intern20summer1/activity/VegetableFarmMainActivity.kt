@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.database.VegetableDB
 import com.asiantech.intern20summer1.fragmennt.VegetableDialogFragment
 import com.asiantech.intern20summer1.fragmennt.VegetableFragmentRecyclerView
 import com.asiantech.intern20summer1.fragmennt.VegetableRegisterFragment
@@ -19,6 +20,8 @@ import kotlinx.android.synthetic.`at-vuongphan`.w7_nav_header.view.*
 
 class VegetableFarmMainActivity : AppCompatActivity(),
     NavigationView.OnNavigationItemSelectedListener {
+
+    private var dataBase: VegetableDB? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.w7_activity_main_farm)
@@ -40,14 +43,14 @@ class VegetableFarmMainActivity : AppCompatActivity(),
         )
         header.tvName.text =
             sharedRef.getString(
-                VegetableRegisterFragment.SHARED_USER_NAME_KEY,""
+                VegetableRegisterFragment.SHARED_USER_NAME_KEY, ""
             )
         header.tvNameUniversity.text =
             sharedRef.getString(
-                VegetableRegisterFragment.SHARED_UNIVERSITY_KEY,""
+                VegetableRegisterFragment.SHARED_UNIVERSITY_KEY, ""
             )
         if (sharedRef.getString(
-                VegetableRegisterFragment.SHARED_AVATAR_KEY,""
+                VegetableRegisterFragment.SHARED_AVATAR_KEY, ""
             ) == ""
         ) {
             header.imgAvatar2.setImageResource(R.drawable.ic_splash)
@@ -55,7 +58,7 @@ class VegetableFarmMainActivity : AppCompatActivity(),
             header.imgAvatar2.setImageURI(
                 Uri.parse(
                     sharedRef.getString(
-                        VegetableRegisterFragment.SHARED_AVATAR_KEY,""
+                        VegetableRegisterFragment.SHARED_AVATAR_KEY, ""
                     )
                 )
             )

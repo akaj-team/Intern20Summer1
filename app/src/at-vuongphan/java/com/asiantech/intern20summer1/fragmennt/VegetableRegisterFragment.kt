@@ -21,6 +21,8 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.activity.VegetableFarmMainActivity
+import com.asiantech.intern20summer1.database.User
+import com.asiantech.intern20summer1.database.VegetableDB
 import com.asiantech.intern20summer1.extension.hideKeyboard
 import com.asiantech.intern20summer1.extension.textChangedListener
 import com.theartofdev.edmodo.cropper.CropImage
@@ -30,6 +32,7 @@ import java.io.ByteArrayOutputStream
 class VegetableRegisterFragment : Fragment() {
     private var flag = false
     private var imageUri: String? = ""
+    private var dataBase: VegetableDB? = null
 
     companion object {
         internal fun newInstance(): VegetableRegisterFragment {
@@ -114,6 +117,13 @@ class VegetableRegisterFragment : Fragment() {
                 putString(SHARED_AVATAR_KEY, imageUri)
                 apply()
             }
+            val user= User(
+                userName = edtUserName.text.toString(),
+                university = edtUniversity.text.toString(),
+                homeTown = edtHome.text.toString(),
+                imgUri = imgAvatar.toString()
+            )
+            dataBase?.userDao()?.insertUser(user)
             val intent = Intent(activity, VegetableFarmMainActivity::class.java)
             activity?.startActivity(intent)
             activity?.finish()

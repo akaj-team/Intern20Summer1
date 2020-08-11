@@ -64,7 +64,7 @@
     <string name="text_view_university_description_text">Da Nang University of Technology</string>
     <string name="icon_one">Vườn Rau</string>
     <string name="text_view_description_recycler_view">Trong vao luc 12h</string>
-    <string name="app_name_toolbar">Vegetable garden</string>
+    <string name="app_name_toolbar">Garden</string>
     <string name="icon_two">Trồng Rau</string>
     <string name="icon_three">Sắp thu hoạch</string>
     <string name="share_preference_avatar_default">avatar</string>
@@ -80,12 +80,23 @@
     <string name="vegetable_one">Rau dền</string>
     <string name="vegetable_two">Rau cải</string>
     <string name="vegetable_three">Rau khoai lan</string>
-    <string name="dialog_fragment">Trồng rau</string>
+    <string name="dialog_fragment">Trồng Cây</string>
     <string name="text_button_ok">OK</string>
     <string-array name="planets_array">
         <item>Option 1</item>
         <item>Option 2</item>
+        <item>Option 3</item>
+        <item>Option 4</item>
+        <item>Option 5</item>
+        <item>Option 6</item>
+        <item>Option 7</item>
     </string-array>
     <string name="detail">initDetail</string>
     <string name="enter_input_your_email">Enter input your number phone</string>
+    <string name="text_view_detail_name_tree">Cây Bị Sâu</string>
+    <string name="text_view_detail_grow_tree">Trồng vào lúc: 05/08/2020 12h01</string>
+    <string name="text_view_detail_sprinklers_tree">Tưới nước lần cuối: 05/08/2020 16h01</string>
+    <string name="text_view_detail_description_tree">Mô tả cây  (dữ liệu từ database)</string>
+    <string name="button_detail_sprinklers_tree">Tưới nước</string>
+    <string name="button_detail_cut_tree">Chặt bỏ</string>
 </resources>

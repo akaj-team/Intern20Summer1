@@ -1,25 +1,15 @@
 package com.asiantech.intern20summer1.database
 
-import androidx.lifecycle.LiveData
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.Query
 
 @Dao
 interface UserDao {
-    @Query("SELECT * FROM user_table")
-    fun getUsers(): LiveData<List<User>>
 
-    @Query("SELECT * FROM user_table WHERE userId=:userId")
-    fun getUserById(userId: Int): LiveData<User>
+    @Insert
+    fun insertUser(vararg account: User)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(user: User)
-
-    @Update
-    fun update(user: User)
-
-    @Query("DELETE FROM user_table")
-    suspend fun deleteAll()
-
-    @Query("DELETE FROM user_table WHERE userId= :userId")
-    suspend fun deleteUserById(userId: Long)
+    @Query("select * from user ")
+    fun getUser(): User
 }

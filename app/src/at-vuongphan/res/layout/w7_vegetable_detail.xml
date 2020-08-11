@@ -9,7 +9,8 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/height_300dp"
+        android:orientation="vertical"
+        android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
@@ -28,7 +29,7 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="@drawable/ic_baseline_arrow_back_ios_24"
+                android:background="@color/colorYellow"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark"
                 app:title="@string/app_name_toolbar" />
 
@@ -36,7 +37,7 @@
                 android:id="@+id/imgAppBarLayout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_183dp"
-                android:background="@drawable/ic_splash"
+                android:background="@drawable/ic_man"
                 android:scaleType="centerCrop"
                 app:layout_anchorGravity="center" />
         </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -47,10 +48,68 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <TextView
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:lineSpacingExtra="@dimen/margin_12dp"
-            android:padding="@dimen/margin_top_20dp" />
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/margin_35dp"
+            android:layout_marginTop="@dimen/margin_26dp"
+            android:layout_marginRight="@dimen/margin_35dp">
+
+            <TextView
+                android:id="@+id/tvNameVegetableDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="@string/text_view_detail_name_tree" />
+
+            <TextView
+                android:id="@+id/tvGrowVegetable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvNameVegetableDetail"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/margin_12dp"
+                android:text="@string/text_view_detail_grow_tree" />
+
+            <TextView
+                android:id="@+id/tvWater"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvGrowVegetable"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/margin_12dp"
+                android:text="@string/text_view_detail_sprinklers_tree" />
+
+            <TextView
+                android:id="@+id/tvDescriptionTree"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvWater"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/margin_25dp"
+                android:text="@string/text_view_detail_description_tree" />
+
+            <Button
+                android:id="@+id/btnSprinklers"
+                android:layout_width="@dimen/width_326dp"
+                android:layout_height="@dimen/height_60dp"
+                android:layout_below="@+id/tvDescriptionTree"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/margin_top_85dp"
+                android:background="@drawable/bg_detail_button_radius"
+                android:text="@string/button_detail_sprinklers_tree"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btnCutTree"
+                android:layout_width="@dimen/width_326dp"
+                android:layout_height="@dimen/height_60dp"
+                android:layout_below="@id/btnSprinklers"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/margin_top_15dp"
+                android:layout_marginBottom="@dimen/margin_button_29dp"
+                android:background="@drawable/bg_register_button_radius_dis_enable"
+                android:text="@string/button_detail_cut_tree" />
+        </RelativeLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -96,8 +96,13 @@
     <dimen name="height_470dp">470dp</dimen>
     <dimen name="margin_left_5dp">5dp</dimen>
     <dimen name="margin_left_51dp">51dp</dimen>
+    <dimen name="margin_top_15dp">15dp</dimen>
+    <dimen name="margin_button_29dp">29dp</dimen>
     <dimen name="margin_left_28dp">28dp</dimen>
+    <dimen name="width_326dp">326dp</dimen>
+    <dimen name="height_60dp">60dp</dimen>
     <dimen name="padding_top_3dp">3dp</dimen>
+    <dimen name="margin_top_85dp">85dp</dimen>
     <dimen name="margin_32dp">32dp</dimen>
     <dimen name="margin_25dp">25dp</dimen>
     <dimen name="margin_90dp">90dp</dimen>
