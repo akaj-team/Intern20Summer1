@@ -23,6 +23,7 @@ import kotlinx.android.synthetic.`at-huybui`.fragment_farm_vegetable.*
 class TreeRecyclerFragment : Fragment() {
 
     companion object {
+        private const val TIMER_REFRESH = 5000L
         internal fun newInstance() = TreeRecyclerFragment()
     }
 
@@ -87,7 +88,7 @@ class TreeRecyclerFragment : Fragment() {
     }
 
     private fun replaceData() {
-        object : CountDownTimer(10000, 10000) {
+        object : CountDownTimer(TIMER_REFRESH, TIMER_REFRESH) {
             override fun onFinish() {
                 initData()
                 this.start()

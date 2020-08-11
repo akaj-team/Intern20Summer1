@@ -45,7 +45,12 @@ class DownLoadImage(context: Context, private var name: String) :
                 bitmap.compress(Bitmap.CompressFormat.JPEG, QUALITY_IMAGE, out)
                 out.flush()
                 out.close()
-            } catch (e: Exception) {
+            } catch (ae: ArithmeticException) {
+                ae.printStackTrace()
+            } catch (ne: NumberFormatException) {
+                ne.printStackTrace()
+            } catch (ie: IllegalArgumentException) {
+                ie.printStackTrace()
             }
         }
         return directory?.absolutePath.toString()

@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w7.companion.AppCompanion
 import com.asiantech.intern20summer1.w7.database.ConnectDataBase
+import com.asiantech.intern20summer1.w7.launcher.asynctask.DownLoadImage
 import com.asiantech.intern20summer1.w7.main.MainFarmActivity
 import com.asiantech.intern20summer1.w7.model.PlantModel
 import com.google.gson.Gson
@@ -117,12 +118,7 @@ class SplashFarmFragment : Fragment() {
             } else {
                 plants?.forEach { plant ->
                     plant.plantId?.let {
-                        com.asiantech.intern20summer1.w7.launcher.asynctask.DownLoadImage(
-                            requireContext(),
-                            it
-                        ).execute(
-                            plant.imageUrl
-                        )
+                        DownLoadImage(requireContext(), it).execute(plant.imageUrl)
                     }
                 }
             }
