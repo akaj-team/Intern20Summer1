@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w7.companion.App
 import com.asiantech.intern20summer1.w7.database.ConnectDataBase
-import com.asiantech.intern20summer1.w7.main.MainFarmActivity
+import com.asiantech.intern20summer1.w7.main.activity.MainFarmActivity
 import com.asiantech.intern20summer1.w7.main.adapter.RecyclerAdapter
 import com.asiantech.intern20summer1.w7.model.CultivationModel
 import kotlinx.android.synthetic.`at-huybui`.fragment_farm_vegetable.*

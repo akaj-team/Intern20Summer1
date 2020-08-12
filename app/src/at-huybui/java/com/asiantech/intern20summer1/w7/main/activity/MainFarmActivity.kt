@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.w7.main
+package com.asiantech.intern20summer1.w7.main.activity
 
 import android.net.Uri
 import android.os.Bundle

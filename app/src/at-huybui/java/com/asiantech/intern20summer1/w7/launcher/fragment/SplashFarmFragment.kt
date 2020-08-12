@@ -1,9 +1,13 @@
-package com.asiantech.intern20summer1.w7.launcher
+package com.asiantech.intern20summer1.w7.launcher.fragment
 
 import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,14 +16,16 @@ import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w7.companion.App
 import com.asiantech.intern20summer1.w7.database.ConnectDataBase
+import com.asiantech.intern20summer1.w7.launcher.activity.LauncherFarmActivity
 import com.asiantech.intern20summer1.w7.launcher.asynctask.DownLoadImage
-import com.asiantech.intern20summer1.w7.main.MainFarmActivity
+import com.asiantech.intern20summer1.w7.main.activity.MainFarmActivity
 import com.asiantech.intern20summer1.w7.model.PlantModel
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.google.gson.stream.JsonReader
 import kotlinx.android.synthetic.`at-huybui`.fragment_splash_farm.*
 import java.util.concurrent.Executors
+
 
 /**
  * Asian Tech Co., Ltd.
@@ -39,7 +45,8 @@ class SplashFarmFragment : Fragment() {
         private const val POINT_CHECK_DATABASE = 5
         private const val POINT_LOADING_DATABASE = 10
         private const val POINT_LOADING_DATA_URL = 20
-        internal fun newInstance() = SplashFarmFragment()
+        internal fun newInstance() =
+            SplashFarmFragment()
     }
 
     private var dataBase: ConnectDataBase? = null
@@ -71,9 +78,14 @@ class SplashFarmFragment : Fragment() {
                 when (progressBarFarm?.progress) {
                     POINT_CHECK_DATABASE -> {
                         if (plants?.size == 0) {
-                            showToast(getString(R.string.w7_loading_data))
-                            isLoadDataUrl = true
-                            saveDataFromJsonFile(requireContext())
+                            if (isCheckInternet()) {
+                                showToast(getString(R.string.w7_loading_data))
+                                isLoadDataUrl = true
+                                saveDataFromJsonFile(requireContext())
+                            } else {
+                                showToast("yeu cau ket noi internet")
+                                progressBarFarm?.progress = 0
+                            }
                         } else {
                             this.cancel()
                             loadingFastProgressBar()
@@ -148,7 +160,10 @@ class SplashFarmFragment : Fragment() {
     }
 
     private fun loadingFastProgressBar() {
-        object : CountDownTimer(SPLASH_TIMER, PROGRESS_FAST_STEP) {
+        object : CountDownTimer(
+            SPLASH_TIMER,
+            PROGRESS_FAST_STEP
+        ) {
             override fun onFinish() {
             }
 
@@ -164,7 +179,33 @@ class SplashFarmFragment : Fragment() {
         }.start()
     }
 
-    fun showToast(text: Any, duration: Int = Toast.LENGTH_SHORT) {
+    private fun isCheckInternet(): Boolean {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val connectivityManager =
+                context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            val capabilities =
+                connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+            if (capabilities != null) {
+                when {
+                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> {
+                        Log.i("Internet", "NetworkCapabilities.TRANSPORT_CELLULAR")
+                        return true
+                    }
+                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> {
+                        Log.i("Internet", "NetworkCapabilities.TRANSPORT_WIFI")
+                        return true
+                    }
+                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> {
+                        Log.i("Internet", "NetworkCapabilities.TRANSPORT_ETHERNET")
+                        return true
+                    }
+                }
+            }
+        }
+        return false
+    }
+
+    private fun showToast(text: Any, duration: Int = Toast.LENGTH_SHORT) {
         Toast.makeText(requireContext(), text.toString(), duration).show()
     }
 }

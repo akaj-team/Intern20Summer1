@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.w7.launcher
+package com.asiantech.intern20summer1.w7.launcher.fragment
 
 import android.Manifest
 import android.app.Activity
@@ -18,7 +18,8 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w7.database.ConnectDataBase
-import com.asiantech.intern20summer1.w7.main.MainFarmActivity
+import com.asiantech.intern20summer1.w7.launcher.activity.LauncherFarmActivity
+import com.asiantech.intern20summer1.w7.main.activity.MainFarmActivity
 import com.asiantech.intern20summer1.w7.model.UserModel
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
@@ -42,7 +43,8 @@ class RegisterFarmFragment : Fragment() {
         private const val REQUEST_SELECT_IMAGE_IN_ALBUM = 101
         private const val PERMISSION_REQUEST_CODE = 200
         private const val TYPE_IMAGE = "image/*"
-        internal fun newInstance() = RegisterFarmFragment()
+        internal fun newInstance() =
+            RegisterFarmFragment()
     }
 
     override fun onCreateView(
@@ -198,7 +200,8 @@ class RegisterFarmFragment : Fragment() {
      */
     private fun openGallery() {
         val intentGallery = Intent(Intent.ACTION_PICK)
-        intentGallery.type = TYPE_IMAGE
+        intentGallery.type =
+            TYPE_IMAGE
         startActivityForResult(
             intentGallery,
             REQUEST_SELECT_IMAGE_IN_ALBUM

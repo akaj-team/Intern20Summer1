@@ -10,7 +10,7 @@ import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w3.MainActivity
 import com.asiantech.intern20summer1.w4.activity.SplashActivity
 import com.asiantech.intern20summer1.w6.firstactivity.ViewPagerOneActivity
-import com.asiantech.intern20summer1.w7.launcher.LauncherFarmActivity
+import com.asiantech.intern20summer1.w7.launcher.activity.LauncherFarmActivity
 import kotlinx.android.synthetic.`at-huybui`.activity_begin.*
 
 class BeginActivity : AppCompatActivity() {
