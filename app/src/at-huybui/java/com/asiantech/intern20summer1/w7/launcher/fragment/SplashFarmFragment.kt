@@ -208,5 +208,4 @@ class SplashFarmFragment : Fragment() {
     private fun showToast(text: Any, duration: Int = Toast.LENGTH_SHORT) {
         Toast.makeText(requireContext(), text.toString(), duration).show()
     }
-
 }
