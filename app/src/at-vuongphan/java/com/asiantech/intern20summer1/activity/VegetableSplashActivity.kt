@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.extension.replaceFragment
-import com.asiantech.intern20summer1.fragmennt.VegetableSplashFragment
+import com.asiantech.intern20summer1.fragment.VegetableSplashFragment
 
 class VegetableSplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

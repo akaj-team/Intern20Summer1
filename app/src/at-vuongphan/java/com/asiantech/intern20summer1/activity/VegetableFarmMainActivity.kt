@@ -1,7 +1,6 @@
 package com.asiantech.intern20summer1.activity
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
@@ -11,9 +10,8 @@ import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.database.VegetableDB
-import com.asiantech.intern20summer1.fragmennt.VegetableDialogFragment
-import com.asiantech.intern20summer1.fragmennt.VegetableFragmentRecyclerView
-import com.asiantech.intern20summer1.fragmennt.VegetableRegisterFragment
+import com.asiantech.intern20summer1.fragment.VegetableDialogFragment
+import com.asiantech.intern20summer1.fragment.VegetableFragmentRecyclerView
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.`at-vuongphan`.w7_activity_main_farm.*
 import kotlinx.android.synthetic.`at-vuongphan`.w7_nav_header.view.*
@@ -29,39 +27,24 @@ class VegetableFarmMainActivity : AppCompatActivity(),
             VegetableFragmentRecyclerView.newInstance(),
             parent = R.id.frContainerLayout
         )
+        dataBase = VegetableDB.dataBaseConnect(this) // duoc chua
         initView()
         navigationView.setNavigationItemSelectedListener(this)
-        getUser()
+        //getUser()
+        initUser()
         initImageViewBack()
     }
 
-    private fun getUser() {
-        val header = navigationView.getHeaderView(0)
-        val sharedRef = this.getSharedPreferences(
-            VegetableRegisterFragment.SHARED_FILE,
-            Context.MODE_PRIVATE
-        )
-        header.tvName.text =
-            sharedRef.getString(
-                VegetableRegisterFragment.SHARED_USER_NAME_KEY, ""
-            )
-        header.tvNameUniversity.text =
-            sharedRef.getString(
-                VegetableRegisterFragment.SHARED_UNIVERSITY_KEY, ""
-            )
-        if (sharedRef.getString(
-                VegetableRegisterFragment.SHARED_AVATAR_KEY, ""
-            ) == ""
-        ) {
-            header.imgAvatar2.setImageResource(R.drawable.ic_splash)
-        } else {
-            header.imgAvatar2.setImageURI(
-                Uri.parse(
-                    sharedRef.getString(
-                        VegetableRegisterFragment.SHARED_AVATAR_KEY, ""
-                    )
-                )
-            )
+    private fun initUser() {
+        val user = dataBase?.userDao()?.getUser()
+        navigationView.getHeaderView(0)?.let { hd ->
+            user?.let { user ->
+                hd.tvName.text = user.userName
+                hd.tvNameUniversity.text = user.university
+                user.imgUri?.let { imgUri ->
+                    hd.imgAvatar2?.setImageURI(Uri.parse(imgUri))
+                }
+            }
         }
     }
 

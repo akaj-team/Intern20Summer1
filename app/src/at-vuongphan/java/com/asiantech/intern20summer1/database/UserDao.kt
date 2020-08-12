@@ -8,7 +8,7 @@ import androidx.room.Query
 interface UserDao {
 
     @Insert
-    fun insertUser(vararg account: User)
+    fun insertUser(vararg account: User?)
 
     @Query("select * from user ")
     fun getUser(): User

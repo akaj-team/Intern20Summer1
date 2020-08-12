@@ -17,4 +17,7 @@ interface PlantDao {
     @Query("select * from plants where plantId = :id")
     fun getPlant(id: String?): Plant
 
+    @Query("update plants set imageUri = :imageUri where plants.plantId = :plantId")
+    fun editUri(imageUri: String, plantId: String)
+
 }

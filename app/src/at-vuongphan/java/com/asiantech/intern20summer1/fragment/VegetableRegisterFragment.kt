@@ -1,11 +1,9 @@
-package com.asiantech.intern20summer1.fragmennt
+package com.asiantech.intern20summer1.fragment
 
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
@@ -41,10 +39,10 @@ class VegetableRegisterFragment : Fragment() {
 
         private const val REQUEST_IMAGE_CAPTURE = 111
         private const val REQUEST_GET_CONTENT_IMAGE = 222
-        internal const val SHARED_FILE = "userSharedPreference"
-        internal const val SHARED_USER_NAME_KEY = "userName"
-        internal const val SHARED_UNIVERSITY_KEY = "university"
-        internal const val SHARED_AVATAR_KEY = "avatar"
+//        internal const val SHARED_FILE = "userSharedPreference"
+//        internal const val SHARED_USER_NAME_KEY = "userName"
+//        internal const val SHARED_UNIVERSITY_KEY = "university"
+//        internal const val SHARED_AVATAR_KEY = "avatar"
     }
 
     override fun onCreateView(
@@ -52,6 +50,7 @@ class VegetableRegisterFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        dataBase = VegetableDB.dataBaseConnect(requireContext())
         return inflater.inflate(R.layout.w7_register_fragment, container, false)
     }
 
@@ -105,23 +104,16 @@ class VegetableRegisterFragment : Fragment() {
     }
 
     private fun initButtonNext() {
-        val sharedPreferences = activity?.getSharedPreferences(
-            SHARED_FILE,
-            Context.MODE_PRIVATE
-        )
-        btnNext.setOnClickListener {
-            val editor: SharedPreferences.Editor? = sharedPreferences?.edit()
-            editor?.apply {
-                putString(SHARED_USER_NAME_KEY, edtUserName.text.toString())
-                putString(SHARED_UNIVERSITY_KEY, edtUniversity.text.toString())
-                putString(SHARED_AVATAR_KEY, imageUri)
-                apply()
-            }
-            val user= User(
-                userName = edtUserName.text.toString(),
-                university = edtUniversity.text.toString(),
-                homeTown = edtHome.text.toString(),
-                imgUri = imgAvatar.toString()
+        btnNext?.setOnClickListener {
+            val name = edtUserName.text.toString()
+            val university = edtUniversity.text.toString()
+            val homeTown = edtHome.text.toString()
+            val image = imageUri
+            val user = User(
+                userName = name,
+                university = university,
+                homeTown = homeTown,
+                imgUri = image
             )
             dataBase?.userDao()?.insertUser(user)
             val intent = Intent(activity, VegetableFarmMainActivity::class.java)
@@ -267,7 +259,8 @@ class VegetableRegisterFragment : Fragment() {
     }
 
     private fun openCamera() {
-        startActivityForResult(Intent(MediaStore.ACTION_IMAGE_CAPTURE),
+        startActivityForResult(
+            Intent(MediaStore.ACTION_IMAGE_CAPTURE),
             REQUEST_IMAGE_CAPTURE
         )
     }

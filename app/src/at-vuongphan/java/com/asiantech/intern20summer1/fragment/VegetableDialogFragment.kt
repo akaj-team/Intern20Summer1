@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.fragmennt
+package com.asiantech.intern20summer1.fragment
 
 import android.graphics.PorterDuff
 import android.os.Bundle
@@ -48,6 +48,7 @@ class VegetableDialogFragment : DialogFragment() {
                 spnDialog.adapter = adapter
             }
         }
+        @Suppress("DEPRECATION")
         spnDialog.background.setColorFilter(resources.getColor(R.color.colorRed),PorterDuff.Mode.SRC_ATOP)
     }
 }
