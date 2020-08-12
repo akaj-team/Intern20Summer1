@@ -8,7 +8,7 @@ import com.asiantech.intern20summer1.week7.models.Plant
 
 @Dao
 interface PlantDao {
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertPlants(plant: List<Plant>)
 
     @Query("SELECT * FROM plant")

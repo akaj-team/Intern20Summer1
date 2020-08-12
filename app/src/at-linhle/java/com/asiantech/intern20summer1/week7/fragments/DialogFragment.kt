@@ -65,6 +65,25 @@ open class DialogFragment : DialogFragment() {
             ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, listPlants)
         adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner?.adapter = adapterSpinner
+        spinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+
+            override fun onItemSelected(
+                parent: AdapterView<*>?, view: View?,
+                position: Int, id: Long
+            ) {
+                onPlantSelected(position)
+            }
+        }
     }
 
+    private fun onPlantSelected(position: Int) {
+        plants?.get(position)?.let { plant ->
+            var text = "Grow Zone: " + plant.growZoneNumber
+            text += "\nWatering: ${plant.wateringInterval}"
+            tvDialogPlantDetail?.text = text
+            Glide.with(this).load(plant.imageUrl).into(imgDialogPlant)
+        }
+    }
 }
