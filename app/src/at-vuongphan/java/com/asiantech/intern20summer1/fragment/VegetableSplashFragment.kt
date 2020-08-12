@@ -75,7 +75,7 @@ class VegetableSplashFragment : Fragment() {
                         plants = dataBase?.plantDao()?.getAllPlant()
                     }
                     POINT_LOADING_DATA_URL -> {
-                        loadingDataInternet(plants)
+                        loadInternet(plants)
                     }
                     PROGRESS_MAX_VALUE -> {
                         initUriForImage(plants)
@@ -119,7 +119,7 @@ class VegetableSplashFragment : Fragment() {
         }
     }
 
-    private fun loadingDataInternet(plants: List<Plant>?) {
+    private fun loadInternet(plants: List<Plant>?) {
         if (isLoadDataUrl) {
             if (plants?.size == 0) {
                 progressSplash?.progress = 0
