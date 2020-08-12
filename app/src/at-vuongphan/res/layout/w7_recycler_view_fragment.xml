@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/colorWhite">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -9,4 +10,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="vertical" />
+
+    <TextView
+        android:id="@+id/tvNotPlant"
+        tools:text="Chua co cay nao duoc trong"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="@dimen/margin_35dp"
+        android:layout_marginRight="@dimen/margin_35dp"
+        android:gravity="center"
+        android:textColor="@color/colorBlack"
+        android:textSize="30sp"
+        android:textStyle="bold" />
 </RelativeLayout>

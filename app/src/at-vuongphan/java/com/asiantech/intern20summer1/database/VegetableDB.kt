@@ -6,13 +6,14 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 @Database(
-    entities = [User::class, Plant::class],
+    entities = [User::class, Plant::class, Cultivation::class],
     version = 1, exportSchema = false
 )
 abstract class VegetableDB : RoomDatabase() {
 
     abstract fun userDao(): UserDao
     abstract fun plantDao(): PlantDao
+    abstract fun cultivationDao(): CultivationDaO
 
     companion object {
         private const val NAME_DATA_BASE = "plant.db"

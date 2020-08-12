@@ -27,10 +27,9 @@ class VegetableFarmMainActivity : AppCompatActivity(),
             VegetableFragmentRecyclerView.newInstance(),
             parent = R.id.frContainerLayout
         )
-        dataBase = VegetableDB.dataBaseConnect(this) // duoc chua
+        dataBase = VegetableDB.dataBaseConnect(this)
         initView()
         navigationView.setNavigationItemSelectedListener(this)
-        //getUser()
         initUser()
         initImageViewBack()
     }

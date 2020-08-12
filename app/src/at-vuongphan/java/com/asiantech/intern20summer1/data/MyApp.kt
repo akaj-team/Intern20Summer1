@@ -13,7 +13,7 @@ class MyApp {
         internal const val FILE_TAIL = ".jpg"
         private const val MINUTES = 60
         private const val HOURS = 3600
-
+        internal const val MODE_PLANTS =1
     }
 
     @SuppressLint("SimpleDateFormat")
@@ -35,6 +35,17 @@ class MyApp {
             }
         }
         return false
+    }
+    @SuppressLint("SimpleDateFormat")
+    fun getDateHarvest(cultivation: String?, plant: Plant): String {
+        cultivation?.let { cul ->
+            val dateFormat = SimpleDateFormat(FORMAT_CODE_DATE)
+            val calendar = Calendar.getInstance()
+            dateFormat.parse(cul)?.let { calendar.time = it }
+            plant.growZoneNumber?.let { calendar.add(Calendar.MINUTE, it) }
+            return dateFormat.format(calendar.time)
+        }
+        return "null"
     }
 
     @SuppressLint("SimpleDateFormat")

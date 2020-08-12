@@ -68,7 +68,11 @@ class VegetableSplashFragment : Fragment() {
                             saveDataFromJsonFile(requireContext())
                         } else {
                             this.cancel()
-                            loadingFastProgressBar()
+                            loadingFastProgressBar() // day ma. m lay y chang roi thi no chayj vay thoi
+                            // cai nay neu ma mo lan dau chua co data no se len tai ve. con co roi thi thoi.
+                            //tau lam ri thu mak k hie mi vo goi do ra coi dc k khi nay tau lam mak k dc
+                            // cho xi t coi tao uri chua
+                            // cai nay la luu anh ve rooi h laay uri cua no ra thoi thu qua ben adapter do xem dc k
                         }
                     }
                     POINT_LOADING_DATABASE -> {

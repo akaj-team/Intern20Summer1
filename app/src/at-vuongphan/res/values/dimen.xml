@@ -93,6 +93,7 @@
     <dimen name="width_height_16dp">16dp</dimen>
     <dimen name="width_height_80dp">80dp</dimen>
     <dimen name="width_353dp">353dp</dimen>
+    <dimen name="width_182dp">182dp</dimen>
     <dimen name="height_470dp">470dp</dimen>
     <dimen name="margin_left_5dp">5dp</dimen>
     <dimen name="margin_left_51dp">51dp</dimen>

@@ -99,4 +99,9 @@
     <string name="text_view_detail_description_tree">Mô tả cây  (dữ liệu từ database)</string>
     <string name="button_detail_sprinklers_tree">Tưới nước</string>
     <string name="button_detail_cut_tree">Chặt bỏ</string>
+    <string name="text_cultivation">Trồng lúc: %s</string>
+    <string name="text_harvest">Thu Hoạch: %s</string>
+    <string name="text_grow_zone">Grow Zone: %s </string>
+    <string name="text_watering">Watering: %s </string>
+    <string name="text_view_recycler">Chua co cay nao duoc trong</string>
 </resources>
