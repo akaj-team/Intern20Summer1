@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1
+package com.asiantech.intern20summer1.week3
 
 import android.os.Bundle
 import android.text.Editable
@@ -8,6 +8,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.asiantech.intern20summer1.R
 import kotlinx.android.synthetic.`at-phuongle`.activity_main.*
 import java.util.regex.Matcher
 import java.util.regex.Pattern

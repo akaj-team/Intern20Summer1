@@ -3,7 +3,6 @@ package com.asiantech.intern20summer1.activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.asiantech.intern20summer1.MainActivity
 import com.asiantech.intern20summer1.R
 import kotlinx.android.synthetic.`at-vuongphan`.activity_exercise.*
 

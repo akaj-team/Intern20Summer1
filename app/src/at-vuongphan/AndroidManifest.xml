@@ -18,14 +18,14 @@
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat"
             tools:ignore="MissingClass" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".activity.MainActivity" />
         <activity android:name=".activity.ViewPagerActivityTwo" />
         <activity android:name=".activity.ViewPagerActivity" />
         <activity android:name=".activity.SplashActivity" />
         <activity android:name=".activity.SignInActivity" />
         <activity android:name=".activity.HomeActivity" />
         <activity android:name=".activity.VegetableFarmMainActivity" />
-        <activity android:name=".activity.VegetableSplashActivity"/>
+        <activity android:name=".activity.VegetableSplashActivity" />
         <activity android:name=".activity.MainExerciseActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

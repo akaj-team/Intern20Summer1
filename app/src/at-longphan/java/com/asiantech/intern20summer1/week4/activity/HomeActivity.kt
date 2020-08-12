@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week4.model.User
 import com.asiantech.intern20summer1.week4.other.SignInActivityData
-import kotlinx.android.synthetic.`at-longphan`.activity_home_w6.*
+import kotlinx.android.synthetic.`at-longphan`.activity_home.*
 
 class HomeActivity : AppCompatActivity() {
 
@@ -16,7 +16,7 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home_w6)
+        setContentView(R.layout.activity_home)
         configStatusBarColor()
         initData()
         loadDataToView()
