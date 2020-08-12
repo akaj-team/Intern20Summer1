@@ -6,11 +6,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week7.data.AppDatabase
 import com.asiantech.intern20summer1.week7.extensions.DownloadImage
+import com.asiantech.intern20summer1.week7.extensions.DownloadImage.Companion.FILE_TAIL_KEY
+import com.asiantech.intern20summer1.week7.extensions.DownloadImage.Companion.NAME_FILE_IMAGE_KEY
 import com.asiantech.intern20summer1.week7.fragments.RegisterFragment.Companion.SHARED_PREFERENCE_FILE
 import com.asiantech.intern20summer1.week7.models.Plant
 import com.asiantech.intern20summer1.week7.views.HomeActivity
@@ -25,7 +26,7 @@ import java.util.concurrent.Executors
 class SplashFragment : Fragment() {
 
     companion object {
-        private const val TIME_CHECK_DATA = 10L
+        private const val TIME_CHECK_DATA = 1L
         private const val TIME_LOAD_DATA = 20L
         private const val TIMER_PERIOD = 100L
         private const val LOAD_DATA_INTERNET = 30L
@@ -44,10 +45,10 @@ class SplashFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         appDataBase = AppDatabase.getInstance(requireContext())
-        loadProgressbar()
+        loadProgressBar()
     }
 
-    private fun loadProgressbar() {
+    private fun loadProgressBar() {
         var plants = appDataBase?.getPlantDao()?.getPlants()
         var count = 0L
         Timer().schedule(object : TimerTask() {
@@ -58,22 +59,40 @@ class SplashFragment : Fragment() {
                     TIME_CHECK_DATA -> {
                         if (plants?.size == 0) {
                             buildPlantData(requireContext())
+                        } else {
+                            cancel()
+                            loadProgressBarAgain()
                         }
                     }
-//                    TIME_LOAD_DATA -> {
-//                        plants = appDataBase?.getPlantDao()?.getPlants()
-//                    }
-//                    LOAD_DATA_INTERNET -> {
-//                        plants?.forEach { plant ->
-//                            plant.plantId?.let {
-//                                DownloadImage(requireContext(), it).execute(plant.imageUrl)
-//                            }
-//                        }
-//                    }
-                    TIMER_PERIOD -> {
-                        changeActivity()
-                        cancel()
+                    TIME_LOAD_DATA -> {
+                        plants = appDataBase?.getPlantDao()?.getPlants()
                     }
+                    LOAD_DATA_INTERNET -> {
+                        plants?.forEach { plant ->
+                            plant.plantId?.let {
+                                DownloadImage(requireContext(), it).execute(plant.imageUrl)
+                            }
+                        }
+                    }
+                    TIMER_PERIOD -> {
+                        updateImageUrl(plants)
+                        cancel()
+                        changeActivity()
+                    }
+                }
+            }
+        }, 0, TIMER_PERIOD)
+    }
+
+    private fun loadProgressBarAgain() {
+        var count = progressBar.progress
+        Timer().schedule(object : TimerTask() {
+            override fun run() {
+                count++
+                progressBar.progress = count
+                if (count.toLong() == TIMER_PERIOD) {
+                    cancel()
+                    changeActivity()
                 }
             }
         }, 0, TIMER_PERIOD)
@@ -105,6 +124,15 @@ class SplashFragment : Fragment() {
                     val plants: List<Plant> = Gson().fromJson(jsonReader, plantType)
                     appDataBase?.getPlantDao()?.insertPlants(plants)
                 }
+            }
+        }
+    }
+
+    private fun updateImageUrl(plants: List<Plant>?) {
+        val path = requireContext().getDir(NAME_FILE_IMAGE_KEY, Context.MODE_PRIVATE)
+        plants?.forEach { plant ->
+            plant.plantId?.let {
+                appDataBase?.getPlantDao()?.updateImageUrl("$path/${it}${FILE_TAIL_KEY}", it)
             }
         }
     }
