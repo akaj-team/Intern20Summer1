@@ -129,4 +129,14 @@
     <dimen name="w7_detail_collapsing_expanded_title_margin_end">64dp</dimen>
     <dimen name="w7_detail_collapsing_expanded_title_margin_start">48dp</dimen>
     <dimen name="w7_detail_collapsing_height">300dp</dimen>
+    <dimen name="w7_dialog_plant_image_width">150dp</dimen>
+    <dimen name="w7_dialog_information_text_size">20sp</dimen>
+    <dimen name="w7_item_recycler_height">104dp</dimen>
+    <dimen name="w7_header_icon_back_size">30dp</dimen>
+    <dimen name="w7_header_icon_back_margin_left">10dp</dimen>
+    <dimen name="w7_header_icon_back_margin_top">10dp</dimen>
+    <dimen name="w7_detail_information_text_size">20sp</dimen>
+    <dimen name="w7_detail_information_text_padding">20dp</dimen>
+    <dimen name="w7_detail_button_margin_left_right">30dp</dimen>
+    <dimen name="w7_recycler_dont_have_text_size">30sp</dimen>
 </resources>

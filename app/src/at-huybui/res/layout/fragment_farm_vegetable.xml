@@ -21,7 +21,7 @@
         android:layout_marginRight="@dimen/w7_recycler_view_margin_left_right"
         android:gravity="center"
         android:textColor="@color/black"
-        android:textSize="30sp"
+        android:textSize="@dimen/w7_recycler_dont_have_text_size"
         android:textStyle="bold"
         tools:text="Chua co cay nao duoc trong" />
 </RelativeLayout>

@@ -75,15 +75,15 @@
     <string name="w7_university">University</string>
     <string name="w7_register_next">Next</string>
     <string name="w7_home_town">Home Town</string>
-    <string name="w7_vuon_rau">Vườn rau</string>
-    <string name="w7_trong_rau">Trồng rau</string>
-    <string name="w7_rau_sap_thu_hoach">Rau sắp thu hoạch</string>
-    <string name="w7_rau_bi_sau">Rau bị sâu</string>
-    <string name="w7_rau_bi_thieu_nuoc">Rau bị thiếu nước</string>
+    <string name="w7_menu_plants">Vườn c</string>
+    <string name="w7_menu_cultivation">Trồng cây</string>
+    <string name="w7_menu_harvest">Cây thu hoạch</string>
+    <string name="w7_rau_bi_sau">Cây bị sâu</string>
+    <string name="w7_menu_lack_water">C bị thiếu nước</string>
     <string name="w7_header_university">University: %s</string>
     <string name="w7_header_home_town">Home town: %s</string>
     <string name="w7_trong_cay">Trồng Cây</string>
-    <string name="w7_ok">ok</string>
+    <string name="w7_ok">OK</string>
     <string name="w7_chon_cay_trong">Chọn cây trồng</string>
     <string name="w7_toolbar_menu_drawerlayout_database">W7-Toolbar, Menu, DrawerLayout, Database</string>
     <string name="w7_detail_chat_bo">Chặt bỏ</string>
@@ -100,6 +100,5 @@
     <string name="w7_clear_plant_complete">Nhổ Cây Thành Công</string>
     <string name="w7_watering_complete">Đã tưới cây thành công</string>
     <string name="w7_detail_plant_is_wormed">Cây bị sâu, cần được tưới nước</string>
-    <string name="w7_detail_cay_khoe_manh">Cây khỏe mạnh</string>
     <string name="w7_splash_internet_request">Yêu cầu kết nối internet</string>
 </resources>

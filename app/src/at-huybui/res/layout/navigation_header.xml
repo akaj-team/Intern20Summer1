@@ -8,10 +8,10 @@
 
     <ImageView
         android:id="@+id/imgIconBack"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_width="@dimen/w7_header_icon_back_size"
+        android:layout_height="@dimen/w7_header_icon_back_size"
+        android:layout_marginLeft="@dimen/w7_header_icon_back_margin_left"
+        android:layout_marginTop="@dimen/w7_header_icon_back_margin_top"
         android:src="@drawable/icon_back" />
 
     <androidx.cardview.widget.CardView

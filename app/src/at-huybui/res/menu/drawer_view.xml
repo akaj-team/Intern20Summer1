@@ -1,26 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-<!--    <group android:checkableBehavior="single">-->
         <item
             android:id="@+id/itemGarden"
             android:icon="@drawable/icon_like"
-            android:title="@string/w7_vuon_rau" />
+            android:title="@string/w7_menu_plants" />
         <item
             android:id="@+id/itemGrowVegetable"
             android:icon="@drawable/icon_vegetable"
-            android:title="@string/w7_trong_rau" />
+            android:title="@string/w7_menu_cultivation" />
         <item
             android:id="@+id/itemHarvest"
             android:icon="@drawable/icon_harvest"
-            android:title="@string/w7_rau_sap_thu_hoach" />
+            android:title="@string/w7_menu_harvest" />
         <item
             android:id="@+id/itemWorm"
             android:icon="@drawable/icon_worm"
             android:title="@string/w7_rau_bi_sau" />
         <item
             android:id="@+id/itemWater"
-            android:iconTintMode="src_over"
             android:icon="@drawable/icon_water"
-            android:title="@string/w7_rau_bi_thieu_nuoc" />
-<!--    </group>-->
+            android:title="@string/w7_menu_lack_water" />
 </menu>

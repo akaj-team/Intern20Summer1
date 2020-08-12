@@ -31,7 +31,6 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
             android:layout_marginTop="@dimen/sign_in_icon_button_margin"
-            android:layout_marginEnd="@dimen/sign_in_icon_button_margin"
             android:layout_marginBottom="@dimen/sign_in_icon_button_margin"
             android:src="@drawable/ic_logo_facebook" />
 
@@ -63,7 +62,6 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
             android:layout_marginTop="@dimen/sign_in_icon_button_margin"
-            android:layout_marginEnd="@dimen/sign_in_icon_button_margin"
             android:layout_marginBottom="@dimen/sign_in_icon_button_margin"
             android:src="@drawable/ic_logo_google" />
 
