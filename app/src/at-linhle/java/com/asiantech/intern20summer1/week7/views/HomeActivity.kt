@@ -75,17 +75,17 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private fun getUser() {
         val header = navigationContainer.getHeaderView(0)
         val sharedRef = this.getSharedPreferences(SHARED_PREFERENCE_FILE, Context.MODE_PRIVATE)
-        header.tvHomeUserName.text =
+        header.tvHomeUserName?.text =
             sharedRef.getString(
                 SHARED_PREFERENCE_USER_NAME_KEY,
                 getString(R.string.share_preference_user_name_default)
             )
-        header.tvHomeHomeTown.text =
+        header.tvHomeHomeTown?.text =
             sharedRef.getString(
                 SHARED_PREFERENCE_HOME_TOWN_KEY,
                 getString(R.string.share_preference_home_town_default)
             )
-        header.tvHomeUniversity.text =
+        header.tvHomeUniversity?.text =
             sharedRef.getString(
                 SHARED_PREFERENCE_UNIVERSITY_KEY,
                 getString(R.string.share_preference_university_default)
@@ -95,9 +95,9 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 getString(R.string.share_preference_avatar_default)
             ) == ""
         ) {
-            header.imgHomeUser.setImageResource(R.drawable.img_user)
+            header.imgHomeUser?.setImageResource(R.drawable.img_user)
         } else {
-            header.imgHomeUser.setImageURI(
+            header.imgHomeUser?.setImageURI(
                 Uri.parse(
                     sharedRef.getString(
                         SHARED_PREFERENCE_AVATAR_KEY,
@@ -117,6 +117,6 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         plantItemsStorage.shuffle()
         plantItemList = plantItemsStorage
         adapter = VegetableViewHolder(recyclerViewContainer, this, plantItemList)
-        recyclerViewContainer.adapter = adapter
+        recyclerViewContainer?.adapter = adapter
     }
 }
