@@ -30,36 +30,30 @@ abstract class AppDatabase : RoomDatabase() {
         private var instance: AppDatabase? = null
 
         fun getInstance(context: Context): AppDatabase? {
-            return if(instance == null){
-                Room.databaseBuilder(context, AppDatabase::class.java, "plant.db")
-                    .allowMainThreadQueries()
-                    .build()
+            return if (instance == null) {
+                buildDatabase(context)
             } else {
                 instance
             }
-//            return instance ?: synchronized(this) {
-//                instance ?: buildDatabase(context).also { instance = it }
-//            }
         }
 
-//        private fun buildDatabase(context: Context): AppDatabase? {
-//            return Room.databaseBuilder(context, AppDatabase::class.java, "plant.db")
-//                .addCallback(object : RoomDatabase.Callback() {
-//                    override fun onCreate(db: SupportSQLiteDatabase) {
-//                        super.onCreate(db)
-//                        Executors.newFixedThreadPool(2).execute {
-//                            context.assets.open("plants.json").use { inputStream ->
-//                                JsonReader(inputStream.reader()).use { jsonReader ->
-//                                    val plantType = object : TypeToken<List<Plant>>() {}.type
-//                                    val plants: List<Plant> = Gson().fromJson(jsonReader, plantType)
-//
-//                                    buildDatabase(context)?.getPlantDao()?.insertPlants(plants)
-//                                }
-//                            }
-//                        }
-//                    }
-//                })
-//                .build()
-//        }
+        private fun buildDatabase(context: Context): AppDatabase? {
+            return Room.databaseBuilder(context, AppDatabase::class.java, "plant.db")
+                .addCallback(object : RoomDatabase.Callback() {
+                    override fun onCreate(db: SupportSQLiteDatabase) {
+                        super.onCreate(db)
+                        Executors.newFixedThreadPool(2).execute {
+                            context.assets.open("plants.json").use { inputStream ->
+                                JsonReader(inputStream.reader()).use { jsonReader ->
+                                    val plantType = object : TypeToken<List<Plant>>() {}.type
+                                    val plants: List<Plant> = Gson().fromJson(jsonReader, plantType)
+
+                                    buildDatabase(context)?.getPlantDao()?.insertPlants(plants)
+                                }
+                            }
+                        }
+                    }
+                }).allowMainThreadQueries().build()
+        }
     }
 }

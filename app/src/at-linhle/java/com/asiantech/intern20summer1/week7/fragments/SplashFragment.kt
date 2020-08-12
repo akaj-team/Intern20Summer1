@@ -16,17 +16,13 @@ import com.asiantech.intern20summer1.week7.fragments.RegisterFragment.Companion.
 import com.asiantech.intern20summer1.week7.models.Plant
 import com.asiantech.intern20summer1.week7.views.HomeActivity
 import com.asiantech.intern20summer1.week7.views.LauncherActivity
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import com.google.gson.stream.JsonReader
 import kotlinx.android.synthetic.`at-linhle`.fragment_splash.*
 import java.util.*
-import java.util.concurrent.Executors
 
 class SplashFragment : Fragment() {
 
     companion object {
-        private const val TIME_CHECK_DATA = 1L
+        private const val TIME_CHECK_DATA = 10L
         private const val TIME_LOAD_DATA = 20L
         private const val TIMER_PERIOD = 100L
         private const val LOAD_DATA_INTERNET = 30L
@@ -57,11 +53,9 @@ class SplashFragment : Fragment() {
                 progressBar?.progress = count.toInt()
                 when (count) {
                     TIME_CHECK_DATA -> {
-                        if (plants?.size == 0) {
-                            buildPlantData(requireContext())
-                        } else {
-                            cancel()
+                        if (plants?.size != 0) {
                             loadProgressBarAgain()
+                            cancel()
                         }
                     }
                     TIME_LOAD_DATA -> {
@@ -76,8 +70,8 @@ class SplashFragment : Fragment() {
                     }
                     TIMER_PERIOD -> {
                         updateImageUrl(plants)
-                        cancel()
                         changeActivity()
+                        cancel()
                     }
                 }
             }
@@ -91,8 +85,8 @@ class SplashFragment : Fragment() {
                 count++
                 progressBar.progress = count
                 if (count.toLong() == TIMER_PERIOD) {
-                    cancel()
                     changeActivity()
+                    cancel()
                 }
             }
         }, 0, TIMER_PERIOD)
@@ -113,18 +107,6 @@ class SplashFragment : Fragment() {
             val intent = Intent(activity, HomeActivity::class.java)
             activity?.startActivity(intent)
             activity?.finish()
-        }
-    }
-
-    private fun buildPlantData(context: Context) {
-        Executors.newFixedThreadPool(2).execute {
-            context.assets.open("plants.json").use { inputStream ->
-                JsonReader(inputStream.reader()).use { jsonReader ->
-                    val plantType = object : TypeToken<List<Plant>>() {}.type
-                    val plants: List<Plant> = Gson().fromJson(jsonReader, plantType)
-                    appDataBase?.getPlantDao()?.insertPlants(plants)
-                }
-            }
         }
     }
 
