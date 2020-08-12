@@ -120,5 +120,4 @@ class MainFarmActivity : AppCompatActivity() {
         drawerLayout.closeDrawer(GravityCompat.START)
         fragment.show(fragmentManager, null)
     }
-
 }
