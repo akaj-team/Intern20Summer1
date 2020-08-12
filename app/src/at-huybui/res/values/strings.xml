@@ -101,4 +101,5 @@
     <string name="w7_watering_complete">Đã tưới cây thành công</string>
     <string name="w7_detail_plant_is_wormed">Cây bị sâu, cần được tưới nước</string>
     <string name="w7_detail_cay_khoe_manh">Cây khỏe mạnh</string>
+    <string name="w7_splash_internet_request">Yêu cầu kết nối internet</string>
 </resources>

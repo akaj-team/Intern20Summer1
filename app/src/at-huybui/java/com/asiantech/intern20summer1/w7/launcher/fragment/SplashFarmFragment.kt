@@ -79,17 +79,14 @@ class SplashFarmFragment : Fragment() {
                     POINT_CHECK_DATABASE -> {
                         if (plants?.size == 0) {
                             if (isCheckInternet()) {
-                                showToast(getString(R.string.w7_loading_data))
-                                isLoadDataUrl = true
-                                saveDataFromJsonFile(requireContext())
+                                handleInternet()
                             } else {
-                                showToast("yeu cau ket noi internet")
+                                showToast(getString(R.string.w7_splash_internet_request))
                                 progressBarFarm?.progress = 0
                             }
                         } else {
                             this.cancel()
                             loadingFastProgressBar()
-
                         }
                     }
                     POINT_LOADING_DATABASE -> {
@@ -107,7 +104,9 @@ class SplashFarmFragment : Fragment() {
                 }
             }
 
-            override fun onFinish() {}
+            override fun onFinish() {
+                (activity as MainFarmActivity).finish()
+            }
         }.start()
     }
 
@@ -179,7 +178,19 @@ class SplashFarmFragment : Fragment() {
         }.start()
     }
 
+    private fun handleInternet() {
+        if (isCheckInternet()) {
+            showToast(getString(R.string.w7_loading_data))
+            isLoadDataUrl = true
+            saveDataFromJsonFile(requireContext())
+        } else {
+            showToast("yeu cau ket noi internet")
+            progressBarFarm?.progress = 0
+        }
+    }
+
     private fun isCheckInternet(): Boolean {
+        var returnValue = false
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val connectivityManager =
                 context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -189,21 +200,22 @@ class SplashFarmFragment : Fragment() {
                 when {
                     capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> {
                         Log.i("Internet", "NetworkCapabilities.TRANSPORT_CELLULAR")
-                        return true
+                        returnValue = true
                     }
                     capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> {
                         Log.i("Internet", "NetworkCapabilities.TRANSPORT_WIFI")
-                        return true
+                        returnValue = true
                     }
                     capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> {
                         Log.i("Internet", "NetworkCapabilities.TRANSPORT_ETHERNET")
-                        return true
+                        returnValue = true
                     }
                 }
             }
         }
-        return false
+        return returnValue
     }
+
 
     private fun showToast(text: Any, duration: Int = Toast.LENGTH_SHORT) {
         Toast.makeText(requireContext(), text.toString(), duration).show()
