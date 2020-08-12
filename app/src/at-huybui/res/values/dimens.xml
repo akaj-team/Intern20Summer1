@@ -123,4 +123,10 @@
     <dimen name="w7_dialog_text_information_margin">20dp</dimen>
     <dimen name="w7_icon_in_item_vegetable_margin_right">5dp</dimen>
     <dimen name="w7_icon_in_item_vegetable_margin_top">10dp</dimen>
+    <dimen name="w7_detail_icon_watering_size">50dp</dimen>
+    <dimen name="w7_detail_icon_margin_left_right">30dp</dimen>
+    <dimen name="w7_detail_icon_back_size">30dp</dimen>
+    <dimen name="w7_detail_collapsing_expanded_title_margin_end">64dp</dimen>
+    <dimen name="w7_detail_collapsing_expanded_title_margin_start">48dp</dimen>
+    <dimen name="w7_detail_collapsing_height">300dp</dimen>
 </resources>

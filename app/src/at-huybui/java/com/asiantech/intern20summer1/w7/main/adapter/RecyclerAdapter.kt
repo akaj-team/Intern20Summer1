@@ -1,6 +1,5 @@
 package com.asiantech.intern20summer1.w7.main.adapter
 
-import android.annotation.SuppressLint
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
@@ -12,10 +11,7 @@ import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w7.companion.App
 import com.asiantech.intern20summer1.w7.database.ConnectDataBase
 import com.asiantech.intern20summer1.w7.model.CultivationModel
-import com.asiantech.intern20summer1.w7.model.PlantModel
 import kotlinx.android.synthetic.`at-huybui`.recycler_farm_item.view.*
-import java.text.SimpleDateFormat
-import java.util.*
 
 /**
  * Asian Tech Co., Ltd.
@@ -64,42 +60,29 @@ class RecyclerAdapter(private val mutableList: MutableList<CultivationModel>) :
             mutableList[adapterPosition].let { culPlant ->
                 dataBase?.plantDao()?.getPlant(culPlant.plantId)?.let { plant ->
                     val cultivation = culPlant.dateCultivation
-                    val harvest = getDateHarvest(culPlant.dateCultivation, plant)
+                    val harvest = App().getDateHarvest(culPlant.dateCultivation, plant)
                     tvDateCultivation.text =
                         itemView.context.getString(R.string.w7_text_cultivation, cultivation)
                     tvDateHarvest.text =
                         itemView.context.getString(R.string.w7_text_harvest, harvest)
                     tvName.text = plant.name
                     imgPlant.setImageURI(Uri.parse(plant.imageUri))
+                    imgWorm.visibility = View.INVISIBLE
+                    imgLackWater.visibility = View.INVISIBLE
+                    imgHarvest.visibility = View.INVISIBLE
                     if (App().isPlantWormed(plant, culPlant)) {
                         imgWorm.visibility = View.VISIBLE
-                    } else {
-                        imgWorm.visibility = View.INVISIBLE
                     }
-                    if(App().isPlantLackWater(plant,culPlant)){
+                    if (App().isPlantLackWater(plant, culPlant)) {
                         imgLackWater.visibility = View.VISIBLE
-                    }else{
-                        imgLackWater.visibility = View.INVISIBLE
                     }
-                    if(App().isPlantHarvest(plant,culPlant)){
+                    if (App().isPlantHarvest(plant, culPlant)) {
                         imgHarvest.visibility = View.VISIBLE
-                    }else{
-                        imgHarvest.visibility = View.INVISIBLE
+                        imgWorm.visibility = View.INVISIBLE
+                        imgLackWater.visibility = View.INVISIBLE
                     }
                 }
             }
-        }
-
-        @SuppressLint("SimpleDateFormat")
-        private fun getDateHarvest(cultivation: String?, plant: PlantModel): String {
-            cultivation?.let { cul ->
-                val dateFormat = SimpleDateFormat(App.FORMAT_CODE_DATE)
-                val calendar = Calendar.getInstance()
-                dateFormat.parse(cul)?.let { calendar.time = it }
-                plant.growZoneNumber?.let { calendar.add(Calendar.DATE, it) }
-                return dateFormat.format(calendar.time)
-            }
-            return "null"
         }
     }
 }

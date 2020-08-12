@@ -1,7 +1,6 @@
 package com.asiantech.intern20summer1.w7.main.fragment
 
 import android.annotation.SuppressLint
-import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,6 +13,7 @@ import com.asiantech.intern20summer1.w7.companion.App
 import com.asiantech.intern20summer1.w7.database.ConnectDataBase
 import com.asiantech.intern20summer1.w7.main.MainFarmActivity
 import com.asiantech.intern20summer1.w7.model.CultivationModel
+import com.asiantech.intern20summer1.w7.model.PlantModel
 import kotlinx.android.synthetic.`at-huybui`.fragment_information_tree.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -38,6 +38,7 @@ class PlantDetailFragment : Fragment() {
     }
 
     private var cultivation: CultivationModel? = null
+    private var plant: PlantModel? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,19 +55,31 @@ class PlantDetailFragment : Fragment() {
         initListener()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun initView() {
         cultivation = dataBase?.cultivationDao()?.getCultivation(arguments?.getInt(KEY_POS_ID))
-        val plant = dataBase?.plantDao()?.getPlant(cultivation?.plantId)
+        plant = dataBase?.plantDao()?.getPlant(cultivation?.plantId)
+        imgIsWater_detail?.visibility = View.INVISIBLE
+        imgIsWorm_detail?.visibility = View.INVISIBLE
+        imgIsHarvest_detail?.visibility = View.INVISIBLE
+        if (App().isPlantLackWater(plant, cultivation)) {
+            imgIsWater_detail?.visibility = View.VISIBLE
+        }
         if (App().isPlantWormed(plant, cultivation)) {
-            tvWormed_detail?.text = getString(R.string.w7_detail_plant_is_wormed)
-            tvWormed_detail?.setTextColor(Color.RED)
-        } else {
-            tvWormed_detail?.text = getString(R.string.w7_detail_cay_khoe_manh)
-            tvWormed_detail?.setTextColor(Color.BLUE)
+            imgIsWorm_detail?.visibility = View.VISIBLE
+        }
+        if (App().isPlantHarvest(plant, cultivation)) {
+            imgIsWater_detail?.visibility = View.INVISIBLE
+            imgIsWorm_detail?.visibility = View.INVISIBLE
+            imgIsHarvest_detail?.visibility = View.VISIBLE
+            btnWatering_detail?.text = "Thu hoạch"
         }
         detail_imgCultivation?.setImageURI(Uri.parse(plant?.imageUri))
-        tv2?.text = "water ring: " + cultivation?.dateWatering
-        tv3?.text = cultivation?.dateCultivation
+        val dateHarvest = plant?.let { App().getDateHarvest(cultivation?.dateCultivation, it) }
+        val textCultivation = getString(R.string.w7_text_cultivation, cultivation?.dateCultivation)
+        val textHarvest = getString(R.string.w7_text_harvest, dateHarvest)
+        tvInformationCultivation_detail?.text = "$textCultivation\n$textHarvest"
+        tvInformationPlant_detail?.text = plant?.description
     }
 
     private fun initListener() {
@@ -95,12 +108,21 @@ class PlantDetailFragment : Fragment() {
     @SuppressLint("SimpleDateFormat")
     private fun handleForButtonWatering() {
         btnWatering_detail?.setOnClickListener {
-            cultivation?.let {
-                val dateFormat = SimpleDateFormat(App.FORMAT_CODE_DATE)
-                dataBase?.cultivationDao()?.waterPlant(it.id, dateFormat.format(Date()))
-                (activity as MainFarmActivity).apply { fragment.initData(fragment.mode) }
-                initView()
-                showToast(getString(R.string.w7_watering_complete))
+            if (App().isPlantHarvest(plant, cultivation)) {
+                cultivation?.let {
+                    dataBase?.cultivationDao()?.deleteCultivation(it)
+                    (activity as MainFarmActivity).apply { fragment.initData(fragment.mode) }
+                    showToast("Đã thu hoạch cây")
+                    fragmentManager?.popBackStack()
+                }
+            } else {
+                cultivation?.let {
+                    val dateFormat = SimpleDateFormat(App.FORMAT_CODE_DATE)
+                    dataBase?.cultivationDao()?.waterPlant(it.id, dateFormat.format(Date()))
+                    (activity as MainFarmActivity).apply { fragment.initData(fragment.mode) }
+                    initView()
+                    showToast(getString(R.string.w7_watering_complete))
+                }
             }
         }
     }

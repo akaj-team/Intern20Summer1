@@ -113,14 +113,40 @@ class TreeRecyclerFragment : Fragment() {
             }
         } else {
             when (mode) {
-                1 -> {
+                App.MODE_PLANTS -> {
                     adapterRecycler.notifyDataSetChanged()
                 }
-                2 -> {
+                App.MODE_WORMED -> {
                     val list = mutableListOf<CultivationModel>()
                     vegetableList.forEach { culti ->
                         dataBase?.plantDao()?.getPlant(culti.plantId)?.let { plant ->
                             if (App().isPlantWormed(plant, culti)) {
+                                list.add(culti)
+                            }
+                        }
+                    }
+                    vegetableList.clear()
+                    list.toCollection(vegetableList)
+                    adapterRecycler.notifyDataSetChanged()
+                }
+                App.MODE_HARVEST -> {
+                    val list = mutableListOf<CultivationModel>()
+                    vegetableList.forEach { culti ->
+                        dataBase?.plantDao()?.getPlant(culti.plantId)?.let { plant ->
+                            if (App().isPlantHarvest(plant, culti)) {
+                                list.add(culti)
+                            }
+                        }
+                    }
+                    vegetableList.clear()
+                    list.toCollection(vegetableList)
+                    adapterRecycler.notifyDataSetChanged()
+                }
+                App.MODE_WATERING -> {
+                    val list = mutableListOf<CultivationModel>()
+                    vegetableList.forEach { culti ->
+                        dataBase?.plantDao()?.getPlant(culti.plantId)?.let { plant ->
+                            if (App().isPlantLackWater(plant, culti)) {
                                 list.add(culti)
                             }
                         }

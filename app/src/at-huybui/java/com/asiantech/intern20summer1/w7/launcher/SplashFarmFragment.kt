@@ -34,7 +34,7 @@ class SplashFarmFragment : Fragment() {
         private const val SPLASH_TIMER = 50000L
         private const val PROGRESS_TIMER_STEP = 100L
         private const val PROGRESS_MAX_VALUE = 100
-        private const val PROGRESS_FAST_STEP = 5L
+        private const val PROGRESS_FAST_STEP = 2L
         private const val JSON_FILE_NAME = "plants.json"
         private const val POINT_CHECK_DATABASE = 5
         private const val POINT_LOADING_DATABASE = 10

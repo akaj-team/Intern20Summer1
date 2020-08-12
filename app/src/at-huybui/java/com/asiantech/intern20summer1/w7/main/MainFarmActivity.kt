@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.w7.companion.App
 import com.asiantech.intern20summer1.w7.database.ConnectDataBase
 import com.asiantech.intern20summer1.w7.main.fragment.DialogFragmentFarm
 import com.asiantech.intern20summer1.w7.main.fragment.TreeRecyclerFragment
@@ -90,22 +91,22 @@ class MainFarmActivity : AppCompatActivity() {
         navigationView?.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.itemGarden -> {
-                    onClickPlants.invoke(1)
+                    onClickPlants.invoke(App.MODE_PLANTS)
                     drawerLayout.closeDrawer(GravityCompat.START)
                 }
                 R.id.itemGrowVegetable -> {
                     handleShowDialogFragment()
                 }
                 R.id.itemWorm -> {
-                    onClickPlantWormed.invoke(2)
+                    onClickPlantWormed.invoke(App.MODE_WORMED)
                     drawerLayout.closeDrawer(GravityCompat.START)
                 }
                 R.id.itemHarvest -> {
-                    onClickPlantHarvest.invoke(3)
+                    onClickPlantHarvest.invoke(App.MODE_HARVEST)
                     drawerLayout.closeDrawer(GravityCompat.START)
                 }
                 R.id.itemWater -> {
-                    onClickLackWater.invoke(4)
+                    onClickLackWater.invoke(App.MODE_WATERING)
                     drawerLayout.closeDrawer(GravityCompat.START)
                 }
             }

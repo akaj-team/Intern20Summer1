@@ -10,18 +10,18 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/main.appbar"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="@dimen/w7_detail_collapsing_height"
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/main.collapsing"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="@dimen/w7_detail_collapsing_height"
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
-            app:expandedTitleMarginEnd="64dp"
-            app:expandedTitleMarginStart="48dp"
+            app:expandedTitleMarginEnd="@dimen/w7_detail_collapsing_expanded_title_margin_end"
+            app:expandedTitleMarginStart="@dimen/w7_detail_collapsing_expanded_title_margin_start"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <ImageView
@@ -45,8 +45,8 @@
 
                 <ImageView
                     android:id="@+id/btnBack.detail"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="@dimen/w7_detail_icon_back_size"
+                    android:layout_height="@dimen/w7_detail_icon_back_size"
                     android:src="@drawable/icon_back" />
             </androidx.appcompat.widget.Toolbar>
 
@@ -64,27 +64,41 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
-                android:gravity="center"
-                android:id="@+id/tvWormed_detail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:lineSpacingExtra="8dp"
-                android:padding="20dp"
-                android:textSize="20sp"
-                tools:text="Cây bị sâu" />
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_gravity="center"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/imgIsWater.detail"
+        android:layout_width="@dimen/w7_detail_icon_watering_size"
+        android:layout_height="@dimen/w7_detail_icon_watering_size"
+        android:src="@drawable/icon_is_water"/>
+    <ImageView
+        android:id="@+id/imgIsWorm.detail"
+        android:layout_width="@dimen/w7_detail_icon_watering_size"
+        android:layout_height="@dimen/w7_detail_icon_watering_size"
+        android:layout_marginRight="@dimen/w7_detail_icon_margin_left_right"
+        android:layout_marginLeft="@dimen/w7_detail_icon_margin_left_right"
+        android:src="@drawable/icon_is_worm"/>
+    <ImageView
+        android:id="@+id/imgIsHarvest.detail"
+        android:layout_width="@dimen/w7_detail_icon_watering_size"
+        android:layout_height="@dimen/w7_detail_icon_watering_size"
+        android:src="@drawable/icon_is_harvest"/>
+</LinearLayout>
 
             <TextView
-                android:id="@+id/tv2"
+                android:id="@+id/tvInformationCultivation.detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:lineSpacingExtra="8dp"
+                android:textColor="@color/black"
                 android:padding="20dp"
                 android:textSize="20sp"
                 tools:text="xxxxxxxxxxxxx" />
 
             <TextView
-                android:id="@+id/tv3"
+                android:id="@+id/tvInformationPlant.detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:lineSpacingExtra="8dp"
