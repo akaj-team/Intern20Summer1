@@ -28,7 +28,7 @@ class TreeRecyclerFragment : Fragment() {
         internal fun newInstance() = TreeRecyclerFragment()
     }
 
-    internal var mode = 1
+    internal var mode = App.MODE_PLANTS
     private var dataBase: ConnectDataBase? = null
     private var vegetableList: MutableList<CultivationModel> = mutableListOf()
     private val adapterRecycler = RecyclerAdapter(vegetableList)
@@ -81,19 +81,19 @@ class TreeRecyclerFragment : Fragment() {
     }
 
     private fun handleReceiveEventOnclickItemDrawer() {
-        (activity as MainFarmActivity).onClickPlants = {
+        (activity as MainFarmActivity).onClickItemMenuDrawer = {
             mode = it
             initData(mode)
         }
-        (activity as MainFarmActivity).onClickPlantHarvest = {
+        (activity as MainFarmActivity).onClickItemMenuDrawer = {
             mode = it
             initData(mode)
         }
-        (activity as MainFarmActivity).onClickPlantWormed = {
+        (activity as MainFarmActivity).onClickItemMenuDrawer = {
             mode = it
             initData(mode)
         }
-        (activity as MainFarmActivity).onClickLackWater = {
+        (activity as MainFarmActivity).onClickItemMenuDrawer = {
             mode = it
             initData(mode)
         }
@@ -117,43 +117,13 @@ class TreeRecyclerFragment : Fragment() {
                     adapterRecycler.notifyDataSetChanged()
                 }
                 App.MODE_WORMED -> {
-                    val list = mutableListOf<CultivationModel>()
-                    vegetableList.forEach { culti ->
-                        dataBase?.plantDao()?.getPlant(culti.plantId)?.let { plant ->
-                            if (App().isPlantWormed(plant, culti)) {
-                                list.add(culti)
-                            }
-                        }
-                    }
-                    vegetableList.clear()
-                    list.toCollection(vegetableList)
-                    adapterRecycler.notifyDataSetChanged()
+                    initDataForWormed()
                 }
                 App.MODE_HARVEST -> {
-                    val list = mutableListOf<CultivationModel>()
-                    vegetableList.forEach { culti ->
-                        dataBase?.plantDao()?.getPlant(culti.plantId)?.let { plant ->
-                            if (App().isPlantHarvest(plant, culti)) {
-                                list.add(culti)
-                            }
-                        }
-                    }
-                    vegetableList.clear()
-                    list.toCollection(vegetableList)
-                    adapterRecycler.notifyDataSetChanged()
+                    initDataForHarvest()
                 }
                 App.MODE_WATERING -> {
-                    val list = mutableListOf<CultivationModel>()
-                    vegetableList.forEach { culti ->
-                        dataBase?.plantDao()?.getPlant(culti.plantId)?.let { plant ->
-                            if (App().isPlantLackWater(plant, culti)) {
-                                list.add(culti)
-                            }
-                        }
-                    }
-                    vegetableList.clear()
-                    list.toCollection(vegetableList)
-                    adapterRecycler.notifyDataSetChanged()
+                    initDataForLackWater()
                 }
             }
         }
@@ -162,4 +132,48 @@ class TreeRecyclerFragment : Fragment() {
             (activity as MainFarmActivity).handleShowDialogFragment()
         }
     }
+
+    private fun initDataForWormed() {
+        val list = mutableListOf<CultivationModel>()
+        vegetableList.forEach { culti ->
+            dataBase?.plantDao()?.getPlant(culti.plantId)?.let { plant ->
+                if (App().isPlantWormed(plant, culti)) {
+                    list.add(culti)
+                }
+            }
+        }
+        vegetableList.clear()
+        list.toCollection(vegetableList)
+        adapterRecycler.notifyDataSetChanged()
+    }
+
+    private fun initDataForHarvest() {
+        val list = mutableListOf<CultivationModel>()
+        vegetableList.forEach { culti ->
+            dataBase?.plantDao()?.getPlant(culti.plantId)?.let { plant ->
+                if (App().isPlantHarvest(plant, culti)) {
+                    list.add(culti)
+                }
+            }
+        }
+        vegetableList.clear()
+        list.toCollection(vegetableList)
+        adapterRecycler.notifyDataSetChanged()
+    }
+
+    private fun initDataForLackWater() {
+        val list = mutableListOf<CultivationModel>()
+        vegetableList.forEach { culti ->
+            dataBase?.plantDao()?.getPlant(culti.plantId)?.let { plant ->
+                if (App().isPlantLackWater(plant, culti)) {
+                    list.add(culti)
+                }
+            }
+        }
+        vegetableList.clear()
+        list.toCollection(vegetableList)
+        adapterRecycler.notifyDataSetChanged()
+    }
+
+
 }

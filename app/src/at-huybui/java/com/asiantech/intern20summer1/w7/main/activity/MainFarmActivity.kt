@@ -23,10 +23,7 @@ import kotlinx.android.synthetic.`at-huybui`.w7_activity_main_farm.*
 class MainFarmActivity : AppCompatActivity() {
 
     private var dataBase: ConnectDataBase? = null
-    internal var onClickPlants: (mode: Int) -> Unit = {}
-    internal var onClickPlantWormed: (mode: Int) -> Unit = {}
-    internal var onClickPlantHarvest: (mode: Int) -> Unit = {}
-    internal var onClickLackWater: (mode: Int) -> Unit = {}
+    internal var onClickItemMenuDrawer: (mode: Int) -> Unit = {}
     internal val fragment = TreeRecyclerFragment.newInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -91,22 +88,22 @@ class MainFarmActivity : AppCompatActivity() {
         navigationView?.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.itemGarden -> {
-                    onClickPlants.invoke(App.MODE_PLANTS)
+                    onClickItemMenuDrawer.invoke(App.MODE_PLANTS)
                     drawerLayout.closeDrawer(GravityCompat.START)
                 }
                 R.id.itemGrowVegetable -> {
                     handleShowDialogFragment()
                 }
                 R.id.itemWorm -> {
-                    onClickPlantWormed.invoke(App.MODE_WORMED)
+                    onClickItemMenuDrawer.invoke(App.MODE_WORMED)
                     drawerLayout.closeDrawer(GravityCompat.START)
                 }
                 R.id.itemHarvest -> {
-                    onClickPlantHarvest.invoke(App.MODE_HARVEST)
+                    onClickItemMenuDrawer.invoke(App.MODE_HARVEST)
                     drawerLayout.closeDrawer(GravityCompat.START)
                 }
                 R.id.itemWater -> {
-                    onClickLackWater.invoke(App.MODE_WATERING)
+                    onClickItemMenuDrawer.invoke(App.MODE_WATERING)
                     drawerLayout.closeDrawer(GravityCompat.START)
                 }
             }
