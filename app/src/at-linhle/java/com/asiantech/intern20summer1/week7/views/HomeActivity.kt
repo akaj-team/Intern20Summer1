@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week7.adapters.VegetableViewHolder
+import com.asiantech.intern20summer1.week7.fragments.DialogFragment
 import com.asiantech.intern20summer1.week7.fragments.RegisterFragment.Companion.SHARED_PREFERENCE_AVATAR_KEY
 import com.asiantech.intern20summer1.week7.fragments.RegisterFragment.Companion.SHARED_PREFERENCE_FILE
 import com.asiantech.intern20summer1.week7.fragments.RegisterFragment.Companion.SHARED_PREFERENCE_HOME_TOWN_KEY
@@ -37,6 +38,11 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.itemGrowVegetable) {
+            val fragmentManager = supportFragmentManager
+            drawerLayout.closeDrawer(GravityCompat.START)
+            DialogFragment().show(fragmentManager, null)
+        }
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
