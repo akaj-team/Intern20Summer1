@@ -2,6 +2,7 @@ package com.asiantech.intern20summer1.w7.launcher.fragment
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
@@ -18,13 +19,18 @@ import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w7.companion.App
 import com.asiantech.intern20summer1.w7.database.ConnectDataBase
 import com.asiantech.intern20summer1.w7.launcher.activity.LauncherFarmActivity
-import com.asiantech.intern20summer1.w7.launcher.asynctask.DownLoadImage
 import com.asiantech.intern20summer1.w7.main.activity.MainFarmActivity
 import com.asiantech.intern20summer1.w7.model.PlantModel
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.bitmap.DownsampleStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.google.gson.stream.JsonReader
 import kotlinx.android.synthetic.`at-huybui`.fragment_splash_farm.*
+import java.io.File
+import java.io.FileOutputStream
 import java.util.concurrent.Executors
 
 
@@ -46,8 +52,9 @@ class SplashFarmFragment : Fragment() {
         private const val POINT_CHECK_DATABASE = 5
         private const val POINT_LOADING_DATABASE = 10
         private const val POINT_LOADING_DATA_URL = 20
-        internal fun newInstance() =
-            SplashFarmFragment()
+        private const val SIZE_IMAGE = 500
+        private const val QUALITY_IMAGE = 100
+        internal fun newInstance() = SplashFarmFragment()
     }
 
     private var dataBase: ConnectDataBase? = null
@@ -79,7 +86,9 @@ class SplashFarmFragment : Fragment() {
             PROGRESS_TIMER_STEP
         ) {
             override fun onTick(millisUntilFinished: Long) {
-                progressBarFarm?.progress = progressBarFarm.progress + 1
+                if (!isLoadDataUrl) {
+                    progressBarFarm?.progress = progressBarFarm.progress + 1
+                }
                 when (progressBarFarm?.progress) {
                     POINT_CHECK_DATABASE -> {
                         if (plants?.size == 0) {
@@ -97,7 +106,6 @@ class SplashFarmFragment : Fragment() {
                     }
 
                     PROGRESS_MAX_VALUE -> {
-                        initUriForImage(plants)
                         intentActivity()
                         this.cancel()
                     }
@@ -123,17 +131,13 @@ class SplashFarmFragment : Fragment() {
     }
 
     private fun loadingDataInternet(plants: List<PlantModel>?) {
-        if (isLoadDataUrl) {
             if (plants?.size == 0) {
                 progressBarFarm?.progress = 0
             } else {
-                plants?.forEach { plant ->
-                    plant.plantId?.let {
-                        DownLoadImage(requireContext(), it).execute(plant.imageUrl)
-                    }
-                }
+                isLoadDataUrl = true
+                progressBarFarm?.progress = progressBarFarm.progress + 1
+                downLoadImageFromUrl(plants)
             }
-        }
     }
 
     private fun intentActivity() {
@@ -146,15 +150,6 @@ class SplashFarmFragment : Fragment() {
             val intent = Intent(context, MainFarmActivity::class.java)
             startActivity(intent)
             (activity as LauncherFarmActivity).finish()
-        }
-    }
-
-    private fun initUriForImage(plants: List<PlantModel>?) {
-        val part = requireContext().getDir(App.NAME_DIR, Context.MODE_PRIVATE)
-        plants?.forEach { plant ->
-            plant.plantId?.let {
-                dataBase?.plantDao()?.editUri("$part/${it}${App.FILE_TAIL}", it)
-            }
         }
     }
 
@@ -181,7 +176,6 @@ class SplashFarmFragment : Fragment() {
     private fun handleInternet(timer: CountDownTimer) {
         if (isCheckInternet()) {
             showToast(getString(R.string.w7_loading_data))
-            isLoadDataUrl = true
             saveDataFromJsonFile(requireContext())
         } else {
             showToast(getString(R.string.w7_splash_internet_connect_request), Toast.LENGTH_LONG)
@@ -234,6 +228,47 @@ class SplashFarmFragment : Fragment() {
         }
         val dialog = builder.create()
         dialog.show()
+    }
+
+    private fun downLoadImageFromUrl(plants: List<PlantModel>?) {
+        Thread(Runnable {
+            plants?.forEachIndexed { index, plant ->
+                var directory: File? = null
+                val requestOptions = RequestOptions().override(SIZE_IMAGE, SIZE_IMAGE)
+                    .downsample(DownsampleStrategy.CENTER_INSIDE)
+                    .skipMemoryCache(true)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+
+                val bitmap = Glide.with(requireContext()).asBitmap().load(plant.imageUrl)
+                    .apply(requestOptions).submit().get()
+
+                try {
+                    directory = requireContext().getDir(App.NAME_DIR, Context.MODE_PRIVATE)
+                    val path = File(directory, "${plant.plantId}${App.FILE_TAIL}")
+                    FileOutputStream(path).apply {
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, QUALITY_IMAGE, this)
+                        flush()
+                        close()
+                    }
+                } catch (ae: ArithmeticException) {
+                    ae.printStackTrace()
+                } catch (ne: NumberFormatException) {
+                    ne.printStackTrace()
+                } catch (ie: IllegalArgumentException) {
+                    ie.printStackTrace()
+                }
+                (activity as LauncherFarmActivity).runOnUiThread {
+                    progressBarFarm?.progress =
+                        progressBarFarm.progress + (PROGRESS_MAX_VALUE - POINT_LOADING_DATA_URL) / plants.size
+                    val uriImage =
+                        "${directory?.absolutePath.toString()}/${plant.plantId}${App.FILE_TAIL}"
+                    dataBase?.plantDao()?.editUri(uriImage, plant.plantId)
+                    if (index == plants.size - 1) {
+                        progressBarFarm?.progress = PROGRESS_MAX_VALUE
+                    }
+                }
+            }
+        }).start()
     }
 
     private fun showToast(text: Any, duration: Int = Toast.LENGTH_SHORT) {

@@ -33,7 +33,6 @@
             android:layout_marginLeft="@dimen/w7_register_margin_left_right"
             android:layout_width="match_parent"
             android:layout_marginRight="@dimen/w7_register_margin_left_right"
-            android:background="@drawable/bg_w7_select_spinner"
             android:layout_height="@dimen/w7_register_edit_text_height"
             android:overScrollMode="never" />
 
