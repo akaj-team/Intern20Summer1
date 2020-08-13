@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">[SonNguyen]InterSummer1</string>
+    <string name="app_name">ViewPager-Tablayout</string>
     <string name="your_profile_link">Link your social media profile</string>
     <string name="email_text_view_description_text">Enter your Email ID</string>
     <string name="password_text_view_description_text">Type your password</string>
@@ -38,6 +38,7 @@
     <string name="w7_button_text">Week 7</string>
     <string name="begin_week6_button_text">Week 6</string>
     <string name="w6_app_name">Week 6 - ViewPager - TabLayout</string>
+    <string name="w4_app_name">Week 4 - Activity - Intent - Fragment</string>
     <string name="w7_permission_denied">permission denied</string>
     <string name="w7_image_title">Title</string>
     <string name="w7_open">open</string>
