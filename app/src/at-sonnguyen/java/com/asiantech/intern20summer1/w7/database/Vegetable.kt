@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.w7.data
+package com.asiantech.intern20summer1.w7.database
 
 data class Vegetable(
     val name: String,

@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 29
@@ -120,6 +121,16 @@ dependencies {
     implementation "androidx.room:room-rxjava2:2.2.5"
     implementation "androidx.room:room-guava:2.2.5"
     testImplementation "androidx.room:room-testing:2.2.5"
+    implementation "androidx.room:room-runtime:2.2.5"
+    kapt "androidx.room:room-compiler:2.2.5"
+    implementation "com.google.code.gson:gson:2.8.2"
+    implementation 'com.github.takusemba:cropme:2.0.5'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+    implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:4.1.2'
+    implementation 'com.google.android.material:material:1.1.0'
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
 }
 
 apply from: "ci-kotlin.gradle"

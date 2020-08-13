@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w7.adapter.VegetableAdapter
-import com.asiantech.intern20summer1.w7.data.Vegetable
+import com.asiantech.intern20summer1.w7.database.Vegetable
 import kotlinx.android.synthetic.`at-sonnguyen`.w7_fragment_vegetable_garden.*
 
 class VegetableGardenFragment : Fragment(){

@@ -7,7 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.w7.data.Vegetable
+import com.asiantech.intern20summer1.w7.database.Vegetable
 
 class VegetableAdapter(private val vegetables: MutableList<Vegetable>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
