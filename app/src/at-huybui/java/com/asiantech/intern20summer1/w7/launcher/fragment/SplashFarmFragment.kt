@@ -7,11 +7,12 @@ import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.util.Log
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w7.companion.App
@@ -63,6 +64,10 @@ class SplashFarmFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         dataBase = ConnectDataBase.dataBaseConnect(requireContext())
+    }
+
+    override fun onStart() {
+        super.onStart()
         handleForProgressBar()
     }
 
@@ -78,12 +83,7 @@ class SplashFarmFragment : Fragment() {
                 when (progressBarFarm?.progress) {
                     POINT_CHECK_DATABASE -> {
                         if (plants?.size == 0) {
-                            if (isCheckInternet()) {
-                                handleInternet()
-                            } else {
-                                showToast(getString(R.string.w7_splash_internet_request))
-                                progressBarFarm?.progress = 0
-                            }
+                            handleInternet(this)
                         } else {
                             this.cancel()
                             loadingFastProgressBar()
@@ -178,13 +178,15 @@ class SplashFarmFragment : Fragment() {
         }.start()
     }
 
-    private fun handleInternet() {
+    private fun handleInternet(timer: CountDownTimer) {
         if (isCheckInternet()) {
             showToast(getString(R.string.w7_loading_data))
             isLoadDataUrl = true
             saveDataFromJsonFile(requireContext())
         } else {
-            showToast("yeu cau ket noi internet")
+            showToast(getString(R.string.w7_splash_internet_connect_request), Toast.LENGTH_LONG)
+            timer.cancel()
+            selectInternetDialog()
             progressBarFarm?.progress = 0
         }
     }
@@ -199,15 +201,12 @@ class SplashFarmFragment : Fragment() {
             if (capabilities != null) {
                 when {
                     capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> {
-                        Log.i("Internet", "NetworkCapabilities.TRANSPORT_CELLULAR")
                         returnValue = true
                     }
                     capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> {
-                        Log.i("Internet", "NetworkCapabilities.TRANSPORT_WIFI")
                         returnValue = true
                     }
                     capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> {
-                        Log.i("Internet", "NetworkCapabilities.TRANSPORT_ETHERNET")
                         returnValue = true
                     }
                 }
@@ -216,6 +215,26 @@ class SplashFarmFragment : Fragment() {
         return returnValue
     }
 
+    private fun selectInternetDialog() {
+        val builder = (activity as LauncherFarmActivity).let { it1 -> AlertDialog.Builder(it1) }
+        builder.setTitle(getString(R.string.w7_splash_select_internet))
+        val select = arrayOf(
+            getString(R.string.w7_splash_wifi),
+            getString(R.string.w7_splash_mobile_network)
+        )
+        builder.setItems(select) { _, which ->
+            when (which) {
+                0 -> {
+                    startActivity(Intent(Settings.ACTION_WIFI_SETTINGS))
+                }
+                1 -> {
+                    startActivity(Intent(Settings.ACTION_DATA_ROAMING_SETTINGS))
+                }
+            }
+        }
+        val dialog = builder.create()
+        dialog.show()
+    }
 
     private fun showToast(text: Any, duration: Int = Toast.LENGTH_SHORT) {
         Toast.makeText(requireContext(), text.toString(), duration).show()

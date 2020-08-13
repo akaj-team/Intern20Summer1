@@ -14,7 +14,11 @@ import com.asiantech.intern20summer1.w7.model.UserModel
  * This is entities for database
  */
 
-@Database(entities = [UserModel::class, PlantModel::class,CultivationModel::class], version = 1, exportSchema = false)
+@Database(
+    entities = [UserModel::class, PlantModel::class, CultivationModel::class],
+    version = 1,
+    exportSchema = false
+)
 abstract class ConnectDataBase : RoomDatabase() {
 
     abstract fun userDao(): UserDAO

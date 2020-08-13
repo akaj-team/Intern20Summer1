@@ -75,11 +75,11 @@
     <string name="w7_university">University</string>
     <string name="w7_register_next">Next</string>
     <string name="w7_home_town">Home Town</string>
-    <string name="w7_menu_plants">Vườn c</string>
+    <string name="w7_menu_plants">Vườn cây</string>
     <string name="w7_menu_cultivation">Trồng cây</string>
     <string name="w7_menu_harvest">Cây thu hoạch</string>
     <string name="w7_rau_bi_sau">Cây bị sâu</string>
-    <string name="w7_menu_lack_water">C bị thiếu nước</string>
+    <string name="w7_menu_lack_water">Cây bị thiếu nước</string>
     <string name="w7_header_university">University: %s</string>
     <string name="w7_header_home_town">Home town: %s</string>
     <string name="w7_trong_cay">Trồng Cây</string>
@@ -96,9 +96,13 @@
     <string name="w7_select">Select</string>
     <string name="w7_camera">Camera</string>
     <string name="w7_gallery">Gallery</string>
-    <string name="w7_loading_data">Đang tải giữ liệu ban đầu</string>
+    <string name="w7_loading_data">Đang tải giữ liệu ban đầu, vui lòng không ngắt kết nối internet</string>
     <string name="w7_clear_plant_complete">Nhổ Cây Thành Công</string>
     <string name="w7_watering_complete">Đã tưới cây thành công</string>
     <string name="w7_detail_plant_is_wormed">Cây bị sâu, cần được tưới nước</string>
     <string name="w7_splash_internet_request">Yêu cầu kết nối internet</string>
+    <string name="w7_splash_internet_connect_request">Yêu cầu kết nối internet</string>
+    <string name="w7_splash_select_internet">Chọn cài đặt internet</string>
+    <string name="w7_splash_wifi">Wifi</string>
+    <string name="w7_splash_mobile_network">Mobile data</string>
 </resources>

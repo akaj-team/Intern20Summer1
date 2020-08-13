@@ -90,7 +90,7 @@ class App {
     }
 
     @SuppressLint("SimpleDateFormat")
-     fun getDateHarvest(cultivation: String?, plant: PlantModel): String {
+    fun getDateHarvest(cultivation: String?, plant: PlantModel): String {
         cultivation?.let { cul ->
             val dateFormat = SimpleDateFormat(FORMAT_CODE_DATE)
             val calendar = Calendar.getInstance()

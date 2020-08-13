@@ -49,7 +49,6 @@ class RecyclerAdapter(private val mutableList: MutableList<CultivationModel>) :
         private var imgLackWater:ImageView= itemView.imgStatusWatering
         private var imgHarvest:ImageView= itemView.imgStatusHarvest
 
-
         init {
             itemView.setOnClickListener {
                 onItemClicked.invoke(mutableList[adapterPosition].id)
