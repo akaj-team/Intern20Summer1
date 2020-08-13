@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--    Week 3-->
     <dimen name="edit_text_width">238dp</dimen>
     <dimen name="edit_text_height">47dp</dimen>
     <dimen name="sign_up_button_width">238dp</dimen>
@@ -27,4 +28,18 @@
     <dimen name="sign_up_text_view_margin_left">5dp</dimen>
     <dimen name="radius">23dp</dimen>
     <dimen name="stroke">1dp</dimen>
+
+    <!--    Week 6-->
+    <dimen name="indicator_margin_left">20dp</dimen>
+    <dimen name="indicator_margin_bottom">20dp</dimen>
+    <dimen name="next_text_view_margin_right">20dp</dimen>
+    <dimen name="next_text_view_margin_bottom">20dp</dimen>
+    <dimen name="next_text_view_text_size">24sp</dimen>
+    <dimen name="step_text_view_text_size">54sp</dimen>
+    <dimen name="background_animal_image_view_radius">30dp</dimen>
+    <dimen name="animal_image_view_margin_left">40dp</dimen>
+    <dimen name="animal_image_view_margin_right">40dp</dimen>
+    <dimen name="animal_image_view_margin_top">20dp</dimen>
+    <dimen name="animal_image_view_padding">10dp</dimen>
+    <dimen name="animal_image_view_elevation">40dp</dimen>
 </resources>

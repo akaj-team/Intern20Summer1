@@ -57,4 +57,16 @@
     <dimen name="sign_up_button_stroke_width">1dp</dimen>
     <dimen name="edit_text_corner_radius">100dp</dimen>
     <dimen name="edit_text_stroke_width">1dp</dimen>
+    <!-- week6 -->
+    <dimen name="tab_layout_corner_radius">40dp</dimen>
+    <dimen name="circle_indicator_margin_position">10dp</dimen>
+    <dimen name="circle_indicator_margin_bottom">20dp</dimen>
+    <dimen name="text_view_next_margin_position">20dp</dimen>
+    <dimen name="text_view_next_size">25sp</dimen>
+    <dimen name="step_text_view_size">40sp</dimen>
+    <dimen name="tab_layout_relative_layout_margin_top">30dp</dimen>
+    <dimen name="tab_layout_relative_layout_margin_left_right">50dp</dimen>
+    <dimen name="dot_indicator_corner_radius">8dp</dimen>
+    <dimen name="dot_indicator_size">16dp</dimen>
+    <dimen name="dot_indicator_spacing">4dp</dimen>
 </resources>

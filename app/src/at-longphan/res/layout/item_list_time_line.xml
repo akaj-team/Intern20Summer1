@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorContainerItemListTimeLineBackground"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/linear_layout_name_above_margin">
+
+        <TextView
+            android:id="@+id/tvUserNameWeek5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-light"
+            android:textColor="@color/colorTextViewNameUserAboveText"
+            android:textSize="@dimen/text_view_name_above_text_size"
+            android:textStyle="bold"
+            tools:text="saybayaaa" />
+
+        <ImageView
+            android:layout_width="@dimen/image_view_more_width"
+            android:layout_height="@dimen/image_view_more_height"
+            android:src="@drawable/ic_more" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imgImagePost"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        tools:srcCompat="@drawable/img_cat" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/linear_layout_interact_padding">
+
+        <ImageView
+            android:id="@+id/imgIsLiked"
+            android:layout_width="@dimen/image_view_is_liked_width"
+            android:layout_height="@dimen/image_view_is_liked_height"
+            android:layout_marginHorizontal="@dimen/image_view_is_liked_margin_horizontal"
+            tools:srcCompat="@drawable/ic_heart" />
+
+        <ImageView
+            android:id="@+id/imgComment"
+            android:layout_width="@dimen/image_view_comment_width"
+            android:layout_height="@dimen/image_view_comment_height"
+            android:layout_marginHorizontal="@dimen/image_view_comment_margin_horizontal"
+            app:srcCompat="@drawable/ic_comment" />
+
+        <ImageView
+            android:id="@+id/imgShare"
+            android:layout_width="@dimen/image_view_share_width"
+            android:layout_height="@dimen/image_view_share_height"
+            android:layout_marginHorizontal="@dimen/image_view_share_margin_horizontal"
+            android:padding="1dp"
+            app:srcCompat="@drawable/ic_share" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/linear_layout_content_padding_horizontal">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/view_horizontal_rule_height"
+            android:background="@color/colorViewHorizontalRuleBackground" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/linear_layout_likes_margin_top">
+
+            <ImageView
+                android:id="@+id/imgLikes"
+                android:layout_width="@dimen/image_view_heart_width"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_heart_filled" />
+
+            <TextView
+                android:id="@+id/tvLikes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/text_view_likes_margin_left"
+                android:fontFamily="sans-serif-light"
+                android:textColor="@color/colorTextViewLikesText"
+                android:textSize="@dimen/text_view_likes_text_size"
+                android:textStyle="bold"
+                tools:text="12" />
+
+            <TextView
+                android:id="@+id/tvIsPluralLike"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/text_view_like_description_margin_left"
+                android:fontFamily="sans-serif-light"
+                android:textColor="@color/colorTextViewLikeDescriptionText"
+                android:textSize="@dimen/text_view_like_description_text_size"
+                android:textStyle="bold"
+                tools:text="likes" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/linear_layout_name_and_content_margin_top">
+
+            <TextView
+                android:id="@+id/tvCaptionWeek5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:textColor="@color/colorTextViewNameText"
+                android:textSize="@dimen/text_view_user_name_week_5"
+                tools:text="saybayaaa saybayaaa aksdnkas lakndsnad kansdkjna aksdnkasd akjsdn aksndasndaskdn" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_horizontal_rule_long_height_week_5"
+        android:layout_marginTop="@dimen/view_horizontal_rule_long_margin_top_week_5"
+        android:background="@color/colorViewHorizontalRuleBackground" />
+</LinearLayout>
