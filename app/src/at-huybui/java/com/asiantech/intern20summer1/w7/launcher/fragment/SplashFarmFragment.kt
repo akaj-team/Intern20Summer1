@@ -210,7 +210,7 @@ class SplashFarmFragment : Fragment() {
     }
 
     private fun selectInternetDialog() {
-        val builder = (activity as LauncherFarmActivity).let { it1 -> AlertDialog.Builder(it1) }
+        val builder = (activity as LauncherFarmActivity).let { AlertDialog.Builder(it) }
         builder.setTitle(getString(R.string.w7_splash_select_internet))
         val select = arrayOf(
             getString(R.string.w7_splash_wifi),
