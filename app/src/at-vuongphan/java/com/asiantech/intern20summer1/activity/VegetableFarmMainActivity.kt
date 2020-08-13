@@ -20,6 +20,7 @@ class VegetableFarmMainActivity : AppCompatActivity(),
     NavigationView.OnNavigationItemSelectedListener {
 
     private var dataBase: VegetableDB? = null
+    internal var onClickMenu: (id: Int) -> Unit = {}
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.w7_activity_main_farm)
@@ -93,19 +94,18 @@ class VegetableFarmMainActivity : AppCompatActivity(),
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.navFarmer -> {
-                VegetableDialogFragment.newInstance().show(supportFragmentManager, "")
+                onClickMenu.invoke(1)
                 drawerLayout.closeDrawer(GravityCompat.START)
             }
             R.id.navGrowVegetable -> {
-                Toast.makeText(this, "trong rau", Toast.LENGTH_SHORT).show()
+                VegetableDialogFragment.newInstance().show(supportFragmentManager, "")
                 drawerLayout.closeDrawer(GravityCompat.START)
             }
             R.id.navHarvest -> {
-                Toast.makeText(this, "rau sap thu hoach", Toast.LENGTH_SHORT).show()
                 drawerLayout.closeDrawer(GravityCompat.START)
             }
             R.id.navSau -> {
-                Toast.makeText(this, "aaaa", Toast.LENGTH_SHORT).show()
+                onClickMenu.invoke(2)
                 drawerLayout.closeDrawer(GravityCompat.START)
             }
             R.id.navNuoc -> {

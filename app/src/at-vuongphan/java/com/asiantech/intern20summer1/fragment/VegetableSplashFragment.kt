@@ -12,7 +12,6 @@ import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.activity.VegetableFarmMainActivity
 import com.asiantech.intern20summer1.activity.VegetableSplashActivity
 import com.asiantech.intern20summer1.data.DownLoadImage
-import com.asiantech.intern20summer1.data.MyApp
 import com.asiantech.intern20summer1.database.Plant
 import com.asiantech.intern20summer1.database.VegetableDB
 import com.google.gson.Gson
@@ -26,6 +25,8 @@ class VegetableSplashFragment : Fragment() {
     private var isLoadDataUrl = false
 
     companion object {
+        internal const val NAME_DIR = "imagePlants"
+        internal const val FILE_TAIL = ".jpg"
         private const val SPLASH_TIMER = 50000L
         private const val PROGRESS_TIMER_STEP = 100L
         private const val PROGRESS_MAX_VALUE = 100
@@ -68,11 +69,7 @@ class VegetableSplashFragment : Fragment() {
                             saveDataFromJsonFile(requireContext())
                         } else {
                             this.cancel()
-                            loadingFastProgressBar() // day ma. m lay y chang roi thi no chayj vay thoi
-                            // cai nay neu ma mo lan dau chua co data no se len tai ve. con co roi thi thoi.
-                            //tau lam ri thu mak k hie mi vo goi do ra coi dc k khi nay tau lam mak k dc
-                            // cho xi t coi tao uri chua
-                            // cai nay la luu anh ve rooi h laay uri cua no ra thoi thu qua ben adapter do xem dc k
+                            loadingFastProgressBar()
                         }
                     }
                     POINT_LOADING_DATABASE -> {
@@ -138,10 +135,10 @@ class VegetableSplashFragment : Fragment() {
     }
 
     private fun initUriForImage(plants: List<Plant>?) {
-        val part = requireContext().getDir(MyApp.NAME_DIR, Context.MODE_PRIVATE)
+        val part = requireContext().getDir(NAME_DIR, Context.MODE_PRIVATE)
         plants?.forEach { plant ->
             plant.plantId?.let {
-                dataBase?.plantDao()?.editUri("$part/${it}${MyApp.FILE_TAIL}", it)
+                dataBase?.plantDao()?.editUri("$part/${it}${FILE_TAIL}", it)
             }
         }
     }

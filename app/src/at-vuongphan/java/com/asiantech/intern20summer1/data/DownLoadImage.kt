@@ -10,12 +10,13 @@ import com.bumptech.glide.request.RequestOptions
 import java.io.File
 import java.io.FileOutputStream
 import java.lang.ref.WeakReference
-// do co cai nay goi vo la nos dowm anh ve thoi goi xem thu
 class DownLoadImage(context: Context, private var name: String) :
     AsyncTask<String, Unit, String>() {
     companion object {
         private const val SIZE_IMAGE = 500
         private const val QUALITY_IMAGE = 100
+        internal const val NAME_DIR = "imagePlants"
+        internal const val FILE_TAIL = ".jpg"
     }
 
     private var context: WeakReference<Context> = WeakReference(context)
@@ -35,8 +36,8 @@ class DownLoadImage(context: Context, private var name: String) :
                 .submit()
                 .get()
             try {
-                directory = it.getDir(MyApp.NAME_DIR, Context.MODE_PRIVATE)
-                val path = File(directory, "$name${MyApp.FILE_TAIL}")
+                directory = it.getDir(NAME_DIR, Context.MODE_PRIVATE)
+                val path = File(directory, "$name${FILE_TAIL}")
                 val out = FileOutputStream(path)
                 bitmap.compress(Bitmap.CompressFormat.JPEG, QUALITY_IMAGE, out)
                 out.flush()

@@ -7,12 +7,13 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.database.Plant
+import com.asiantech.intern20summer1.database.Cultivation
 import com.asiantech.intern20summer1.database.VegetableDB
+import com.asiantech.intern20summer1.fragment.VegetableFragmentRecyclerView
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.`at-vuongphan`.w7_item_recycler_view.view.*
 
-class VegetableRecyclerViewAdapter(private val mutableList: MutableList<Plant>) :
+class VegetableRecyclerViewAdapter(private val mutableList: MutableList<Cultivation>) :
     RecyclerView.Adapter<VegetableRecyclerViewAdapter.ItemViewHolder>() {
     internal var onItemClicked: (id: Int?) -> Unit = {}
     private var dataBase: VegetableDB? = null
@@ -39,6 +40,7 @@ class VegetableRecyclerViewAdapter(private val mutableList: MutableList<Plant>) 
     inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private var tvName: TextView = itemView.tvNameVegetable
         private var icon: CircleImageView = itemView.circleData
+        private var tvDateHarvest: TextView = itemView.tvTimeTwo
         private var tvDateCultivation: TextView = itemView.tvTimeOne
         private var avatar: CircleImageView = itemView.imgVegetable
 
@@ -49,10 +51,23 @@ class VegetableRecyclerViewAdapter(private val mutableList: MutableList<Plant>) 
         }
 
         fun bindData() {
-            tvName.text = mutableList[adapterPosition].name
-            tvDateCultivation.text = mutableList[adapterPosition].description
-            avatar.setImageURI(Uri.parse(mutableList[adapterPosition].imageUri))
-            icon.setImageURI(Uri.parse(mutableList[adapterPosition].imageUri))
+//            tvName.text = mutableList[adapterPosition].name
+//            tvDateCultivation.text = mutableList[adapterPosition].description
+//            avatar.setImageURI(Uri.parse(mutableList[adapterPosition].imageUri))
+//            icon.setImageURI(Uri.parse(mutableList[adapterPosition].imageUri))
+            mutableList[adapterPosition].let {
+                dataBase?.plantDao()?.getPlant(it.plantId)?.apply {
+                    val cultivation = it.dateCultivation
+                    val harvest =
+                        VegetableFragmentRecyclerView().getDateHarvest(it.dateCultivation, this)
+                    tvDateCultivation.text =
+                        itemView.context.getString(R.string.text_cultivation, cultivation)
+                    tvDateHarvest.text = itemView.context.getString(R.string.text_harvest, harvest)
+                    tvName.text = name
+                    avatar.setImageURI(Uri.parse(imageUri))
+                    icon.setImageURI(Uri.parse(imageUri))
+                }
+            }
         }
     }
 }

@@ -103,5 +103,6 @@
     <string name="text_harvest">Thu Hoạch: %s</string>
     <string name="text_grow_zone">Grow Zone: %s </string>
     <string name="text_watering">Watering: %s </string>
+    <string name="toast_description">successful</string>
     <string name="text_view_recycler">Chua co cay nao duoc trong</string>
 </resources>

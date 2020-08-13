@@ -1,18 +1,23 @@
 package com.asiantech.intern20summer1.fragment
 
+import android.annotation.SuppressLint
 import android.graphics.Color
-import android.graphics.PorterDuff
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.database.Cultivation
 import com.asiantech.intern20summer1.database.Plant
 import com.asiantech.intern20summer1.database.VegetableDB
 import kotlinx.android.synthetic.`at-vuongphan`.w7_dialog_fragment.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class VegetableDialogFragment : DialogFragment() {
     private var plantSelected: Plant? = null
@@ -20,6 +25,7 @@ class VegetableDialogFragment : DialogFragment() {
     private var dataBase: VegetableDB? = null
 
     companion object {
+        internal const val FORMAT_CODE_DATE = "dd/MM/yyyy HH:mm"
         internal fun newInstance(): VegetableDialogFragment {
             return VegetableDialogFragment()
         }
@@ -37,14 +43,13 @@ class VegetableDialogFragment : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         dataBase = VegetableDB.dataBaseConnect(requireContext())
         initView()
-        spinner()
-        //  initData()
+        initData()
     }
 
     private fun initView() {
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         closeDialog()
-        // initButtonOk()
+        initButtonOk()
     }
 
     private fun closeDialog() {
@@ -52,21 +57,51 @@ class VegetableDialogFragment : DialogFragment() {
             dismiss()
         }
     }
-    private fun spinner() {
-        activity?.applicationContext?.let {
-            ArrayAdapter.createFromResource(
-                it,
-                R.array.planets_array,
-                android.R.layout.simple_list_item_1
-            ).also { adapter ->
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                spnDialog.adapter = adapter
+
+    @SuppressLint("SimpleDateFormat")
+    private fun initButtonOk() {
+        btnOk?.setOnClickListener {
+            plantSelected?.let {
+                Cultivation().apply {
+                    val dateFormat = SimpleDateFormat(FORMAT_CODE_DATE)
+                    val dateCurrent = dateFormat.format(Date())
+                    plantId = it.plantId
+                    dateCultivation = dateCurrent
+                    dateWatering = dateCurrent
+                    dataBase?.cultivationDao()?.addCultivation(this)
+                }
+                Toast.makeText(
+                    context,
+                    resources.getString(R.string.toast_description),
+                    Toast.LENGTH_SHORT
+                ).show()
+                dialog?.dismiss()
             }
         }
-        @Suppress("DEPRECATION")
-        spnDialog.background.setColorFilter(
-            resources.getColor(R.color.colorRed),
-            PorterDuff.Mode.SRC_ATOP
-        )
+    }
+
+    private fun initData() {
+        listPlants = dataBase?.plantDao()?.getAllPlant()
+        val arrayNamePlant = arrayListOf<String>()
+        listPlants?.forEach {
+            it.name?.let { it ->
+                arrayNamePlant.add(it)
+            }
+        }
+        val adapterSpinner =
+            ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, arrayNamePlant)
+        adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+        spnDialog?.adapter = adapterSpinner
+        spnDialog?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+            }
+
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
+                listPlants?.get(position)?.let {
+                    plantSelected = it
+                }
+            }
+        }
     }
 }
