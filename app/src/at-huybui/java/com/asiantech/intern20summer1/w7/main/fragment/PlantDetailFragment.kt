@@ -18,6 +18,7 @@ import kotlinx.android.synthetic.`at-huybui`.fragment_information_tree.*
 import java.text.SimpleDateFormat
 import java.util.*
 
+
 /**
  * Asian Tech Co., Ltd.
  * Created by at-huybui on 08/04/20
@@ -51,8 +52,14 @@ class PlantDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as MainFarmActivity).setColorStatusBar(R.color.w7_background_navigation_header)
         initView()
         initListener()
+    }
+
+    override fun onDestroy() {
+        (activity as MainFarmActivity).setColorStatusBar(R.color.background_white)
+        super.onDestroy()
     }
 
     @SuppressLint("SetTextI18n")

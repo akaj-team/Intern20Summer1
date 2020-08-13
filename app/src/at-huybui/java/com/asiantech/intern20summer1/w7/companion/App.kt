@@ -70,10 +70,10 @@ class App {
 
     @SuppressLint("SimpleDateFormat")
     fun isPlantHarvest(plant: PlantModel?, culti: CultivationModel?): Boolean {
-        culti?.dateCultivation?.let { dateWatering ->
+        culti?.dateCultivation?.let { dateCultivation ->
             val dateFormat = SimpleDateFormat(FORMAT_CODE_DATE)
             var beforeTime = 0
-            dateFormat.parse(dateWatering)?.let { date ->
+            dateFormat.parse(dateCultivation)?.let { date ->
                 Calendar.getInstance().apply {
                     time = date
                     beforeTime = getMinuteInDay(this)
@@ -102,8 +102,7 @@ class App {
     }
 
     private fun getMinuteInDay(calendar: Calendar): Int {
-        return calendar.get(Calendar.HOUR) * HOURS + calendar.get(Calendar.MINUTE) * MINUTES + calendar.get(
-            Calendar.SECOND
-        )
+        return calendar.get(Calendar.HOUR_OF_DAY) * HOURS + calendar.get(Calendar.MINUTE) * MINUTES +
+                calendar.get(Calendar.SECOND)
     }
 }

@@ -37,17 +37,29 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:layout_gravity="left"
                 app:layout_collapseMode="pin"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                app:subtitle="@string/w7_home_town"
-                app:title="Thông Tin cây">
+                android:background="@color/w7_background_navigation_header"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
-                <ImageView
-                    android:id="@+id/btnBack.detail"
-                    android:layout_width="@dimen/w7_detail_icon_back_size"
-                    android:layout_height="@dimen/w7_detail_icon_back_size"
-                    android:src="@drawable/icon_back" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/btnBack.detail"
+                        android:layout_width="@dimen/w7_detail_icon_back_size"
+                        android:layout_height="@dimen/w7_detail_icon_back_size"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/icon_back" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="@string/w7_detail_information_plant"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/w7_detail_title_size" />
+                </RelativeLayout>
             </androidx.appcompat.widget.Toolbar>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>

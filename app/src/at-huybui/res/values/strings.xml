@@ -105,4 +105,5 @@
     <string name="w7_splash_select_internet">Chọn cài đặt internet</string>
     <string name="w7_splash_wifi">Wifi</string>
     <string name="w7_splash_mobile_network">Mobile data</string>
+    <string name="w7_detail_information_plant">Thông tin cây</string>
 </resources>

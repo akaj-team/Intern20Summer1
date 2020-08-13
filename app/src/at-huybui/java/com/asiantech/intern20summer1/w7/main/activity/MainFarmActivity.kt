@@ -1,9 +1,12 @@
 package com.asiantech.intern20summer1.w7.main.activity
 
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
@@ -30,6 +33,7 @@ class MainFarmActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.w7_activity_main_farm)
         dataBase = ConnectDataBase.dataBaseConnect(applicationContext)
+        setColorStatusBar(R.color.background_white)
         handleReplaceFragment(fragment, parent = R.id.containerMain)
         initToolBar()
         initNavigationDrawer()
@@ -58,6 +62,13 @@ class MainFarmActivity : AppCompatActivity() {
             fragmentTransaction.addToBackStack(nameBackStack)
         }
         fragmentTransaction.commit()
+    }
+
+    internal fun handleShowDialogFragment() {
+        val fragmentManager = supportFragmentManager
+        val fragment = DialogFragmentFarm.newInstance()
+        drawerLayout.closeDrawer(GravityCompat.START)
+        fragment.show(fragmentManager, null)
     }
 
     private fun initToolBar() {
@@ -111,11 +122,19 @@ class MainFarmActivity : AppCompatActivity() {
         }
     }
 
-    internal fun handleShowDialogFragment() {
-        val fragmentManager = supportFragmentManager
-        val fragment = DialogFragmentFarm.newInstance()
-        drawerLayout.closeDrawer(GravityCompat.START)
-        fragment.show(fragmentManager, null)
+    internal fun setColorStatusBar(color: Int) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            this.apply {
+                window.statusBarColor = ContextCompat.getColor(this, color)
+                if (color == R.color.background_white) {
+                    window.decorView.systemUiVisibility =
+                        window.decorView.systemUiVisibility.or(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
+                } else {
+                    window.decorView.systemUiVisibility =
+                        window.decorView.systemUiVisibility.and(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv())
+                }
+            }
+        }
     }
 }
 

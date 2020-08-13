@@ -174,6 +174,4 @@ class TreeRecyclerFragment : Fragment() {
         list.toCollection(vegetableList)
         adapterRecycler.notifyDataSetChanged()
     }
-
-
 }
