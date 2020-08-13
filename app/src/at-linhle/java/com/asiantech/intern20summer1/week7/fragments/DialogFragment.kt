@@ -1,5 +1,6 @@
 package com.asiantech.intern20summer1.week7.fragments
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
@@ -12,10 +13,18 @@ import android.widget.ArrayAdapter
 import androidx.fragment.app.DialogFragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week7.data.AppDatabase
+import com.asiantech.intern20summer1.week7.models.Cultivation
 import com.asiantech.intern20summer1.week7.models.Plant
 import kotlinx.android.synthetic.`at-linhle`.fragment_dialog.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 open class DialogFragment : DialogFragment() {
+
+    companion object {
+        internal val DATE_FORMAT_STRING = "dd/MM/yyyy HH:mm"
+    }
+
     private var plants: List<Plant>? = null
     private var appDatabase: AppDatabase? = null
 
@@ -34,7 +43,7 @@ open class DialogFragment : DialogFragment() {
         initData()
     }
 
-    private fun handleListenerForButtonBack() {
+    private fun handleBackButtonClicked() {
         imgCancel.setOnClickListener {
             dialog?.dismiss()
         }
@@ -42,7 +51,7 @@ open class DialogFragment : DialogFragment() {
 
     private fun initView() {
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        handleListenerForButtonBack()
+        handleBackButtonClicked()
     }
 
     private fun initData() {
@@ -67,6 +76,7 @@ open class DialogFragment : DialogFragment() {
                 position: Int, id: Long
             ) {
                 onPlantSelected(position)
+                handleOkButtonClicked(position)
             }
         }
     }
@@ -77,6 +87,24 @@ open class DialogFragment : DialogFragment() {
                 "Grow Zone Number: ${plant.growZoneNumber}\nWatering Interval: ${plant.wateringInterval}"
             tvDialogPlantDetail?.text = text
             imgDialogPlant.setImageURI(Uri.parse(plant.imageUrl))
+        }
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    private fun handleOkButtonClicked(position: Int) {
+        val dateFormat = SimpleDateFormat(DATE_FORMAT_STRING)
+        val currentDate = dateFormat.format(Date())
+        val user = appDatabase?.getUserDao()?.getUsers()
+        val cultivation = Cultivation()
+        btnOkDialog?.setOnClickListener {
+            cultivation.apply {
+                userGrowId = user?.userId
+                plantId = plants?.get(position)?.plantId
+                dateCultivation = currentDate
+                dateWatering = currentDate
+            }
+            appDatabase?.getCultivation()?.insertCultivation(cultivation)
+            dialog?.dismiss()
         }
     }
 }

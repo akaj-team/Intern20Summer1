@@ -12,7 +12,6 @@ import com.asiantech.intern20summer1.week7.data.AppDatabase
 import com.asiantech.intern20summer1.week7.extensions.DownloadImage
 import com.asiantech.intern20summer1.week7.extensions.DownloadImage.Companion.FILE_TAIL_KEY
 import com.asiantech.intern20summer1.week7.extensions.DownloadImage.Companion.NAME_FILE_IMAGE_KEY
-import com.asiantech.intern20summer1.week7.fragments.RegisterFragment.Companion.SHARED_PREFERENCE_FILE
 import com.asiantech.intern20summer1.week7.models.Plant
 import com.asiantech.intern20summer1.week7.views.HomeActivity
 import com.asiantech.intern20summer1.week7.views.LauncherActivity
@@ -22,10 +21,10 @@ import java.util.*
 class SplashFragment : Fragment() {
 
     companion object {
-        private const val TIME_CHECK_DATA = 10L
-        private const val TIME_LOAD_DATA = 20L
+        private const val TIME_CHECK_DATA = 1L
+        private const val TIME_LOAD_DATA = 10L
         private const val TIMER_PERIOD = 100L
-        private const val LOAD_DATA_INTERNET = 30L
+        private const val LOAD_DATA_INTERNET = 20L
     }
 
     private var appDataBase: AppDatabase? = null
@@ -92,16 +91,13 @@ class SplashFragment : Fragment() {
         }, 0, TIMER_PERIOD)
     }
 
-    private fun checkFile(): Boolean {
-        val sharedRef = activity?.getSharedPreferences(SHARED_PREFERENCE_FILE, Context.MODE_PRIVATE)
-        if (sharedRef?.getString("userName", null) == null) {
-            return true
-        }
-        return false
+    private fun isUserInvalid(): Boolean {
+        val user = appDataBase?.getUserDao()?.getUsers()
+        return user == null
     }
 
     private fun changeActivity() {
-        if (checkFile()) {
+        if (isUserInvalid()) {
             (activity as LauncherActivity).openRegisterFragment()
         } else {
             val intent = Intent(activity, HomeActivity::class.java)

@@ -8,8 +8,8 @@ import com.asiantech.intern20summer1.week7.models.User
 @Dao
 interface UserDao {
     @Insert
-    fun insertUser(vararg account: User)
+    fun insertUser(user: User)
 
     @Query("SELECT * FROM user")
-    fun getUsers(): List<User>
+    fun getUsers(): User
 }

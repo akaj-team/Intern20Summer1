@@ -5,7 +5,7 @@ import com.asiantech.intern20summer1.week7.models.Cultivation
 
 @Dao
 interface CultivationDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert
     fun insertCultivation(cultivation: Cultivation)
 
     @Query("SELECT * FROM cultivation")

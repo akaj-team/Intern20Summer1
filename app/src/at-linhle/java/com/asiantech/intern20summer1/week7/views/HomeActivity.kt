@@ -1,6 +1,5 @@
 package com.asiantech.intern20summer1.week7.views
 
-import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
@@ -9,12 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week7.adapters.VegetableViewHolder
+import com.asiantech.intern20summer1.week7.data.AppDatabase
 import com.asiantech.intern20summer1.week7.fragments.DialogFragment
-import com.asiantech.intern20summer1.week7.fragments.RegisterFragment.Companion.SHARED_PREFERENCE_AVATAR_KEY
-import com.asiantech.intern20summer1.week7.fragments.RegisterFragment.Companion.SHARED_PREFERENCE_FILE
-import com.asiantech.intern20summer1.week7.fragments.RegisterFragment.Companion.SHARED_PREFERENCE_HOME_TOWN_KEY
-import com.asiantech.intern20summer1.week7.fragments.RegisterFragment.Companion.SHARED_PREFERENCE_UNIVERSITY_KEY
-import com.asiantech.intern20summer1.week7.fragments.RegisterFragment.Companion.SHARED_PREFERENCE_USER_NAME_KEY
 import com.asiantech.intern20summer1.week7.models.Plant
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.`at-linhle`.activity_home_toolbar.*
@@ -26,10 +21,12 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var plantItemList: MutableList<Plant?>
     private lateinit var plantItemsStorage: MutableList<Plant?>
     private lateinit var adapter: VegetableViewHolder
+    private var appDatabase: AppDatabase? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_toolbar)
+        appDatabase = AppDatabase.getInstance(this)
         handleActionBarListener()
         navigationContainer.setNavigationItemSelectedListener(this)
         getUser()
@@ -74,43 +71,21 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private fun getUser() {
         val header = navigationContainer.getHeaderView(0)
-        val sharedRef = this.getSharedPreferences(SHARED_PREFERENCE_FILE, Context.MODE_PRIVATE)
-        header.tvHomeUserName?.text =
-            sharedRef.getString(
-                SHARED_PREFERENCE_USER_NAME_KEY,
-                getString(R.string.share_preference_user_name_default)
-            )
-        header.tvHomeHomeTown?.text =
-            sharedRef.getString(
-                SHARED_PREFERENCE_HOME_TOWN_KEY,
-                getString(R.string.share_preference_home_town_default)
-            )
-        header.tvHomeUniversity?.text =
-            sharedRef.getString(
-                SHARED_PREFERENCE_UNIVERSITY_KEY,
-                getString(R.string.share_preference_university_default)
-            )
-        if (sharedRef.getString(
-                SHARED_PREFERENCE_AVATAR_KEY,
-                getString(R.string.share_preference_avatar_default)
-            ) == ""
-        ) {
-            header.imgHomeUser?.setImageResource(R.drawable.img_user)
-        } else {
-            header.imgHomeUser?.setImageURI(
-                Uri.parse(
-                    sharedRef.getString(
-                        SHARED_PREFERENCE_AVATAR_KEY,
-                        getString(R.string.share_preference_avatar_default)
-                    )
-                )
-            )
+        val user = appDatabase?.getUserDao()?.getUsers()
+        user?.apply {
+            header.tvHomeUserName?.text = userName
+            header.tvHomeHomeTown?.text = homeTown
+            header.tvHomeUniversity?.text = university
+            if (avatar == "") {
+                header.imgHomeUser?.setImageResource(R.drawable.img_user)
+            } else {
+                header.imgHomeUser?.setImageURI(Uri.parse(avatar))
+            }
         }
     }
 
     private fun initData() {
         plantItemsStorage = mutableListOf()
-
     }
 
     private fun initAdapter() {

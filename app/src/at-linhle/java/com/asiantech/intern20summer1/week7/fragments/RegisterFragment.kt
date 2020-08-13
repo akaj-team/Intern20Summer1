@@ -4,9 +4,7 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
@@ -20,6 +18,8 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week4.extensions.hideSoftKeyboard
+import com.asiantech.intern20summer1.week7.data.AppDatabase
+import com.asiantech.intern20summer1.week7.models.User
 import com.asiantech.intern20summer1.week7.views.HomeActivity
 import com.theartofdev.edmodo.cropper.CropImage
 import kotlinx.android.synthetic.`at-linhle`.fragment_register.*
@@ -34,15 +34,11 @@ class RegisterFragment : Fragment() {
         private const val KEY_IMAGE_GALLERY = "image/*"
         private const val QUALITY_IMAGE_INDEX = 100
         private const val ASPECT_IMAGE_RATIO = 1
-        internal const val SHARED_PREFERENCE_FILE = "userSharedPreference"
-        internal const val SHARED_PREFERENCE_USER_NAME_KEY = "userName"
-        internal const val SHARED_PREFERENCE_UNIVERSITY_KEY = "university"
-        internal const val SHARED_PREFERENCE_HOME_TOWN_KEY = "homeTown"
-        internal const val SHARED_PREFERENCE_AVATAR_KEY = "avatar"
     }
 
     private var imageUri: String? = ""
     private var checkCameraStatus = false
+    private var appDatabase: AppDatabase? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,6 +50,7 @@ class RegisterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        appDatabase = AppDatabase.getInstance(requireContext())
         handleRegisterUsernameTextChanged()
         handleRegisterUniversityTextChanged()
         handleRegisterHomeTownTextChanged()
@@ -123,32 +120,32 @@ class RegisterFragment : Fragment() {
     }
 
     private fun handleRegisterUsernameTextChanged() {
-        edtUserName.addTextChangedListener(afterTextChanged = { p0: CharSequence? ->
-            btnNext.isEnabled = isCorrectFormat(
+        edtUserName?.addTextChangedListener(afterTextChanged = { p0: CharSequence? ->
+            btnNext?.isEnabled = isCorrectFormat(
                 p0.toString(),
-                edtUniversity.text.toString(),
-                edtHomeTown.text.toString()
+                edtUniversity?.text.toString(),
+                edtHomeTown?.text.toString()
             )
             setBackgroundButton()
         })
     }
 
     private fun handleRegisterUniversityTextChanged() {
-        edtUniversity.addTextChangedListener(afterTextChanged = { p0: CharSequence? ->
-            btnNext.isEnabled = isCorrectFormat(
-                edtUserName.text.toString(),
+        edtUniversity?.addTextChangedListener(afterTextChanged = { p0: CharSequence? ->
+            btnNext?.isEnabled = isCorrectFormat(
+                edtUserName?.text.toString(),
                 p0.toString(),
-                edtHomeTown.text.toString()
+                edtHomeTown?.text.toString()
             )
             setBackgroundButton()
         })
     }
 
     private fun handleRegisterHomeTownTextChanged() {
-        edtHomeTown.addTextChangedListener(afterTextChanged = { p0: CharSequence? ->
-            btnNext.isEnabled = isCorrectFormat(
-                edtUserName.text.toString(),
-                edtUniversity.text.toString(),
+        edtHomeTown?.addTextChangedListener(afterTextChanged = { p0: CharSequence? ->
+            btnNext?.isEnabled = isCorrectFormat(
+                edtUserName?.text.toString(),
+                edtUniversity?.text.toString(),
                 p0.toString()
             )
             setBackgroundButton()
@@ -270,27 +267,24 @@ class RegisterFragment : Fragment() {
 
     private fun setBackgroundButton() {
         if (btnNext.isEnabled) {
-            btnNext.setBackgroundResource(R.drawable.bg_next_button_enabled)
+            btnNext?.setBackgroundResource(R.drawable.bg_next_button_enabled)
         } else {
-            btnNext.setBackgroundResource(R.drawable.bg_next_button_disabled)
+            btnNext?.setBackgroundResource(R.drawable.bg_next_button_disabled)
         }
     }
 
     private fun handleNextButtonListener() {
-        val sharedPreferences = activity?.getSharedPreferences(
-            SHARED_PREFERENCE_FILE,
-            Context.MODE_PRIVATE
-        )
-        btnNext.setOnClickListener {
-            val editor: SharedPreferences.Editor? = sharedPreferences?.edit()
-            editor?.apply {
-                putString(SHARED_PREFERENCE_USER_NAME_KEY, edtUserName.text.toString())
-                putString(SHARED_PREFERENCE_UNIVERSITY_KEY, edtUniversity.text.toString())
-                putString(SHARED_PREFERENCE_HOME_TOWN_KEY, edtHomeTown.text.toString())
-                putString(SHARED_PREFERENCE_AVATAR_KEY, imageUri)
-                apply()
+        btnNext?.setOnClickListener {
+            val imgUri = imageUri
+            val user = User()
+            user.apply {
+                avatar = imgUri
+                userName = edtUserName?.text.toString()
+                university = edtUniversity?.text.toString()
+                homeTown = edtHomeTown?.text.toString()
             }
-            val intent = Intent(activity, HomeActivity::class.java)
+            appDatabase?.getUserDao()?.insertUser(user)
+            val intent = Intent(context, HomeActivity::class.java)
             activity?.startActivity(intent)
             activity?.finish()
         }
