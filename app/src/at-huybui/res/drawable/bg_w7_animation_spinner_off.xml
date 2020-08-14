@@ -2,17 +2,17 @@
     android:oneshot="true">
     <item
         android:drawable="@drawable/icon_drop_1"
-        android:duration="50" />
+        android:duration="@integer/w7_animation_spinner_duration" />
     <item
         android:drawable="@drawable/icon_drop_2"
-        android:duration="50" />
+        android:duration="@integer/w7_animation_spinner_duration" />
     <item
         android:drawable="@drawable/icon_drop_3"
-        android:duration="50" />
+        android:duration="@integer/w7_animation_spinner_duration" />
     <item
         android:drawable="@drawable/icon_drop_4"
-        android:duration="50" />
+        android:duration="@integer/w7_animation_spinner_duration" />
     <item
         android:drawable="@drawable/icon_drop_5"
-        android:duration="50" />
+        android:duration="@integer/w7_animation_spinner_duration" />
 </animation-list>

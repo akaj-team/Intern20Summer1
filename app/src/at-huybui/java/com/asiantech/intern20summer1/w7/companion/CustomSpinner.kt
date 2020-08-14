@@ -4,8 +4,17 @@ import android.content.Context
 import android.util.AttributeSet
 import android.widget.Spinner
 
+/**
+ * Asian Tech Co., Ltd.
+ * Created by at-huybui on 08/14/20
+ * This is Custom spinner view class
+ */
+
 class CustomSpinner(context: Context?, attrs: AttributeSet?) :
     androidx.appcompat.widget.AppCompatSpinner(context, attrs) {
+    private var listener: OnSpinnerEventsListener? = null
+    private var openInitiated = false
+
     interface OnSpinnerEventsListener {
         /**
          * Callback triggered when the spinner was opened.
@@ -17,9 +26,6 @@ class CustomSpinner(context: Context?, attrs: AttributeSet?) :
          */
         fun onSpinnerClosed(spinner: Spinner?)
     }
-
-    private var listener: OnSpinnerEventsListener? = null
-    private var openInitiated = false
 
     override fun performClick(): Boolean {
         openInitiated = true

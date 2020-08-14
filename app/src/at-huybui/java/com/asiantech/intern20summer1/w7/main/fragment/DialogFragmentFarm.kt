@@ -12,7 +12,6 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
-import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w7.companion.App
@@ -125,9 +124,8 @@ open class DialogFragmentFarm : DialogFragment() {
     private fun handleSpinner() {
         spinnerTree?.setSpinnerEventsListener(object : CustomSpinner.OnSpinnerEventsListener {
             override fun onSpinnerOpened(spinner: Spinner?) {
-                Toast.makeText(requireContext(), "open", Toast.LENGTH_SHORT).show()
                 imgIconSpinner?.apply {
-                    setBackgroundResource(R.drawable.bg_w7_select_spinner)
+                    setBackgroundResource(R.drawable.bg_w7_animation_spinner_on)
                     val rocketAnimation = background as AnimationDrawable
                     rocketAnimation.start()
                 }
@@ -135,11 +133,10 @@ open class DialogFragmentFarm : DialogFragment() {
 
             override fun onSpinnerClosed(spinner: Spinner?) {
                 imgIconSpinner?.apply {
-                    setBackgroundResource(R.drawable.bg_w7_animation_off)
+                    setBackgroundResource(R.drawable.bg_w7_animation_spinner_off)
                     val rocketAnimation = background as AnimationDrawable
                     rocketAnimation.start()
                 }
-                Toast.makeText(requireContext(), "close", Toast.LENGTH_SHORT).show()
             }
         })
     }

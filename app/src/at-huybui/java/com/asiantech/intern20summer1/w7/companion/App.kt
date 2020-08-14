@@ -23,7 +23,6 @@ class App {
         internal const val MODE_WORMED = 2
         internal const val MODE_WATERING = 3
         internal const val MODE_HARVEST = 4
-
     }
 
     @SuppressLint("SimpleDateFormat")
@@ -98,7 +97,7 @@ class App {
             plant.growZoneNumber?.let { calendar.add(Calendar.MINUTE, it) }
             return dateFormat.format(calendar.time)
         }
-        return "null"
+        return ""
     }
 
     private fun getMinuteInDay(calendar: Calendar): Int {
