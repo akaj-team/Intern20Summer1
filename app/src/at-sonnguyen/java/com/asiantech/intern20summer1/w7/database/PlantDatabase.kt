@@ -11,7 +11,7 @@ import com.asiantech.intern20summer1.w7.database.data.Cultivation
 import com.asiantech.intern20summer1.w7.database.data.Plant
 import com.asiantech.intern20summer1.w7.database.data.User
 
-@Database(entities = [User :: class,Plant::class,Cultivation::class],version = 1,exportSchema = false)
+@Database(entities = [User :: class,Plant::class,Cultivation::class],version = 2,exportSchema = false)
 abstract class PlantDatabase :RoomDatabase(){
     abstract fun userDao() : UserDao
     abstract fun plantDao() : PlantDao
@@ -24,6 +24,7 @@ abstract class PlantDatabase :RoomDatabase(){
             return if (instance == null){
                 Room.databaseBuilder(context,PlantDatabase::class.java, DATABASE_NAME)
                     .allowMainThreadQueries()
+                    .fallbackToDestructiveMigration()
                     .build()
             }else{
                 instance

@@ -1,6 +1,5 @@
 package com.asiantech.intern20summer1.w7.activity
 
-import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
@@ -9,11 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.w7.database.PlantDatabase
 import com.asiantech.intern20summer1.w7.extension.replaceFragment
-import com.asiantech.intern20summer1.w7.fragment.RegisterFragment.Companion.SHARED_PREFERENCE_AVATAR_KEY
-import com.asiantech.intern20summer1.w7.fragment.RegisterFragment.Companion.SHARED_PREFERENCE_FILE
-import com.asiantech.intern20summer1.w7.fragment.RegisterFragment.Companion.SHARED_PREFERENCE_UNIVERSITY_KEY
-import com.asiantech.intern20summer1.w7.fragment.RegisterFragment.Companion.SHARED_PREFERENCE_USER_NAME_KEY
 import com.asiantech.intern20summer1.w7.fragment.VegetableGardenFragment
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.`at-sonnguyen`.nav_header.view.*
@@ -21,9 +17,11 @@ import kotlinx.android.synthetic.`at-sonnguyen`.toolbar.*
 import kotlinx.android.synthetic.`at-sonnguyen`.w7_activity_home.*
 
 class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+    private var database : PlantDatabase? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.w7_activity_home)
+        database = PlantDatabase.getInstance(applicationContext)
         supportActionBar?.hide();
         replaceFragment(R.id.flContent, VegetableGardenFragment())
         setSupportActionBar(toolbar);
@@ -33,14 +31,16 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun initNavigationHeaderData() {
+        var user = database?.userDao()?.getAllUser()
         val header = nvView.getHeaderView(0)
-        val sharedPreferences = this.getSharedPreferences(SHARED_PREFERENCE_FILE,Context.MODE_PRIVATE)
-        header.tvName.text = sharedPreferences.getString(SHARED_PREFERENCE_USER_NAME_KEY,"Son Nguyen V.")
-        header.tvUniversity.text = sharedPreferences.getString(SHARED_PREFERENCE_UNIVERSITY_KEY,"Da Nang University of Technology")
-        if (sharedPreferences.getString(SHARED_PREFERENCE_AVATAR_KEY,"") ==""){
-            header.imgAvatarHeader.setImageResource(R.drawable.ic_baseline_account_circle_24)
-        }else {
-            header.imgAvatarHeader.setImageURI(Uri.parse(sharedPreferences.getString(SHARED_PREFERENCE_AVATAR_KEY,"")))
+        user?.let {
+            header.tvUsername.text = it.username
+            header.tvUniversity.text = it.university
+            if (it.imgUri != ""){
+                header.imgAvatarHeader.setImageURI(Uri.parse(it.imgUri))
+            }else {
+                header.imgAvatarHeader.setImageResource(R.drawable.ic_baseline_account_circle_24)
+            }
         }
     }
 

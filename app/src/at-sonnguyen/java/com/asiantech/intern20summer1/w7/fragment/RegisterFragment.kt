@@ -3,9 +3,7 @@ package com.asiantech.intern20summer1.w7.fragment
 import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
@@ -22,17 +20,23 @@ import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w7.activity.HomeActivity
+import com.asiantech.intern20summer1.w7.database.PlantDatabase
+import com.asiantech.intern20summer1.w7.database.data.User
 import com.theartofdev.edmodo.cropper.CropImage
 import kotlinx.android.synthetic.`at-sonnguyen`.w7_fragment_register.*
 import java.io.ByteArrayOutputStream
 
 @Suppress("DEPRECATION")
 class RegisterFragment : Fragment() {
+    private var username = "t"
+    private var university = ""
+    private var hometown = ""
     private var isUsername: Boolean = false
     private var isUniversity: Boolean = false
     private var isHomeTown: Boolean = false
     private var flag: Boolean = false
     private var avatarUri = ""
+    private var database: PlantDatabase? = null
 
     companion object {
         internal const val KEY_VALUE = "data"
@@ -41,12 +45,7 @@ class RegisterFragment : Fragment() {
         private const val IMAGE_URI_QUALITY = 100
         private const val CAMERA_REQUEST_CODE = 111
         private const val GALLERY_REQUEST_CODE = 112
-        fun newInstance() = RegisterFragment()
-        internal const val SHARED_PREFERENCE_FILE = "userSharedPreference"
-        internal const val SHARED_PREFERENCE_USER_NAME_KEY = "userName"
-        internal const val SHARED_PREFERENCE_UNIVERSITY_KEY = "university"
-        internal const val SHARED_PREFERENCE_HOME_TOWN_KEY = "homeTown"
-        internal const val SHARED_PREFERENCE_AVATAR_KEY = "avatarUser"
+        internal fun newInstance() = RegisterFragment()
     }
 
     override fun onCreateView(
@@ -58,6 +57,12 @@ class RegisterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        database = PlantDatabase.getInstance(requireContext())
+
+    }
+
+    override fun onResume() {
+        super.onResume()
         initListener()
     }
 
@@ -65,6 +70,7 @@ class RegisterFragment : Fragment() {
         edtUsername.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
                 isUsername = edtUsername.text.isNotEmpty()
+                username = edtUsername.text.toString()
                 setEnableButton()
             }
 
@@ -80,7 +86,11 @@ class RegisterFragment : Fragment() {
     private fun handleHomeTownEditTextListener() {
         edtHomeTown.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
-                isHomeTown = edtHomeTown.text.isNotEmpty()
+                if (p0 != null) {
+                    isHomeTown = p0.isNotEmpty()
+                    hometown = p0.toString()
+                }
+
                 setEnableButton()
             }
 
@@ -96,7 +106,10 @@ class RegisterFragment : Fragment() {
     private fun handleUniversityEditText() {
         edtUniversity.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
-                isUniversity = edtUniversity.text.isNotEmpty()
+                if (p0 != null) {
+                    isUniversity = p0.isNotEmpty()
+                    university = p0.toString()
+                }
                 setEnableButton()
             }
 
@@ -118,7 +131,7 @@ class RegisterFragment : Fragment() {
         handleUniversityEditText()
         handleUsernameEditTextListener()
         setEnableButton()
-        handleListenerAvatarImageView()
+        handleAvatarImageViewListener()
         handleRegisterButtonListener()
     }
 
@@ -186,7 +199,6 @@ class RegisterFragment : Fragment() {
                     val result: CropImage.ActivityResult = CropImage.getActivityResult(data)
                     val resultUri: Uri = result.uri
                     avatarUri = resultUri.toString()
-                    Toast.makeText(activity?.applicationContext,avatarUri,Toast.LENGTH_SHORT).show()
                     imgAvatarRegister.setImageURI(resultUri)
                 }
             }
@@ -281,26 +293,23 @@ class RegisterFragment : Fragment() {
         }
     }
 
-    private fun handleListenerAvatarImageView() {
+    private fun handleAvatarImageViewListener() {
         imgAvatarRegister.setOnClickListener {
             showListAlertDialog()
         }
     }
 
     private fun handleRegisterButtonListener() {
-        val sharedPreferences = activity?.getSharedPreferences(
-            SHARED_PREFERENCE_FILE,
-            Context.MODE_PRIVATE
-        )
+
         btnNext.setOnClickListener {
-            val editor: SharedPreferences.Editor? = sharedPreferences?.edit()
-            editor?.apply {
-                putString(SHARED_PREFERENCE_USER_NAME_KEY, edtUsername.text.toString())
-                putString(SHARED_PREFERENCE_UNIVERSITY_KEY, edtUniversity.text.toString())
-                putString(SHARED_PREFERENCE_HOME_TOWN_KEY, edtHomeTown.text.toString())
-                putString(SHARED_PREFERENCE_AVATAR_KEY, avatarUri)
-                apply()
-            }
+            val user = User(
+                username = username,
+                university = university,
+                homeTown = hometown,
+                imgUri = avatarUri
+            )
+            Toast.makeText(requireContext(), user.username, Toast.LENGTH_SHORT).show()
+            database?.userDao()?.insertUser(user)
             val intent = Intent(activity, HomeActivity::class.java)
             activity?.startActivity(intent)
             activity?.finish()

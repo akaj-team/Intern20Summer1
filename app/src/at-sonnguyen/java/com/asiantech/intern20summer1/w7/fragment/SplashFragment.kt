@@ -2,11 +2,15 @@ package com.asiantech.intern20summer1.w7.fragment
 
 import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w7.activity.HomeActivity
@@ -19,7 +23,6 @@ import com.asiantech.intern20summer1.w7.database.data.Plant
 import com.asiantech.intern20summer1.w7.extension.replaceFragment
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.google.gson.stream.JsonReader
 import kotlinx.android.synthetic.`at-sonnguyen`.w7_fragment_splash.*
 import java.util.concurrent.Executors
 
@@ -29,7 +32,7 @@ class SplashFragment : Fragment() {
     private var isLoadDataUrl = false
 
     companion object {
-        private const val MILLIS_IN_FEATURE = 50000L
+        private const val MILLIS_IN_FEATURE = 10000L
         private const val COUNT_DOWN_INTERVAL = 100L
         private const val PROGRESS_MAX_VALUE = 100
         private const val PROGRESS_FAST_STEP = 5L
@@ -52,24 +55,33 @@ class SplashFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         database = PlantDatabase.getInstance(requireContext())
         handleProgressBar()
-
     }
 
     private fun handleProgressBar() {
         var plants = database?.plantDao()?.getAllPlant()
         progressBarSplash?.progress = 0
-        object : CountDownTimer(MILLIS_IN_FEATURE, COUNT_DOWN_INTERVAL) {
-            override fun onFinish() {
-
-            }
-
+        object : CountDownTimer(
+            MILLIS_IN_FEATURE,
+            COUNT_DOWN_INTERVAL
+        ) {
             override fun onTick(millisUntilFinished: Long) {
                 progressBarSplash?.progress = progressBarSplash.progress + 1
                 when (progressBarSplash?.progress) {
                     POINT_CHECK_DATABASE -> {
                         if (plants?.size == 0) {
-                            isLoadDataUrl = true
-                            provideDatabase(requireContext())
+                            if (isConnectedToInternet()) {
+                                requestInternet()
+                            } else {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Khong co ket noi",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                progressBarSplash?.progress = 0
+                            }
+                        } else {
+                            this.cancel()
+                            loadingFastProgressBar()
                         }
                     }
                     POINT_LOADING_DATABASE -> {
@@ -78,69 +90,25 @@ class SplashFragment : Fragment() {
                     POINT_LOADING_DATA_URL -> {
                         downloadPlantImage(plants)
                     }
+
                     PROGRESS_MAX_VALUE -> {
                         getImageUri(plants)
                         checkAccount()
+                        this.cancel()
                     }
                 }
             }
 
-        }
+            override fun onFinish() {
+                checkAccount()
+            }
+        }.start()
     }
 
-    //    companion object {
-//        private const val MILLIS_IN_FEATURE = 10000L
-//        private const val COUNT_DOWN_INTERVAL = 100L
-//        fun newInstance() = SplashFragment()
-//    }
-//
-//    override fun onCreateView(
-//        inflater: LayoutInflater, container: ViewGroup?,
-//        savedInstanceState: Bundle?
-//    ): View? {
-//        return inflater.inflate(R.layout.w7_fragment_splash, container, false)
-//    }
-//
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//        initListener()
-//    }
-//
-//    private fun initListener() {
-//        imgSplash.setOnClickListener {
-//            progressBarSplash.progress += 1
-//        }
-//        timer.start()
-//    }
-//
-
-//    }
-//
-//    private val timer = object : CountDownTimer(MILLIS_IN_FEATURE, COUNT_DOWN_INTERVAL) {
-//        override fun onTick(millisUntilFinished: Long) {
-//            progressBarSplash.progress += 1
-//        }
-//
-//        override fun onFinish() {
-//            if (checkAccount()){
-//                val intent = Intent(activity,HomeActivity::class.java)
-//                startActivity(intent)
-//                activity?.finish()
-//            } else {
-//            }
-//        }
-//    }
-//    private fun checkAccount() : Boolean{
-//        val sharedRef = activity?.getSharedPreferences(SHARED_PREFERENCE_FILE, Context.MODE_PRIVATE)
-//        if (sharedRef?.getString(SHARED_PREFERENCE_USER_NAME_KEY, null) != null) {
-//            return true
-//        }
-//        return false
-//    }
     private fun provideDatabase(context: Context) {
         Executors.newFixedThreadPool(2).execute {
             context.assets.open(JSON_FILE_NAME).use { inputStream ->
-                JsonReader(inputStream.reader()).use { jsonReader ->
+                com.google.gson.stream.JsonReader(inputStream.reader()).use { jsonReader ->
                     val plantType = object : TypeToken<List<Plant>>() {}.type
                     val plants: List<Plant> = Gson().fromJson(jsonReader, plantType)
                     database?.plantDao()?.insertPlants(plants)
@@ -162,22 +130,78 @@ class SplashFragment : Fragment() {
             }
         }
     }
+
     private fun getImageUri(plants: List<Plant>?) {
-        val part = requireContext().getDir(NAME_DIR, Context.MODE_PRIVATE)
+        val path = requireContext().getDir(NAME_DIR, Context.MODE_PRIVATE)
         plants?.forEach { plant ->
             plant.plantId?.let {
-                database?.plantDao()?.editImageUri("$part/${it}${FILE_TAIL}", it)
+                database?.plantDao()?.updateImageUri("$path/${it}${FILE_TAIL}", it)
             }
         }
     }
-    fun checkAccount(){
+
+    fun checkAccount() {
         val user = database?.userDao()?.getAllUser()
         if (user == null) {
-            (activity as SplashActivity).replaceFragment(R.id.frameLayoutMain,RegisterFragment.newInstance())
+            (activity as SplashActivity).replaceFragment(
+                R.id.frameLayoutMain,
+                RegisterFragment.newInstance()
+            )
         } else {
-            val intent = Intent(context,HomeActivity::class.java)
+            val intent = Intent(context, HomeActivity::class.java)
             startActivity(intent)
-            (activity as SplashActivity)?.finish()
+            (activity as SplashActivity).finish()
         }
+    }
+
+    private fun loadingFastProgressBar() {
+        object : CountDownTimer(MILLIS_IN_FEATURE, PROGRESS_FAST_STEP) {
+            override fun onFinish() {
+            }
+
+            override fun onTick(millisUntilFinished: Long) {
+                progressBarSplash?.progress = progressBarSplash.progress + 1
+                when (progressBarSplash?.progress) {
+                    PROGRESS_MAX_VALUE -> {
+                        checkAccount()
+                        this.cancel()
+                    }
+                }
+            }
+        }.start()
+    }
+
+    private fun requestInternet() {
+        if (isConnectedToInternet()) {
+            isLoadDataUrl = true
+            provideDatabase(requireContext())
+        } else {
+            Toast.makeText(context, "yeu cau ket noi internet", Toast.LENGTH_SHORT).show()
+            progressBarSplash.progress = 0
+        }
+    }
+
+    private fun isConnectedToInternet(): Boolean {
+        var isConnected = false
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val connectivityManager =
+                context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            val capabilities =
+                connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+            if (capabilities != null) {
+                when {
+                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> {
+                        isConnected = true
+                    }
+                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> {
+                        isConnected = true
+                    }
+                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> {
+                        isConnected = true
+                    }
+                }
+            }
+        }
+        return isConnected
     }
 }

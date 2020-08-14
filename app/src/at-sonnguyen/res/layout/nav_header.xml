@@ -37,18 +37,16 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tvName"
+                android:id="@+id/tvUsername"
                 android:layout_width="@dimen/w7_header_username_text_view_width"
                 android:layout_height="@dimen/w7_header_username_text_view_height"
                 android:gravity="center_vertical"
-                android:text="@string/w7_header_username_text_view_default_text"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvUniversity"
                 android:layout_width="@dimen/w7_header_username_text_view_width"
-                android:layout_height="@dimen/w7_header_username_text_view_height"
-                android:text="@string/w7_header_university_text_view_default_text" />
+                android:layout_height="@dimen/w7_header_username_text_view_height" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
