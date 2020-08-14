@@ -1,12 +1,8 @@
 package com.asiantech.intern20summer1.w7.main.activity
 
-import android.content.Context
-import android.graphics.Bitmap
 import android.net.Uri
-import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -18,17 +14,8 @@ import com.asiantech.intern20summer1.w7.companion.App
 import com.asiantech.intern20summer1.w7.database.ConnectDataBase
 import com.asiantech.intern20summer1.w7.main.fragment.DialogFragmentFarm
 import com.asiantech.intern20summer1.w7.main.fragment.TreeRecyclerFragment
-import com.asiantech.intern20summer1.w7.model.PlantModel
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.resource.bitmap.DownsampleStrategy
-import com.bumptech.glide.request.RequestOptions
-import kotlinx.android.synthetic.`at-huybui`.fragment_splash_farm.*
 import kotlinx.android.synthetic.`at-huybui`.navigation_header.view.*
 import kotlinx.android.synthetic.`at-huybui`.w7_activity_main_farm.*
-import java.io.File
-import java.io.FileOutputStream
-import java.lang.ref.WeakReference
 
 /**
  * Asian Tech Co., Ltd.
@@ -104,8 +91,8 @@ class MainFarmActivity : AppCompatActivity() {
         val actionBar = supportActionBar
         actionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
+            setDisplayShowTitleEnabled(false)
             setHomeAsUpIndicator(R.drawable.icon_menu_drawer)
-
         }
     }
 

@@ -18,7 +18,6 @@ import kotlinx.android.synthetic.`at-huybui`.fragment_information_tree.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-
 /**
  * Asian Tech Co., Ltd.
  * Created by at-huybui on 08/04/20
@@ -79,13 +78,14 @@ class PlantDetailFragment : Fragment() {
             imgIsWater_detail?.visibility = View.INVISIBLE
             imgIsWorm_detail?.visibility = View.INVISIBLE
             imgIsHarvest_detail?.visibility = View.VISIBLE
-            btnWatering_detail?.text = "Thu hoạch"
+            btnWatering_detail?.text = getString(R.string.w7_detail_thu_hoach)
         }
         detail_imgCultivation?.setImageURI(Uri.parse(plant?.imageUri))
         val dateHarvest = plant?.let { App().getDateHarvest(cultivation?.dateCultivation, it) }
         val textCultivation = getString(R.string.w7_text_cultivation, cultivation?.dateCultivation)
+        val textWater = getString(R.string.w7_text_watering, cultivation?.dateWatering)
         val textHarvest = getString(R.string.w7_text_harvest, dateHarvest)
-        tvInformationCultivation_detail?.text = "$textCultivation\n$textHarvest"
+        tvInformationCultivation_detail?.text = "$textCultivation\n$textWater\n$textHarvest"
         tvInformationPlant_detail?.text = plant?.description
     }
 
@@ -119,7 +119,7 @@ class PlantDetailFragment : Fragment() {
                 cultivation?.let {
                     dataBase?.cultivationDao()?.deleteCultivation(it)
                     (activity as MainFarmActivity).apply { fragment.initData(fragment.mode) }
-                    showToast("Đã thu hoạch cây")
+                    showToast(getString(R.string.w7_detail_harvested))
                     fragmentManager?.popBackStack()
                 }
             } else {

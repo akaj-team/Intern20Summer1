@@ -107,4 +107,6 @@
     <string name="w7_splash_mobile_network">Mobile data</string>
     <string name="w7_detail_information_plant">Thông tin cây</string>
     <string name="w7_title_garden">Garden</string>
+    <string name="w7_detail_harvested">Đã thu hoạch cây</string>
+    <string name="w7_detail_thu_hoach">Thu hoạch</string>
 </resources>

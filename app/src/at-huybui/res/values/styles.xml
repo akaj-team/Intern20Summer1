@@ -5,6 +5,7 @@
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="colorAccent">@color/accent</item>
+        <item name="windowActionBar">false</item>
     </style>
 
     <style name="edit_text">
@@ -36,9 +37,8 @@
     </style>
 
     <style name="OverflowMenu" parent="Widget.AppCompat.PopupMenu.Overflow">
-        <!-- Required for pre-Lollipop. -->
         <item name="overlapAnchor">false</item>
-        <item name="android:dropDownVerticalOffset">-4.0dp</item>
-        <item name="android:background">@drawable/bg_w7_select_spinner</item>
+        <item name="android:dropDownVerticalOffset">4.0dp</item>
+        <item name="android:background">@drawable/bg_w7_edit_text</item>
     </style>
 </resources>

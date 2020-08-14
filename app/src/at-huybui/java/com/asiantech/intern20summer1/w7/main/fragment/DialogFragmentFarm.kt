@@ -2,6 +2,7 @@ package com.asiantech.intern20summer1.w7.main.fragment
 
 import android.annotation.SuppressLint
 import android.graphics.Color
+import android.graphics.drawable.AnimationDrawable
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
@@ -10,9 +11,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Spinner
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w7.companion.App
+import com.asiantech.intern20summer1.w7.companion.CustomSpinner
 import com.asiantech.intern20summer1.w7.database.ConnectDataBase
 import com.asiantech.intern20summer1.w7.main.activity.MainFarmActivity
 import com.asiantech.intern20summer1.w7.model.CultivationModel
@@ -20,6 +24,7 @@ import com.asiantech.intern20summer1.w7.model.PlantModel
 import kotlinx.android.synthetic.`at-huybui`.w7_fragment_dialog.*
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 /**
  * Asian Tech Co., Ltd.
@@ -48,6 +53,8 @@ open class DialogFragmentFarm : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         dataBase = ConnectDataBase.dataBaseConnect(requireContext())
+
+        handleSpinner()
         initView()
         initData()
     }
@@ -113,5 +120,27 @@ open class DialogFragmentFarm : DialogFragment() {
             imgDialogPlant?.setImageURI(Uri.parse(plant.imageUri))
             plantSelected = plant
         }
+    }
+
+    private fun handleSpinner() {
+        spinnerTree?.setSpinnerEventsListener(object : CustomSpinner.OnSpinnerEventsListener {
+            override fun onSpinnerOpened(spinner: Spinner?) {
+                Toast.makeText(requireContext(), "open", Toast.LENGTH_SHORT).show()
+                imgIconSpinner?.apply {
+                    setBackgroundResource(R.drawable.bg_w7_select_spinner)
+                    val rocketAnimation = background as AnimationDrawable
+                    rocketAnimation.start()
+                }
+            }
+
+            override fun onSpinnerClosed(spinner: Spinner?) {
+                imgIconSpinner?.apply {
+                    setBackgroundResource(R.drawable.bg_w7_animation_off)
+                    val rocketAnimation = background as AnimationDrawable
+                    rocketAnimation.start()
+                }
+                Toast.makeText(requireContext(), "close", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 }

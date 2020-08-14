@@ -1,18 +1,18 @@
 <animation-list xmlns:android="http://schemas.android.com/apk/res/android"
     android:oneshot="true">
     <item
-        android:drawable="@drawable/icon_drop_5"
-        android:duration="50" />
-    <item
-        android:drawable="@drawable/icon_drop_4"
-        android:duration="50" />
-    <item
-        android:drawable="@drawable/icon_drop_3"
+        android:drawable="@drawable/icon_drop_1"
         android:duration="50" />
     <item
         android:drawable="@drawable/icon_drop_2"
         android:duration="50" />
     <item
-        android:drawable="@drawable/icon_drop_1"
+        android:drawable="@drawable/icon_drop_3"
+        android:duration="50" />
+    <item
+        android:drawable="@drawable/icon_drop_4"
+        android:duration="50" />
+    <item
+        android:drawable="@drawable/icon_drop_5"
         android:duration="50" />
 </animation-list>

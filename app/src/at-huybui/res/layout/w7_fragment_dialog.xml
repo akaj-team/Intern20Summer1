@@ -26,9 +26,9 @@
             android:text="@string/w7_trong_cay"
             android:textSize="@dimen/w7_dialog_title_text_size" />
 
-        <Spinner
-            android:id="@+id/spinnerTree"
+        <com.asiantech.intern20summer1.w7.companion.CustomSpinner
             style="@style/OverflowMenu"
+            android:id="@+id/spinnerTree"
             android:layout_below="@id/tvTitleDialog"
             android:layout_marginLeft="@dimen/w7_register_margin_left_right"
             android:layout_width="match_parent"
@@ -37,13 +37,24 @@
             android:overScrollMode="never" />
 
         <ImageView
+            android:id="@+id/imgIconSpinner"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_below="@+id/tvTitleDialog"
+            android:layout_alignEnd="@+id/spinnerTree"
+            android:layout_alignRight="@+id/spinnerTree"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="18dp"
+            android:background="@drawable/icon_drop_5"
+            android:layout_marginRight="18dp" />
+
+        <ImageView
             android:id="@+id/imgDialogPlant"
             android:layout_width="@dimen/w7_dialog_plant_image_width"
             android:layout_height="wrap_content"
             android:layout_below="@+id/spinnerTree"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="@dimen/w7_dialog_edit_text_margin_left_right"
-            android:layout_marginTop="@dimen/w7_dialog_text_information_margin"
             android:adjustViewBounds="true"
             android:scaleType="fitXY"
             tools:src="@drawable/logo_music" />
