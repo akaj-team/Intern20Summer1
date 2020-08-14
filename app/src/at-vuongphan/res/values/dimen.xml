@@ -58,4 +58,5 @@
     <dimen name="layout_home_marin">20dp</dimen>
     <dimen name="link_text_view_radius">2dp</dimen>
     <dimen name="text_view_padding">3dp</dimen>
+    <dimen name="margin_top">15dp</dimen>
 </resources>

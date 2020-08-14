@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.adapter.PagerAdapterFragment
-import com.asiantech.intern20summer1.fragmennt.PagePosition
+import com.asiantech.intern20summer1.fragment.PagePosition
 import kotlinx.android.synthetic.`at-vuongphan`.activity_viewpager.*
 
 class ViewPagerActivity : AppCompatActivity() {

@@ -57,4 +57,10 @@
     <string name="image_camera">Camera</string>
     <string name="image_gallery">Gallery</string>
     <string name="enter_input_your_email">Enter input your number phone</string>
+    <string name="button_async_task">AsyncTask</string>
+    <string name="button_handler">Handler</string>
+    <string name="edt_text_link_download">https://wallpaperaccess.com/full/1356237.jpg</string>
+    <string name="text_view_text_ratio">%</string>
+    <string name="text_view_text_0">0</string>
+    <string name="button_text">Start</string>
 </resources>
