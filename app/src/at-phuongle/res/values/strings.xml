@@ -15,4 +15,8 @@
     <string name="image_intent_type_jpeg">image/jpeg</string>
     <string name="image_intent_type_png">image/png</string>
     <string name="image_intent_type_jpg">image/jpg</string>
+    
+<!--    Week 8-->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 </resources>

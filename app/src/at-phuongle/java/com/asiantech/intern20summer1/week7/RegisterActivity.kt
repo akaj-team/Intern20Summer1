@@ -2,6 +2,7 @@ package com.asiantech.intern20summer1.week7
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.provider.MediaStore
@@ -10,10 +11,13 @@ import android.text.TextWatcher
 import androidx.appcompat.app.AppCompatActivity
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.utils.hideSoftKeyboard
+import com.asiantech.intern20summer1.week7.model.User
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.`at-phuongle`.activity_register.*
 
 class RegisterActivity : AppCompatActivity() {
+    private lateinit var userImage: String
+
     companion object {
         const val GALLERY_REQUEST_CODE = 1000
     }
@@ -32,6 +36,7 @@ class RegisterActivity : AppCompatActivity() {
             when (requestCode) {
                 GALLERY_REQUEST_CODE -> {
                     data?.data?.let { uri ->
+                        userImage = uri.toString()
                         Glide.with(this)
                             .load(uri)
                             .placeholder(R.mipmap.ic_launcher_round)
@@ -49,6 +54,7 @@ class RegisterActivity : AppCompatActivity() {
         handleUserNameEditTextListener()
         handleUniversityEditTextListener()
         handleHomeTownEditTextListener()
+        handleNextButtonListener()
     }
 
     private fun isValidInfo(): Boolean {
@@ -169,5 +175,35 @@ class RegisterActivity : AppCompatActivity() {
             ) {
             }
         })
+    }
+
+    private fun handleNextButtonListener() {
+        btnRegisterNext.setOnClickListener {
+            val user = User(
+                userImage,
+                edtRegisterUserName.text.toString(),
+                edtRegisterUniversity.text.toString(),
+                edtRegisterHomeTown.text.toString()
+            )
+
+            // Put user information to shared references
+            val sharedPreferences =
+                getSharedPreferences(
+                    SplashActivity.REGISTER_SHARED_PREF_FILE_NAME,
+                    Context.MODE_PRIVATE
+                )
+            val editor = sharedPreferences.edit()
+            editor.apply {
+                putString(SplashActivity.AVATAR_KEY, user.avatar)
+                putString(SplashActivity.USER_NAME_KEY, user.userName)
+                putString(SplashActivity.UNIVERSITY_KEY, user.university)
+                putString(SplashActivity.HOME_TOWN_KEY, user.homeTown)
+            }.apply()
+
+            // Switch to Home activity
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 }

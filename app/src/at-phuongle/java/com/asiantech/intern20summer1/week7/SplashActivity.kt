@@ -1,5 +1,6 @@
 package com.asiantech.intern20summer1.week7
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -11,6 +12,11 @@ class SplashActivity : AppCompatActivity() {
     companion object {
         const val MAX_PROGESS = 5000
         const val ONE_HUNDRED = 100L
+        const val REGISTER_SHARED_PREF_FILE_NAME = "register"
+        const val AVATAR_KEY = "avatar"
+        const val USER_NAME_KEY = "user_name"
+        const val UNIVERSITY_KEY = "university"
+        const val HOME_TOWN_KEY = "home_town"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,9 +27,15 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun switchActivity() {
-        val intent = Intent(this, RegisterActivity::class.java)
-        startActivity(intent)
-        finish()
+        if (isNotRegistered()) {
+            val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
+            finish()
+        } else {
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
     private fun handleProgessBar() {
@@ -31,6 +43,7 @@ class SplashActivity : AppCompatActivity() {
         val handler = Handler()
 
         progressBarSplash?.max = MAX_PROGESS
+
         Thread(Runnable {
             while (process < MAX_PROGESS) {
                 process += MAX_PROGESS / ONE_HUNDRED
@@ -49,5 +62,20 @@ class SplashActivity : AppCompatActivity() {
 
             }
         }).start()
+    }
+
+    private fun isNotRegistered(): Boolean {
+        val sharedPreferences =
+            getSharedPreferences(REGISTER_SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE)
+
+        val userAvatar = sharedPreferences.getString(AVATAR_KEY, null)
+        val userName = sharedPreferences.getString(USER_NAME_KEY, null)
+        val userUniversity = sharedPreferences.getString(UNIVERSITY_KEY, null)
+        val userHomeTown = sharedPreferences.getString(HOME_TOWN_KEY, null)
+
+        return userAvatar.isNullOrEmpty()
+                && userName.isNullOrEmpty()
+                && userUniversity.isNullOrEmpty()
+                && userHomeTown.isNullOrEmpty()
     }
 }
