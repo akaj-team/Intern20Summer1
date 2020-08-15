@@ -58,11 +58,8 @@
     <string name="w7_menu_item4_title">Rau bị sâu</string>
     <string name="w_7menu_item5_title">Rau bị thiếu nước</string>
     <string name="w7_dialog_fragment_title">Trồng cây</string>
-    <string-array name="Plants">
-        <item> "aaaaa"</item>
-        <item>bbbb</item>
-        <item>ccc</item>
-        <item>ddd</item>
-        <item>eeee</item>
-    </string-array>
+    <string name="text_button_ok">OK</string>
+    <string name="w7_text_cultivation">Trồng lúc: %s</string>
+    <string name="w7_text_harvest">Thu Hoạch lúc: %s</string>
+    <string name="w7_text_watering">Tưới nước lúc: %s </string>
 </resources>

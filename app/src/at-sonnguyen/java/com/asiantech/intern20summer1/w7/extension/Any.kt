@@ -3,6 +3,7 @@ package com.asiantech.intern20summer1.w7.extension
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w7.database.data.Cultivation
 import com.asiantech.intern20summer1.w7.database.data.DownloadPlantImage.Companion.FORMAT_CODE_DATE
 import com.asiantech.intern20summer1.w7.database.data.DownloadPlantImage.Companion.SECOND_IN_HOUR
@@ -24,7 +25,8 @@ internal fun AppCompatActivity.replaceFragment(
     transaction.commit()
     return fragment
 }
-fun isPlantWormed(plant: Plant?, cultivation: Cultivation?): Boolean {
+
+fun isWormed(plant: Plant?, cultivation: Cultivation?): Boolean {
     cultivation?.dateWatering?.let { dateWatering ->
         val dateFormat = SimpleDateFormat(FORMAT_CODE_DATE)
         var beforeTime = 0
@@ -45,7 +47,7 @@ fun isPlantWormed(plant: Plant?, cultivation: Cultivation?): Boolean {
 }
 
 @SuppressLint("SimpleDateFormat")
-fun isPlantLackWater(plant: Plant?, cultivation: Cultivation?): Boolean {
+fun isLackedWater(plant: Plant?, cultivation: Cultivation?): Boolean {
     cultivation?.dateWatering?.let { dateWatering ->
         val dateFormat = SimpleDateFormat(FORMAT_CODE_DATE)
         var beforeTime = 0
@@ -66,8 +68,8 @@ fun isPlantLackWater(plant: Plant?, cultivation: Cultivation?): Boolean {
 }
 
 @SuppressLint("SimpleDateFormat")
-fun isPlantHarvest(plant: Plant?, culti: Cultivation?): Boolean {
-    culti?.dateCultivation?.let { dateWatering ->
+fun isComingHarvest(plant: Plant?, cultivation: Cultivation?): Boolean {
+    cultivation?.dateCultivation?.let { dateWatering ->
         val dateFormat = SimpleDateFormat(FORMAT_CODE_DATE)
         var beforeTime = 0
         dateFormat.parse(dateWatering)?.let { date ->
@@ -86,8 +88,22 @@ fun isPlantHarvest(plant: Plant?, culti: Cultivation?): Boolean {
     return false
 }
 
-private fun getMinuteInDay(calendar: Calendar): Int {
+internal fun getMinuteInDay(calendar: Calendar): Int {
     return calendar.get(Calendar.HOUR) * SECOND_IN_HOUR + calendar.get(Calendar.MINUTE) * SECOND_IN_MINUTE + calendar.get(
         Calendar.SECOND
     )
+}
+
+internal fun getDateHarvest(cultivation: String?, plant: Plant): String {
+    cultivation?.let { cul ->
+        val dateFormat = SimpleDateFormat(FORMAT_CODE_DATE)
+        val calendar = Calendar.getInstance()
+        dateFormat.parse(cul)?.let { calendar.time = it }
+        plant.growZoneNumber?.let { calendar.add(Calendar.DATE, it) }
+        return dateFormat.format(calendar.time)
+    }
+    return ""
+}
+internal fun AppCompatActivity.openVegetableFragment(fragment: Fragment) {
+    supportFragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit()
 }

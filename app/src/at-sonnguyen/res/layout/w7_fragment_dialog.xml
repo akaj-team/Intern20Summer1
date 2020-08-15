@@ -1,6 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="32dp"
+    app:cardElevation="5dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <RelativeLayout
+        android:layout_gravity="center_vertical"
+        android:layout_margin="32dp"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="480dp">
+
+        <ImageView
+            android:id="@+id/imgBackIconDialog"
+            android:layout_width="@dimen/w7_dialog_back_icon_size"
+            android:layout_height="@dimen/w7_dialog_back_icon_size"
+            android:layout_margin="@dimen/w7_dialog_back_icon_margin"
+            android:background="@drawable/ic_baseline_arrow_back_ios_24" />
+        <TextView
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:textStyle="bold"
+            android:id="@+id/tvDialogTitle"
+            android:layout_below="@id/imgBackIconDialog"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="25dp"
+            android:text="Trồng cây"
+            android:textSize="36sp"
+            android:layout_height="wrap_content"/>
+        <Spinner
+            android:id="@+id/spinnerPlant"
+            android:layout_below="@id/tvDialogTitle"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="18dp"
+            android:layout_marginTop="25dp"
+            android:layout_width="320dp"
+            android:layout_height="50dp"/>
+
+        <Button
+            android:layout_alignParentBottom="true"
+            android:id="@+id/btnDialogFragment"
+            android:layout_width="320dp"
+            android:layout_height="52dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginBottom="35dp"
+            android:text="@string/text_button_ok" />
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

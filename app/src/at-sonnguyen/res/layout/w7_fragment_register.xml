@@ -17,7 +17,7 @@
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="@dimen/w7_register_fragment_avatar_image_width"
         android:id="@+id/imgAvatarRegister"
-        android:src="@mipmap/ic_launcher"
+        android:src="@drawable/ic_baseline_account_circle_24"
         app:civ_border_width="@dimen/w7_register_fragment_avatar_image_border_width"
         app:civ_border_color="@color/colorWeek7CircleImageViewBorder"
         android:layout_below="@id/tvTitle"

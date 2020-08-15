@@ -34,7 +34,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/tvGrowZoneNumber"
+        android:id="@+id/tvCultivationDate"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/w7_recycler_view_text_view_height"
         android:layout_below="@+id/llName"
@@ -44,17 +44,17 @@
         android:textSize="@dimen/w7_text_view_text_size" />
 
     <TextView
-        android:id="@+id/tvDateHarvest"
+        android:id="@+id/tvHarvestDate"
         android:layout_width="wrap_content"
         android:layout_height="14dp"
-        android:layout_below="@id/tvGrowZoneNumber"
+        android:layout_below="@id/tvCultivationDate"
         android:layout_marginStart="@dimen/w7_recycler_view_date_grow_text_view_margin_left"
         android:layout_marginLeft="@dimen/w7_recycler_view_date_grow_text_view_margin_left"
         android:layout_marginTop="@dimen/w7_recycler_view_date_grow_text_view_margin_top"
         android:textSize="@dimen/w7_text_view_text_size" />
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imgVegetable"
+        android:id="@+id/imgPlant"
         android:layout_width="@dimen/w7_recycler_view_plant_image_width"
         android:layout_height="@dimen/w7_recycler_view_plant_image_height"
         android:layout_alignParentEnd="true"

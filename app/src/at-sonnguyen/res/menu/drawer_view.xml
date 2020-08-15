@@ -10,15 +10,15 @@
             android:icon="@drawable/ic_take"
             android:title="@string/w7_menu_item2_title" />
         <item
-            android:id="@+id/nav_fourth_fragment"
+            android:id="@+id/nav_third_fragment"
             android:icon="@drawable/ic_collection_time"
             android:title="@string/w7_menu_item3_title" />
         <item
-            android:id="@+id/nav_fifth_fragment"
+            android:id="@+id/nav_fourth_fragment"
             android:icon="@drawable/ic_star"
             android:title="@string/w7_menu_item4_title" />
         <item
-            android:id="@+id/nav_sixth_fragment"
+            android:id="@+id/nav_fifth_fragment"
             android:icon="@drawable/ic_star"
             android:title="@string/w_7menu_item5_title" />
     </group>

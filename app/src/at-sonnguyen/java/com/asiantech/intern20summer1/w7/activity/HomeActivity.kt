@@ -6,10 +6,11 @@ import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
-import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w7.database.PlantDatabase
+import com.asiantech.intern20summer1.w7.extension.openVegetableFragment
 import com.asiantech.intern20summer1.w7.extension.replaceFragment
+import com.asiantech.intern20summer1.w7.fragment.PlantDialogFragment
 import com.asiantech.intern20summer1.w7.fragment.VegetableGardenFragment
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.`at-sonnguyen`.nav_header.view.*
@@ -17,13 +18,13 @@ import kotlinx.android.synthetic.`at-sonnguyen`.toolbar.*
 import kotlinx.android.synthetic.`at-sonnguyen`.w7_activity_home.*
 
 class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-    private var database : PlantDatabase? = null
+    private var database: PlantDatabase? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.w7_activity_home)
         database = PlantDatabase.getInstance(applicationContext)
         supportActionBar?.hide();
-        replaceFragment(R.id.flContent, VegetableGardenFragment())
+        replaceFragment(R.id.flContent, VegetableGardenFragment.newInstance())
         setSupportActionBar(toolbar);
         nvView?.setNavigationItemSelectedListener(this)
         initView()
@@ -36,9 +37,9 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         user?.let {
             header.tvUsername.text = it.username
             header.tvUniversity.text = it.university
-            if (it.imgUri != ""){
+            if (it.imgUri != "") {
                 header.imgAvatarHeader.setImageURI(Uri.parse(it.imgUri))
-            }else {
+            } else {
                 header.imgAvatarHeader.setImageResource(R.drawable.ic_baseline_account_circle_24)
             }
         }
@@ -62,12 +63,15 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_first_fragment -> {
-//                openVegetableFragment(VegetableGardenFragment())
-//                drawer_layout.closeDrawer(GravityCompat.START)
+                openVegetableFragment(VegetableGardenFragment())
+                drawer_layout.closeDrawer(GravityCompat.START)
             }
             R.id.nav_second_fragment -> {
-//                openVegetableFragment(FragmentTwo())
-//                drawer_layout.closeDrawer(GravityCompat.START)
+               PlantDialogFragment.newInstance().show(supportFragmentManager,"")
+                drawer_layout.closeDrawer(GravityCompat.START)
+            }
+            R.id.nav_third_fragment ->{
+                //
             }
             R.id.nav_fourth_fragment -> {
 //                openVegetableFragment(FragmentThree())
@@ -81,9 +85,5 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
         }
         return true
-    }
-
-    private fun openVegetableFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit()
     }
 }
