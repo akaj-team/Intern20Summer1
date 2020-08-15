@@ -33,14 +33,14 @@ fun isWormed(plant: Plant?, cultivation: Cultivation?): Boolean {
         dateFormat.parse(dateWatering)?.let { date ->
             Calendar.getInstance().apply {
                 time = date
-                beforeTime = getMinuteInDay(this)
+                beforeTime = getSecondInDay(this)
             }
         }
         val now = Calendar.getInstance()
         now.time = Date()
-        val current = getMinuteInDay(now)
+        val current = getSecondInDay(now)
         plant?.wateringInterval?.let {
-            return (current - beforeTime) / 2 >= (it * SECOND_IN_MINUTE)
+            return (current - beforeTime) >= (it * SECOND_IN_MINUTE)/4
         }
     }
     return false
@@ -54,14 +54,14 @@ fun isLackedWater(plant: Plant?, cultivation: Cultivation?): Boolean {
         dateFormat.parse(dateWatering)?.let { date ->
             Calendar.getInstance().apply {
                 time = date
-                beforeTime = getMinuteInDay(this)
+                beforeTime = getSecondInDay(this)
             }
         }
         val now = Calendar.getInstance()
         now.time = Date()
-        val current = getMinuteInDay(now)
+        val current = getSecondInDay(now)
         plant?.wateringInterval?.let {
-            return (current - beforeTime) >= (it * SECOND_IN_MINUTE)
+            return (current - beforeTime) >= (it * SECOND_IN_MINUTE)/2
         }
     }
     return false
@@ -75,20 +75,20 @@ fun isComingHarvest(plant: Plant?, cultivation: Cultivation?): Boolean {
         dateFormat.parse(dateWatering)?.let { date ->
             Calendar.getInstance().apply {
                 time = date
-                beforeTime = getMinuteInDay(this)
+                beforeTime = getSecondInDay(this)
             }
         }
         val now = Calendar.getInstance()
         now.time = Date()
-        val current = getMinuteInDay(now)
+        val current = getSecondInDay(now)
         plant?.growZoneNumber?.let {
-            return (current - beforeTime) >= (it * SECOND_IN_MINUTE)
+            return (current - beforeTime) >= (it * SECOND_IN_MINUTE)/2
         }
     }
     return false
 }
 
-internal fun getMinuteInDay(calendar: Calendar): Int {
+internal fun getSecondInDay(calendar: Calendar): Int {
     return calendar.get(Calendar.HOUR) * SECOND_IN_HOUR + calendar.get(Calendar.MINUTE) * SECOND_IN_MINUTE + calendar.get(
         Calendar.SECOND
     )

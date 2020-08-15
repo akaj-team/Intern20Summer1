@@ -10,9 +10,7 @@ import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w7.database.PlantDatabase
 import com.asiantech.intern20summer1.w7.extension.openVegetableFragment
 import com.asiantech.intern20summer1.w7.extension.replaceFragment
-import com.asiantech.intern20summer1.w7.fragment.LackedWaterPlantFragment
-import com.asiantech.intern20summer1.w7.fragment.PlantDialogFragment
-import com.asiantech.intern20summer1.w7.fragment.VegetableGardenFragment
+import com.asiantech.intern20summer1.w7.fragment.*
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.`at-sonnguyen`.nav_header.view.*
 import kotlinx.android.synthetic.`at-sonnguyen`.toolbar.*
@@ -72,18 +70,16 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 drawer_layout.closeDrawer(GravityCompat.START)
             }
             R.id.nav_third_fragment ->{
-                openVegetableFragment(LackedWaterPlantFragment.newInstance())
+                openVegetableFragment(ComingHarvestPlant.newInstance())
                 drawer_layout.closeDrawer(GravityCompat.START)
             }
             R.id.nav_fourth_fragment -> {
-//                openVegetableFragment(FragmentThree())
-//                drawer_layout.closeDrawer(GravityCompat.START)
+                openVegetableFragment(WormedPlantFragment.newInstance())
+                drawer_layout.closeDrawer(GravityCompat.START)
             }
             R.id.nav_fifth_fragment -> {
-//                val dialogFragment : DiaLogFragment1? = DiaLogFragment1.newInstance("Trong cay 1 ")
-//                val fragmentManager : FragmentManager = supportFragmentManager
-//                dialogFragment?.show(fragmentManager,"Trong cay 2")
-//                drawer_layout.closeDrawer(GravityCompat.START)
+                openVegetableFragment(LackedWaterPlantFragment.newInstance())
+                drawer_layout.closeDrawer(GravityCompat.START)
             }
         }
         return true
