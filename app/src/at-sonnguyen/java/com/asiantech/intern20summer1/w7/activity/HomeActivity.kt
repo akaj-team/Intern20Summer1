@@ -10,6 +10,7 @@ import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w7.database.PlantDatabase
 import com.asiantech.intern20summer1.w7.extension.openVegetableFragment
 import com.asiantech.intern20summer1.w7.extension.replaceFragment
+import com.asiantech.intern20summer1.w7.fragment.LackedWaterPlantFragment
 import com.asiantech.intern20summer1.w7.fragment.PlantDialogFragment
 import com.asiantech.intern20summer1.w7.fragment.VegetableGardenFragment
 import com.google.android.material.navigation.NavigationView
@@ -71,7 +72,8 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 drawer_layout.closeDrawer(GravityCompat.START)
             }
             R.id.nav_third_fragment ->{
-                //
+                openVegetableFragment(LackedWaterPlantFragment.newInstance())
+                drawer_layout.closeDrawer(GravityCompat.START)
             }
             R.id.nav_fourth_fragment -> {
 //                openVegetableFragment(FragmentThree())

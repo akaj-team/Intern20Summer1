@@ -1,5 +1,6 @@
 package com.asiantech.intern20summer1.w7.adapter
 
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,7 +45,9 @@ class VegetableAdapter(private val cultivationList: MutableList<Cultivation>) :
                     tvHarvestDate.text =
                         itemView.context.getString(R.string.w7_text_harvest, harvestDate)
                     tvPlantName.text = plant.name
-//                    imgPlant.setImageURI(Uri.parse(plant.imageUri))
+                    plant?.imageUri?.let {
+                        imgPlant.setImageURI(Uri.parse(it))
+                    }
                 }
             }
         }

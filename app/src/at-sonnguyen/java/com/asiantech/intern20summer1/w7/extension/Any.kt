@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w7.database.data.Cultivation
-import com.asiantech.intern20summer1.w7.database.data.DownloadPlantImage.Companion.FORMAT_CODE_DATE
+import com.asiantech.intern20summer1.w7.database.data.DownloadPlantImage
 import com.asiantech.intern20summer1.w7.database.data.DownloadPlantImage.Companion.SECOND_IN_HOUR
 import com.asiantech.intern20summer1.w7.database.data.DownloadPlantImage.Companion.SECOND_IN_MINUTE
 import com.asiantech.intern20summer1.w7.database.data.Plant
@@ -28,7 +28,7 @@ internal fun AppCompatActivity.replaceFragment(
 
 fun isWormed(plant: Plant?, cultivation: Cultivation?): Boolean {
     cultivation?.dateWatering?.let { dateWatering ->
-        val dateFormat = SimpleDateFormat(FORMAT_CODE_DATE)
+        val dateFormat = SimpleDateFormat(DownloadPlantImage.FORMAT_CODE_DATE)
         var beforeTime = 0
         dateFormat.parse(dateWatering)?.let { date ->
             Calendar.getInstance().apply {
@@ -49,7 +49,7 @@ fun isWormed(plant: Plant?, cultivation: Cultivation?): Boolean {
 @SuppressLint("SimpleDateFormat")
 fun isLackedWater(plant: Plant?, cultivation: Cultivation?): Boolean {
     cultivation?.dateWatering?.let { dateWatering ->
-        val dateFormat = SimpleDateFormat(FORMAT_CODE_DATE)
+        val dateFormat = SimpleDateFormat(DownloadPlantImage.FORMAT_CODE_DATE)
         var beforeTime = 0
         dateFormat.parse(dateWatering)?.let { date ->
             Calendar.getInstance().apply {
@@ -70,7 +70,7 @@ fun isLackedWater(plant: Plant?, cultivation: Cultivation?): Boolean {
 @SuppressLint("SimpleDateFormat")
 fun isComingHarvest(plant: Plant?, cultivation: Cultivation?): Boolean {
     cultivation?.dateCultivation?.let { dateWatering ->
-        val dateFormat = SimpleDateFormat(FORMAT_CODE_DATE)
+        val dateFormat = SimpleDateFormat(DownloadPlantImage.FORMAT_CODE_DATE)
         var beforeTime = 0
         dateFormat.parse(dateWatering)?.let { date ->
             Calendar.getInstance().apply {
@@ -96,7 +96,7 @@ internal fun getMinuteInDay(calendar: Calendar): Int {
 
 internal fun getDateHarvest(cultivation: String?, plant: Plant): String {
     cultivation?.let { cul ->
-        val dateFormat = SimpleDateFormat(FORMAT_CODE_DATE)
+        val dateFormat = SimpleDateFormat(DownloadPlantImage.FORMAT_CODE_DATE)
         val calendar = Calendar.getInstance()
         dateFormat.parse(cul)?.let { calendar.time = it }
         plant.growZoneNumber?.let { calendar.add(Calendar.DATE, it) }

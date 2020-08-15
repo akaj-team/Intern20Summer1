@@ -62,7 +62,6 @@
         android:layout_centerVertical="true"
         android:layout_marginEnd="@dimen/w7_recycler_view_plant_image_margin_right"
         android:layout_marginRight="@dimen/w7_recycler_view_plant_image_margin_right"
-        android:src="@mipmap/ic_launcher"
         app:civ_border_color="@color/colorWeek7CircleImageViewBorder"
         app:civ_border_width="@dimen/w7_register_fragment_avatar_image_border_width" />
 </RelativeLayout>

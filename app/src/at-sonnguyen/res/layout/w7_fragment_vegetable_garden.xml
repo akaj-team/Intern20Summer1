@@ -5,6 +5,12 @@
     android:layout_marginLeft="32dp"
     android:layout_marginRight="32dp"
     android:layout_height="match_parent">
+    <TextView
+        android:textStyle="bold"
+        android:id="@+id/tvNoPlant"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewHome"
         android:layout_width="match_parent"

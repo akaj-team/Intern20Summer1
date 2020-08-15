@@ -23,13 +23,14 @@ import com.asiantech.intern20summer1.w7.database.data.Plant
 import com.asiantech.intern20summer1.w7.extension.replaceFragment
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.google.gson.stream.JsonReader
 import kotlinx.android.synthetic.`at-sonnguyen`.w7_fragment_splash.*
 import java.util.concurrent.Executors
 
 class SplashFragment : Fragment() {
 
     private var database: PlantDatabase? = null
-    private var isLoadDataUrl = false
+    private var isLoading = false
 
     companion object {
         private const val MILLIS_IN_FEATURE = 10000L
@@ -37,6 +38,7 @@ class SplashFragment : Fragment() {
         private const val PROGRESS_MAX_VALUE = 100
         private const val PROGRESS_FAST_STEP = 5L
         private const val JSON_FILE_NAME = "plants.json"
+        private const val POINT_TO_GET_IMAGE_URI = 80
         private const val POINT_CHECK_DATABASE = 5
         private const val POINT_LOADING_DATABASE = 10
         private const val POINT_LOADING_DATA_URL = 20
@@ -90,9 +92,11 @@ class SplashFragment : Fragment() {
                     POINT_LOADING_DATA_URL -> {
                         downloadPlantImage(plants)
                     }
+                    POINT_TO_GET_IMAGE_URI ->{
+                        getImageUri(plants)
+                    }
 
                     PROGRESS_MAX_VALUE -> {
-                        getImageUri(plants)
                         checkAccount()
                         this.cancel()
                     }
@@ -101,6 +105,7 @@ class SplashFragment : Fragment() {
 
             override fun onFinish() {
                 checkAccount()
+//                (activity as SplashActivity).finish()
             }
         }.start()
     }
@@ -108,7 +113,7 @@ class SplashFragment : Fragment() {
     private fun provideDatabase(context: Context) {
         Executors.newFixedThreadPool(2).execute {
             context.assets.open(JSON_FILE_NAME).use { inputStream ->
-                com.google.gson.stream.JsonReader(inputStream.reader()).use { jsonReader ->
+                JsonReader(inputStream.reader()).use { jsonReader ->
                     val plantType = object : TypeToken<List<Plant>>() {}.type
                     val plants: List<Plant> = Gson().fromJson(jsonReader, plantType)
                     database?.plantDao()?.insertPlants(plants)
@@ -118,7 +123,7 @@ class SplashFragment : Fragment() {
     }
 
     private fun downloadPlantImage(plants: List<Plant>?) {
-        if (isLoadDataUrl) {
+        if (isLoading) {
             if (plants?.size == 0) {
                 progressBarSplash?.progress = 0
             } else {
@@ -157,6 +162,7 @@ class SplashFragment : Fragment() {
     private fun loadingFastProgressBar() {
         object : CountDownTimer(MILLIS_IN_FEATURE, PROGRESS_FAST_STEP) {
             override fun onFinish() {
+
             }
 
             override fun onTick(millisUntilFinished: Long) {
@@ -165,6 +171,7 @@ class SplashFragment : Fragment() {
                     PROGRESS_MAX_VALUE -> {
                         checkAccount()
                         this.cancel()
+
                     }
                 }
             }
@@ -173,7 +180,7 @@ class SplashFragment : Fragment() {
 
     private fun requestInternet() {
         if (isConnectedToInternet()) {
-            isLoadDataUrl = true
+            isLoading = true
             provideDatabase(requireContext())
         } else {
             Toast.makeText(context, "yeu cau ket noi internet", Toast.LENGTH_SHORT).show()
