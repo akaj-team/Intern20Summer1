@@ -17,6 +17,7 @@ class App {
         internal const val FORMAT_CODE_DATE = "dd/MM/yyyy HH:mm"
         internal const val NAME_DIR = "imagePlants"
         internal const val FILE_TAIL = ".jpg"
+        internal const val NAME_PREFERENCE = "PREFERENCE"
         private const val MINUTES = 60
         private const val HOURS = 3600
         internal const val MODE_PLANTS = 1

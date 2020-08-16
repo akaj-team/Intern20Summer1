@@ -1,6 +1,7 @@
 package com.asiantech.intern20summer1.w7.launcher.fragment
 
 import android.content.Context
+import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.ConnectivityManager
@@ -45,20 +46,19 @@ class SplashFarmFragment : Fragment() {
 
     companion object {
         private const val SPLASH_TIMER = 50000L
-        private const val PROGRESS_TIMER_STEP = 100L
+        private const val PROGRESS_LOW_STEP = 100L
         private const val PROGRESS_MAX_VALUE = 100
         private const val PROGRESS_FAST_STEP = 2L
         private const val JSON_FILE_NAME = "plants.json"
-        private const val POINT_CHECK_DATABASE = 5
-        private const val POINT_LOADING_DATABASE = 10
-        private const val POINT_LOADING_DATA_URL = 20
+        private const val POINT_LOADING_DATA_URL = 10
         private const val SIZE_IMAGE = 500
         private const val QUALITY_IMAGE = 100
+        private const val KEY_DATA = "key_data"
+        private const val KEY_JSON = "key_json"
         internal fun newInstance() = SplashFarmFragment()
     }
 
     private var dataBase: ConnectDataBase? = null
-    private var isLoadDataUrl = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -79,35 +79,50 @@ class SplashFarmFragment : Fragment() {
     }
 
     private fun handleForProgressBar() {
-        var plants = dataBase?.plantDao()?.getAllPlant()
         progressBarFarm?.progress = 0
+        val pref = requireContext().getSharedPreferences(App.NAME_PREFERENCE, MODE_PRIVATE)
+        val isData = pref.getBoolean(KEY_DATA, false)
+        if (isData) {
+            loadingFastProgressBar()
+        } else {
+            loadingLowProgressBar()
+        }
+    }
+
+    private fun loadingFastProgressBar() {
         object : CountDownTimer(
             SPLASH_TIMER,
-            PROGRESS_TIMER_STEP
+            PROGRESS_FAST_STEP
+        ) {
+            override fun onFinish() {
+            }
+
+            override fun onTick(millisUntilFinished: Long) {
+                progressBarFarm?.progress = progressBarFarm.progress + 1
+                if (progressBarFarm?.progress == PROGRESS_MAX_VALUE) {
+                    intentActivity()
+                    this.cancel()
+                }
+            }
+        }.start()
+    }
+
+    private fun loadingLowProgressBar() {
+        val pref = requireContext().getSharedPreferences(App.NAME_PREFERENCE, MODE_PRIVATE)
+        val isJsonStatus = pref.getBoolean(KEY_JSON, false)
+        if (!isJsonStatus) {
+            saveDataFromJsonFile(requireContext())
+        }
+        object : CountDownTimer(
+            SPLASH_TIMER,
+            PROGRESS_LOW_STEP
         ) {
             override fun onTick(millisUntilFinished: Long) {
-                if (!isLoadDataUrl) {
-                    progressBarFarm?.progress = progressBarFarm.progress + 1
-                }
+                progressBarFarm?.progress = progressBarFarm.progress + 1
                 when (progressBarFarm?.progress) {
-                    POINT_CHECK_DATABASE -> {
-                        if (plants?.size == 0) {
-                            handleInternet(this)
-                        } else {
-                            this.cancel()
-                            loadingFastProgressBar()
-                        }
-                    }
-                    POINT_LOADING_DATABASE -> {
-                        plants = dataBase?.plantDao()?.getAllPlant()
-                    }
                     POINT_LOADING_DATA_URL -> {
-                        loadingDataInternet(plants)
-                    }
-
-                    PROGRESS_MAX_VALUE -> {
-                        intentActivity()
-                        this.cancel()
+                        val plants = dataBase?.plantDao()?.getAllPlant()
+                        handleInternet(this, plants)
                     }
                 }
             }
@@ -122,25 +137,20 @@ class SplashFarmFragment : Fragment() {
         Executors.newFixedThreadPool(2).execute {
             context.assets.open(JSON_FILE_NAME).use { inputStream ->
                 JsonReader(inputStream.reader()).use { jsonReader ->
-                    val plantType = object : TypeToken<List<PlantModel>>() {}.type
+                    val plantType = object : TypeToken<List<PlantModel>>() {
+                    }.type
                     val plants: List<PlantModel> = Gson().fromJson(jsonReader, plantType)
                     dataBase?.plantDao()?.insertPlants(plants)
                 }
             }
+            requireContext().getSharedPreferences(App.NAME_PREFERENCE, MODE_PRIVATE).edit()
+                .putBoolean(KEY_JSON, true).apply()
         }
     }
 
-    private fun loadingDataInternet(plants: List<PlantModel>?) {
-            if (plants?.size == 0) {
-                progressBarFarm?.progress = 0
-            } else {
-                isLoadDataUrl = true
-                progressBarFarm?.progress = progressBarFarm.progress + 1
-                downLoadImageFromUrl(plants)
-            }
-    }
-
     private fun intentActivity() {
+        requireContext().getSharedPreferences(App.NAME_PREFERENCE, MODE_PRIVATE).edit()
+            .putBoolean(KEY_DATA, true).apply()
         val user = dataBase?.userDao()?.getUser()
         if (user == null) {
             (activity as LauncherFarmActivity).handleReplaceFragment(
@@ -153,35 +163,15 @@ class SplashFarmFragment : Fragment() {
         }
     }
 
-    private fun loadingFastProgressBar() {
-        object : CountDownTimer(
-            SPLASH_TIMER,
-            PROGRESS_FAST_STEP
-        ) {
-            override fun onFinish() {
-            }
-
-            override fun onTick(millisUntilFinished: Long) {
-                progressBarFarm?.progress = progressBarFarm.progress + 1
-                when (progressBarFarm?.progress) {
-                    PROGRESS_MAX_VALUE -> {
-                        intentActivity()
-                        this.cancel()
-                    }
-                }
-            }
-        }.start()
-    }
-
-    private fun handleInternet(timer: CountDownTimer) {
+    private fun handleInternet(timer: CountDownTimer, plants: List<PlantModel>?) {
         if (isCheckInternet()) {
+            timer.cancel()
+            downLoadImageFromUrl(plants)
             showToast(getString(R.string.w7_loading_data))
-            saveDataFromJsonFile(requireContext())
         } else {
-            showToast(getString(R.string.w7_splash_internet_connect_request), Toast.LENGTH_LONG)
             timer.cancel()
             selectInternetDialog()
-            progressBarFarm?.progress = 0
+            showToast(getString(R.string.w7_splash_internet_connect_request), Toast.LENGTH_LONG)
         }
     }
 
@@ -231,6 +221,7 @@ class SplashFarmFragment : Fragment() {
     }
 
     private fun downLoadImageFromUrl(plants: List<PlantModel>?) {
+        progressBarFarm?.progress = 1
         Thread(Runnable {
             plants?.forEachIndexed { index, plant ->
                 var directory: File? = null
@@ -243,7 +234,7 @@ class SplashFarmFragment : Fragment() {
                     .apply(requestOptions).submit().get()
 
                 try {
-                    directory = requireContext().getDir(App.NAME_DIR, Context.MODE_PRIVATE)
+                    directory = requireContext().getDir(App.NAME_DIR, MODE_PRIVATE)
                     val path = File(directory, "${plant.plantId}${App.FILE_TAIL}")
                     FileOutputStream(path).apply {
                         bitmap.compress(Bitmap.CompressFormat.JPEG, QUALITY_IMAGE, this)
@@ -265,6 +256,7 @@ class SplashFarmFragment : Fragment() {
                     dataBase?.plantDao()?.editUri(uriImage, plant.plantId)
                     if (index == plants.size - 1) {
                         progressBarFarm?.progress = PROGRESS_MAX_VALUE
+                        intentActivity()
                     }
                 }
             }
