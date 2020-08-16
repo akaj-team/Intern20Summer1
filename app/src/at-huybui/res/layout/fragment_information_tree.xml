@@ -131,8 +131,7 @@
             android:id="@+id/btnWatering.detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/w7_detail_button_margin_left_right"
-            android:layout_marginRight="@dimen/w7_detail_button_margin_left_right"
+            android:layout_margin="@dimen/w7_detail_button_margin_left_right"
             android:background="@drawable/bg_w7_button_watering"
             android:text="@string/w7_detail_tuoi_nuoc"
             android:textColor="@color/background_white" />
@@ -142,7 +141,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/btnWatering.detail"
-            android:layout_margin="@dimen/w7_detail_button_margin_left_right"
+            android:layout_marginLeft="@dimen/w7_detail_button_margin_left_right"
+            android:layout_marginRight="@dimen/w7_detail_button_margin_left_right"
+            android:layout_marginBottom="@dimen/w7_detail_button_margin_left_right"
             android:background="@drawable/bg_w7_button_register_disable"
             android:text="@string/w7_detail_chat_bo"
             android:textColor="@color/background_white" />
