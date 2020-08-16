@@ -75,4 +75,5 @@
     <dimen name="w4_button_icon_radius">5dp</dimen>
     <dimen name="w4_back_icon_size">24dp</dimen>
     <dimen name="w4_back_button_size">30dp</dimen>
+    <dimen name="w8_margin_all">20dp</dimen>
 </resources>

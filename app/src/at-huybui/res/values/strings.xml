@@ -70,4 +70,8 @@
     <string name="w6_view_pager_tab_layout">W6 VIEW PAGER + TAB LAYOUT</string>
     <string name="crop_complete">Crop complete</string>
     <string name="w4_crop_your_picture">Crop your picture</string>
+    <string name="w8_name">Name</string>
+    <string name="w8_link_url">Link Url</string>
+    <string name="w8_save_with_thread_handle">download with thread handle</string>
+    <string name="w8_save_with_async_task">download with async task</string>
 </resources>

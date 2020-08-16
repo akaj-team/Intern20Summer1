@@ -1,9 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
     tools:context="com.asiantech.intern20summer1.w8.DownLoadActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/tvProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="40sp"
+        tools:text="50%" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_marginLeft="@dimen/w8_margin_all"
+        android:layout_marginRight="@dimen/w8_margin_all"
+        android:indeterminate="false"
+        tools:progress="50" />
+
+    <EditText
+        android:id="@+id/edtNameFile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/w8_margin_all"
+        android:hint="@string/w8_name"
+        android:importantForAutofill="no"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/edtUrl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/w8_margin_all"
+        android:hint="@string/w8_link_url"
+        android:importantForAutofill="no"
+        android:inputType="textUri" />
+
+    <Button
+        android:id="@+id/btnThread"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/w8_margin_all"
+        android:layout_marginRight="@dimen/w8_margin_all"
+        android:text="@string/w8_save_with_thread_handle" />
+
+    <Button
+        android:id="@+id/btnAsyncTask"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/w8_margin_all"
+        android:layout_marginRight="@dimen/w8_margin_all"
+        android:text="@string/w8_save_with_async_task" />
+
+
+</LinearLayout>
