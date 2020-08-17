@@ -7,6 +7,7 @@ import com.asiantech.intern20summer1.week7.entity.User
 
 @Dao
 interface UserDao {
+
     @Insert
     fun insert(user: User)
 

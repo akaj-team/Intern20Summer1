@@ -15,22 +15,27 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week7.PlantRoomDatabase
-import com.asiantech.intern20summer1.week7.entity.Plant
+import com.asiantech.intern20summer1.week7.PlantRoomDatabase.Companion.saveDataFromJsonFile
 import com.asiantech.intern20summer1.week7.fragment.GardenFragment
 import com.asiantech.intern20summer1.week7.fragment.PlantNewDialogFragment
+import com.asiantech.intern20summer1.week7.other.AVATAR_URL_KEY
+import com.asiantech.intern20summer1.week7.other.UNIVERSITY_KEY
+import com.asiantech.intern20summer1.week7.other.USERNAME_KEY
+import com.asiantech.intern20summer1.week7.other.USER_DATA_PREFS
 import com.google.android.material.navigation.NavigationView
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import com.google.gson.stream.JsonReader
 import kotlinx.android.synthetic.`at-longphan`.activity_home_w7.*
 import kotlinx.android.synthetic.`at-longphan`.navigation_header_w7.view.*
-import java.util.concurrent.Executors
 
 class HomeWeekSevenActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var toggle: ActionBarDrawerToggle
     private val fragmentManager = supportFragmentManager
     private var database: PlantRoomDatabase? = null
+
+    companion object{
+
+        private const val plantFile = "plants.json"
+    }
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,7 +45,7 @@ class HomeWeekSevenActivity : AppCompatActivity(), NavigationView.OnNavigationIt
         navigationViewWeek7?.setNavigationItemSelectedListener(this)
 
         database = PlantRoomDatabase.getDatabase(this)
-        saveDataFromJsonFile(this)
+        database?.saveDataFromJsonFile(this, plantFile)
 
         initToolbar()
         initToggleDrawer()
@@ -66,13 +71,13 @@ class HomeWeekSevenActivity : AppCompatActivity(), NavigationView.OnNavigationIt
                     .addToBackStack(null).commit()
             }
             R.id.navAboutToHarvest -> {
-                Toast.makeText(this, "Cây sắp thu hoạch", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.item_menu_about_to_harvest_title), Toast.LENGTH_SHORT).show()
             }
             R.id.navWormedPlant -> {
-                Toast.makeText(this, "Cây bị sâu", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.item_menu_wormed_plant_title), Toast.LENGTH_SHORT).show()
             }
             R.id.navDehydratedPlant -> {
-                Toast.makeText(this, "Cây bị thiếu nước", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.item_menu_dehydrated_plant_title), Toast.LENGTH_SHORT).show()
             }
         }
         toolbarTitle.text = item.title
@@ -118,30 +123,18 @@ class HomeWeekSevenActivity : AppCompatActivity(), NavigationView.OnNavigationIt
 
     private fun initHeaderView() {
         val sharePref: SharedPreferences =
-            this.getSharedPreferences("UserDataPrefs", Context.MODE_PRIVATE)
+            this.getSharedPreferences(USER_DATA_PREFS, Context.MODE_PRIVATE)
 
         navigationViewWeek7?.getHeaderView(0)?.let {
-            it.tvUserNameWeek7?.text = sharePref.getString("userName", null)
-            it.tvUniversityWeek7?.text = sharePref.getString("university", null)
-            val avatarUrl = sharePref.getString("avatarUrl", null)
+            it.tvUserNameWeek7?.text = sharePref.getString(USERNAME_KEY, null)
+            it.tvUniversityWeek7?.text = sharePref.getString(UNIVERSITY_KEY, null)
+            val avatarUrl = sharePref.getString(AVATAR_URL_KEY, null)
             if (avatarUrl != null) {
                 it.imgAvatarHeaderWeek7?.setImageURI(Uri.parse(avatarUrl))
             }
 
             it.imgBackHeader?.setOnClickListener {
                 drawerLayoutWeek7?.closeDrawers()
-            }
-        }
-    }
-
-    private fun saveDataFromJsonFile(context: Context) {
-        Executors.newFixedThreadPool(2).execute {
-            context.assets.open("plants.json").use { inputStream ->
-                JsonReader(inputStream.reader()).use { jsonReader ->
-                    val plantType = object : TypeToken<List<Plant>>() {}.type
-                    val plants: List<Plant> = Gson().fromJson(jsonReader, plantType)
-                    database?.plantDao()?.insertList(plants)
-                }
             }
         }
     }

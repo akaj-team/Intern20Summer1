@@ -8,6 +8,7 @@ import com.asiantech.intern20summer1.week7.entity.Cultivation
 
 @Dao
 interface CultivationDao {
+
     @Insert
     fun insert(cultivation: Cultivation)
 

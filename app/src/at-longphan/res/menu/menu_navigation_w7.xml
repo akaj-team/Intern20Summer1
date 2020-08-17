@@ -7,22 +7,22 @@
         <item
             android:id="@+id/navGarden"
             android:icon="@drawable/ic_heart_filled"
-            android:title="Vườn Cây" />
+            android:title="@string/item_menu_garden_title" />
         <item
             android:id="@+id/navPlantNew"
             android:icon="@drawable/ic_heart_filled"
-            android:title="Trồng Cây" />
+            android:title="@string/item_menu_plant_new_title" />
         <item
             android:id="@+id/navAboutToHarvest"
             android:icon="@drawable/ic_heart_filled"
-            android:title="Cây sắp thu hoạch" />
+            android:title="@string/item_menu_about_to_harvest_title" />
         <item
             android:id="@+id/navWormedPlant"
             android:icon="@drawable/ic_heart_filled"
-            android:title="Cây bị sâu" />
+            android:title="@string/item_menu_wormed_plant_title" />
         <item
             android:id="@+id/navDehydratedPlant"
             android:icon="@drawable/ic_heart_filled"
-            android:title="Cây bị thiếu nước" />
+            android:title="@string/item_menu_dehydrated_plant_title" />
     </group>
 </menu>

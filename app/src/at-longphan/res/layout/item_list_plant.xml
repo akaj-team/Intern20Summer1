@@ -18,24 +18,26 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:weightSum="2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:gravity="center_vertical">
+            android:layout_marginBottom="5dp">
 
-            <TextView
+            <com.asiantech.intern20summer1.week7.other.TightTextView
                 android:id="@+id/tvNamePlant"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:maxWidth="400dp"
                 android:textSize="22sp"
-                tools:text="Cảithảoasdáasdasasd dsadasdasd" />
+                tools:text="Cải thảo" />
 
             <ImageView
                 android:id="@+id/imgStatusPlant"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
-                android:layout_marginLeft="5dp"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="7dp"
                 tools:srcCompat="@drawable/ic_music_logo" />
         </LinearLayout>
 
@@ -50,7 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
-                tools:text="Trồng vào lúc: 03/08/20 12h10ádsadas ádsadasdsad " />
+                tools:text="Trồng vào lúc: 03/08/20 12h10 " />
 
             <TextView
                 android:id="@+id/tvDateHarvest"

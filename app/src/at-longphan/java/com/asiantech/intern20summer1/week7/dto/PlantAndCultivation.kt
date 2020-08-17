@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.asiantech.intern20summer1.week7.model.PlantRecyclerViewItem
+import com.asiantech.intern20summer1.week7.other.DATETIME_FORMAT
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -19,19 +20,10 @@ class PlantAndCultivation(
     private val wateringInterval: Int,
     private val imageUrl: String
 ) {
-    @SuppressLint("SimpleDateFormat")
     @RequiresApi(Build.VERSION_CODES.O)
-    fun getPlantRecyclerViewItem(): PlantRecyclerViewItem{
-        // Find dateHarvest
-        /*val date = this.dateCultivation
-        val formatter = DateTimeFormatter.ofPattern("dd/MM/yy HH'h'mm")
-        val dateHarvest = ZonedDateTime.parse(date, formatter).plusDays(this.growZoneNumber.toLong()).toString()*/
+    fun getPlantRecyclerViewItem(): PlantRecyclerViewItem {
 
-        val dateFormat = SimpleDateFormat("dd/MM/yy HH'h'mm")
-        val calendar = Calendar.getInstance()
-        dateFormat.parse(dateCultivation)?.let{calendar.time = it}
-        calendar.add(Calendar.DATE, growZoneNumber)
-        val dateHarvest = dateFormat.format(calendar.time)
+        val dateHarvest = getDateHarvest()
 
         return PlantRecyclerViewItem(
             this.id,
@@ -41,5 +33,14 @@ class PlantAndCultivation(
             this.imageUrl,
             false
         )
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    private fun getDateHarvest(): String {
+        val dateFormat = SimpleDateFormat(DATETIME_FORMAT)
+        val calendar = Calendar.getInstance()
+        dateFormat.parse(dateCultivation)?.let { calendar.time = it }
+        calendar.add(Calendar.DATE, growZoneNumber)
+        return dateFormat.format(calendar.time)
     }
 }

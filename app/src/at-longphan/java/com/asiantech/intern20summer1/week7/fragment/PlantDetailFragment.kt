@@ -13,15 +13,16 @@ import kotlinx.android.synthetic.`at-longphan`.fragment_plant_detail.*
 
 class PlantDetailFragment : Fragment() {
 
+    private var cultivationId: Int? = null
+
     companion object{
+
         fun newInstance(cultivationId: Int) = PlantDetailFragment().apply {
             arguments = Bundle().apply {
                 putInt("cultivationId", cultivationId)
             }
         }
     }
-
-    private var cultivationId: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

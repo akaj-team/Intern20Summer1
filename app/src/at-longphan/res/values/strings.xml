@@ -59,4 +59,11 @@
     <string name="text_view_harvest_time_description">Thời gian thu hoạch:\u0020</string>
     <string name="text_description_open_drawer">nav drawer open</string>
     <string name="text_description_close_drawer">nav drawer close</string>
+    <string name="item_menu_garden_title">Vườn Cây</string>
+    <string name="item_menu_plant_new_title">Trồng Cây</string>
+    <string name="item_menu_about_to_harvest_title">Cây sắp thu hoạch</string>
+    <string name="item_menu_wormed_plant_title">Cây bị sâu</string>
+    <string name="item_menu_dehydrated_plant_title">Cây bị thiếu nước</string>
+    <string name="toast_plant_new_successfully_description">Plant new successfully!</string>
+    <string name="toast_nothing_seclected_spinner">Please choose one!</string>
 </resources>

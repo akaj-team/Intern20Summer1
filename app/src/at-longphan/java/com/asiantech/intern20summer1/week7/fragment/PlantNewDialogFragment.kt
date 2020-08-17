@@ -16,11 +16,12 @@ import androidx.fragment.app.DialogFragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week7.PlantRoomDatabase
 import com.asiantech.intern20summer1.week7.entity.Cultivation
-import kotlinx.android.synthetic.`at-longphan`.activity_home_w7.*
+import com.asiantech.intern20summer1.week7.other.DATETIME_FORMAT
+import com.asiantech.intern20summer1.week7.other.ID_KEY
+import com.asiantech.intern20summer1.week7.other.USER_DATA_PREFS
 import kotlinx.android.synthetic.`at-longphan`.fragment_plant_new_dialog.*
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-
 
 class PlantNewDialogFragment : DialogFragment() {
 
@@ -91,7 +92,7 @@ class PlantNewDialogFragment : DialogFragment() {
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
-                Toast.makeText(context, "Please choose one", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.toast_nothing_seclected_spinner), Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -101,7 +102,7 @@ class PlantNewDialogFragment : DialogFragment() {
 
     private fun handleImageCloseListener(){
         imgCloseDialog?.setOnClickListener {
-            navigationViewWeek7?.setCheckedItem(R.id.navGarden)
+            //navigationViewWeek7?.setCheckedItem(R.id.navGarden)
             fragmentManager?.popBackStack()
         }
     }
@@ -110,10 +111,10 @@ class PlantNewDialogFragment : DialogFragment() {
     private fun handleButtonOkListener() {
         btnOkPlantNewWeek7?.setOnClickListener {
             val sharePref =
-                requireContext().getSharedPreferences("UserDataPrefs", Context.MODE_PRIVATE)
-            val userId = sharePref.getInt("userId", 0)
+                requireContext().getSharedPreferences(USER_DATA_PREFS, Context.MODE_PRIVATE)
+            val userId = sharePref.getInt(ID_KEY, 0)
             val timeNow = DateTimeFormatter
-                .ofPattern("dd/MM/yy HH'h'mm")
+                .ofPattern(DATETIME_FORMAT)
                 .format(LocalDateTime.now())
             plantSelect?.let { plantId ->
                 database?.cultivationDao()?.insert(
@@ -126,7 +127,8 @@ class PlantNewDialogFragment : DialogFragment() {
                     )
                 )
             }
-            Toast.makeText(requireContext(), "trong cay thanh cong", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.toast_plant_new_successfully_description), Toast.LENGTH_SHORT).show()
+            fragmentManager?.popBackStack()
         }
     }
 }

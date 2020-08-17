@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.sqlite.db.SupportSQLiteDatabase
 import com.asiantech.intern20summer1.week7.dao.CultivationDao
 import com.asiantech.intern20summer1.week7.dao.PlantDao
 import com.asiantech.intern20summer1.week7.dao.UserDao
@@ -30,24 +29,6 @@ abstract class PlantRoomDatabase : RoomDatabase() {
         private const val NAME_DATA_BASE = "plant.db"
         private var plantRoomInstance: PlantRoomDatabase? = null
 
-        fun provideDatabase(context: Context): PlantRoomDatabase {
-            return Room.databaseBuilder(context, PlantRoomDatabase::class.java, NAME_DATA_BASE)
-                .addCallback(object : RoomDatabase.Callback() {
-                    override fun onCreate(db: SupportSQLiteDatabase) {
-                        super.onCreate(db)
-                        Executors.newFixedThreadPool(2).execute {
-                            context.assets.open("plants.json").use { inputStream ->
-                                JsonReader(inputStream.reader()).use { jsonReader ->
-                                    val plantType = object : TypeToken<List<Plant>>() {}.type
-                                    val plants: List<Plant> = Gson().fromJson(jsonReader, plantType)
-                                    provideDatabase(context).plantDao().insertList(plants)
-                                }
-                            }
-                        }
-                    }
-                }).build()
-        }
-
         fun getDatabase(context: Context): PlantRoomDatabase?{
             return if (plantRoomInstance == null) {
                 Room.databaseBuilder(context, PlantRoomDatabase::class.java, NAME_DATA_BASE)
@@ -55,6 +36,18 @@ abstract class PlantRoomDatabase : RoomDatabase() {
                     .build()
             } else {
                 plantRoomInstance
+            }
+        }
+
+        fun PlantRoomDatabase.saveDataFromJsonFile(context: Context, nameFile: String) {
+            Executors.newFixedThreadPool(2).execute {
+                context.assets.open(nameFile).use { inputStream ->
+                    JsonReader(inputStream.reader()).use { jsonReader ->
+                        val plantType = object : TypeToken<List<Plant>>() {}.type
+                        val plants: List<Plant> = Gson().fromJson(jsonReader, plantType)
+                        plantDao().insertList(plants)
+                    }
+                }
             }
         }
     }

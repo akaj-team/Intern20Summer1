@@ -24,23 +24,25 @@ import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week4.other.RequestCode
 import com.asiantech.intern20summer1.week7.PlantRoomDatabase
 import com.asiantech.intern20summer1.week7.entity.User
+import com.asiantech.intern20summer1.week7.other.*
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 import kotlinx.android.synthetic.`at-longphan`.activity_register_w7.*
 
 class RegisterWeekSevenActivity : AppCompatActivity() {
 
+    private var database: PlantRoomDatabase? = null
+    private var imageCaptureUri: Uri? = null
+    private var userInserted: User? = null
+
     companion object {
+
         private const val KEY_IMAGE = "data"
         private const val TITLE_CAMERA = "camera"
         private const val TITLE_GALLERY = "gallery"
         private const val ASPECT_RATIO_X = 1
         private const val ASPECT_RATIO_Y = 1
     }
-
-    private var database: PlantRoomDatabase? = null
-    private var imageCaptureUri: Uri? = null
-    private var userInserted: User? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -85,7 +87,6 @@ class RegisterWeekSevenActivity : AppCompatActivity() {
 
     private fun startCropImage(uri: Uri) {
         CropImage.activity(uri)
-            .setOutputCompressQuality(100)
             .setGuidelines(CropImageView.Guidelines.ON)
             .setAspectRatio(ASPECT_RATIO_X, ASPECT_RATIO_Y)
             .start(this)
@@ -204,13 +205,13 @@ class RegisterWeekSevenActivity : AppCompatActivity() {
     }
 
     private fun saveRegisterUserData(){
-        val sharePref: SharedPreferences = getSharedPreferences("UserDataPrefs", Context.MODE_PRIVATE)
+        val sharePref: SharedPreferences = getSharedPreferences(USER_DATA_PREFS, Context.MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharePref.edit()
-        userInserted?.userId?.let { editor.putInt("userId", it) }
-        editor.putString("userName", userInserted?.userName)
-        editor.putString("university", userInserted?.university)
-        editor.putString("homeTown", userInserted?.homeTown)
-        editor.putString("avatarUrl", userInserted?.avatar)
+        userInserted?.userId?.let { editor.putInt(ID_KEY, it) }
+        editor.putString(USERNAME_KEY, userInserted?.userName)
+        editor.putString(UNIVERSITY_KEY, userInserted?.university)
+        editor.putString(HOMETOWN_KEY, userInserted?.homeTown)
+        editor.putString(AVATAR_URL_KEY, userInserted?.avatar)
         editor.apply()
     }
 
