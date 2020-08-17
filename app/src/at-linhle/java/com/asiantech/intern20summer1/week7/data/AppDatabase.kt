@@ -24,7 +24,7 @@ import java.util.concurrent.Executors
 abstract class AppDatabase : RoomDatabase() {
     abstract fun getUserDao(): UserDao
     abstract fun getPlantDao(): PlantDao
-    abstract fun getCultivation(): CultivationDao
+    abstract fun getCultivationDao(): CultivationDao
 
     companion object {
         private var instance: AppDatabase? = null

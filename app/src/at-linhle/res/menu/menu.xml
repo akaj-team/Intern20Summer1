@@ -3,32 +3,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group>
+    <group android:checkableBehavior="single">
         <item
             android:id="@+id/itemHome"
             android:checked="true"
             android:icon="@mipmap/ic_thump_up"
             android:title="Vuon rau" />
-    </group>
-    <group>
+
         <item
             android:id="@+id/itemGrowVegetable"
             android:icon="@mipmap/ic_grow"
             android:title="Trong rau" />
-    </group>
-    <group>
+
         <item
             android:id="@+id/itemAlreadyHarvest"
             android:icon="@mipmap/ic_harvest"
             android:title="Rau sap thu hoach" />
-    </group>
-    <group>
+
         <item
             android:id="@+id/itemWormVegetable"
             android:icon="@mipmap/ic_bad"
             android:title="Rau bi sau" />
-    </group>
-    <group>
+
         <item
             android:id="@+id/itemLackedWater"
             android:icon="@mipmap/ic_bad"

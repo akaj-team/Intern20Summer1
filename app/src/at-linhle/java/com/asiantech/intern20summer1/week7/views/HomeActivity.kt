@@ -19,6 +19,7 @@ import kotlinx.android.synthetic.`at-linhle`.navigation_view_header.view.*
 class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private var appDatabase: AppDatabase? = null
+    internal var onClickItemMenuDrawer: (mode: Int) -> Unit = {}
     private val fragment = GrowPlantFragment.newInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,7 +35,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.itemHome -> {
-                fragment.initData()
+                onClickItemMenuDrawer.invoke(item.itemId)
             }
             R.id.itemGrowVegetable -> {
                 val fragmentManager = supportFragmentManager
@@ -42,19 +43,14 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 DialogFragment().show(fragmentManager, null)
             }
             R.id.itemAlreadyHarvest -> {
-                fragment.initData(item.itemId)
+                onClickItemMenuDrawer.invoke(item.itemId)
             }
             R.id.itemWormVegetable -> {
-                fragment.initData(item.itemId)
+                onClickItemMenuDrawer.invoke(item.itemId)
             }
             R.id.itemLackedWater -> {
-                fragment.initData(item.itemId)
+                onClickItemMenuDrawer.invoke(item.itemId)
             }
-        }
-        if (item.itemId == R.id.itemGrowVegetable) {
-            val fragmentManager = supportFragmentManager
-            drawerLayout.closeDrawer(GravityCompat.START)
-            DialogFragment().show(fragmentManager, null)
         }
         drawerLayout.closeDrawer(GravityCompat.START)
         return true

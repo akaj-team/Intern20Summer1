@@ -8,10 +8,16 @@
     android:fitsSystemWindows="true"
     tools:context="com.asiantech.intern20summer1.week7.views.HomeActivity">
 
-    <include
-        layout="@layout/coordinator_layout"
+    <RelativeLayout
+        android:id="@+id/rlCoordinatorContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+
+        <include
+            layout="@layout/coordinator_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigationContainer"

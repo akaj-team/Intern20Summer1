@@ -63,4 +63,12 @@
     <string name="share_preference_university_default">university</string>
     <string name="share_preference_home_town_default">homeTown</string>
     <string name="share_preference_avatar_default">avatar</string>
+    <string name="toolbar_title">Thông Tin Cây</string>
+    <string name="watering_button_description">Tưới Nước</string>
+    <string name="cut_down_button_description">Chặt Bỏ</string>
+    <string name="plant_detail_fragment_worm_description">Cây bị sâu</string>
+    <string name="plant_detail_fragment_lack_water_description">Cây bị thiếu nước</string>
+    <string name="plant_detail_fragment_harvest_description">Cây chuẩn bị thu hoạch</string>
+    <string name="plant_detail_fragment_grown_date_description">Trồng lúc: </string>
+    <string name="plant_detail_fragment_watering_date_description">Tưới nước lần cuối: </string>
 </resources>

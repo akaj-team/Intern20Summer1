@@ -16,6 +16,7 @@ class VegetableViewHolder(
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var appDatabase: AppDatabase? = null
+    internal var onItemClicked: (id: Int?) -> Unit = {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         appDatabase = AppDatabase.getInstance(parent.context)
@@ -32,6 +33,12 @@ class VegetableViewHolder(
     }
 
     inner class VegetableViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        init {
+            itemView.setOnClickListener {
+                onItemClicked.invoke(plantList[adapterPosition]?.id)
+            }
+        }
 
         fun onBindData(position: Int) {
             val vegetableItem = plantList[position]
@@ -52,11 +59,23 @@ class VegetableViewHolder(
                     imgHarvest.visibility = View.INVISIBLE
                     imgWorm.visibility = View.INVISIBLE
                     imgLackWater.visibility = View.INVISIBLE
-                    if (PlantStatus().isWormed(it, cultivation)) {
+                    if (PlantStatus().isWormed(
+                            it,
+                            cultivation
+                        ) && !PlantStatus().isComingHarvest(it, cultivation)
+                    ) {
                         imgWorm.visibility = View.VISIBLE
+                        imgLackWater.visibility = View.INVISIBLE
+                        imgHarvest.visibility = View.INVISIBLE
                     }
-                    if (PlantStatus().isLackedWater(it, cultivation)) {
+                    if (PlantStatus().isLackedWater(
+                            it,
+                            cultivation
+                        ) && !PlantStatus().isComingHarvest(it, cultivation)
+                    ) {
                         imgLackWater.visibility = View.VISIBLE
+                        imgHarvest.visibility = View.INVISIBLE
+                        imgWorm.visibility = View.INVISIBLE
                     }
                     if (PlantStatus().isComingHarvest(it, cultivation)) {
                         imgHarvest.visibility = View.VISIBLE

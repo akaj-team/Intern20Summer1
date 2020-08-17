@@ -41,6 +41,7 @@ open class DialogFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         appDatabase = AppDatabase.getInstance(requireContext())
+        handleBackButtonClicked()
         initView()
         initData()
     }
@@ -53,7 +54,6 @@ open class DialogFragment : DialogFragment() {
 
     private fun initView() {
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        handleBackButtonClicked()
     }
 
     private fun initData() {
@@ -105,7 +105,7 @@ open class DialogFragment : DialogFragment() {
                 dateCultivation = currentDate
                 dateWatering = currentDate
             }
-            appDatabase?.getCultivation()?.insertCultivation(cultivation)
+            appDatabase?.getCultivationDao()?.insertCultivation(cultivation)
             (activity as HomeActivity).handleReplaceFragment(
                 growPlantFragment,
                 parent = R.id.flPlantViewContainer
