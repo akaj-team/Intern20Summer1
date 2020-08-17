@@ -12,7 +12,6 @@ import java.io.OutputStream
 import java.net.URL
 import javax.net.ssl.HttpsURLConnection
 
-@Suppress("DEPRECATION")
 class DownLoadActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,8 +21,14 @@ class DownLoadActivity : AppCompatActivity() {
 
     private fun initListener() {
         btnAsyncTask?.setOnClickListener {
+
+            /**
+             * https://r8---sn-8pxuuxa-q5q6.googlevideo.com/videoplayback?expire=1597701785&ei=Oao6X9btJJq24QKm-664CA&ip=2402%3A800%3A621c%3Aeb44%3A304f%3A3449%3Ab8da%3A6e8b&id=o-APssU5WYP9mLlSxDmGjZsheHoEbkzVc0ksNfLD-OSmq5&itag=22&source=youtube&requiressl=yes&mh=II&mm=31%2C29&mn=sn-8pxuuxa-q5q6%2Csn-npoeenl7&ms=au%2Crdu&mv=m&mvi=8&pcm2cms=yes&pl=48&gcr=vn&initcwndbps=711250&vprv=1&mime=video%2Fmp4&ratebypass=yes&dur=2814.049&lmt=1595124863041265&mt=1597680046&fvip=3&fexp=23883098&c=WEB&txp=5535432&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cgcr%2Cvprv%2Cmime%2Cratebypass%2Cdur%2Clmt&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpcm2cms%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRAIgSajLEjIy1C1bmxFCbIzkecZwaKT-yyjOuyrrUcXDPG4CIEewZ236IJNS0l-NrrFtFxC2f8lEvATWbyo51dX8ZwKR&sig=AOq0QJ8wRgIhALdusV0jom4wDtE27tMECJNsW13RVG1RSx0FpgFXa5-DAiEAlPkS4_VkfgwLAYZ_Dxfp-JrZy2ljr1BMoH5q7RJcnvo%3D
+             */
             val url = edtUrl.text.toString()
-            DownLoadAsyncTask().execute(url)
+            val name = edtNameFile.text.toString()
+            val extension = edtExtension.text.toString()
+            DownLoadAsyncTask().execute(url, name, extension)
         }
     }
 
@@ -32,15 +37,21 @@ class DownLoadActivity : AppCompatActivity() {
             val outputStream: OutputStream
             try {
                 val url = URL(params[0])
+                val nameFile = params[1]
+                val extension = params[2]
                 d("XXXX", " URL ${params[0]}")
                 val connection = url.openConnection() as HttpsURLConnection
                 connection.connect()
                 val input = connection.inputStream
-                d("XXXX", " ")
-                outputStream = FileOutputStream("/path")
+                val directory = getExternalFilesDir(null)
+                val path = File(directory, "$nameFile$extension")
+                outputStream = FileOutputStream("${path}")
+                d("XXXX", " Uri ${path}")
                 val length = connection.contentLength
+                d("XXXX", length.toString())
                 if (length > 0) {
-                    val data = ByteArray(1000000)
+                    val data = ByteArray(length)
+                    d("XXXX", length.toString())
                     if (connection.responseCode != HttpsURLConnection.HTTP_OK) {
                         d("XXXX", "   return HTTP")
                         return "Server return HTTP" + (connection.responseCode
@@ -59,8 +70,8 @@ class DownLoadActivity : AppCompatActivity() {
                             total += count
                         }
                         // publishing the progress....
-                        d("XXXX", "[async]- publish")
-                        publishProgress(total)
+                        d("XXXX", "[async]: total = $total\t\t: leng = $length")
+                        publishProgress(((total/ length.toFloat()) * 100).toInt())
                         count?.let { outputStream.write(data, 0, it) }
                         count = input?.read(data)
                     }
@@ -80,9 +91,8 @@ class DownLoadActivity : AppCompatActivity() {
 
         override fun onProgressUpdate(vararg values: Int?) {
             super.onProgressUpdate(*values)
-            d("XXXX", "[value]- ${values[0]}")
             values[0]?.let { progressBar?.progress = it }
-            tvProgress?.text = "${values[0]}"
+            tvProgress?.text = "${values[0]}%"
         }
     }
 }

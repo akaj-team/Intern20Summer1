@@ -26,14 +26,31 @@
         android:indeterminate="false"
         tools:progress="50" />
 
-    <EditText
-        android:id="@+id/edtNameFile"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/w8_margin_all"
-        android:hint="@string/w8_name"
-        android:importantForAutofill="no"
-        android:inputType="text" />
+
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/edtNameFile"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/w8_margin_all"
+            android:layout_weight="1"
+            android:hint="@string/w8_name"
+            android:importantForAutofill="no"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/edtExtension"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/w8_margin_all"
+            android:hint=".mp4"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:text=".mp4" />
+    </LinearLayout>
 
     <EditText
         android:id="@+id/edtUrl"
