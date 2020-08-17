@@ -7,10 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.w7.activity.HomeActivity
 import com.asiantech.intern20summer1.w7.adapter.PlantAdapter
 import com.asiantech.intern20summer1.w7.database.PlantDatabase
 import com.asiantech.intern20summer1.w7.database.data.Cultivation
 import com.asiantech.intern20summer1.w7.extension.isLackedWater
+import com.asiantech.intern20summer1.w7.extension.replaceFragment
 import kotlinx.android.synthetic.`at-sonnguyen`.w7_fragment_vegetable_garden.*
 
 class LackedWaterPlantFragment : Fragment() {
@@ -34,6 +36,7 @@ class LackedWaterPlantFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initAdapter()
         initData()
+        handleOnItemClickListener()
     }
 
     private fun initAdapter() {
@@ -41,17 +44,28 @@ class LackedWaterPlantFragment : Fragment() {
         recyclerViewHome.layoutManager = LinearLayoutManager(context)
         recyclerViewHome.setHasFixedSize(true)
     }
-    internal fun initData(){
+
+    internal fun initData() {
         database?.cultivationDao()?.getAllCultivation()?.let { list ->
             plantList.clear()
             list.forEach { cultivation ->
-                database?.plantDao()?.getPlant(cultivation.plantId)?.let {plant ->
-                    if (isLackedWater(plant,cultivation)){
+                database?.plantDao()?.getPlant(cultivation.plantId)?.let { plant ->
+                    if (isLackedWater(plant, cultivation)) {
                         plantList.add(cultivation)
                     }
                 }
             }
         }
+        if (plantList.isNullOrEmpty()){
+            tvNoPlant.text = getString(R.string.w7_no_plant_lacked_water_string)
+        }
         adapter.notifyDataSetChanged()
+    }
+
+    private fun handleOnItemClickListener() {
+        adapter.onItemClick = { id ->
+            val fragment = PlantDetailFragment.newInstance(id)
+            (activity as HomeActivity)?.replaceFragment(R.id.flContent, fragment, true)
+        }
     }
 }

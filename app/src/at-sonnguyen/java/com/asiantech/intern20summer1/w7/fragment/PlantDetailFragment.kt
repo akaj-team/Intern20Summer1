@@ -56,14 +56,20 @@ class PlantDetailFragment : Fragment() {
         if (isWormed(plant, cultivation)) {
             tvWormedPlantDetail.text =
                 getString(R.string.w7_plant_detail_fragment_wormed_plant_text_view)
+        } else{
+            tvWormedPlantDetail.text = ""
         }
         if (isLackedWater(plant, cultivation)) {
             tvLackedWaterPlantDetail.text =
                 getString(R.string.w7_detail_fragment_lacked_water_text_view_text)
+        } else{
+            tvLackedWaterPlantDetail.text = ""
         }
         if (isComingHarvest(plant, cultivation)) {
             tvComingHarvestPlantDetail.text =
                 getString(R.string.w7_detail_fragment_coming_harvest_plant_text_view_text)
+        } else{
+            tvComingHarvestPlantDetail.text = ""
         }
         imgCultivationDetail?.setImageURI(Uri.parse(plant?.imageUri))
         tvGrownDateDetail.text =
@@ -79,12 +85,14 @@ class PlantDetailFragment : Fragment() {
             cultivation?.let {
                 val dateFormat = SimpleDateFormat(FORMAT_CODE_DATE)
                 database?.cultivationDao()?.updateWateringDate(it.id, dateFormat.format(Date()))
-                initView()
                 Toast.makeText(
                     requireContext(),
                     getString(R.string.w7_detail_fragment_sprinkle_button_click_toast),
                     Toast.LENGTH_SHORT
                 ).show()
+                initView()
+                tvWormedPlantDetail.visibility = View.INVISIBLE
+                tvLackedWaterPlantDetail.visibility = View.INVISIBLE
             }
         }
     }
@@ -93,18 +101,15 @@ class PlantDetailFragment : Fragment() {
         btnCutDownPlantDetail.setOnClickListener {
             cultivation?.let {
                 database?.cultivationDao()?.deleteCultivation(it)
-                refreshData()
-                fragmentManager?.popBackStack()
             }
-
-
+            refreshData()
+            fragmentManager?.popBackStack()
         }
     }
 
     private fun handleBackButtonListener() {
         imgBackDetail.setOnClickListener {
             fragmentManager?.popBackStack()
-            refreshData()
         }
     }
 
@@ -113,7 +118,7 @@ class PlantDetailFragment : Fragment() {
             wormedPlantFragment.initData()
             lackedWaterPlantFragment.initData()
             comingHarvestPlant.initData()
-            vegetableGardenFragment.initData()
+            plantGardenFragment.initData()
         }
     }
 }

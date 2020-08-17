@@ -14,14 +14,13 @@ import com.asiantech.intern20summer1.w7.database.data.Cultivation
 import com.asiantech.intern20summer1.w7.extension.replaceFragment
 import kotlinx.android.synthetic.`at-sonnguyen`.w7_fragment_vegetable_garden.*
 
-class VegetableGardenFragment : Fragment() {
+class PlantGardenFragment : Fragment() {
     private var database: PlantDatabase? = null
     private var cultivationList: MutableList<Cultivation> = mutableListOf()
     private var cultivationAdapter = PlantAdapter(cultivationList)
 
     companion object {
-        private const val REFRESH_TIME = 5000L
-        internal fun newInstance() = VegetableGardenFragment()
+        internal fun newInstance() = PlantGardenFragment()
     }
 
     override fun onCreateView(
@@ -47,14 +46,13 @@ class VegetableGardenFragment : Fragment() {
         database?.cultivationDao()?.getAllCultivation()?.let {list ->
             cultivationList.clear()
             list.toCollection(cultivationList)
+            if(cultivationList.isNullOrEmpty()){
+                tvNoPlant.text = getString(R.string.w7_no_plant_text_view_text)
+            }
             cultivationAdapter.notifyDataSetChanged()
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-//        cultivationAdapter.notifyDataSetChanged()
-    }
     private fun handleOnItemClickListener(){
         cultivationAdapter.onItemClick = {id ->
             val fragment = PlantDetailFragment.newInstance(id)

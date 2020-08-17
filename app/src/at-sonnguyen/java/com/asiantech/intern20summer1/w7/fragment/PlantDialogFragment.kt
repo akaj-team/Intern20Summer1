@@ -63,7 +63,7 @@ class PlantDialogFragment : DialogFragment() {
                      dateCultivation = dateCurrent
                      dateWatering = dateCurrent
                      database?.cultivationDao()?.insertCultivation(this)
-                     (activity as HomeActivity).replaceFragment(R.id.flContent,VegetableGardenFragment.newInstance())
+                     (activity as HomeActivity).replaceFragment(R.id.flContent,PlantGardenFragment.newInstance())
 //                     replaceFragment()
                  }
                  dialog?.dismiss()

@@ -95,12 +95,12 @@ internal fun getSecondInDay(calendar: Calendar): Int {
     )
 }
 
-internal fun getDateHarvest(cultivation: String?, plant: Plant): String {
-    cultivation?.let { cul ->
+internal fun getDateHarvest(cultivationDate: String?, plant: Plant): String {
+    cultivationDate?.let { cul ->
         val dateFormat = SimpleDateFormat(DownloadPlantImage.FORMAT_CODE_DATE)
         val calendar = Calendar.getInstance()
         dateFormat.parse(cul)?.let { calendar.time = it }
-        plant.growZoneNumber?.let { calendar.add(Calendar.DATE, it) }
+        plant.growZoneNumber?.let { calendar.add(Calendar.MINUTE, it) }
         return dateFormat.format(calendar.time)
     }
     return ""

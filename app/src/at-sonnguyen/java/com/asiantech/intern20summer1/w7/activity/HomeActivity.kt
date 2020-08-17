@@ -21,22 +21,26 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     internal val wormedPlantFragment = WormedPlantFragment.newInstance()
     internal val lackedWaterPlantFragment = LackedWaterPlantFragment.newInstance()
     internal val comingHarvestPlant = ComingHarvestPlant.newInstance()
-    internal val vegetableGardenFragment = VegetableGardenFragment.newInstance()
+    internal val plantGardenFragment = PlantGardenFragment.newInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.w7_activity_home)
         database = PlantDatabase.getInstance(applicationContext)
-        supportActionBar?.hide();
-        replaceFragment(R.id.flContent, VegetableGardenFragment.newInstance())
-        setSupportActionBar(toolbar);
-        nvView?.setNavigationItemSelectedListener(this)
+        initToolBar()
+        replaceFragment(R.id.flContent, PlantGardenFragment.newInstance())
         initView()
         initNavigationHeaderData()
     }
 
+    private fun initToolBar(){
+        supportActionBar?.hide()
+        setSupportActionBar(toolbar)
+        nvView?.setNavigationItemSelectedListener(this)
+    }
+
     private fun initNavigationHeaderData() {
-        var user = database?.userDao()?.getAllUser()
+        val user = database?.userDao()?.getAllUser()
         val header = nvView.getHeaderView(0)
         user?.let {
             header.tvUsername.text = it.username
@@ -67,7 +71,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_first_fragment -> {
-                openVegetableFragment(VegetableGardenFragment())
+                openVegetableFragment(PlantGardenFragment())
                 drawer_layout.closeDrawer(GravityCompat.START)
             }
             R.id.nav_second_fragment -> {

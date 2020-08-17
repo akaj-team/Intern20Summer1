@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Inter-Summer</string>
+    <string name="app_name">Intern-Summer</string>
     <string name="your_profile_link">Link your social media profile</string>
     <string name="email_text_view_description_text">Enter your Email ID</string>
     <string name="password_text_view_description_text">Type your password</string>
@@ -72,4 +72,7 @@
     <string name="w7_register_fragment_require_internet_toast_string">Cần phải có kết nối internet</string>
     <string name="w7_detail_fragment_cut_down_button_text">Chặt bỏ</string>
     <string name="w7_detail_fragment_sprinkle_button_click_toast">Tưới nước thành công</string>
+    <string name="w7_no_plant_is_wormed">Không có cây nào bị sâu</string>
+    <string name="w7_no_plant_lacked_water_string">Không có cây nào bị thiếu nước</string>
+    <string name="w7_no_plant_text_view_text">Chưa có cây nào đã được trồng</string>
 </resources>
