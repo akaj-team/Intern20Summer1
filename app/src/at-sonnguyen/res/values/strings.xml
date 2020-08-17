@@ -9,7 +9,7 @@
     <string name="sign_up_button_description_text">SIGN UP</string>
     <string name="sign_up_ask_text_view_description_text">not register yet ?</string>
     <string name="sign_up_text_view_description_text">Sign up</string>
-    <string name="w6_step_fragment_text_view" >Step %d</string>
+    <string name="w6_step_fragment_text_view">Step %d</string>
     <string name="w6_next_text_view_next">Next</string>
     <string name="w6_next_text_view_skip">Skip</string>
     <string name="w6_image_view_in_home_fragment">image view in home fragment</string>

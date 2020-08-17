@@ -3,7 +3,6 @@ package com.asiantech.intern20summer1.w8
 import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log.d
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.asiantech.intern20summer1.R
 import kotlinx.android.synthetic.`at-huybui`.activity_down_load.*

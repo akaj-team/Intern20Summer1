@@ -15,7 +15,7 @@ import com.asiantech.intern20summer1.week5.other.TimeLineViewHolder
 
 class TimeLineItemAdapter : RecyclerView.Adapter<TimeLineViewHolder> {
 
-    companion object{
+    companion object {
         private const val PICTURE_2 = 2
         private const val PICTURE_3 = 3
     }

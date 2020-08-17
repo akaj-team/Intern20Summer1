@@ -6,17 +6,20 @@ import androidx.appcompat.app.AppCompatActivity
 import com.asiantech.intern20summer1.w6.activity.StepActivity
 import kotlinx.android.synthetic.`at-sonnguyen`.activity_begin.*
 
-class BeginActivity : AppCompatActivity(){
+class BeginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_begin)
         initListener()
 
     }
-    private fun initListener(){
+
+    private fun initListener() {
         btnWeek6.setOnClickListener {
-            val intent = Intent(this,
-                StepActivity::class.java)
+            val intent = Intent(
+                this,
+                StepActivity::class.java
+            )
             startActivity(intent)
             finish()
         }

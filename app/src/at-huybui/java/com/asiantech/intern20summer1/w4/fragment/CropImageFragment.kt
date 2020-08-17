@@ -55,7 +55,7 @@ class CropImageFragment : Fragment() {
     private fun initListener() {
         cropView.addOnCropListener(object : OnCropListener {
             override fun onSuccess(bitmap: Bitmap) {
-                val uriImage = saveImage(bitmap,context as Context)
+                val uriImage = saveImage(bitmap, context as Context)
                 Handler().postDelayed({
                     progressBarCropPicture.visibility = View.INVISIBLE
                     onCropImage(uriImage)
@@ -87,14 +87,15 @@ class CropImageFragment : Fragment() {
      * Functions save image to gallery
      */
     @Suppress("DEPRECATION")
-    private fun saveImage(bitmap: Bitmap,context: Context): Uri? {
+    private fun saveImage(bitmap: Bitmap, context: Context): Uri? {
         val uri: Uri?
         if (android.os.Build.VERSION.SDK_INT >= SDK_VERSION_SAVE_IMAGE) {
             val values = contentValues()
             values.put(MediaStore.Images.Media.RELATIVE_PATH, "Pictures/")
             values.put(MediaStore.Images.Media.IS_PENDING, true)
             // RELATIVE_PATH and IS_PENDING are introduced in API 29.
-             uri = context.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
+            uri =
+                context.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
             if (uri != null) {
                 saveImageToStream(bitmap, context.contentResolver.openOutputStream(uri))
                 values.put(MediaStore.Images.Media.IS_PENDING, false)

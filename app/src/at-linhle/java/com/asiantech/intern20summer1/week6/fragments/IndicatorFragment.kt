@@ -31,6 +31,7 @@ class IndicatorFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        tvIndicator?.text = "${getString(R.string.home_activity_step_text_view)} ${arguments?.getInt(KEY_POS)}"
+        tvIndicator?.text =
+            "${getString(R.string.home_activity_step_text_view)} ${arguments?.getInt(KEY_POS)}"
     }
 }

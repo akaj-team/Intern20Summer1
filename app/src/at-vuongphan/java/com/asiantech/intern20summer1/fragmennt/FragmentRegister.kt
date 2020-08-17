@@ -283,7 +283,8 @@ class FragmentRegister : Fragment() {
     }
 
     private fun openCamera() {
-        startActivityForResult(Intent(MediaStore.ACTION_IMAGE_CAPTURE),
+        startActivityForResult(
+            Intent(MediaStore.ACTION_IMAGE_CAPTURE),
             REQUEST_IMAGE_CAPTURE
         )
 

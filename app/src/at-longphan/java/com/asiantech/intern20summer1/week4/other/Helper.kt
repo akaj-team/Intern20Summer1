@@ -5,4 +5,5 @@ fun isValidEmail(email: String) =
 
 fun isValidPassword(password: String) = password.matches(CustomRegex.PASSWORD_REGEX.toRegex())
 
-fun isValidMobileNumber(mobileNumber: String) = mobileNumber.matches(CustomRegex.MOBILE_NUMBER_REGEX.toRegex())
+fun isValidMobileNumber(mobileNumber: String) =
+    mobileNumber.matches(CustomRegex.MOBILE_NUMBER_REGEX.toRegex())
