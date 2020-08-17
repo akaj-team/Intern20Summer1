@@ -41,8 +41,6 @@ class PlantDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initView()
         handleArrowBackClicked()
-//        handleSprinkleWaterButtonListener()
-//        handleCutPlantDownButton()
     }
 
     @SuppressLint("SetTextI18n")
