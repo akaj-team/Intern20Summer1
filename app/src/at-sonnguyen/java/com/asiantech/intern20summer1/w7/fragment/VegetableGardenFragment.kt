@@ -49,6 +49,11 @@ class VegetableGardenFragment : Fragment() {
             cultivationAdapter.notifyDataSetChanged()
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+        cultivationAdapter.notifyDataSetChanged()
+    }
     private fun handleOnItemClickListener(){
         cultivationAdapter.onItemClick = {id ->
             val fragment = PlantDetailFragment.newInstance(id)

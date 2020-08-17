@@ -1,5 +1,6 @@
 package com.asiantech.intern20summer1.w7.fragment
 
+import android.annotation.SuppressLint
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,6 +15,7 @@ import com.asiantech.intern20summer1.w7.database.data.Cultivation
 import com.asiantech.intern20summer1.w7.extension.isComingHarvest
 import com.asiantech.intern20summer1.w7.extension.isLackedWater
 import com.asiantech.intern20summer1.w7.extension.isWormed
+import com.asiantech.intern20summer1.w7.extension.openVegetableFragment
 import com.asiantech.intern20summer1.w7.fragment.PlantDialogFragment.Companion.FORMAT_CODE_DATE
 import kotlinx.android.synthetic.`at-sonnguyen`.w7_fragment_plant_detail.*
 import java.text.SimpleDateFormat
@@ -72,6 +74,7 @@ class PlantDetailFragment : Fragment() {
         tvPlantDescriptionDetail.text = plant?.description
     }
 
+    @SuppressLint("SimpleDateFormat")
     private fun handleSprinkleWaterButtonListener() {
         btnSprinkleDetail?.setOnClickListener {
             cultivation?.let {
@@ -92,8 +95,10 @@ class PlantDetailFragment : Fragment() {
             cultivation?.let {
                 database?.cultivationDao()?.deleteCultivation(it)
                 refreshData()
-                fragmentManager?.popBackStack()
+//                (activity as HomeActivity).openVegetableFragment(VegetableGardenFragment.newInstance())
             }
+
+
         }
     }
 
@@ -108,7 +113,8 @@ class PlantDetailFragment : Fragment() {
             wormedPlantFragment.initData()
             lackedWaterPlantFragment.initData()
             comingHarvestPlant.initData()
-            VegetableGardenFragment.newInstance().initData()
+            vegetableGardenFragment.initData()
+            openVegetableFragment(VegetableGardenFragment.newInstance())
         }
     }
 }

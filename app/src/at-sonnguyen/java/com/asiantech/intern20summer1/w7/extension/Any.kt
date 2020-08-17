@@ -26,6 +26,7 @@ internal fun AppCompatActivity.replaceFragment(
     return fragment
 }
 
+@SuppressLint("SimpleDateFormat")
 fun isWormed(plant: Plant?, cultivation: Cultivation?): Boolean {
     cultivation?.dateWatering?.let { dateWatering ->
         val dateFormat = SimpleDateFormat(DownloadPlantImage.FORMAT_CODE_DATE)
