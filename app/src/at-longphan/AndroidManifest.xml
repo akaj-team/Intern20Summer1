@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-feature android:name="android.hardware.camera" />
     <application
@@ -29,6 +30,9 @@
             android:name=".week4.activity.SplashActivity"
             android:theme="@style/SplashscreenTheme" />
         <activity android:name=".week4.activity.SignInActivity" />
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat" />
         <activity android:name=".week4.activity.HomeActivity" />
         <activity android:name=".week5.activity.TimeLineActivity" />
         <activity android:name=".week6.activity.FirstPageActivity" />

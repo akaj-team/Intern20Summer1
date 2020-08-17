@@ -5,8 +5,7 @@
     android:id="@+id/drawerLayoutWeek7"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.asiantech.intern20summer1.week7.activity.HomeWeekSevenActivity"
-    tools:openDrawer="start">
+    tools:context="com.asiantech.intern20summer1.week7.activity.HomeWeekSevenActivity">
 
     <RelativeLayout
         android:id="@+id/rlContainer"
@@ -16,8 +15,16 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbarWeeK7"
             android:layout_width="match_parent"
-            android:layout_height="54dp"
-            android:background="@color/colorMainWeek4">
+            android:layout_height="wrap_content"
+            android:background="@android:color/white">
+
+            <ImageView
+                android:id="@+id/toolbarHamburger"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginVertical="19dp"
+                android:layout_marginLeft="24dp"
+                app:srcCompat="@drawable/ic_hamburger" />
 
             <TextView
                 android:id="@+id/toolbarTitle"
@@ -25,7 +32,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                tools:text="Garden" />
+                android:layout_marginVertical="12dp"
+                android:textSize="24sp"
+                android:text="Vườn cây" />
         </androidx.appcompat.widget.Toolbar>
 
         <FrameLayout
@@ -39,7 +48,7 @@
     </RelativeLayout>
 
     <com.google.android.material.navigation.NavigationView
-        android:id="@+id/navView"
+        android:id="@+id/navigationViewWeek7"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"

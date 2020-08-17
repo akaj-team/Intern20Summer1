@@ -1,12 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.asiantech.intern20summer1.week7.fragment.PlantDetailFragment">
 
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="THis is plant detail fragment" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="29dp">
 
+        <ImageView
+            android:id="@+id/imgDisplayPlantDetail"
+            android:layout_width="match_parent"
+            android:layout_height="183dp"
+            android:layout_alignParentTop="true" />
+
+        <TextView
+            android:id="@+id/tvPlantMainDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imgDisplayPlantDetail"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="42dp"
+            tools:text="Cây bị sâu"
+            android:textColor="#EC1212"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:id="@+id/llPlantAt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvPlantMainDescription"
+            android:layout_marginTop="13dp"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/tvPlantAtDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Trồng lúc: "
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tvPlantAtDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                tools:text="05/08/2020 12h01" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llLastWater"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/llPlantAt"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/tvLastWaterDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tưới nước lần cuối: "
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tvLastWaterDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                tools:text="08/08/2020 16h01" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvPlantDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/llLastWater"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="23dp"
+            android:text="Miêu tả cây"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/insertData"
+            android:text="insert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/btnPlantWatering"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_above="@+id/btnC7utOffW7"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/bg_button_plant_watering_w7"
+            android:lineHeight="15sp"
+            android:text="Tưới nước"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnC7utOffW7"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginHorizontal="24dp"
+            android:background="@drawable/bg_button_cut_off_disable_w7"
+            android:text="Chặt bỏ"
+            android:textColor="@color/colorButtonNextRegisterDisableWeek7Text"
+            android:textStyle="bold" />
+    </RelativeLayout>
 </FrameLayout>

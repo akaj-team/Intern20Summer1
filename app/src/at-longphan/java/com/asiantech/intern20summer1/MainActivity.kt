@@ -9,7 +9,7 @@ import com.asiantech.intern20summer1.week3.LoginActivity
 import com.asiantech.intern20summer1.week4.activity.SplashActivity
 import com.asiantech.intern20summer1.week5.activity.TimeLineActivity
 import com.asiantech.intern20summer1.week6.activity.FirstPageActivity
-import com.asiantech.intern20summer1.week7.activity.HomeWeekSevenActivity
+import com.asiantech.intern20summer1.week7.activity.SplashWeekSevenActivity
 import kotlinx.android.synthetic.`at-longphan`.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun handleButtonWeek7(){
         btnWeek7?.setOnClickListener {
-            startActivity(Intent(this, HomeWeekSevenActivity::class.java))
+            startActivity(Intent(this, SplashWeekSevenActivity::class.java))
         }
     }
 }

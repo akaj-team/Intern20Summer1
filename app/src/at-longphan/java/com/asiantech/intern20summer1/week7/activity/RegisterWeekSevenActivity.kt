@@ -5,7 +5,9 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.ContentValues
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Color
@@ -20,6 +22,8 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week4.other.RequestCode
+import com.asiantech.intern20summer1.week7.PlantRoomDatabase
+import com.asiantech.intern20summer1.week7.entity.User
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 import kotlinx.android.synthetic.`at-longphan`.activity_register_w7.*
@@ -34,12 +38,17 @@ class RegisterWeekSevenActivity : AppCompatActivity() {
         private const val ASPECT_RATIO_Y = 1
     }
 
+    private var database: PlantRoomDatabase? = null
     private var imageCaptureUri: Uri? = null
+    private var userInserted: User? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register_w7)
         configStatusBarColor()
+
+        database = PlantRoomDatabase.getDatabase(this)
+
         handleListeners()
     }
 
@@ -68,8 +77,9 @@ class RegisterWeekSevenActivity : AppCompatActivity() {
     }
 
     private fun showImage(data: Intent?) {
-        CropImage.getActivityResult(data).originalUri?.apply {
+        CropImage.getActivityResult(data).uri?.apply {
             imgAvatarWeek7.setImageURI(this)
+            imageCaptureUri = this
         }
     }
 
@@ -135,28 +145,29 @@ class RegisterWeekSevenActivity : AppCompatActivity() {
         handleEditTextUniversityListener()
         handleEditTextHomeTownListener()
         handleImageViewAvatarListener()
+        handleButtonNextRegisterWeek7Clicked()
     }
 
     private fun handleEditTextUsernameListener() {
         edtUsernameWeek7?.addTextChangedListener {
-            isButtonNextEnable()
+            handleButtonNextRegisterWeek7Listener()
         }
     }
 
     private fun handleEditTextUniversityListener() {
         edtUniversityWeek7?.addTextChangedListener {
-            isButtonNextEnable()
+            handleButtonNextRegisterWeek7Listener()
         }
     }
 
     private fun handleEditTextHomeTownListener() {
         edtHomeTownWeek7?.addTextChangedListener {
-            isButtonNextEnable()
+            handleButtonNextRegisterWeek7Listener()
         }
     }
 
     @SuppressLint("ResourceType")
-    private fun isButtonNextEnable() {
+    private fun handleButtonNextRegisterWeek7Listener() {
         btnNextRegisterWeek7?.let {
             if (edtUsernameWeek7.text.toString().isNotEmpty()
                 && edtUniversityWeek7.text.toString().isNotEmpty()
@@ -171,6 +182,36 @@ class RegisterWeekSevenActivity : AppCompatActivity() {
                 it.isEnabled = false
             }
         }
+    }
+
+    private fun handleButtonNextRegisterWeek7Clicked(){
+        btnNextRegisterWeek7?.setOnClickListener {
+            database?.userDao()?.insert(User(
+                0,
+                edtUsernameWeek7.text.toString(),
+                edtUniversityWeek7.text.toString(),
+                edtHomeTownWeek7.text.toString(),
+                imageCaptureUri?.toString()
+            ))
+
+            userInserted = database?.userDao()?.getLastInsert()
+
+            saveRegisterUserData()
+
+            startActivity(Intent(baseContext, HomeWeekSevenActivity::class.java))
+            finish()
+        }
+    }
+
+    private fun saveRegisterUserData(){
+        val sharePref: SharedPreferences = getSharedPreferences("UserDataPrefs", Context.MODE_PRIVATE)
+        val editor: SharedPreferences.Editor = sharePref.edit()
+        userInserted?.userId?.let { editor.putInt("userId", it) }
+        editor.putString("userName", userInserted?.userName)
+        editor.putString("university", userInserted?.university)
+        editor.putString("homeTown", userInserted?.homeTown)
+        editor.putString("avatarUrl", userInserted?.avatar)
+        editor.apply()
     }
 
     private fun handleImageViewAvatarListener() {

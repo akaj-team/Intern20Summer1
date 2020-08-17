@@ -11,15 +11,10 @@ import com.bumptech.glide.Glide
 
 class PlantAdapter : RecyclerView.Adapter<PlantViewHolder> {
 
-    companion object {
-        private const val PICTURE_2 = 2
-        private const val PICTURE_3 = 3
-    }
-
-    internal var onItemViewClick: (plantId: Int) -> Unit = {}
-
-    private var plants: MutableList<PlantRecyclerViewItem>
+    private var plants: List<PlantRecyclerViewItem>
     private var context: Context
+
+    internal var onItemViewClick: (cultivationId: Int) -> Unit = {}
 
     constructor(context: Context, plants: MutableList<PlantRecyclerViewItem>) {
         this.plants = plants
@@ -38,46 +33,33 @@ class PlantAdapter : RecyclerView.Adapter<PlantViewHolder> {
         // Set itemView based on views and data model
         val containerView = viewHolder.containerView
         containerView?.setOnClickListener {
-            plant.plantId?.let { it -> onItemViewClick.invoke(it) }
+            plant.cultivationId?.let { cultivationId -> onItemViewClick.invoke(cultivationId) }
         }
 
         val nameTextView = viewHolder.nameTextView
         nameTextView?.text = plant.name
 
         val displayImageView = viewHolder.displayImageView
-        when {
-            position % PICTURE_3 == 0 -> displayImageView?.let {
-                Glide.with(it)
-                    .load("https://upload.wikimedia.org/wikipedia/commons/5/55/Apple_orchard_in_Tasmania.jpg")
-            }
-            position % PICTURE_2 == 0 -> displayImageView?.let {
-                Glide.with(it)
-                    .load("https://upload.wikimedia.org/wikipedia/commons/2/29/Beetroot_jm26647.jpg")
-            }
-            else -> displayImageView?.let {
-                Glide.with(it)
-                    .load("https://upload.wikimedia.org/wikipedia/commons/1/17/Cherry_tomatoes_red_and_green_2009_16x9.jpg")
-            }
+        displayImageView?.let {
+            Glide.with(it)
+                .load(plant.imageUrl)
+                .into(it)
         }
 
         val statusImageView = viewHolder.statusImageView
-        if (plant.status != null) {
-            if (plant.status!!) {
-                statusImageView?.setImageResource(R.drawable.btn_facebook)
-            } else {
-                statusImageView?.setImageResource(R.drawable.btn_google_plus)
-            }
+        if (plant.status) {
+            statusImageView?.setImageResource(R.drawable.btn_facebook)
+        } else {
+            statusImageView?.setImageResource(R.drawable.btn_google_plus)
         }
 
         val dateCultivationTextView = viewHolder.dateCultivationTextView
         dateCultivationTextView?.text =
-            context.getString(R.string.text_view_plant_at_description)
-                .plus(" " + plant.dateCultivation)
+            context.getString(R.string.text_view_plant_at_description).plus(plant.dateCultivation)
 
         val dateHarvestTextView = viewHolder.dateHarvestTextView
         dateHarvestTextView?.text =
-            context.getString(R.string.text_view_harvest_time_description)
-                .plus(" " + plant.dateHarvest)
+            context.getString(R.string.text_view_harvest_time_description).plus(plant.dateHarvest)
     }
 
     override fun getItemCount(): Int {

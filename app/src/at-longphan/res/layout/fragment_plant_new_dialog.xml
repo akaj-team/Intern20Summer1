@@ -1,70 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    app:cardCornerRadius="32dp"
-    app:cardElevation="5dp">
+    android:layout_height="match_parent"
+    android:clickable="true"
+    android:focusable="true"
+    tools:context="com.asiantech.intern20summer1.week7.fragment.PlantNewDialogFragment">
 
-    <RelativeLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="480dp">
+        android:layout_height="479dp"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="32dp"
+        app:cardCornerRadius="32dp"
+        app:cardElevation="20dp">
 
-        <ImageView
-            android:id="@+id/imgBackIconDialog"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_margin="26dp"
-            android:background="@drawable/ic_music_logo" />
-
-        <TextView
-            android:id="@+id/tvTitleDialog"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="60dp"
-            android:text="Trồng cây"
-            android:layout_marginBottom="25dp"
-            android:textSize="36sp" />
-
-        <!--<EditText
-            android:id="@+id/edtDialog"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_below="@id/tvTitleDialog"
-            android:layout_marginHorizontal="18dp"
-            android:background="@drawable/bg_edit_text_register_w7"
-            android:importantForAutofill="no"
-            android:paddingLeft="17dp"
-            android:inputType="text"
-            android:hint="Loại rau muốn trồng"/>-->
+            android:layout_height="480dp">
 
-        <com.asiantech.intern20summer1.week7.other.AutoCompleteDropDown
-            android:id="@+id/edtDialog"
-            android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:layout_below="@id/tvTitleDialog"
-            android:layout_marginHorizontal="18dp"
-            android:background="@drawable/bg_edit_text_register_w7"
-            android:hint="Loại rau muốn trồng"
-            android:inputType="text"
-            android:textSize="15sp"
-            android:paddingLeft="17dp" />
+            <ImageView
+                android:id="@+id/imgCloseDialog"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_margin="26dp"
+                android:background="@drawable/ic_music_logo" />
 
-        <Button
-            android:id="@+id/btnNextRegisterWeek7"
-            android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:layout_marginBottom="35dp"
-            android:layout_marginHorizontal="16dp"
-            android:layout_alignParentBottom="true"
-            android:background="@drawable/bg_button_next_register_disable_w7"
-            android:enabled="false"
-            android:text="Next"
-            android:textColor="@color/colorButtonNextRegisterDisableWeek7Text"
-            android:textSize="13sp"
-            android:textStyle="bold" />
+            <TextView
+                android:id="@+id/tvTitleDialog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="60dp"
+                android:layout_marginBottom="25dp"
+                android:text="Trồng cây"
+                android:textSize="36sp" />
 
-    </RelativeLayout>
-</androidx.cardview.widget.CardView>
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_below="@id/tvTitleDialog"
+                android:layout_marginHorizontal="18dp"
+                android:dropDownVerticalOffset="52dp"
+                android:spinnerMode="dropdown" />
+
+            <Button
+                android:id="@+id/btnOkPlantNewWeek7"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginBottom="35dp"
+                android:background="@drawable/bg_button_next_register_disable_w7"
+                android:enabled="false"
+                android:text="OK"
+                android:textColor="@color/colorButtonNextRegisterDisableWeek7Text"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</FrameLayout>

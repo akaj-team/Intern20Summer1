@@ -1,57 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="242dp"
+    android:background="#FFC300"
     android:orientation="vertical"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <ImageView
-        android:id="@+id/imgBack"
+        android:id="@+id/imgBackHeader"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginLeft="24dp"
         android:layout_marginTop="61dp"
-        app:srcCompat="@mipmap/ic_launcher" />
+        app:srcCompat="@drawable/ic_arrow_left" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
         android:layout_marginTop="18dp"
         android:gravity="center">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imgAvatar2"
+            android:id="@+id/imgAvatarHeaderWeek7"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="18dp"
+            android:layout_marginRight="19dp"
             android:src="@mipmap/ic_launcher" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/tvName"
-                android:layout_width="150dp"
+                android:id="@+id/tvUserNameWeek7"
+                android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:gravity="left|bottom"
-                android:singleLine="true"
-                android:text="Doan Bien Q."
+                android:gravity="center_vertical"
                 android:textColor="@android:color/black"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                tools:text="Doan Bien Q." />
 
             <TextView
-                android:id="@+id/tvNameUniversity"
-                android:layout_width="150dp"
-                android:layout_height="50dp"
+                android:id="@+id/tvUniversityWeek7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvUserNameWeek7"
                 android:gravity="left|top"
-                android:text="Ho Chi Minh City University of Technology"
                 android:textColor="@android:color/black"
-                android:textSize="10sp" />
-        </LinearLayout>
+                android:textSize="12sp"
+                tools:text="Ho Chi Minh City University of Technology" />
+        </RelativeLayout>
     </LinearLayout>
 </LinearLayout>

@@ -49,4 +49,5 @@
     <color name="colorMainActivityBackground">#FEFECD</color>
     <color name="colorButtonNextRegisterEnableWeek7Text">#FFFFFF</color>
     <color name="colorButtonNextRegisterDisableWeek7Text">#99FFFFFF</color>
+    <color name="colorEditTextHintWeek7Text">#80000000</color>
 </resources>

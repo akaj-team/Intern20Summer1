@@ -55,8 +55,8 @@
     <string name="text_view_bottom_description_main_activity">Phan Dang Phi Long - Android Intern</string>
     <string name="text_view_internship_summer_2020_description">INTERNSHIP\nSUMMER 2020</string>
     <string name="button_week_7_description">Week 7: Menu - Database</string>
-    <string name="text_view_plant_at_description">Trồng vào lúc: </string>
-    <string name="text_view_harvest_time_description">Thời gian thu hoạch: </string>
+    <string name="text_view_plant_at_description">Trồng vào lúc:\u0020</string>
+    <string name="text_view_harvest_time_description">Thời gian thu hoạch:\u0020</string>
     <string name="text_description_open_drawer">nav drawer open</string>
     <string name="text_description_close_drawer">nav drawer close</string>
 </resources>
