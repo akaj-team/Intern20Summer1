@@ -24,13 +24,13 @@
     </group>
     <group>
         <item
-            android:id="@+id/itemBadVegetable"
+            android:id="@+id/itemWormVegetable"
             android:icon="@mipmap/ic_bad"
             android:title="Rau bi sau" />
     </group>
     <group>
         <item
-            android:id="@+id/itemNotEnoughWater"
+            android:id="@+id/itemLackedWater"
             android:icon="@mipmap/ic_bad"
             android:title="Rau bi thieu nuoc" />
     </group>

@@ -30,15 +30,38 @@
                 android:textSize="20sp" />
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/imgVegetableStatus"
+                android:id="@+id/imgHarvestVegetable"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="24dp"
                 android:layout_toRightOf="@id/tvVegetableName"
                 android:paddingTop="3dp"
-                android:src="@drawable/ic_facebook"
+                android:src="@drawable/ic_harvest"
                 app:civ_border_color="@color/colorBlack" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imgWormVegetable"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="24dp"
+                android:layout_toRightOf="@id/tvVegetableName"
+                android:paddingTop="3dp"
+                android:src="@drawable/ic_worm"
+                app:civ_border_color="@color/colorBlack" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imgLackWater"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="24dp"
+                android:layout_toRightOf="@id/tvVegetableName"
+                android:paddingTop="3dp"
+                android:src="@drawable/ic_water"
+                app:civ_border_color="@color/colorBlack" />
+
         </RelativeLayout>
 
         <TextView

@@ -32,6 +32,25 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.itemHome -> {
+                fragment.initData()
+            }
+            R.id.itemGrowVegetable -> {
+                val fragmentManager = supportFragmentManager
+                drawerLayout.closeDrawer(GravityCompat.START)
+                DialogFragment().show(fragmentManager, null)
+            }
+            R.id.itemAlreadyHarvest -> {
+                fragment.initData(item.itemId)
+            }
+            R.id.itemWormVegetable -> {
+                fragment.initData(item.itemId)
+            }
+            R.id.itemLackedWater -> {
+                fragment.initData(item.itemId)
+            }
+        }
         if (item.itemId == R.id.itemGrowVegetable) {
             val fragmentManager = supportFragmentManager
             drawerLayout.closeDrawer(GravityCompat.START)

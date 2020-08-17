@@ -36,8 +36,10 @@ class VegetableViewHolder(
         fun onBindData(position: Int) {
             val vegetableItem = plantList[position]
             val tvVegetableName = itemView.tvVegetableName
-            val imgVegetableStatus = itemView.imgVegetableStatus
             val imgVegetable = itemView.imgVegetable
+            val imgWorm = itemView.imgWormVegetable
+            val imgLackWater = itemView.imgLackWater
+            val imgHarvest = itemView.imgHarvestVegetable
             val tvDateGrow = itemView.tvDateGrow
             val tvDateHarvest = itemView.tvDateHarvest
             vegetableItem?.let { cultivation ->
@@ -47,6 +49,20 @@ class VegetableViewHolder(
                     tvDateHarvest.text =
                         PlantStatus().getDateHarvest(cultivation.dateCultivation, it)
                     imgVegetable.setImageURI(Uri.parse(it.imageUrl))
+                    imgHarvest.visibility = View.INVISIBLE
+                    imgWorm.visibility = View.INVISIBLE
+                    imgLackWater.visibility = View.INVISIBLE
+                    if (PlantStatus().isWormed(it, cultivation)) {
+                        imgWorm.visibility = View.VISIBLE
+                    }
+                    if (PlantStatus().isLackedWater(it, cultivation)) {
+                        imgLackWater.visibility = View.VISIBLE
+                    }
+                    if (PlantStatus().isComingHarvest(it, cultivation)) {
+                        imgHarvest.visibility = View.VISIBLE
+                        imgWorm.visibility = View.INVISIBLE
+                        imgLackWater.visibility = View.INVISIBLE
+                    }
                 }
             }
         }

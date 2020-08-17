@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week7.adapters.VegetableViewHolder
 import com.asiantech.intern20summer1.week7.data.AppDatabase
+import com.asiantech.intern20summer1.week7.extensions.PlantStatus
 import com.asiantech.intern20summer1.week7.models.Cultivation
 import kotlinx.android.synthetic.`at-linhle`.fragment_grow_plant.*
 
@@ -43,12 +44,74 @@ class GrowPlantFragment : Fragment() {
         recyclerViewVegetable.setHasFixedSize(true)
     }
 
-    private fun initData() {
+    internal fun initData(id: Int = R.id.itemHome) {
         plantItemList.clear()
         appDatabase?.getCultivation()?.getAllCultivation()?.toCollection(plantItemList)
 
+
         if (plantItemList.size != 0) {
-            adapter.notifyDataSetChanged()
+            when(id){
+                R.id.itemHome -> {
+                    adapter.notifyDataSetChanged()
+                }
+                R.id.itemAlreadyHarvest -> {
+                    initDataForHarvest()
+                }
+                R.id.itemWormVegetable -> {
+                    initDataForWormed()
+                }
+                R.id.itemLackedWater -> {
+                    initDataForLackWater()
+                }
+            }
         }
+    }
+
+    private fun initDataForWormed() {
+        val list = mutableListOf<Cultivation>()
+        plantItemList.forEach { cultivation ->
+            appDatabase?.getPlantDao()?.getPlant(cultivation?.plantId)?.let { plant ->
+                if (PlantStatus().isWormed(plant, cultivation) && !PlantStatus().isComingHarvest(plant, cultivation)) {
+                    if (cultivation != null) {
+                        list.add(cultivation)
+                    }
+                }
+            }
+        }
+        plantItemList.clear()
+        list.toCollection(plantItemList)
+        adapter.notifyDataSetChanged()
+    }
+
+    private fun initDataForLackWater() {
+        val list = mutableListOf<Cultivation>()
+        plantItemList.forEach { cultivation ->
+            appDatabase?.getPlantDao()?.getPlant(cultivation?.plantId)?.let { plant ->
+                if (PlantStatus().isLackedWater(plant, cultivation) && !PlantStatus().isComingHarvest(plant, cultivation)) {
+                    if (cultivation != null) {
+                        list.add(cultivation)
+                    }
+                }
+            }
+        }
+        plantItemList.clear()
+        list.toCollection(plantItemList)
+        adapter.notifyDataSetChanged()
+    }
+
+    private fun initDataForHarvest() {
+        val list = mutableListOf<Cultivation>()
+        plantItemList.forEach { cultivation ->
+            appDatabase?.getPlantDao()?.getPlant(cultivation?.plantId)?.let { plant ->
+                if (PlantStatus().isComingHarvest(plant, cultivation)) {
+                    if (cultivation != null) {
+                        list.add(cultivation)
+                    }
+                }
+            }
+        }
+        plantItemList.clear()
+        list.toCollection(plantItemList)
+        adapter.notifyDataSetChanged()
     }
 }
