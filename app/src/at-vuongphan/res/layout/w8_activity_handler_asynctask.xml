@@ -36,6 +36,8 @@
 
     <EditText
         android:id="@+id/tvUrl"
+        android:textColor="@color/colorBlack"
+        android:textStyle="bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/progressBar"
