@@ -105,7 +105,13 @@ class VegetableFragmentRecyclerView : Fragment() {
                     adapterRecycler.notifyDataSetChanged()
                 }
                 2 -> {
+                    initDataHarvest()
+                }
+                3 -> {
                     initDataWorm()
+                }
+                4 -> {
+                    initDataLackWater()
                 }
             }
         }
@@ -116,6 +122,34 @@ class VegetableFragmentRecyclerView : Fragment() {
         vegetableList.forEach { it ->
             dataBase?.plantDao()?.getPlant(it.plantId)?.let { it1 ->
                 if (isPlantWorm(it1, it)) {
+                    list.add(it)
+                }
+            }
+        }
+        vegetableList.clear()
+        list.toCollection(vegetableList)
+        adapterRecycler.notifyDataSetChanged()
+    }
+
+    private fun initDataHarvest() {
+        val list = mutableListOf<Cultivation>()
+        vegetableList.forEach { it ->
+            dataBase?.plantDao()?.getPlant(it.plantId)?.let { it1 ->
+                if (isPlantHarvest(it1, it)) {
+                    list.add(it)
+                }
+            }
+        }
+        vegetableList.clear()
+        list.toCollection(vegetableList)
+        adapterRecycler.notifyDataSetChanged()
+    }
+
+    private fun initDataLackWater() {
+        val list = mutableListOf<Cultivation>()
+        vegetableList.forEach { it ->
+            dataBase?.plantDao()?.getPlant(it.plantId)?.let { it1 ->
+                if (isPlantLackWater(it1, it)) {
                     list.add(it)
                 }
             }

@@ -102,14 +102,15 @@ class VegetableFarmMainActivity : AppCompatActivity(),
                 drawerLayout.closeDrawer(GravityCompat.START)
             }
             R.id.navHarvest -> {
-                drawerLayout.closeDrawer(GravityCompat.START)
-            }
-            R.id.navSau -> {
                 onClickMenu.invoke(2)
                 drawerLayout.closeDrawer(GravityCompat.START)
             }
+            R.id.navSau -> {
+                onClickMenu.invoke(3)
+                drawerLayout.closeDrawer(GravityCompat.START)
+            }
             R.id.navNuoc -> {
-                Toast.makeText(this, "aaaa", Toast.LENGTH_SHORT).show()
+                onClickMenu.invoke(4)
                 drawerLayout.closeDrawer(GravityCompat.START)
             }
         }
