@@ -6,11 +6,11 @@ import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.week7.adapters.VegetableViewHolder
 import com.asiantech.intern20summer1.week7.data.AppDatabase
 import com.asiantech.intern20summer1.week7.fragments.DialogFragment
-import com.asiantech.intern20summer1.week7.models.Plant
+import com.asiantech.intern20summer1.week7.fragments.GrowPlantFragment
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.`at-linhle`.activity_home_toolbar.*
 import kotlinx.android.synthetic.`at-linhle`.coordinator_layout.*
@@ -18,20 +18,17 @@ import kotlinx.android.synthetic.`at-linhle`.navigation_view_header.view.*
 
 class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
-    private lateinit var plantItemList: MutableList<Plant?>
-    private lateinit var plantItemsStorage: MutableList<Plant?>
-    private lateinit var adapter: VegetableViewHolder
     private var appDatabase: AppDatabase? = null
+    private val fragment = GrowPlantFragment.newInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_toolbar)
         appDatabase = AppDatabase.getInstance(this)
         handleActionBarListener()
+        handleReplaceFragment(fragment, parent = R.id.flPlantViewContainer)
         navigationContainer.setNavigationItemSelectedListener(this)
         getUser()
-        initData()
-        initAdapter()
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -50,6 +47,21 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         } else {
             super.onBackPressed()
         }
+    }
+
+    internal fun handleReplaceFragment(
+        fragment: Fragment,
+        backStack: Boolean = false,
+        parent: Int,
+        nameBackStack: String = ""
+    ) {
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(parent, fragment)
+        if (backStack) {
+            fragmentTransaction.addToBackStack(nameBackStack)
+        }
+        fragmentTransaction.commit()
     }
 
     private fun handleActionBarListener() {
@@ -82,16 +94,5 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 header.imgHomeUser?.setImageURI(Uri.parse(avatar))
             }
         }
-    }
-
-    private fun initData() {
-        plantItemsStorage = mutableListOf()
-    }
-
-    private fun initAdapter() {
-        plantItemsStorage.shuffle()
-        plantItemList = plantItemsStorage
-        adapter = VegetableViewHolder(recyclerViewContainer, this, plantItemList)
-        recyclerViewContainer?.adapter = adapter
     }
 }

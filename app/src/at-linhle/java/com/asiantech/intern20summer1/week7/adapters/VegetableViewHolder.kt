@@ -1,22 +1,26 @@
 package com.asiantech.intern20summer1.week7.adapters
 
-import android.app.Activity
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.week7.models.Plant
+import com.asiantech.intern20summer1.week7.data.AppDatabase
+import com.asiantech.intern20summer1.week7.extensions.PlantStatus
+import com.asiantech.intern20summer1.week7.models.Cultivation
 import kotlinx.android.synthetic.`at-linhle`.item_list_vegetable.view.*
 
 class VegetableViewHolder(
-    recyclerView: RecyclerView,
-    internal var activity: Activity,
-    internal var plantList: MutableList<Plant?>
+    internal var plantList: MutableList<Cultivation?>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    private var appDatabase: AppDatabase? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        appDatabase = AppDatabase.getInstance(parent.context)
         val view =
-            LayoutInflater.from(activity).inflate(R.layout.item_list_vegetable, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_list_vegetable, parent, false)
         return VegetableViewHolder(view)
     }
 
@@ -36,9 +40,14 @@ class VegetableViewHolder(
             val imgVegetable = itemView.imgVegetable
             val tvDateGrow = itemView.tvDateGrow
             val tvDateHarvest = itemView.tvDateHarvest
-
-            vegetableItem?.let {
-
+            vegetableItem?.let { cultivation ->
+                appDatabase?.getPlantDao()?.getPlant(cultivation.plantId)?.let {
+                    tvVegetableName.text = it.name
+                    tvDateGrow.text = cultivation.dateCultivation
+                    tvDateHarvest.text =
+                        PlantStatus().getDateHarvest(cultivation.dateCultivation, it)
+                    imgVegetable.setImageURI(Uri.parse(it.imageUrl))
+                }
             }
         }
     }

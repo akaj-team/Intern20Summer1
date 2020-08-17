@@ -15,6 +15,7 @@ import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week7.data.AppDatabase
 import com.asiantech.intern20summer1.week7.models.Cultivation
 import com.asiantech.intern20summer1.week7.models.Plant
+import com.asiantech.intern20summer1.week7.views.HomeActivity
 import kotlinx.android.synthetic.`at-linhle`.fragment_dialog.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -22,11 +23,12 @@ import java.util.*
 open class DialogFragment : DialogFragment() {
 
     companion object {
-        internal val DATE_FORMAT_STRING = "dd/MM/yyyy HH:mm"
+        internal const val DATE_FORMAT_STRING = "dd/MM/yyyy HH:mm"
     }
 
     private var plants: List<Plant>? = null
     private var appDatabase: AppDatabase? = null
+    private val growPlantFragment = GrowPlantFragment.newInstance()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -104,6 +106,10 @@ open class DialogFragment : DialogFragment() {
                 dateWatering = currentDate
             }
             appDatabase?.getCultivation()?.insertCultivation(cultivation)
+            (activity as HomeActivity).handleReplaceFragment(
+                growPlantFragment,
+                parent = R.id.flPlantViewContainer
+            )
             dialog?.dismiss()
         }
     }
