@@ -43,6 +43,7 @@ class ComingHarvestPlant : Fragment() {
     }
     internal fun initData(){
         database?.cultivationDao()?.getAllCultivation()?.let { list ->
+            plantList.clear()
             list.forEach { cultivation ->
                 database?.plantDao()?.getPlant(cultivation.plantId)?.let {plant ->
                     if (isComingHarvest(plant,cultivation)){

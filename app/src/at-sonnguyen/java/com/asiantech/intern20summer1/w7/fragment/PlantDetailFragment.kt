@@ -15,7 +15,6 @@ import com.asiantech.intern20summer1.w7.database.data.Cultivation
 import com.asiantech.intern20summer1.w7.extension.isComingHarvest
 import com.asiantech.intern20summer1.w7.extension.isLackedWater
 import com.asiantech.intern20summer1.w7.extension.isWormed
-import com.asiantech.intern20summer1.w7.extension.openVegetableFragment
 import com.asiantech.intern20summer1.w7.fragment.PlantDialogFragment.Companion.FORMAT_CODE_DATE
 import kotlinx.android.synthetic.`at-sonnguyen`.w7_fragment_plant_detail.*
 import java.text.SimpleDateFormat
@@ -95,7 +94,7 @@ class PlantDetailFragment : Fragment() {
             cultivation?.let {
                 database?.cultivationDao()?.deleteCultivation(it)
                 refreshData()
-//                (activity as HomeActivity).openVegetableFragment(VegetableGardenFragment.newInstance())
+                fragmentManager?.popBackStack()
             }
 
 
@@ -105,6 +104,7 @@ class PlantDetailFragment : Fragment() {
     private fun handleBackButtonListener() {
         imgBackDetail.setOnClickListener {
             fragmentManager?.popBackStack()
+            refreshData()
         }
     }
 
@@ -114,7 +114,6 @@ class PlantDetailFragment : Fragment() {
             lackedWaterPlantFragment.initData()
             comingHarvestPlant.initData()
             vegetableGardenFragment.initData()
-            openVegetableFragment(VegetableGardenFragment.newInstance())
         }
     }
 }

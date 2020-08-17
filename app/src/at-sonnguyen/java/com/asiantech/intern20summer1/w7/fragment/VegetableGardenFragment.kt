@@ -45,6 +45,7 @@ class VegetableGardenFragment : Fragment() {
     }
     internal fun initData(){
         database?.cultivationDao()?.getAllCultivation()?.let {list ->
+            cultivationList.clear()
             list.toCollection(cultivationList)
             cultivationAdapter.notifyDataSetChanged()
         }
@@ -52,7 +53,7 @@ class VegetableGardenFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        cultivationAdapter.notifyDataSetChanged()
+//        cultivationAdapter.notifyDataSetChanged()
     }
     private fun handleOnItemClickListener(){
         cultivationAdapter.onItemClick = {id ->

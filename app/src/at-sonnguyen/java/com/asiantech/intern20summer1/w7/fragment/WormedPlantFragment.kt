@@ -47,6 +47,7 @@ class WormedPlantFragment : Fragment() {
     }
     internal fun initData(){
         database?.cultivationDao()?.getAllCultivation()?.let { list ->
+            plantList.clear()
             list.forEach { cultivation ->
                 database?.plantDao()?.getPlant(cultivation.plantId)?.let {plant ->
                     if (isWormed(plant,cultivation)){
