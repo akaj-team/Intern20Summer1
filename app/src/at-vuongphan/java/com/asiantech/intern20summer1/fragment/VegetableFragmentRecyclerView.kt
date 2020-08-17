@@ -28,7 +28,7 @@ class VegetableFragmentRecyclerView : Fragment() {
     companion object {
         private const val MINUTES = 60
         private const val HOURS = 3600
-        private const val TIMER_REFRESH = 5000L
+        private const val TIMER_REFRESH = 2000L
         internal fun newInstance(): VegetableFragmentRecyclerView {
             return VegetableFragmentRecyclerView()
         }
@@ -59,8 +59,8 @@ class VegetableFragmentRecyclerView : Fragment() {
 
 
     private fun handleOnItemClick() {
-        adapterRecycler.onItemClicked = { _ ->
-            val fragment = VegetableDetailFragment.newInstance()
+        adapterRecycler.onItemClicked = { id ->
+            val fragment = VegetableDetailFragment.newInstance(id)
             (activity as VegetableFarmMainActivity).handleReplaceFragment(
                 fragment,
                 true,
@@ -88,7 +88,7 @@ class VegetableFragmentRecyclerView : Fragment() {
         }.start()
     }
 
-    private fun initData(id: Int = 1) {
+    internal fun initData(id: Int = 1) {
         vegetableList.clear()
         dataBase?.cultivationDao()?.getAllCultivation()?.let {
             it.toCollection(vegetableList)
@@ -121,7 +121,7 @@ class VegetableFragmentRecyclerView : Fragment() {
         val list = mutableListOf<Cultivation>()
         vegetableList.forEach { it ->
             dataBase?.plantDao()?.getPlant(it.plantId)?.let { it1 ->
-                if (isPlantWorm(it1, it)) {
+                if (isPlantWorm(it1, it) && !isPlantHarvest(it1, it)) {
                     list.add(it)
                 }
             }
@@ -149,7 +149,7 @@ class VegetableFragmentRecyclerView : Fragment() {
         val list = mutableListOf<Cultivation>()
         vegetableList.forEach { it ->
             dataBase?.plantDao()?.getPlant(it.plantId)?.let { it1 ->
-                if (isPlantLackWater(it1, it)) {
+                if (isPlantLackWater(it1, it) && !isPlantHarvest(it1, it)) {
                     list.add(it)
                 }
             }

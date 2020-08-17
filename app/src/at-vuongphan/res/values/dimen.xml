@@ -113,4 +113,6 @@
     <dimen name="margin_18dp">18dp</dimen>
     <dimen name="height_300dp">300dp</dimen>
     <dimen name="height_183dp">183dp</dimen>
+    <dimen name="w7_app_bar_layout_height">300dp</dimen>
+    <dimen name="text_title">30sp</dimen>
 </resources>

@@ -6,11 +6,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.database.Cultivation
+import com.asiantech.intern20summer1.database.Plant
+import com.asiantech.intern20summer1.database.VegetableDB
 
 class VegetableDetailFragment : Fragment() {
+    private var dataBase: VegetableDB? = null
+    private var cultivation: Cultivation? = null
+    private var plant: Plant? = null
+
     companion object {
-        internal fun newInstance(): VegetableDetailFragment {
-            return VegetableDetailFragment()
+        private const val KEY_POS_ID = "key_pos_id"
+        internal fun newInstance(id: Int?) = VegetableDetailFragment().apply {
+            arguments = Bundle().apply {
+                id?.let { putInt(KEY_POS_ID, it) }
+            }
         }
 
     }
@@ -20,6 +30,8 @@ class VegetableDetailFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        dataBase = VegetableDB.dataBaseConnect(requireContext())
         return inflater.inflate(R.layout.w7_vegetable_detail, container, false)
     }
+
 }

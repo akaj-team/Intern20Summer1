@@ -65,7 +65,7 @@
     <string name="icon_one">Vườn Rau</string>
     <string name="text_view_description_recycler_view">Trong vao luc 12h</string>
     <string name="app_name_toolbar">Garden</string>
-    <string name="icon_two">Trồng Rau</string>
+    <string name="icon_two">Trồng Cây</string>
     <string name="icon_three">Sắp thu hoạch</string>
     <string name="share_preference_avatar_default">avatar</string>
     <string name="text_view_register_description_text">Register</string>
@@ -102,7 +102,10 @@
     <string name="text_cultivation">Trồng lúc: %s</string>
     <string name="text_harvest">Thu Hoạch: %s</string>
     <string name="text_grow_zone">Grow Zone: %s </string>
-    <string name="text_watering">Watering: %s </string>
+    <string name="text_watering">Tưới nước lần cuối: %s </string>
     <string name="toast_description">successful</string>
     <string name="text_view_recycler">Chua co cay nao duoc trong</string>
+    <string name="detail_fragment_toolBar_title">Thông Tin cây</string>
+    <string name="clear_plant_complete">Nhổ Cây Thành Công</string>
+    <string name="watering_plant_complete">Tuwosi Nước Thành Công</string>
 </resources>
