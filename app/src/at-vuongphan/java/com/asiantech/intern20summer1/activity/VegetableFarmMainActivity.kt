@@ -94,7 +94,7 @@ class VegetableFarmMainActivity : AppCompatActivity(),
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.navFarmer -> {
-                onClickMenu.invoke(1)
+                onClickMenu.invoke(VegetableFragmentRecyclerView.ID_GARDEN)
                 drawerLayout.closeDrawer(GravityCompat.START)
             }
             R.id.navGrowVegetable -> {
@@ -102,15 +102,15 @@ class VegetableFarmMainActivity : AppCompatActivity(),
                 drawerLayout.closeDrawer(GravityCompat.START)
             }
             R.id.navHarvest -> {
-                onClickMenu.invoke(2)
+                onClickMenu.invoke(VegetableFragmentRecyclerView.ID_HARVEST)
                 drawerLayout.closeDrawer(GravityCompat.START)
             }
             R.id.navSau -> {
-                onClickMenu.invoke(3)
+                onClickMenu.invoke(VegetableFragmentRecyclerView.ID_WORM)
                 drawerLayout.closeDrawer(GravityCompat.START)
             }
             R.id.navNuoc -> {
-                onClickMenu.invoke(4)
+                onClickMenu.invoke(VegetableFragmentRecyclerView.ID_WATER)
                 drawerLayout.closeDrawer(GravityCompat.START)
             }
         }

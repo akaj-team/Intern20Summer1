@@ -15,6 +15,7 @@ import com.asiantech.intern20summer1.database.Cultivation
 import com.asiantech.intern20summer1.database.Plant
 import com.asiantech.intern20summer1.database.VegetableDB
 import com.asiantech.intern20summer1.fragment.VegetableDialogFragment.Companion.FORMAT_CODE_DATE
+import kotlinx.android.synthetic.`at-vuongphan`.w7_activity_main_farm.*
 import kotlinx.android.synthetic.`at-vuongphan`.w7_recycler_view_fragment.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -29,6 +30,10 @@ class VegetableFragmentRecyclerView : Fragment() {
         private const val MINUTES = 60
         private const val HOURS = 3600
         private const val TIMER_REFRESH = 2000L
+        internal const val ID_GARDEN = 1
+        internal const val ID_HARVEST = 2
+        internal const val ID_WORM = 3
+        internal const val ID_WATER = 4
         internal fun newInstance(): VegetableFragmentRecyclerView {
             return VegetableFragmentRecyclerView()
         }
@@ -60,6 +65,7 @@ class VegetableFragmentRecyclerView : Fragment() {
 
     private fun handleOnItemClick() {
         adapterRecycler.onItemClicked = { id ->
+            navigationView?.visibility = View.INVISIBLE
             val fragment = VegetableDetailFragment.newInstance(id)
             (activity as VegetableFarmMainActivity).handleReplaceFragment(
                 fragment,
@@ -101,16 +107,16 @@ class VegetableFragmentRecyclerView : Fragment() {
             }
         } else {
             when (id) {
-                1 -> {
+                ID_GARDEN -> {
                     adapterRecycler.notifyDataSetChanged()
                 }
-                2 -> {
+                ID_HARVEST -> {
                     initDataHarvest()
                 }
-                3 -> {
+                ID_WORM -> {
                     initDataWorm()
                 }
-                4 -> {
+                ID_WATER -> {
                     initDataLackWater()
                 }
             }

@@ -33,5 +33,4 @@ class VegetableDetailFragment : Fragment() {
         dataBase = VegetableDB.dataBaseConnect(requireContext())
         return inflater.inflate(R.layout.w7_vegetable_detail, container, false)
     }
-
 }
