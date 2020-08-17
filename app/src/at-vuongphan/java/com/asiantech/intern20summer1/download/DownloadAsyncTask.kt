@@ -31,14 +31,14 @@ class DownloadAsyncTask(
         val connection = url.openConnection()
         connection.connect()
         val lengthFile = connection.contentLength
-        val input: InputStream = BufferedInputStream(url.openStream(), 8192)
+        val input: InputStream = BufferedInputStream(url.openStream(), DownloadHandlerThread.SIZE)
         val output =
             FileOutputStream(File("${context.getExternalFilesDir(null)}/${Date().time}.jpg"))
-        val data = ByteArray(1024)
+        val data = ByteArray(DownloadHandlerThread.FILE_SIZE)
         while (input.read(data).also { count = it } != -1) {
             total += count
             output.write(data, 0, count)
-            publishProgress("${(total * 100) / lengthFile}")
+            publishProgress("${(total * DownloadHandlerThread.START_PROGRESS) / lengthFile}")
         }
         output.flush()
         output.close()

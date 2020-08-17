@@ -17,7 +17,9 @@ class DownloadHandlerThread(
 ) : Runnable {
 
     companion object {
-        private const val START_PROGRESS = 100
+        internal const val START_PROGRESS = 100
+        internal const val FILE_SIZE = 1024
+        internal const val SIZE = 8192
     }
 
     override fun run() {
@@ -28,14 +30,14 @@ class DownloadHandlerThread(
         connection.connect()
 
         val lengthOfFile = connection.contentLength
-        val input: InputStream = BufferedInputStream(url.openStream(), 8192)
+        val input: InputStream = BufferedInputStream(url.openStream(), SIZE)
         val output =
             FileOutputStream(File("${context.getExternalFilesDir(null)}/${Date().time}.jpg"))
-        val data = ByteArray(1024)
+        val data = ByteArray(FILE_SIZE)
         while (input.read(data).also { count = it } != -1) {
             total += count
             output.write(data, 0, count)
-            val process = (total * 100) / lengthOfFile
+            val process = (total * START_PROGRESS) / lengthOfFile
             val msg = Message()
             msg.what = START_PROGRESS
             msg.arg1 = process
