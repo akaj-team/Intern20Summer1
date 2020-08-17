@@ -8,6 +8,7 @@
     tools:context="com.asiantech.intern20summer1.w8.DownLoadActivity">
 
     <TextView
+        android:layout_marginTop="@dimen/w8_margin_all"
         android:id="@+id/tvProgress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

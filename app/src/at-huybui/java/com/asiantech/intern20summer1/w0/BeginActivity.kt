@@ -10,6 +10,7 @@ import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w3.MainActivity
 import com.asiantech.intern20summer1.w4.activity.SplashActivity
 import com.asiantech.intern20summer1.w6.firstactivity.ViewPagerOneActivity
+import com.asiantech.intern20summer1.w8.DownLoadActivity
 import kotlinx.android.synthetic.`at-huybui`.activity_begin.*
 
 class BeginActivity : AppCompatActivity() {
@@ -34,6 +35,11 @@ class BeginActivity : AppCompatActivity() {
 
         btnBeginW4?.setOnClickListener {
             val intent = Intent(this, SplashActivity::class.java)
+            startActivity(intent)
+        }
+
+        btnBeginW8?.setOnClickListener {
+            val intent = Intent(this, DownLoadActivity::class.java)
             startActivity(intent)
         }
     }

@@ -58,5 +58,12 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/begin_margin_button"
             android:text="@string/w6_view_pager_tab_layout" />
+
+        <Button
+            android:id="@+id/btnBeginW8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/begin_margin_button"
+            android:text="@string/w8_thread_handler_async_task" />
     </LinearLayout>
 </ScrollView>

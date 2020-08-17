@@ -74,4 +74,5 @@
     <string name="w8_link_url">Link Url</string>
     <string name="w8_save_with_thread_handle">download with thread handle</string>
     <string name="w8_save_with_async_task">download with async task</string>
+    <string name="w8_thread_handler_async_task">W8 - Thread + Handler + AsyncTask</string>
 </resources>
