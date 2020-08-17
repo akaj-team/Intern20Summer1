@@ -20,4 +20,12 @@
     <string name="university">University</string>
     <string name="home">Home</string>
     <string name="next">Next</string>
+    <string name="avatar">Avatar</string>
+    <string-array name="asd">
+        <item>A</item>
+        <item>B</item>
+        <item>C</item>
+        <item>D</item>
+        <item>E</item>
+    </string-array>
 </resources>

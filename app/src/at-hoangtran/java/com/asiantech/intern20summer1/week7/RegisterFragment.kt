@@ -50,34 +50,32 @@ class RegisterFragment : Fragment() {
     ): View? {
         return inflater.inflate(R.layout.fragment_register, container, false)
 
+        handleEditText(edt_home_town)
         handleEditText(edt_user_name)
         handleEditText(edt_university)
-        handleEditText(edt_home_town)
         handleListener()
         handleButton()
     }
 
-    private fun checkUserName() = (edt_user_name != null)
-
-    private fun checkUniversity() = (edt_university != null)
-
-    private fun checkHome() = (edt_home_town != null)
+    private fun checkEditText() {
+        btn_next.isEnabled =
+            edt_user_name.text.isNotEmpty() && edt_university.text.isNotEmpty() && edt_home_town.text.isNotEmpty()
+    }
 
     private fun handleEditText(edt: EditText) {
         edt.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
                 when (edt) {
                     edt_user_name -> {
-                        checkUserName()
+                        checkEditText()
                     }
                     edt_university -> {
-                        checkUniversity()
+                        checkEditText()
                     }
                     edt_home_town -> {
-                        checkHome()
+                        checkEditText()
                     }
                 }
-                btn_next.isEnabled = (checkHome() && checkUniversity() && checkUserName())
             }
 
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -103,8 +101,8 @@ class RegisterFragment : Fragment() {
                 apply()
             }
             val intent = Intent(activity, GardenActivity::class.java)
-            activity?.startActivity(intent)
-            activity?.finish()
+            startActivity(intent)
+            (activity as SplashActivity).finish()
         }
     }
 
