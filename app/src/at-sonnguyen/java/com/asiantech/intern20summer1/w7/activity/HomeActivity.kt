@@ -18,6 +18,11 @@ import kotlinx.android.synthetic.`at-sonnguyen`.w7_activity_home.*
 
 class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private var database: PlantDatabase? = null
+    internal val wormedPlantFragment = WormedPlantFragment.newInstance()
+    internal val lackedWaterPlantFragment = LackedWaterPlantFragment.newInstance()
+    internal val comingHarvestPlant = ComingHarvestPlant.newInstance()
+    internal val vegetableGardenFragment = VegetableGardenFragment.newInstance()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.w7_activity_home)

@@ -8,12 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.w7.activity.HomeActivity
 import com.asiantech.intern20summer1.w7.database.PlantDatabase
 import com.asiantech.intern20summer1.w7.database.data.Cultivation
 import com.asiantech.intern20summer1.w7.database.data.Plant
+import com.asiantech.intern20summer1.w7.extension.replaceFragment
 import kotlinx.android.synthetic.`at-sonnguyen`.w7_fragment_dialog.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -62,9 +63,9 @@ class PlantDialogFragment : DialogFragment() {
                      dateCultivation = dateCurrent
                      dateWatering = dateCurrent
                      database?.cultivationDao()?.insertCultivation(this)
-                     replaceFragment()
+                     (activity as HomeActivity).replaceFragment(R.id.flContent,VegetableGardenFragment.newInstance())
+//                     replaceFragment()
                  }
-                 Toast.makeText(requireContext(),"aaaaa",Toast.LENGTH_SHORT).show()
                  dialog?.dismiss()
              }
          }
@@ -95,10 +96,5 @@ class PlantDialogFragment : DialogFragment() {
                 }
             }
         }
-    }
-    private fun replaceFragment(){
-        val fragmentTransaction = activity?.supportFragmentManager?.beginTransaction()
-        fragmentTransaction?.replace(R.id.flContent,VegetableGardenFragment())
-        fragmentTransaction?.commit()
     }
 }

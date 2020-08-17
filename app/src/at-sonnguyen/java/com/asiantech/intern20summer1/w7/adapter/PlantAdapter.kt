@@ -5,15 +5,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w7.database.PlantDatabase
 import com.asiantech.intern20summer1.w7.database.data.Cultivation
 import com.asiantech.intern20summer1.w7.extension.getDateHarvest
+import kotlin.random.Random
 
-class VegetableAdapter(private val cultivationList: MutableList<Cultivation>) :
+class PlantAdapter(private val cultivationList: MutableList<Cultivation>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    companion object {
+        val relativeLayoutResource = arrayOf(
+            R.drawable.w7_bg_relative_layout_1,
+            R.drawable.w7_bg_relative_layout_2,
+            R.drawable.w7_bg_relative_layout_3,
+            R.drawable.w7_bg_relative_layout_4
+        )
+    }
+
     private var database: PlantDatabase? = null
     internal var onItemClick: (id: Int?) -> Unit = {}
 
@@ -34,10 +45,23 @@ class VegetableAdapter(private val cultivationList: MutableList<Cultivation>) :
         private val tvCultivationDate: TextView = itemView.findViewById(R.id.tvCultivationDate)
         private val tvHarvestDate: TextView = itemView.findViewById(R.id.tvHarvestDate)
         private val imgPlant: ImageView = itemView.findViewById(R.id.imgPlant)
+        private val rlItemView: RelativeLayout = itemView.findViewById(R.id.rlItemView)
+
+        init {
+            itemView.setOnClickListener {
+                onItemClick.invoke(cultivationList[adapterPosition].id)
+            }
+        }
 
         internal fun binData() {
             cultivationList[adapterPosition].let { cultivation ->
                 database?.plantDao()?.getPlant(cultivation.plantId)?.let { plant ->
+                    rlItemView.setBackgroundResource(
+                        relativeLayoutResource[Random.nextInt(
+                            1,
+                            relativeLayoutResource.size
+                        )]
+                    )
                     val cultivationDate = cultivation.dateCultivation
                     val harvestDate = getDateHarvest(cultivation.dateCultivation, plant)
                     tvCultivationDate.text =
@@ -45,7 +69,7 @@ class VegetableAdapter(private val cultivationList: MutableList<Cultivation>) :
                     tvHarvestDate.text =
                         itemView.context.getString(R.string.w7_text_harvest, harvestDate)
                     tvPlantName.text = plant.name
-                    plant?.imageUri?.let {
+                    plant.imageUri?.let {
                         imgPlant.setImageURI(Uri.parse(it))
                     }
                 }

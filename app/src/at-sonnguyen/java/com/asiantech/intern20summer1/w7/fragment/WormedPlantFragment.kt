@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.w7.adapter.VegetableAdapter
+import com.asiantech.intern20summer1.w7.adapter.PlantAdapter
 import com.asiantech.intern20summer1.w7.database.PlantDatabase
 import com.asiantech.intern20summer1.w7.database.data.Cultivation
 import com.asiantech.intern20summer1.w7.extension.isWormed
@@ -20,7 +20,7 @@ class WormedPlantFragment : Fragment() {
 
     private var database: PlantDatabase? = null
     private var plantList: MutableList<Cultivation> = mutableListOf()
-    private var adapter = VegetableAdapter(plantList)
+    private var adapter = PlantAdapter(plantList)
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -41,7 +41,7 @@ class WormedPlantFragment : Fragment() {
         recyclerViewHome.layoutManager = LinearLayoutManager(context)
         recyclerViewHome.setHasFixedSize(true)
     }
-    private fun initData(){
+    internal fun initData(){
         database?.cultivationDao()?.getAllCultivation()?.let { list ->
             list.forEach { cultivation ->
                 database?.plantDao()?.getPlant(cultivation.plantId)?.let {plant ->
@@ -52,6 +52,5 @@ class WormedPlantFragment : Fragment() {
             }
         }
         adapter.notifyDataSetChanged()
-        tvNoPlant?.text = "Wormed Plant Fragment"
     }
 }

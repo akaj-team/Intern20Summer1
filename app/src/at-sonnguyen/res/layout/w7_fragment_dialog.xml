@@ -3,16 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="32dp"
-    app:cardElevation="5dp">
+    app:cardCornerRadius="@dimen/w7_CardView_radius"
+    app:cardElevation="@dimen/w7_card_elevation">
 
     <RelativeLayout
-        android:layout_gravity="center_vertical"
-        android:layout_margin="32dp"
-        android:orientation="vertical"
-        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="480dp">
+        android:layout_height="@dimen/w7_dialog_fragment_height"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center_vertical"
+        android:layout_margin="@dimen/w7_dialog_fragment_margin"
+        android:orientation="vertical">
 
         <ImageView
             android:id="@+id/imgBackIconDialog"
@@ -20,34 +20,36 @@
             android:layout_height="@dimen/w7_dialog_back_icon_size"
             android:layout_margin="@dimen/w7_dialog_back_icon_margin"
             android:background="@drawable/ic_baseline_arrow_back_ios_24" />
+
         <TextView
-            android:gravity="center"
-            android:layout_centerHorizontal="true"
-            android:textStyle="bold"
             android:id="@+id/tvDialogTitle"
-            android:layout_below="@id/imgBackIconDialog"
             android:layout_width="wrap_content"
-            android:layout_marginTop="25dp"
-            android:text="Trồng cây"
-            android:textSize="36sp"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_below="@id/imgBackIconDialog"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/w7_dialog_fragment_title_margin_top"
+            android:gravity="center"
+            android:text="@string/w7_dialog_fragment_title"
+            android:textSize="@dimen/w7_dialog_fragment_title_text_size"
+            android:textStyle="bold" />
+
         <Spinner
             android:id="@+id/spinnerPlant"
+            android:layout_width="@dimen/w7_dialog_fragment_spinner_width"
+            android:layout_height="@dimen/w7_dialog_fragment_spinner_height"
             android:layout_below="@id/tvDialogTitle"
             android:layout_centerHorizontal="true"
-            android:layout_marginLeft="18dp"
-            android:layout_marginTop="25dp"
-            android:layout_width="320dp"
-            android:layout_height="50dp"/>
+            android:layout_marginTop="@dimen/w7_dialog_fragment_spinner_margin_top" />
 
         <Button
-            android:layout_alignParentBottom="true"
             android:id="@+id/btnDialogFragment"
-            android:layout_width="320dp"
-            android:layout_height="52dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginBottom="35dp"
+            android:layout_width="@dimen/w7_button_width"
+            android:textColor="@color/colorRegisterButtonText"
+            android:background="@drawable/w7_bg_register_button"
+            android:layout_height="@dimen/w7_dialog_fragment_button_height"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/w7_dialog_fragment_button_margin_left"
+            android:layout_marginBottom="@dimen/w7_dialog_fragment_button_margin_top"
             android:text="@string/text_button_ok" />
     </RelativeLayout>
-
 </androidx.cardview.widget.CardView>

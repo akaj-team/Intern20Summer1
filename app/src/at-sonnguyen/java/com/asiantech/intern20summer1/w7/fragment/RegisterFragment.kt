@@ -207,10 +207,10 @@ class RegisterFragment : Fragment() {
 
     private fun showListAlertDialog() {
         val builder = AlertDialog.Builder(context)
-        builder.setTitle("Set avatar")
+        builder.setTitle(getString(R.string.w7_register_fragment_alert_dialog_title))
         val items = arrayOf(
-            "Gallery",
-            "Camera"
+            getString(R.string.w7_register_fragment_gallery_choose),
+            getString(R.string.w7_register_fragment_alet_dialog_camera_choose)
         )
         builder.setItems(items) { _, which ->
             when (which) {

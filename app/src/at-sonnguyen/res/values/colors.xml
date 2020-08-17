@@ -12,7 +12,7 @@
     <color name="colorW6BackgroundRelative">#E9EBED</color>
     <color name="colorBackgroundTablayout">#ea9a31</color>
     <color name="colorTablayoutNonSelected">#0C0C0C</color>
-    <color name="colorTablayoutSelected">#F41515</color>
+    <color name="colorTabLayoutSelected">#F41515</color>
     <color name="colorLightCoral">#F08080</color>
     <color name="colorFuchsia">#FF00FF</color>
     <color name="colorLavender">#E6E6FA</color>
@@ -20,4 +20,11 @@
     <color name="colorHeader">#FFC300</color>
     <color name="colorItem">#AFDCCE</color>
     <color name="colorWeek7CircleImageViewBorder">#28E4DE</color>
+    <color name="colorSprinkleButtonBackground">#5250DF</color>
+    <color name="colorW7RegisterButtonBackgroundSolid">#000000</color>
+    <color name="colorRegisterButtonText">#FFFFFF</color>
+    <color name="colorW7RelativeLayoutBackground1">#AFDCCE</color>
+    <color name="colorW7RelativeLayoutBackground2">#FF9595</color>
+    <color name="colorW7RelativeLayoutBackground4">#FFDAB8</color>
+    <color name="colorW7RelativeLayoutBackground3">#BDAFDC</color>
 </resources>

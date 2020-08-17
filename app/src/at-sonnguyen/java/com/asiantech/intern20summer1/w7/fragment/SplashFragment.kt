@@ -76,7 +76,7 @@ class SplashFragment : Fragment() {
                             } else {
                                 Toast.makeText(
                                     requireContext(),
-                                    "Khong co ket noi",
+                                    getString(R.string.w7_splash_fragment_no_internet_toast_string),
                                     Toast.LENGTH_SHORT
                                 ).show()
                                 progressBarSplash?.progress = 0
@@ -92,7 +92,7 @@ class SplashFragment : Fragment() {
                     POINT_LOADING_DATA_URL -> {
                         downloadPlantImage(plants)
                     }
-                    POINT_TO_GET_IMAGE_URI ->{
+                    POINT_TO_GET_IMAGE_URI -> {
                         getImageUri(plants)
                     }
 
@@ -105,7 +105,6 @@ class SplashFragment : Fragment() {
 
             override fun onFinish() {
                 checkAccount()
-//                (activity as SplashActivity).finish()
             }
         }.start()
     }
@@ -183,7 +182,11 @@ class SplashFragment : Fragment() {
             isLoading = true
             provideDatabase(requireContext())
         } else {
-            Toast.makeText(context, "yeu cau ket noi internet", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                context,
+                getString(R.string.w7_register_fragment_require_internet_toast_string),
+                Toast.LENGTH_SHORT
+            ).show()
             progressBarSplash.progress = 0
         }
     }

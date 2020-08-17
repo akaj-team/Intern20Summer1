@@ -56,7 +56,9 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="@dimen/w7_register_fragment_next_button_margin_bottom"
         android:text="@string/w7_register_fragment_next_button_text"
+        android:background="@drawable/w7_bg_register_button"
         android:id="@+id/btnNext"
         android:enabled="false"
+        android:textColor="@color/colorRegisterButtonText"
         android:layout_height="@dimen/w7_register_fragment_edit_text_height"/>
 </RelativeLayout>

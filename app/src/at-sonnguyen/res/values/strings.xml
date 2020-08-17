@@ -49,8 +49,6 @@
     <string name="w7_register_fragment_home_town_hint">Hometown</string>
     <string name="w7_register_fragment_next_button_text">NEXT</string>
     <string name="w7_register_fragment_title_text">Register</string>
-    <string name="w7_header_university_text_view_default_text">Da Nang University of Technology</string>
-    <string name="w7_header_username_text_view_default_text">Son Nguyen V.</string>
     <string name="w7_header_back_image_view_description">back Image view</string>
     <string name="w7_menu_item1_title">Vườn Rau</string>
     <string name="w7_menu_item2_title">Trồng cây</string>
@@ -62,4 +60,16 @@
     <string name="w7_text_cultivation">Trồng lúc: %s</string>
     <string name="w7_text_harvest">Thu Hoạch lúc: %s</string>
     <string name="w7_text_watering">Tưới nước lúc: %s </string>
+    <string name="w7_detail_fragment_toolBar_title">Thông Tin cây</string>
+    <string name="w7_detail_fragment_sprinkle_button_text">Tưới nước</string>
+    <string name="w7_plant_detail_fragment_wormed_plant_text_view">Cây bị sâu</string>
+    <string name="w7_detail_fragment_lacked_water_text_view_text">Cây bị thiếu nước</string>
+    <string name="w7_detail_fragment_coming_harvest_plant_text_view_text">Sắp đến thời gian thu hoạch</string>
+    <string name="w7_register_fragment_alert_dialog_title">Set avatar</string>
+    <string name="w7_register_fragment_gallery_choose">Gallery</string>
+    <string name="w7_register_fragment_alet_dialog_camera_choose">Camera</string>
+    <string name="w7_splash_fragment_no_internet_toast_string">Không có kết nối</string>
+    <string name="w7_register_fragment_require_internet_toast_string">Cần phải có kết nối internet</string>
+    <string name="w7_detail_fragment_cut_down_button_text">Chặt bỏ</string>
+    <string name="w7_detail_fragment_sprinkle_button_click_toast">Tưới nước thành công</string>
 </resources>

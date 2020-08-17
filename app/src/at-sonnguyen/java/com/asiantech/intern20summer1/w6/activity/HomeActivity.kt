@@ -22,7 +22,7 @@ class HomeActivity : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             tabHome.setTabTextColors(
                 resources.getColor(R.color.colorTablayoutNonSelected,null),
-                resources.getColor(R.color.colorTablayoutSelected,null)
+                resources.getColor(R.color.colorTabLayoutSelected,null)
             )
         }
         tabHome.apply {
