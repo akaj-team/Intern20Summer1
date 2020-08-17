@@ -13,14 +13,14 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/w8_margin_all"
         android:textColor="@color/black"
-        android:textSize="40sp"
+        android:textSize="@dimen/w8_text_size"
         tools:text="50%" />
 
     <ProgressBar
         android:id="@+id/progressBar"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="match_parent"
-        android:layout_height="10dp"
+        android:layout_height="@dimen/w8_progress_bar_height"
         android:layout_marginLeft="@dimen/w8_margin_all"
         android:layout_marginRight="@dimen/w8_margin_all"
         android:indeterminate="false"
@@ -59,6 +59,4 @@
         android:layout_marginLeft="@dimen/w8_margin_all"
         android:layout_marginRight="@dimen/w8_margin_all"
         android:text="@string/w8_save_with_async_task" />
-
-
 </LinearLayout>
