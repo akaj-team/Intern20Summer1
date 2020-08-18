@@ -28,8 +28,28 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="@dimen/w7_recycler_view_image_avatar_width"
+            android:id="@+id/imgWormedPlant"
+            android:visibility="invisible"
             android:layout_height="@dimen/w7_recycler_view_image_avatar_height"
             android:src="@drawable/ic_worm"
+            app:civ_border_color="@color/colorWeek7CircleImageViewBorder"
+            app:civ_border_width="@dimen/w7_register_fragment_avatar_image_border_width" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_marginLeft="5dp"
+            android:layout_width="@dimen/w7_recycler_view_image_avatar_width"
+            android:id="@+id/imgLackedWaterPlant"
+            android:visibility="invisible"
+            android:layout_height="@dimen/w7_recycler_view_image_avatar_height"
+            android:src="@drawable/ic_lacked_water"
+            app:civ_border_color="@color/colorWeek7CircleImageViewBorder"
+            app:civ_border_width="@dimen/w7_register_fragment_avatar_image_border_width" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="@dimen/w7_recycler_view_image_avatar_width"
+            android:id="@+id/imgComingHarvestPlant"
+            android:visibility="invisible"
+            android:layout_marginLeft="5dp"
+            android:layout_height="@dimen/w7_recycler_view_image_avatar_height"
+            android:src="@drawable/ic_coming_harvest"
             app:civ_border_color="@color/colorWeek7CircleImageViewBorder"
             app:civ_border_width="@dimen/w7_register_fragment_avatar_image_border_width" />
     </LinearLayout>

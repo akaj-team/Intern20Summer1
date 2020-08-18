@@ -7,7 +7,7 @@
             android:title="@string/w7_menu_item1_title" />
         <item
             android:id="@+id/nav_second_fragment"
-            android:icon="@drawable/ic_take"
+            android:icon="@drawable/ic_talk"
             android:title="@string/w7_menu_item2_title" />
         <item
             android:id="@+id/nav_third_fragment"

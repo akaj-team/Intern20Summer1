@@ -75,4 +75,8 @@
     <string name="w7_no_plant_is_wormed">Không có cây nào bị sâu</string>
     <string name="w7_no_plant_lacked_water_string">Không có cây nào bị thiếu nước</string>
     <string name="w7_no_plant_text_view_text">Chưa có cây nào đã được trồng</string>
+    <string name="w7_plant_detail_tool_bar_title">Plant Detail</string>
+    <string name="w7_coming_harvest_plant_tool_bar_title">Coming Harvest Plant</string>
+    <string name="w7_plant_garden_fragment_toolbar_title">Garden</string>
+    <string name="w7_wormed_plant_fragmnet_toolbar_title">Wormed Plant</string>
 </resources>

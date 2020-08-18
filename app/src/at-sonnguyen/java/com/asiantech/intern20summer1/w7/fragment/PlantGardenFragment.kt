@@ -43,6 +43,7 @@ class PlantGardenFragment : Fragment() {
         recyclerViewHome.setHasFixedSize(true)
     }
     internal fun initData(){
+        (activity as HomeActivity).supportActionBar?.title = getString(R.string.w7_plant_garden_fragment_toolbar_title)
         database?.cultivationDao()?.getAllCultivation()?.let {list ->
             cultivationList.clear()
             list.toCollection(cultivationList)
@@ -56,7 +57,7 @@ class PlantGardenFragment : Fragment() {
     private fun handleOnItemClickListener(){
         cultivationAdapter.onItemClick = {id ->
             val fragment = PlantDetailFragment.newInstance(id)
-            (activity as HomeActivity)?.replaceFragment(R.id.flContent,fragment,true)
+            (activity as HomeActivity).replaceFragment(R.id.flContent,fragment,true)
         }
     }
 }

@@ -22,6 +22,14 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     internal val lackedWaterPlantFragment = LackedWaterPlantFragment.newInstance()
     internal val comingHarvestPlant = ComingHarvestPlant.newInstance()
     internal val plantGardenFragment = PlantGardenFragment.newInstance()
+    private var fragmentId = 1
+    companion object{
+        internal const val FRAGMENT_ID_KEY = "fragment key"
+        internal const val PLANT_GARDEN_ID = 1
+        internal const val COMING_HARVEST_ID = 2
+        internal const val WORMED_PLANT_ID = 3
+        internal const val LACKED_WATER_ID = 4
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,26 +79,42 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_first_fragment -> {
+                fragmentId = PLANT_GARDEN_ID
+                sendIdToDetailFragment(fragmentId)
                 openVegetableFragment(PlantGardenFragment())
                 drawer_layout.closeDrawer(GravityCompat.START)
             }
             R.id.nav_second_fragment -> {
+                fragmentId = PLANT_GARDEN_ID
+                sendIdToDetailFragment(fragmentId)
                PlantDialogFragment.newInstance().show(supportFragmentManager,"")
                 drawer_layout.closeDrawer(GravityCompat.START)
             }
             R.id.nav_third_fragment ->{
+                fragmentId = COMING_HARVEST_ID
+                sendIdToDetailFragment(fragmentId)
                 openVegetableFragment(ComingHarvestPlant.newInstance())
                 drawer_layout.closeDrawer(GravityCompat.START)
             }
             R.id.nav_fourth_fragment -> {
+                fragmentId = WORMED_PLANT_ID
+                sendIdToDetailFragment(fragmentId)
                 openVegetableFragment(WormedPlantFragment.newInstance())
                 drawer_layout.closeDrawer(GravityCompat.START)
             }
             R.id.nav_fifth_fragment -> {
+                fragmentId = LACKED_WATER_ID
+                sendIdToDetailFragment(fragmentId)
                 openVegetableFragment(LackedWaterPlantFragment.newInstance())
                 drawer_layout.closeDrawer(GravityCompat.START)
             }
         }
         return true
+    }
+    private fun sendIdToDetailFragment(id : Int){
+        val plantDetailFragment = PlantDetailFragment()
+        val bundle = Bundle();
+        bundle.putInt(FRAGMENT_ID_KEY, id);
+        plantDetailFragment.arguments = bundle;
     }
 }

@@ -10,6 +10,11 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w7.activity.HomeActivity
+import com.asiantech.intern20summer1.w7.activity.HomeActivity.Companion.COMING_HARVEST_ID
+import com.asiantech.intern20summer1.w7.activity.HomeActivity.Companion.FRAGMENT_ID_KEY
+import com.asiantech.intern20summer1.w7.activity.HomeActivity.Companion.LACKED_WATER_ID
+import com.asiantech.intern20summer1.w7.activity.HomeActivity.Companion.PLANT_GARDEN_ID
+import com.asiantech.intern20summer1.w7.activity.HomeActivity.Companion.WORMED_PLANT_ID
 import com.asiantech.intern20summer1.w7.database.PlantDatabase
 import com.asiantech.intern20summer1.w7.database.data.Cultivation
 import com.asiantech.intern20summer1.w7.extension.isComingHarvest
@@ -23,6 +28,7 @@ import java.util.*
 class PlantDetailFragment : Fragment() {
     private var database: PlantDatabase? = null
     private var cultivation: Cultivation? = null
+    private var fragmentId = 1
 
     companion object {
         private const val POSITION_KEY = "position"
@@ -39,6 +45,7 @@ class PlantDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         database = PlantDatabase.getInstance(requireContext())
+        getFragmentId()
         return inflater.inflate(R.layout.w7_fragment_plant_detail, container, false)
     }
 
@@ -51,6 +58,7 @@ class PlantDetailFragment : Fragment() {
     }
 
     private fun initView() {
+        (activity as HomeActivity).supportActionBar?.title = getString(R.string.w7_plant_detail_tool_bar_title)
         cultivation = database?.cultivationDao()?.getCultivation(arguments?.getInt(POSITION_KEY))
         val plant = database?.plantDao()?.getPlant(cultivation?.plantId)
         if (isWormed(plant, cultivation)) {
@@ -71,6 +79,7 @@ class PlantDetailFragment : Fragment() {
         } else{
             tvComingHarvestPlantDetail.text = ""
         }
+         toolbarDetail.title = plant?.name
         imgCultivationDetail?.setImageURI(Uri.parse(plant?.imageUri))
         tvGrownDateDetail.text =
             getString(R.string.w7_text_cultivation, cultivation?.dateCultivation)
@@ -115,10 +124,30 @@ class PlantDetailFragment : Fragment() {
 
     private fun refreshData() {
         (activity as HomeActivity).apply {
-            wormedPlantFragment.initData()
-            lackedWaterPlantFragment.initData()
-            comingHarvestPlant.initData()
-            plantGardenFragment.initData()
+            when(fragmentId){
+                PLANT_GARDEN_ID -> {
+                    plantGardenFragment.initData()
+                }
+                COMING_HARVEST_ID -> {
+                    comingHarvestPlant.initData()
+                }
+                WORMED_PLANT_ID -> {
+                    wormedPlantFragment.initData()
+                }
+                LACKED_WATER_ID -> {
+                    lackedWaterPlantFragment.initData()
+                }
+            }
+//            wormedPlantFragment.initData()
+//            lackedWaterPlantFragment.initData()
+//            comingHarvestPlant.initData()
+//            plantGardenFragment.initData()
+        }
+    }
+    private fun getFragmentId(){
+        val bundle = this.arguments
+        bundle?.let {
+            fragmentId = bundle.getInt(FRAGMENT_ID_KEY)
         }
     }
 }

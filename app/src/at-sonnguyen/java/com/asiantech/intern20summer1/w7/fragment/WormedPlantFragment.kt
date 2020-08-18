@@ -46,6 +46,7 @@ class WormedPlantFragment : Fragment() {
     }
 
     internal fun initData() {
+        (activity as HomeActivity).supportActionBar?.title = getString(R.string.w7_wormed_plant_fragmnet_toolbar_title)
         database?.cultivationDao()?.getAllCultivation()?.let { list ->
             plantList.clear()
             list.forEach { cultivation ->
@@ -65,7 +66,7 @@ class WormedPlantFragment : Fragment() {
     private fun handleOnItemClickListener() {
         adapter.onItemClick = { id ->
             val fragment = PlantDetailFragment.newInstance(id)
-            (activity as HomeActivity)?.replaceFragment(R.id.flContent, fragment, true)
+            (activity as HomeActivity).replaceFragment(R.id.flContent, fragment, true)
         }
     }
 }

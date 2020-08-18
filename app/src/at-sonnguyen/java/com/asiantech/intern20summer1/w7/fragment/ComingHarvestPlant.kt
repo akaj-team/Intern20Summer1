@@ -45,6 +45,7 @@ class ComingHarvestPlant : Fragment() {
         recyclerViewHome.setHasFixedSize(true)
     }
     internal fun initData(){
+        (activity as HomeActivity).supportActionBar?.title = getString(R.string.w7_coming_harvest_plant_tool_bar_title)
         database?.cultivationDao()?.getAllCultivation()?.let { list ->
             plantList.clear()
             list.forEach { cultivation ->
@@ -60,7 +61,7 @@ class ComingHarvestPlant : Fragment() {
     private fun handleOnItemClickListener() {
         adapter.onItemClick = { id ->
             val fragment = PlantDetailFragment.newInstance(id)
-            (activity as HomeActivity)?.replaceFragment(R.id.flContent, fragment, true)
+            (activity as HomeActivity).replaceFragment(R.id.flContent, fragment, true)
         }
     }
 }

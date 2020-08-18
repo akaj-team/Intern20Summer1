@@ -12,6 +12,9 @@ import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w7.database.PlantDatabase
 import com.asiantech.intern20summer1.w7.database.data.Cultivation
 import com.asiantech.intern20summer1.w7.extension.getDateHarvest
+import com.asiantech.intern20summer1.w7.extension.isComingHarvest
+import com.asiantech.intern20summer1.w7.extension.isLackedWater
+import com.asiantech.intern20summer1.w7.extension.isWormed
 import kotlin.random.Random
 
 class PlantAdapter(private val cultivationList: MutableList<Cultivation>) :
@@ -46,6 +49,11 @@ class PlantAdapter(private val cultivationList: MutableList<Cultivation>) :
         private val tvHarvestDate: TextView = itemView.findViewById(R.id.tvHarvestDate)
         private val imgPlant: ImageView = itemView.findViewById(R.id.imgPlant)
         private val rlItemView: RelativeLayout = itemView.findViewById(R.id.rlItemView)
+        private val imgWormedPlantFragment: ImageView = itemView.findViewById(R.id.imgWormedPlant)
+        private val imgLackedWaterPlantFragment: ImageView =
+            itemView.findViewById(R.id.imgLackedWaterPlant)
+        private val imgComingHarvestPlant: ImageView =
+            itemView.findViewById(R.id.imgComingHarvestPlant)
 
         init {
             itemView.setOnClickListener {
@@ -71,6 +79,21 @@ class PlantAdapter(private val cultivationList: MutableList<Cultivation>) :
                     tvPlantName.text = plant.name
                     plant.imageUri?.let {
                         imgPlant.setImageURI(Uri.parse(it))
+                    }
+                    if (isWormed(plant, cultivation)) {
+                        imgWormedPlantFragment.visibility = View.VISIBLE
+                    } else {
+                        imgWormedPlantFragment.visibility = View.INVISIBLE
+                    }
+                    if (isLackedWater(plant, cultivation)) {
+                        imgLackedWaterPlantFragment.visibility = View.VISIBLE
+                    } else {
+                        imgLackedWaterPlantFragment.visibility = View.INVISIBLE
+                    }
+                    if (isComingHarvest(plant, cultivation)) {
+                        imgComingHarvestPlant.visibility = View.VISIBLE
+                    } else {
+                        imgComingHarvestPlant.visibility = View.INVISIBLE
                     }
                 }
             }
