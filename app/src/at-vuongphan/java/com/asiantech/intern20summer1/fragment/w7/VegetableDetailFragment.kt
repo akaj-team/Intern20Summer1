@@ -65,7 +65,10 @@ class VegetableDetailFragment : Fragment() {
         btnCutTree?.setOnClickListener {
             cultivation?.let {
                 dataBase?.cultivationDao()?.deleteCultivation(it)
-                (activity as VegetableFarmMainActivity).apply { fragment.initData(fragment.id) }
+                (activity as VegetableFarmMainActivity).apply {
+                    VegetableFragmentRecyclerView.newInstance()
+                        .initData(VegetableFragmentRecyclerView.newInstance().id)
+                }
                 Toast.makeText(context, R.string.clear_plant_complete, Toast.LENGTH_SHORT).show()
                 fragmentManager?.popBackStack()
             }
@@ -78,7 +81,10 @@ class VegetableDetailFragment : Fragment() {
             cultivation?.let {
                 val dateFormat = SimpleDateFormat(FORMAT_CODE_DATE)
                 dataBase?.cultivationDao()?.waterPlant(it.id, dateFormat.format(Date()))
-                (activity as VegetableFarmMainActivity).apply { fragment.initData(fragment.id) }
+                (activity as VegetableFarmMainActivity).apply {
+                    VegetableFragmentRecyclerView.newInstance()
+                        .initData(VegetableFragmentRecyclerView.newInstance().id)
+                }
                 initView()
                 Toast.makeText(context, R.string.watering_plant_complete, Toast.LENGTH_SHORT).show()
             }
