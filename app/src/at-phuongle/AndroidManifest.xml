@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.asiantech.intern20summer1">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,17 +12,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+<!--         Week 3 -->
         <activity android:name=".week3.MainActivity" />
-
-        <activity android:name=".week6.activity.FirstActivity">
+<!--         Week 6 -->
+        <activity android:name=".week6.activity.SecondActivity" />
+        <activity android:name=".week6.activity.FirstActivity" />
+<!--         Main -->
+        <activity android:name=".week8.DownloadProgressBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".week6.activity.SecondActivity" />
     </application>
 
 </manifest>
