@@ -140,6 +140,12 @@ class VegetableFragmentRecyclerView : Fragment() {
         }
         vegetableList.clear()
         list.toCollection(vegetableList)
+        if (vegetableList.isNullOrEmpty()) {
+            tvNotPlant?.apply {
+                visibility = View.VISIBLE
+                text = resources.getString(R.string.text_view_recycler_worm)
+            }
+        }
         adapterRecycler.notifyDataSetChanged()
     }
 
@@ -154,6 +160,12 @@ class VegetableFragmentRecyclerView : Fragment() {
         }
         vegetableList.clear()
         list.toCollection(vegetableList)
+        if (vegetableList.isNullOrEmpty()) {
+            tvNotPlant?.apply {
+                visibility = View.VISIBLE
+                text = resources.getString(R.string.text_view_recycler_harvest)
+            }
+        }
         adapterRecycler.notifyDataSetChanged()
     }
 
@@ -168,25 +180,22 @@ class VegetableFragmentRecyclerView : Fragment() {
         }
         vegetableList.clear()
         list.toCollection(vegetableList)
+        if (vegetableList.isNullOrEmpty()) {
+            tvNotPlant?.apply {
+                visibility = View.VISIBLE
+                text = resources.getString(R.string.text_view_recycler_water)
+            }
+        }
         adapterRecycler.notifyDataSetChanged()
     }
 
-    @SuppressLint("SimpleDateFormat")
-    private fun isPlantWorm(plant: Plant?, culti: Cultivation?): Boolean {
+    internal fun isPlantWorm(plant: Plant?, culti: Cultivation?): Boolean {
         culti?.dateWatering?.let { dateWatering ->
-            val dateFormat = SimpleDateFormat(FORMAT_CODE_DATE)
-            var beforeTime = 0
-            dateFormat.parse(dateWatering)?.let { date ->
-                Calendar.getInstance().apply {
-                    time = date
-                    beforeTime = getMinuteInDay(this)
-                }
-            }
             val now = Calendar.getInstance()
             now.time = Date()
             val current = getMinuteInDay(now)
             plant?.wateringInterval?.let {
-                return (current - beforeTime) / 2 >= (it * MINUTES)
+                return (current - getDate(dateWatering)) / 2 >= (it * MINUTES)
             }
         }
         return false
@@ -204,43 +213,38 @@ class VegetableFragmentRecyclerView : Fragment() {
         return "null"
     }
 
-    @SuppressLint("SimpleDateFormat")
     fun isPlantLackWater(plant: Plant?, culti: Cultivation?): Boolean {
         culti?.dateWatering?.let { dateWatering ->
-            val dateFormat = SimpleDateFormat(FORMAT_CODE_DATE)
-            var beforeTime = 0
-            dateFormat.parse(dateWatering)?.let { date ->
-                Calendar.getInstance().apply {
-                    time = date
-                    beforeTime = getMinuteInDay(this)
-                }
-            }
             val now = Calendar.getInstance()
             now.time = Date()
             val current = getMinuteInDay(now)
             plant?.wateringInterval?.let {
-                return (current - beforeTime) >= (it * MINUTES)
+                return (current - getDate(dateWatering)) >= (it * MINUTES)
             }
         }
         return false
     }
 
     @SuppressLint("SimpleDateFormat")
+    fun getDate(dateWatering: String): Int {
+        val dateFormat = SimpleDateFormat(FORMAT_CODE_DATE)
+        var beforeTime = 0
+        dateFormat.parse(dateWatering)?.let {
+            Calendar.getInstance().apply {
+                time = it
+                beforeTime = getMinuteInDay(this)
+            }
+        }
+        return beforeTime
+    }
+
     fun isPlantHarvest(plant: Plant?, culti: Cultivation?): Boolean {
         culti?.dateCultivation?.let { dateWatering ->
-            val dateFormat = SimpleDateFormat(FORMAT_CODE_DATE)
-            var beforeTime = 0
-            dateFormat.parse(dateWatering)?.let { date ->
-                Calendar.getInstance().apply {
-                    time = date
-                    beforeTime = getMinuteInDay(this)
-                }
-            }
             val now = Calendar.getInstance()
             now.time = Date()
             val current = getMinuteInDay(now)
             plant?.growZoneNumber?.let {
-                return (current - beforeTime) >= (it * MINUTES)
+                return (current - getDate(dateWatering)) >= (it * MINUTES)
             }
         }
         return false

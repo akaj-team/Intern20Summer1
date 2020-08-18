@@ -104,8 +104,14 @@
     <string name="text_grow_zone">Grow Zone: %s </string>
     <string name="text_watering">Tưới nước lần cuối: %s </string>
     <string name="toast_description">successful</string>
-    <string name="text_view_recycler">Chua co cay nao duoc trong</string>
+    <string name="text_view_recycler">Chưa có cây nào được trồng</string>
+    <string name="text_view_recycler_worm">Chưa có câu nào bị sâu</string>
+    <string name="text_view_recycler_harvest">Chưa có câu nào sắp thu hoạch</string>
+    <string name="text_view_recycler_water">Chưa có câu nào thiếu nước</string>
     <string name="detail_fragment_toolBar_title">Thông Tin cây</string>
     <string name="clear_plant_complete">Nhổ Cây Thành Công</string>
-    <string name="watering_plant_complete">Tuwosi Nước Thành Công</string>
+    <string name="watering_plant_complete">Tưới Nước Thành Công</string>
+    <string name="description_harvest">Cây sắp thu hoạch</string>
+    <string name="description_worm">Cây bị sâu</string>
+    <string name="description_water">Cây thiếu nước</string>
 </resources>
