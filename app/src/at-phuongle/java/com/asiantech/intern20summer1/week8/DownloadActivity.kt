@@ -3,6 +3,7 @@ package com.asiantech.intern20summer1.week8
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.os.*
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.asiantech.intern20summer1.R
 import kotlinx.android.synthetic.`at-phuongle`.activity_download.*
@@ -64,7 +65,7 @@ class DownloadActivity : AppCompatActivity() {
                         }) {
                         total += count
 
-                        var msg = handler.obtainMessage()
+                        val msg = handler.obtainMessage()
                         msg.arg1 = (total * ONE_HUNDRED / fileLength).toInt()
                         handler.sendMessage(msg)
                         output.write(data, 0, count)
@@ -133,13 +134,17 @@ class DownloadActivity : AppCompatActivity() {
         }
 
         override fun onProgressUpdate(vararg values: Int?) {
+            super.onProgressUpdate(*values)
             values[0]?.let {
                 parentContext.progressBar.progress = it
                 parentContext.tvPercent.text =
                     it.toString().plus(parentContext.getString(R.string.percent))
-            }
 
-            super.onProgressUpdate(*values)
+                if (it == 100) {
+                    Toast.makeText(parentContext, "Download successfully!", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
         }
     }
 }
