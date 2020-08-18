@@ -18,6 +18,7 @@ import kotlinx.android.synthetic.`at-linhle`.fragment_grow_plant.*
 class GrowPlantFragment : Fragment() {
 
     companion object {
+        private const val COUNT_DOWN_INTERVAL = 1000L
         internal fun newInstance() = GrowPlantFragment()
     }
 
@@ -144,7 +145,7 @@ class GrowPlantFragment : Fragment() {
     }
 
     private fun handleDataReload() {
-        object : CountDownTimer(1000, 1000) {
+        object : CountDownTimer(COUNT_DOWN_INTERVAL, COUNT_DOWN_INTERVAL) {
             override fun onFinish() {
                 initData(itemId)
                 this.start()
