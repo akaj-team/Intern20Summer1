@@ -49,4 +49,9 @@
     <string name="week_three_button_description">Week 3</string>
     <string name="week_four_button_description">Week 4</string>
     <string name="week_six_button_description">Week 6</string>
+    <string name="week_eight_button_description">Week 8</string>
+    <!--Week8-->
+    <string name="percent_number_text_view_start_description">0</string>
+    <string name="thread_handler_button_description">THREAD HANDLER</string>
+    <string name="async_task_button_description">ASYNC TASK</string>
 </resources>

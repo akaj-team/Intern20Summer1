@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tvPercentNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/percent_number_text_view_margin_top"
+        android:textSize="@dimen/percent_number_text_view_text_size"
+        tools:text="20%" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvPercentNumber"
+        android:layout_marginTop="@dimen/progress_bar_margin_top" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/progressBar">
+
+        <Button
+            android:id="@+id/btnThreadHandler"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/thread_handler_button_margin_top"
+            android:text="@string/thread_handler_button_description"
+            android:textSize="@dimen/thread_handler_button_text_size" />
+
+        <Button
+            android:id="@+id/btnAsyncTask"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/async_task_button_margin_top"
+            android:layout_toRightOf="@id/btnThreadHandler"
+            android:text="@string/async_task_button_description"
+            android:textSize="@dimen/async_task_button_text_size" />
+    </RelativeLayout>
+</RelativeLayout>

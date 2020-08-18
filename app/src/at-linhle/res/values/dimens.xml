@@ -69,4 +69,11 @@
     <dimen name="dot_indicator_corner_radius">8dp</dimen>
     <dimen name="dot_indicator_size">16dp</dimen>
     <dimen name="dot_indicator_spacing">4dp</dimen>
+    <dimen name="percent_number_text_view_margin_top">30dp</dimen>
+    <dimen name="percent_number_text_view_text_size">50dp</dimen>
+    <dimen name="progress_bar_margin_top">50dp</dimen>
+    <dimen name="thread_handler_button_margin_top">30dp</dimen>
+    <dimen name="thread_handler_button_text_size">20dp</dimen>
+    <dimen name="async_task_button_margin_top">30dp</dimen>
+    <dimen name="async_task_button_text_size">20sp</dimen>
 </resources>

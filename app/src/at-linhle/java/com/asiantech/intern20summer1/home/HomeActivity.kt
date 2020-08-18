@@ -7,6 +7,7 @@ import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week3.MainActivity
 import com.asiantech.intern20summer1.week4.views.SplashActivity
 import com.asiantech.intern20summer1.week6.views.IndicatorActivity
+import com.asiantech.intern20summer1.week8.views.DownloadImageActivity
 import kotlinx.android.synthetic.`at-linhle`.activity_container.*
 
 class HomeActivity : AppCompatActivity() {
@@ -28,6 +29,10 @@ class HomeActivity : AppCompatActivity() {
 
         weekSix?.setOnClickListener {
             startActivity(Intent(this, IndicatorActivity::class.java))
+        }
+
+        weekEight?.setOnClickListener {
+            startActivity(Intent(this, DownloadImageActivity::class.java))
         }
     }
 }
