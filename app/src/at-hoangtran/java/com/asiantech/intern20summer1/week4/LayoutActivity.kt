@@ -1,36 +1,69 @@
-package com.asiantech.intern20summer1
+package com.asiantech.intern20summer1.week4
 
-import android.content.Intent
+import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Patterns
+import android.view.View
+import android.view.View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+import android.widget.EditText
+import android.widget.ImageView
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import com.asiantech.intern20summer1.week4.LayoutActivity
-import com.asiantech.intern20summer1.week6.IndicatorActivity
-import kotlinx.android.synthetic.`at-hoangtran`.activity_main2.*
+import com.asiantech.intern20summer1.R
+import kotlinx.android.synthetic.`at-hoangtran`.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class LayoutActivity : AppCompatActivity() {
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    @SuppressLint("ClickableViewAccessibility", "ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main2)
+        setContentView(R.layout.activity_main)
 
-        handleWeek4Button()
-        handleWeek6Button()
-    }
+        edtEmail.onFocusEditText()
+        edtPass.onFocusEditText()
+        edtRetype.onFocusEditText()
 
-    private fun handleWeek4Button() {
-        btnWeek4?.setOnClickListener {
-            val intent = Intent(this, LayoutActivity::class.java)
-            startActivity(intent)
-            finish()
+        lnMain?.setOnTouchListener { it, _ ->
+            it.requestFocus()
+            this.hideSoftKeyboard()
+            true
+        }
+
+        onTextChange(edtEmail, imgEmailTick)
+        onTextChange(edtPass, imgPassTick)
+        onTextChange(edtRetype, imgRetypeTick)
+
+        toastClick()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            window.decorView.systemUiVisibility = SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
     }
 
-//    private fun handleWeek5Button() {
-//        btn_week5.setOnClickListener {
-//            val intent = Intent(this, LayoutActivity::class.java)
-//            startActivity(intent)
-//            finish()
-//        }
-//    }
+     private fun toastClick(){
+         tvSignUp?.setOnClickListener {
+             "Sign up".toast(this@LayoutActivity)
+         }
+         imgFB?.setOnClickListener {
+             "Facebook".toast(this@LayoutActivity)
+         }
+         imgTwitter?.setOnClickListener {
+             "Twitter".toast(this@LayoutActivity)
+         }
+         imgGGPlus?.setOnClickListener {
+             "Google+".toast(this@LayoutActivity)
+         }
+         btnSignUp?.setOnClickListener {
+             "Sign up".toast(this@LayoutActivity)
+         }
+     }
+
+    fun isValidPassword(password: String): Boolean {
+        val passwordPattern = "^[A-Z](?=.*[0-9])(?=.*[a-z])(?=.*[@#$%^&+=])(?=\\S+$).{6,}$"
+        return password.matches(passwordPattern.toRegex())
+    }
 
     private fun onTextChange(edt: EditText, tick: ImageView) {
         edt.addTextChangedListener(object : TextWatcher {
