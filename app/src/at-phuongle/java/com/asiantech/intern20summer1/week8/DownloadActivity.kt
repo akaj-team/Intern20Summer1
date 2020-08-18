@@ -133,12 +133,13 @@ class DownloadActivity : AppCompatActivity() {
         }
 
         override fun onProgressUpdate(vararg values: Int?) {
-            super.onProgressUpdate(*values)
             values[0]?.let {
                 parentContext.progressBar.progress = it
                 parentContext.tvPercent.text =
                     it.toString().plus(parentContext.getString(R.string.percent))
             }
+
+            super.onProgressUpdate(*values)
         }
     }
 }
