@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.fragment
+package com.asiantech.intern20summer1.fragment.w4
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -171,7 +171,8 @@ class FragmentRegister : Fragment() {
             )
             Bundle().apply {
                 putParcelable(KEY_DATA_REGISTER, user)
-                val loginFragment = FragmentLogin.newInstance()
+                val loginFragment =
+                    FragmentLogin.newInstance()
                 val fragmentTransaction = fragmentManager?.beginTransaction()
                 fragmentTransaction?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 loginFragment.arguments = this

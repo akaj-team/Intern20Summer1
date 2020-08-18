@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.fragment
+package com.asiantech.intern20summer1.fragment.w7
 
 import android.annotation.SuppressLint
 import android.net.Uri
@@ -21,7 +21,8 @@ class VegetableDetailFragment : Fragment() {
 
     companion object {
         private const val KEY_POS_ID = "key_pos_id"
-        internal fun newInstance(id: Int?) = VegetableDetailFragment().apply {
+        internal fun newInstance(id: Int?) = VegetableDetailFragment()
+            .apply {
             arguments = Bundle().apply {
                 id?.let { putInt(KEY_POS_ID, it) }
             }
@@ -71,7 +72,9 @@ class VegetableDetailFragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun initView() {
-        cultivation = dataBase?.cultivationDao()?.getCultivation(arguments?.getInt(KEY_POS_ID))
+        cultivation = dataBase?.cultivationDao()?.getCultivation(arguments?.getInt(
+            KEY_POS_ID
+        ))
         plant = dataBase?.plantDao()?.getPlant(cultivation?.plantId)
         imgAppBarLayout?.setImageURI(Uri.parse(plant?.imageUri))
         val textCultivation = getString(R.string.text_cultivation, cultivation?.dateCultivation)

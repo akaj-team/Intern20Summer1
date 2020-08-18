@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.fragment
+package com.asiantech.intern20summer1.fragment.w7
 
 import android.annotation.SuppressLint
 import android.graphics.Color

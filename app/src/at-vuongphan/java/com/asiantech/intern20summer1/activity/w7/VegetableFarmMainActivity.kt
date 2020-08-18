@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.activity
+package com.asiantech.intern20summer1.activity.w7
 
 import android.annotation.SuppressLint
 import android.net.Uri
@@ -9,8 +9,8 @@ import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.database.VegetableDB
-import com.asiantech.intern20summer1.fragment.VegetableDialogFragment
-import com.asiantech.intern20summer1.fragment.VegetableFragmentRecyclerView
+import com.asiantech.intern20summer1.fragment.w7.VegetableDialogFragment
+import com.asiantech.intern20summer1.fragment.w7.VegetableFragmentRecyclerView
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.`at-vuongphan`.w7_activity_main_farm.*
 import kotlinx.android.synthetic.`at-vuongphan`.w7_nav_header.view.*

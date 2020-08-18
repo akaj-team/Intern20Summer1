@@ -1,11 +1,11 @@
-package com.asiantech.intern20summer1.activity
+package com.asiantech.intern20summer1.activity.w7
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.extension.replaceFragment
-import com.asiantech.intern20summer1.fragment.VegetableSplashFragment
+import com.asiantech.intern20summer1.fragment.w7.VegetableSplashFragment
 
 class VegetableSplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

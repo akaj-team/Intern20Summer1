@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.fragment
+package com.asiantech.intern20summer1.fragment.w7
 
 import android.content.Context
 import android.content.Intent
@@ -9,8 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.activity.VegetableFarmMainActivity
-import com.asiantech.intern20summer1.activity.VegetableSplashActivity
+import com.asiantech.intern20summer1.activity.w7.VegetableFarmMainActivity
+import com.asiantech.intern20summer1.activity.w7.VegetableSplashActivity
 import com.asiantech.intern20summer1.data.DownLoadImage
 import com.asiantech.intern20summer1.database.Plant
 import com.asiantech.intern20summer1.database.VegetableDB
@@ -35,7 +35,8 @@ class VegetableSplashFragment : Fragment() {
         private const val POINT_CHECK_DATABASE = 5
         private const val POINT_LOADING_DATA_URL = 20
         private const val POINT_LOADING_DATABASE = 10
-        internal fun newInstance() = VegetableSplashFragment()
+        internal fun newInstance() =
+            VegetableSplashFragment()
 
     }
 
@@ -91,7 +92,10 @@ class VegetableSplashFragment : Fragment() {
     }
 
     private fun loadingFastProgressBar() {
-        object : CountDownTimer(SPLASH_TIMER, PROGRESS_FAST_STEP) {
+        object : CountDownTimer(
+            SPLASH_TIMER,
+            PROGRESS_FAST_STEP
+        ) {
             override fun onFinish() {
             }
 
@@ -138,7 +142,7 @@ class VegetableSplashFragment : Fragment() {
         val part = requireContext().getDir(NAME_DIR, Context.MODE_PRIVATE)
         plants?.forEach { plant ->
             plant.plantId?.let {
-                dataBase?.plantDao()?.editUri("$part/${it}${FILE_TAIL}", it)
+                dataBase?.plantDao()?.editUri("$part/${it}$FILE_TAIL", it)
             }
         }
     }

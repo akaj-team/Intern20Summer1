@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.adapter
+package com.asiantech.intern20summer1.adapter.w7
 
 import android.net.Uri
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.database.Cultivation
 import com.asiantech.intern20summer1.database.VegetableDB
-import com.asiantech.intern20summer1.fragment.VegetableFragmentRecyclerView
+import com.asiantech.intern20summer1.fragment.w7.VegetableFragmentRecyclerView
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.`at-vuongphan`.w7_item_recycler_view.view.*
 
@@ -20,7 +20,7 @@ class VegetableRecyclerViewAdapter(private val mutableList: MutableList<Cultivat
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): VegetableRecyclerViewAdapter.ItemViewHolder {
+    ): ItemViewHolder {
         dataBase = VegetableDB.dataBaseConnect(parent.context)
         val itemView =
             LayoutInflater.from(parent.context)
@@ -31,7 +31,7 @@ class VegetableRecyclerViewAdapter(private val mutableList: MutableList<Cultivat
     override fun getItemCount() = mutableList.size
 
     override fun onBindViewHolder(
-        holder: VegetableRecyclerViewAdapter.ItemViewHolder,
+        holder: ItemViewHolder,
         position: Int
     ) {
         holder.bindData()
@@ -59,7 +59,8 @@ class VegetableRecyclerViewAdapter(private val mutableList: MutableList<Cultivat
                 dataBase?.plantDao()?.getPlant(it.plantId)?.apply {
                     val cultivation = it.dateCultivation
                     val harvest =
-                        VegetableFragmentRecyclerView().getDateHarvest(it.dateCultivation, this)
+                        VegetableFragmentRecyclerView()
+                            .getDateHarvest(it.dateCultivation, this)
                     tvDateCultivation.text =
                         itemView.context.getString(R.string.text_cultivation, cultivation)
                     tvDateHarvest.text = itemView.context.getString(R.string.text_harvest, harvest)

@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.fragment
+package com.asiantech.intern20summer1.fragment.w6
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,7 +13,8 @@ import kotlinx.android.synthetic.`at-vuongphan`.fragment_two.*
 class FragmentTwo : Fragment() {
     companion object {
         private const val KEY_POS = "key"
-        internal fun newInstance(position: Int) = FragmentTwo().apply {
+        internal fun newInstance(position: Int) = FragmentTwo()
+            .apply {
             arguments = Bundle().apply {
                 putInt(KEY_POS, position)
             }

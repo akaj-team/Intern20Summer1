@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.fragment
+package com.asiantech.intern20summer1.fragment.w7
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -18,7 +18,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.activity.VegetableFarmMainActivity
+import com.asiantech.intern20summer1.activity.w7.VegetableFarmMainActivity
 import com.asiantech.intern20summer1.database.User
 import com.asiantech.intern20summer1.database.VegetableDB
 import com.asiantech.intern20summer1.extension.hideKeyboard
