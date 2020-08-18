@@ -46,7 +46,6 @@
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/w8_margin_all"
-            android:hint=".mp4"
             android:importantForAutofill="no"
             android:inputType="text"
             android:text=".mp4" />
@@ -76,4 +75,12 @@
         android:layout_marginLeft="@dimen/w8_margin_all"
         android:layout_marginRight="@dimen/w8_margin_all"
         android:text="@string/w8_save_with_async_task" />
+
+    <Button
+        android:id="@+id/btnOpenFile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/w8_margin_all"
+        android:layout_marginRight="@dimen/w8_margin_all"
+        android:text="Open File" />
 </LinearLayout>
