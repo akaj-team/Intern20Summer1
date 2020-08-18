@@ -66,4 +66,10 @@
     <string name="item_menu_dehydrated_plant_title">Cây bị thiếu nước</string>
     <string name="toast_plant_new_successfully_description">Plant new successfully!</string>
     <string name="toast_nothing_seclected_spinner">Please choose one!</string>
+    <string name="hint_spinner_week_7">Loại rau muốn trồng</string>
+    <string name="confirm_action_dialog_title">This action would\'t be undone, continue?</string>
+    <string name="confirm_action_dialog_positive">Yes</string>
+    <string name="confirm_action_dialog_negative">No</string>
+    <string name="toast_watering_plant_successfully_description">Watering plant successfully!</string>
+    <string name="toast_cut_off_plant_successfully_description">Cut off plant successfully!</string>
 </resources>

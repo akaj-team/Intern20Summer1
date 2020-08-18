@@ -32,6 +32,16 @@ class PlantAdapter : RecyclerView.Adapter<PlantViewHolder> {
 
         // Set itemView based on views and data model
         val containerView = viewHolder.containerView
+        containerView?.setBackgroundResource(
+            when {
+                position % 6 == 0 -> R.drawable.bg_item_plant_6_w7
+                position % 5 == 0 -> R.drawable.bg_item_plant_5_w7
+                position % 4 == 0 -> R.drawable.bg_item_plant_4_w7
+                position % 3 == 0 -> R.drawable.bg_item_plant_3_w7
+                position % 2 == 0 -> R.drawable.bg_item_plant_2_w7
+                else -> R.drawable.bg_item_plant_1_w7
+            }
+        )
         containerView?.setOnClickListener {
             plant.cultivationId?.let { cultivationId -> onItemViewClick.invoke(cultivationId) }
         }

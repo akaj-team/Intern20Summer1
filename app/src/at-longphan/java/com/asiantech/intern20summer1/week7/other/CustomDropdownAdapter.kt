@@ -11,14 +11,14 @@ import com.asiantech.intern20summer1.R
 
 class CustomDropDownAdapter(val context: Context, var listItemsTxt: Array<String>) : BaseAdapter() {
 
-    val mInflater: LayoutInflater = LayoutInflater.from(context)
+    val inflater: LayoutInflater = LayoutInflater.from(context)
 
     @SuppressLint("ResourceAsColor")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val view: View
         val vh: ItemRowHolder
         if (convertView == null) {
-            view = mInflater.inflate(R.layout.view_drop_down_menu, parent, false)
+            view = inflater.inflate(R.layout.view_drop_down_menu, parent, false)
             vh = ItemRowHolder(view)
             view?.tag = vh
         } else {
@@ -26,8 +26,7 @@ class CustomDropDownAdapter(val context: Context, var listItemsTxt: Array<String
             vh = view.tag as ItemRowHolder
         }
 
-        // setting adapter item height programatically.
-
+        // setting adapter item height programmatically.
         val params = view.layoutParams
         params.height = 60
         view.layoutParams = params

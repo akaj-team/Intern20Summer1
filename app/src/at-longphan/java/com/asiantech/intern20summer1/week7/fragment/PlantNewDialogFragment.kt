@@ -44,11 +44,13 @@ class PlantNewDialogFragment : DialogFragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initData()
+        initSpinner()
+        handleButtonOkListener()
+        handleImageCloseListener()
+    }
 
-        database = PlantRoomDatabase.getDatabase(requireContext())
-        plants = database?.plantDao()?.getAllId()
-        plants?.add(0, "Loại rau muốn trồng")
-
+    private fun initSpinner() {
         val arrayAdapter = activity?.let {
             plants?.let { arrayString ->
                 ArrayAdapter<String>(
@@ -92,15 +94,22 @@ class PlantNewDialogFragment : DialogFragment() {
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
-                Toast.makeText(context, getString(R.string.toast_nothing_seclected_spinner), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    context,
+                    getString(R.string.toast_nothing_seclected_spinner),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
-
-        handleButtonOkListener()
-        handleImageCloseListener()
     }
 
-    private fun handleImageCloseListener(){
+    private fun initData() {
+        database = PlantRoomDatabase.getDatabase(requireContext())
+        plants = database?.plantDao()?.getAllId()
+        plants?.add(0, getString(R.string.hint_spinner_week_7))
+    }
+
+    private fun handleImageCloseListener() {
         imgCloseDialog?.setOnClickListener {
             //navigationViewWeek7?.setCheckedItem(R.id.navGarden)
             fragmentManager?.popBackStack()
@@ -110,25 +119,35 @@ class PlantNewDialogFragment : DialogFragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun handleButtonOkListener() {
         btnOkPlantNewWeek7?.setOnClickListener {
-            val sharePref =
-                requireContext().getSharedPreferences(USER_DATA_PREFS, Context.MODE_PRIVATE)
-            val userId = sharePref.getInt(ID_KEY, 0)
-            val timeNow = DateTimeFormatter
-                .ofPattern(DATETIME_FORMAT)
-                .format(LocalDateTime.now())
-            plantSelect?.let { plantId ->
-                database?.cultivationDao()?.insert(
-                    Cultivation(
-                        0,
-                        userId,
-                        plantId,
-                        timeNow,
-                        timeNow
-                    )
-                )
-            }
-            Toast.makeText(requireContext(), getString(R.string.toast_plant_new_successfully_description), Toast.LENGTH_SHORT).show()
+            insertNewPlant()
+            Toast.makeText(
+                requireContext(),
+                getString(R.string.toast_plant_new_successfully_description),
+                Toast.LENGTH_SHORT
+            ).show()
             fragmentManager?.popBackStack()
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun insertNewPlant() {
+        val sharePref =
+            requireContext().getSharedPreferences(USER_DATA_PREFS, Context.MODE_PRIVATE)
+        val userId = sharePref.getInt(ID_KEY, 0)
+        val timeNow = DateTimeFormatter
+            .ofPattern(DATETIME_FORMAT)
+            .format(LocalDateTime.now())
+
+        plantSelect?.let { plantId ->
+            database?.cultivationDao()?.insert(
+                Cultivation(
+                    0,
+                    userId,
+                    plantId,
+                    timeNow,
+                    timeNow
+                )
+            )
         }
     }
 }

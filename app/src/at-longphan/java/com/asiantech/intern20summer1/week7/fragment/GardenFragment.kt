@@ -13,28 +13,30 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week7.PlantRoomDatabase
 import com.asiantech.intern20summer1.week7.adapter.PlantAdapter
-import com.asiantech.intern20summer1.week7.entity.Cultivation
-import com.asiantech.intern20summer1.week7.entity.Plant
 import com.asiantech.intern20summer1.week7.model.PlantRecyclerViewItem
+import com.asiantech.intern20summer1.week7.other.*
 import kotlinx.android.synthetic.`at-longphan`.fragment_plant.*
-import org.json.JSONArray
-import java.io.IOException
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 class GardenFragment : Fragment() {
 
     private lateinit var adapter: PlantAdapter
     private val plantRecyclerViews = mutableListOf<PlantRecyclerViewItem>()
-    private val plants = mutableListOf<Plant>()
-    private val cultivations = mutableListOf<Cultivation>()
     private var database: PlantRoomDatabase? = null
+    private var mode: String? = null
 
     companion object {
 
-        internal fun newInstance(): GardenFragment {
-            return GardenFragment()
+        private const val MODE = "modeGarden"
+        fun newInstance(modeGarden: String) = GardenFragment().apply {
+            arguments = Bundle().apply {
+                putString(MODE, modeGarden)
+            }
         }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        mode = arguments?.getString(MODE)
     }
 
     override fun onCreateView(
@@ -48,10 +50,8 @@ class GardenFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initData()
-        //readJson()
         initAdapter()
         handlePlantItemClickListener()
-
     }
 
     private fun initAdapter() {
@@ -70,73 +70,39 @@ class GardenFragment : Fragment() {
         }
     }
 
-    @SuppressLint("NewApi")
+    @SuppressLint("NewApi", "SimpleDateFormat")
     private fun initData() {
-        val sharePref = requireContext().getSharedPreferences("UserDataPrefs", Context.MODE_PRIVATE)
-        val userId = sharePref.getInt("userId", 0)
+        val sharePref = requireContext().getSharedPreferences(USER_DATA_PREFS, Context.MODE_PRIVATE)
+        val userId = sharePref.getInt(ID_KEY, 0)
         database = PlantRoomDatabase.getDatabase(requireContext())
-        val plantAndCultivations = database?.cultivationDao()?.findCultivationByUserId(userId)
+        val plantAndCultivations = database?.cultivationDao()?.getAllCultivationByUserId(userId)
+
         if (plantAndCultivations != null) {
-            for (i in plantAndCultivations){
-                plantRecyclerViews.add(i.getPlantRecyclerViewItem())
+            rlEmpty?.visibility = View.INVISIBLE
+            when (mode) {
+                ModeGarden.DEFAULT -> {
+                    for (i in plantAndCultivations) {
+                        plantRecyclerViews.add(i.getPlantRecyclerViewItem())
+                    }
+                }
+                ModeGarden.ABOUT_TO_HARVEST -> {
+                    for (i in plantAndCultivations) {
+                        plantAndCultivations.getAboutToHarvestPlants(i, plantRecyclerViews)
+                    }
+                }
+                ModeGarden.WORMED -> {
+                    for (i in plantAndCultivations) {
+                        plantAndCultivations.getWormedPlants(i, plantRecyclerViews)
+                    }
+                }
+                ModeGarden.DEHYDRATED -> {
+                    for (i in plantAndCultivations) {
+                        plantAndCultivations.getDehydratedPlants(i, plantRecyclerViews)
+                    }
+                }
             }
-        }
-
-        /*for (i in 1..10) {
-            plantRecyclerViews.add(
-                PlantRecyclerViewItem(
-                    i,
-                    "Plant $i",
-                    DateTimeFormatter
-                        .ofPattern("dd/MM/yy HH'h'mm")
-                        .format(LocalDateTime.now()),
-                    DateTimeFormatter
-                        .ofPattern("dd/MM/yy HH'h'mm")
-                        .format(LocalDateTime.now()),
-                    "url",
-                    i % 2 == 0
-                )
-            )
-        }*/
-    }
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun readJson() {
-        val json: String?
-        try {
-            val inputStream = context?.assets?.open("plants.json")
-            json = inputStream?.bufferedReader().use { it?.readText() }
-            val jsonArray = JSONArray(json)
-
-            for (i in 0 until jsonArray.length()) {
-                val jsonObject = jsonArray.getJSONObject(i)
-                plants.add(
-                    Plant(
-                        jsonObject.getString("plantId"),
-                        jsonObject.getString("name"),
-                        jsonObject.getString("description"),
-                        jsonObject.getInt("growZoneNumber"),
-                        jsonObject.getInt("wateringInterval"),
-                        jsonObject.getString("imageUrl")
-                    )
-                )
-                plantRecyclerViews.add(
-                    PlantRecyclerViewItem(
-                        i,
-                        "Plant $i",
-                        DateTimeFormatter
-                            .ofPattern("dd/MM/yy HH'h'mm")
-                            .format(LocalDateTime.now()),
-                        DateTimeFormatter
-                            .ofPattern("dd/MM/yy HH'h'mm")
-                            .format(LocalDateTime.now()),
-                        jsonObject.getString("imageUrl"),
-                        i % 2 == 0
-                    )
-                )
-            }
-        } catch (e: IOException) {
-            e.printStackTrace()
+        } else {
+            rlEmpty?.visibility = View.VISIBLE
         }
     }
 }

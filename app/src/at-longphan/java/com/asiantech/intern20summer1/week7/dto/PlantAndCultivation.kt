@@ -9,19 +9,19 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class PlantAndCultivation(
-    private val id: Int,
-    private val userGrowId: Int,
-    private val plantId: String,
-    private val dateCultivation: String,
-    private val dateWatering: String,
-    private val name: String,
-    private val description: String,
-    private val growZoneNumber: Int,
-    private val wateringInterval: Int,
-    private val imageUrl: String
+    internal val id: Int,
+    internal val userGrowId: Int,
+    internal val plantId: String,
+    internal val dateCultivation: String,
+    internal val dateWatering: String,
+    internal val name: String,
+    internal val description: String,
+    internal val growZoneNumber: Int,
+    internal val wateringInterval: Int,
+    internal val imageUrl: String
 ) {
     @RequiresApi(Build.VERSION_CODES.O)
-    fun getPlantRecyclerViewItem(): PlantRecyclerViewItem {
+    internal fun getPlantRecyclerViewItem(): PlantRecyclerViewItem {
 
         val dateHarvest = getDateHarvest()
 

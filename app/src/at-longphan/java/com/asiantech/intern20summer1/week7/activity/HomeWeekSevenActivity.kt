@@ -18,10 +18,7 @@ import com.asiantech.intern20summer1.week7.PlantRoomDatabase
 import com.asiantech.intern20summer1.week7.PlantRoomDatabase.Companion.saveDataFromJsonFile
 import com.asiantech.intern20summer1.week7.fragment.GardenFragment
 import com.asiantech.intern20summer1.week7.fragment.PlantNewDialogFragment
-import com.asiantech.intern20summer1.week7.other.AVATAR_URL_KEY
-import com.asiantech.intern20summer1.week7.other.UNIVERSITY_KEY
-import com.asiantech.intern20summer1.week7.other.USERNAME_KEY
-import com.asiantech.intern20summer1.week7.other.USER_DATA_PREFS
+import com.asiantech.intern20summer1.week7.other.*
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.`at-longphan`.activity_home_w7.*
 import kotlinx.android.synthetic.`at-longphan`.navigation_header_w7.view.*
@@ -62,7 +59,7 @@ class HomeWeekSevenActivity : AppCompatActivity(), NavigationView.OnNavigationIt
                     fragmentManager.backStackEntryCount.toString(),
                     Toast.LENGTH_LONG
                 ).show()
-                fragment = GardenFragment()
+                fragment = GardenFragment.newInstance(ModeGarden.DEFAULT)
                 fragmentManager.beginTransaction().replace(R.id.navHostFragment, fragment).commit()
             }
             R.id.navPlantNew -> {
@@ -71,13 +68,16 @@ class HomeWeekSevenActivity : AppCompatActivity(), NavigationView.OnNavigationIt
                     .addToBackStack(null).commit()
             }
             R.id.navAboutToHarvest -> {
-                Toast.makeText(this, getString(R.string.item_menu_about_to_harvest_title), Toast.LENGTH_SHORT).show()
+                fragment = GardenFragment.newInstance(ModeGarden.ABOUT_TO_HARVEST)
+                fragmentManager.beginTransaction().replace(R.id.navHostFragment, fragment).commit()
             }
             R.id.navWormedPlant -> {
-                Toast.makeText(this, getString(R.string.item_menu_wormed_plant_title), Toast.LENGTH_SHORT).show()
+                fragment = GardenFragment.newInstance(ModeGarden.WORMED)
+                fragmentManager.beginTransaction().replace(R.id.navHostFragment, fragment).commit()
             }
             R.id.navDehydratedPlant -> {
-                Toast.makeText(this, getString(R.string.item_menu_dehydrated_plant_title), Toast.LENGTH_SHORT).show()
+                fragment = GardenFragment.newInstance(ModeGarden.DEHYDRATED)
+                fragmentManager.beginTransaction().replace(R.id.navHostFragment, fragment).commit()
             }
         }
         toolbarTitle.text = item.title
@@ -116,7 +116,7 @@ class HomeWeekSevenActivity : AppCompatActivity(), NavigationView.OnNavigationIt
         val transaction = fragmentManager.beginTransaction()
         transaction.add(
             R.id.navHostFragment,
-            GardenFragment()
+            GardenFragment.newInstance(ModeGarden.DEFAULT)
         )
         transaction.commit()
     }

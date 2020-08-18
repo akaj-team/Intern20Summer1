@@ -12,8 +12,30 @@ interface CultivationDao {
     @Insert
     fun insert(cultivation: Cultivation)
 
-    @Query("SELECT * FROM cultivations " +
-            "INNER JOIN plants USING (plantId) " +
-            "WHERE userGrowId = :userId ORDER BY id DESC")
-    fun findCultivationByUserId(userId: Int): List<PlantAndCultivation>
+    @Query(
+        "SELECT * FROM cultivations " +
+                "INNER JOIN plants USING (plantId) " +
+                "WHERE userGrowId = :userId ORDER BY id DESC"
+    )
+    fun getAllCultivationByUserId(userId: Int): List<PlantAndCultivation>
+
+    @Query(
+        "SELECT * FROM cultivations " +
+                "INNER JOIN plants USING (plantId) " +
+                "WHERE id = :id LIMIT 1"
+    )
+    fun getById(id: Int): PlantAndCultivation
+
+    @Query(
+        "UPDATE cultivations " +
+                "SET dateWatering = :dateWatering " +
+                "WHERE id = :id"
+    )
+    fun updateDateWateringById(id: Int, dateWatering: String?)
+
+    @Query(
+        "DELETE FROM cultivations " +
+                "WHERE id = :id"
+    )
+    fun deleteById(id: Int)
 }

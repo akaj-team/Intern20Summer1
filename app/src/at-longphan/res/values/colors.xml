@@ -50,4 +50,10 @@
     <color name="colorButtonNextRegisterEnableWeek7Text">#FFFFFF</color>
     <color name="colorButtonNextRegisterDisableWeek7Text">#99FFFFFF</color>
     <color name="colorEditTextHintWeek7Text">#80000000</color>
+    <color name="colorContainerItemListPlantSixthWeek7Background">#FFCAD7</color>
+    <color name="colorContainerItemListPlantFifthWeek7Background">#BDAFDC</color>
+    <color name="colorContainerItemListPlantFourthWeek7Background">#A6EAF9</color>
+    <color name="colorContainerItemListPlantThirdWeek7Background">#FFDAB8</color>
+    <color name="colorContainerItemListPlantSecondWeek7Background">#FF9595</color>
+    <color name="colorContainerItemListPlantFirstWeek7Background">#AFDCCE</color>
 </resources>
