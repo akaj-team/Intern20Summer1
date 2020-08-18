@@ -1,6 +1,7 @@
-package com.asiantech.intern20summer1.download
+package com.asiantech.intern20summer1.model
 
 import android.content.Context
+import android.net.Uri
 import android.os.AsyncTask
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -56,6 +57,7 @@ class DownloadAsyncTask(
 
     override fun onPostExecute(result: String?) {
         super.onPostExecute(result)
+        Uri.parse(result)
         Toast.makeText(context, "Download done", Toast.LENGTH_SHORT).show()
     }
 }

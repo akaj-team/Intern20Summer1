@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.activity
+package com.asiantech.intern20summer1.activity.w8
 
 import android.content.Intent
 import android.os.Bundle

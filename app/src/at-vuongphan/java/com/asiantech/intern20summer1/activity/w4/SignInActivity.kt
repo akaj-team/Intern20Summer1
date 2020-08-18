@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.activity
+package com.asiantech.intern20summer1.activity.w4
 
 import android.os.Build
 import android.os.Bundle
@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.extension.replaceFragment
-import com.asiantech.intern20summer1.fragment.FragmentLogin
+import com.asiantech.intern20summer1.fragment.w4.FragmentLogin
 
 class SignInActivity : AppCompatActivity() {
 

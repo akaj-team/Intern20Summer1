@@ -4,6 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.activity.w3.MainActivity
+import com.asiantech.intern20summer1.activity.w4.SplashActivity
+import com.asiantech.intern20summer1.activity.w6.ViewPagerActivity
+import com.asiantech.intern20summer1.activity.w8.MainClickHandlerAsyncTask
 import kotlinx.android.synthetic.`at-vuongphan`.activity_exercise.*
 
 class MainExerciseActivity : AppCompatActivity() {

@@ -36,8 +36,6 @@
 
     <EditText
         android:id="@+id/tvUrl"
-        android:textColor="@color/colorBlack"
-        android:textStyle="bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/progressBar"
@@ -46,6 +44,8 @@
         android:importantForAutofill="no"
         android:inputType="text"
         android:text="@string/edt_text_link_download"
+        android:textColor="@color/colorBlack"
+        android:textStyle="bold"
         tools:ignore="LabelFor,TextFields" />
 
     <Button

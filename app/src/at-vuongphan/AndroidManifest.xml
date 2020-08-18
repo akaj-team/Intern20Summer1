@@ -19,15 +19,15 @@
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat"
             tools:ignore="MissingClass" />
-        <activity android:name=".activity.AsyncTaskActivity" />
-        <activity android:name=".activity.HandlerThreadActivity" />
-        <activity android:name=".activity.MainClickHandlerAsyncTask" />
-        <activity android:name=".activity.MainActivity" />
-        <activity android:name=".activity.ViewPagerActivityTwo" />
-        <activity android:name=".activity.ViewPagerActivity" />
-        <activity android:name=".activity.SplashActivity" />
-        <activity android:name=".activity.SignInActivity" />
-        <activity android:name=".activity.HomeActivity" />
+        <activity android:name=".activity.w8.AsyncTaskActivity" />
+        <activity android:name=".activity.w8.HandlerThreadActivity" />
+        <activity android:name=".activity.w8.MainClickHandlerAsyncTask" />
+        <activity android:name=".activity.w3.MainActivity" />
+        <activity android:name=".activity.w6.ViewPagerActivityTwo" />
+        <activity android:name=".activity.w6.ViewPagerActivity" />
+        <activity android:name=".activity.w4.SplashActivity" />
+        <activity android:name=".activity.w4.SignInActivity" />
+        <activity android:name=".activity.w4.HomeActivity" />
         <activity android:name=".activity.MainExerciseActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

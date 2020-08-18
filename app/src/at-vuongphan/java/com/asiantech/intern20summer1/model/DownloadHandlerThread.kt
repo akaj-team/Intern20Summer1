@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.download
+package com.asiantech.intern20summer1.model
 
 import android.content.Context
 import android.os.Handler

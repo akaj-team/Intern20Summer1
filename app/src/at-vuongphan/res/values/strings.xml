@@ -63,4 +63,6 @@
     <string name="text_view_text_ratio">%</string>
     <string name="text_view_text_0">0</string>
     <string name="button_text">Start</string>
+    <string name="starting_download">Starting download</string>
+    <string name="download_done">Download Done</string>
 </resources>
