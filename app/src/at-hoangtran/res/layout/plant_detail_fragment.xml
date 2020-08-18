@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorYellow"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center_vertical"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:id="@+id/imgArrowBack"
+            android:layout_width="60dp"
+            android:layout_height="@dimen/back_image_view_height"
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/toolbar_title"
+            android:textSize="@dimen/plant_detail_text_view_text_size"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"
+        android:fitsSystemWindows="true">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarDetail"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/app_bar_layout_height"
+            android:background="@color/colorYellow"
+            android:fitsSystemWindows="true">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/app_bar_layout_height"
+                android:fitsSystemWindows="true"
+                app:contentScrim="@color/colorYellow"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                <ImageView
+                    android:id="@+id/imgCultivationDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fitsSystemWindows="true"
+                    android:scaleType="centerCrop"
+                    app:layout_collapseMode="parallax" />
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbarDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:layout_collapseMode="parallax" />
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvWormedPlantDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:lineSpacingExtra="@dimen/text_view_line_spacing_extra"
+                    android:padding="@dimen/text_view_padding"
+                    android:textColor="@color/colorRed"
+                    android:textSize="@dimen/plant_detail_fragment_text_view_text_size"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvLackedWaterPlantDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:lineSpacingExtra="@dimen/text_view_line_spacing_extra"
+                    android:padding="@dimen/text_view_padding"
+                    android:textColor="@color/colorRed"
+                    android:textSize="@dimen/plant_detail_fragment_text_view_text_size"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvComingHarvestPlantDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:lineSpacingExtra="@dimen/text_view_line_spacing_extra"
+                    android:padding="@dimen/text_view_padding"
+                    android:textColor="@color/colorRed"
+                    android:textSize="@dimen/plant_detail_fragment_text_view_text_size"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvGrownDateDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:lineSpacingExtra="@dimen/text_view_line_spacing_extra"
+                    android:padding="@dimen/text_view_padding"
+                    android:textSize="@dimen/plant_detail_fragment_grow_date_text_view_text_size" />
+
+                <TextView
+                    android:id="@+id/tvWateringIntervalDateDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:lineSpacingExtra="@dimen/text_view_line_spacing_extra"
+                    android:padding="@dimen/text_view_padding"
+                    android:textSize="@dimen/plant_detail_fragment_grow_date_text_view_text_size" />
+
+                <TextView
+                    android:id="@+id/tvPlantDescriptionDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/plant_detail_fragment_text_view_margin_bottom"
+                    android:lineSpacingExtra="@dimen/text_view_line_spacing_extra"
+                    android:paddingLeft="@dimen/text_view_padding"
+                    android:textSize="@dimen/plant_detail_fragment_grow_date_text_view_text_size" />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+            <Button
+                android:id="@+id/btnWatering"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/button_margin_left_right"
+                android:layout_marginTop="@dimen/button_margin_top"
+                android:layout_marginRight="@dimen/button_margin_left_right"
+                android:background="@mipmap/ic_launcher"
+                android:text="@string/watering_button_description"
+                android:textColor="@color/colorWhite" />
+
+            <Button
+                android:id="@+id/btnCutDown"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/btnWatering"
+                android:layout_marginLeft="@dimen/button_margin_left_right"
+                android:layout_marginTop="@dimen/button_margin_top"
+                android:layout_marginRight="@dimen/button_margin_left_right"
+                android:layout_marginBottom="@dimen/button_margin_bottom"
+                android:background="@mipmap/ic_launcher"
+                android:text="@string/cut_down_button_description"
+                android:textColor="@color/colorWhite" />
+        </RelativeLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</LinearLayout>

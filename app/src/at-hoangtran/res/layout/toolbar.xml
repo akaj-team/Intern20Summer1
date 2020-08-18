@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -15,10 +14,8 @@
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         tools:targetApi="lollipop" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerVieGarden"
+    <FrameLayout
+        android:id="@+id/flToolbarContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="20dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        android:layout_height="match_parent" />
 </LinearLayout>

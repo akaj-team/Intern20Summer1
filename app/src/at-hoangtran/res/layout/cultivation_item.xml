@@ -9,7 +9,7 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -24,13 +24,34 @@
                 android:text="Rau den"
                 android:textSize="20sp" />
 
-            <ImageView
-                android:id="@+id/imgVegetableName"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imgVegetableHarvest"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/tvVegetableName"
                 android:src="@mipmap/ic_launcher" />
-        </LinearLayout>
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imgVegetableWater"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/tvVegetableName"
+                android:src="@mipmap/ic_launcher" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imgVegetableWorm"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/tvVegetableName"
+                android:src="@mipmap/ic_launcher" />
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/tvPlantTime"
@@ -41,7 +62,7 @@
             android:text="asdasdasdasd" />
 
         <TextView
-            android:id="@+id/tvCultivationTime"
+            android:id="@+id/tvHarvestTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="40dp"

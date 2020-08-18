@@ -2,6 +2,7 @@ package com.asiantech.intern20summer1.week7
 
 import android.annotation.SuppressLint
 import android.graphics.Color
+import android.graphics.drawable.AnimationDrawable
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
@@ -12,14 +13,14 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.DialogFragment
 import com.asiantech.intern20summer1.R
-import kotlinx.android.synthetic.`at-hoangtran`.activity_vegetable_garden.*
 import kotlinx.android.synthetic.`at-hoangtran`.plant_dialog_fragment.*
+import kotlinx.android.synthetic.`at-hoangtran`.toolbar.*
 import java.text.SimpleDateFormat
 import java.util.*
 
 class PlantDialogFragment : DialogFragment() {
     companion object {
-        internal val DATE_FORMAT_STRING = "dd//MM//yyyy HH:mm"
+        internal const val DATE_FORMAT_STRING = "dd//MM//yyyy HH:mm"
     }
 
     private var plants: List<Plant>? = null
@@ -30,7 +31,7 @@ class PlantDialogFragment : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.plant_dialog_fragment, fl_container, false)
+        return inflater.inflate(R.layout.plant_dialog_fragment, flToolbarContainer, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -38,6 +39,7 @@ class PlantDialogFragment : DialogFragment() {
 
         initData()
         initView()
+        onSpinnerClick()
     }
 
     private fun initView() {
@@ -54,8 +56,8 @@ class PlantDialogFragment : DialogFragment() {
     private fun initData() {
         plants = appDatabase?.getPlantDAO()?.getPlants()
         val listPlant = arrayListOf<String>()
-        plants?.forEach{plant ->
-            plant.name?.let {name ->
+        plants?.forEach { plant ->
+            plant.name?.let { name ->
                 listPlant.add(name)
             }
         }
@@ -63,7 +65,7 @@ class PlantDialogFragment : DialogFragment() {
             ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, listPlant)
         adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinnerDialog?.adapter = adapterSpinner
-        spinnerDialog?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+        spinnerDialog?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
             }
 
@@ -86,6 +88,11 @@ class PlantDialogFragment : DialogFragment() {
             tvDialogDetail?.text = text
             imgDialogPlant.setImageURI(Uri.parse(plant?.imageUrl))
         }
+        spinnerDialog.setOnClickListener {
+            spinnerDialog.setBackgroundResource(R.drawable.bg_spinner_right)
+            val animation = spinnerDialog.background as AnimationDrawable
+            animation.start()
+        }
     }
 
     @SuppressLint("SimpleDateFormat")
@@ -101,6 +108,19 @@ class PlantDialogFragment : DialogFragment() {
                 dateCultivation = dateCurrent
                 dateWatering = dateCurrent
             }
+            appDatabase?.getCultivationDAO()?.insertCultivation(cultivation)
+            (activity as GardenActivity).handleReplaceFragment(
+                GrowPlantFragment.newInstance(),
+                parent = R.id.flToolbarContainer
+            )
+        }
+    }
+
+    private fun onSpinnerClick() {
+        spinnerDialog.setOnClickListener {
+            spinnerDialog.setBackgroundResource(R.drawable.bg_spinner_down)
+            val animation = spinnerDialog.background as AnimationDrawable
+            animation.start()
         }
     }
 }

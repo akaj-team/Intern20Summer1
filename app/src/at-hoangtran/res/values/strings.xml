@@ -15,17 +15,16 @@
     <string name="item_cay_sap_thu_hoach">Cây Sắp Thu Hoạch</string>
     <string name="item_cay_bi_sau">Cây Bị Sâu</string>
     <string name="item_cay_bi_thieu_nuoc">Cây Bị Thiếu Nước</string>
+    <string name="toolbar_title">Thông Tin Cây</string>
+    <string name="watering_button_description">Tưới Nước</string>
+    <string name="cut_down_button_description">Chặt Bỏ</string>
+    <string name="plant_detail_fragment_grown_date_description">Trồng lúc: </string>
+    <string name="plant_detail_fragment_watering_date_description">Tưới nước lần cuối: </string>
     <string name="register">Register</string>
     <string name="user_name">User Name</string>
     <string name="university">University</string>
     <string name="home">Home</string>
     <string name="next">Next</string>
     <string name="avatar">Avatar</string>
-    <string-array name="asd">
-        <item>A</item>
-        <item>B</item>
-        <item>C</item>
-        <item>D</item>
-        <item>E</item>
-    </string-array>
+
 </resources>

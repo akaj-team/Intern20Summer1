@@ -8,7 +8,7 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_vegetable_garden)
+        setContentView(R.layout.activity_splash)
         showSplashFragment()
     }
 

@@ -14,8 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".week7.GardenActivity" />
-        <activity android:name=".week7.SplashActivity">
+<!--        <activity android:name=".week7.GardenActivity" />-->
+        <activity android:name=".week7.GardenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

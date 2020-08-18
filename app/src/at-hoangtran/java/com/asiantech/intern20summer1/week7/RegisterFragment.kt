@@ -100,7 +100,7 @@ class RegisterFragment : Fragment() {
                 putString(AVATAR_KEY, imageUri)
                 apply()
             }
-            val intent = Intent(activity, GardenActivity::class.java)
+            val intent = Intent(context, GardenActivity::class.java)
             startActivity(intent)
             (activity as SplashActivity).finish()
         }
