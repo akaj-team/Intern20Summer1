@@ -3,6 +3,7 @@
     <dimen name="icon_image_margin_top">50dp</dimen>
     <dimen name="text_views_email_margin_top">40dp</dimen>
     <dimen name="button_sign_up_margin_top">30dp</dimen>
+    <dimen name="edit_text_margin_top">9dp</dimen>
     <dimen name="edit_text_padding_left">22dp</dimen>
     <dimen name="edit_text_padding_right">10dp</dimen>
     <dimen name="height_edit_text">50dp</dimen>
@@ -17,6 +18,17 @@
     <dimen name="relative_height_end">20dp</dimen>
     <dimen name="conner_radius">40dp</dimen>
     <dimen name="custom_button_padding">5dp</dimen>
+    <dimen name="view_pager_margin">10dp</dimen>
+    <dimen name="indicator_size">15dp</dimen>
+    <dimen name="text_view_next_text_size">15dp</dimen>
+    <dimen name="text_view_fragment_one_text_size">40sp</dimen>
+    <dimen name="relative_layout_radius">20dp</dimen>
+    <dimen name="item_layout_margin">5dp</dimen>
+    <dimen name="image_view_width">100dp</dimen>
+    <dimen name="image_view_height">80dp</dimen>
+    <dimen name="relative_margin">50dp</dimen>
+    <dimen name="image_view_center_width">250dp</dimen>
+    <dimen name="image_view_center_margin">20dp</dimen>
     <dimen name="fragment_sign_in_image_view_margin_top">30dp</dimen>
     <dimen name="fragment_sign_in_layout_margin_left">30dp</dimen>
     <dimen name="fragment_sign_in_layout_margin_right">30dp</dimen>
@@ -26,7 +38,6 @@
     <dimen name="icon_google_margin_left">20dp</dimen>
     <dimen name="icon_logo_image_view">300dp</dimen>
     <dimen name="text_view_margin_top">20dp</dimen>
-    <dimen name="edit_text_margin_top">10dp</dimen>
     <dimen name="button_login_margin_top">40dp</dimen>
     <dimen name="text_view_forgot_password_padding">2dp</dimen>
     <dimen name="relative_layout_text_view_margin_top">50dp</dimen>

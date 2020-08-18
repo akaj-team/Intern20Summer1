@@ -1,179 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/container"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorContainerBackground">
+    android:background="@color/colorMainActivityBackground"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context="com.asiantech.intern20summer1.MainActivity">
+
+    <LinearLayout
+        android:id="@+id/llTitleMainActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/linear_layout_title_main_activity_margin_top"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:srcCompat="@android:mipmap/sym_def_app_icon" />
+
+        <TextView
+            android:id="@+id/tvInternshipDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/text_view_internship_summer_2020_description_margin_left"
+            android:text="@string/text_view_internship_summer_2020_description"
+            android:textSize="@dimen/text_view_internship_summer_2020_description_text_size" />
+    </LinearLayout>
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="none">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/scroll_view_main_activity_margin"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toTopOf="@+id/tvBottomDescription"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/llTitleMainActivity">
 
         <LinearLayout
-            android:id="@+id/llChild"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:paddingLeft="@dimen/container_padding_left"
-            android:paddingRight="@dimen/container_padding_right">
-
-            <ImageView
-                android:id="@+id/imgLogo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/image_view_logo_margin_top"
-                android:layout_marginBottom="@dimen/image_view_logo_margin_bottom"
-                app:srcCompat="@drawable/img_logo" />
-
-            <TextView
-                android:id="@+id/tvEmailId"
-                style="@style/TextViewDescription"
-                android:text="@string/text_view_email_id_main_activity_description" />
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <EditText
-                    android:id="@+id/edtEmailId"
-                    style="@style/EditTextSignUpDescription"
-                    android:inputType="textEmailAddress" />
-
-                <ImageView
-                    android:id="@+id/imgCheckEmailId"
-                    style="@style/ImageViewCheck"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignTop="@+id/edtEmailId"
-                    android:layout_alignRight="@+id/edtEmailId"
-                    android:layout_alignBottom="@+id/edtEmailId"
-                    app:srcCompat="@drawable/icon_tick" />
-            </RelativeLayout>
-
-            <TextView
-                android:id="@+id/tvPassword"
-                style="@style/TextViewDescription"
-                android:text="@string/text_view_password_main_activity_description" />
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <EditText
-                    android:id="@+id/edtPassword"
-                    style="@style/EditTextSignUpDescription"
-                    android:inputType="textPassword" />
-
-                <ImageView
-                    android:id="@+id/imgCheckPassword"
-                    style="@style/ImageViewCheck"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignTop="@+id/edtPassword"
-                    android:layout_alignRight="@+id/edtPassword"
-                    android:layout_alignBottom="@+id/edtPassword"
-                    app:srcCompat="@drawable/icon_tick" />
-            </RelativeLayout>
-
-            <TextView
-                android:id="@+id/tvRetypePassword"
-                style="@style/TextViewDescription"
-                android:text="@string/text_view_retype_password_description" />
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <EditText
-                    android:id="@+id/edtRetypePassword"
-                    style="@style/EditTextSignUpDescription"
-                    android:inputType="textPassword" />
-
-                <ImageView
-                    android:id="@+id/imgCheckRetypePassword"
-                    style="@style/ImageViewCheck"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignTop="@+id/edtRetypePassword"
-                    android:layout_alignRight="@+id/edtRetypePassword"
-                    android:layout_alignBottom="@+id/edtRetypePassword"
-                    app:srcCompat="@drawable/icon_tick" />
-            </RelativeLayout>
-
-            <TextView
-                android:id="@+id/tvSocial"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/text_view_social_media_margin_top"
-                android:text="@string/text_view_social_media_description"
-                android:textSize="@dimen/text_view_social_media_text_size" />
-
-            <LinearLayout
-                android:id="@+id/llSocialButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/linear_layout_social_media_margin_top">
-
-                <ImageButton
-                    android:id="@+id/imgBtnFacebook"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/image_button_social_margin_right"
-                    android:background="@android:color/transparent"
-                    android:src="@drawable/btn_facebook" />
-
-                <ImageButton
-                    android:id="@+id/imgBtnTwitter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/image_button_social_margin_left"
-                    android:layout_marginRight="@dimen/image_button_social_margin_right"
-                    android:background="@android:color/transparent"
-                    app:srcCompat="@drawable/btn_twitter" />
-
-                <ImageButton
-                    android:id="@+id/imgBtnGooglePlus"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/image_button_social_margin_left"
-                    android:background="@drawable/btn_google_plus"
-                    app:srcCompat="@drawable/btn_google_plus" />
-            </LinearLayout>
+            android:orientation="vertical">
 
             <Button
-                android:id="@+id/btnSignUp"
-                style="@style/TextViewDescription"
-                android:layout_marginTop="@dimen/button_sign_up_margin_top"
-                android:background="@drawable/bg_button"
-                android:text="@string/button_sign_up"
-                android:textColor="@color/colorSignUpButtonText"
-                android:textSize="@dimen/button_sign_up_text_size" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
+                android:id="@+id/btnWeek3"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="@dimen/linear_layout_sign_up_description_padding_top"
-                android:paddingBottom="@dimen/linear_layout_sign_up_description_padding_bottom">
+                android:text="@string/button_week_3_description"
+                android:textAllCaps="false" />
 
-                <TextView
-                    android:id="@+id/tvNotRegister"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/text_view_not_registered_description"
-                    android:textSize="@dimen/text_view_sign_up_text_size" />
+            <Button
+                android:id="@+id/btnWeek4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/button_week_description_activity_main_margin_top"
+                android:text="@string/button_week_4_description"
+                android:textAllCaps="false" />
 
-                <TextView
-                    android:id="@+id/tvSignUp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/text_view_sign_up_margin_left"
-                    android:text="@string/text_view_sign_up_description"
-                    android:textColor="@color/colorSignUpTextViewText"
-                    android:textSize="@dimen/text_view_sign_up_text_size" />
-            </LinearLayout>
+            <Button
+                android:id="@+id/btnWeek5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/button_week_description_activity_main_margin_top"
+                android:text="@string/button_week_5_description"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btnWeek6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/button_week_description_activity_main_margin_top"
+                android:text="@string/button_week_6_description"
+                android:textAllCaps="false" />
         </LinearLayout>
     </ScrollView>
-</LinearLayout>
+
+    <TextView
+        android:id="@+id/tvBottomDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/text_view_bottom_description_main_activity_margin_bottom"
+        android:text="@string/text_view_bottom_description_main_activity"
+        android:textSize="@dimen/text_view_bottom_description_main_activity_text_size"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
