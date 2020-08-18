@@ -42,4 +42,14 @@
     <dimen name="animal_image_view_margin_top">20dp</dimen>
     <dimen name="animal_image_view_padding">10dp</dimen>
     <dimen name="animal_image_view_elevation">40dp</dimen>
+
+    <!--    Week 8-->
+    <dimen name="percent_text_view_margin_top">20dp</dimen>
+    <dimen name="percent_text_view_text_size">30sp</dimen>
+    <dimen name="progress_bar_height">10dp</dimen>
+    <dimen name="progress_bar_margin_top">10dp</dimen>
+    <dimen name="download_button_margin_top">10dp</dimen>
+    <dimen name="handler_download_button_margin_left">20dp</dimen>
+    <dimen name="handler_download_button_margin_right">20dp</dimen>
+    <dimen name="async_task_download_button_margin_right">20dp</dimen>
 </resources>

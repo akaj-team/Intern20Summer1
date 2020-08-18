@@ -18,7 +18,7 @@
         <activity android:name=".week6.activity.SecondActivity" />
         <activity android:name=".week6.activity.FirstActivity" />
 <!--         Main -->
-        <activity android:name=".week8.DownloadProgressBar">
+        <activity android:name=".week8.DownloadActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

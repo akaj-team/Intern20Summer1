@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.asiantech.intern20summer1.week8.DownloadActivity">
+
+    <TextView
+        android:id="@+id/tvPercent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/percent_text_view_margin_top"
+        android:text="@string/percent_text_view_description"
+        android:textSize="@dimen/percent_text_view_text_size" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/progress_bar_height"
+        android:layout_below="@+id/tvPercent"
+        android:layout_marginTop="@dimen/progress_bar_margin_top"
+        android:progress="0" />
+
+    <Button
+        android:id="@+id/btnDownloadHandler"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/progressBar"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="@dimen/handler_download_button_margin_left"
+        android:layout_marginTop="@dimen/download_button_margin_top"
+        android:text="@string/handler_download_button_text"
+        android:layout_marginRight="@dimen/handler_download_button_margin_right"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btnDownloadAsyncTask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/progressBar"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/download_button_margin_top"
+        android:layout_marginRight="@dimen/async_task_download_button_margin_right"
+        android:text="@string/async_task_download_button_text"
+        android:textAllCaps="false" />
+</RelativeLayout>

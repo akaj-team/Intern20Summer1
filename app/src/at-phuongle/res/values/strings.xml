@@ -1,4 +1,5 @@
 <resources>
+<!--    Week 3-->
     <string name="app_name">[Phuong]Intern20Summer1</string>
     <string name="email_text_view_description">Enter your email ID</string>
     <string name="password_text_view_description">Type your password</string>
@@ -7,9 +8,16 @@
     <string name="not_registered_text_view_description">Not registered?</string>
     <string name="sign_up_text_view_description">Sign up!</string>
     <string name="sign_up_button_text">SIGN UP</string>
+<!--    Week 6-->
     <string name="step_1_text_view_description">Step&#160;1</string>
     <string name="step_2_text_view_description">Step&#160;2</string>
     <string name="step_3_text_view_description">Step&#160;3</string>
     <string name="skip_text_view_description">SKIP</string>
     <string name="next_text_view_description">NEXT</string>
+<!--    Week 8-->
+    <string name="percent_text_view_description">0&#160;%</string>
+    <string name="percent">&#160;%</string>
+    <string name="handler_download_button_text">Start with Handler</string>
+    <string name="async_task_download_button_text">Start with AsyncTask</string>
+    <string name="download_file_name">/image.jpg</string>
 </resources>
