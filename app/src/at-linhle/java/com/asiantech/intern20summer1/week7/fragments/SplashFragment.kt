@@ -25,6 +25,7 @@ class SplashFragment : Fragment() {
         private const val TIME_LOAD_DATA = 10L
         private const val TIMER_PERIOD = 100L
         private const val LOAD_DATA_INTERNET = 20L
+        internal fun newInstance() = SplashFragment()
     }
 
     private var appDataBase: AppDatabase? = null

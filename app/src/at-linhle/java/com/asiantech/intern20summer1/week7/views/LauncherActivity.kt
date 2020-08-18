@@ -10,6 +10,9 @@ import com.asiantech.intern20summer1.week7.fragments.RegisterFragment
 import com.asiantech.intern20summer1.week7.fragments.SplashFragment
 
 class LauncherActivity : AppCompatActivity() {
+    private val registerFragment = RegisterFragment.newInstance()
+    private val splashFragment = SplashFragment.newInstance()
+
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,11 +23,11 @@ class LauncherActivity : AppCompatActivity() {
 
     internal fun openRegisterFragment() {
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.flLauncherContainer, RegisterFragment()).commit()
+        transaction.replace(R.id.flLauncherContainer, registerFragment).commit()
     }
 
     private fun openSplashFragment() {
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.add(R.id.flLauncherContainer, SplashFragment()).commit()
+        transaction.add(R.id.flLauncherContainer, splashFragment).commit()
     }
 }

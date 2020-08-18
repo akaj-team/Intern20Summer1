@@ -8,8 +8,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week7.data.AppDatabase
@@ -65,28 +64,18 @@ open class DialogFragment : DialogFragment() {
             }
         }
 
-        val adapterSpinner =
-            ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, listPlants)
-        adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner?.adapter = adapterSpinner
-        spinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-            }
-
-            override fun onItemSelected(
-                parent: AdapterView<*>?, view: View?,
-                position: Int, id: Long
-            ) {
-                onPlantSelected(position)
-                handleOkButtonClicked(position)
-            }
+        spinner?.setItems(listPlants)
+        spinner?.setOnItemSelectedListener { _, position, _, _ ->
+            onPlantSelected(position)
+            handleOkButtonClicked(position)
         }
     }
 
     private fun onPlantSelected(position: Int) {
         plants?.get(position)?.let { plant ->
             val text =
-                "Grow Zone Number: ${plant.growZoneNumber}\nWatering Interval: ${plant.wateringInterval}"
+                "${getString(R.string.dialog_fragment_grow_zone_description)}${plant.growZoneNumber}" +
+                        "${getString(R.string.dialog_fragment_watering_interval_description)}${plant.wateringInterval}"
             tvDialogPlantDetail?.text = text
             imgDialogPlant.setImageURI(Uri.parse(plant.imageUrl))
         }
@@ -106,11 +95,15 @@ open class DialogFragment : DialogFragment() {
                 dateWatering = currentDate
             }
             appDatabase?.getCultivationDao()?.insertCultivation(cultivation)
-            (activity as HomeActivity).handleReplaceFragment(
-                growPlantFragment,
-                parent = R.id.flPlantViewContainer
-            )
+            (activity as HomeActivity).apply {
+                growPlantFragment.initData()
+            }
             dialog?.dismiss()
+            Toast.makeText(
+                activity,
+                getString(R.string.dialog_fragment_add_plant_success),
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 }

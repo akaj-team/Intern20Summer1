@@ -1,10 +1,10 @@
 package com.asiantech.intern20summer1.week7.fragments
 
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.asiantech.intern20summer1.R
@@ -13,8 +13,6 @@ import com.asiantech.intern20summer1.week7.data.AppDatabase
 import com.asiantech.intern20summer1.week7.extensions.PlantStatus
 import com.asiantech.intern20summer1.week7.models.Cultivation
 import com.asiantech.intern20summer1.week7.views.HomeActivity
-import kotlinx.android.synthetic.`at-linhle`.activity_home_toolbar.*
-import kotlinx.android.synthetic.`at-linhle`.coordinator_layout.*
 import kotlinx.android.synthetic.`at-linhle`.fragment_grow_plant.*
 
 class GrowPlantFragment : Fragment() {
@@ -26,6 +24,7 @@ class GrowPlantFragment : Fragment() {
     private var appDatabase: AppDatabase? = null
     private var plantItemList: MutableList<Cultivation?> = mutableListOf()
     private var adapter = VegetableViewHolder(plantItemList)
+    private var itemId: Int = R.id.itemHome
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,8 +39,8 @@ class GrowPlantFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initData()
         initAdapter()
-        handleReceiveEventOnclickItemDrawer()
         handlePlantClicked()
+        handleDataReload()
     }
 
     private fun initAdapter() {
@@ -50,13 +49,7 @@ class GrowPlantFragment : Fragment() {
         recyclerViewVegetable.setHasFixedSize(true)
     }
 
-    private fun handleReceiveEventOnclickItemDrawer() {
-        (activity as HomeActivity).onClickItemMenuDrawer = {
-            initData(it)
-        }
-    }
-
-    private fun initData(id: Int = R.id.itemHome) {
+    internal fun initData(id: Int = R.id.itemHome) {
         plantItemList.clear()
         appDatabase?.getCultivationDao()?.getAllCultivation()?.toCollection(plantItemList)
 
@@ -65,15 +58,19 @@ class GrowPlantFragment : Fragment() {
             when (id) {
                 R.id.itemHome -> {
                     adapter.notifyDataSetChanged()
+                    itemId = id
                 }
                 R.id.itemAlreadyHarvest -> {
                     initDataForHarvest()
+                    itemId = id
                 }
                 R.id.itemWormVegetable -> {
                     initDataForWormed()
+                    itemId = id
                 }
                 R.id.itemLackedWater -> {
                     initDataForLackWater()
+                    itemId = id
                 }
             }
         }
@@ -137,12 +134,24 @@ class GrowPlantFragment : Fragment() {
 
     private fun handlePlantClicked() {
         adapter.onItemClicked = {
-            val fragment = PlantDetailFragment.newInstance(it)
+            val fragment = PlantDetailFragment.newInstance(it, itemId)
             (activity as HomeActivity).handleReplaceFragment(
                 fragment,
                 backStack = true,
                 parent = R.id.rlCoordinatorContainer
             )
         }
+    }
+
+    private fun handleDataReload() {
+        object : CountDownTimer(1000, 1000) {
+            override fun onFinish() {
+                initData(itemId)
+                this.start()
+            }
+
+            override fun onTick(millisUntilFinished: Long) {
+            }
+        }.start()
     }
 }

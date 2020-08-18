@@ -7,27 +7,27 @@
         <item
             android:id="@+id/itemHome"
             android:checked="true"
-            android:icon="@mipmap/ic_thump_up"
-            android:title="Vuon rau" />
+            android:icon="@drawable/ic_baseline_thumb_up_24"
+            android:title="@string/item_home_title" />
 
         <item
             android:id="@+id/itemGrowVegetable"
-            android:icon="@mipmap/ic_grow"
-            android:title="Trong rau" />
+            android:icon="@drawable/ic_baseline_sports_kabaddi_24"
+            android:title="@string/item_grow_vegetable_title" />
 
         <item
             android:id="@+id/itemAlreadyHarvest"
-            android:icon="@mipmap/ic_harvest"
-            android:title="Rau sap thu hoach" />
+            android:icon="@drawable/ic_baseline_spa_24"
+            android:title="@string/item_already_harvest_title" />
 
         <item
             android:id="@+id/itemWormVegetable"
-            android:icon="@mipmap/ic_bad"
-            android:title="Rau bi sau" />
+            android:icon="@drawable/ic_baseline_mood_bad_24"
+            android:title="@string/item_worm_title" />
 
         <item
             android:id="@+id/itemLackedWater"
-            android:icon="@mipmap/ic_bad"
-            android:title="Rau bi thieu nuoc" />
+            android:icon="@drawable/ic_baseline_where_to_vote_24"
+            android:title="@string/item_lack_water_title" />
     </group>
 </menu>

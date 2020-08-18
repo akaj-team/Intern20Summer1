@@ -27,8 +27,10 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun getCultivationDao(): CultivationDao
 
     companion object {
-        private var instance: AppDatabase? = null
 
+        private const val NAME_PLANT_DATABASE = "plant.db"
+        private const val FILE_NAME_JSON = "plants.json"
+        private var instance: AppDatabase? = null
         fun getInstance(context: Context): AppDatabase? {
             return if (instance == null) {
                 buildDatabase(context)
@@ -37,13 +39,14 @@ abstract class AppDatabase : RoomDatabase() {
             }
         }
 
+
         private fun buildDatabase(context: Context): AppDatabase? {
-            return Room.databaseBuilder(context, AppDatabase::class.java, "plant.db")
+            return Room.databaseBuilder(context, AppDatabase::class.java, NAME_PLANT_DATABASE)
                 .addCallback(object : RoomDatabase.Callback() {
                     override fun onCreate(db: SupportSQLiteDatabase) {
                         super.onCreate(db)
                         Executors.newFixedThreadPool(2).execute {
-                            context.assets.open("plants.json").use { inputStream ->
+                            context.assets.open(FILE_NAME_JSON).use { inputStream ->
                                 JsonReader(inputStream.reader()).use { jsonReader ->
                                     val plantType = object : TypeToken<List<Plant>>() {}.type
                                     val plants: List<Plant> = Gson().fromJson(jsonReader, plantType)

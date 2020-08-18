@@ -8,10 +8,12 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class PlantStatus {
-    companion object{
+    companion object {
         internal const val SECOND_IN_MINUTE = 60
         internal const val SECOND_IN_HOUR = 3600
+        private const val DIVIDE_NUMBER = 4
     }
+
     @SuppressLint("SimpleDateFormat")
     fun getDateHarvest(cultivation: String?, plant: Plant?): String {
         cultivation?.let { cul ->
@@ -39,7 +41,7 @@ class PlantStatus {
             now.time = Date()
             val current = getSecondInDay(now)
             plant?.wateringInterval?.let {
-                return (current - beforeTime) >= (it * SECOND_IN_MINUTE)/4
+                return (current - beforeTime) >= (it * SECOND_IN_MINUTE) / DIVIDE_NUMBER
             }
         }
         return false
@@ -60,7 +62,7 @@ class PlantStatus {
             now.time = Date()
             val current = getSecondInDay(now)
             plant?.wateringInterval?.let {
-                return (current - beforeTime) >= (it * SECOND_IN_MINUTE)/2
+                return (current - beforeTime) >= (it * SECOND_IN_MINUTE) / 2
             }
         }
         return false
@@ -81,7 +83,7 @@ class PlantStatus {
             now.time = Date()
             val current = getSecondInDay(now)
             plant?.growZoneNumber?.let {
-                return (current - beforeTime) >= (it * SECOND_IN_MINUTE)/2
+                return (current - beforeTime) >= (it * SECOND_IN_MINUTE) / 2
             }
         }
         return false

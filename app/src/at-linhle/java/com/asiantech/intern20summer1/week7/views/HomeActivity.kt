@@ -1,14 +1,17 @@
 package com.asiantech.intern20summer1.week7.views
 
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week7.data.AppDatabase
+import com.asiantech.intern20summer1.week7.extensions.changeColorStatusBar
 import com.asiantech.intern20summer1.week7.fragments.DialogFragment
 import com.asiantech.intern20summer1.week7.fragments.GrowPlantFragment
 import com.google.android.material.navigation.NavigationView
@@ -19,9 +22,9 @@ import kotlinx.android.synthetic.`at-linhle`.navigation_view_header.view.*
 class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private var appDatabase: AppDatabase? = null
-    internal var onClickItemMenuDrawer: (mode: Int) -> Unit = {}
     private val fragment = GrowPlantFragment.newInstance()
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_toolbar)
@@ -30,12 +33,13 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         handleReplaceFragment(fragment, parent = R.id.flPlantViewContainer)
         navigationContainer.setNavigationItemSelectedListener(this)
         getUser()
+        changeColorStatusBar(window, titleColor)
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.itemHome -> {
-                onClickItemMenuDrawer.invoke(item.itemId)
+                fragment.initData(item.itemId)
             }
             R.id.itemGrowVegetable -> {
                 val fragmentManager = supportFragmentManager
@@ -43,13 +47,13 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 DialogFragment().show(fragmentManager, null)
             }
             R.id.itemAlreadyHarvest -> {
-                onClickItemMenuDrawer.invoke(item.itemId)
+                fragment.initData(item.itemId)
             }
             R.id.itemWormVegetable -> {
-                onClickItemMenuDrawer.invoke(item.itemId)
+                fragment.initData(item.itemId)
             }
             R.id.itemLackedWater -> {
-                onClickItemMenuDrawer.invoke(item.itemId)
+                fragment.initData(item.itemId)
             }
         }
         drawerLayout.closeDrawer(GravityCompat.START)

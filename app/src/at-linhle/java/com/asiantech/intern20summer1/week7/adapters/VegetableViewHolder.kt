@@ -1,5 +1,6 @@
 package com.asiantech.intern20summer1.week7.adapters
 
+import android.annotation.SuppressLint
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
@@ -40,6 +41,7 @@ class VegetableViewHolder(
             }
         }
 
+        @SuppressLint("SetTextI18n")
         fun onBindData(position: Int) {
             val vegetableItem = plantList[position]
             val tvVegetableName = itemView.tvVegetableName
@@ -52,9 +54,10 @@ class VegetableViewHolder(
             vegetableItem?.let { cultivation ->
                 appDatabase?.getPlantDao()?.getPlant(cultivation.plantId)?.let {
                     tvVegetableName.text = it.name
-                    tvDateGrow.text = cultivation.dateCultivation
+                    tvDateGrow.text =
+                        itemView.context.getString(R.string.vegetable_view_holder_date_grow_description) + cultivation.dateCultivation
                     tvDateHarvest.text =
-                        PlantStatus().getDateHarvest(cultivation.dateCultivation, it)
+                        itemView.context.getString(R.string.vegetable_view_holder_date_harvest_description) + PlantStatus().getDateHarvest(cultivation.dateCultivation, it)
                     imgVegetable.setImageURI(Uri.parse(it.imageUrl))
                     imgHarvest.visibility = View.INVISIBLE
                     imgWorm.visibility = View.INVISIBLE
@@ -65,8 +68,6 @@ class VegetableViewHolder(
                         ) && !PlantStatus().isComingHarvest(it, cultivation)
                     ) {
                         imgWorm.visibility = View.VISIBLE
-                        imgLackWater.visibility = View.INVISIBLE
-                        imgHarvest.visibility = View.INVISIBLE
                     }
                     if (PlantStatus().isLackedWater(
                             it,
@@ -74,8 +75,6 @@ class VegetableViewHolder(
                         ) && !PlantStatus().isComingHarvest(it, cultivation)
                     ) {
                         imgLackWater.visibility = View.VISIBLE
-                        imgHarvest.visibility = View.INVISIBLE
-                        imgWorm.visibility = View.INVISIBLE
                     }
                     if (PlantStatus().isComingHarvest(it, cultivation)) {
                         imgHarvest.visibility = View.VISIBLE

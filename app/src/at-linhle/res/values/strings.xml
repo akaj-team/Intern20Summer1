@@ -71,4 +71,20 @@
     <string name="plant_detail_fragment_harvest_description">Cây chuẩn bị thu hoạch</string>
     <string name="plant_detail_fragment_grown_date_description">Trồng lúc: </string>
     <string name="plant_detail_fragment_watering_date_description">Tưới nước lần cuối: </string>
+    <string name="plant_detail_fragment_watering_successfully">Đã tưới nước cho cây</string>
+    <string name="plant_detail_fragment_cut_down_successfully">Đã chặt cây thành công</string>
+    <string name="dialog_fragment_add_plant_success">Trồng cây thành công</string>
+    <string name="dialog_fragment_grow_zone_description">Grow Zone Number: </string>
+    <string name="dialog_fragment_watering_interval_description">\nWatering Interval: </string>
+    <string name="vegetable_view_holder_date_grow_description">Trồng vào lúc: </string>
+    <string name="vegetable_view_holder_date_harvest_description">Thời gian thu hoạch: </string>
+    <string name="grow_plant_text_view_description">Trồng Cây</string>
+    <string name="ok_button_description">OK</string>
+    <string name="item_home_title">Vườn Cây</string>
+    <string name="item_grow_vegetable_title">Trồng Cây</string>
+    <string name="item_already_harvest_title">Cây Sắp thu Hoạch</string>
+    <string name="item_worm_title">Cây Bị Sâu</string>
+    <string name="item_lack_water_title">Cây Bị Thiếu Nước</string>
+    <string name="select_grow_plant_description">Chọn Cây Trồng</string>
+    <string name="must_select_grow_plant_description">Bạn Phải Chọn Cây Cần Trồng</string>
 </resources>

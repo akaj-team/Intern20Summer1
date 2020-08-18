@@ -34,6 +34,7 @@ class RegisterFragment : Fragment() {
         private const val KEY_IMAGE_GALLERY = "image/*"
         private const val QUALITY_IMAGE_INDEX = 100
         private const val ASPECT_IMAGE_RATIO = 1
+        internal fun newInstance() = RegisterFragment()
     }
 
     private var imageUri: String? = ""

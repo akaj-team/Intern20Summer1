@@ -3,18 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="16dp"
-    app:cardElevation="5dp">
+    app:cardCornerRadius="@dimen/card_corner_radius"
+    app:cardElevation="@dimen/card_elevation">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="480dp">
+        android:layout_height="@dimen/fragment_dialog_relative_layout_height">
 
         <ImageView
             android:id="@+id/imgCancel"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_margin="25dp"
+            android:layout_width="@dimen/cancel_image_view_size"
+            android:layout_height="@dimen/cancel_image_view_size"
+            android:layout_margin="@dimen/cancel_image_view_margin"
             android:background="@drawable/ic_cancel" />
 
         <TextView
@@ -22,28 +22,38 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="60dp"
-            android:text="Trong Cay"
+            android:layout_marginTop="@dimen/text_view_margin_top"
+            android:text="@string/grow_plant_text_view_description"
             android:textColor="@color/colorBlack"
-            android:textSize="35sp" />
+            android:textSize="@dimen/grow_plant_text_view_text_size" />
 
-        <Spinner
-            android:id="@+id/spinner"
+        <LinearLayout
+            android:id="@+id/llSpinner"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_below="@id/tvTitleDialog"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="16dp"
-            android:overScrollMode="never" />
+            android:layout_marginLeft="@dimen/spinner_margin_left_right"
+            android:layout_marginTop="@dimen/spinner_margin_top"
+            android:layout_marginRight="@dimen/spinner_margin_left_right"
+            android:background="@drawable/bg_spinner"
+            android:padding="@dimen/linear_layout_padding">
+
+            <com.jaredrummler.materialspinner.MaterialSpinner
+                android:id="@+id/spinner"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spinner_height"
+                app:ms_hint="@string/select_grow_plant_description"
+                app:ms_hint_color="@color/colorBlack"
+                app:ms_text_color="@color/colorBlack" />
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/imgDialogPlant"
-            android:layout_width="150dp"
-            android:layout_height="100dp"
-            android:layout_below="@+id/spinner"
+            android:layout_width="@dimen/plant_image_view_width"
+            android:layout_height="@dimen/plant_image_view_height"
+            android:layout_below="@+id/llSpinner"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="@dimen/plant_image_view_margin_top"
             android:adjustViewBounds="true" />
 
         <TextView
@@ -52,19 +62,19 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/btnOkDialog"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="@dimen/plant_detail_text_view_margin_bottom"
             android:textColor="@color/colorBlack"
-            android:textSize="20sp" />
+            android:textSize="@dimen/fragment_dialog_plant_detail_text_view_text_size" />
 
         <Button
             android:id="@+id/btnOkDialog"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="35dp"
-            android:text="OK"
+            android:layout_marginLeft="@dimen/ok_button_margin_left_right"
+            android:layout_marginRight="@dimen/ok_button_margin_left_right"
+            android:layout_marginBottom="@dimen/ok_button_margin_bottom"
+            android:text="@string/ok_button_description"
             android:textColor="@color/colorWhite" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
