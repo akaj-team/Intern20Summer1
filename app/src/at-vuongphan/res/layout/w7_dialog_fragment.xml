@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="@dimen/width_353dp"
     android:layout_height="@dimen/height_470dp"
     android:layout_marginLeft="@dimen/margin_32dp"
@@ -26,15 +27,25 @@
         android:textColor="@color/colorBlack"
         android:textSize="@dimen/margin_32dp" />
 
-    <Spinner
-        android:id="@+id/spnDialog"
-        android:layout_width="@dimen/layout_width_320dp"
-        android:layout_height="@dimen/layout_height_52dp"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@id/tvName"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="@dimen/margin_18dp"
         android:layout_marginTop="@dimen/margin_25dp"
-        android:background="@drawable/bg_register_edit_text_radius" />
+        android:background="@drawable/bg_spinner"
+        android:padding="@dimen/margin_top_5dp">
+
+        <Spinner
+            android:id="@+id/spnDialog"
+            android:layout_width="@dimen/layout_width_320dp"
+            android:layout_height="@dimen/layout_height_52dp"
+            android:spinnerMode="dropdown"
+            app:ms_hint_color="@color/colorBlack"
+            app:ms_text_color="@color/colorBlack" />
+    </RelativeLayout>
+
     <Button
         android:id="@+id/btnOk"
         android:layout_width="@dimen/layout_width_320dp"
