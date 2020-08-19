@@ -76,7 +76,17 @@
     <string name="w8_save_with_async_task">download with async task</string>
     <string name="w8_thread_handler_async_task">W8 - Thread + Handler + AsyncTask</string>
     <string name="w8_server_not_ok">Server not OK</string>
-    <string name="w8_dont_download">Không thể tải file này</string>
+    <string name="w8_dont_download">Tải file không thành công</string>
     <string name="w8_ok_download">Tải file thành công</string>
     <string name="w8_value_download">%d%</string>
+    <string name="w8_text_enter_file_name">Hãy nhập tên file</string>
+    <string name="w8_text_enter_extension">Hãy nhập extension</string>
+    <string name="w8_text_url_invalid">Url không hợp lệ</string>
+    <string name="w8_select_internet">select internet</string>
+    <string name="w8_select_wifi">Wifi</string>
+    <string name="w8_select_mobile_network">mobile network</string>
+    <string name="w8_note">Điền url và tên và extension phù hợp\nFile sẽ được lưu vào thư mục download của thiết bị</string>
+    <string name="w8_open_file">Open File</string>
+    <string name="w8_edit_text_hint_extension">extension</string>
+    <string name="w8_title_download_application">Download Application</string>
 </resources>

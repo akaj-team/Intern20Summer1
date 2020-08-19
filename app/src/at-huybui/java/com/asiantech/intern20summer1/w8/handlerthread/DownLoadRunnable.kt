@@ -24,7 +24,10 @@ class DownLoadRunnable(private var downLoadHandlerThread: DownLoadHandlerThread)
             val connection = url.openConnection() as HttpsURLConnection
             connection.connect()
             val length = connection.contentLength
-            if (length > 0) {
+            if (length <= 0) {
+                downLoadHandlerThread.sendProgress(-1)
+                downLoadHandlerThread.quit()
+            } else {
                 val inputStream = connection.inputStream
                 val directory =
                     Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
@@ -41,12 +44,8 @@ class DownLoadRunnable(private var downLoadHandlerThread: DownLoadHandlerThread)
                     }
                     // publishing the progress....
                     val progress = ((total / length.toFloat()) * PERCENTAGE).toInt()
-                    downLoadHandlerThread.sendOrder(progress)
-                    if (progress == PERCENTAGE) {
-                        downLoadHandlerThread.quit()
-                    } else {
-                        count = inputStream?.read(data)
-                    }
+                    downLoadHandlerThread.sendProgress(progress)
+                    count = inputStream?.read(data)
                 }
             }
         } catch (nfe: NumberFormatException) {
@@ -58,14 +57,15 @@ class DownLoadRunnable(private var downLoadHandlerThread: DownLoadHandlerThread)
         }
     }
 
-    fun setParams(urlParam: String = "", nameParam: String = "", extensionParams: String = "") {
+    fun setParams(urlParam: String, nameParam: String, extensionParams: String) {
         url = URL(urlParam)
         nameFile = nameParam
         extension = extensionParams
     }
 
     fun start() {
-        if (!thread.isAlive)
+        if (!thread.isAlive) {
             thread.start()
+        }
     }
 }

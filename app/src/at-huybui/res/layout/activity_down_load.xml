@@ -8,6 +8,16 @@
     tools:context="com.asiantech.intern20summer1.w8.DownLoadActivity">
 
     <TextView
+        android:id="@+id/tvTitleDownLoad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/w8_margin_all"
+        android:text="@string/w8_title_download_application"
+        android:textColor="@color/black"
+        android:textSize="@dimen/w8_text_size"
+        android:textStyle="bold" />
+
+    <TextView
         android:id="@+id/tvProgress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -28,7 +38,6 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-
         android:layout_height="wrap_content">
 
         <EditText
@@ -43,12 +52,12 @@
 
         <EditText
             android:id="@+id/edtExtension"
-            android:layout_width="80dp"
+            android:layout_width="@dimen/w8_edit_text_width"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/w8_margin_all"
             android:importantForAutofill="no"
             android:inputType="text"
-            android:text=".mp4" />
+            android:hint="@string/w8_edit_text_hint_extension" />
     </LinearLayout>
 
     <EditText
@@ -82,5 +91,14 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/w8_margin_all"
         android:layout_marginRight="@dimen/w8_margin_all"
-        android:text="Open File" />
+        android:text="@string/w8_open_file" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/w8_margin_all"
+        android:gravity="center"
+        android:text="@string/w8_note"
+        android:textColor="@color/black"
+        android:textSize="@dimen/w8_note_text_size" />
 </LinearLayout>

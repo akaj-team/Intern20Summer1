@@ -13,7 +13,7 @@ import java.io.OutputStream
 import java.net.URL
 import javax.net.ssl.HttpsURLConnection
 
-class DownLoadAsyncTask(var downLoadActivity: DownLoadActivity) :
+class DownLoadAsyncTask(private var downLoadActivity: DownLoadActivity) :
     AsyncTask<String, Int, Int>() {
 
     companion object {
@@ -30,7 +30,9 @@ class DownLoadAsyncTask(var downLoadActivity: DownLoadActivity) :
             val connection = url.openConnection() as HttpsURLConnection
             connection.connect()
             val length = connection.contentLength
-            if (length > 0) {
+            if (length <= 0) {
+                result = -1
+            } else {
                 val inputStream = connection.inputStream
                 val directory =
                     Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
@@ -42,15 +44,8 @@ class DownLoadAsyncTask(var downLoadActivity: DownLoadActivity) :
                 }
                 var total = 0
                 var count = inputStream?.read(data)
-                if (count == -1) {
-                    result = -1
-                }
                 while (count != -1) {
                     // allow canceling with back button
-                    if (isCancelled) {
-                        inputStream?.close()
-                        return null
-                    }
                     count?.let {
                         total += it
                         outputStream.write(data, 0, it)
@@ -88,7 +83,6 @@ class DownLoadAsyncTask(var downLoadActivity: DownLoadActivity) :
                 val text = downLoadActivity.getString(R.string.w8_dont_download)
                 Toast.makeText(downLoadActivity, text, Toast.LENGTH_SHORT).show()
             }
-
             1 -> {
                 val text = downLoadActivity.getString(R.string.w8_ok_download)
                 Toast.makeText(downLoadActivity, text, Toast.LENGTH_SHORT).show()

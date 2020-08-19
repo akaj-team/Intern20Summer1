@@ -16,7 +16,7 @@ class DownLoadHandlerThread(private var uiHandler: DownLoadActivity.UiHandler) :
         handler = getHandler(looper)
     }
 
-    fun sendOrder(progress: Int) {
+    fun sendProgress(progress: Int) {
         val message = Message()
         message.obj = progress
         handler?.sendMessage(message)

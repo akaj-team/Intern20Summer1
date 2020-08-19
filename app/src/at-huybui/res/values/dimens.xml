@@ -77,5 +77,7 @@
     <dimen name="w4_back_button_size">30dp</dimen>
     <dimen name="w8_margin_all">20dp</dimen>
     <dimen name="w8_progress_bar_height">10dp</dimen>
-    <dimen name="w8_text_size">40sp</dimen>
+    <dimen name="w8_text_size">30sp</dimen>
+    <dimen name="w8_note_text_size">15sp</dimen>
+    <dimen name="w8_edit_text_width">100dp</dimen>
 </resources>
