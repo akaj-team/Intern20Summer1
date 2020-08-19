@@ -5,6 +5,7 @@ import android.content.Context
 import android.os.AsyncTask
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week8.extentsions.ThreadHandler.Companion.BYTE_ARRAY_SIZE
 import com.asiantech.intern20summer1.week8.extentsions.ThreadHandler.Companion.FILE_TAIL_KEY
@@ -20,7 +21,7 @@ class AsyncTask(
     private val progressBar: ProgressBar,
     private val textView: TextView
 ) :
-    AsyncTask<String, Int, String>() {
+    AsyncTask<String, String, String>() {
 
     private var directory: File? = null
 
@@ -45,7 +46,7 @@ class AsyncTask(
                 }) {
                 total += count
                 output.write(data, 0, count)
-                publishProgress(total * TIME_PERIOD / lengthOfFile)
+                publishProgress("${total * TIME_PERIOD / lengthOfFile}")
             }
 
             output.flush()
@@ -60,9 +61,19 @@ class AsyncTask(
     }
 
     @SuppressLint("SetTextI18n")
-    override fun onProgressUpdate(vararg values: Int?) {
+    override fun onProgressUpdate(vararg values: String?) {
         super.onProgressUpdate(*values)
-        values[0]?.let { progressBar.progress = it }
-        textView.text = values[0].toString() + context.getString(R.string.download_image_activity_percent_description)
+        values[0]?.let { progressBar.progress = it.toInt() }
+        textView.text =
+            values[0] + context.getString(R.string.download_image_activity_percent_description)
+    }
+
+    override fun onPostExecute(result: String?) {
+        super.onPostExecute(result)
+        Toast.makeText(
+            context,
+            context.getString(R.string.download_image_activity_download_successfully),
+            Toast.LENGTH_SHORT
+        ).show()
     }
 }

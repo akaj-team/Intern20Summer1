@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week8.extentsions.AsyncTask
@@ -35,6 +36,13 @@ class DownloadImageActivity : AppCompatActivity() {
                     progressBar.progress = msg.arg1
                     tvPercentNumber.text =
                         msg.arg1.toString() + getString(R.string.download_image_activity_percent_description)
+                    if (msg.arg1.toString() == "$TIME_PERIOD") {
+                        Toast.makeText(
+                            this@DownloadImageActivity,
+                            getString(R.string.download_image_activity_download_successfully),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 }
             }
         }

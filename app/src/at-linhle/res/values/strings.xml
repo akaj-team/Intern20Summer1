@@ -55,4 +55,5 @@
     <string name="thread_handler_button_description">THREAD HANDLER</string>
     <string name="async_task_button_description">ASYNC TASK</string>
     <string name="download_image_activity_percent_description">%</string>
+    <string name="download_image_activity_download_successfully">Download Image From Internet Successfully</string>
 </resources>
