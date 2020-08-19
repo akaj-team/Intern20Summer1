@@ -1,8 +1,9 @@
+@file:Suppress("DEPRECATION")
+
 package com.asiantech.intern20summer1.w8.asynctask
 
 import android.os.AsyncTask
 import android.os.Environment
-import android.util.Log
 import android.widget.Toast
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w8.DownLoadActivity
@@ -14,8 +15,13 @@ import javax.net.ssl.HttpsURLConnection
 
 class DownLoadAsyncTask(var downLoadActivity: DownLoadActivity) :
     AsyncTask<String, Int, Int>() {
-    @Suppress("DEPRECATION")
+
+    companion object {
+        private const val PERCENTAGE = 100
+    }
+
     override fun doInBackground(vararg params: String?): Int? {
+        var result = 1
         val outputStream: OutputStream
         try {
             val url = URL(params[0])
@@ -32,12 +38,12 @@ class DownLoadAsyncTask(var downLoadActivity: DownLoadActivity) :
                 outputStream = FileOutputStream("$path")
                 val data = ByteArray(length)
                 if (connection.responseCode != HttpsURLConnection.HTTP_OK) {
-                    return 0
+                    result = 0
                 }
                 var total = 0
                 var count = inputStream?.read(data)
                 if (count == -1) {
-                    return -1
+                    result = -1
                 }
                 while (count != -1) {
                     // allow canceling with back button
@@ -50,7 +56,7 @@ class DownLoadAsyncTask(var downLoadActivity: DownLoadActivity) :
                         outputStream.write(data, 0, it)
                     }
                     // publishing the progress....
-                    publishProgress(((total / length.toFloat()) * 100).toInt())
+                    publishProgress(((total / length.toFloat()) * PERCENTAGE).toInt())
                     count = inputStream?.read(data)
                 }
             }
@@ -61,7 +67,7 @@ class DownLoadAsyncTask(var downLoadActivity: DownLoadActivity) :
         } catch (ie: IllegalArgumentException) {
             ie.printStackTrace()
         }
-        return 1
+        return result
     }
 
     override fun onProgressUpdate(vararg values: Int?) {
@@ -70,6 +76,7 @@ class DownLoadAsyncTask(var downLoadActivity: DownLoadActivity) :
             downLoadActivity.uiAsyncTask(it)
         }
     }
+
     override fun onPostExecute(result: Int?) {
         super.onPostExecute(result)
         when (result) {
@@ -79,6 +86,11 @@ class DownLoadAsyncTask(var downLoadActivity: DownLoadActivity) :
             }
             -1 -> {
                 val text = downLoadActivity.getString(R.string.w8_dont_download)
+                Toast.makeText(downLoadActivity, text, Toast.LENGTH_SHORT).show()
+            }
+
+            1 -> {
+                val text = downLoadActivity.getString(R.string.w8_ok_download)
                 Toast.makeText(downLoadActivity, text, Toast.LENGTH_SHORT).show()
             }
         }

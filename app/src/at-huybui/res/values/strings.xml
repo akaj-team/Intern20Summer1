@@ -77,5 +77,6 @@
     <string name="w8_thread_handler_async_task">W8 - Thread + Handler + AsyncTask</string>
     <string name="w8_server_not_ok">Server not OK</string>
     <string name="w8_dont_download">Không thể tải file này</string>
+    <string name="w8_ok_download">Tải file thành công</string>
     <string name="w8_value_download">%d%</string>
 </resources>

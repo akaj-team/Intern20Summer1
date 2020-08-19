@@ -1,15 +1,19 @@
 package com.asiantech.intern20summer1.w8.handlerthread
 
 import android.os.Environment
-import android.util.Log
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
 import java.net.URL
 import javax.net.ssl.HttpsURLConnection
 
+@Suppress("DEPRECATION")
 class DownLoadRunnable(private var downLoadHandlerThread: DownLoadHandlerThread) : Runnable {
-    private var count = 0
+
+    companion object {
+        private const val PERCENTAGE = 100
+    }
+
     private var thread: Thread = Thread(this)
     private lateinit var url: URL
     private var nameFile = ""
@@ -29,7 +33,6 @@ class DownLoadRunnable(private var downLoadHandlerThread: DownLoadHandlerThread)
                 val data = ByteArray(length)
                 var total = 0
                 var count = inputStream?.read(data)
-                Log.d("XXXX", "cacth ae")
                 while (count != -1) {
                     // allow canceling with back button
                     count?.let {
@@ -37,9 +40,9 @@ class DownLoadRunnable(private var downLoadHandlerThread: DownLoadHandlerThread)
                         outputStream.write(data, 0, it)
                     }
                     // publishing the progress....
-                    val progress = ((total / length.toFloat()) * 100).toInt()
+                    val progress = ((total / length.toFloat()) * PERCENTAGE).toInt()
                     downLoadHandlerThread.sendOrder(progress)
-                    if (progress == 100) {
+                    if (progress == PERCENTAGE) {
                         downLoadHandlerThread.quit()
                     } else {
                         count = inputStream?.read(data)
@@ -48,12 +51,9 @@ class DownLoadRunnable(private var downLoadHandlerThread: DownLoadHandlerThread)
             }
         } catch (nfe: NumberFormatException) {
             nfe.printStackTrace()
-            Log.d("XXXX", "cacth nfe")
         } catch (ae: ArithmeticException) {
-            Log.d("XXXX", "cacth ae")
             ae.printStackTrace()
         } catch (ie: IllegalArgumentException) {
-            Log.d("XXXX", "cacth ie")
             ie.printStackTrace()
         }
     }

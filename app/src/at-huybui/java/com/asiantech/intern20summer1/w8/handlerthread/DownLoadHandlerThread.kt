@@ -16,22 +16,20 @@ class DownLoadHandlerThread(private var uiHandler: DownLoadActivity.UiHandler) :
         handler = getHandler(looper)
     }
 
-    fun sendOrder(time: Int) {
+    fun sendOrder(progress: Int) {
         val message = Message()
-        message.obj = time
+        message.obj = progress
         handler?.sendMessage(message)
     }
+
     private fun getHandler(looper: Looper): Handler {
         return object : Handler(looper) {
             override fun handleMessage(msg: Message) {
                 super.handleMessage(msg)
-                val foodOrder = msg.obj as Int
                 val processedMessage = Message()
-                processedMessage.obj = foodOrder
+                processedMessage.obj =  msg.obj as Int
                 uiHandler.sendMessage(processedMessage)
             }
-
         }
     }
-
 }
