@@ -38,7 +38,7 @@
                 android:layout_gravity="bottom"
                 android:layout_marginLeft="10dp"
                 android:layout_marginBottom="7dp"
-                tools:srcCompat="@drawable/ic_music_logo" />
+                tools:src="@drawable/ic_bug_16" />
         </LinearLayout>
 
         <LinearLayout

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week7.PlantRoomDatabase
 import com.asiantech.intern20summer1.week7.adapter.PlantAdapter
+import com.asiantech.intern20summer1.week7.dto.PlantAndCultivation
 import com.asiantech.intern20summer1.week7.model.PlantRecyclerViewItem
 import com.asiantech.intern20summer1.week7.other.*
 import kotlinx.android.synthetic.`at-longphan`.fragment_plant.*
@@ -21,6 +22,7 @@ class GardenFragment : Fragment() {
 
     private lateinit var adapter: PlantAdapter
     private val plantRecyclerViews = mutableListOf<PlantRecyclerViewItem>()
+    private var plantAndCultivations: List<PlantAndCultivation>? = null
     private var database: PlantRoomDatabase? = null
     private var mode: String? = null
 
@@ -75,8 +77,12 @@ class GardenFragment : Fragment() {
         val sharePref = requireContext().getSharedPreferences(USER_DATA_PREFS, Context.MODE_PRIVATE)
         val userId = sharePref.getInt(ID_KEY, 0)
         database = PlantRoomDatabase.getDatabase(requireContext())
-        val plantAndCultivations = database?.cultivationDao()?.getAllCultivationByUserId(userId)
+        plantAndCultivations = database?.cultivationDao()?.getAllCultivationByUserId(userId)
+        loadModeList()
+    }
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun loadModeList() {
         plantAndCultivations?.let {
             if (it.isNotEmpty()) {
                 rlEmpty?.visibility = View.INVISIBLE

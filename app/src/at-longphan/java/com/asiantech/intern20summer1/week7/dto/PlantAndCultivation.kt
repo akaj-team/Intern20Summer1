@@ -24,14 +24,14 @@ class PlantAndCultivation(
     internal fun getPlantRecyclerViewItem(): PlantRecyclerViewItem {
 
         val dateHarvest = getDateHarvest()
-
+        val isWormed = checkWormed()
         return PlantRecyclerViewItem(
             this.id,
             this.name,
             this.dateCultivation,
             dateHarvest,
             this.imageUrl,
-            false
+            isWormed
         )
     }
 
@@ -42,5 +42,21 @@ class PlantAndCultivation(
         dateFormat.parse(dateCultivation)?.let { calendar.time = it }
         calendar.add(Calendar.DATE, growZoneNumber)
         return dateFormat.format(calendar.time)
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    private fun checkWormed(): Boolean {
+        val dateFormat = SimpleDateFormat(DATETIME_FORMAT)
+
+        val calendarWatering = Calendar.getInstance()
+        dateFormat.parse(this.dateWatering)?.let { calendarWatering.time = it }
+        calendarWatering.add(Calendar.MILLISECOND, this.wateringInterval * 86400000 / 4)
+
+        val dateNow = Calendar.getInstance().time
+        val dateWatering = calendarWatering.time
+
+        val diff = dateNow.time - dateWatering.time
+
+        return diff >= 0
     }
 }

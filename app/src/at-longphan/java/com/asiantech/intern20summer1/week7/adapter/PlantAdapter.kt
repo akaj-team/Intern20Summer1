@@ -29,8 +29,16 @@ class PlantAdapter : RecyclerView.Adapter<PlantViewHolder> {
 
     override fun onBindViewHolder(viewHolder: PlantViewHolder, position: Int) {
         val plant = plants[position]
+        setupBackground(viewHolder, position, plant)
+        setupTextViews(viewHolder, position, plant)
+        setupImageViews(viewHolder, position, plant)
+    }
 
-        // Set itemView based on views and data model
+    override fun getItemCount(): Int {
+        return plants.size
+    }
+
+    private fun setupBackground(viewHolder: PlantViewHolder, position: Int, plant: PlantRecyclerViewItem){
         val containerView = viewHolder.containerView
         containerView?.setBackgroundResource(
             when {
@@ -45,23 +53,11 @@ class PlantAdapter : RecyclerView.Adapter<PlantViewHolder> {
         containerView?.setOnClickListener {
             plant.cultivationId?.let { cultivationId -> onItemViewClick.invoke(cultivationId) }
         }
+    }
 
+    private fun setupTextViews(viewHolder: PlantViewHolder, position: Int, plant: PlantRecyclerViewItem){
         val nameTextView = viewHolder.nameTextView
         nameTextView?.text = plant.name
-
-        val displayImageView = viewHolder.displayImageView
-        displayImageView?.let {
-            Glide.with(it)
-                .load(plant.imageUrl)
-                .into(it)
-        }
-
-        val statusImageView = viewHolder.statusImageView
-        if (plant.status) {
-            statusImageView?.setImageResource(R.drawable.btn_facebook)
-        } else {
-            statusImageView?.setImageResource(R.drawable.btn_google_plus)
-        }
 
         val dateCultivationTextView = viewHolder.dateCultivationTextView
         dateCultivationTextView?.text =
@@ -72,7 +68,17 @@ class PlantAdapter : RecyclerView.Adapter<PlantViewHolder> {
             context.getString(R.string.text_view_harvest_time_description).plus(plant.dateHarvest)
     }
 
-    override fun getItemCount(): Int {
-        return plants.size
+    private fun setupImageViews(viewHolder: PlantViewHolder, position: Int, plant: PlantRecyclerViewItem){
+        val displayImageView = viewHolder.displayImageView
+        displayImageView?.let {
+            Glide.with(it)
+                .load(plant.imageUrl)
+                .into(it)
+        }
+
+        val statusImageView = viewHolder.statusImageView
+        if (plant.status) {
+            statusImageView?.setImageResource(R.drawable.ic_bug_16)
+        }
     }
 }

@@ -38,12 +38,8 @@ class SplashWeekSevenActivity : AppCompatActivity() {
     private fun runProgressBar() {
         var progress = 0
         while (progress <= MAX_PROGRESS) {
-            try {
-                Thread.sleep(SLEEP_TIME)
-                progressBarSplashActivityW7?.progress = progress
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
+            Thread.sleep(SLEEP_TIME)
+            progressBarSplashActivityW7?.progress = progress
             progress += PROGRESS_PER_LOOP
         }
     }
