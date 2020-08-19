@@ -120,4 +120,6 @@
     <dimen name="w7_sprinkle_button_corner_radius">16dp</dimen>
     <dimen name="w7_register_button_corner_radius">6dp</dimen>
     <dimen name="w7_plant_detail_fragment_description_text_view_margin_bottom">185dp</dimen>
+    <dimen name="w7_relative_layout_margin_top">50dp</dimen>
+    <dimen name="w7_relative_layout_margin_left_and_right">32dp</dimen>
 </resources>
