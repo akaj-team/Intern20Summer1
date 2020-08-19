@@ -28,6 +28,7 @@ class PlantNewDialogFragment : DialogFragment() {
     private var plantSelect: String? = null
     private var database: PlantRoomDatabase? = null
     private var plants: MutableList<String>? = null
+    internal var reloadData: (bool: Boolean) -> Unit = {}
 
     companion object {
         internal fun newInstance() = PlantNewDialogFragment()
@@ -106,6 +107,7 @@ class PlantNewDialogFragment : DialogFragment() {
     private fun handleImageCloseListener() {
         imgCloseDialog?.setOnClickListener {
             //navigationViewWeek7?.setCheckedItem(R.id.navGarden)
+            reloadData.invoke(false)
             fragmentManager?.popBackStack()
         }
     }
@@ -119,6 +121,7 @@ class PlantNewDialogFragment : DialogFragment() {
                 getString(R.string.toast_plant_new_successfully_description),
                 Toast.LENGTH_SHORT
             ).show()
+            reloadData.invoke(true)
             fragmentManager?.popBackStack()
         }
     }

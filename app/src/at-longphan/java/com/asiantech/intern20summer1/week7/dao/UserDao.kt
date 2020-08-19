@@ -7,6 +7,8 @@ import com.asiantech.intern20summer1.week7.entity.User
 
 @Dao
 interface UserDao {
+    @Query("SELECT COUNT(userId) FROM users WHERE userId = :userId LIMIT 1")
+    fun isExist(userId: Int): Int
 
     @Insert
     fun insert(user: User)

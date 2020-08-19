@@ -41,7 +41,7 @@
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
                 <ImageView
-                    android:id="@+id/btnBack.detail"
+                    android:id="@+id/imgBackPlantDetail"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginLeft="24dp"
@@ -76,7 +76,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:textColor="#EC1212"
+                android:textColor="#FFC300"
                 android:textSize="16sp"
                 tools:text="Cây bị sâu" />
 

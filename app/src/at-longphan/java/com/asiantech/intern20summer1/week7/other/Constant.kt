@@ -13,8 +13,8 @@ internal const val DATETIME_FORMAT = "dd/MM/yy HH'h'mm"
 // MODE GARDEN
 object ModeGarden {
     internal const val DEFAULT = "default"
-    internal const val ABOUT_TO_HARVEST = "about to harvest"
-    internal const val WORMED = "wormed"
-    internal const val DEHYDRATED = "dehydrated"
+    internal const val ABOUT_TO_HARVEST = "Cây sắp thu hoạch"
+    internal const val WORMED = "Cây bị sâu"
+    internal const val DEHYDRATED = "Cây bị thiếu nước"
 }
 

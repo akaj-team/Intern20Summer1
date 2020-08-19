@@ -8,11 +8,9 @@ import android.os.Bundle
 import android.view.Gravity
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week7.PlantRoomDatabase
 import com.asiantech.intern20summer1.week7.PlantRoomDatabase.Companion.saveDataFromJsonFile
@@ -30,7 +28,6 @@ class HomeWeekSevenActivity : AppCompatActivity(), NavigationView.OnNavigationIt
     private var database: PlantRoomDatabase? = null
 
     companion object {
-
         private const val plantFile = "plants.json"
     }
 
@@ -51,36 +48,50 @@ class HomeWeekSevenActivity : AppCompatActivity(), NavigationView.OnNavigationIt
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        val fragment: Fragment
         when (item.itemId) {
             R.id.navGarden -> {
-                Toast.makeText(
-                    this,
-                    fragmentManager.backStackEntryCount.toString(),
-                    Toast.LENGTH_LONG
-                ).show()
-                fragment = GardenFragment.newInstance(ModeGarden.DEFAULT)
-                fragmentManager.beginTransaction().replace(R.id.navHostFragment, fragment).commit()
+                fragmentManager.beginTransaction()
+                    .replace(R.id.navHostFragment, GardenFragment.newInstance(ModeGarden.DEFAULT))
+                    .commit()
                 toolbarTitle.text = item.title
             }
             R.id.navPlantNew -> {
-                fragment = PlantNewDialogFragment()
-                fragmentManager.beginTransaction().add(R.id.navHostFragment, fragment)
+                fragmentManager.beginTransaction()
+                    .add(R.id.navHostFragment, PlantNewDialogFragment().apply {
+                        reloadData = { bool ->
+                            if (bool) {
+                                fragmentManager?.beginTransaction()
+                                    ?.replace(
+                                        R.id.navHostFragment,
+                                        GardenFragment.newInstance(ModeGarden.DEFAULT)
+                                    )?.commit()
+                            }
+                        }
+                    })
                     .addToBackStack(null).commit()
+                toolbarTitle.text = getString(R.string.item_menu_garden_title)
             }
             R.id.navAboutToHarvest -> {
-                fragment = GardenFragment.newInstance(ModeGarden.ABOUT_TO_HARVEST)
-                fragmentManager.beginTransaction().replace(R.id.navHostFragment, fragment).commit()
+                fragmentManager.beginTransaction().replace(
+                    R.id.navHostFragment,
+                    GardenFragment.newInstance(ModeGarden.ABOUT_TO_HARVEST)
+                )
+                    .commit()
                 toolbarTitle.text = item.title
             }
             R.id.navWormedPlant -> {
-                fragment = GardenFragment.newInstance(ModeGarden.WORMED)
-                fragmentManager.beginTransaction().replace(R.id.navHostFragment, fragment).commit()
+                fragmentManager.beginTransaction().replace(
+                    R.id.navHostFragment,
+                    GardenFragment.newInstance(ModeGarden.WORMED)
+                )
+                    .commit()
                 toolbarTitle.text = item.title
             }
             R.id.navDehydratedPlant -> {
-                fragment = GardenFragment.newInstance(ModeGarden.DEHYDRATED)
-                fragmentManager.beginTransaction().replace(R.id.navHostFragment, fragment).commit()
+                fragmentManager.beginTransaction().replace(
+                    R.id.navHostFragment,
+                    GardenFragment.newInstance(ModeGarden.DEHYDRATED)
+                ).commit()
                 toolbarTitle.text = item.title
             }
         }

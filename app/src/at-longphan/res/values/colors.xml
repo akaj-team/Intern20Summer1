@@ -60,4 +60,7 @@
     <color name="colorPrimaryWeek7">#5153E0</color>
     <color name="colorPrimaryDarkWeek7">#FFFFFF</color>
     <color name="colorAccentWeek7">#36E5BB</color>
+    <color name="colorTextViewAboutToHarvestModeWeek7">#00ff00</color>
+    <color name="colorTextViewDehydratedModeWeek7">#999966</color>
+    <color name="colorTextViewWormedModeWeek7">#EC1212</color>
 </resources>

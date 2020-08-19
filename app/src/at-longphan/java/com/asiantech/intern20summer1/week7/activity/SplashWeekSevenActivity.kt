@@ -5,13 +5,15 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.week7.other.USERNAME_KEY
+import com.asiantech.intern20summer1.week7.PlantRoomDatabase
+import com.asiantech.intern20summer1.week7.other.ID_KEY
 import com.asiantech.intern20summer1.week7.other.USER_DATA_PREFS
 import kotlinx.android.synthetic.`at-longphan`.activity_splash_w7.*
 
 class SplashWeekSevenActivity : AppCompatActivity() {
 
-    var hasAccount = false
+    private var hasAccount = false
+    private var database: PlantRoomDatabase? = null
 
     companion object {
 
@@ -23,11 +25,15 @@ class SplashWeekSevenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_w7)
+        database = PlantRoomDatabase.getDatabase(this)
 
         val sharePref = getSharedPreferences(USER_DATA_PREFS, Context.MODE_PRIVATE)
-        if (sharePref.getString(USERNAME_KEY, null) != null) {
+        val id = sharePref.getInt(ID_KEY, -1)
+
+        if(database?.userDao()?.isExist(id) != 0){
             hasAccount = true
         }
+
         Thread(Runnable {
             runProgressBar()
             startApp()

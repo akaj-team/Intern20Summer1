@@ -15,7 +15,9 @@ import com.asiantech.intern20summer1.week7.PlantRoomDatabase
 import com.asiantech.intern20summer1.week7.adapter.PlantAdapter
 import com.asiantech.intern20summer1.week7.dto.PlantAndCultivation
 import com.asiantech.intern20summer1.week7.model.PlantRecyclerViewItem
-import com.asiantech.intern20summer1.week7.other.*
+import com.asiantech.intern20summer1.week7.other.ID_KEY
+import com.asiantech.intern20summer1.week7.other.ModeGarden
+import com.asiantech.intern20summer1.week7.other.USER_DATA_PREFS
 import kotlinx.android.synthetic.`at-longphan`.fragment_plant.*
 
 class GardenFragment : Fragment() {
@@ -94,17 +96,23 @@ class GardenFragment : Fragment() {
                     }
                     ModeGarden.ABOUT_TO_HARVEST -> {
                         for (i in it) {
-                            it.getAboutToHarvestPlants(i, plantRecyclerViews)
+                            if (i.checkAboutToHarvest()) {
+                                plantRecyclerViews.add(i.getPlantRecyclerViewItem())
+                            }
                         }
                     }
                     ModeGarden.WORMED -> {
                         for (i in it) {
-                            it.getWormedPlants(i, plantRecyclerViews)
+                            if (i.checkWormed()) {
+                                plantRecyclerViews.add(i.getPlantRecyclerViewItem())
+                            }
                         }
                     }
                     ModeGarden.DEHYDRATED -> {
                         for (i in it) {
-                            it.getDehydratedPlants(i, plantRecyclerViews)
+                            if (i.checkDehydrated()) {
+                                plantRecyclerViews.add(i.getPlantRecyclerViewItem())
+                            }
                         }
                     }
                 }
