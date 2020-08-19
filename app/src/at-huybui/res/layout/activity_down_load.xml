@@ -6,7 +6,6 @@
     android:gravity="center_horizontal"
     android:orientation="vertical"
     tools:context="com.asiantech.intern20summer1.w8.DownLoadActivity">
-
     <TextView
         android:id="@+id/tvTitleDownLoad"
         android:layout_width="wrap_content"

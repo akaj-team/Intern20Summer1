@@ -18,6 +18,7 @@ class DownLoadRunnable(private var downLoadHandlerThread: DownLoadHandlerThread)
     private lateinit var url: URL
     private var nameFile = ""
     private var extension = ""
+
     override fun run() {
         val outputStream: OutputStream
         try {
