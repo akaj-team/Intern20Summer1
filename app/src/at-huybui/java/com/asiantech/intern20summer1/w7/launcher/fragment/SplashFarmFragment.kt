@@ -34,13 +34,11 @@ import java.io.File
 import java.io.FileOutputStream
 import java.util.concurrent.Executors
 
-
 /**
  * Asian Tech Co., Ltd.
  * Created by at-huybui on 08/04/20
  * This is fragment class for splash fragments
  */
-
 
 class SplashFarmFragment : Fragment() {
 
