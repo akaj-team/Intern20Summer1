@@ -39,6 +39,12 @@
         <item name="colorAccent">@color/colorAccentWeek4</item>
     </style>
 
+    <style name="AppThemeWeek7" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimaryWeek7</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkWeek7</item>
+        <item name="colorAccent">@color/colorAccentWeek7</item>
+    </style>
+
     <style name="SplashscreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowBackground">@drawable/bg_splash_screen_week4</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -60,7 +66,8 @@
     <style name="TextViewDescriptionMusicApp">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginLeft">@dimen/text_view_register_description_margin_left</item>
+        <item name="android:layout_marginLeft">@dimen/text_view_register_description_margin_left
+        </item>
         <item name="android:textSize">@dimen/text_view_register_description_text_size</item>
     </style>
 </resources>

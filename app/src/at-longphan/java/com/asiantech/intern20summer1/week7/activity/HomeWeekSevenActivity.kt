@@ -29,7 +29,7 @@ class HomeWeekSevenActivity : AppCompatActivity(), NavigationView.OnNavigationIt
     private val fragmentManager = supportFragmentManager
     private var database: PlantRoomDatabase? = null
 
-    companion object{
+    companion object {
 
         private const val plantFile = "plants.json"
     }
@@ -61,6 +61,7 @@ class HomeWeekSevenActivity : AppCompatActivity(), NavigationView.OnNavigationIt
                 ).show()
                 fragment = GardenFragment.newInstance(ModeGarden.DEFAULT)
                 fragmentManager.beginTransaction().replace(R.id.navHostFragment, fragment).commit()
+                toolbarTitle.text = item.title
             }
             R.id.navPlantNew -> {
                 fragment = PlantNewDialogFragment()
@@ -70,17 +71,19 @@ class HomeWeekSevenActivity : AppCompatActivity(), NavigationView.OnNavigationIt
             R.id.navAboutToHarvest -> {
                 fragment = GardenFragment.newInstance(ModeGarden.ABOUT_TO_HARVEST)
                 fragmentManager.beginTransaction().replace(R.id.navHostFragment, fragment).commit()
+                toolbarTitle.text = item.title
             }
             R.id.navWormedPlant -> {
                 fragment = GardenFragment.newInstance(ModeGarden.WORMED)
                 fragmentManager.beginTransaction().replace(R.id.navHostFragment, fragment).commit()
+                toolbarTitle.text = item.title
             }
             R.id.navDehydratedPlant -> {
                 fragment = GardenFragment.newInstance(ModeGarden.DEHYDRATED)
                 fragmentManager.beginTransaction().replace(R.id.navHostFragment, fragment).commit()
+                toolbarTitle.text = item.title
             }
         }
-        toolbarTitle.text = item.title
         drawerLayoutWeek7?.closeDrawers()
         return true
     }
@@ -128,6 +131,7 @@ class HomeWeekSevenActivity : AppCompatActivity(), NavigationView.OnNavigationIt
         navigationViewWeek7?.getHeaderView(0)?.let {
             it.tvUserNameWeek7?.text = sharePref.getString(USERNAME_KEY, null)
             it.tvUniversityWeek7?.text = sharePref.getString(UNIVERSITY_KEY, null)
+            it.tvHomeTownWeek7?.text = sharePref.getString(HOMETOWN_KEY, null)
             val avatarUrl = sharePref.getString(AVATAR_URL_KEY, null)
             if (avatarUrl != null) {
                 it.imgAvatarHeaderWeek7?.setImageURI(Uri.parse(avatarUrl))

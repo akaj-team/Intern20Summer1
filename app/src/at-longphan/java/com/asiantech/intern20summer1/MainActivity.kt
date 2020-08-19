@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun handleButtonsClick(){
+    private fun handleButtonsClick() {
         handleButtonWeek3()
         handleButtonWeek4()
         handleButtonWeek5()
@@ -34,31 +34,31 @@ class MainActivity : AppCompatActivity() {
         handleButtonWeek7()
     }
 
-    private fun handleButtonWeek3(){
+    private fun handleButtonWeek3() {
         btnWeek3?.setOnClickListener {
             startActivity(Intent(this, LoginActivity::class.java))
         }
     }
 
-    private fun handleButtonWeek4(){
+    private fun handleButtonWeek4() {
         btnWeek4?.setOnClickListener {
             startActivity(Intent(this, SplashActivity::class.java))
         }
     }
 
-    private fun handleButtonWeek5(){
+    private fun handleButtonWeek5() {
         btnWeek5?.setOnClickListener {
             startActivity(Intent(this, TimeLineActivity::class.java))
         }
     }
 
-    private fun handleButtonWeek6(){
+    private fun handleButtonWeek6() {
         btnWeek6?.setOnClickListener {
             startActivity(Intent(this, FirstPageActivity::class.java))
         }
     }
 
-    private fun handleButtonWeek7(){
+    private fun handleButtonWeek7() {
         btnWeek7?.setOnClickListener {
             startActivity(Intent(this, SplashWeekSevenActivity::class.java))
         }

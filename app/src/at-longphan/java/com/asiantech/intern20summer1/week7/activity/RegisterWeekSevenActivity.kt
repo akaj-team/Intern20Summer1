@@ -65,8 +65,7 @@ class RegisterWeekSevenActivity : AppCompatActivity() {
                 if (resultCode == Activity.RESULT_OK) {
                     cropImageCamera(data)
                 }
-            CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE ->
-            {
+            CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE -> {
                 showImage(data)
             }
         }
@@ -185,15 +184,17 @@ class RegisterWeekSevenActivity : AppCompatActivity() {
         }
     }
 
-    private fun handleButtonNextRegisterWeek7Clicked(){
+    private fun handleButtonNextRegisterWeek7Clicked() {
         btnNextRegisterWeek7?.setOnClickListener {
-            database?.userDao()?.insert(User(
-                0,
-                edtUsernameWeek7.text.toString(),
-                edtUniversityWeek7.text.toString(),
-                edtHomeTownWeek7.text.toString(),
-                imageCaptureUri?.toString()
-            ))
+            database?.userDao()?.insert(
+                User(
+                    0,
+                    edtUsernameWeek7.text.toString(),
+                    edtUniversityWeek7.text.toString(),
+                    edtHomeTownWeek7.text.toString(),
+                    imageCaptureUri?.toString()
+                )
+            )
 
             userInserted = database?.userDao()?.getLastInsert()
 
@@ -204,8 +205,9 @@ class RegisterWeekSevenActivity : AppCompatActivity() {
         }
     }
 
-    private fun saveRegisterUserData(){
-        val sharePref: SharedPreferences = getSharedPreferences(USER_DATA_PREFS, Context.MODE_PRIVATE)
+    private fun saveRegisterUserData() {
+        val sharePref: SharedPreferences =
+            getSharedPreferences(USER_DATA_PREFS, Context.MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharePref.edit()
         userInserted?.userId?.let { editor.putInt(ID_KEY, it) }
         editor.putString(USERNAME_KEY, userInserted?.userName)

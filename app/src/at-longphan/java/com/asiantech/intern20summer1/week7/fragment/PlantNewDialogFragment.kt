@@ -72,12 +72,6 @@ class PlantNewDialogFragment : DialogFragment() {
                 position: Int,
                 id: Long
             ) {
-                Toast.makeText(
-                    context,
-                    parent.getItemAtPosition(position).toString(),
-                    Toast.LENGTH_SHORT
-                ).show()
-
                 plantSelect = parent.getItemAtPosition(position).toString()
 
                 btnOkPlantNewWeek7?.let {

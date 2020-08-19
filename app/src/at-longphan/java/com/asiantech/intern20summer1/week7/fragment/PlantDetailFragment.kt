@@ -72,9 +72,9 @@ class PlantDetailFragment : Fragment() {
                 tvLastWaterDetail?.text = it.dateWatering
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     tvPlantDescription?.text =
-                        Html.fromHtml(it.description, Html.FROM_HTML_MODE_COMPACT);
+                        Html.fromHtml(it.description, Html.FROM_HTML_MODE_COMPACT)
                 } else {
-                    tvPlantDescription?.text = Html.fromHtml(it.description);
+                    tvPlantDescription?.text = Html.fromHtml(it.description)
                 }
             }
         } else {

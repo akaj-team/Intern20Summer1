@@ -55,5 +55,6 @@
         android:background="@android:color/white"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/navigation_header_w7"
+        app:itemIconTint="#5153E0"
         app:menu="@menu/menu_navigation_w7" />
 </androidx.drawerlayout.widget.DrawerLayout>

@@ -30,13 +30,13 @@ class LoginActivity : AppCompatActivity() {
         handleTextViewSignUpListener()
     }
 
-    private fun configStatusBarColor(){
+    private fun configStatusBarColor() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
     }
 
-    private fun handleLinearLayoutChildListener(){
+    private fun handleLinearLayoutChildListener() {
         llChild?.setOnTouchListener { view, _ ->
             view.clearFocus()
             view.hideKeyboard()
@@ -44,13 +44,13 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun handleTextViewSignUpListener(){
+    private fun handleTextViewSignUpListener() {
         tvSignUp.setOnClickListener {
             Toast.makeText(applicationContext, "Sign Up!", Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun handleButtonSignUpListener(){
+    private fun handleButtonSignUpListener() {
         btnSignUp.setOnClickListener {
             Toast.makeText(applicationContext, "Sign Up", Toast.LENGTH_SHORT).show()
         }

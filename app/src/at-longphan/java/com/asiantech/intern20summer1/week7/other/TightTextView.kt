@@ -13,8 +13,8 @@ class TightTextView(context: Context?, attrs: AttributeSet?, defStyle: Int) :
 
     private var hasMaxWidth = false
 
-    constructor(context: Context?) : this(context, null, 0) {}
-    constructor(context: Context?, attrs: AttributeSet?) : this(context, attrs, 0) {}
+    constructor(context: Context?) : this(context, null, 0)
+    constructor(context: Context?, attrs: AttributeSet?) : this(context, attrs, 0)
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)

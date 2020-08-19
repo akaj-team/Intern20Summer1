@@ -10,7 +10,7 @@
         android:id="@+id/imgLogoW7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_plant_logo" />
+        android:src="@drawable/ic_plant_app_logo_128" />
 
     <ProgressBar
         android:id="@+id/progressBarSplashActivityW7"

@@ -2,7 +2,7 @@ package com.asiantech.intern20summer1.week5.model
 
 class TimeLineItem() {
 
-    companion object{
+    companion object {
         private const val RANDOM_LIKES_RANGE = 4
     }
 

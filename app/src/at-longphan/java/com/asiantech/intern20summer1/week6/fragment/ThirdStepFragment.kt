@@ -15,7 +15,7 @@ class ThirdStepFragment : Fragment() {
         private const val STEP_KEY = "step"
 
         // NewInstance constructor for creating fragment with arguments
-        fun newInstance(step: String?)= ThirdStepFragment().apply {
+        fun newInstance(step: String?) = ThirdStepFragment().apply {
             arguments = Bundle().apply { putString(STEP_KEY, step) }
         }
     }
@@ -42,7 +42,7 @@ class ThirdStepFragment : Fragment() {
         initView()
     }
 
-    private fun initView(){
+    private fun initView() {
         tvStep3Description?.text = step
     }
 }

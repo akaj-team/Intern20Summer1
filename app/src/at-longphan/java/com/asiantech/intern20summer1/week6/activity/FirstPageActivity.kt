@@ -40,7 +40,8 @@ class FirstPageActivity : AppCompatActivity() {
             1,
             getString(R.string.text_view_step_description_fragment_step_2)
         )
-        val step3Fragment = ThirdStepFragment.newInstance(getString(R.string.text_view_step_description_fragment_step_3))
+        val step3Fragment =
+            ThirdStepFragment.newInstance(getString(R.string.text_view_step_description_fragment_step_3))
 
         adapter.addFragment(step1Fragment)
         adapter.addFragment(step2Fragment)
@@ -51,7 +52,8 @@ class FirstPageActivity : AppCompatActivity() {
 
     private fun setupIndicator() {
         val sizeIndicator = resources.getDimensionPixelOffset(R.dimen.size_indicator)
-        val sizeIndicatorSelected = resources.getDimensionPixelOffset(R.dimen.size_indicator_selected)
+        val sizeIndicatorSelected =
+            resources.getDimensionPixelOffset(R.dimen.size_indicator_selected)
         viewPagerActivityFirstPage?.let {
             indicatorViewActivityFirstPage
                 ?.setIndicatorGap(resources.getDimensionPixelOffset(R.dimen.space_size_indicator))

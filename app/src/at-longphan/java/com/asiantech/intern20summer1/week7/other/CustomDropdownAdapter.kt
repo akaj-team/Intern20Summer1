@@ -33,7 +33,7 @@ class CustomDropDownAdapter(val context: Context, var listItemsTxt: Array<String
 
         vh.label.text = listItemsTxt[position]
         vh.label.height = 52
-        if(position == 0){
+        if (position == 0) {
             vh.label.setTextColor(R.color.colorEditTextHintWeek7Text)
         }
         return view

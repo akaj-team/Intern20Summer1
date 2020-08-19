@@ -6,23 +6,23 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/navGarden"
-            android:icon="@drawable/ic_heart_filled"
+            android:icon="@drawable/ic_baseline_thumb_up_alt_24"
             android:title="@string/item_menu_garden_title" />
         <item
             android:id="@+id/navPlantNew"
-            android:icon="@drawable/ic_heart_filled"
+            android:icon="@drawable/ic_baseline_add_box_24"
             android:title="@string/item_menu_plant_new_title" />
         <item
             android:id="@+id/navAboutToHarvest"
-            android:icon="@drawable/ic_heart_filled"
+            android:icon="@drawable/ic_baseline_assignment_turned_in_24"
             android:title="@string/item_menu_about_to_harvest_title" />
         <item
             android:id="@+id/navWormedPlant"
-            android:icon="@drawable/ic_heart_filled"
+            android:icon="@drawable/ic_baseline_star_24"
             android:title="@string/item_menu_wormed_plant_title" />
         <item
             android:id="@+id/navDehydratedPlant"
-            android:icon="@drawable/ic_heart_filled"
+            android:icon="@drawable/ic_baseline_star_24"
             android:title="@string/item_menu_dehydrated_plant_title" />
     </group>
 </menu>

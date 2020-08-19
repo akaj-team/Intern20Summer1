@@ -29,7 +29,7 @@ abstract class PlantRoomDatabase : RoomDatabase() {
         private const val NAME_DATA_BASE = "plant.db"
         private var plantRoomInstance: PlantRoomDatabase? = null
 
-        fun getDatabase(context: Context): PlantRoomDatabase?{
+        fun getDatabase(context: Context): PlantRoomDatabase? {
             return if (plantRoomInstance == null) {
                 Room.databaseBuilder(context, PlantRoomDatabase::class.java, NAME_DATA_BASE)
                     .allowMainThreadQueries()

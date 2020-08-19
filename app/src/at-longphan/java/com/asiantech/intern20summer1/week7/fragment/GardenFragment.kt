@@ -77,32 +77,34 @@ class GardenFragment : Fragment() {
         database = PlantRoomDatabase.getDatabase(requireContext())
         val plantAndCultivations = database?.cultivationDao()?.getAllCultivationByUserId(userId)
 
-        if (plantAndCultivations != null) {
-            rlEmpty?.visibility = View.INVISIBLE
-            when (mode) {
-                ModeGarden.DEFAULT -> {
-                    for (i in plantAndCultivations) {
-                        plantRecyclerViews.add(i.getPlantRecyclerViewItem())
+        plantAndCultivations?.let {
+            if (it.isNotEmpty()) {
+                rlEmpty?.visibility = View.INVISIBLE
+                when (mode) {
+                    ModeGarden.DEFAULT -> {
+                        for (i in it) {
+                            plantRecyclerViews.add(i.getPlantRecyclerViewItem())
+                        }
+                    }
+                    ModeGarden.ABOUT_TO_HARVEST -> {
+                        for (i in it) {
+                            it.getAboutToHarvestPlants(i, plantRecyclerViews)
+                        }
+                    }
+                    ModeGarden.WORMED -> {
+                        for (i in it) {
+                            it.getWormedPlants(i, plantRecyclerViews)
+                        }
+                    }
+                    ModeGarden.DEHYDRATED -> {
+                        for (i in it) {
+                            it.getDehydratedPlants(i, plantRecyclerViews)
+                        }
                     }
                 }
-                ModeGarden.ABOUT_TO_HARVEST -> {
-                    for (i in plantAndCultivations) {
-                        plantAndCultivations.getAboutToHarvestPlants(i, plantRecyclerViews)
-                    }
-                }
-                ModeGarden.WORMED -> {
-                    for (i in plantAndCultivations) {
-                        plantAndCultivations.getWormedPlants(i, plantRecyclerViews)
-                    }
-                }
-                ModeGarden.DEHYDRATED -> {
-                    for (i in plantAndCultivations) {
-                        plantAndCultivations.getDehydratedPlants(i, plantRecyclerViews)
-                    }
-                }
+            } else {
+                rlEmpty?.visibility = View.VISIBLE
             }
-        } else {
-            rlEmpty?.visibility = View.VISIBLE
         }
     }
 }

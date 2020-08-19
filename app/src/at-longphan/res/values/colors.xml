@@ -56,4 +56,8 @@
     <color name="colorContainerItemListPlantThirdWeek7Background">#FFDAB8</color>
     <color name="colorContainerItemListPlantSecondWeek7Background">#FF9595</color>
     <color name="colorContainerItemListPlantFirstWeek7Background">#AFDCCE</color>
+    <color name="colorMainWeek7">#5153E0</color>
+    <color name="colorPrimaryWeek7">#5153E0</color>
+    <color name="colorPrimaryDarkWeek7">#FFFFFF</color>
+    <color name="colorAccentWeek7">#36E5BB</color>
 </resources>
