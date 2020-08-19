@@ -22,6 +22,7 @@ SplashFragment : Fragment() {
         private const val TIME_LOAD_DATA = 10L
         private const val TIMER_PERIOD = 100L
         private const val LOAD_DATA_INTERNET = 20L
+        internal fun newInstance() = SplashFragment()
     }
 
     private var counter = 0
@@ -38,8 +39,7 @@ SplashFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        handleProgressBar()
-        checkUser()
+        loadProgressBar()
     }
 
     private fun loadProgressBar() {
@@ -86,7 +86,7 @@ SplashFragment : Fragment() {
                     cancel()
                 }
             }
-        }, 0, 50)
+        }, 0, TIMER_PERIOD)
     }
 
     private fun checkUser(): Boolean {
@@ -112,5 +112,4 @@ SplashFragment : Fragment() {
             }
         }
     }
-
 }

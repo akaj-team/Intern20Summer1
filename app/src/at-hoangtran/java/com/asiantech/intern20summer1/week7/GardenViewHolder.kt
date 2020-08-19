@@ -31,6 +31,11 @@ class GardenViewHolder(
     }
 
     inner class GardenViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        init {
+            itemView.setOnClickListener {
+                plantList[adapterPosition]?.id?.let { it1 -> onItemClicked.invoke(it1) }
+            }
+        }
         fun bind(position: Int) {
             val gardenItem = plantList[position]
             val tvVegetableName = itemView.tvVegetableName

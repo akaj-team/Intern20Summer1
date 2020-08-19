@@ -2,19 +2,15 @@ package com.asiantech.intern20summer1.week7
 
 import android.annotation.SuppressLint
 import android.graphics.Color
-import android.graphics.drawable.AnimationDrawable
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import androidx.fragment.app.DialogFragment
 import com.asiantech.intern20summer1.R
 import kotlinx.android.synthetic.`at-hoangtran`.plant_dialog_fragment.*
-import kotlinx.android.synthetic.`at-hoangtran`.toolbar.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -31,7 +27,7 @@ class PlantDialogFragment : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.plant_dialog_fragment, flToolbarContainer, false)
+        return inflater.inflate(R.layout.plant_dialog_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -39,7 +35,7 @@ class PlantDialogFragment : DialogFragment() {
 
         initData()
         initView()
-        onSpinnerClick()
+        handleBackButton()
     }
 
     private fun initView() {
@@ -61,37 +57,19 @@ class PlantDialogFragment : DialogFragment() {
                 listPlant.add(name)
             }
         }
-        val adapterSpinner =
-            ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, listPlant)
-        adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinnerDialog?.adapter = adapterSpinner
-        spinnerDialog?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-            }
-
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                onPlantSelected(position)
-                handleOKButton(position)
-            }
+        spinnerDialog?.setItems(listPlant)
+        spinnerDialog?.setOnItemSelectedListener { _, position, _, _ ->
+            onPlantSelected(position)
+            handleOKButton(position)
         }
     }
 
-    fun onPlantSelected(position: Int) {
+    private fun onPlantSelected(position: Int) {
         plants?.get(position).let { plant ->
             val text =
                 "Grow Zome Number: ${plant?.growZoneNumber}\n Watering Interval: ${plant?.wateringInterval}"
             tvDialogDetail?.text = text
             imgDialogPlant.setImageURI(Uri.parse(plant?.imageUrl))
-        }
-        spinnerDialog.setOnClickListener {
-            spinnerDialog.setBackgroundResource(R.drawable.bg_spinner_right)
-            val animation = spinnerDialog.background as AnimationDrawable
-            animation.start()
         }
     }
 
@@ -109,18 +87,10 @@ class PlantDialogFragment : DialogFragment() {
                 dateWatering = dateCurrent
             }
             appDatabase?.getCultivationDAO()?.insertCultivation(cultivation)
-            (activity as GardenActivity).handleReplaceFragment(
-                GrowPlantFragment.newInstance(),
-                parent = R.id.flToolbarContainer
-            )
-        }
-    }
-
-    private fun onSpinnerClick() {
-        spinnerDialog.setOnClickListener {
-            spinnerDialog.setBackgroundResource(R.drawable.bg_spinner_down)
-            val animation = spinnerDialog.background as AnimationDrawable
-            animation.start()
+            (activity as GardenActivity).apply {
+                GrowPlantFragment.newInstance().initData()
+            }
+            dialog?.dismiss()
         }
     }
 }

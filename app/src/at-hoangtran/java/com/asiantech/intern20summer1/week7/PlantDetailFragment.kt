@@ -8,14 +8,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.week7.PlantDialogFragment.Companion.DATE_FORMAT_STRING
 import kotlinx.android.synthetic.`at-hoangtran`.plant_detail_fragment.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class PlantDetailFragment : Fragment() {
     companion object {
         private const val POSITION_KEY = "position"
-        internal fun newInstance(id: Int?) = PlantDetailFragment().apply {
+        private const val INIT_DATA_KEY = "init"
+        internal fun newInstance(id: Int?, itemId: Int?) = PlantDetailFragment().apply {
             arguments = Bundle().apply {
                 id?.let { putInt(POSITION_KEY, it) }
+                itemId?.let { putInt(INIT_DATA_KEY, it) }
             }
         }
     }
@@ -38,6 +43,8 @@ class PlantDetailFragment : Fragment() {
 
         initView()
         handleArrowClick()
+        handlePlantCutButton()
+        handleWateringButton()
     }
 
     @SuppressLint("SetTextI18n")
@@ -76,6 +83,34 @@ class PlantDetailFragment : Fragment() {
 
     private fun handleArrowClick() {
         imgArrowBack.setOnClickListener {
+            fragmentManager?.popBackStack()
+        }
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    private fun handleWateringButton() {
+        btnWatering?.setOnClickListener {
+            cultivation?.let {
+                val dateFormat = SimpleDateFormat(DATE_FORMAT_STRING)
+                appDatabase?.getCultivationDAO()
+                    ?.updateWateringDate(it.id, dateFormat.format(Date()))
+                initView()
+                tvWormedPlantDetail.text = ""
+                tvLackedWaterPlantDetail.text = ""
+            }
+        }
+    }
+
+    private fun handlePlantCutButton() {
+        btnCutDown?.setOnClickListener {
+            cultivation?.let {
+                appDatabase?.getCultivationDAO()?.deleteCultivation(it)
+            }
+            (activity as GardenActivity).apply {
+                arguments?.getInt(INIT_DATA_KEY)?.let { id ->
+                    GrowPlantFragment.newInstance().initData(id)
+                }
+            }
             fragmentManager?.popBackStack()
         }
     }

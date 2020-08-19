@@ -28,7 +28,7 @@
             android:text="@string/item_trong_cay"
             android:textSize="40sp" />
 
-        <Spinner
+        <com.jaredrummler.materialspinner.MaterialSpinner
             android:id="@+id/spinnerDialog"
             style="@style/SpinnerTheme"
             android:layout_width="match_parent"

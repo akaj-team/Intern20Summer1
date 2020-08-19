@@ -3,9 +3,7 @@ package com.asiantech.intern20summer1.week7
 import android.Manifest
 import android.app.Activity.RESULT_OK
 import android.app.AlertDialog
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
@@ -33,16 +31,13 @@ class RegisterFragment : Fragment() {
         const val CAMERA_REQUEST = 4
         const val KEY_DATA = "data"
         const val KEY_IMAGE = "image/*"
-        const val SHARE_PREFERENCE_KEY = "userKey"
-        const val USER_NAME_KEY = "userName"
-        const val UNIVERSITY_KEY = "university"
-        const val HOME_TOWN_KEY = "homeTown"
-        const val AVATAR_KEY = "avatar"
+        internal fun newInstance() = RegisterFragment()
     }
 
     private var imageUri: String = ""
     private var flag = false
     private var ava = ""
+    private var appDatabase: AppDatabase? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -87,22 +82,18 @@ class RegisterFragment : Fragment() {
     }
 
     private fun handleButton() {
-        val sharedPreferences = activity?.getSharedPreferences(
-            SHARE_PREFERENCE_KEY,
-            Context.MODE_PRIVATE
-        )
-        btn_next.setOnClickListener {
-            val editor: SharedPreferences.Editor? = sharedPreferences?.edit()
-            editor?.apply {
-                putString(USER_NAME_KEY, edt_user_name.text.toString())
-                putString(UNIVERSITY_KEY, edt_university.text.toString())
-                putString(HOME_TOWN_KEY, edt_home_town.text.toString())
-                putString(AVATAR_KEY, imageUri)
-                apply()
+        btn_next?.setOnClickListener {
+            val user = User()
+            user.apply {
+                avatar = imageUri
+                userName = edt_user_name.text.toString()
+                university = edt_university.text.toString()
+                homeTown = edt_home_town.text.toString()
             }
+            appDatabase?.getUserDAO()?.insertUser(user)
             val intent = Intent(context, GardenActivity::class.java)
-            startActivity(intent)
-            (activity as SplashActivity).finish()
+            activity?.startActivity(intent)
+            activity?.finish()
         }
     }
 
@@ -274,4 +265,5 @@ class RegisterFragment : Fragment() {
             }
         }
     }
+
 }

@@ -16,7 +16,6 @@ import kotlinx.android.synthetic.`at-hoangtran`.toolbar.*
 class GardenActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private var appDatabase: AppDatabase? = null
-    internal var onClickItemMenuDrawer: (mode: Int) -> Unit = {}
     private var fragment = GrowPlantFragment.newInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,7 +49,7 @@ class GardenActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.item_vuon_cay -> {
-                onClickItemMenuDrawer.invoke(item.itemId)
+                fragment.initData(item.itemId)
             }
             R.id.item_trong_cay -> {
                 val fragmentManager = supportFragmentManager
@@ -58,13 +57,13 @@ class GardenActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                 PlantDialogFragment().show(fragmentManager, null)
             }
             R.id.item_cay_sap_thu_hoach -> {
-                onClickItemMenuDrawer.invoke(item.itemId)
+                fragment.initData(item.itemId)
             }
             R.id.item_cay_bi_sau -> {
-                onClickItemMenuDrawer.invoke(item.itemId)
+                fragment.initData(item.itemId)
             }
             R.id.item_cay_bi_thieu_nuoc -> {
-                onClickItemMenuDrawer.invoke(item.itemId)
+                fragment.initData(item.itemId)
             }
         }
         dl_garden.closeDrawer(GravityCompat.START)
