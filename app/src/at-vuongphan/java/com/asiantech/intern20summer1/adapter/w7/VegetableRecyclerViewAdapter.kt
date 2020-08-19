@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.database.Cultivation
 import com.asiantech.intern20summer1.database.VegetableDB
-import com.asiantech.intern20summer1.fragment.w7.VegetableFragmentRecyclerView
+import com.asiantech.intern20summer1.extension.w7.PlantStatus
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.`at-vuongphan`.w7_item_recycler_view.view.*
 
@@ -51,16 +51,11 @@ class VegetableRecyclerViewAdapter(private val mutableList: MutableList<Cultivat
         }
 
         fun bindData() {
-//            tvName.text = mutableList[adapterPosition].name
-//            tvDateCultivation.text = mutableList[adapterPosition].description
-//            avatar.setImageURI(Uri.parse(mutableList[adapterPosition].imageUri))
-//            icon.setImageURI(Uri.parse(mutableList[adapterPosition].imageUri))
             mutableList[adapterPosition].let {
                 dataBase?.plantDao()?.getPlant(it.plantId)?.apply {
                     val cultivation = it.dateCultivation
                     val harvest =
-                        VegetableFragmentRecyclerView()
-                            .getDateHarvest(it.dateCultivation, this)
+                        PlantStatus().getDateHarvest(it.dateCultivation, this)
                     tvDateCultivation.text =
                         itemView.context.getString(R.string.text_cultivation, cultivation)
                     tvDateHarvest.text = itemView.context.getString(R.string.text_harvest, harvest)

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="250dp"
     android:background="@color/colorHeader"
@@ -15,7 +16,9 @@
         android:layout_marginLeft="@dimen/margin_16dp"
         android:layout_marginBottom="@dimen/margin_16dp"
         android:background="@drawable/ic_baseline_arrow_back_ios_24"
-        android:theme="@style/DrawerIcon" />
+        android:backgroundTint="@color/colorBlack"
+        android:theme="@style/DrawerIcon"
+        tools:ignore="UnusedAttribute" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgAvatar2"

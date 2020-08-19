@@ -13,6 +13,7 @@ import com.asiantech.intern20summer1.activity.w7.VegetableFarmMainActivity
 import com.asiantech.intern20summer1.database.Cultivation
 import com.asiantech.intern20summer1.database.Plant
 import com.asiantech.intern20summer1.database.VegetableDB
+import com.asiantech.intern20summer1.extension.w7.PlantStatus
 import com.asiantech.intern20summer1.fragment.w7.VegetableDialogFragment.Companion.FORMAT_CODE_DATE
 import kotlinx.android.synthetic.`at-vuongphan`.w7_vegetable_detail.*
 import java.text.SimpleDateFormat
@@ -104,18 +105,18 @@ class VegetableDetailFragment : Fragment() {
         val textCultivation = getString(R.string.text_cultivation, cultivation?.dateCultivation)
         val textWater = getString(R.string.text_watering, cultivation?.dateWatering)
         dataBase?.plantDao()?.getPlant(cultivation?.plantId)?.let {
-            if (!(VegetableFragmentRecyclerView().isPlantHarvest(
+            if (!(PlantStatus().isPlantHarvest(
                     it,
                     cultivation
-                )) && VegetableFragmentRecyclerView().isPlantWorm(it, cultivation)
+                )) && PlantStatus().isPlantWorm(it, cultivation)
             ) {
                 title = resources.getString(R.string.description_worm)
-            } else if (VegetableFragmentRecyclerView().isPlantHarvest(it, cultivation)) {
+            } else if (PlantStatus().isPlantHarvest(it, cultivation)) {
                 title = resources.getString(R.string.description_harvest)
-            } else if (VegetableFragmentRecyclerView().isPlantLackWater(
+            } else if (PlantStatus().isPlantLackWater(
                     it,
                     cultivation
-                ) && !(VegetableFragmentRecyclerView().isPlantHarvest(it, cultivation))
+                ) && !(PlantStatus().isPlantHarvest(it, cultivation))
             ) {
                 title = resources.getString(R.string.description_water)
             }

@@ -1,6 +1,5 @@
 package com.asiantech.intern20summer1.fragment.w7
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.LayoutInflater
@@ -12,13 +11,10 @@ import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.activity.w7.VegetableFarmMainActivity
 import com.asiantech.intern20summer1.adapter.w7.VegetableRecyclerViewAdapter
 import com.asiantech.intern20summer1.database.Cultivation
-import com.asiantech.intern20summer1.database.Plant
 import com.asiantech.intern20summer1.database.VegetableDB
-import com.asiantech.intern20summer1.fragment.w7.VegetableDialogFragment.Companion.FORMAT_CODE_DATE
+import com.asiantech.intern20summer1.extension.w7.PlantStatus
 import kotlinx.android.synthetic.`at-vuongphan`.w7_activity_main_farm.*
 import kotlinx.android.synthetic.`at-vuongphan`.w7_recycler_view_fragment.*
-import java.text.SimpleDateFormat
-import java.util.*
 
 class VegetableFragmentRecyclerView : Fragment() {
     internal var id = 1
@@ -37,6 +33,7 @@ class VegetableFragmentRecyclerView : Fragment() {
         internal const val ID_HARVEST = 2
         internal const val ID_WORM = 3
         internal const val ID_WATER = 4
+        private const val DIVIDE_NUMBER = 4
         internal fun newInstance(): VegetableFragmentRecyclerView {
             return VegetableFragmentRecyclerView()
         }
@@ -133,7 +130,7 @@ class VegetableFragmentRecyclerView : Fragment() {
         val list = mutableListOf<Cultivation>()
         vegetableList.forEach { it ->
             dataBase?.plantDao()?.getPlant(it.plantId)?.let { it1 ->
-                if (isPlantWorm(it1, it) && !isPlantHarvest(it1, it)) {
+                if (PlantStatus().isPlantWorm(it1, it) && !PlantStatus().isPlantHarvest(it1, it)) {
                     list.add(it)
                 }
             }
@@ -153,7 +150,7 @@ class VegetableFragmentRecyclerView : Fragment() {
         val list = mutableListOf<Cultivation>()
         vegetableList.forEach { it ->
             dataBase?.plantDao()?.getPlant(it.plantId)?.let { it1 ->
-                if (isPlantHarvest(it1, it)) {
+                if (PlantStatus().isPlantHarvest(it1, it)) {
                     list.add(it)
                 }
             }
@@ -173,7 +170,11 @@ class VegetableFragmentRecyclerView : Fragment() {
         val list = mutableListOf<Cultivation>()
         vegetableList.forEach { it ->
             dataBase?.plantDao()?.getPlant(it.plantId)?.let { it1 ->
-                if (isPlantLackWater(it1, it) && !isPlantHarvest(it1, it)) {
+                if (PlantStatus().isPlantLackWater(it1, it) && !PlantStatus().isPlantHarvest(
+                        it1,
+                        it
+                    )
+                ) {
                     list.add(it)
                 }
             }
@@ -187,72 +188,5 @@ class VegetableFragmentRecyclerView : Fragment() {
             }
         }
         adapterRecycler.notifyDataSetChanged()
-    }
-
-    internal fun isPlantWorm(plant: Plant?, culti: Cultivation?): Boolean {
-        culti?.dateWatering?.let { dateWatering ->
-            val now = Calendar.getInstance()
-            now.time = Date()
-            val current = getMinuteInDay(now)
-            plant?.wateringInterval?.let {
-                return (current - getDate(dateWatering)) / 2 >= (it * MINUTES)
-            }
-        }
-        return false
-    }
-
-    @SuppressLint("SimpleDateFormat")
-    fun getDateHarvest(cultivation: String?, plant: Plant): String {
-        cultivation?.let { cul ->
-            val dateFormat = SimpleDateFormat(FORMAT_CODE_DATE)
-            val calendar = Calendar.getInstance()
-            dateFormat.parse(cul)?.let { calendar.time = it }
-            plant.growZoneNumber?.let { calendar.add(Calendar.MINUTE, it) }
-            return dateFormat.format(calendar.time)
-        }
-        return "null"
-    }
-
-    fun isPlantLackWater(plant: Plant?, culti: Cultivation?): Boolean {
-        culti?.dateWatering?.let { dateWatering ->
-            val now = Calendar.getInstance()
-            now.time = Date()
-            val current = getMinuteInDay(now)
-            plant?.wateringInterval?.let {
-                return (current - getDate(dateWatering)) >= (it * MINUTES)
-            }
-        }
-        return false
-    }
-
-    @SuppressLint("SimpleDateFormat")
-    fun getDate(dateWatering: String): Int {
-        val dateFormat = SimpleDateFormat(FORMAT_CODE_DATE)
-        var beforeTime = 0
-        dateFormat.parse(dateWatering)?.let {
-            Calendar.getInstance().apply {
-                time = it
-                beforeTime = getMinuteInDay(this)
-            }
-        }
-        return beforeTime
-    }
-
-    fun isPlantHarvest(plant: Plant?, culti: Cultivation?): Boolean {
-        culti?.dateCultivation?.let { dateWatering ->
-            val now = Calendar.getInstance()
-            now.time = Date()
-            val current = getMinuteInDay(now)
-            plant?.growZoneNumber?.let {
-                return (current - getDate(dateWatering)) >= (it * MINUTES)
-            }
-        }
-        return false
-    }
-
-    private fun getMinuteInDay(calendar: Calendar): Int {
-        return calendar.get(Calendar.HOUR) * HOURS + calendar.get(Calendar.MINUTE) * MINUTES + calendar.get(
-            Calendar.SECOND
-        )
     }
 }

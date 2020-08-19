@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.activity.w7.VegetableFarmMainActivity
 import com.asiantech.intern20summer1.database.Cultivation
 import com.asiantech.intern20summer1.database.Plant
 import com.asiantech.intern20summer1.database.VegetableDB
@@ -76,6 +77,10 @@ class VegetableDialogFragment : DialogFragment() {
                     Toast.LENGTH_SHORT
                 ).show()
                 dialog?.dismiss()
+                (activity as VegetableFarmMainActivity).apply {
+                    VegetableFragmentRecyclerView.newInstance()
+                        .initData(VegetableFragmentRecyclerView.newInstance().id)
+                }
             }
         }
     }
@@ -97,7 +102,12 @@ class VegetableDialogFragment : DialogFragment() {
             override fun onNothingSelected(p0: AdapterView<*>?) {
             }
 
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
+            override fun onItemSelected(
+                p0: AdapterView<*>?,
+                p1: View?,
+                position: Int,
+                p3: Long
+            ) {
                 listPlants?.get(position)?.let {
                     plantSelected = it
                 }
