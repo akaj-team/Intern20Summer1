@@ -6,6 +6,7 @@ import android.os.Handler
 import android.os.Message
 import androidx.appcompat.app.AppCompatActivity
 import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.week8.extentsions.AsyncTask
 import com.asiantech.intern20summer1.week8.extentsions.ThreadHandler
 import com.asiantech.intern20summer1.week8.extentsions.ThreadHandler.Companion.TIME_PERIOD
 import kotlinx.android.synthetic.`at-linhle`.activity_dowload_image.*
@@ -32,7 +33,8 @@ class DownloadImageActivity : AppCompatActivity() {
                 super.handleMessage(msg)
                 if (msg.what == TIME_PERIOD) {
                     progressBar.progress = msg.arg1
-                    tvPercentNumber.text = msg.arg1.toString()
+                    tvPercentNumber.text =
+                        msg.arg1.toString() + getString(R.string.download_image_activity_percent_description)
                 }
             }
         }
@@ -43,6 +45,12 @@ class DownloadImageActivity : AppCompatActivity() {
             progressBar.progress = 0
             tvPercentNumber.text = getString(R.string.percent_number_text_view_start_description)
             Thread(ThreadHandler(this, IMAGE_URL, handler)).start()
+        }
+
+        btnAsyncTask.setOnClickListener {
+            progressBar.progress = 0
+            tvPercentNumber.text = getString(R.string.percent_number_text_view_start_description)
+            AsyncTask(this, progressBar, tvPercentNumber).execute(IMAGE_URL)
         }
     }
 }
