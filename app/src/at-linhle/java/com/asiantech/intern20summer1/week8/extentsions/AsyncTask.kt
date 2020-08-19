@@ -62,7 +62,6 @@ class AsyncTask(
 
     @SuppressLint("SetTextI18n")
     override fun onProgressUpdate(vararg values: String?) {
-        super.onProgressUpdate(*values)
         values[0]?.let { progressBar.progress = it.toInt() }
         textView.text =
             values[0] + context.getString(R.string.download_image_activity_percent_description)
