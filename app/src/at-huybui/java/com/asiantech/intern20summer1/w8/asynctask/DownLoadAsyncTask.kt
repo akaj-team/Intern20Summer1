@@ -22,39 +22,8 @@ class DownLoadAsyncTask(private var downLoadActivity: DownLoadActivity) :
 
     override fun doInBackground(vararg params: String?): Int? {
         var result = 1
-        val outputStream: OutputStream
         try {
-            val url = URL(params[0])
-            val nameFile = params[1]
-            val extension = params[2]
-            val connection = url.openConnection() as HttpsURLConnection
-            connection.connect()
-            val length = connection.contentLength
-            if (length <= 0) {
-                result = -1
-            } else {
-                val inputStream = connection.inputStream
-                val directory =
-                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-                val path = File(directory, "$nameFile$extension")
-                outputStream = FileOutputStream("$path")
-                val data = ByteArray(length)
-                if (connection.responseCode != HttpsURLConnection.HTTP_OK) {
-                    result = 0
-                }
-                var total = 0
-                var count = inputStream?.read(data)
-                while (count != -1) {
-                    // allow canceling with back button
-                    count?.let {
-                        total += it
-                        outputStream.write(data, 0, it)
-                    }
-                    // publishing the progress....
-                    publishProgress(((total / length.toFloat()) * PERCENTAGE).toInt())
-                    count = inputStream?.read(data)
-                }
-            }
+            result = handleStartDownLoad(params)
         } catch (nfe: NumberFormatException) {
             nfe.printStackTrace()
         } catch (ae: ArithmeticException) {
@@ -66,7 +35,6 @@ class DownLoadAsyncTask(private var downLoadActivity: DownLoadActivity) :
     }
 
     override fun onProgressUpdate(vararg values: Int?) {
-        super.onProgressUpdate(*values)
         values[0]?.let {
             downLoadActivity.uiAsyncTask(it)
         }
@@ -88,5 +56,43 @@ class DownLoadAsyncTask(private var downLoadActivity: DownLoadActivity) :
                 Toast.makeText(downLoadActivity, text, Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun handleStartDownLoad(params: Array<out String?>): Int {
+        var result = 1
+        val url = URL(params[0])
+        val nameFile = params[1]
+        val extension = params[2]
+        val connection = url.openConnection() as HttpsURLConnection
+        connection.connect()
+        val length = connection.contentLength
+        if (length <= 0) {
+            result = -1
+        }
+        if (length > 0) {
+            val outputStream: OutputStream
+            val inputStream = connection.inputStream
+            val directory =
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+            val path = File(directory, "$nameFile$extension")
+            outputStream = FileOutputStream("$path")
+            val data = ByteArray(length)
+            if (connection.responseCode != HttpsURLConnection.HTTP_OK) {
+                result = 0
+            }
+            var total = 0
+            var count = inputStream?.read(data)
+            while (count != -1) {
+                // allow canceling with back button
+                count?.let {
+                    total += it
+                    outputStream.write(data, 0, it)
+                }
+                // publishing the progress....
+                publishProgress(((total / length.toFloat()) * PERCENTAGE).toInt())
+                count = inputStream?.read(data)
+            }
+        }
+        return result
     }
 }

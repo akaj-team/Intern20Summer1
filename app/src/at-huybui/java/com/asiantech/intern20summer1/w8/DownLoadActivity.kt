@@ -23,7 +23,8 @@ import kotlinx.android.synthetic.`at-huybui`.activity_down_load.*
 class DownLoadActivity : AppCompatActivity() {
 
     companion object {
-        private const val NAME_FILE = "video game"
+        private const val NAME_FILE = "New Video"
+        private const val EXTENSION = ".mp4"
         private const val LINK_VIDEO =
             """https://r4---sn-8pxuuxa-q5ql.googlevideo.com/videoplayback?expire=1597843419&ei=etM8X6X4OJHs4wLO0a3wBw&ip=2402%3A800%3A621c%3Aeb44%3A4d05%3A895b%3A4efb%3Afea2&id=o-AOnVhidCikyAfPcqzdj9w2A4TULhH76ctuqeDXh_r5-W&itag=22&source=youtube&requiressl=yes&mh=2F&mm=31%2C29&mn=sn-8pxuuxa-q5ql%2Csn-npoe7ney&ms=au%2Crdu&mv=m&mvi=4&pl=48&initcwndbps=1613750&vprv=1&mime=video%2Fmp4&ratebypass=yes&dur=275.086&lmt=1507315472076406&mt=1597821698&fvip=4&fexp=23883098&c=WEB&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cvprv%2Cmime%2Cratebypass%2Cdur%2Clmt&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAKLnahTvAHSkTjdb-IQLokI-TPMrs9IxvO6kyt03uJT3AiAv1Cbqs3phlNFR6Gerw4hJjXZnjgWpo5SlEwI5DGL-4w%3D%3D&sig=AOq0QJ8wRQIgRqAtUhJJD5GztQ-pNFdNuLKgQwn3xTO5oFvH0xuB3pwCIQDjLnsNDObkWfRKqcUOaSYlYMoyfLMR5VkH_JwRu-F-TQ%3D%3D"""
         private const val REGEX_URL =
@@ -47,6 +48,7 @@ class DownLoadActivity : AppCompatActivity() {
     private fun initListener() {
         edtUrl?.append(LINK_VIDEO)
         edtNameFile?.append(NAME_FILE)
+        edtExtension?.append(EXTENSION)
         initHandlerThreadListener()
         initAsyncTaskListener()
         initOpenFileListener()
