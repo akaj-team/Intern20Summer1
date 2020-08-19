@@ -9,11 +9,13 @@ import android.net.NetworkCapabilities
 import android.net.Uri
 import android.os.*
 import android.provider.Settings
+import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w8.asynctask.DownLoadAsyncTask
 import com.asiantech.intern20summer1.w8.handlerthread.DownLoadHandlerThread
@@ -36,7 +38,8 @@ class DownLoadActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_down_load)
-        initListener()
+        setColorStatusBar()
+        initView()
     }
 
     fun uiAsyncTask(progress: Int) {
@@ -45,7 +48,7 @@ class DownLoadActivity : AppCompatActivity() {
         progressBar?.progress = progress
     }
 
-    private fun initListener() {
+    private fun initView() {
         edtUrl?.append(LINK_VIDEO)
         edtNameFile?.append(NAME_FILE)
         edtExtension?.append(EXTENSION)
@@ -203,6 +206,17 @@ class DownLoadActivity : AppCompatActivity() {
                     ).show()
                 }
             }
+        }
+    }
+
+    private fun setColorStatusBar() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            window.statusBarColor = ContextCompat.getColor(this, R.color.custom_button_icon_stroke)
+            window.decorView.systemUiVisibility =
+                window.decorView.systemUiVisibility.and(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv())
+
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.statusBarColor = ContextCompat.getColor(this, R.color.custom_button_icon_stroke)
         }
     }
 }
