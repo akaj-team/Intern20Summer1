@@ -33,7 +33,7 @@
             android:textSize="@dimen/w7_dialog_fragment_title_text_size"
             android:textStyle="bold" />
 
-        <Spinner
+        <com.jaredrummler.materialspinner.MaterialSpinner
             android:id="@+id/spinnerPlant"
             android:layout_width="@dimen/w7_dialog_fragment_spinner_width"
             android:layout_height="@dimen/w7_dialog_fragment_spinner_height"

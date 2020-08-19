@@ -6,8 +6,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import androidx.fragment.app.DialogFragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w7.activity.HomeActivity
@@ -49,29 +47,34 @@ class PlantDialogFragment : DialogFragment() {
     private fun initView() {
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
     }
-    private fun initListener(){
+
+    private fun initListener() {
         handleBackImageListener()
         handleButtonListener()
     }
-     private fun handleButtonListener(){
-         btnDialogFragment.setOnClickListener {
-             plantSelected?.let {
-                 Cultivation().apply {
-                     val dateFormat = SimpleDateFormat(FORMAT_CODE_DATE)
-                     val dateCurrent = dateFormat.format(Date())
-                     plantId = it.plantId
-                     dateCultivation = dateCurrent
-                     dateWatering = dateCurrent
-                     database?.cultivationDao()?.insertCultivation(this)
-                     (activity as HomeActivity).replaceFragment(R.id.flContent,PlantGardenFragment.newInstance())
-//                     replaceFragment()
-                 }
-                 dialog?.dismiss()
-             }
-         }
-     }
-    private fun handleBackImageListener(){
-        imgBackIconDialog?.setOnClickListener{
+
+    private fun handleButtonListener() {
+        btnDialogFragment.setOnClickListener {
+            plantSelected?.let {
+                Cultivation().apply {
+                    val dateFormat = SimpleDateFormat(FORMAT_CODE_DATE)
+                    val dateCurrent = dateFormat.format(Date())
+                    plantId = it.plantId
+                    dateCultivation = dateCurrent
+                    dateWatering = dateCurrent
+                    database?.cultivationDao()?.insertCultivation(this)
+                    (activity as HomeActivity).replaceFragment(
+                        R.id.flContent,
+                        PlantGardenFragment.newInstance()
+                    )
+                }
+                dialog?.dismiss()
+            }
+        }
+    }
+
+    private fun handleBackImageListener() {
+        imgBackIconDialog?.setOnClickListener {
             dismiss()
         }
     }
@@ -82,18 +85,10 @@ class PlantDialogFragment : DialogFragment() {
         plantList?.forEach {
             it.name?.let { plantName -> plantNameArray.add(plantName) }
         }
-        var spinnerAdapter =
-            ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, plantNameArray)
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinnerPlant?.adapter = spinnerAdapter
-        spinnerPlant?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-            }
-
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
-                plantList?.get(position)?.let {
-                    plantSelected = it
-                }
+        plantNameArray?.let { spinnerPlant?.setItems(it) }
+        spinnerPlant?.setOnItemSelectedListener { _, position, _, _ ->
+            plantList?.get(position)?.let {
+                plantSelected = it
             }
         }
     }
