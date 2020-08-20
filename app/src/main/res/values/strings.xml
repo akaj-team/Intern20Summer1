@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Intern20Summer1</string>
+    <string name="download_activity_button_start">Start</string>
+    <string name="button_thread_handler">Thread Handler</string>
+    <string name="button_asynctask">AsyncTask</string>
+    <string name="text_view_progress_default">0%</string>
 </resources>
