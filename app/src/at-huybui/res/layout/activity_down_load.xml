@@ -6,6 +6,7 @@
     android:gravity="center_horizontal"
     android:orientation="vertical"
     tools:context="com.asiantech.intern20summer1.w8.DownLoadActivity">
+
     <TextView
         android:id="@+id/tvTitleDownLoad"
         android:layout_width="wrap_content"
@@ -54,9 +55,9 @@
             android:layout_width="@dimen/w8_edit_text_width"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/w8_margin_all"
+            android:hint="@string/w8_edit_text_hint_extension"
             android:importantForAutofill="no"
-            android:inputType="text"
-            android:hint="@string/w8_edit_text_hint_extension" />
+            android:inputType="text" />
     </LinearLayout>
 
     <EditText

@@ -33,7 +33,7 @@ class DownLoadHandlerThread(private var uiHandler: DownLoadActivity.UiHandler) :
             override fun handleMessage(msg: Message) {
                 super.handleMessage(msg)
                 val processedMessage = Message()
-                processedMessage.obj =  msg.obj as Int
+                processedMessage.obj = msg.obj as Int
                 uiHandler.sendMessage(processedMessage)
             }
         }
