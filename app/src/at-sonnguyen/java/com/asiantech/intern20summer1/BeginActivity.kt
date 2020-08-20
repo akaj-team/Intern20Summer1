@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.asiantech.intern20summer1.w6.activity.StepActivity
+import com.asiantech.intern20summer1.w8.DownloadActivity
 import kotlinx.android.synthetic.`at-sonnguyen`.activity_begin.*
 
 class BeginActivity : AppCompatActivity(){
@@ -17,6 +18,11 @@ class BeginActivity : AppCompatActivity(){
         btnWeek6.setOnClickListener {
             val intent = Intent(this,
                 StepActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+        btnWeek8.setOnClickListener {
+            val intent = Intent(this,DownloadActivity::class.java)
             startActivity(intent)
             finish()
         }

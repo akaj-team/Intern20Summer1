@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_marginTop="@dimen/w8_percent_text_view_margin_top"
+        android:text="@string/w8_percent_text_view_default_text"
+        android:textSize="@dimen/w8_text_size"
+        android:id="@+id/tvProcessPercent"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"/>
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:id="@+id/progressBarDownloadProcess"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/w8_progress_bar_height"
+        android:layout_marginTop="@dimen/w8_progress_bar_margin_top"
+        android:max="100"
+        android:progress="1"
+        android:layout_below="@id/tvProcessPercent"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/w8_linear_layout_margin_top"
+        android:layout_below="@id/progressBarDownloadProcess"
+        android:weightSum="2"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_marginTop="@dimen/w8_button_margin_top"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/w8_button_margin_horizontal"
+            android:layout_marginRight="@dimen/w8_button_margin_horizontal"
+            android:textAllCaps="false"
+            android:text="@string/w8_thread_handler_button_text"
+            android:id="@+id/btnThreadHandlerDownload"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/w8_button_height"
+            tools:ignore="ButtonStyle" />
+        <Button
+            android:text = "@string/w8_async_task_button_text"
+            android:textAllCaps="false"
+            android:id="@+id/btnAsyncTaskDownload"
+            android:layout_marginLeft="@dimen/w8_button_margin_horizontal"
+            android:layout_marginTop="@dimen/w8_button_margin_top"
+            android:layout_weight="1"
+            android:layout_marginRight="@dimen/w8_button_margin_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/w8_button_height"
+            tools:ignore="ButtonStyle" />
+    </LinearLayout>
+</RelativeLayout>
