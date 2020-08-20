@@ -138,10 +138,6 @@ class PlantDetailFragment : Fragment() {
                     lackedWaterPlantFragment.initData()
                 }
             }
-//            wormedPlantFragment.initData()
-//            lackedWaterPlantFragment.initData()
-//            comingHarvestPlant.initData()
-//            plantGardenFragment.initData()
         }
     }
     private fun getFragmentId(){

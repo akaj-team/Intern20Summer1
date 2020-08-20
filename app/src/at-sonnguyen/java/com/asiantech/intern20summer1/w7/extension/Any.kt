@@ -100,7 +100,7 @@ internal fun getDateHarvest(cultivationDate: String?, plant: Plant): String {
         val dateFormat = SimpleDateFormat(DownloadPlantImage.FORMAT_CODE_DATE)
         val calendar = Calendar.getInstance()
         dateFormat.parse(cul)?.let { calendar.time = it }
-        plant.growZoneNumber?.let { calendar.add(Calendar.MINUTE, it) }
+        plant.growZoneNumber?.let { calendar.add(Calendar.HOUR, it) }
         return dateFormat.format(calendar.time)
     }
     return ""
