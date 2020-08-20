@@ -87,4 +87,5 @@
     <string name="text_view_plant_is_no_longer_exist_description_w7_text">Plant is no longer exist.</string>
     <string name="text_view_plant_new_title_dialog_w7_text">Trồng cây</string>
     <string name="button_ok_plant_new_w7_text">OK</string>
+    <string name="button_week_8_description">Week 8: Thread - Handler - AsyncTask</string>
 </resources>

@@ -10,6 +10,7 @@ import com.asiantech.intern20summer1.week4.activity.SplashActivity
 import com.asiantech.intern20summer1.week5.activity.TimeLineActivity
 import com.asiantech.intern20summer1.week6.activity.FirstPageActivity
 import com.asiantech.intern20summer1.week7.activity.SplashWeekSevenActivity
+import com.asiantech.intern20summer1.week8.activity.DownloadActivity
 import kotlinx.android.synthetic.`at-longphan`.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -32,6 +33,7 @@ class MainActivity : AppCompatActivity() {
         handleButtonWeek5()
         handleButtonWeek6()
         handleButtonWeek7()
+        handleButtonWeek8()
     }
 
     private fun handleButtonWeek3() {
@@ -61,6 +63,12 @@ class MainActivity : AppCompatActivity() {
     private fun handleButtonWeek7() {
         btnWeek7?.setOnClickListener {
             startActivity(Intent(this, SplashWeekSevenActivity::class.java))
+        }
+    }
+
+    private fun handleButtonWeek8() {
+        btnWeek8?.setOnClickListener {
+            startActivity(Intent(this, DownloadActivity::class.java))
         }
     }
 }

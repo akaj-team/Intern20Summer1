@@ -87,6 +87,14 @@
                 android:layout_marginTop="@dimen/button_week_description_activity_main_margin_top"
                 android:text="@string/button_week_7_description"
                 android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btnWeek8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/button_week_description_activity_main_margin_top"
+                android:text="@string/button_week_8_description"
+                android:textAllCaps="false" />
         </LinearLayout>
     </ScrollView>
 
