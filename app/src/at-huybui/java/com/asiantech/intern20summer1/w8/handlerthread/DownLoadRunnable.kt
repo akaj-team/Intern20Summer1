@@ -7,6 +7,12 @@ import java.io.OutputStream
 import java.net.URL
 import javax.net.ssl.HttpsURLConnection
 
+/**
+ * Asian Tech Co., Ltd.
+ * Created by at-huybui
+ * This is Runnable class used to down load file
+ */
+
 @Suppress("DEPRECATION")
 class DownLoadRunnable(private var downLoadHandlerThread: DownLoadHandlerThread) : Runnable {
 

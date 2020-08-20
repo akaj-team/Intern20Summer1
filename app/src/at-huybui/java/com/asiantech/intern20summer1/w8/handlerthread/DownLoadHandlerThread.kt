@@ -6,6 +6,12 @@ import android.os.Looper
 import android.os.Message
 import com.asiantech.intern20summer1.w8.DownLoadActivity
 
+/**
+ * Asian Tech Co., Ltd.
+ * Created by at-huybui
+ * This is HandlerThread class
+ */
+
 class DownLoadHandlerThread(private var uiHandler: DownLoadActivity.UiHandler) :
     HandlerThread("DownLoadHandlerThread") {
 

@@ -2,6 +2,12 @@
 
 package com.asiantech.intern20summer1.w8
 
+/**
+ * Asian Tech Co., Ltd.
+ * Created by at-huybui
+ * This is activity class of download activity
+ */
+
 import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager

@@ -1,5 +1,11 @@
 @file:Suppress("DEPRECATION")
 
+/**
+ * Asian Tech Co., Ltd.
+ * Created by at-huybui
+ * This is async task class
+ */
+
 package com.asiantech.intern20summer1.w8.asynctask
 
 import android.os.AsyncTask
