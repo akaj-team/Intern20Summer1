@@ -82,7 +82,7 @@ class PlantDialogFragment : DialogFragment() {
         btnOK?.setOnClickListener {
             Cultivation().apply {
                 userGrowId = user?.userId
-                plantId = plants?.get(position)?.id
+                plantId = plants?.get(position)?.plantId
                 dateCultivation = dateCurrent
                 dateWatering = dateCurrent
             }

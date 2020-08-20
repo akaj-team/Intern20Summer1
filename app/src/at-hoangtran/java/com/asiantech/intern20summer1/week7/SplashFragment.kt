@@ -61,7 +61,7 @@ SplashFragment : Fragment() {
                     }
                     LOAD_DATA_INTERNET -> {
                         plants?.forEach { plant ->
-                            plant.id?.let {
+                            plant.plantId?.let {
                                 DownloadImage(requireContext(), it).execute(plant.imageUrl)
                             }
                         }
@@ -107,7 +107,7 @@ SplashFragment : Fragment() {
     private fun updateImageUrl(plants: List<Plant>?) {
         val path = requireContext().getDir(IMAGE_FILE_NAME_KEY, Context.MODE_PRIVATE)
         plants?.forEach { plant ->
-            plant.id?.let {
+            plant.plantId?.let {
                 appDatabase?.getPlantDAO()?.updateImageUrl("$path/${it}${FILE_EXTENSION_KEY}", it)
             }
         }

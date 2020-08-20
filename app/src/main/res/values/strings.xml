@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Intern20Summer1</string>
+    <string name="sign_up_fragment_image_profile_title">Register Avatar</string>
 </resources>

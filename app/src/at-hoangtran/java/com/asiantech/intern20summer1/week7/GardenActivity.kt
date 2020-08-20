@@ -81,15 +81,13 @@ class GardenActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
     private fun getUser() {
         val header = nav_bar.getHeaderView(0)
         val user = appDatabase?.getUserDAO()?.getUser()
-        user?.apply {
-            header.tvHomeUserName?.text = userName
-            header.tvHomeUniversity?.text = university
-            header.tvHomeHomeTown?.text = homeTown
-            if (avatar == "") {
-                header.imgHomeUser?.setImageResource(R.mipmap.ic_launcher_round)
-            } else {
-                header.imgHomeUser?.setImageURI(Uri.parse(avatar))
-            }
+        header.tvHomeUserName?.text = user?.userName
+        header.tvHomeUniversity?.text = user?.university
+        header.tvHomeHomeTown?.text = user?.homeTown
+        if (user?.avatar == "") {
+            header.imgHomeUser?.setImageResource(R.mipmap.ic_launcher_round)
+        } else {
+            header.imgHomeUser?.setImageURI(Uri.parse(user?.avatar))
         }
     }
 

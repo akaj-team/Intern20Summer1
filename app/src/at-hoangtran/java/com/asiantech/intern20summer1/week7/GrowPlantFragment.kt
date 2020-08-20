@@ -129,7 +129,7 @@ class GrowPlantFragment : Fragment() {
 
     private fun handlePlantClicked() {
         adapter.onItemClicked = {
-            val fragment = PlantDetailFragment.newInstance(it)
+            val fragment = PlantDetailFragment.newInstance(it, itemId)
             (activity as GardenActivity).handleReplaceFragment(
                 fragment,
                 backStack = true,

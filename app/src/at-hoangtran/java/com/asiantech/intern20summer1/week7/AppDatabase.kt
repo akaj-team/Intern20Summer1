@@ -34,9 +34,9 @@ abstract class AppDatabase : RoomDatabase() {
         }
 
         private fun buildDatabase(context: Context): AppDatabase? {
-            return Room.databaseBuilder(context, AppDatabase::class.java, "plant.db")
+            return Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME)
                 .addCallback(object : RoomDatabase.Callback() {
-                    fun OnCreate(db: SupportSQLiteDatabase) {
+                    override fun onCreate(db: SupportSQLiteDatabase) {
                         super.onCreate(db)
                         Executors.newFixedThreadPool(2).execute {
                             context.assets.open("plants.json").use { inputStream ->
@@ -48,7 +48,8 @@ abstract class AppDatabase : RoomDatabase() {
                             }
                         }
                     }
-                }).allowMainThreadQueries().build()
+                })
+                .allowMainThreadQueries().build()
         }
     }
 }
