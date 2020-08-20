@@ -6,50 +6,53 @@
     android:padding="20dp">
 
     <TextView
-        android:id="@+id/tvRatioNumber"
+        android:id="@+id/tvDownloadedPercentW8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        tools:text="0"
-        android:textStyle="bold" />
+        android:text="0"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:visibility="invisible" />
 
     <TextView
-        android:id="@+id/tvRatio"
+        android:id="@+id/tvPercentW8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_toRightOf="@id/tvRatioNumber"
-        tools:text="%"
+        android:layout_toRightOf="@id/tvDownloadedPercentW8"
+        android:text="%"
+        android:textSize="20dp"
         android:textStyle="bold"
+        android:visibility="invisible"
         tools:ignore="RtlHardcoded" />
 
     <ProgressBar
-        android:id="@+id/progressBar"
+        android:id="@+id/progressBarW8"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tvRatioNumber"
+        android:layout_below="@id/tvDownloadedPercentW8"
         android:layout_marginTop="20dp" />
 
     <EditText
-        android:id="@+id/tvUrl"
+        android:id="@+id/edtImageUrl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/progressBar"
+        android:layout_below="@id/progressBarW8"
         android:layout_marginTop="20dp"
-        android:enabled="false"
+        android:hint="@string/edit_text_put_link_image_here_w8_hint"
         android:importantForAutofill="no"
-        android:inputType="text"
-        android:hint="link down load"
+        android:singleLine="true"
         android:textStyle="bold"
         tools:ignore="LabelFor,TextFields" />
 
     <Button
-        android:id="@+id/btnStart"
+        android:id="@+id/btnDownloadImageW8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tvUrl"
+        android:layout_below="@id/edtImageUrl"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:text="Download" />

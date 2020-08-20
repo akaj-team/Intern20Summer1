@@ -88,4 +88,6 @@
     <string name="text_view_plant_new_title_dialog_w7_text">Trồng cây</string>
     <string name="button_ok_plant_new_w7_text">OK</string>
     <string name="button_week_8_description">Week 8: Thread - Handler - AsyncTask</string>
+    <string name="default_image_url_w8"><![CDATA[https://images.unsplash.com/photo-1533461502717-83546f485d24?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60]]></string>
+    <string name="edit_text_put_link_image_here_w8_hint">Put link image here..</string>
 </resources>

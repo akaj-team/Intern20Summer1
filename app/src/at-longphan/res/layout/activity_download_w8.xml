@@ -1,22 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingTop="200dp">
+
+    <TextView
+        android:id="@+id/tvDownloadWithDescriptionW8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Download image with:"
+        android:textSize="24sp" />
 
     <Button
-        android:id="@+id/btnHandler"
+        android:id="@+id/btnThreadHandler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/tvDownloadWithDescriptionW8"
         android:layout_marginTop="15dp"
         android:background="@android:color/holo_blue_light"
-        android:text="Download with Handler" />
+        android:text="Thread Handler" />
 
     <Button
-        android:background="@android:color/holo_green_light"
         android:id="@+id/btnAsyncTask"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/btnHandler"
+        android:layout_below="@id/btnThreadHandler"
         android:layout_marginTop="15dp"
-        android:text="Download with Async Task " />
+        android:background="@android:color/holo_green_light"
+        android:text="Async Task " />
 </RelativeLayout>
