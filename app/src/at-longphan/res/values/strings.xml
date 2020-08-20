@@ -72,4 +72,19 @@
     <string name="confirm_action_dialog_negative">No</string>
     <string name="toast_watering_plant_successfully_description">Watering plant successfully!</string>
     <string name="toast_cut_off_plant_successfully_description">Cut off plant successfully!</string>
+    <string name="text_view_register_description_w7_text">Register</string>
+    <string name="edit_text_register_username_w7_hint">User Name</string>
+    <string name="edit_text_register_university_w7_hint">University</string>
+    <string name="edit_text_register_hometown_w7_hint">Home Town</string>
+    <string name="button_next_register_w7_text">Next</string>
+    <string name="text_view_empty_list_description_w7_text">Empty list.</string>
+    <string name="text_view_toolbar_title_fragment_plant_detail_w7_text">Thông tin cây</string>
+    <string name="text_view_plant_at_description_w7_text">Trồng lúc:</string>
+    <string name="text_view_last_watering_description_w7_text">Tưới nước lần cuối:</string>
+    <string name="text_view_plant_description_w7_text">Miêu tả cây</string>
+    <string name="button_plant_watering_w7_text">Tưới nước</string>
+    <string name="button_plant_cut_off_w7_text">Chặt bỏ</string>
+    <string name="text_view_plant_is_no_longer_exist_description_w7_text">Plant is no longer exist.</string>
+    <string name="text_view_plant_new_title_dialog_w7_text">Trồng cây</string>
+    <string name="button_ok_plant_new_w7_text">OK</string>
 </resources>

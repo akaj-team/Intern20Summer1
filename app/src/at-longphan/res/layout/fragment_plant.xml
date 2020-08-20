@@ -7,8 +7,8 @@
         android:id="@+id/recyclerViewPlant"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginHorizontal="32dp"
-        android:layout_marginBottom="46dp"
+        android:layout_marginHorizontal="@dimen/recycler_view_fragment_plant_w7_margin_horizontal"
+        android:layout_marginBottom="@dimen/recycler_view_fragment_plant_w7_margin_bottom"
         android:scrollbars="none" />
 
     <RelativeLayout
@@ -26,11 +26,10 @@
             android:src="@drawable/ic_empty_list" />
 
         <TextView
-            android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/imgEmptyList"
             android:layout_centerHorizontal="true"
-            android:text="Empty list." />
+            android:text="@string/text_view_empty_list_description_w7_text" />
     </RelativeLayout>
 </FrameLayout>

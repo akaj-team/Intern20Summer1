@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    android:paddingHorizontal="16dp"
-    android:paddingVertical="32dp"
+    android:paddingHorizontal="@dimen/relative_layout_activity_register_w7_padding_horizontal"
+    android:paddingVertical="@dimen/relative_layout_activity_register_w7_padding_vertical"
     tools:context="com.asiantech.intern20summer1.week7.activity.RegisterWeekSevenActivity">
 
     <LinearLayout
@@ -21,65 +21,65 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="Register"
+            android:layout_marginTop="@dimen/text_view_register_description_w7_margin_top"
+            android:text="@string/text_view_register_description_w7_text"
             android:textColor="@android:color/black"
-            android:textSize="36sp" />
+            android:textSize="@dimen/text_view_register_description_w7_text_size" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imgAvatarWeek7"
             android:layout_width="@dimen/circle_image_view_register_avatar_w7_width"
             android:layout_height="@dimen/circle_image_view_register_avatar_w7_height"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="@dimen/circle_image_view_register_avatar_w7_margin_top"
             android:layout_marginBottom="@dimen/circle_image_view_register_avatar_margin_bottom"
             android:src="@mipmap/ic_launcher" />
 
         <EditText
             android:id="@+id/edtUsernameWeek7"
             android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:layout_marginTop="26dp"
+            android:layout_height="@dimen/edit_text_register_username_w7_height"
+            android:layout_marginTop="@dimen/edit_text_register_username_w7_margin_top"
             android:background="@drawable/bg_edit_text_register_w7"
             android:foregroundTint="@android:color/transparent"
-            android:hint="User Name"
-            android:paddingHorizontal="17dp"
+            android:hint="@string/edit_text_register_username_w7_hint"
+            android:paddingHorizontal="@dimen/edit_text_register_username_w7_padding_horizontal"
             android:singleLine="true"
-            android:textSize="18sp"
+            android:textSize="@dimen/edit_text_register_username_w7_text_size"
             tools:targetApi="lollipop" />
 
         <EditText
             android:id="@+id/edtUniversityWeek7"
             android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:layout_marginTop="24dp"
+            android:layout_height="@dimen/edit_text_register_university_w7_height"
+            android:layout_marginTop="@dimen/edit_text_register_university_w7_margin_top"
             android:background="@drawable/bg_edit_text_register_w7"
-            android:hint="University"
-            android:paddingHorizontal="17dp"
+            android:hint="@string/edit_text_register_university_w7_hint"
+            android:paddingHorizontal="@dimen/edit_text_register_university_w7_padding_horizontal"
             android:singleLine="true"
-            android:textSize="18sp" />
+            android:textSize="@dimen/edit_text_register_university_w7_text_size" />
 
         <EditText
             android:id="@+id/edtHomeTownWeek7"
             android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:layout_marginTop="16dp"
+            android:layout_height="@dimen/edit_text_register_hometown_w7_height"
+            android:layout_marginTop="@dimen/edit_text_register_hometown_w7_margin_top"
             android:background="@drawable/bg_edit_text_register_w7"
-            android:hint="Home Town"
-            android:paddingHorizontal="17dp"
+            android:hint="@string/edit_text_register_hometown_w7_hint"
+            android:paddingHorizontal="@dimen/edit_text_register_hometown_w7_padding_horizontal"
             android:singleLine="true"
-            android:textSize="18sp" />
+            android:textSize="@dimen/edit_text_register_hometown_w7_text_size" />
     </LinearLayout>
 
     <Button
         android:id="@+id/btnNextRegisterWeek7"
         android:layout_width="match_parent"
-        android:layout_height="52dp"
+        android:layout_height="@dimen/button_next_register_w7_height"
         android:layout_alignParentBottom="true"
         android:background="@drawable/bg_button_next_register_disable_w7"
         android:enabled="false"
-        android:text="Next"
+        android:text="@string/button_next_register_w7_text"
         android:textColor="@color/colorButtonNextRegisterDisableWeek7Text"
-        android:textSize="15sp"
+        android:textSize="@dimen/button_next_register_w7_text_size"
         android:textStyle="bold" />
 </RelativeLayout>

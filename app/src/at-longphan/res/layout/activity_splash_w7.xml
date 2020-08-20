@@ -17,5 +17,5 @@
         style="@android:style/Widget.DeviceDefault.ProgressBar.Horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minWidth="200dp" />
+        android:minWidth="@dimen/progressbar_activity_splash_w7_min_width" />
 </LinearLayout>

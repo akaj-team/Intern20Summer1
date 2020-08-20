@@ -4,40 +4,40 @@
     android:id="@+id/containerItemListPlant"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginVertical="4dp"
+    android:layout_marginVertical="@dimen/container_item_list_plant_w7_margin_vertical"
     android:background="@drawable/bg_item_plant_1_w7"
     android:gravity="center"
-    android:paddingHorizontal="16dp"
-    android:paddingVertical="12dp">
+    android:paddingHorizontal="@dimen/container_item_list_plant_w7_padding_horizontal"
+    android:paddingVertical="@dimen/container_item_list_plant_w7_padding_vertical">
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginRight="10dp"
+        android:layout_marginRight="@dimen/linear_layout_item_plant_w7_margin_right"
         android:layout_weight="1"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp">
+            android:layout_marginBottom="@dimen/linear_layout_name_and_status_w7_margin_bottom">
 
             <com.asiantech.intern20summer1.week7.other.TightTextView
                 android:id="@+id/tvNamePlant"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:maxWidth="400dp"
-                android:textSize="22sp"
+                android:maxWidth="@dimen/text_view_name_plant_w7_max_width"
+                android:textSize="@dimen/text_view_name_plant_w7_text_size"
                 tools:text="Cải thảo" />
 
             <ImageView
                 android:id="@+id/imgStatusPlant"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
+                android:layout_width="@dimen/image_view_status_plant_w7_size"
+                android:layout_height="@dimen/image_view_status_plant_w7_size"
                 android:layout_gravity="bottom"
-                android:layout_marginLeft="10dp"
-                android:layout_marginBottom="7dp"
+                android:layout_marginLeft="@dimen/image_view_status_plant_w7_margin_left"
+                android:layout_marginBottom="@dimen/image_view_status_plant_w7_margin_bottom"
                 tools:src="@drawable/ic_bug_16" />
         </LinearLayout>
 
@@ -51,21 +51,21 @@
                 android:id="@+id/tvDateCultivation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"
+                android:textSize="@dimen/image_view_dates_plant_w7_text_size"
                 tools:text="Trồng vào lúc: 03/08/20 12h10 " />
 
             <TextView
                 android:id="@+id/tvDateHarvest"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"
+                android:textSize="@dimen/image_view_dates_plant_w7_text_size"
                 tools:text="Thời gian thu hoạch: 03/08/20 12h10" />
         </LinearLayout>
     </LinearLayout>
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgDisplayPlant"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="@dimen/image_view_display_plant_w7_size"
+        android:layout_height="@dimen/image_view_display_plant_w7_size"
         android:src="@mipmap/ic_launcher" />
 </LinearLayout>

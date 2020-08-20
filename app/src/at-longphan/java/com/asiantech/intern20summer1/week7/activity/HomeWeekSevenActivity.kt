@@ -112,7 +112,6 @@ class HomeWeekSevenActivity : AppCompatActivity(), NavigationView.OnNavigationIt
         //setSupportActionBar(toolbarWeeK7)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
-        //listener for hamburger
         toolbarHamburger?.setOnClickListener {
             drawerLayoutWeek7?.openDrawer(Gravity.LEFT)
         }

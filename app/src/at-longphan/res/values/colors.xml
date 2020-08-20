@@ -63,4 +63,9 @@
     <color name="colorTextViewAboutToHarvestModeWeek7">#00ff00</color>
     <color name="colorTextViewDehydratedModeWeek7">#999966</color>
     <color name="colorTextViewWormedModeWeek7">#EC1212</color>
+    <color name="colorNavigationItemIconTint">#5153E0</color>
+    <color name="colorCollapsingToolbarLayoutW7ContentScriom">#FFC300</color>
+    <color name="colorToolbarFragmentPlantDetailW7Background">#FFC300</color>
+    <color name="colorTextViewPlantMainDescriptionW7Text">#FFC300</color>
+    <color name="colorContainerHeaderW7Background">#FFC300</color>
 </resources>
