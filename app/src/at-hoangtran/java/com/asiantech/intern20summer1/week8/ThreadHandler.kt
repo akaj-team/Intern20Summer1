@@ -10,20 +10,21 @@ import java.io.*
 import java.net.MalformedURLException
 import java.net.URL
 
-class ThreadHandler(val context: Context, val imageUrl: String, val handler: Handler) :
+class ThreadHandler(
+    private val context: Context,
+    private val imageUrl: String,
+    private val handler: Handler
+) :
     Runnable {
     private var directory: File? = null
     override fun run() {
         try {
             directory = context.getDir(FILE_NAME, Context.MODE_PRIVATE)
-            val path = File(
-                directory,
-                "${FILE_NAME}${FILE_TAIL}"
-            )
+            val path = File(directory, FILE_TAIL)
             val url = URL(imageUrl)
             val urlConnection = url.openConnection()
             var total = 0
-            var count = 0
+            var count: Int
             urlConnection.connect()
             val fileLength = urlConnection.contentLength
             val input: InputStream = BufferedInputStream(url.openStream())
@@ -44,8 +45,8 @@ class ThreadHandler(val context: Context, val imageUrl: String, val handler: Han
             output.close()
             input.close()
         } catch (e: MalformedURLException) {
-            e.printStackTrace();
-        } catch (e: IOException){
+            e.printStackTrace()
+        } catch (e: IOException) {
             e.printStackTrace()
         }
     }
