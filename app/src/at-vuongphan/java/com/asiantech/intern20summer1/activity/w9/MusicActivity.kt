@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.fragment.w9.ListFragmentMusic
+import kotlinx.android.synthetic.`at-vuongphan`.activity_login.*
 
 class MusicActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

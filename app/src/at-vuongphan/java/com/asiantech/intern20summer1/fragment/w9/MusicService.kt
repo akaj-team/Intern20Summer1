@@ -46,5 +46,4 @@ class MusicService : Service() {
         internal val getService: MusicService
             get() = this@MusicService
     }
-
 }
