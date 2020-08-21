@@ -110,7 +110,9 @@ class FragmentLogin : Fragment() {
 
     private fun openFragmentRegister() {
         fragmentManager?.beginTransaction().let {
-            it?.replace(R.id.frContainer, FragmentRegister.newInstance())
+            it?.replace(R.id.frContainer,
+                FragmentRegister.newInstance()
+            )
             it?.addToBackStack(null)
             it?.commit()
         }

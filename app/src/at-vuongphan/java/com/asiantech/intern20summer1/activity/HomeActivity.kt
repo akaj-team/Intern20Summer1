@@ -8,6 +8,7 @@ import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.data.User
 import kotlinx.android.synthetic.`at-vuongphan`.home_activity.*
 
+@Suppress("DEPRECATION")
 class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

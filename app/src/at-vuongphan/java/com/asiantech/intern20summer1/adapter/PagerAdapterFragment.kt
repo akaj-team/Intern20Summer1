@@ -3,7 +3,7 @@ package com.asiantech.intern20summer1.adapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.asiantech.intern20summer1.fragmennt.FragmentOne
+import com.asiantech.intern20summer1.fragment.FragmentOne
 
 class PagerAdapterFragment(fragment: FragmentManager) :
     FragmentPagerAdapter(fragment, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {

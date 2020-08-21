@@ -14,4 +14,7 @@
     <color name="colorBlack">#000000</color>
     <color name="colorYellow">#FDD835</color>
     <color name="colorSilver">#C0C0C0</color>
+    <color name="backgroundPlay">#FFA2A2</color>
+    <color name="colorTextViewSong">#191B1E</color>
+    <color name="colorTextViewArtist">#80828A</color>
 </resources>

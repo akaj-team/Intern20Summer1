@@ -3,7 +3,7 @@ package com.asiantech.intern20summer1.adapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.asiantech.intern20summer1.fragmennt.FragmentTwo
+import com.asiantech.intern20summer1.fragment.FragmentTwo
 
 class PagerAdapterActivityTwo(fragment: FragmentManager) : FragmentPagerAdapter(
     fragment,

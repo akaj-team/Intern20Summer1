@@ -70,5 +70,12 @@
             android:layout_marginLeft="@dimen/layout_margin_left"
             android:layout_toRightOf="@id/btnW5"
             android:text="@string/button_exercise_w6" />
+
+        <Button
+            android:id="@+id/btnW9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btnW5"
+            android:text="@string/button_exercise_w9" />
     </RelativeLayout>
 </RelativeLayout>

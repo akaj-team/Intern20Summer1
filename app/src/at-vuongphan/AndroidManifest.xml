@@ -19,7 +19,8 @@
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat"
             tools:ignore="MissingClass" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".activity.MainActivity" />
+        <activity android:name=".activity.w9.MusicActivity" />
         <activity android:name=".activity.ViewPagerActivityTwo" />
         <activity android:name=".activity.ViewPagerActivity" />
         <activity android:name=".activity.SplashActivity" />

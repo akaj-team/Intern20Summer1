@@ -1,0 +1,97 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ic_background"
+    android:orientation="vertical"
+    android:weightSum="7">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvMusic"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/clPlay"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clPlay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/backgroundPlay"
+        android:paddingStart="@dimen/margin_15dp"
+        android:paddingEnd="@dimen/margin_15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rvMusic"
+        app:layout_constraintVertical_bias="1">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewBottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imgMusicBottom"
+                android:layout_width="@dimen/height_50dp"
+                android:layout_height="@dimen/height_50dp"
+                android:layout_gravity="left"
+                android:padding="@dimen/margin_10dp" />
+
+            <TextView
+                android:id="@+id/tvNameMusicBottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/height_50dp"
+                android:layout_marginTop="@dimen/margin_10dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@string/name_song_text"
+                android:textColor="@color/colorTextViewSong" />
+
+            <TextView
+                android:id="@+id/tvArtistBottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/height_50dp"
+                android:layout_marginTop="@dimen/margin_15dp"
+                android:maxLines="1"
+                android:text="@string/name_artist_text"
+                android:textColor="@color/colorTextViewArtist" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right">
+
+                <Button
+                    android:id="@+id/btnBack"
+                    android:layout_width="@dimen/height_50dp"
+                    android:layout_height="@dimen/height_50dp"
+                    android:background="@drawable/ic_skip_previous_red"
+                    tools:ignore="ButtonStyle" />
+
+                <Button
+                    android:id="@+id/btnPlayPause"
+                    android:layout_width="@dimen/height_50dp"
+                    android:layout_height="@dimen/height_50dp"
+                    android:layout_marginLeft="@dimen/margin_5dp"
+                    android:background="@drawable/selector_img_play"
+                    tools:ignore="ButtonStyle" />
+
+                <Button
+                    android:id="@+id/btnNext"
+                    android:layout_width="@dimen/height_50dp"
+                    android:layout_height="@dimen/height_50dp"
+                    android:layout_marginLeft="@dimen/margin_5dp"
+                    android:background="@drawable/ic_skip_next_red"
+                    tools:ignore="ButtonStyle" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
