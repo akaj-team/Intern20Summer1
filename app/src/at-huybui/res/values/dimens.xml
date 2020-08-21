@@ -75,4 +75,7 @@
     <dimen name="w4_button_icon_radius">5dp</dimen>
     <dimen name="w4_back_icon_size">24dp</dimen>
     <dimen name="w4_back_button_size">30dp</dimen>
+    <dimen name="w8_splash_logo_size">100dp</dimen>
+    <dimen name="w8_splash_progress_bar_height">4dp</dimen>
+    <dimen name="w8_splash_progress_bar_width">300dp</dimen>
 </resources>
