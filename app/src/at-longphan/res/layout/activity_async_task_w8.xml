@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20dp">
+    android:padding="@dimen/container_activity_async_task_w8">
 
     <TextView
         android:id="@+id/tvDownloadedPercentW8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:text="0"
-        android:textSize="20dp"
+        android:layout_marginTop="@dimen/text_view_download_percent_w8_margin_top"
+        android:text="@string/text_view_download_percent_w8_text"
+        android:textSize="@dimen/text_view_download_percent_w8_text_size"
         android:textStyle="bold"
         android:visibility="invisible" />
 
@@ -20,13 +19,12 @@
         android:id="@+id/tvPercentW8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/text_view_download_percent_w8_margin_top"
         android:layout_toRightOf="@id/tvDownloadedPercentW8"
-        android:text="%"
-        android:textSize="20dp"
+        android:text="@string/text_view_percent_w8_text"
+        android:textSize="@dimen/text_view_download_percent_w8_text_size"
         android:textStyle="bold"
-        android:visibility="invisible"
-        tools:ignore="RtlHardcoded" />
+        android:visibility="invisible" />
 
     <ProgressBar
         android:id="@+id/progressBarW8"
@@ -34,19 +32,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tvDownloadedPercentW8"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="@dimen/progress_bar_w8_margin_top" />
 
     <EditText
         android:id="@+id/edtImageUrl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/progressBarW8"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/edit_text_image_url_w8_margin_top"
         android:hint="@string/edit_text_put_link_image_here_w8_hint"
-        android:importantForAutofill="no"
         android:singleLine="true"
-        android:textStyle="bold"
-        tools:ignore="LabelFor,TextFields" />
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/btnDownloadImageW8"
@@ -54,6 +50,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/edtImageUrl"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:text="Download" />
+        android:layout_marginTop="@dimen/button_download_image_w8_margin_top"
+        android:text="@string/button_download_image_w8_text" />
 </RelativeLayout>

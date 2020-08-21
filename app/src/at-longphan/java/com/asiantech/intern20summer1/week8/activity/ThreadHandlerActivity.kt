@@ -8,7 +8,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.week8.handler.DownloadHandlerThread
+import com.asiantech.intern20summer1.week8.handler.DownloadImageHandler
 import kotlinx.android.synthetic.`at-longphan`.activity_async_task_w8.*
 
 class ThreadHandlerActivity : AppCompatActivity() {
@@ -19,7 +19,7 @@ class ThreadHandlerActivity : AppCompatActivity() {
         private class Handle(private val activity: ThreadHandlerActivity) : Handler() {
             override fun handleMessage(msg: Message) {
                 super.handleMessage(msg)
-                if (msg.what == DownloadHandlerThread.DOWNLOAD_IMAGE_MSG_CODE) {
+                if (msg.what == DownloadImageHandler.DOWNLOAD_IMAGE_MSG_CODE) {
                     activity.progressBarW8.progress = msg.arg1
                     activity.tvDownloadedPercentW8.text = msg.arg1.toString()
                 }
@@ -32,7 +32,7 @@ class ThreadHandlerActivity : AppCompatActivity() {
         setContentView(R.layout.activity_async_task_w8)
         configStatusBar()
 
-        edtImageUrl?.setText(R.string.default_image_url_w8)
+        initView()
         handleButtonDownloadImageListener()
     }
 
@@ -41,18 +41,22 @@ class ThreadHandlerActivity : AppCompatActivity() {
         handler = Handle(this)
     }
 
+    private fun initView(){
+        edtImageUrl?.setText(R.string.default_image_url_w8)
+    }
+
     private fun handleButtonDownloadImageListener(){
         btnDownloadImageW8?.setOnClickListener {
             progressBarW8?.progress = 0
             if (progressBarW8?.progress == 0) {
-                Toast.makeText(this, "Starting download..", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.toast_starting_download_w8), Toast.LENGTH_SHORT).show()
             }
 
             tvDownloadedPercentW8?.visibility = View.VISIBLE
             tvPercentW8?.visibility = View.VISIBLE
 
             Thread(
-                DownloadHandlerThread(
+                DownloadImageHandler(
                     this,
                     edtImageUrl?.text.toString(),
                     handler

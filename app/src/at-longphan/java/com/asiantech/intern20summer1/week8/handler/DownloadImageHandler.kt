@@ -10,7 +10,7 @@ import java.io.InputStream
 import java.net.URL
 import java.util.*
 
-class DownloadHandlerThread(
+class DownloadImageHandler(
     private val context: Context,
     private val urlString: String,
     private val handler: Handler
@@ -18,9 +18,9 @@ class DownloadHandlerThread(
 
     companion object {
         internal const val DOWNLOAD_IMAGE_MSG_CODE = 3508
-        internal const val HUNDRED = 100
         internal const val FILE_SIZE = 1024
         internal const val BUFFER_SIZE = 8192
+        private const val HUNDRED = 100
     }
 
     override fun run() {

@@ -1,12 +1,12 @@
 package com.asiantech.intern20summer1.week8.asynctask
 
 import android.content.Context
-import android.net.Uri
 import android.os.AsyncTask
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
-import com.asiantech.intern20summer1.week8.handler.DownloadHandlerThread
+import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.week8.handler.DownloadImageHandler
 import java.io.BufferedInputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -14,7 +14,7 @@ import java.io.InputStream
 import java.net.URL
 import java.util.*
 
-class DownloadAsyncTask(
+class DownloadImageAsyncTask(
     private val context: Context,
     private val progressBar: ProgressBar,
     private val tvDisplayCurrentProgress: TextView
@@ -26,7 +26,7 @@ class DownloadAsyncTask(
 
     override fun onPreExecute() {
         super.onPreExecute()
-        Toast.makeText(context, "Starting download..", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, context.getString(R.string.toast_starting_download_w8), Toast.LENGTH_SHORT).show()
     }
 
     override fun doInBackground(vararg params: String?): String {
@@ -36,10 +36,10 @@ class DownloadAsyncTask(
         val connection = url.openConnection()
         connection.connect()
         val lengthFile = connection.contentLength
-        val input: InputStream = BufferedInputStream(url.openStream(), DownloadHandlerThread.BUFFER_SIZE)
+        val input: InputStream = BufferedInputStream(url.openStream(), DownloadImageHandler.BUFFER_SIZE)
         val output =
             FileOutputStream(File("${context.getExternalFilesDir(null)}/${Date().time}.jpg"))
-        val data = ByteArray(DownloadHandlerThread.FILE_SIZE)
+        val data = ByteArray(DownloadImageHandler.FILE_SIZE)
         while (input.read(data).also { count = it } != -1) {
             total += count
             output.write(data, 0, count)
@@ -61,7 +61,6 @@ class DownloadAsyncTask(
 
     override fun onPostExecute(result: String?) {
         super.onPostExecute(result)
-        Uri.parse(result)
-        Toast.makeText(context, "Download image successfully!", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, context.getString(R.string.toast_finish_download_w8), Toast.LENGTH_SHORT).show()
     }
 }

@@ -248,4 +248,14 @@
     <dimen name="text_view_username_header_w7_height">50dp</dimen>
     <dimen name="text_view_username_header_w7_text_size">18sp</dimen>
     <dimen name="text_view_other_header_w7_text_size">12sp</dimen>
+    <dimen name="container_activity_async_task_w8">20dp</dimen>
+    <dimen name="text_view_download_percent_w8_margin_top">20dp</dimen>
+    <dimen name="text_view_download_percent_w8_text_size">20dp</dimen>
+    <dimen name="progress_bar_w8_margin_top">20dp</dimen>
+    <dimen name="edit_text_image_url_w8_margin_top">20dp</dimen>
+    <dimen name="button_download_image_w8_margin_top">20dp</dimen>
+    <dimen name="container_activity_download_w8_padding_top">200dp</dimen>
+    <dimen name="text_view_download_with_w8_text_size">24sp</dimen>
+    <dimen name="button_thread_handler_w8_margin_top">15dp</dimen>
+    <dimen name="button_async_task_w8_margin_top">15dp</dimen>
 </resources>

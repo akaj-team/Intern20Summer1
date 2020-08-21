@@ -90,4 +90,12 @@
     <string name="button_week_8_description">Week 8: Thread - Handler - AsyncTask</string>
     <string name="default_image_url_w8"><![CDATA[https://images.unsplash.com/photo-1533461502717-83546f485d24?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60]]></string>
     <string name="edit_text_put_link_image_here_w8_hint">Put link image here..</string>
+    <string name="toast_starting_download_w8">Starting download..</string>
+    <string name="toast_finish_download_w8">Down load image successfully!</string>
+    <string name="text_view_download_percent_w8_text">0</string>
+    <string name="text_view_percent_w8_text">%</string>
+    <string name="button_download_image_w8_text">Download</string>
+    <string name="button_thread_handler_w8_text">Thread Handler</string>
+    <string name="button_async_task_w8_">Async Task</string>
+    <string name="text_view_download_with_w8_text">Download image with:</string>
 </resources>

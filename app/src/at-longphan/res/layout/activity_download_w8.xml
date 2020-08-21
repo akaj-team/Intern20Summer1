@@ -2,31 +2,31 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="200dp">
+    android:paddingTop="@dimen/container_activity_download_w8_padding_top">
 
     <TextView
         android:id="@+id/tvDownloadWithDescriptionW8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="Download image with:"
-        android:textSize="24sp" />
+        android:text="@string/text_view_download_with_w8_text"
+        android:textSize="@dimen/text_view_download_with_w8_text_size" />
 
     <Button
         android:id="@+id/btnThreadHandler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvDownloadWithDescriptionW8"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="@dimen/button_thread_handler_w8_margin_top"
         android:background="@android:color/holo_blue_light"
-        android:text="Thread Handler" />
+        android:text="@string/button_thread_handler_w8_text" />
 
     <Button
         android:id="@+id/btnAsyncTask"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/btnThreadHandler"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="@dimen/button_async_task_w8_margin_top"
         android:background="@android:color/holo_green_light"
-        android:text="Async Task " />
+        android:text="@string/button_async_task_w8_" />
 </RelativeLayout>
