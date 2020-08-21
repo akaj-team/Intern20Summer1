@@ -60,4 +60,5 @@
     <string name="enter_input_your_email">Enter input your number phone</string>
     <string name="name_song_text">Yeu nhau di</string>
     <string name="name_artist_text">Duc Phuc</string>
+    <string name="tv_duration">%d:%d</string>
 </resources>
