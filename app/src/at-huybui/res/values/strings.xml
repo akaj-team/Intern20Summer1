@@ -67,7 +67,7 @@
     <string name="w3_layout">W3 LAYOUT</string>
     <string name="w4_activity_fragment">W4 ACTIVITY + FRAGMENT</string>
     <string name="w5_recycle_view">W5 RECYCLE VIEW</string>
-    <string name="w6_view_pager_tab_layout">W6 VIEW PAGER + TAB LAYOUT</string>
+    <string name="w9_service_broadcast">W9 - Service + Broadcast</string>
     <string name="crop_complete">Crop complete</string>
     <string name="w4_crop_your_picture">Crop your picture</string>
 </resources>

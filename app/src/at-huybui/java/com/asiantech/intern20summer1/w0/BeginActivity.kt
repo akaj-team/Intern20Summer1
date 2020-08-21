@@ -10,6 +10,7 @@ import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w3.MainActivity
 import com.asiantech.intern20summer1.w4.activity.SplashActivity
 import com.asiantech.intern20summer1.w6.firstactivity.ViewPagerOneActivity
+import com.asiantech.intern20summer1.w9.activity.MusicActivity
 import kotlinx.android.synthetic.`at-huybui`.activity_begin.*
 
 class BeginActivity : AppCompatActivity() {
@@ -35,6 +36,12 @@ class BeginActivity : AppCompatActivity() {
         btnBeginW4?.setOnClickListener {
             val intent = Intent(this, SplashActivity::class.java)
             startActivity(intent)
+        }
+
+        btnBeginW9?.setOnClickListener {
+            Intent(this, MusicActivity::class.java).also { intent ->
+                startActivity(intent)
+            }
         }
     }
 
