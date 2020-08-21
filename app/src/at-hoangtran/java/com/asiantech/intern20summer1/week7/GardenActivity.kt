@@ -31,7 +31,7 @@ class GardenActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
     private fun handleActionBar() {
         setSupportActionBar(toolbar)
         val actionBar = supportActionBar
-        actionBar?.title = "Nav bar"
+        actionBar?.title = "Garden"
 
         val drawerToggle: ActionBarDrawerToggle = object : ActionBarDrawerToggle(
             this,
@@ -81,13 +81,15 @@ class GardenActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
     private fun getUser() {
         val header = nav_bar.getHeaderView(0)
         val user = appDatabase?.getUserDAO()?.getUser()
-        header.tvHomeUserName?.text = user?.userName
-        header.tvHomeUniversity?.text = user?.university
-        header.tvHomeHomeTown?.text = user?.homeTown
-        if (user?.avatar == "") {
-            header.imgHomeUser?.setImageResource(R.mipmap.ic_launcher_round)
-        } else {
-            header.imgHomeUser?.setImageURI(Uri.parse(user?.avatar))
+        user?.apply{
+            header.tvHomeUserName?.text = user.userName
+            header.tvHomeUniversity?.text = user.university
+            header.tvHomeHomeTown?.text = user.homeTown
+            if (user.avatar == "") {
+                header.imgHomeUser?.setImageResource(R.mipmap.ic_launcher_round)
+            } else {
+                header.imgHomeUser?.setImageURI(Uri.parse(user.avatar))
+            }
         }
     }
 
