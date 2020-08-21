@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.w9.fragment
+package com.asiantech.intern20summer1.w9.fragments
 
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.w9.activity.MusicActivity
+import com.asiantech.intern20summer1.w9.activitys.MusicActivity
 import kotlinx.android.synthetic.`at-huybui`.w9_fragment_splash.*
 
 /**

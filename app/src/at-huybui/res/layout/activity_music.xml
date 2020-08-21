@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.asiantech.intern20summer1.w9.activity.MusicActivity">
+    tools:context="com.asiantech.intern20summer1.w9.activitys.MusicActivity">
 
     <FrameLayout
         android:id="@+id/containerMain"

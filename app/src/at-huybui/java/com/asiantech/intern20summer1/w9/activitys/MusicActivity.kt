@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.w9.activity
+package com.asiantech.intern20summer1.w9.activitys
 
 import android.os.Build
 import android.os.Bundle
@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.w9.fragment.SplashFragment
+import com.asiantech.intern20summer1.w9.fragments.SplashFragment
 
 /**
  * Asian Tech Co., Ltd.
