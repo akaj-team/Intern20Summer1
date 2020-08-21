@@ -62,7 +62,7 @@ class DownloadImageAsyncTask(
     }
 
     override fun onProgressUpdate(vararg values: String?) {
-        super.onProgressUpdate(*values)
+        super.onProgressUpdate(values[0])
         values[0]?.let {
             progressBar.progress = it.toInt()
         }
