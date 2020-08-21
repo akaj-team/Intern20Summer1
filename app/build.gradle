@@ -84,6 +84,8 @@ android {
 }
 
 dependencies {
+    implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:4.1.2'
+    implementation 'com.github.ronaldsmartin:Material-ViewPagerIndicator:1.0.4'
     implementation 'com.github.takusemba:cropme:2.0.5'
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'com.github.bumptech.glide:glide:4.7.1'

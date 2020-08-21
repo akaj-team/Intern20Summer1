@@ -50,9 +50,10 @@ class SplashFragment : Fragment() {
                             PlayMusicFragment.newInstance(),
                             false
                         )
+                        this.cancel()
                     }
                 }
             }
-        }
+        }.start()
     }
 }
