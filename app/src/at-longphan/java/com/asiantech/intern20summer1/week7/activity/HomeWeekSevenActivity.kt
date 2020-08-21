@@ -11,6 +11,7 @@ import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week7.PlantRoomDatabase
 import com.asiantech.intern20summer1.week7.PlantRoomDatabase.Companion.saveDataFromJsonFile
@@ -27,7 +28,7 @@ class HomeWeekSevenActivity : AppCompatActivity(), NavigationView.OnNavigationIt
     private val fragmentManager = supportFragmentManager
     private var database: PlantRoomDatabase? = null
 
-    companion object {
+  companion object {
         private const val plantFile = "plants.json"
     }
 
@@ -97,6 +98,14 @@ class HomeWeekSevenActivity : AppCompatActivity(), NavigationView.OnNavigationIt
         }
         drawerLayoutWeek7?.closeDrawers()
         return true
+    }
+
+    override fun onBackPressed() {
+        if (drawerLayoutWeek7.isDrawerOpen(GravityCompat.START)) {
+            drawerLayoutWeek7.closeDrawers()
+        } else {
+            super.onBackPressed()
+        }
     }
 
     private fun configStatusBar() {

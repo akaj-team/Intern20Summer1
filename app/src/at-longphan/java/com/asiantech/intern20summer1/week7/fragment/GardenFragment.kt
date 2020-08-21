@@ -67,7 +67,7 @@ class GardenFragment : Fragment() {
     private fun handlePlantItemClickListener() {
         adapter.onItemViewClick = { cultivationId ->
             val fragment = PlantDetailFragment.newInstance(cultivationId)
-            fragmentManager?.beginTransaction()?.add(R.id.navHostFragment, fragment)
+            fragmentManager?.beginTransaction()?.add(R.id.frameLayoutActivityHome, fragment)
                 ?.addToBackStack(null)
                 ?.hide(this)
                 ?.commit()

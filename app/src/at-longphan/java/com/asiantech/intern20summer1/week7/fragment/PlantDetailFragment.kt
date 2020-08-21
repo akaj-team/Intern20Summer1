@@ -56,8 +56,6 @@ class PlantDetailFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //toolbarTitle.text = "Thông tin cây"
-        tvPlantMainDescription?.text = cultivationId.toString()
         initView()
         handleListeners()
     }
