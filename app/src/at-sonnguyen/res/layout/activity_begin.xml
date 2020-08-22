@@ -5,11 +5,12 @@
     android:layout_marginLeft="@dimen/begin_activity_margin_left"
     android:layout_marginRight="@dimen/begin_activity_margin_right"
     android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:weightSum="1"
+        android:layout_height="@dimen/begin_item_height"
         android:gravity="center"
-        android:layout_height="@dimen/begin_item_height">
+        android:weightSum="1">
 
         <TextView
             android:layout_width="@dimen/begin_button_width"
@@ -18,17 +19,17 @@
             android:text="@string/w4_app_name" />
 
         <Button
-            android:layout_width="@dimen/begin_button_width"
             android:id="@+id/btnWeek4"
-            android:text="@string/begin_week6_button_text"
-            android:layout_height="@dimen/begin_button_height" />
+            android:layout_width="@dimen/begin_button_width"
+            android:layout_height="@dimen/begin_button_height"
+            android:text="@string/begin_week6_button_text" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:weightSum="1"
+        android:layout_height="@dimen/begin_item_height"
         android:gravity="center"
-        android:layout_height="@dimen/begin_item_height">
+        android:weightSum="1">
 
         <TextView
             android:layout_width="@dimen/begin_button_width"
@@ -37,16 +38,17 @@
             android:text="@string/w6_app_name" />
 
         <Button
-            android:layout_width="@dimen/begin_button_width"
             android:id="@+id/btnWeek6"
-            android:text="@string/begin_week6_button_text"
-            android:layout_height="@dimen/begin_button_height" />
+            android:layout_width="@dimen/begin_button_width"
+            android:layout_height="@dimen/begin_button_height"
+            android:text="@string/begin_week6_button_text" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:weightSum="1"
+        android:layout_height="@dimen/begin_item_height"
         android:gravity="center"
-        android:layout_height="@dimen/begin_item_height">
+        android:weightSum="1">
 
         <TextView
             android:layout_width="@dimen/begin_text_view_width"
@@ -57,7 +59,26 @@
         <Button
             android:id="@+id/btnWeek7"
             android:layout_width="@dimen/begin_button_width"
-            android:text="@string/w7_button_text"
-            android:layout_height="@dimen/begin_button_height" />
+            android:layout_height="@dimen/begin_button_height"
+            android:text="@string/week_7_button_text" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/begin_item_height"
+        android:gravity="center"
+        android:weightSum="1">
+
+        <TextView
+            android:layout_width="@dimen/begin_text_view_width"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/week_9_service_broadcast_receiver" />
+
+        <Button
+            android:id="@+id/btnWeek9"
+            android:layout_width="@dimen/begin_button_width"
+            android:layout_height="@dimen/begin_button_height"
+            android:text="@string/week_9_button_text" />
     </LinearLayout>
 </LinearLayout>

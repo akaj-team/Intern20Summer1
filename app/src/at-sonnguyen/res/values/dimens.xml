@@ -40,4 +40,25 @@
     <dimen name="begin_button_width">80dp</dimen>
     <dimen name="begin_button_height">40dp</dimen>
     <dimen name="begin_text_view_width">0dp</dimen>
+    <dimen name="w9_recycler_view_margin_bottom">80dp</dimen>
+    <dimen name="w9_card_view_height">60dp</dimen>
+    <dimen name="w9_song_image_view_height_card_view">60dp</dimen>
+    <dimen name="w9_song_image_card_view_width_">60dp</dimen>
+    <dimen name="w9_image_song_card_view_margin_left">20dp</dimen>
+    <dimen name="w9_song_name_text_view__card_view_margin_top">5dp</dimen>
+    <dimen name="w9_song_name_text_view_card_view_size">18sp</dimen>
+    <dimen name="w9_icon_card_view_size">30dp</dimen>
+    <dimen name="w9_next_icon_margin_right">20dp</dimen>
+    <dimen name="w9_play_image_view_card_view_margin_right">10dp</dimen>
+    <dimen name="w9_item_relative_layout_height">80dp</dimen>
+    <dimen name="w9_item_relative_layout_margin_left">20dp</dimen>
+    <dimen name="w9_item_relative_layout_margin_top">10dp</dimen>
+    <dimen name="w9_item_relative_layout_margin_right">20dp</dimen>
+    <dimen name="w9_duration_text_view_margin_right">10dp</dimen>
+    <dimen name="w9_text_view_size">14sp</dimen>
+    <dimen name="w9_song_name_text_view_padding_left">15dp</dimen>
+    <dimen name="w9_song_name_text_view_margin_top">15dp</dimen>
+    <dimen name="w9_singer_text_view_margin_top">15dp</dimen>
+    <dimen name="w9_singer_text_view_padding_left">25dp</dimen>
+    <dimen name="w9_sing_text_view_text_size">12sp</dimen>
 </resources>

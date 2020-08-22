@@ -123,6 +123,8 @@ dependencies {
 
     // TabLayout
     implementation 'com.google.android.material:material:1.1.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
 }
 
 apply from: "ci-kotlin.gradle"

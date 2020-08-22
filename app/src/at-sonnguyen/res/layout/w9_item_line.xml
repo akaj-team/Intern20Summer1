@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/w9_item_relative_layout_height"
+    android:layout_marginLeft="@dimen/w9_item_relative_layout_margin_left"
+    android:layout_marginTop="@dimen/w9_item_relative_layout_margin_top"
+    android:layout_marginRight="@dimen/w9_item_relative_layout_margin_right"
+    android:layout_marginStart="@dimen/w9_item_relative_layout_margin_left"
+    android:layout_marginEnd="@dimen/w9_item_relative_layout_margin_right">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgSong"
+        android:layout_width="@dimen/w9_item_relative_layout_height"
+        android:layout_height="match_parent"
+        android:src="@color/colorAccent" />
+
+    <TextView
+        android:layout_marginRight="@dimen/w9_duration_text_view_margin_right"
+        android:id="@+id/tvDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:textSize="@dimen/w9_text_view_size"
+        android:layout_marginEnd="@dimen/w9_duration_text_view_margin_right"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:id="@+id/tvSongName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/w9_song_name_text_view_margin_top"
+        android:layout_toLeftOf="@id/tvDuration"
+        android:layout_toRightOf="@id/imgSong"
+        android:paddingLeft="@dimen/w9_song_name_text_view_padding_left"
+        android:textSize="@dimen/w9_text_view_size"
+        android:textStyle="bold"
+        android:layout_toStartOf="@id/tvDuration"
+        android:layout_toEndOf="@id/imgSong"
+        android:paddingStart="@dimen/w9_song_name_text_view_padding_left"
+        tools:ignore="RtlSymmetry" />
+
+    <TextView
+        android:id="@+id/tvSingerName"
+        android:layout_toLeftOf="@id/tvDuration"
+        android:layout_toRightOf="@id/imgSong"
+        android:layout_below="@id/tvSongName"
+        android:layout_marginTop="@dimen/w9_singer_text_view_margin_top"
+        android:paddingLeft="@dimen/w9_singer_text_view_padding_left"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/w9_sing_text_view_text_size"
+        android:layout_toStartOf="@id/tvDuration"
+        android:layout_toEndOf="@id/imgSong"
+        android:paddingStart="@dimen/w9_singer_text_view_padding_left" />
+</RelativeLayout>

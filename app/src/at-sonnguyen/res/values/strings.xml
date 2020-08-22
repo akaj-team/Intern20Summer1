@@ -35,8 +35,13 @@
     <string name="w6_tab2_name">INFO</string>
     <string name="w6_tab3_name">ANOTHER</string>
     <string name="week_7_menu_toolbar_database_text_view">Week 7 - Menu - Toolbar - Database</string>
-    <string name="w7_button_text">Week 7</string>
+    <string name="week_7_button_text">Week 7</string>
     <string name="begin_week6_button_text">Week 6</string>
     <string name="w6_app_name">Week 6 - ViewPager - TabLayout</string>
     <string name="w4_app_name">Week 4 - Activity - Intent - Fragment</string>
+    <string name="week_9_button_text">Week 9</string>
+    <string name="week_9_service_broadcast_receiver">Week 9 - Service- BroadcastReceiver</string>
+    <string name="duration_text_view">%d:%d</string>
+    <string name="w9_next_image_view_description">next image view</string>
+    <string name="w9_play_image_view_description">play image view description</string>
 </resources>

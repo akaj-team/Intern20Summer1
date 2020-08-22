@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:id="@+id/recyclerViewSongList"
+        android:layout_marginBottom="@dimen/w9_recycler_view_margin_bottom"
+        android:layout_height="wrap_content"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/w9_card_view_height"
+        android:layout_alignParentBottom="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imgSmallSong"
+                android:layout_width="@dimen/w9_song_image_view_height_card_view"
+                android:layout_height="@dimen/w9_song_image_card_view_width_"
+                android:layout_marginLeft="@dimen/w9_image_song_card_view_margin_left"
+                android:src="@color/colorAccent"
+                android:layout_marginStart="@dimen/w9_image_song_card_view_margin_left" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/w9_song_name_text_view__card_view_margin_top"
+                android:layout_toLeftOf="@id/tvPlay"
+                android:layout_toRightOf="@id/imgSmallSong"
+                android:textSize="@dimen/w9_song_name_text_view_card_view_size"
+                android:textStyle="bold"
+                android:layout_toStartOf="@id/tvPlay"
+                android:layout_toEndOf="@id/imgSmallSong" />
+
+            <ImageView
+                android:id="@+id/imgNext"
+                android:layout_width="@dimen/w9_icon_card_view_size"
+                android:layout_height="@dimen/w9_icon_card_view_size"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/w9_next_icon_margin_right"
+                android:src="@drawable/ic_baseline_skip_next_24"
+                android:layout_marginEnd="@dimen/w9_next_icon_margin_right"
+                android:layout_alignParentEnd="true"
+                android:contentDescription="@string/w9_next_image_view_description" />
+
+            <ImageView
+                android:id="@+id/tvPlay"
+                android:layout_width="@dimen/w9_icon_card_view_size"
+                android:layout_height="@dimen/w9_icon_card_view_size"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/imgNext"
+                android:layout_marginRight="@dimen/w9_play_image_view_card_view_margin_right"
+                android:src="@drawable/ic_baseline_play_circle_outline_24"
+                android:layout_toStartOf="@id/imgNext"
+                android:layout_marginEnd="@dimen/w9_play_image_view_card_view_margin_right"
+                android:contentDescription="@string/w9_play_image_view_description" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>
