@@ -5,6 +5,7 @@
     android:background="@color/background_white">
 
     <TextView
+        android:id="@+id/testtest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -19,5 +20,54 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="100dp"
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="20dp" />
+        android:layout_marginBottom="10dp" />
+
+    <RelativeLayout
+        android:id="@+id/rlPlayerBar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:background="#4DFFFFFF">
+
+        <ImageView
+            android:id="@+id/btnPlayerBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:adjustViewBounds="true"
+            android:padding="5dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_dvd_player" />
+
+        <ImageView
+            android:id="@+id/imgLeftNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/imgPlayer"
+            android:adjustViewBounds="true"
+            android:padding="15dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_left_button" />
+
+        <ImageView
+            android:id="@+id/imgPlayer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/imgRightNext"
+            android:adjustViewBounds="true"
+            android:padding="15dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_play_button" />
+
+        <ImageView
+            android:id="@+id/imgRightNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:adjustViewBounds="true"
+            android:padding="15dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_right_button" />
+    </RelativeLayout>
 </RelativeLayout>

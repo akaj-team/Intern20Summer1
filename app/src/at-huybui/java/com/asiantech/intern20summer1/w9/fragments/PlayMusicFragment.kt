@@ -51,6 +51,16 @@ class PlayMusicFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initSongData()
         initSongAdapter()
+        initView()
+    }
+
+    var count = 0
+    private fun initView() {
+        rlPlayerBar.setOnClickListener {
+        }
+
+        btnPlayerBar.setOnClickListener {
+        }
     }
 
     private fun initSongAdapter() {
@@ -85,7 +95,7 @@ class PlayMusicFragment : Fragment() {
         val selection = "${MediaStore.Audio.Media.DATE_ADDED} >= ?"
         val selectionArgs = arrayOf(
             // Release day of the G1. :)
-            dateToTimestamp(day = 22, month = 10, year = 2008).toString()
+            dateToTimestamp(day = 22, month = 10, year = 2000).toString()
         )
         val sortOrder = "${MediaStore.Audio.Media.DATE_ADDED} DESC"
 
@@ -96,18 +106,17 @@ class PlayMusicFragment : Fragment() {
             selectionArgs,
             sortOrder
         )?.use { cursor ->
-
-            val idColumn = cursor.getColumnIndexOrThrow(MediaStore.Images.Media._ID)
+            val idColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media._ID)
             val displayNameColumn =
                 cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DISPLAY_NAME)
-            d("XXX", "Found ${cursor.count} images")
+            d("XXX", "Found ${cursor.count} audio")
             while (cursor.moveToNext()) {
                 val id = cursor.getLong(idColumn)
-                val name = cursor.getString(displayNameColumn)
                 val contentUri = ContentUris.withAppendedId(
                     MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, id
                 )
-                val song = Song(id, nameSong = name, contentUri = contentUri.toString())
+
+                val song = Song(id = id, contentUri = contentUri.toString())
                 songListsNew.add(song)
             }
         }

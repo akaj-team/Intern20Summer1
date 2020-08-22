@@ -15,9 +15,9 @@ import androidx.room.PrimaryKey
 data class Song(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(index = true, name = COLUMN_ID) var id: Long = 0,
-    @ColumnInfo(name = NAME_SONG) var nameSong: String = "null",
-    @ColumnInfo(name = NAME_SINGER) var nameSinger: String = "null",
-    @ColumnInfo(name = LENGTH_SONG) var lengthSong: String = "00:00",
+    @ColumnInfo(name = NAME_SONG) var nameSong: String? = "null",
+    @ColumnInfo(name = NAME_SINGER) var singer: String? = "null",
+    @ColumnInfo(name = DURATION_SONG) var duration: String? = "00:00",
     @ColumnInfo(name = CONTENT_URI) var contentUri: String = "null"
 ) {
     companion object {
@@ -25,7 +25,7 @@ data class Song(
         const val TABLE_NAME = "villains"
         const val NAME_SONG = "name_song"
         const val NAME_SINGER = "name_singer"
-        const val LENGTH_SONG = "length_song"
+        const val DURATION_SONG = "length_song"
         const val CONTENT_URI = "content_uri"
     }
 }
