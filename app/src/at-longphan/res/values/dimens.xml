@@ -248,4 +248,8 @@
     <dimen name="text_view_username_header_w7_height">50dp</dimen>
     <dimen name="text_view_username_header_w7_text_size">18sp</dimen>
     <dimen name="text_view_other_header_w7_text_size">12sp</dimen>
+    <dimen name="image_view_icon_spinner_w7_size">16dp</dimen>
+    <dimen name="image_view_icon_spinner_w7_margin_top">18dp</dimen>
+    <dimen name="image_view_icon_spinner_w7_margin_right">18dp</dimen>
+    <dimen name="spinner_w7_padding">10dp</dimen>
 </resources>

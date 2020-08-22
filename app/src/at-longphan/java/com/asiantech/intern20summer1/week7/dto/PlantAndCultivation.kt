@@ -24,6 +24,7 @@ class PlantAndCultivation(
 
     companion object {
         private const val MILLISECOND_PER_DAY = 86400000
+        private const val FOUR = 4
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -106,7 +107,7 @@ class PlantAndCultivation(
         dateFormat.parse(this.dateWatering)?.let { calendarWatering.time = it }
         calendarWatering.add(
             Calendar.MILLISECOND,
-            (MILLISECOND_PER_DAY.toLong() * this.wateringInterval / 4).toInt()
+            (MILLISECOND_PER_DAY.toLong() * this.wateringInterval / FOUR).toInt()
         )
         val dateWormed = calendarWatering.time
 

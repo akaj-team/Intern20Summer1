@@ -34,6 +34,7 @@ class PlantDetailFragment : Fragment() {
     companion object {
 
         private const val ID_KEY = "cultivationId"
+
         fun newInstance(cultivationId: Int) = PlantDetailFragment().apply {
             arguments = Bundle().apply {
                 putInt(ID_KEY, cultivationId)
@@ -76,6 +77,7 @@ class PlantDetailFragment : Fragment() {
                 if (plantMode == "") {
                     plantMode = it.name
                 }
+
                 tvPlantMainDescription?.text = plantMode
                 when (plantMode) {
                     ModeGarden.WORMED -> tvPlantMainDescription?.setTextColor(
@@ -96,7 +98,9 @@ class PlantDetailFragment : Fragment() {
                 }
 
                 tvPlantAtDetail?.text = it.dateCultivation
+
                 tvLastWaterDetail?.text = it.dateWatering
+                
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     tvPlantDescription?.text =
                         Html.fromHtml(it.description, Html.FROM_HTML_MODE_COMPACT)
@@ -149,7 +153,6 @@ class PlantDetailFragment : Fragment() {
 
     private fun handleImageButtonBack() {
         imgBackPlantDetail?.setOnClickListener {
-            // TODO: 22/08/2020
             fragmentManager?.popBackStack()
         }
     }
@@ -171,8 +174,6 @@ class PlantDetailFragment : Fragment() {
                     Toast.LENGTH_SHORT
                 )
                     .show()
-                // TODO: 22/08/2020
-                //onResult(-1, null)
                 onDelete.invoke()
                 fragmentManager?.popBackStack()
             }

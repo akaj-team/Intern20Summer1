@@ -28,7 +28,7 @@ class HomeWeekSevenActivity : AppCompatActivity(), NavigationView.OnNavigationIt
     private val fragmentManager = supportFragmentManager
     private var database: PlantRoomDatabase? = null
 
-  companion object {
+    companion object {
         private const val plantFile = "plants.json"
     }
 
@@ -115,10 +115,6 @@ class HomeWeekSevenActivity : AppCompatActivity(), NavigationView.OnNavigationIt
     }
 
     private fun initToolbar() {
-        /**
-         * This will use default toolbar with a ham and a title
-         */
-        //setSupportActionBar(toolbarWeeK7)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
         toolbarHamburger?.setOnClickListener {

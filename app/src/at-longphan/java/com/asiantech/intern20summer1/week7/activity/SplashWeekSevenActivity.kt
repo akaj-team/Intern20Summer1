@@ -30,7 +30,7 @@ class SplashWeekSevenActivity : AppCompatActivity() {
         val sharePref = getSharedPreferences(USER_DATA_PREFS, Context.MODE_PRIVATE)
         val id = sharePref.getInt(ID_KEY, -1)
 
-        if(database?.userDao()?.isExist(id) != 0){
+        if (database?.userDao()?.isExist(id) != 0) {
             hasAccount = true
         }
 

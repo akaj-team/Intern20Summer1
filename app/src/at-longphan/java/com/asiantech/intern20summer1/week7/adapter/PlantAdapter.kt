@@ -14,7 +14,8 @@ class PlantAdapter : RecyclerView.Adapter<PlantViewHolder> {
     private var plants: List<PlantRecyclerViewItem>
     private var context: Context
 
-    internal var onItemViewClick: (cultivationId: Int, position: Int) -> Unit = { c: Int, p: Int -> }
+    internal var onItemViewClick: (cultivationId: Int, position: Int) -> Unit =
+        { c: Int, p: Int -> }
 
     constructor(context: Context, plants: MutableList<PlantRecyclerViewItem>) {
         this.plants = plants
@@ -38,7 +39,11 @@ class PlantAdapter : RecyclerView.Adapter<PlantViewHolder> {
         return plants.size
     }
 
-    private fun setupBackground(viewHolder: PlantViewHolder, position: Int, plant: PlantRecyclerViewItem){
+    private fun setupBackground(
+        viewHolder: PlantViewHolder,
+        position: Int,
+        plant: PlantRecyclerViewItem
+    ) {
         val containerView = viewHolder.containerView
         containerView?.setBackgroundResource(
             when {
@@ -51,11 +56,20 @@ class PlantAdapter : RecyclerView.Adapter<PlantViewHolder> {
             }
         )
         containerView?.setOnClickListener {
-            plant.cultivationId?.let { cultivationId -> onItemViewClick.invoke(cultivationId, position) }
+            plant.cultivationId?.let { cultivationId ->
+                onItemViewClick.invoke(
+                    cultivationId,
+                    position
+                )
+            }
         }
     }
 
-    private fun setupTextViews(viewHolder: PlantViewHolder, position: Int, plant: PlantRecyclerViewItem){
+    private fun setupTextViews(
+        viewHolder: PlantViewHolder,
+        position: Int,
+        plant: PlantRecyclerViewItem
+    ) {
         val nameTextView = viewHolder.nameTextView
         nameTextView?.text = plant.name
 
@@ -68,7 +82,11 @@ class PlantAdapter : RecyclerView.Adapter<PlantViewHolder> {
             context.getString(R.string.text_view_harvest_time_description).plus(plant.dateHarvest)
     }
 
-    private fun setupImageViews(viewHolder: PlantViewHolder, position: Int, plant: PlantRecyclerViewItem){
+    private fun setupImageViews(
+        viewHolder: PlantViewHolder,
+        position: Int,
+        plant: PlantRecyclerViewItem
+    ) {
         val displayImageView = viewHolder.displayImageView
         displayImageView?.let {
             Glide.with(it)

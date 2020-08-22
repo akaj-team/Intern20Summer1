@@ -45,21 +45,21 @@
                 android:layout_height="@dimen/spinner_w7_height"
                 android:layout_below="@id/tvTitleDialog"
                 android:layout_marginHorizontal="@dimen/spinner_w7_margin_horizontal"
-                android:padding="10dp"
+                android:padding="@dimen/spinner_w7_padding"
                 android:dropDownVerticalOffset="@dimen/spinner_w7_drop_down_vertical_offset"
                 android:spinnerMode="dropdown" />
 
             <ImageView
                 android:id="@+id/imgIconSpinner"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
+                android:layout_width="@dimen/image_view_icon_spinner_w7_size"
+                android:layout_height="@dimen/image_view_icon_spinner_w7_size"
                 android:layout_below="@+id/tvTitleDialog"
                 android:layout_alignEnd="@+id/spinner"
                 android:layout_alignRight="@+id/spinner"
                 android:background="@drawable/ic_arrow_back_ios_20"
                 android:rotation="180"
-                android:layout_marginTop="18dp"
-                android:layout_marginRight="18dp" />
+                android:layout_marginTop="@dimen/image_view_icon_spinner_w7_margin_top"
+                android:layout_marginRight="@dimen/image_view_icon_spinner_w7_margin_right" />
 
             <Button
                 android:id="@+id/btnOkPlantNewWeek7"

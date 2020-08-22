@@ -6,6 +6,7 @@ import android.widget.Spinner
 
 class CustomSpinner(context: Context?, attrs: AttributeSet?) :
     androidx.appcompat.widget.AppCompatSpinner(context, attrs) {
+
     private var listener: OnSpinnerEventsListener? = null
     private var openInitiated = false
 
