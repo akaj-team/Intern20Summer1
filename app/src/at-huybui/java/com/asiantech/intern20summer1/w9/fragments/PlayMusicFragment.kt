@@ -9,11 +9,13 @@ import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w9.managers.SongRecyclerAdapter
 import com.asiantech.intern20summer1.w9.models.Song
+import com.asiantech.intern20summer1.w9.utils.Music
 import kotlinx.android.synthetic.`at-huybui`.w9_fragment_play_music.*
 import java.text.SimpleDateFormat
 import java.util.concurrent.TimeUnit
@@ -56,11 +58,6 @@ class PlayMusicFragment : Fragment() {
 
     var count = 0
     private fun initView() {
-        rlPlayerBar.setOnClickListener {
-        }
-
-        btnPlayerBar.setOnClickListener {
-        }
     }
 
     private fun initSongAdapter() {
@@ -70,11 +67,16 @@ class PlayMusicFragment : Fragment() {
             setHasFixedSize(true)
         }
 
-        songAdapter.onPlayerClick = {
-            d("XXX", "[uri] ${songLists[it].contentUri}")
+        songAdapter.onItemClick = { posision ->
+            songLists[posision].let { song ->
+                val bitmap = Music().getPicture(requireContext(), song)
+                imgDvdPlayerBar?.setImageBitmap(bitmap)
+                val animRotate = AnimationUtils.loadAnimation(requireContext(), R.anim.rotate)
+                imgDvdPlayerBar?.startAnimation(animRotate)
+            }
             mediaPlayer?.stop()
             mediaPlayer =
-                MediaPlayer.create(requireContext(), Uri.parse(songLists[it].contentUri))
+                MediaPlayer.create(requireContext(), Uri.parse(songLists[posision].contentUri))
             mediaPlayer?.start()
         }
     }
@@ -107,8 +109,6 @@ class PlayMusicFragment : Fragment() {
             sortOrder
         )?.use { cursor ->
             val idColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media._ID)
-            val displayNameColumn =
-                cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DISPLAY_NAME)
             d("XXX", "Found ${cursor.count} audio")
             while (cursor.moveToNext()) {
                 val id = cursor.getLong(idColumn)
