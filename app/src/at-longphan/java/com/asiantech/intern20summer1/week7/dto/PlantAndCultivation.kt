@@ -22,6 +22,10 @@ class PlantAndCultivation(
     internal val imageUrl: String
 ) {
 
+    companion object {
+        private const val MILLISECOND_PER_DAY = 86400000
+    }
+
     @RequiresApi(Build.VERSION_CODES.O)
     internal fun getPlantRecyclerViewItem(): PlantRecyclerViewItem {
 
@@ -42,13 +46,13 @@ class PlantAndCultivation(
         val dateFormat = SimpleDateFormat(DATETIME_FORMAT)
         val calendar = Calendar.getInstance()
         dateFormat.parse(dateCultivation)?.let { calendar.time = it }
-        calendar.add(Calendar.DATE, growZoneNumber)
+        calendar.add(Calendar.MILLISECOND, (growZoneNumber.toLong() * MILLISECOND_PER_DAY).toInt())
         return dateFormat.format(calendar.time)
     }
 
-    internal fun getMode(): String{
+    internal fun getMode(): String {
         var mode = ""
-        when{
+        when {
             checkWormed() -> mode = ModeGarden.WORMED
             checkDehydrated() -> mode = ModeGarden.DEHYDRATED
             checkAboutToHarvest() -> mode = ModeGarden.ABOUT_TO_HARVEST
@@ -60,14 +64,17 @@ class PlantAndCultivation(
     internal fun checkAboutToHarvest(): Boolean {
         val dateFormat = SimpleDateFormat(DATETIME_FORMAT)
 
-        val calendarHarvest = Calendar.getInstance()
-        dateFormat.parse(this.dateCultivation)?.let { calendarHarvest.time = it }
-        calendarHarvest.add(Calendar.MILLISECOND, this.growZoneNumber * 86400000 / 2)
+        val calendarAboutToHarvest = Calendar.getInstance()
+        dateFormat.parse(this.dateCultivation)?.let { calendarAboutToHarvest.time = it }
+        calendarAboutToHarvest.add(
+            Calendar.MILLISECOND,
+            (MILLISECOND_PER_DAY.toLong() * this.growZoneNumber / 2).toInt()
+        )
+        val dateAboutToHarvest = calendarAboutToHarvest.time
 
         val dateNow = Calendar.getInstance().time
-        val dateCultivation = calendarHarvest.time
 
-        val diff = dateNow.time - dateCultivation.time
+        val diff = dateNow.time - dateAboutToHarvest.time
 
         return diff >= 0
     }
@@ -78,10 +85,13 @@ class PlantAndCultivation(
 
         val calendarWatering = Calendar.getInstance()
         dateFormat.parse(this.dateWatering)?.let { calendarWatering.time = it }
-        calendarWatering.add(Calendar.MILLISECOND, this.wateringInterval * 86400000 / 2)
+        calendarWatering.add(
+            Calendar.MILLISECOND,
+            (MILLISECOND_PER_DAY.toLong() * this.wateringInterval / 2).toInt()
+        )
+        val dateWatering = calendarWatering.time
 
         val dateNow = Calendar.getInstance().time
-        val dateWatering = calendarWatering.time
 
         val diff = dateNow.time - dateWatering.time
 
@@ -94,12 +104,15 @@ class PlantAndCultivation(
 
         val calendarWatering = Calendar.getInstance()
         dateFormat.parse(this.dateWatering)?.let { calendarWatering.time = it }
-        calendarWatering.add(Calendar.MILLISECOND, this.wateringInterval * 86400000 / 4)
+        calendarWatering.add(
+            Calendar.MILLISECOND,
+            (MILLISECOND_PER_DAY.toLong() * this.wateringInterval / 4).toInt()
+        )
+        val dateWormed = calendarWatering.time
 
         val dateNow = Calendar.getInstance().time
-        val dateWatering = calendarWatering.time
 
-        val diff = dateNow.time - dateWatering.time
+        val diff = dateNow.time - dateWormed.time
 
         return diff >= 0
     }

@@ -17,4 +17,3 @@ object ModeGarden {
     internal const val WORMED = "Cây bị sâu"
     internal const val DEHYDRATED = "Cây bị thiếu nước"
 }
-

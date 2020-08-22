@@ -38,14 +38,28 @@
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/text_view_plant_new_title_dialog_w7_text_size" />
 
-            <Spinner
+            <com.asiantech.intern20summer1.week7.other.CustomSpinner
+                style="@style/SpinnerWithNoArrow"
                 android:id="@+id/spinner"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/spinner_w7_height"
                 android:layout_below="@id/tvTitleDialog"
                 android:layout_marginHorizontal="@dimen/spinner_w7_margin_horizontal"
+                android:padding="10dp"
                 android:dropDownVerticalOffset="@dimen/spinner_w7_drop_down_vertical_offset"
                 android:spinnerMode="dropdown" />
+
+            <ImageView
+                android:id="@+id/imgIconSpinner"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_below="@+id/tvTitleDialog"
+                android:layout_alignEnd="@+id/spinner"
+                android:layout_alignRight="@+id/spinner"
+                android:background="@drawable/ic_arrow_back_ios_20"
+                android:rotation="180"
+                android:layout_marginTop="18dp"
+                android:layout_marginRight="18dp" />
 
             <Button
                 android:id="@+id/btnOkPlantNewWeek7"

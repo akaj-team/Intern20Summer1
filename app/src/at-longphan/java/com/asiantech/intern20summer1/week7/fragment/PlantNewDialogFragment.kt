@@ -5,17 +5,20 @@ import android.content.Context
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.DialogFragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week7.PlantRoomDatabase
 import com.asiantech.intern20summer1.week7.entity.Cultivation
+import com.asiantech.intern20summer1.week7.other.CustomSpinner
 import com.asiantech.intern20summer1.week7.other.DATETIME_FORMAT
 import com.asiantech.intern20summer1.week7.other.ID_KEY
 import com.asiantech.intern20summer1.week7.other.USER_DATA_PREFS
@@ -49,6 +52,7 @@ class PlantNewDialogFragment : DialogFragment() {
         initSpinner()
         handleButtonOkListener()
         handleImageCloseListener()
+        handleSpinner()
     }
 
     private fun initSpinner() {
@@ -147,4 +151,20 @@ class PlantNewDialogFragment : DialogFragment() {
             )
         }
     }
+
+    private fun handleSpinner() {
+        spinner?.setSpinnerEventsListener(object : CustomSpinner.OnSpinnerEventsListener {
+            override fun onSpinnerOpened(spinner: Spinner?) {
+                imgIconSpinner?.animate()?.rotationBy(90F)?.duration = 300
+            }
+
+            override fun onSpinnerClosed(spinner: Spinner?) {
+                imgIconSpinner?.animate()?.rotationBy(-90F)?.duration = 300
+            }
+        })
+    }
+
+    private fun Int.toDp(context: Context): Int = TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_DIP, this.toFloat(), context.resources.displayMetrics
+    ).toInt()
 }

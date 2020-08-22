@@ -30,17 +30,17 @@ class GardenFragment : Fragment() {
 
     companion object {
 
-        private const val MODE = "modeGarden"
+        private const val MODE_KEY = "modeGarden"
         fun newInstance(modeGarden: String) = GardenFragment().apply {
             arguments = Bundle().apply {
-                putString(MODE, modeGarden)
+                putString(MODE_KEY, modeGarden)
             }
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mode = arguments?.getString(MODE)
+        mode = arguments?.getString(MODE_KEY)
     }
 
     override fun onCreateView(

@@ -70,4 +70,8 @@
         </item>
         <item name="android:textSize">@dimen/text_view_register_description_text_size</item>
     </style>
+
+    <style name="SpinnerWithNoArrow" parent="@android:style/Widget.Spinner">
+        <item name="android:background">@drawable/bg_spinner_w7</item>
+    </style>
 </resources>
