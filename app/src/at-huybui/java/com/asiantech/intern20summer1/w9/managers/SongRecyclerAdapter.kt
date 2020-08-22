@@ -7,7 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.w9.models.SongItem
+import com.asiantech.intern20summer1.w9.models.Song
 import kotlinx.android.synthetic.`at-huybui`.w9_item_recycler_song.view.*
 
 /**
@@ -16,8 +16,10 @@ import kotlinx.android.synthetic.`at-huybui`.w9_item_recycler_song.view.*
  * This is adapter class for musics recycler view
  */
 
-class SongRecyclerAdapter(private val songList: List<SongItem>) :
+class SongRecyclerAdapter(private val songList: List<Song>) :
     RecyclerView.Adapter<SongRecyclerAdapter.ItemViewHolder>() {
+
+    internal var onPlayerClick: (Int) -> Unit = {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val itemView =
@@ -39,7 +41,9 @@ class SongRecyclerAdapter(private val songList: List<SongItem>) :
         private var lengthSong: TextView = itemView.tvLengthSongItem
 
         init {
-
+            iconPlayer.setOnClickListener {
+                onPlayerClick.invoke(adapterPosition)
+            }
         }
 
         fun bindData() {
