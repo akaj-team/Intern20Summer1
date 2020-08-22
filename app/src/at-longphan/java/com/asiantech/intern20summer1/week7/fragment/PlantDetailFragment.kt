@@ -29,6 +29,8 @@ class PlantDetailFragment : Fragment() {
     private var database: PlantRoomDatabase? = null
     private var plantAndCultivation: PlantAndCultivation? = null
 
+    internal var onDelete: () -> Unit = {}
+
     companion object {
 
         private const val ID_KEY = "cultivationId"
@@ -147,6 +149,7 @@ class PlantDetailFragment : Fragment() {
 
     private fun handleImageButtonBack() {
         imgBackPlantDetail?.setOnClickListener {
+            // TODO: 22/08/2020
             fragmentManager?.popBackStack()
         }
     }
@@ -168,6 +171,9 @@ class PlantDetailFragment : Fragment() {
                     Toast.LENGTH_SHORT
                 )
                     .show()
+                // TODO: 22/08/2020
+                //onResult(-1, null)
+                onDelete.invoke()
                 fragmentManager?.popBackStack()
             }
             .setNegativeButton(getString(R.string.confirm_action_dialog_negative)) { _: DialogInterface, _: Int -> }

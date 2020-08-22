@@ -65,9 +65,14 @@ class GardenFragment : Fragment() {
     }
 
     private fun handlePlantItemClickListener() {
-        adapter.onItemViewClick = { cultivationId ->
+        adapter.onItemViewClick = { cultivationId, position ->
             val fragment = PlantDetailFragment.newInstance(cultivationId)
-            fragmentManager?.beginTransaction()?.add(R.id.frameLayoutActivityHome, fragment)
+            fragmentManager?.beginTransaction()?.add(R.id.frameLayoutActivityHome, fragment.apply {
+                onDelete = {
+                    plantRecyclerViews.removeAt(position)
+                    adapter.notifyItemRemoved(position)
+                }
+            })
                 ?.addToBackStack(null)
                 ?.hide(this)
                 ?.commit()

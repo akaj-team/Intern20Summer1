@@ -14,7 +14,7 @@ class PlantAdapter : RecyclerView.Adapter<PlantViewHolder> {
     private var plants: List<PlantRecyclerViewItem>
     private var context: Context
 
-    internal var onItemViewClick: (cultivationId: Int) -> Unit = {}
+    internal var onItemViewClick: (cultivationId: Int, position: Int) -> Unit = { c: Int, p: Int -> }
 
     constructor(context: Context, plants: MutableList<PlantRecyclerViewItem>) {
         this.plants = plants
@@ -51,7 +51,7 @@ class PlantAdapter : RecyclerView.Adapter<PlantViewHolder> {
             }
         )
         containerView?.setOnClickListener {
-            plant.cultivationId?.let { cultivationId -> onItemViewClick.invoke(cultivationId) }
+            plant.cultivationId?.let { cultivationId -> onItemViewClick.invoke(cultivationId, position) }
         }
     }
 
