@@ -78,24 +78,7 @@ class PlantDetailFragment : Fragment() {
                     plantMode = it.name
                 }
 
-                tvPlantMainDescription?.text = plantMode
-                when (plantMode) {
-                    ModeGarden.WORMED -> tvPlantMainDescription?.setTextColor(
-                        Color.parseColor(
-                            resources.getString(R.color.colorTextViewWormedModeWeek7)
-                        )
-                    )
-                    ModeGarden.DEHYDRATED -> tvPlantMainDescription?.setTextColor(
-                        Color.parseColor(
-                            resources.getString(R.color.colorTextViewDehydratedModeWeek7)
-                        )
-                    )
-                    ModeGarden.ABOUT_TO_HARVEST -> tvPlantMainDescription?.setTextColor(
-                        Color.parseColor(
-                            resources.getString(R.color.colorTextViewAboutToHarvestModeWeek7)
-                        )
-                    )
-                }
+                handleTextViewPlantMainDescription(plantMode)
 
                 tvPlantAtDetail?.text = it.dateCultivation
 
@@ -110,6 +93,28 @@ class PlantDetailFragment : Fragment() {
             }
         } else {
             turnOffViews()
+        }
+    }
+
+    @SuppressLint("ResourceType")
+    private fun handleTextViewPlantMainDescription(plantMode: String){
+        tvPlantMainDescription?.text = plantMode
+        when (plantMode) {
+            ModeGarden.WORMED -> tvPlantMainDescription?.setTextColor(
+                Color.parseColor(
+                    resources.getString(R.color.colorTextViewWormedModeWeek7)
+                )
+            )
+            ModeGarden.DEHYDRATED -> tvPlantMainDescription?.setTextColor(
+                Color.parseColor(
+                    resources.getString(R.color.colorTextViewDehydratedModeWeek7)
+                )
+            )
+            ModeGarden.ABOUT_TO_HARVEST -> tvPlantMainDescription?.setTextColor(
+                Color.parseColor(
+                    resources.getString(R.color.colorTextViewAboutToHarvestModeWeek7)
+                )
+            )
         }
     }
 

@@ -93,36 +93,41 @@ class GardenFragment : Fragment() {
         plantAndCultivations?.let {
             if (it.isNotEmpty()) {
                 rlEmpty?.visibility = View.INVISIBLE
-                when (mode) {
-                    ModeGarden.DEFAULT -> {
-                        for (i in it) {
-                            plantRecyclerViews.add(i.getPlantRecyclerViewItem())
-                        }
-                    }
-                    ModeGarden.ABOUT_TO_HARVEST -> {
-                        for (i in it) {
-                            if (i.checkAboutToHarvest()) {
-                                plantRecyclerViews.add(i.getPlantRecyclerViewItem())
-                            }
-                        }
-                    }
-                    ModeGarden.WORMED -> {
-                        for (i in it) {
-                            if (i.checkWormed()) {
-                                plantRecyclerViews.add(i.getPlantRecyclerViewItem())
-                            }
-                        }
-                    }
-                    ModeGarden.DEHYDRATED -> {
-                        for (i in it) {
-                            if (i.checkDehydrated()) {
-                                plantRecyclerViews.add(i.getPlantRecyclerViewItem())
-                            }
-                        }
-                    }
-                }
+                mode?.let { mode -> loadListByMode(mode, it) }
             } else {
                 rlEmpty?.visibility = View.VISIBLE
+            }
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun loadListByMode(mode: String, list: List<PlantAndCultivation>) {
+        when (mode) {
+            ModeGarden.DEFAULT -> {
+                for (i in list) {
+                    plantRecyclerViews.add(i.getPlantRecyclerViewItem())
+                }
+            }
+            ModeGarden.ABOUT_TO_HARVEST -> {
+                for (i in list) {
+                    if (i.checkAboutToHarvest()) {
+                        plantRecyclerViews.add(i.getPlantRecyclerViewItem())
+                    }
+                }
+            }
+            ModeGarden.WORMED -> {
+                for (i in list) {
+                    if (i.checkWormed()) {
+                        plantRecyclerViews.add(i.getPlantRecyclerViewItem())
+                    }
+                }
+            }
+            ModeGarden.DEHYDRATED -> {
+                for (i in list) {
+                    if (i.checkDehydrated()) {
+                        plantRecyclerViews.add(i.getPlantRecyclerViewItem())
+                    }
+                }
             }
         }
     }
