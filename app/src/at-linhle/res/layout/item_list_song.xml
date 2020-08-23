@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/constrain_layout_margin_bottom">
+
+    <ImageView
+        android:id="@+id/imgPlay"
+        android:layout_width="@dimen/play_song_image_view_size"
+        android:layout_height="@dimen/play_song_image_view_size"
+        android:src="@android:drawable/ic_media_play"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvSongName"
+        android:layout_width="@dimen/song_text_view_layout_width"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/song_text_view_margin_left"
+        android:textColor="@color/colorBlack"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imgPlay"
+        app:layout_constraintStart_toEndOf="@+id/imgPlay"
+        app:layout_constraintTop_toTopOf="@+id/imgPlay"
+        tools:text="Hãy Trao Cho Anh" />
+
+    <TextView
+        android:id="@+id/tvArtist"
+        android:layout_width="@dimen/artist_text_view_layout_width"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/artist_text_view_margin_left"
+        app:layout_constraintBottom_toBottomOf="@+id/tvSongName"
+        app:layout_constraintStart_toEndOf="@+id/tvSongName"
+        app:layout_constraintTop_toTopOf="@+id/tvSongName"
+        tools:text="Sơn Tùng MTP" />
+
+    <TextView
+        android:id="@+id/tvDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/duration_text_view_margin_left"
+        app:layout_constraintBottom_toBottomOf="@+id/tvArtist"
+        app:layout_constraintStart_toEndOf="@+id/tvArtist"
+        app:layout_constraintTop_toTopOf="@id/tvArtist"
+        tools:text="5:00" />
+</androidx.constraintlayout.widget.ConstraintLayout>
