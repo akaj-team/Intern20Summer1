@@ -13,6 +13,9 @@
         android:src="@drawable/ic_play_button" />
 
     <TextView
+        android:layout_marginRight="40dp"
+        android:lines="1"
+        android:singleLine="true"
         android:id="@+id/tvNameSongItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -24,9 +27,12 @@
         tools:text="nameSong" />
 
     <TextView
+        android:layout_marginRight="40dp"
+        android:lines="1"
         android:id="@+id/tvNameSingerItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:singleLine="true"
         android:layout_marginLeft="10dp"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="10dp"

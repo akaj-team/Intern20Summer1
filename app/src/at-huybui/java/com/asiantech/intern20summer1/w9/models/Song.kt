@@ -4,6 +4,7 @@ import android.provider.BaseColumns
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.io.Serializable
 
 /**
  * Asian Tech Co., Ltd.
@@ -19,7 +20,7 @@ data class Song(
     @ColumnInfo(name = NAME_SINGER) var singer: String? = "null",
     @ColumnInfo(name = DURATION_SONG) var duration: String? = "00:00",
     @ColumnInfo(name = CONTENT_URI) var contentUri: String = "null"
-) {
+):Serializable {
     companion object {
         const val COLUMN_ID = BaseColumns._ID
         const val TABLE_NAME = "villains"

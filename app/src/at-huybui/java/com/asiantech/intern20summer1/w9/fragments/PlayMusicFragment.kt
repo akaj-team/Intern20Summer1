@@ -1,9 +1,10 @@
 package com.asiantech.intern20summer1.w9.fragments
 
-import android.content.ContentUris
-import android.media.MediaPlayer
-import android.net.Uri
+import android.animation.ObjectAnimator
+import android.content.*
+import android.os.Build
 import android.os.Bundle
+import android.os.IBinder
 import android.provider.MediaStore
 import android.util.Log.d
 import android.view.LayoutInflater
@@ -13,10 +14,14 @@ import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.w9.activitys.MusicActivity
 import com.asiantech.intern20summer1.w9.managers.SongRecyclerAdapter
 import com.asiantech.intern20summer1.w9.models.Song
+import com.asiantech.intern20summer1.w9.services.BackgroundSoundService
+import com.asiantech.intern20summer1.w9.services.BackgroundSoundService.LocalBinder
 import com.asiantech.intern20summer1.w9.utils.Music
 import kotlinx.android.synthetic.`at-huybui`.w9_fragment_play_music.*
+import java.io.Serializable
 import java.text.SimpleDateFormat
 import java.util.concurrent.TimeUnit
 
@@ -32,32 +37,67 @@ class PlayMusicFragment : Fragment() {
         internal fun newInstance() = PlayMusicFragment()
     }
 
-    var mediaPlayer: MediaPlayer? = null
+    private var animRotate = ObjectAnimator()
+
     private val songLists = mutableListOf<Song>()
     private val songAdapter = SongRecyclerAdapter(songLists)
-    private fun dateToTimestamp(day: Int, month: Int, year: Int): Long =
-        SimpleDateFormat("dd.MM.yyyy").let { formatter ->
-            TimeUnit.MICROSECONDS.toSeconds(formatter.parse("$day.$month.$year")?.time ?: 0)
+    private var service = BackgroundSoundService()
+    private var svc = Intent()
+    var bound = false
+
+    private var connection = object : ServiceConnection {
+        override fun onServiceDisconnected(p0: ComponentName?) {
+            bound = false
         }
 
+        override fun onServiceConnected(component: ComponentName?, iBinder: IBinder?) {
+            val binder = iBinder as LocalBinder
+            service = binder.getService()
+            initPlayerBar(service)
+            bound = true
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        svc = Intent(requireContext(), service::class.java)
+        (activity as MusicActivity).bindService(svc, connection, Context.BIND_AUTO_CREATE)
         return inflater.inflate(R.layout.w9_fragment_play_music, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        createAnim()
         initSongData()
         initSongAdapter()
         initView()
     }
 
-    var count = 0
+    override fun onStop() {
+        super.onStop()
+        (activity as MusicActivity).unbindService(connection)
+        bound = false
+    }
+
     private fun initView() {
+        imgPlayer?.setOnClickListener {
+            if (service.player.isPlaying) {
+                imgPlayer.setImageResource(R.drawable.ic_play_button)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    animRotate.pause()
+                    service.onPauseMusic()
+                }
+            } else {
+                imgPlayer.setImageResource(R.drawable.ic_pause_button)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    animRotate.resume()
+                    service.onStartMusic()
+                }
+            }
+        }
     }
 
     private fun initSongAdapter() {
@@ -67,17 +107,17 @@ class PlayMusicFragment : Fragment() {
             setHasFixedSize(true)
         }
 
-        songAdapter.onItemClick = { posision ->
-            songLists[posision].let { song ->
+        songAdapter.onItemClick = { position ->
+            songLists[position].let { song ->
                 val bitmap = Music().getPicture(requireContext(), song)
                 imgDvdPlayerBar?.setImageBitmap(bitmap)
-                val animRotate = AnimationUtils.loadAnimation(requireContext(), R.anim.rotate)
-                imgDvdPlayerBar?.startAnimation(animRotate)
+                animRotate.start()
+                (activity as MusicActivity).apply {
+                    bindService(intent, connection, Context.BIND_AUTO_CREATE);
+                    svc.putExtra("song", song as Serializable)
+                    startService(svc)
+                }
             }
-            mediaPlayer?.stop()
-            mediaPlayer =
-                MediaPlayer.create(requireContext(), Uri.parse(songLists[posision].contentUri))
-            mediaPlayer?.start()
         }
     }
 
@@ -121,5 +161,34 @@ class PlayMusicFragment : Fragment() {
             }
         }
         return songListsNew
+    }
+
+    private fun dateToTimestamp(day: Int, month: Int, year: Int): Long =
+        SimpleDateFormat("dd.MM.yyyy").let { formatter ->
+            TimeUnit.MICROSECONDS.toSeconds(formatter.parse("$day.$month.$year")?.time ?: 0)
+        }
+
+    private fun initPlayerBar(sv: BackgroundSoundService) {
+        sv.song?.let {
+            if (sv.player.isPlaying) {
+                imgPlayer?.setImageResource(R.drawable.ic_pause_button)
+                val bitmap = Music().getPicture(requireContext(), it)
+                imgDvdPlayerBar?.setImageBitmap(bitmap)
+                animRotate.start()
+            } else {
+                imgPlayer?.setImageResource(R.drawable.ic_play_button)
+                val bitmap = Music().getPicture(requireContext(), it)
+                imgDvdPlayerBar?.setImageBitmap(bitmap)
+                animRotate.end()
+
+            }
+        }
+    }
+
+    private fun createAnim() {
+        animRotate = ObjectAnimator.ofFloat(imgDvdPlayerBar, "rotation", 0.0F, 360.0F)
+        animRotate.duration = 20000L
+        animRotate.repeatCount = ObjectAnimator.INFINITE
+        animRotate.repeatMode = ObjectAnimator.RESTART
     }
 }

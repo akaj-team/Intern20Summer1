@@ -5,12 +5,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.asiantech.intern20summer1.test.TestActivity">
-
-    <Button
-        android:id="@+id/btnTest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="click me"
-        android:layout_centerInParent="true"/>
-
+    <com.asiantech.intern20summer1.w9.views.DvdRotateView
+        android:id="@+id/imgTest"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        app:civ_border_width="1dp"
+        android:layout_centerInParent="true"
+        android:src="@drawable/img_platypus" />
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+       <Button
+           android:id="@+id/testStart"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="start"/>
+       <Button
+           android:id="@+id/testEnd"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="End"/>
+       <Button
+           android:id="@+id/testPause"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="Pause"/>
+       <Button
+           android:id="@+id/testResume"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="Resume"/>
+   </LinearLayout>
 </RelativeLayout>

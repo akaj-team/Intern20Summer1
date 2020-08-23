@@ -70,4 +70,5 @@
     <string name="w9_service_broadcast">W9 - Service + Broadcast</string>
     <string name="crop_complete">Crop complete</string>
     <string name="w4_crop_your_picture">Crop your picture</string>
+    <string name="w6_viewpager_tablayout">W6 viewPager + TabLayout</string>
 </resources>
