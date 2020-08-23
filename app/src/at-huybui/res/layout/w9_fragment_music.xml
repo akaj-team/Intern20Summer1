@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/background_white">
 
     <TextView
@@ -25,17 +26,20 @@
         android:layout_marginBottom="10dp" />
 
     <RelativeLayout
+        android:clickable="true"
         android:id="@+id/rlPlayerBar"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
-        android:background="#60F70FFF">
+        android:background="#60F70FFF"
+        android:focusable="true">
 
         <com.asiantech.intern20summer1.w9.views.DvdRotateView
             android:id="@+id/imgDvdPlayerBar"
             android:layout_width="50dp"
             android:layout_height="50dp"
             app:civ_border_width="1dp"
+            app:civ_border_color="@color/background_white"
             android:layout_centerVertical="true"
             android:layout_marginLeft="5dp"
             android:src="@drawable/ic_dvd_player" />
@@ -50,6 +54,23 @@
             android:padding="15dp"
             android:scaleType="fitXY"
             android:src="@drawable/ic_left_button" />
+
+        <TextView
+            android:id="@+id/tvNameSongPlayerBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_toLeftOf="@+id/imgLeftNext"
+            android:layout_toRightOf="@+id/imgDvdPlayerBar"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            tools:text="Day la ten bai hat, no selam ow day"
+            android:textSize="15sp"
+            android:textColor="@color/black"/>
 
         <ImageView
             android:id="@+id/imgPlayer"

@@ -47,7 +47,7 @@ class SplashFragment : Fragment() {
                 when (progressBarMusic.progress) {
                     PROGRESS_BAR_MAX_VALUE -> {
                         (activity as MusicActivity).handleReplaceFragment(
-                            PlayMusicFragment.newInstance(),
+                            MusicFragment.newInstance(),
                             false
                         )
                         this.cancel()

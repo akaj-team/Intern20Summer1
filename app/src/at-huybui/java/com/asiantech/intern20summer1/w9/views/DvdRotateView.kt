@@ -3,6 +3,7 @@ package com.asiantech.intern20summer1.w9.views
 import android.animation.ObjectAnimator
 import android.content.Context
 import android.os.Build
+import android.util.AttributeSet
 
 /**
  * Asian Tech Co., Ltd.
@@ -10,8 +11,8 @@ import android.os.Build
  * This is cuctom view class for dvd view
  */
 
-class DvdRotateView(context: Context?) :
-    de.hdodenhof.circleimageview.CircleImageView(context) {
+class DvdRotateView(context: Context?, attrs: AttributeSet?) :
+    de.hdodenhof.circleimageview.CircleImageView(context, attrs) {
 
     companion object {
         private const val START = 0.0F

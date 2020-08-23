@@ -8,7 +8,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w9.models.Song
-import com.asiantech.intern20summer1.w9.utils.Music
 import kotlinx.android.synthetic.`at-huybui`.w9_item_recycler_song.view.*
 
 /**
@@ -50,11 +49,11 @@ class SongRecyclerAdapter(private val songList: List<Song>) :
 
         fun bindData() {
             songList[adapterPosition].let { song ->
-                val songNew = Music().getData(itemView.context, song)
+                val songNew = Song().getData(itemView.context, song)
                 nameSong.text = songNew.nameSong
                 nameSinger.text = songNew.singer
                 lengthSong.text = songNew.duration
-                Music().getPicture(itemView.context, song)?.let {
+                Song().getPicture(itemView.context, song)?.let {
                     iconPlayer.setImageBitmap(it)
                 }
             }

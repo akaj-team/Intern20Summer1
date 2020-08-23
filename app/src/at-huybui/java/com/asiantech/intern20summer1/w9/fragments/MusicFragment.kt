@@ -1,16 +1,12 @@
 package com.asiantech.intern20summer1.w9.fragments
 
-import android.animation.ObjectAnimator
 import android.content.*
-import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
 import android.provider.MediaStore
-import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.asiantech.intern20summer1.R
@@ -19,8 +15,7 @@ import com.asiantech.intern20summer1.w9.managers.SongRecyclerAdapter
 import com.asiantech.intern20summer1.w9.models.Song
 import com.asiantech.intern20summer1.w9.services.BackgroundSoundService
 import com.asiantech.intern20summer1.w9.services.BackgroundSoundService.LocalBinder
-import com.asiantech.intern20summer1.w9.utils.Music
-import kotlinx.android.synthetic.`at-huybui`.w9_fragment_play_music.*
+import kotlinx.android.synthetic.`at-huybui`.w9_fragment_music.*
 import java.io.Serializable
 import java.text.SimpleDateFormat
 import java.util.concurrent.TimeUnit
@@ -31,20 +26,17 @@ import java.util.concurrent.TimeUnit
  * This is fragment class for splash fragment of music application
  */
 
-class PlayMusicFragment : Fragment() {
+class MusicFragment : Fragment() {
 
     companion object {
-        internal fun newInstance() = PlayMusicFragment()
+        internal fun newInstance() = MusicFragment()
     }
-
-    private var animRotate = ObjectAnimator()
 
     private val songLists = mutableListOf<Song>()
     private val songAdapter = SongRecyclerAdapter(songLists)
     private var service = BackgroundSoundService()
     private var svc = Intent()
     var bound = false
-
     private var connection = object : ServiceConnection {
         override fun onServiceDisconnected(p0: ComponentName?) {
             bound = false
@@ -65,12 +57,11 @@ class PlayMusicFragment : Fragment() {
     ): View? {
         svc = Intent(requireContext(), service::class.java)
         (activity as MusicActivity).bindService(svc, connection, Context.BIND_AUTO_CREATE)
-        return inflater.inflate(R.layout.w9_fragment_play_music, container, false)
+        return inflater.inflate(R.layout.w9_fragment_music, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        createAnim()
         initSongData()
         initSongAdapter()
         initView()
@@ -83,19 +74,17 @@ class PlayMusicFragment : Fragment() {
     }
 
     private fun initView() {
+        tvNameSongPlayerBar.isSelected = true
+        imgDvdPlayerBar?.createAnim()
         imgPlayer?.setOnClickListener {
             if (service.player.isPlaying) {
                 imgPlayer.setImageResource(R.drawable.ic_play_button)
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                    animRotate.pause()
-                    service.onPauseMusic()
-                }
+                imgDvdPlayerBar?.pauseAnim()
+                service.onPauseMusic()
             } else {
                 imgPlayer.setImageResource(R.drawable.ic_pause_button)
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                    animRotate.resume()
-                    service.onStartMusic()
-                }
+                imgDvdPlayerBar?.resumeAnim()
+                service.onStartMusic()
             }
         }
     }
@@ -109,12 +98,14 @@ class PlayMusicFragment : Fragment() {
 
         songAdapter.onItemClick = { position ->
             songLists[position].let { song ->
-                val bitmap = Music().getPicture(requireContext(), song)
+                val bitmap = Song().getPicture(requireContext(), song)
                 imgDvdPlayerBar?.setImageBitmap(bitmap)
-                animRotate.start()
+                imgDvdPlayerBar?.startAnim()
+                tvNameSongPlayerBar?.text = Song().getData(requireContext(),song).nameSong
                 (activity as MusicActivity).apply {
-                    bindService(intent, connection, Context.BIND_AUTO_CREATE);
+                    bindService(intent, connection, Context.BIND_AUTO_CREATE)
                     svc.putExtra("song", song as Serializable)
+                    imgPlayer?.setImageResource(R.drawable.ic_pause_button)
                     startService(svc)
                 }
             }
@@ -136,7 +127,6 @@ class PlayMusicFragment : Fragment() {
         )
         val selection = "${MediaStore.Audio.Media.DATE_ADDED} >= ?"
         val selectionArgs = arrayOf(
-            // Release day of the G1. :)
             dateToTimestamp(day = 22, month = 10, year = 2000).toString()
         )
         val sortOrder = "${MediaStore.Audio.Media.DATE_ADDED} DESC"
@@ -149,7 +139,6 @@ class PlayMusicFragment : Fragment() {
             sortOrder
         )?.use { cursor ->
             val idColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media._ID)
-            d("XXX", "Found ${cursor.count} audio")
             while (cursor.moveToNext()) {
                 val id = cursor.getLong(idColumn)
                 val contentUri = ContentUris.withAppendedId(
@@ -172,23 +161,15 @@ class PlayMusicFragment : Fragment() {
         sv.song?.let {
             if (sv.player.isPlaying) {
                 imgPlayer?.setImageResource(R.drawable.ic_pause_button)
-                val bitmap = Music().getPicture(requireContext(), it)
+                val bitmap = Song().getPicture(requireContext(), it)
                 imgDvdPlayerBar?.setImageBitmap(bitmap)
-                animRotate.start()
+                imgDvdPlayerBar?.startAnim()
             } else {
                 imgPlayer?.setImageResource(R.drawable.ic_play_button)
-                val bitmap = Music().getPicture(requireContext(), it)
+                val bitmap = Song().getPicture(requireContext(), it)
                 imgDvdPlayerBar?.setImageBitmap(bitmap)
-                animRotate.end()
-
+                imgDvdPlayerBar?.endAnim()
             }
         }
-    }
-
-    private fun createAnim() {
-        animRotate = ObjectAnimator.ofFloat(imgDvdPlayerBar, "rotation", 0.0F, 360.0F)
-        animRotate.duration = 20000L
-        animRotate.repeatCount = ObjectAnimator.INFINITE
-        animRotate.repeatMode = ObjectAnimator.RESTART
     }
 }

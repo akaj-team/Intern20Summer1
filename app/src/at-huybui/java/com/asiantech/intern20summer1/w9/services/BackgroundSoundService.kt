@@ -10,6 +10,11 @@ import android.os.IBinder
 import android.util.Log.d
 import com.asiantech.intern20summer1.w9.models.Song
 
+/**
+ * Asian Tech Co., Ltd.
+ * Created by at-huybui on 08/21/20
+ * This is service class to play mp3
+ */
 
 class BackgroundSoundService : Service() {
     var player = MediaPlayer()
@@ -23,7 +28,6 @@ class BackgroundSoundService : Service() {
     }
 
     override fun onBind(arg0: Intent?): IBinder? {
-        d("XXX", "[service] on Bind")
         return iBinder
     }
 
@@ -33,37 +37,19 @@ class BackgroundSoundService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        d("XXX", "[service] on start command")
-        player?.stop()
+        player.stop()
         song = intent?.getSerializableExtra("song") as Song
-        d("XXX", song?.contentUri.toString())
         player = MediaPlayer.create(this.baseContext, Uri.parse(song?.contentUri))
-        player?.apply {
+        player.apply {
             isLooping = true // Set looping
             setVolume(100f, 100f)
         }
-        player?.start()
-
+        player.start()
         return START_REDELIVER_INTENT
     }
 
 
-    override fun onStart(intent: Intent?, startId: Int) {
-        d("XXX", "[service] on Start")
-    }
-
-    fun onUnBind(arg0: Intent?): IBinder? {
-        return null
-    }
-
-    fun onStop() {
-        d("XXX", "on Stop")
-    }
-
-    override fun bindService(service: Intent?, conn: ServiceConnection, flags: Int): Boolean {
-        return super.bindService(service, conn, flags)
-
-    }
+    override fun onStart(intent: Intent?, startId: Int) {}
 
     fun onPauseMusic() {
         d("XXX", "on pause")
@@ -79,9 +65,7 @@ class BackgroundSoundService : Service() {
         }
     }
 
-    override fun onDestroy() {
-        d("XXX", "on destroy")
-    }
+    override fun onDestroy() {}
 
     override fun onLowMemory() {}
 }
