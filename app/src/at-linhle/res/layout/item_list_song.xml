@@ -10,7 +10,7 @@
         android:id="@+id/imgPlay"
         android:layout_width="@dimen/play_song_image_view_size"
         android:layout_height="@dimen/play_song_image_view_size"
-        android:src="@android:drawable/ic_media_play"
+        android:src="@drawable/ic_baseline_play_circle_filled_24"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
