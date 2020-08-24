@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.widget.SeekBar
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.data.w9.Music
@@ -138,7 +139,6 @@ class MusicScreenFragment : Fragment(), View.OnClickListener {
             AnimationUtils.loadAnimation(context, R.anim.animation_rotate)
         imgMusic.startAnimation(startRotateAnimation)
     }
-
     private fun initData() {
         music.clear()
         music.addAll(MusicData.getMusic(requireContext()))

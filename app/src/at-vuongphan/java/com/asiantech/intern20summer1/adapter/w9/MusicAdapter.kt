@@ -1,6 +1,5 @@
 package com.asiantech.intern20summer1.adapter.w9
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,8 +7,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.data.w9.Music
-import com.asiantech.intern20summer1.data.w9.MusicData
-import com.asiantech.intern20summer1.fragment.w9.MusicService
 import com.bumptech.glide.Glide
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.`at-vuongphan`.item_recycler_music.view.*
