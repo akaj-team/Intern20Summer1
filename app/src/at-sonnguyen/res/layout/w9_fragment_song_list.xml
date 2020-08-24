@@ -29,14 +29,15 @@
                 android:layout_marginStart="@dimen/w9_image_song_card_view_margin_left" />
 
             <TextView
+                android:id="@+id/tvCardViewSongName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/w9_song_name_text_view__card_view_margin_top"
-                android:layout_toLeftOf="@id/tvPlay"
+                android:layout_toLeftOf="@id/imgPlay"
                 android:layout_toRightOf="@id/imgSmallSong"
                 android:textSize="@dimen/w9_song_name_text_view_card_view_size"
                 android:textStyle="bold"
-                android:layout_toStartOf="@id/tvPlay"
+                android:layout_toStartOf="@id/imgPlay"
                 android:layout_toEndOf="@id/imgSmallSong" />
 
             <ImageView
@@ -52,7 +53,7 @@
                 android:contentDescription="@string/w9_next_image_view_description" />
 
             <ImageView
-                android:id="@+id/tvPlay"
+                android:id="@+id/imgPlay"
                 android:layout_width="@dimen/w9_icon_card_view_size"
                 android:layout_height="@dimen/w9_icon_card_view_size"
                 android:layout_centerVertical="true"

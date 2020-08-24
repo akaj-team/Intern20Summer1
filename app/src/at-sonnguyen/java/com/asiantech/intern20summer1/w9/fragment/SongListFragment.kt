@@ -13,6 +13,7 @@ import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w9.adapter.SongAdapter
 import com.asiantech.intern20summer1.w9.data.Song
 import com.asiantech.intern20summer1.w9.data.SongData
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.`at-sonnguyen`.w9_fragment_song_list.*
 
 class SongListFragment : Fragment() {
@@ -24,6 +25,7 @@ class SongListFragment : Fragment() {
 
     private var songs = mutableListOf<Song>()
     private var songAdapter = SongAdapter(songs)
+    private var positionSongPlaying =  DEFAULT_VALUE
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -37,6 +39,7 @@ class SongListFragment : Fragment() {
         requestPermission()
         initAdapter()
         initData()
+        initListener()
     }
 
     private fun initAdapter() {
@@ -58,5 +61,18 @@ class SongListFragment : Fragment() {
                 requestPermissions(permissions, PERMISSION_CODE)
             }
         }
+    }
+    private fun initListener(){
+        songAdapter.onItemClicked = {
+            positionSongPlaying = it
+            setCardViewData()
+        }
+    }
+    private fun setCardViewData(){
+        Glide.with(requireContext())
+            .load(songs[positionSongPlaying].imageUri)
+            .placeholder(R.drawable.ic_launcher_foreground)
+            .into(imgSmallSong)
+        tvCardViewSongName.text = songs[positionSongPlaying].songName
     }
 }
