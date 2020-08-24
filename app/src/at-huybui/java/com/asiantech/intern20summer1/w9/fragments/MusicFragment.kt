@@ -1,9 +1,9 @@
 package com.asiantech.intern20summer1.w9.fragments
 
-import android.content.*
+import android.content.ContentUris
 import android.os.Bundle
-import android.os.IBinder
 import android.provider.MediaStore
+import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,9 +14,7 @@ import com.asiantech.intern20summer1.w9.activitys.MusicActivity
 import com.asiantech.intern20summer1.w9.managers.SongRecyclerAdapter
 import com.asiantech.intern20summer1.w9.models.Song
 import com.asiantech.intern20summer1.w9.services.BackgroundSoundService
-import com.asiantech.intern20summer1.w9.services.BackgroundSoundService.LocalBinder
 import kotlinx.android.synthetic.`at-huybui`.w9_fragment_music.*
-import java.io.Serializable
 import java.text.SimpleDateFormat
 import java.util.concurrent.TimeUnit
 
@@ -34,29 +32,13 @@ class MusicFragment : Fragment() {
 
     private val songLists = mutableListOf<Song>()
     private val songAdapter = SongRecyclerAdapter(songLists)
-    private var service = BackgroundSoundService()
-    private var svc = Intent()
-    var bound = false
-    private var connection = object : ServiceConnection {
-        override fun onServiceDisconnected(p0: ComponentName?) {
-            bound = false
-        }
-
-        override fun onServiceConnected(component: ComponentName?, iBinder: IBinder?) {
-            val binder = iBinder as LocalBinder
-            service = binder.getService()
-            initPlayerBar(service)
-            bound = true
-        }
-    }
+    private val service = MusicActivity.service
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        svc = Intent(requireContext(), service::class.java)
-        (activity as MusicActivity).bindService(svc, connection, Context.BIND_AUTO_CREATE)
         return inflater.inflate(R.layout.w9_fragment_music, container, false)
     }
 
@@ -65,27 +47,28 @@ class MusicFragment : Fragment() {
         initSongData()
         initSongAdapter()
         initView()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        (activity as MusicActivity).unbindService(connection)
-        bound = false
+        onServiceListener()
+        initButtonListener()
     }
 
     private fun initView() {
+        initPlayerBar(service)
         tvNameSongPlayerBar.isSelected = true
-        imgDvdPlayerBar?.createAnim()
+    }
+
+    private fun initButtonListener() {
         imgPlayer?.setOnClickListener {
-            if (service.player.isPlaying) {
-                imgPlayer.setImageResource(R.drawable.ic_play_button)
-                imgDvdPlayerBar?.pauseAnim()
+            if (service.audioPlayer.isPlaying) {
                 service.onPauseMusic()
             } else {
-                imgPlayer.setImageResource(R.drawable.ic_pause_button)
-                imgDvdPlayerBar?.resumeAnim()
-                service.onStartMusic()
+                service.onResumeMusic()
             }
+        }
+        imgLeftNext?.setOnClickListener {
+            service.onNextLeftMusic()
+        }
+        imgRightNext?.setOnClickListener {
+            service.onNextRightMusic()
         }
     }
 
@@ -97,24 +80,14 @@ class MusicFragment : Fragment() {
         }
 
         songAdapter.onItemClick = { position ->
-            songLists[position].let { song ->
-                val bitmap = Song().getPicture(requireContext(), song)
-                imgDvdPlayerBar?.setImageBitmap(bitmap)
-                imgDvdPlayerBar?.startAnim()
-                tvNameSongPlayerBar?.text = Song().getData(requireContext(),song).nameSong
-                (activity as MusicActivity).apply {
-                    bindService(intent, connection, Context.BIND_AUTO_CREATE)
-                    svc.putExtra("song", song as Serializable)
-                    imgPlayer?.setImageResource(R.drawable.ic_pause_button)
-                    startService(svc)
-                }
-            }
+            service.onStartMusic(position)
         }
     }
 
     private fun initSongData() {
         scanSongInStore().apply {
             toCollection(songLists)
+            toCollection(service.songList)
             songAdapter.notifyDataSetChanged()
         }
     }
@@ -158,8 +131,9 @@ class MusicFragment : Fragment() {
         }
 
     private fun initPlayerBar(sv: BackgroundSoundService) {
-        sv.song?.let {
-            if (sv.player.isPlaying) {
+        d("XXX", sv.songPlaying.toString())
+        sv.songPlaying?.let {
+            if (sv.audioPlayer.isPlaying) {
                 imgPlayer?.setImageResource(R.drawable.ic_pause_button)
                 val bitmap = Song().getPicture(requireContext(), it)
                 imgDvdPlayerBar?.setImageBitmap(bitmap)
@@ -170,6 +144,26 @@ class MusicFragment : Fragment() {
                 imgDvdPlayerBar?.setImageBitmap(bitmap)
                 imgDvdPlayerBar?.endAnim()
             }
+        }
+    }
+
+    private fun onServiceListener() {
+        service.onStartPlayerBar = {
+            service.songPlaying?.let { song ->
+                val bitmap = Song().getPicture(requireContext(), song)
+                imgDvdPlayerBar?.setImageBitmap(bitmap)
+                imgPlayer?.setImageResource(R.drawable.ic_pause_button)
+                imgDvdPlayerBar?.startAnim()
+                tvNameSongPlayerBar?.text = song.nameSong
+            }
+        }
+        service.onPausePlayerBar = {
+            imgDvdPlayerBar?.pauseAnim()
+            imgPlayer?.setImageResource(R.drawable.ic_play_button)
+        }
+        service.onResumePlayerBar = {
+            imgDvdPlayerBar?.resumeAnim()
+            imgPlayer?.setImageResource(R.drawable.ic_pause_button)
         }
     }
 }

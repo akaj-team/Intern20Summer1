@@ -1,13 +1,18 @@
 package com.asiantech.intern20summer1.w9.fragments
 
+import android.content.ComponentName
+import android.content.Intent
+import android.content.ServiceConnection
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.os.IBinder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w9.activitys.MusicActivity
+import com.asiantech.intern20summer1.w9.services.BackgroundSoundService
 import kotlinx.android.synthetic.`at-huybui`.w9_fragment_splash.*
 
 /**
@@ -46,10 +51,7 @@ class SplashFragment : Fragment() {
                 progressBarMusic.progress = progressBarMusic.progress.plus(2)
                 when (progressBarMusic.progress) {
                     PROGRESS_BAR_MAX_VALUE -> {
-                        (activity as MusicActivity).handleReplaceFragment(
-                            MusicFragment.newInstance(),
-                            false
-                        )
+                        (activity as MusicActivity).initViewPager()
                         this.cancel()
                     }
                 }

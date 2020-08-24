@@ -50,6 +50,7 @@ class SongRecyclerAdapter(private val songList: List<Song>) :
         fun bindData() {
             songList[adapterPosition].let { song ->
                 val songNew = Song().getData(itemView.context, song)
+                nameSong.isSelected = true
                 nameSong.text = songNew.nameSong
                 nameSinger.text = songNew.singer
                 lengthSong.text = songNew.duration

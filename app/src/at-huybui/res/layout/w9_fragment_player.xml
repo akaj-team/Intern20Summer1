@@ -2,94 +2,139 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/background_white">
+    android:background="@drawable/bg_music_app">
 
     <TextView
-        android:id="@+id/testtest"
+        android:id="@+id/tvNameSong.Player"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="marquee"
+        android:layout_centerHorizontal="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="center"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:scrollHorizontally="true"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        tools:text="Day la ten bai hat, no selam ow day" />
+
+    <TextView
+        android:id="@+id/tvSinger.Player"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvNameSong.Player"
+        android:layout_centerHorizontal="true"
+        android:ellipsize="marquee"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="center"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:scrollHorizontally="true"
+        android:singleLine="true"
+        android:textSize="15sp"
+        tools:text="Day la ten bai hat, no selam ow day" />
+
+
+    <com.asiantech.intern20summer1.w9.views.DvdRotateView
+        android:id="@+id/imgDvd.Player"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/seekBar"
+        android:layout_below="@id/tvNameSong.Player"
+        android:layout_margin="40dp"
+        android:src="@drawable/img_dvd_player" />
+
+    <TextView
+        android:id="@+id/tvCurrent.Player"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:text="MUSIC APP"
-        android:textSize="30sp" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:background="#ffffff"
-        android:id="@+id/recyclerViewSongList"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_above="@id/seekBar"
+        android:layout_alignParentLeft="true"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="100dp"
+        tools:text="00:00" />
+
+    <TextView
+        android:id="@+id/tvUpdateCurrent.Player"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/seekBar"
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible"
+        tools:text="00:00" />
+
+    <TextView
+        android:id="@+id/tvDuration.Player"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/seekBar"
+        android:layout_alignParentRight="true"
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="10dp" />
+        tools:text="00:00" />
+
+    <androidx.appcompat.widget.AppCompatSeekBar
+        android:id="@+id/seekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/rlPlayerBar.Player"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="30dp"
+        android:thumbTint="@color/background_white"
+        tools:progress="50" />
 
     <RelativeLayout
-        android:clickable="true"
-        android:id="@+id/rlPlayerBar"
+        android:id="@+id/rlPlayerBar.Player"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="@dimen/w9_player_player_bar_height"
         android:layout_alignParentBottom="true"
-        android:background="#60F70FFF"
-        android:focusable="true">
-
-        <com.asiantech.intern20summer1.w9.views.DvdRotateView
-            android:id="@+id/imgDvdPlayerBar"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            app:civ_border_width="1dp"
-            app:civ_border_color="@color/background_white"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="5dp"
-            android:src="@drawable/ic_dvd_player" />
-
+        android:layout_marginBottom="20dp">
 
         <ImageView
-            android:id="@+id/imgLeftNext"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toLeftOf="@id/imgPlayer"
-            android:adjustViewBounds="true"
+            android:id="@+id/btnPlayer.Player"
+            android:layout_width="@dimen/w9_player_player_bar_height"
+            android:layout_height="@dimen/w9_player_player_bar_height"
             android:padding="15dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_left_button" />
-
-        <TextView
-            android:id="@+id/tvNameSongPlayerBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_toLeftOf="@+id/imgLeftNext"
-            android:layout_toRightOf="@+id/imgDvdPlayerBar"
-            android:ellipsize="marquee"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:marqueeRepeatLimit="marquee_forever"
-            android:scrollHorizontally="true"
-            android:singleLine="true"
-            tools:text="Day la ten bai hat, no selam ow day"
-            android:textSize="15sp"
-            android:textColor="@color/black"/>
-
-        <ImageView
-            android:id="@+id/imgPlayer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toLeftOf="@id/imgRightNext"
-            android:adjustViewBounds="true"
-            android:padding="15dp"
-            android:scaleType="fitXY"
+            android:layout_centerHorizontal="true"
             android:src="@drawable/ic_play_button" />
 
         <ImageView
-            android:id="@+id/imgRightNext"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:adjustViewBounds="true"
-            android:padding="15dp"
-            android:scaleType="fitXY"
+            android:id="@+id/btnRight.Player"
+            android:layout_width="@dimen/w9_player_player_bar_height"
+            android:layout_height="@dimen/w9_player_player_bar_height"
+            android:layout_toRightOf="@id/btnPlayer.Player"
+            android:padding="20dp"
             android:src="@drawable/ic_right_button" />
+
+        <ImageView
+            android:id="@+id/btnLeft.Player"
+            android:layout_width="@dimen/w9_player_player_bar_height"
+            android:layout_height="@dimen/w9_player_player_bar_height"
+            android:layout_toLeftOf="@id/btnPlayer.Player"
+            android:padding="20dp"
+            android:src="@drawable/ic_left_button" />
+
+        <ImageView
+            android:id="@+id/btnReplay.Player"
+            android:layout_width="@dimen/w9_player_player_bar_height"
+            android:layout_height="@dimen/w9_player_player_bar_height"
+            android:layout_toRightOf="@id/btnRight.Player"
+            android:padding="25dp"
+            android:src="@drawable/ic_replay_off" />
+
+        <ImageView
+            android:id="@+id/btnRandom.Player"
+            android:layout_width="@dimen/w9_player_player_bar_height"
+            android:layout_height="@dimen/w9_player_player_bar_height"
+            android:layout_toLeftOf="@id/btnLeft.Player"
+            android:padding="25dp"
+            android:src="@drawable/ic_random_off" />
     </RelativeLayout>
+
 </RelativeLayout>

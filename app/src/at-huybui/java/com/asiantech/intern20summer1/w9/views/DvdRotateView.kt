@@ -22,14 +22,15 @@ class DvdRotateView(context: Context?, attrs: AttributeSet?) :
     }
 
     private var animRotate = ObjectAnimator()
-    fun createAnim() {
+
+    internal fun startAnim() {
+        if (animRotate.isStarted) {
+            animRotate.end()
+        }
         animRotate = ObjectAnimator.ofFloat(this, ANIM_MODE, START, END)
         animRotate.duration = DURATION
         animRotate.repeatCount = ObjectAnimator.INFINITE
         animRotate.repeatMode = ObjectAnimator.RESTART
-    }
-
-    internal fun startAnim() {
         animRotate.start()
     }
 

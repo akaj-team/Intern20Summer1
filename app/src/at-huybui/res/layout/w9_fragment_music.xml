@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/background_white">
+    android:background="@drawable/bg_music_app">
 
     <TextView
         android:id="@+id/testtest"
@@ -16,7 +16,6 @@
         android:textSize="30sp" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:background="#ffffff"
         android:id="@+id/recyclerViewSongList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -43,7 +42,6 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="5dp"
             android:src="@drawable/ic_dvd_player" />
-
 
         <ImageView
             android:id="@+id/imgLeftNext"

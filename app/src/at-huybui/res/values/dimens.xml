@@ -78,4 +78,5 @@
     <dimen name="w8_splash_logo_size">100dp</dimen>
     <dimen name="w8_splash_progress_bar_height">4dp</dimen>
     <dimen name="w8_splash_progress_bar_width">300dp</dimen>
+    <dimen name="w9_player_player_bar_height">80dp</dimen>
 </resources>

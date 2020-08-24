@@ -2,10 +2,10 @@ package com.asiantech.intern20summer1.w9.services
 
 import android.app.Service
 import android.content.Intent
-import android.content.ServiceConnection
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Binder
+import android.os.CountDownTimer
 import android.os.IBinder
 import android.util.Log.d
 import com.asiantech.intern20summer1.w9.models.Song
@@ -17,9 +17,21 @@ import com.asiantech.intern20summer1.w9.models.Song
  */
 
 class BackgroundSoundService : Service() {
-    var player = MediaPlayer()
-    var song: Song? = null
+    var audioPlayer = MediaPlayer()
+    var songList = mutableListOf<Song>()
+    var songPlaying: Song? = null
+    var currentTime = 0
     var iBinder: IBinder = LocalBinder()
+    var songPosition = 0
+
+    internal var onUpdateCurrentPosition: (Int) -> Unit = {}
+    internal var onPausePlayer: () -> Unit = {}
+    internal var onResumePlayer: () -> Unit = {}
+    internal var onStartPlayer: () -> Unit = {}
+    internal var onPausePlayerBar: () -> Unit = {}
+    internal var onResumePlayerBar: () -> Unit = {}
+    internal var onStartPlayerBar: () -> Unit = {}
+    internal var onStopPlayer: () -> Unit = {}
 
     inner class LocalBinder : Binder() {
         fun getService(): BackgroundSoundService {
@@ -37,32 +49,67 @@ class BackgroundSoundService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        player.stop()
-        song = intent?.getSerializableExtra("song") as Song
-        player = MediaPlayer.create(this.baseContext, Uri.parse(song?.contentUri))
-        player.apply {
-            isLooping = true // Set looping
-            setVolume(100f, 100f)
-        }
-        player.start()
+        updateTimeSong()
         return START_REDELIVER_INTENT
     }
 
-
-    override fun onStart(intent: Intent?, startId: Int) {}
-
     fun onPauseMusic() {
         d("XXX", "on pause")
-        if (player.isPlaying) {
-            player.pause()
+        if (audioPlayer.isPlaying) {
+            audioPlayer.pause()
+            onPausePlayer.invoke()
+            onPausePlayerBar.invoke()
         }
     }
 
-    fun onStartMusic() {
-        d("XXX", "on start")
-        if (!player.isPlaying) {
-            player.start()
+    fun onResumeMusic() {
+        d("XXX", "on resume")
+        if (!audioPlayer.isPlaying) {
+            audioPlayer.start()
+            onResumePlayer.invoke()
+            onResumePlayerBar.invoke()
         }
+    }
+
+    fun onStartMusic(position: Int) {
+        songPosition = position
+        val song = songList[songPosition]
+        songPlaying = Song().getData(this, song)
+        audioPlayer.stop()
+        audioPlayer = MediaPlayer.create(this, Uri.parse(songPlaying?.contentUri))
+        audioPlayer.setVolume(100f, 100f)
+        audioPlayer.start()
+        audioPlayer.setOnCompletionListener {
+            d("XXX", "finish")
+            if(!audioPlayer.isLooping){
+                d("XXX", "finish")
+                onNextRightMusic()
+            }
+        }
+        onStartPlayer.invoke()
+        onStartPlayerBar.invoke()
+    }
+
+    fun onNextRightMusic() {
+        songPosition += 1
+        onStartMusic(songPosition)
+    }
+
+    fun onNextLeftMusic() {
+        songPosition -= 1
+        onStartMusic(songPosition)
+    }
+
+    private fun updateTimeSong() {
+        object : CountDownTimer(100, 50) {
+            override fun onFinish() {
+                currentTime = audioPlayer.currentPosition
+                onUpdateCurrentPosition.invoke(currentTime)
+                this.start()
+            }
+
+            override fun onTick(p0: Long) {}
+        }.start()
     }
 
     override fun onDestroy() {}
