@@ -13,6 +13,8 @@ import kotlinx.android.synthetic.`at-linhle`.item_list_song.view.*
 
 class SongViewHolder(private val songItems: MutableList<Song>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    var onClick: OnClick? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.item_list_song, parent, false)
@@ -44,5 +46,19 @@ class SongViewHolder(private val songItems: MutableList<Song>) :
                 imgSong.setImageURI(Uri.parse(song.imgUri))
             }
         }
+    }
+
+    fun getDuration(duration: Int): String {
+        val seconds = duration / 1000 % 60
+        val minutes = ((duration - seconds) / 1000 / 60).toLong()
+        return String.format("%02d: %02d", minutes, seconds)
+    }
+
+    fun onClick(itemOnclick: OnClick) {
+        this.onClick = itemOnclick
+    }
+
+    interface OnClick {
+        fun onClick(song: Song)
     }
 }
