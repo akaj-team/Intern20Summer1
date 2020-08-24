@@ -17,6 +17,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.activity.w9.MusicActivity
 import com.asiantech.intern20summer1.adapter.w9.MusicAdapter
 import com.asiantech.intern20summer1.data.w9.Music
 import com.asiantech.intern20summer1.data.w9.MusicAction
@@ -35,6 +36,15 @@ class ListFragmentMusic : Fragment(), View.OnClickListener {
     companion object {
         internal fun newInstance(): ListFragmentMusic {
             return ListFragmentMusic()
+        }
+
+        private const val ARG_POS = "position"
+        private const val ARG_PLAYING = "isPlaying"
+        fun newInstance(position: Int, isPlaying: Boolean) = ListFragmentMusic().apply {
+            arguments = Bundle().apply {
+                putInt(ARG_POS, position)
+                putBoolean(ARG_PLAYING, isPlaying)
+            }
         }
 
         private const val PERMISSION_CODE = 101
@@ -70,6 +80,26 @@ class ListFragmentMusic : Fragment(), View.OnClickListener {
         when (view) {
             btnPlayPause -> {
                 onPausePlayMusic()
+            }
+            btnNext -> {
+                sendAction(MusicAction.NEXT)
+                positionMusicPlaying++
+                if (isPlaying) {
+                    btnPlayPause?.setBackgroundResource(R.drawable.ic_pause_circle_outline_red)
+                } else {
+                    btnPlayPause?.setBackgroundResource(R.drawable.ic_play_circle_outline_red)
+                }
+                setStatus()
+            }
+            btnBack -> {
+                sendAction(MusicAction.PREVIOUS)
+                positionMusicPlaying--
+                if (isPlaying) {
+                    btnPlayPause?.setBackgroundResource(R.drawable.ic_pause_circle_outline_red)
+                } else {
+                    btnPlayPause?.setBackgroundResource(R.drawable.ic_play_circle_outline_red)
+                }
+                setStatus()
             }
         }
     }
@@ -177,7 +207,16 @@ class ListFragmentMusic : Fragment(), View.OnClickListener {
             btnPlayPause.setBackgroundResource(R.drawable.ic_pause_circle_outline_red)
             playMusic(it)
         }
+        cardViewBottom?.setOnClickListener {
+            (activity as? MusicActivity)?.handleReplaceFragment(
+                MusicScreenFragment.newInstance(
+                    positionMusicPlaying
+                ), true, parent = R.id.frContainer
+            )
+        }
         btnPlayPause?.setOnClickListener(this)
+        btnBack?.setOnClickListener(this)
+        btnNext?.setOnClickListener(this)
     }
 
     private fun initData() {

@@ -62,7 +62,9 @@
         android:id="@+id/tvDuration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_80dp"
+        android:layout_marginTop="@dimen/margin_100dp"
+        android:layout_marginRight="@dimen/margin_15dp"
+        android:text="@string/text_view_time"
         android:textColor="@color/colorBlack"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgMusic" />
@@ -71,8 +73,10 @@
         android:id="@+id/tvCurrentDuration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_80dp"
+        android:layout_marginTop="@dimen/margin_100dp"
         android:textColor="@color/colorBlack"
+        android:layout_marginLeft="@dimen/margin_15dp"
+        android:text="@string/text_view_time"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgMusic" />
 

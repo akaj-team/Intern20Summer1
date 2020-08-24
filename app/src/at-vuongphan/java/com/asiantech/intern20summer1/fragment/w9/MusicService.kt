@@ -114,6 +114,7 @@ class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
     }
 
     internal fun getCurrentDuration() = mediaPlayer?.currentPosition
+    internal fun getTime() = mediaPlayer?.duration
 
     internal fun isPlaying() = isPlaying
 

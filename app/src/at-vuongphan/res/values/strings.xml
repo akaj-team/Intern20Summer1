@@ -63,4 +63,5 @@
     <string name="tv_duration">%d:%d</string>
     <string name="toast_destroy_services">Music Service destroyed by user.</string>
     <string name="channel_name">Foreground Service Channel</string>
+    <string name="text_view_time">00:00</string>
 </resources>

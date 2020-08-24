@@ -5,13 +5,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.fragment.w9.ListFragmentMusic
-import kotlinx.android.synthetic.`at-vuongphan`.activity_login.*
 
 class MusicActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.w9_activity_music)
-        handleReplaceFragment(ListFragmentMusic.newInstance(), parent = R.id.frContainer)
+        replacePlayListFragment(0, false)
     }
 
     internal fun handleReplaceFragment(
@@ -27,5 +26,17 @@ class MusicActivity : AppCompatActivity() {
             fragmentTransaction.addToBackStack(nameBackStack)
         }
         fragmentTransaction.commit()
+    }
+
+    internal fun replacePlayListFragment(position: Int, isPlaying: Boolean) {
+        supportFragmentManager.beginTransaction()
+            .replace(
+                R.id.frContainer,
+                ListFragmentMusic.newInstance(position, isPlaying).apply {
+                },
+                null
+            )
+            .addToBackStack(null)
+            .commit()
     }
 }
