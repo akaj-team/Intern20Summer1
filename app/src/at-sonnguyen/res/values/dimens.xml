@@ -61,4 +61,22 @@
     <dimen name="w9_singer_text_view_margin_top">15dp</dimen>
     <dimen name="w9_singer_text_view_padding_left">25dp</dimen>
     <dimen name="w9_sing_text_view_text_size">12sp</dimen>
+    <dimen name="w9_song_name_text_view_text_size_music_player">24sp</dimen>
+    <dimen name="w9_music_player_fragment_song_name_text_view_height">60dp</dimen>
+    <dimen name="w9_linear_layout_title_music_player_fragment_margin_left">30dp</dimen>
+    <dimen name="w9_linear_layout_title_music_player_fragment_margin_top">30dp</dimen>
+    <dimen name="w9_song_name_text_view_music_player_fragment_width">0dp</dimen>
+    <dimen name="w9_song_name_text_view_music_player_fragment_padding_left">25dp</dimen>
+    <dimen name="w9_back_image_view_music_player_fragment_size">40dp</dimen>
+    <dimen name="w9_song_image_music_player_fragment_size">280dp</dimen>
+    <dimen name="w9_song_image_music_player_fragment_margin_top">60dp</dimen>
+    <dimen name="w9_sing_text_view_music_player_fragment_height">40dp</dimen>
+    <dimen name="w9_singer_text_view_music_player_fragment_margin_top">35dp</dimen>
+    <dimen name="w9_image_linear_layout_music_player_fragment_height">25dp</dimen>
+    <dimen name="w9_image_linear_layout_music_player_fragment_margin_top">35dp</dimen>
+    <dimen name="w9_relative_layout_time_music_player_fragment_margin">10dp</dimen>
+    <dimen name="w9_music_player_fragment_seek_bar_height">10dp</dimen>
+    <dimen name="w9_music_player_fragment_seek_bar_margin_left">10dp</dimen>
+    <dimen name="w9_music_player_fragment_seek_bar_margin_top">25dp</dimen>
+    <dimen name="w9_icon_width">0dp</dimen>
 </resources>

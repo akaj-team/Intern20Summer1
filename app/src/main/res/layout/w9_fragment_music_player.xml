@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/linearLayoutSongName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/w9_linear_layout_title_music_player_fragment_margin_left"
+        android:layout_marginLeft="@dimen/w9_linear_layout_title_music_player_fragment_margin_left"
+        android:layout_marginTop="@dimen/w9_linear_layout_title_music_player_fragment_margin_top"
+        android:gravity="center"
+        android:weightSum="1"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:id="@+id/imgBackMusicPlayer"
+            android:layout_width="@dimen/w9_back_image_view_music_player_fragment_size"
+            android:layout_height="@dimen/w9_back_image_view_music_player_fragment_size"
+            android:contentDescription="@string/w9_back_image_view_music_player_fragment_text"
+            android:src="@drawable/ic_baseline_arrow_back_ios_24" />
+
+        <TextView
+            android:id="@+id/tvSongNameMusicPlayer"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/w9_music_player_fragment_song_name_text_view_height"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/w9_song_name_text_view_music_player_fragment_padding_left"
+            android:paddingLeft="@dimen/w9_song_name_text_view_music_player_fragment_padding_left"
+            android:textSize="@dimen/w9_song_name_text_view_text_size_music_player"
+            android:textStyle="bold"
+            tools:ignore="RtlSymmetry" />
+    </LinearLayout>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/circleImageSong"
+        android:layout_width="@dimen/w9_song_image_music_player_fragment_size"
+        android:layout_height="@dimen/w9_song_image_music_player_fragment_size"
+        android:layout_below="@id/linearLayoutSongName"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/w9_song_image_music_player_fragment_margin_top"
+        android:src="@color/colorPrimary" />
+
+    <TextView
+        android:id="@+id/tvSingerNameMusicPlayer"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/w9_sing_text_view_music_player_fragment_height"
+        android:layout_below="@id/circleImageSong"
+        android:layout_marginTop="@dimen/w9_singer_text_view_music_player_fragment_margin_top"
+        android:gravity="center"
+        android:textSize="@dimen/w9_song_name_text_view_card_view_size"
+        tools:text="Justatee" />
+
+    <LinearLayout
+        android:id="@+id/linearLayoutSkip"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/w9_image_linear_layout_music_player_fragment_height"
+        android:layout_below="@+id/tvSingerNameMusicPlayer"
+        android:layout_marginTop="@dimen/w9_image_linear_layout_music_player_fragment_margin_top"
+        android:weightSum="5">
+
+        <ImageView
+            android:id="@+id/imgShuffle"
+            android:layout_width="@dimen/w9_icon_width"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:src="@drawable/ic_baseline_shuffle_24"
+            android:contentDescription="@string/w9_music_player_fragment_shuffle_icon_description" />
+
+        <ImageView
+            android:id="@+id/imgSkipPrevious"
+            android:layout_width="@dimen/w9_icon_width"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:src="@drawable/ic_baseline_skip_previous_24"
+            android:contentDescription="@string/w9_music_player_fragment_skip_previous_description" />
+
+        <ImageView
+            android:id="@+id/imgSongPlayer"
+            android:layout_width="@dimen/w9_icon_width"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/ic_baseline_play_circle_outline_24"
+            android:contentDescription="@string/w9_music_player_fragment_play_or_pause_image_view_description" />
+
+        <ImageView
+            android:id="@+id/imgSkipNext"
+            android:layout_width="@dimen/w9_icon_width"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/ic_baseline_skip_next_24"
+            android:contentDescription="@string/w9_music_player_fragment_skip_next_icon_description" />
+
+        <ImageView
+            android:id="@+id/imgReplay"
+            android:layout_width="@dimen/w9_icon_width"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:src="@drawable/ic_baseline_sync_24"
+            android:contentDescription="@string/w9_music_player_fragment_replay_icon_description" />
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatSeekBar
+        android:id="@+id/seekBarDuration"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/w9_music_player_fragment_seek_bar_height"
+        android:layout_below="@id/linearLayoutSkip"
+        android:layout_marginLeft="@dimen/w9_music_player_fragment_seek_bar_margin_left"
+        android:layout_marginTop="@dimen/w9_music_player_fragment_seek_bar_margin_top"
+        android:layout_marginRight="@dimen/w9_music_player_fragment_seek_bar_margin_left"
+        android:progress="50" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/seekBarDuration"
+        android:layout_marginLeft="@dimen/w9_relative_layout_time_music_player_fragment_margin"
+        android:layout_marginRight="@dimen/w9_relative_layout_time_music_player_fragment_margin">
+
+        <TextView
+            android:id="@+id/tvElapsedTimeLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tvRemainingTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            tools:ignore="RelativeOverlap" />
+    </RelativeLayout>
+</RelativeLayout>
