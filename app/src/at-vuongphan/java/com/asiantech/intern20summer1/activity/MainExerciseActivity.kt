@@ -38,6 +38,7 @@ class MainExerciseActivity : AppCompatActivity() {
     private fun initListenerButtonW9() {
         btnW9?.setOnClickListener {
             startActivity(Intent(this, MusicActivity::class.java))
+            finish()
         }
     }
 }
