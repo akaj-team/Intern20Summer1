@@ -50,5 +50,7 @@
     <string name="week_four_button_description">Week 4</string>
     <string name="week_six_button_description">Week 6</string>
     <!--Week9-->
+    <string name="week_nine_button_description">Week 9</string>
     <string name="music_service_content_title">Playing</string>
+    <string name="play_song_fragment_property_description">rotation</string>
 </resources>

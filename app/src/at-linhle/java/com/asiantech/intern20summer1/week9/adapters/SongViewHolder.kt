@@ -8,13 +8,20 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.week9.extensions.Utils
 import com.asiantech.intern20summer1.week9.models.Song
 import kotlinx.android.synthetic.`at-linhle`.item_list_song.view.*
 
 class SongViewHolder(private val songItems: MutableList<Song>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    var onClick: OnClick? = null
+    companion object {
+        internal const val ONE_THOUSAND = 1000
+        internal const val SIXTY = 60
+    }
+
+    internal var onClicked: (Int) -> Unit = {}
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.item_list_song, parent, false)
@@ -39,26 +46,23 @@ class SongViewHolder(private val songItems: MutableList<Song>) :
             val song = songItems[position]
             tvSongName.text = song.songName
             tvArtist.text = song.artist
-            tvDuration.text = song.duration.toString()
-            if (song.imgUri == "") {
-                imgSong.setImageResource(R.drawable.ic_baseline_play_circle_filled_24)
+            tvDuration.text = getDuration(song.duration)
+            val bitmap = Utils.convertToBitmap(itemView.context, Uri.parse(song.imgUri))
+            if (bitmap != null) {
+                imgSong.setImageBitmap(bitmap)
             } else {
-                imgSong.setImageURI(Uri.parse(song.imgUri))
+                imgSong.setImageResource(R.drawable.ic_baseline_play_circle_filled_24)
+            }
+
+            itemView.clMusicContainer.setOnClickListener {
+                onClicked(position)
             }
         }
     }
 
     fun getDuration(duration: Int): String {
-        val seconds = duration / 1000 % 60
-        val minutes = ((duration - seconds) / 1000 / 60).toLong()
+        val seconds = duration / ONE_THOUSAND % SIXTY
+        val minutes = ((duration - seconds) / ONE_THOUSAND / SIXTY).toLong()
         return String.format("%02d: %02d", minutes, seconds)
-    }
-
-    fun onClick(itemOnclick: OnClick) {
-        this.onClick = itemOnclick
-    }
-
-    interface OnClick {
-        fun onClick(song: Song)
     }
 }

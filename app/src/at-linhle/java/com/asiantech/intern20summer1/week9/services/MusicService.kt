@@ -133,6 +133,10 @@ class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
         return mediaPlayer?.duration
     }
 
+    fun setList(songModel: MutableList<Song>) {
+        songList = songModel
+    }
+
     private fun initMusicPlayer() {
         mediaPlayer?.setWakeMode(applicationContext, PowerManager.PARTIAL_WAKE_LOCK)
         mediaPlayer?.setAudioStreamType(AudioManager.STREAM_MUSIC)
