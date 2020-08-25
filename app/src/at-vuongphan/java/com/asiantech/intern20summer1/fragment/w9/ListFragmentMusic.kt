@@ -84,21 +84,13 @@ class ListFragmentMusic : Fragment(), View.OnClickListener {
             btnNext -> {
                 sendAction(MusicAction.NEXT)
                 positionMusicPlaying++
-                if (isPlaying) {
-                    btnPlayPause?.setBackgroundResource(R.drawable.ic_pause_circle_outline_red)
-                } else {
-                    btnPlayPause?.setBackgroundResource(R.drawable.ic_play_circle_outline_red)
-                }
+                btnPlayPause?.setBackgroundResource(R.drawable.ic_pause_circle_outline_red)
                 setStatus()
             }
             btnBack -> {
                 sendAction(MusicAction.PREVIOUS)
                 positionMusicPlaying--
-                if (isPlaying) {
-                    btnPlayPause?.setBackgroundResource(R.drawable.ic_pause_circle_outline_red)
-                } else {
-                    btnPlayPause?.setBackgroundResource(R.drawable.ic_play_circle_outline_red)
-                }
+                btnPlayPause?.setBackgroundResource(R.drawable.ic_play_circle_outline_red)
                 setStatus()
             }
         }
@@ -130,11 +122,13 @@ class ListFragmentMusic : Fragment(), View.OnClickListener {
         isPlaying = if (!isPlaying) {
             sendAction(MusicAction.PLAY)
             btnPlayPause.isSelected = true
+            setStatus()
             btnPlayPause.setBackgroundResource(R.drawable.ic_pause_circle_outline_red)
             true
         } else {
             btnPlayPause.isSelected = false
             sendAction(MusicAction.PAUSE)
+            setStatus()
             btnPlayPause.setBackgroundResource(R.drawable.ic_play_circle_outline_red)
             false
         }
@@ -207,12 +201,14 @@ class ListFragmentMusic : Fragment(), View.OnClickListener {
             btnPlayPause.setBackgroundResource(R.drawable.ic_pause_circle_outline_red)
             playMusic(it)
         }
-        cardViewBottom?.setOnClickListener {
+        adapterRecycler.notifyDataSetChanged()
+        cardViewBottom?.setOnLongClickListener {
             (activity as? MusicActivity)?.handleReplaceFragment(
                 MusicScreenFragment.newInstance(
                     positionMusicPlaying
                 ), true, parent = R.id.frContainer
             )
+            true
         }
         btnPlayPause?.setOnClickListener(this)
         btnBack?.setOnClickListener(this)
@@ -220,7 +216,6 @@ class ListFragmentMusic : Fragment(), View.OnClickListener {
     }
 
     private fun initData() {
-        rvMusic.clearOnScrollListeners()
         music.clear()
         music.addAll(MusicData.getMusic(requireContext()))
     }

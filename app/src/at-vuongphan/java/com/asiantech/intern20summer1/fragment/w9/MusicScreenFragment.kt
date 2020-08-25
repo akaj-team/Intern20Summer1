@@ -92,6 +92,7 @@ class MusicScreenFragment : Fragment(), View.OnClickListener {
         btnPreviousMain?.setOnClickListener(this)
         btnShuffle?.setOnClickListener(this)
         btnLoop?.setOnClickListener(this)
+        handleSeekBar()
     }
 
     override fun onDestroyView() {
@@ -103,12 +104,15 @@ class MusicScreenFragment : Fragment(), View.OnClickListener {
         when (view) {
             btnNextMain -> {
                 sendAction(MusicAction.NEXT)
+                btnPausePlay.setBackgroundResource(R.drawable.ic_pause_circle_outline_red)
             }
             btnPausePlay -> {
                 onPausePlayMusic()
+                initPlayPauseButton()
             }
             btnPreviousMain -> {
                 sendAction(MusicAction.PREVIOUS)
+                btnPausePlay.setBackgroundResource(R.drawable.ic_pause_circle_outline_red)
             }
             btnShuffle -> {
                 sendAction(MusicAction.SHUFFLE)
@@ -118,6 +122,7 @@ class MusicScreenFragment : Fragment(), View.OnClickListener {
             }
         }
     }
+
 
     private fun setImage() {
         imgMusic.setImageURI(music[position].image)
@@ -139,6 +144,7 @@ class MusicScreenFragment : Fragment(), View.OnClickListener {
             AnimationUtils.loadAnimation(context, R.anim.animation_rotate)
         imgMusic.startAnimation(startRotateAnimation)
     }
+
     private fun initData() {
         music.clear()
         music.addAll(MusicData.getMusic(requireContext()))
@@ -153,6 +159,51 @@ class MusicScreenFragment : Fragment(), View.OnClickListener {
             sendAction(MusicAction.PAUSE)
             btnPausePlay?.isSelected = false
             false
+        }
+    }
+
+    private fun handleSeekBar() {
+        val maxSeekBar = musicService.getTime()
+        if (maxSeekBar != null) {
+            seekBar.max = maxSeekBar
+        }
+        btnPausePlay.isSelected = true
+
+        seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
+            }
+
+            override fun onStartTrackingTouch(p0: SeekBar?) {
+            }
+
+            override fun onStopTrackingTouch(p0: SeekBar?) {
+                musicService.seekTo(seekBar.progress)
+            }
+        })
+        runnable = object : Runnable {
+            override fun run() {
+                position = musicService.getPosition()
+                setImage()
+                val currentDuration = musicService.getCurrentDuration()
+                val current = musicService.getTime()
+                if (currentDuration != null) {
+                    seekBar.progress = currentDuration
+                    tvDuration.text =
+                        current?.toLong()?.let { MusicData.toMin(it, requireContext()) }
+                    tvCurrentDuration.text =
+                        MusicData.toMin(currentDuration.toLong(), requireContext())
+                }
+                handler.postDelayed(this, DELAY_TIME)
+            }
+        }
+        handler.post(runnable)
+    }
+
+    private fun initPlayPauseButton() {
+        if (isPlaying) {
+            btnPausePlay.setBackgroundResource(R.drawable.ic_pause_circle_outline_red)
+        } else {
+            btnPausePlay.setBackgroundResource(R.drawable.ic_play_circle_outline_red)
         }
     }
 }

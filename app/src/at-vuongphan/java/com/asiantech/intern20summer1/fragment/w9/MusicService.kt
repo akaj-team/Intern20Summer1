@@ -19,6 +19,7 @@ import com.asiantech.intern20summer1.data.w9.Music
 import com.asiantech.intern20summer1.data.w9.MusicAction
 import com.asiantech.intern20summer1.data.w9.MusicData
 
+@Suppress("UNREACHABLE_CODE")
 class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener,
     MediaPlayer.OnCompletionListener {
     private val filter = IntentFilter()
@@ -47,6 +48,15 @@ class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
 
     override fun onBind(p0: Intent?): IBinder? {
         return binder
+    }
+
+    override fun onUnbind(intent: Intent?): Boolean {
+        return super.onUnbind(intent)
+        if (mediaPlayer != null) {
+            mediaPlayer?.stop()
+            mediaPlayer?.release()
+        }
+        return false
     }
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
@@ -165,13 +175,11 @@ class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
     }
 
     private fun playPrevious() {
+        positionSong--
         if (positionSong < 0) {
-            positionSong = 0
-            playMusic()
-        } else {
-            positionSong--
-            playMusic()
+            positionSong = music.size - 1
         }
+        playMusic()
     }
 
     private fun shuffleMusic() {
@@ -179,24 +187,18 @@ class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
     }
 
     private fun playNext() {
+        positionSong++
         if (positionSong > music.size - 1) {
             positionSong = 0
-            stopMusic()
-        } else {
-            positionSong++
-            playMusic()
         }
-    }
-
-    private fun stopMusic() {
-        mediaPlayer?.stop()
+        playMusic()
     }
 
     private fun loopMusic() {
         mediaPlayer?.isLooping = true
     }
 
-    private fun pauseMusic() {
+    internal fun pauseMusic() {
         mediaPlayer?.pause()
     }
 

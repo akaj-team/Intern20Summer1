@@ -14,6 +14,7 @@ import java.util.concurrent.TimeUnit
 object MusicData {
     private val musicData = mutableListOf<Music>()
     fun getMusic(context: Context): MutableList<Music> {
+        musicData.clear()
         val songCursor = context.contentResolver?.query(
             MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
             null,
