@@ -1,162 +1,140 @@
 package com.asiantech.intern20summer1.week9.services
 
-import android.app.PendingIntent
 import android.app.Service
+import android.content.Context
 import android.content.Intent
-import android.media.AudioManager
+import android.media.AudioAttributes
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Binder
+import android.os.Build
 import android.os.IBinder
-import android.os.PowerManager
-import androidx.core.app.NotificationCompat
-import com.asiantech.intern20summer1.R
+import android.util.Log
+import androidx.annotation.RequiresApi
 import com.asiantech.intern20summer1.week9.models.Song
-import com.asiantech.intern20summer1.week9.views.MusicMediaActivity
 
-class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener,
-    MediaPlayer.OnCompletionListener {
+class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener {
 
     companion object {
-        private const val NOTIFICATION_CHANNEL_ID = "ForegroundService"
+        private const val LIST_SONG_KEY = "list"
+        private const val SONG_POSITION_KEY = "position"
+        private const val DEFAULT_SONG_POSITION = 0
 
-        fun newInstance() = MusicService()
+        fun newInstance(context: Context, songList: ArrayList<Song>, currentPosition: Int): Intent {
+            val musicServiceIntent = Intent(context, MusicService::class.java)
+            musicServiceIntent.putParcelableArrayListExtra(LIST_SONG_KEY, songList)
+            musicServiceIntent.putExtra(SONG_POSITION_KEY, currentPosition)
+            return musicServiceIntent
+        }
     }
 
-    private var songList: MutableList<Song>? = null
-    private var mediaPlayer: MediaPlayer? = null
+    private lateinit var songList: ArrayList<Song>
+    private lateinit var mediaPlayer: MediaPlayer
+    private lateinit var songBinder: SongBinder
+    private var loopType = 0
     private var position = 0
-    private val musicBind = MusicBinder()
-    private var songName = ""
-    private lateinit var uri: Uri
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    private fun initMediaPlayer() {
+        mediaPlayer = MediaPlayer()
+        mediaPlayer.setAudioAttributes(
+            AudioAttributes.Builder().setContentType(AudioAttributes.CONTENT_TYPE_MUSIC).build()
+        )
+        mediaPlayer.setOnPreparedListener(this)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate() {
         super.onCreate()
-        mediaPlayer = MediaPlayer()
-        initMusicPlayer()
-    }
-
-    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        return START_STICKY
+        songBinder = SongBinder()
+        initMediaPlayer()
     }
 
     override fun onBind(p0: Intent?): IBinder? {
-        return musicBind
+        return songBinder
     }
 
-    override fun onUnbind(intent: Intent?): Boolean {
-        mediaPlayer?.stop()
-        mediaPlayer?.release()
-        return false
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        intent?.apply {
+            songList = getParcelableArrayListExtra<Song>(LIST_SONG_KEY) as ArrayList<Song>
+            position = getIntExtra(SONG_POSITION_KEY, DEFAULT_SONG_POSITION)
+        }
+        playSong()
+        return START_NOT_STICKY
     }
 
     override fun onPrepared(p0: MediaPlayer?) {
-        p0?.start()
-        createNotification()
+        mediaPlayer.start()
     }
 
-    override fun onError(p0: MediaPlayer?, p1: Int, p2: Int): Boolean {
-        p0?.reset()
-        return false
-    }
-
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCompletion(p0: MediaPlayer?) {
-        if (mediaPlayer?.currentPosition!! > 0) {
-            p0?.reset()
-            playNext()
+        when (loopType) {
+            0 -> nextSong()
+            1 -> playSong()
         }
     }
 
     override fun onDestroy() {
+        mediaPlayer.release()
         super.onDestroy()
-        stopForeground(true)
     }
 
-    inner class MusicBinder : Binder() {
-        internal val getService: MusicService
-            get() = this@MusicService
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    private fun playSong() {
+        mediaPlayer.stop()
+        mediaPlayer.release()
+        initMediaPlayer()
+        val song = songList[position]
+        mediaPlayer.setDataSource(applicationContext, Uri.parse(song.path))
+        mediaPlayer.prepareAsync()
     }
 
-    fun playSong() {
-        mediaPlayer?.reset()
-        val songModel = songList?.get(position)
-        songName = songModel?.songName.toString()
-
-        uri = Uri.parse(songModel?.imgUri)
-
-        try {
-            uri.let { mediaPlayer?.setDataSource(applicationContext, it) }
-        } catch (e: IllegalStateException) {
-            e.printStackTrace()
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+     fun nextSong() {
+        position++
+        if (position >= songList.size) {
+            position = DEFAULT_SONG_POSITION
         }
-        mediaPlayer?.prepare()
-        mediaPlayer?.start()
+        playSong()
     }
 
-    fun seekBar(position: Int) {
-        mediaPlayer?.seekTo(position)
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    fun previousSong() {
+        position--
+        if (position < 0) {
+            position = (songList.size) - 1
+        }
+        playSong()
     }
 
+    fun getDuration(): Int {
+        return mediaPlayer.duration
+    }
+
+    fun getCurrentPosition(): Int {
+        return mediaPlayer.currentPosition
+    }
+
+    fun getPosition(): Int{
+        return position
+    }
     fun pause() {
-        mediaPlayer?.pause()
+        mediaPlayer.pause()
     }
 
     fun start() {
-        mediaPlayer?.start()
+        mediaPlayer.start()
     }
 
-    fun playPrev() {
-        position--
-        if (position < 0) {
-            position = (songList?.size ?: 0) - 1
+    fun seekTo(progress: Int) {
+        mediaPlayer.seekTo(progress)
+    }
+
+    inner class SongBinder : Binder() {
+        fun getService(): MusicService {
+            return this@MusicService
         }
-        playSong()
-    }
-
-    fun playNext() {
-        position++
-        if (position >= songList?.size!!) {
-            position = 0
-        }
-        playSong()
-    }
-
-    fun getPosition(): Int {
-        return position
-    }
-
-    fun setPosition(position: Int) {
-        this.position = position
-    }
-
-    fun getDuration(): Int? {
-        return mediaPlayer?.duration
-    }
-
-    fun setList(songModel: MutableList<Song>) {
-        songList = songModel
-    }
-
-    private fun initMusicPlayer() {
-        mediaPlayer?.setWakeMode(applicationContext, PowerManager.PARTIAL_WAKE_LOCK)
-        mediaPlayer?.setAudioStreamType(AudioManager.STREAM_MUSIC)
-        mediaPlayer?.setOnPreparedListener(this)
-        mediaPlayer?.setOnCompletionListener(this)
-        mediaPlayer?.setOnErrorListener(this)
-    }
-
-    private fun createNotification() {
-        val notificationIntent = Intent(this, MusicMediaActivity::class.java)
-        val pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0)
-        val notifications = NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
-        notifications.apply {
-            setContentTitle(getString(R.string.music_service_content_title))
-            setContentText("")
-            setSmallIcon(R.drawable.ic_baseline_play_circle_filled_24)
-            addAction(R.drawable.ic_baseline_play_circle_filled_24, "", pendingIntent)
-            setContentIntent(pendingIntent)
-        }
-        val builder = notifications.build()
-        startForeground(1, builder)
     }
 }

@@ -2,6 +2,8 @@ package com.asiantech.intern20summer1.week9.fragments
 
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
+import android.annotation.SuppressLint
+import android.app.Service
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
@@ -9,12 +11,13 @@ import android.content.ServiceConnection
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.os.IBinder
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.LinearInterpolator
-import android.widget.SeekBar
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
@@ -41,28 +44,57 @@ class PlaySongFragment : Fragment() {
             }
     }
 
+    private lateinit var musicService: MusicService
     private lateinit var rotate: ObjectAnimator
     private lateinit var songList: ArrayList<Song>
     private var position = 0
     private var intent: Intent? = null
-    private var musicService = MusicService.newInstance()
-    private var musicBound = false
     private var isPlay = false
+
+    @Suppress("DEPRECATION")
+    private var handler = Handler()
+
+    private val musicConnection: ServiceConnection = object : ServiceConnection {
+        @SuppressLint("ClickableViewAccessibility")
+        override fun onServiceConnected(name: ComponentName, service: IBinder) {
+            val songBinder: MusicService.SongBinder = service as MusicService.SongBinder
+            musicService = songBinder.getService()
+            seekBar?.max = musicService.getDuration()
+            seekBar?.setOnTouchListener { p0, p1 ->
+                if (p1?.action == MotionEvent.ACTION_MOVE) {
+                    if (p0?.id == R.id.seekBar) {
+                        musicService.seekTo(seekBar.progress)
+                    }
+                }
+                true
+            }
+            updateUI()
+        }
+
+        override fun onServiceDisconnected(name: ComponentName) {
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        getSongData()
+        activity?.startService(context?.let { MusicService.newInstance(it, songList, position) })
         return inflater.inflate(R.layout.fragment_play_song, container, false)
     }
 
-    @RequiresApi(Build.VERSION_CODES.KITKAT)
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getSongData()
+
+        context?.apply {
+            initView(this)
+            val intent = Intent(this, MusicService::class.java)
+            activity?.bindService(intent, musicConnection, Service.BIND_AUTO_CREATE)
+        }
         control()
-//        seekBar()
 
         rotate = ObjectAnimator.ofFloat(
             circleImageViewLogo,
@@ -91,7 +123,7 @@ class PlaySongFragment : Fragment() {
         activity?.stopService(intent)
     }
 
-    @RequiresApi(Build.VERSION_CODES.KITKAT)
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun control() {
         imgPlay.setOnClickListener {
             if (!isPlay) {
@@ -116,36 +148,27 @@ class PlaySongFragment : Fragment() {
         }
     }
 
-    private var musicConnection = object : ServiceConnection {
-        override fun onServiceDisconnected(name: ComponentName?) {
-            musicBound = false
-        }
-
-        override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
-            val binder = service as MusicService.MusicBinder
-
-            musicService = binder.getService
-            musicService.setList(songList)
-            musicService.setPosition(position)
-            musicService.playSong()
-            musicBound = true
+    private fun getSongData() {
+        arguments?.apply {
+            songList = getParcelableArrayList<Song>(LIST_SONG_KEY) as ArrayList<Song>
+            position = getInt(SONG_POSITION_KEY)
         }
     }
 
-    private fun getSongData() {
-        songList = arguments?.getParcelableArrayList<Song>(LIST_SONG_KEY) as ArrayList<Song>
-        position = arguments?.getInt(SONG_POSITION_KEY) as Int
-
+    private fun initView(context: Context) {
         val song = songList[position]
 
         tvSongName?.text = song.songName
         tvArtist?.text = song.artist
-        val bitmap = context?.let { Utils.convertToBitmap(it, Uri.parse(song.imgUri)) }
+        tvEndTime?.text = getDuration(song.duration)
+        val bitmap = context.let { Utils.convertToBitmap(it, Uri.parse(song.imgUri)) }
         if (bitmap == null) {
             circleImageViewLogo?.setImageResource(R.drawable.logo)
         } else {
             circleImageViewLogo?.setImageBitmap(bitmap)
         }
+        val service = MusicService.newInstance(context, songList, position)
+        context.startService(service)
     }
 
     private fun setSongData() {
@@ -161,13 +184,24 @@ class PlaySongFragment : Fragment() {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.KITKAT)
+    fun updateUI() {
+        activity?.runOnUiThread(object : Runnable {
+            override fun run() {
+                val progress = musicService.getCurrentPosition()
+                seekBar?.progress = progress
+                tvStartTime.text = getDuration(musicService.getCurrentPosition())
+                handler.postDelayed(this, 333)
+            }
+        })
+    }
+
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun onNextSong() {
         if (!isPlay) {
-            musicService.playNext()
+            musicService.nextSong()
             setSongData()
         } else {
-            musicService.playNext()
+            musicService.nextSong()
             setSongData()
             imgPlay?.setImageResource(R.drawable.ic_baseline_pause_circle_filled_24)
             rotate.resume()
@@ -175,13 +209,14 @@ class PlaySongFragment : Fragment() {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.KITKAT)
+
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun onPreviousSong() {
         if (!isPlay) {
-            musicService.playPrev()
+            musicService.previousSong()
             setSongData()
         } else {
-            musicService.playPrev()
+            musicService.previousSong()
             setSongData()
             imgPlay?.setImageResource(R.drawable.ic_baseline_pause_circle_filled_24)
             rotate.resume()
@@ -194,5 +229,4 @@ class PlaySongFragment : Fragment() {
         val minutes = ((duration - seconds) / ONE_THOUSAND / SIXTY).toLong()
         return String.format("%02d: %02d", minutes, seconds)
     }
-
 }

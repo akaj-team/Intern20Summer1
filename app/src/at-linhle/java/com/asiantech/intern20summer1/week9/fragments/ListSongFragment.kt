@@ -6,11 +6,13 @@ import android.app.Activity.RESULT_OK
 import android.content.ContentUris
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -67,6 +69,8 @@ class ListSongFragment : Fragment() {
             val title = cursor.getColumnIndex(MediaStore.Audio.Media.TITLE)
             val artist = cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST)
             val duration = cursor.getColumnIndex(MediaStore.Audio.Media.DURATION)
+            val path =
+                Uri.parse(cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.DATA)))
             do {
                 val currentId = cursor.getLong(id)
                 val imgUri = ContentUris.withAppendedId(uri, currentId)
@@ -79,7 +83,8 @@ class ListSongFragment : Fragment() {
                         currentArtist,
                         currentDuration,
                         imgUri.toString(),
-                        currentId
+                        currentId,
+                        Uri.withAppendedPath(uri, cursor.getInt(id).toString()).toString()
                     )
                 )
             } while (cursor.moveToNext())
@@ -114,10 +119,6 @@ class ListSongFragment : Fragment() {
 
     private fun setOnclick(adapter: SongViewHolder, songList: ArrayList<Song>) {
         adapter.onClicked = {
-            val playIntent = Intent(context, MusicService::class.java)
-            playIntent.putExtra(EXTRA_SONG_NAME_KEY, songList[it].songName)
-            context?.let { context -> ContextCompat.startForegroundService(context, playIntent) }
-
             position = it
             fragmentManager?.beginTransaction()?.replace(
                 R.id.flMusicContainer,

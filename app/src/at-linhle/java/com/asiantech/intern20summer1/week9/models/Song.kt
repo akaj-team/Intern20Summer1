@@ -9,5 +9,6 @@ data class Song(
     var artist: String? = "",
     var duration: Int = 0,
     var imgUri: String? = "",
-    var songId: Long = 0
+    var songId: Long = 0,
+    var path: String? = ""
 ) : Parcelable
