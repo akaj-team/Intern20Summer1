@@ -29,7 +29,7 @@ class CreatePlayerNotification {
             val iconNext = R.drawable.ic_next_notification
 
             val notificationManagerCompat = NotificationManagerCompat.from(context)
-            var picture = Song().getPicture(context, song)
+            var picture = song.getPicture(context, false)
             if (picture == null) {
                 picture = context.getDrawable(R.drawable.img_logo_music)?.toBitmap()
             }

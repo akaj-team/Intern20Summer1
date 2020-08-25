@@ -64,21 +64,21 @@ class TestActivity : AppCompatActivity(), Playable {
     }
 
     private fun initData() {
-        var song = Song(contentUri = "content://media/external/audio/media/16")
-        song = Song().getData(this, song)
-        songList.add(song)
-        song = Song(contentUri = "content://media/external/audio/media/17")
-        song = Song().getData(this, song)
-        songList.add(song)
-        song = Song(contentUri = "content://media/external/audio/media/18")
-        song = Song().getData(this, song)
-        songList.add(song)
-        song = Song(contentUri = "content://media/external/audio/media/19")
-        song = Song().getData(this, song)
-        songList.add(song)
-        song = Song(contentUri = "content://media/external/audio/media/20")
-        song = Song().getData(this, song)
-        songList.add(song)
+//        var song = Song(contentUri = "content://media/external/audio/media/16")
+//        song = Song().getData(this, song)
+//        songList.add(song)
+//        song = Song(contentUri = "content://media/external/audio/media/17")
+//        song = Song().getData(this, song)
+//        songList.add(song)
+//        song = Song(contentUri = "content://media/external/audio/media/18")
+//        song = Song().getData(this, song)
+//        songList.add(song)
+//        song = Song(contentUri = "content://media/external/audio/media/19")
+//        song = Song().getData(this, song)
+//        songList.add(song)
+//        song = Song(contentUri = "content://media/external/audio/media/20")
+//        song = Song().getData(this, song)
+//        songList.add(song)
     }
 
     private fun createChannel() {

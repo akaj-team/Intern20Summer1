@@ -12,6 +12,7 @@ import android.os.Binder
 import android.os.Build
 import android.os.CountDownTimer
 import android.os.IBinder
+import android.util.Log.d
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w9.models.Song
 import com.asiantech.intern20summer1.w9.notification.ClickPlayable
@@ -33,12 +34,24 @@ class AudioService : Service(), ClickPlayable {
     private var iBinder: IBinder = LocalBinder()
     var songPosition = 0
     var isRandom = false
+    var isOpenApp = false
 
     private lateinit var notification: NotificationManager
     internal var onUpdateCurrentPosition: (Int) -> Unit = {}
     internal var onPlayer: (StatePlayer) -> Unit = {}
     internal var onPlayerBar: (StatePlayer) -> Unit = {}
     internal var onShuffleSong: () -> Unit = {}
+    internal val timerUpdateCurrent = object : CountDownTimer(500, 500) {
+        override fun onFinish() {
+            if(isOpenApp) {
+                currentTime = audioPlayer.currentPosition
+                onUpdateCurrentPosition.invoke(currentTime)
+                this.start()
+            }
+        }
+
+        override fun onTick(p0: Long) {}
+    }
 
     enum class StatePlayer { START, PAUSE, RESUME }
 
@@ -53,24 +66,31 @@ class AudioService : Service(), ClickPlayable {
     }
 
     override fun onCreate() {
+        d("servicelog", "onCreate")
         super.onCreate()
+        timerUpdateCurrent.start()
         registerReceiver(broadcastReceiver, IntentFilter(NotificationBroadcastReceiver.ACTION_KEY))
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        updateTimeSong()
+        d("servicelog", "onStartCommand")
+        timerUpdateCurrent.start()
         createChannel()
-        return START_REDELIVER_INTENT
+        return START_NOT_STICKY
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onTaskRemoved(rootIntent: Intent?) {
+        super.onTaskRemoved(rootIntent)
+        timerUpdateCurrent.cancel()
+        d("servicelog", "onDestroy")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             notification.cancelAll()
         }
+        audioPlayer.release()
         unregisterReceiver(broadcastReceiver)
-    }
+        stopSelf()
 
+    }
 
     fun onShuffleMusic(songList: MutableList<Song>) {
         if (isRandom) {
@@ -79,18 +99,6 @@ class AudioService : Service(), ClickPlayable {
             songLists.clear()
             songList.toCollection(songLists)
         }
-    }
-
-    private fun updateTimeSong() {
-        object : CountDownTimer(100, 50) {
-            override fun onFinish() {
-                currentTime = audioPlayer.currentPosition
-                onUpdateCurrentPosition.invoke(currentTime)
-                this.start()
-            }
-
-            override fun onTick(p0: Long) {}
-        }.start()
     }
 
     private fun createChannel() {
@@ -133,8 +141,7 @@ class AudioService : Service(), ClickPlayable {
             songPosition,
             songLists.size - 1
         )
-        val song = songLists[songPosition]
-        songPlaying = Song().getData(this, song)
+        songPlaying = songLists[songPosition]
         audioPlayer.release()
         audioPlayer = MediaPlayer.create(this, Uri.parse(songPlaying?.contentUri))
         audioPlayer.apply {
@@ -146,8 +153,10 @@ class AudioService : Service(), ClickPlayable {
                 }
             }
         }
-        onPlayer.invoke(StatePlayer.START)
-        onPlayerBar.invoke(StatePlayer.START)
+        if (isOpenApp) {
+            onPlayer.invoke(StatePlayer.START)
+            onPlayerBar.invoke(StatePlayer.START)
+        }
     }
 
     override fun onMusicPrevious() {
@@ -176,8 +185,10 @@ class AudioService : Service(), ClickPlayable {
         )
         if (!audioPlayer.isPlaying) {
             audioPlayer.start()
-            onPlayer.invoke(StatePlayer.RESUME)
-            onPlayerBar.invoke(StatePlayer.RESUME)
+            if (isOpenApp) {
+                onPlayer.invoke(StatePlayer.RESUME)
+                onPlayerBar.invoke(StatePlayer.RESUME)
+            }
         }
     }
 
@@ -191,8 +202,10 @@ class AudioService : Service(), ClickPlayable {
         )
         if (audioPlayer.isPlaying) {
             audioPlayer.pause()
-            onPlayer.invoke(StatePlayer.PAUSE)
-            onPlayerBar.invoke(StatePlayer.PAUSE)
+            if (isOpenApp) {
+                onPlayer.invoke(StatePlayer.PAUSE)
+                onPlayerBar.invoke(StatePlayer.PAUSE)
+            }
         }
     }
 

@@ -98,7 +98,7 @@
         android:layout_marginBottom="@dimen/w9_player_player_bar_margin_bottom">
 
         <ImageView
-            android:id="@+id/btnPlayer.Player"
+            android:id="@+id/btnPlay.Player"
             android:layout_width="@dimen/w9_player_player_bar_height"
             android:layout_height="@dimen/w9_player_player_bar_height"
             android:padding="@dimen/w9_player_icon_player_padding"
@@ -106,18 +106,18 @@
             android:src="@drawable/ic_play_button" />
 
         <ImageView
-            android:id="@+id/btnRight.Player"
+            android:id="@+id/btnNext.Player"
             android:layout_width="@dimen/w9_player_player_bar_height"
             android:layout_height="@dimen/w9_player_player_bar_height"
-            android:layout_toRightOf="@id/btnPlayer.Player"
+            android:layout_toRightOf="@id/btnPlay.Player"
             android:padding="@dimen/w9_player_next_icon_padding"
             android:src="@drawable/ic_right_button" />
 
         <ImageView
-            android:id="@+id/btnLeft.Player"
+            android:id="@+id/btnPrevious.Player"
             android:layout_width="@dimen/w9_player_player_bar_height"
             android:layout_height="@dimen/w9_player_player_bar_height"
-            android:layout_toLeftOf="@id/btnPlayer.Player"
+            android:layout_toLeftOf="@id/btnPlay.Player"
             android:padding="@dimen/w9_player_next_icon_padding"
             android:src="@drawable/ic_left_button" />
 
@@ -125,7 +125,7 @@
             android:id="@+id/btnReplay.Player"
             android:layout_width="@dimen/w9_player_player_bar_height"
             android:layout_height="@dimen/w9_player_player_bar_height"
-            android:layout_toRightOf="@id/btnRight.Player"
+            android:layout_toRightOf="@id/btnNext.Player"
             android:padding="@dimen/w9_player_replay_and_random_icon_padding"
             android:src="@drawable/ic_replay_off" />
 
@@ -133,7 +133,7 @@
             android:id="@+id/btnRandom.Player"
             android:layout_width="@dimen/w9_player_player_bar_height"
             android:layout_height="@dimen/w9_player_player_bar_height"
-            android:layout_toLeftOf="@id/btnLeft.Player"
+            android:layout_toLeftOf="@id/btnPrevious.Player"
             android:padding="@dimen/w9_player_replay_and_random_icon_padding"
             android:src="@drawable/ic_random_off" />
     </RelativeLayout>

@@ -83,4 +83,5 @@
     <dimen name="w9_player_next_icon_padding">20dp</dimen>
     <dimen name="w9_player_icon_player_padding">15dp</dimen>
     <dimen name="w9_player_player_bar_margin_bottom">20dp</dimen>
+    <dimen name="w9_music_logo_app_size">80dp</dimen>
 </resources>

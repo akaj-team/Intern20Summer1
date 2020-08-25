@@ -6,14 +6,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/bg_music_app">
 
-    <TextView
-        android:id="@+id/testtest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:layout_width="@dimen/w9_music_logo_app_size"
+        android:layout_height="@dimen/w9_music_logo_app_size"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:text="MUSIC APP"
-        android:textSize="30sp" />
+        android:src="@drawable/img_logo_music"
+        android:layout_marginTop="10dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewSongList"
@@ -35,7 +33,7 @@
         android:focusable="true">
 
         <com.asiantech.intern20summer1.w9.views.DvdRotateView
-            android:id="@+id/imgDvdPlayerBar"
+            android:id="@+id/imgDvd.Music"
             android:layout_width="50dp"
             android:layout_height="50dp"
             app:civ_border_width="1dp"
@@ -45,22 +43,22 @@
             android:src="@drawable/ic_dvd_player" />
 
         <ImageView
-            android:id="@+id/imgLeftNext"
+            android:id="@+id/btnPrevious.Music"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@id/imgPlayer"
+            android:layout_toLeftOf="@id/btnPlay.Music"
             android:adjustViewBounds="true"
             android:padding="15dp"
             android:scaleType="fitXY"
             android:src="@drawable/ic_left_button" />
 
         <TextView
-            android:id="@+id/tvNameSongPlayerBar"
+            android:id="@+id/tvSongName.Music"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_toLeftOf="@+id/imgLeftNext"
-            android:layout_toRightOf="@+id/imgDvdPlayerBar"
+            android:layout_toLeftOf="@+id/btnPrevious.Music"
+            android:layout_toRightOf="@+id/imgDvd.Music"
             android:ellipsize="marquee"
             android:focusable="true"
             android:focusableInTouchMode="true"
@@ -71,18 +69,29 @@
             android:textSize="15sp"
             android:textColor="@color/black"/>
 
+        <TextView
+            android:id="@+id/tvSinger.Music"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvSongName.Music"
+            android:layout_toLeftOf="@+id/btnPrevious.Music"
+            android:layout_toRightOf="@+id/imgDvd.Music"
+            android:singleLine="true"
+            tools:text="Day la ten ca si, no selam ow day"
+            android:textSize="15sp"/>
+
         <ImageView
-            android:id="@+id/imgPlayer"
+            android:id="@+id/btnPlay.Music"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@id/imgRightNext"
+            android:layout_toLeftOf="@id/btnNext.Music"
             android:adjustViewBounds="true"
             android:padding="15dp"
             android:scaleType="fitXY"
             android:src="@drawable/ic_play_button" />
 
         <ImageView
-            android:id="@+id/imgRightNext"
+            android:id="@+id/btnNext.Music"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"

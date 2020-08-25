@@ -41,7 +41,6 @@ class SongRecyclerAdapter(private val songList: List<Song>) :
         private var nameSinger: TextView = itemView.tvNameSingerItem
         private var lengthSong: TextView = itemView.tvLengthSongItem
 
-
         init {
             itemView.setOnClickListener {
                 onItemClick.invoke(adapterPosition)
@@ -50,18 +49,12 @@ class SongRecyclerAdapter(private val songList: List<Song>) :
 
         fun bindData() {
             songList[adapterPosition].let { song ->
-                val songNew = Song().getData(itemView.context, song)
                 nameSong.isSelected = true
-                nameSong.text = songNew.nameSong
-                nameSinger.text = songNew.singer
-                lengthSong.text = songNew.duration
-                val bitmap = Song().getPicture(itemView.context, song)
-                if (bitmap == null) {
-                    iconPlayer.setImageResource(R.drawable.ic_dvd_player)
-                } else {
-                    iconPlayer.setImageBitmap(bitmap)
-                }
-                d("XXX", "[adapter]" + songNew.contentUri)
+                nameSong.text = song.nameSong
+                nameSinger.text = song.singer
+                lengthSong.text = song.duration
+                iconPlayer.setImageBitmap(song.getPicture(itemView.context))
+                d("adapter", "[adapter]" + song.contentUri)
             }
         }
     }

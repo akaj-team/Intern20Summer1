@@ -10,6 +10,7 @@ import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w9.activitys.MusicActivity
 import com.asiantech.intern20summer1.w9.models.Song
 import com.asiantech.intern20summer1.w9.services.AudioService
+import kotlinx.android.synthetic.`at-huybui`.w9_fragment_music.*
 import kotlinx.android.synthetic.`at-huybui`.w9_fragment_player.*
 
 /**
@@ -40,55 +41,49 @@ class PlayerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        handleSeekBar()
-        initButtonView()
-        onServiceListener()
+        initView()
     }
 
-    private fun handleSeekBar() {
-        service.audioPlayer.duration.let {
-            tvDuration_Player?.text = Song().convertDuration(it.toString())
-            seekBar?.max = it
-        }
+    private fun initView() {
+        initPlayerView()
+        initPlayerListener()
+    }
+
+    private fun initPlayerListener() {
+        initPlayerClickListener()
+        initServiceListener()
+        initHandleSeekBar()
+    }
+
+    private fun initPlayerView() {
+        tvNameSong_Player.isSelected = true // set auto run text view
         service.songPlaying?.let { song ->
             tvNameSong_Player?.text = song.nameSong
-            tvDuration_Player?.text = song.duration
+            tvSinger_Player?.text = song.singer
+            imgDvd_Player?.setImageBitmap(song.getPicture(requireContext(), false))
+            if (service.audioPlayer.isPlaying) {
+                btnPlay_Player?.setImageResource(R.drawable.ic_pause_button)
+                imgDvd_Player?.startAnim()
+            } else {
+                imgDvd_Player?.setImageResource(R.drawable.ic_play_button)
+                imgDvd_Music?.endAnim()
+            }
         }
-        seekBar?.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
-                val current = Song().convertDuration(p1.toString())
-                val duration = Song().convertDuration(service.audioPlayer.duration.toString())
-                val text = "$current | $duration"
-                tvUpdateCurrent_Player?.text = text
-            }
-
-            override fun onStartTrackingTouch(p0: SeekBar?) {
-                tvUpdateCurrent_Player.visibility = View.VISIBLE
-                isUpdateSeekBar = true
-            }
-
-            override fun onStopTrackingTouch(p0: SeekBar?) {
-                p0?.let {
-                    service.audioPlayer.seekTo(p0.progress)
-                }
-                tvUpdateCurrent_Player.visibility = View.INVISIBLE
-                isUpdateSeekBar = false
-            }
-        })
     }
 
-    private fun initButtonView() {
-        btnPlayer_Player?.setOnClickListener {
+
+    private fun initPlayerClickListener() {
+        btnPlay_Player?.setOnClickListener {
             if (service.audioPlayer.isPlaying) {
                 service.onMusicPause()
             } else {
                 service.onMusicResume()
             }
         }
-        btnLeft_Player?.setOnClickListener {
+        btnPrevious_Player?.setOnClickListener {
             service.onMusicPrevious()
         }
-        btnRight_Player?.setOnClickListener {
+        btnNext_Player?.setOnClickListener {
             service.onMusicNext()
         }
 
@@ -107,7 +102,7 @@ class PlayerFragment : Fragment() {
                 btnRandom_Player.setImageResource(R.drawable.ic_random_off)
                 service.isRandom = false
                 service.onShuffleMusic(songLists)
-            }else{
+            } else {
                 btnRandom_Player.setImageResource(R.drawable.ic_random_on)
                 service.isRandom = true
                 service.onShuffleMusic(songLists)
@@ -115,7 +110,40 @@ class PlayerFragment : Fragment() {
         }
     }
 
-    private fun onServiceListener() {
+    private fun initHandleSeekBar() {
+        if (service.audioPlayer.isPlaying) {
+            service.audioPlayer.duration.let { duration ->
+                tvDuration_Player?.text = Song().convertDuration(duration.toString())
+                seekBar?.max = duration
+            }
+            service.songPlaying?.let { song ->
+                tvDuration_Player?.text = song.duration
+            }
+            seekBar?.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+                override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
+                    val current = Song().convertDuration(p1.toString())
+                    val duration = Song().convertDuration(service.audioPlayer.duration.toString())
+                    val text = "$current | $duration"
+                    tvUpdateCurrent_Player?.text = text
+                }
+
+                override fun onStartTrackingTouch(p0: SeekBar?) {
+                    tvUpdateCurrent_Player.visibility = View.VISIBLE
+                    isUpdateSeekBar = true
+                }
+
+                override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                    seekBar?.let {
+                        service.audioPlayer.seekTo(seekBar.progress)
+                    }
+                    tvUpdateCurrent_Player.visibility = View.INVISIBLE
+                    isUpdateSeekBar = false
+                }
+            })
+        }
+    }
+
+    private fun initServiceListener() {
         service.onUpdateCurrentPosition = {
             tvCurrent_Player?.text = Song().convertDuration(it.toString())
             if (!isUpdateSeekBar) {
@@ -127,23 +155,21 @@ class PlayerFragment : Fragment() {
             when (statePlayer) {
                 AudioService.StatePlayer.START -> {
                     service.songPlaying?.let { song ->
-                        val bitmap = Song().getPicture(requireContext(), song)
-                        btnPlayer_Player?.setImageResource(R.drawable.ic_pause_button)
-                        if(bitmap != null){
-                            imgDvd_Player?.setImageBitmap(bitmap)
-                        }else{
-                            imgDvd_Player?.setImageResource(R.drawable.img_dvd_player)
-                        }
+                        tvNameSong_Player?.text = song.nameSong
+                        tvSinger_Player?.text = song.singer
+                        btnPlay_Player?.setImageResource(R.drawable.ic_pause_button)
+                        val bitmap = song.getPicture(requireContext(), false)
+                        imgDvd_Player?.setImageBitmap(bitmap)
                         imgDvd_Player?.startAnim()
-                        handleSeekBar()
+                        initHandleSeekBar()
                     }
                 }
                 AudioService.StatePlayer.PAUSE -> {
-                    btnPlayer_Player?.setImageResource(R.drawable.ic_play_button)
+                    btnPlay_Player?.setImageResource(R.drawable.ic_play_button)
                     imgDvd_Player?.pauseAnim()
                 }
                 AudioService.StatePlayer.RESUME -> {
-                    btnPlayer_Player?.setImageResource(R.drawable.ic_pause_button)
+                    btnPlay_Player?.setImageResource(R.drawable.ic_pause_button)
                     imgDvd_Player?.resumeAnim()
 
                 }

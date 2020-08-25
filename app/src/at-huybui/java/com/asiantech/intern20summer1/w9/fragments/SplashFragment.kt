@@ -110,7 +110,10 @@ class SplashFragment : Fragment() {
                     MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, id
                 )
                 val name = cursor.getString(nameColumn)
-                val song = Song(id = id, nameSong = name, contentUri = contentUri.toString())
+                val song =
+                    Song(id = id, nameSong = name, contentUri = contentUri.toString()).getData(
+                        requireContext()
+                    )
                 songListsNew.add(song)
             }
         }

@@ -1,7 +1,6 @@
 package com.asiantech.intern20summer1.w9.fragments
 
 import android.os.Bundle
-import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,35 +41,44 @@ class MusicFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initSongData()
-        initSongAdapter()
         initView()
-        onServiceListener()
-        initButtonListener()
+        initAudioService()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        service.isOpenApp = false  // clear state is open app
+        service.timerUpdateCurrent.cancel()
     }
 
     private fun initView() {
-        initPlayerBar(service)
-        tvNameSongPlayerBar.isSelected = true
+        initPlayerBar()
+        initMusicRecycler()
     }
 
-    private fun initButtonListener() {
-        imgPlayer?.setOnClickListener {
+    private fun initPlayerBar() {
+        initPlayerBarClickListener()
+        initPlayerBarView()
+    }
+
+    private fun initPlayerBarView() {
+        tvSongName_Music.isSelected = true // set auto run text view
+        service.songPlaying?.let { song ->
+            tvSongName_Music?.text = song.nameSong
+            tvSinger_Music?.text = song.singer
+            val bitmap = song.getPicture(requireContext())
+            imgDvd_Music?.setImageBitmap(bitmap)
             if (service.audioPlayer.isPlaying) {
-                service.onMusicPause()
+                btnPlay_Music?.setImageResource(R.drawable.ic_pause_button)
+                imgDvd_Music?.startAnim()
             } else {
-                service.onMusicResume()
+                btnPlay_Music?.setImageResource(R.drawable.ic_play_button)
+                imgDvd_Music?.endAnim()
             }
         }
-        imgLeftNext?.setOnClickListener {
-            service.onMusicPrevious()
-        }
-        imgRightNext?.setOnClickListener {
-            service.onMusicNext()
-        }
     }
 
-    private fun initSongAdapter() {
+    private fun initMusicRecycler() {
         recyclerViewSongList?.apply {
             adapter = songAdapter
             layoutManager = LinearLayoutManager(requireContext())
@@ -83,54 +91,47 @@ class MusicFragment : Fragment() {
         }
     }
 
-    private fun initSongData() {
-        service.songLists.clear()
-        songLists.toCollection(service.songLists)
-    }
-
-    private fun initPlayerBar(sv: AudioService) {
-        sv.songPlaying?.let {
-            if (sv.audioPlayer.isPlaying) {
-                imgPlayer?.setImageResource(R.drawable.ic_pause_button)
-                val bitmap = Song().getPicture(requireContext(), it)
-                if (bitmap != null) {
-                    imgDvdPlayerBar?.setImageBitmap(bitmap)
-                } else {
-                    imgDvdPlayerBar?.setImageResource(R.drawable.img_dvd_player)
-                }
-                imgDvdPlayerBar?.startAnim()
+    private fun initPlayerBarClickListener() {
+        btnPlay_Music?.setOnClickListener {
+            if (service.audioPlayer.isPlaying) {
+                service.onMusicPause()
             } else {
-                imgPlayer?.setImageResource(R.drawable.ic_play_button)
-                val bitmap = Song().getPicture(requireContext(), it)
-                imgDvdPlayerBar?.setImageBitmap(bitmap)
-                imgDvdPlayerBar?.endAnim()
+                service.onMusicResume()
             }
+        }
+        btnPrevious_Music?.setOnClickListener {
+            service.onMusicPrevious()
+        }
+        btnNext_Music?.setOnClickListener {
+            service.onMusicNext()
         }
     }
 
-    private fun onServiceListener() {
+    private fun initAudioService() {
+        if (service.songLists.size < 1) {
+            songLists.toCollection(service.songLists)
+        }
+        service.isOpenApp = true // set status is open app in onCreate
+        //init listener from service at here
         service.onPlayerBar = { statePlayer ->
             when (statePlayer) {
                 AudioService.StatePlayer.START -> {
                     service.songPlaying?.let { song ->
-                        val bitmap = Song().getPicture(requireContext(), song)
-                        if (bitmap == null) {
-                            imgDvdPlayerBar?.setImageResource(R.drawable.ic_dvd_player)
-                        } else {
-                            imgDvdPlayerBar?.setImageBitmap(bitmap)
-                        }
-                        imgPlayer?.setImageResource(R.drawable.ic_pause_button)
-                        imgDvdPlayerBar?.startAnim()
-                        tvNameSongPlayerBar?.text = song.nameSong
+                        val bitmap = song.getPicture(requireContext())
+                        btnPlay_Music?.setImageResource(R.drawable.ic_pause_button)
+                        imgDvd_Music?.setImageBitmap(bitmap)
+                        imgDvd_Music?.startAnim()
+                        tvSongName_Music?.text = song.nameSong
+                        tvSinger_Music?.text = song.singer
                     }
                 }
                 AudioService.StatePlayer.RESUME -> {
-                    imgDvdPlayerBar?.resumeAnim()
-                    imgPlayer?.setImageResource(R.drawable.ic_pause_button)
+                    imgDvd_Music?.resumeAnim()
+                    btnPlay_Music?.setImageResource(R.drawable.ic_pause_button)
                 }
                 AudioService.StatePlayer.PAUSE -> {
-                    imgDvdPlayerBar?.pauseAnim()
-                    imgPlayer?.setImageResource(R.drawable.ic_play_button)
+                    imgDvd_Music?.pauseAnim()
+                    btnPlay_Music?.setImageResource(R.drawable.ic_play_button)
                 }
             }
         }
@@ -138,9 +139,6 @@ class MusicFragment : Fragment() {
         service.onShuffleSong = {
             songLists.clear()
             service.songLists.toCollection(songLists)
-            songLists.forEach {
-                d("ZZZ", "xxx ->" + it.contentUri)
-            }
             songAdapter.notifyDataSetChanged()
         }
     }

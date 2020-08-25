@@ -26,7 +26,7 @@ class CreateNotification {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
             var notificationManagerCompat = NotificationManagerCompat.from(context)
-            var icon = Song().getPicture(context, song)
+            var icon = song.getPicture(context,false)
             if(icon == null){
                 icon = context.getDrawable(R.drawable.img_logo_music)?.toBitmap()
             }
@@ -38,12 +38,12 @@ class CreateNotification {
                 pendingIntentPrevius = null
                 drv_previus = 0
             } else {
-                var intentPrevius =
+                var intentPrevious =
                     Intent(context, NotificationService::class.java).setAction(ACTION_PREVIUOS)
                 pendingIntentPrevius = PendingIntent.getBroadcast(
                     context,
                     0,
-                    intentPrevius,
+                    intentPrevious,
                     PendingIntent.FLAG_UPDATE_CURRENT
                 )
                 drv_previus = R.drawable.ic_previous_notification

@@ -5,10 +5,13 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.media.MediaMetadataRetriever
 import android.net.Uri
+import android.os.Build
 import android.provider.BaseColumns
+import androidx.core.graphics.drawable.toBitmap
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.asiantech.intern20summer1.R
 import java.io.Serializable
 
 /**
@@ -37,13 +40,14 @@ data class Song(
         private const val DEFAULT_DURATION = "00:00"
     }
 
-    fun getData(context: Context, song: Song): Song {
+    fun getData(context: Context): Song {
+        val songOld = this
         var songNew: Song
         MediaMetadataRetriever().apply {
             var duration = DEFAULT_DURATION
             var author = DEFAULT_NAME
-            var name = song.nameSong
-            setDataSource(context, Uri.parse(song.contentUri))
+            var name = songOld.nameSong
+            setDataSource(context, Uri.parse(songOld.contentUri))
             extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)?.let {
                 duration = convertDuration(it)
             }
@@ -53,17 +57,28 @@ data class Song(
             extractMetadata(MediaMetadataRetriever.METADATA_KEY_ALBUM)?.let {
                 name = it
             }
-            songNew = Song(song.id, name, author, duration, song.contentUri)
+            songNew = Song(songOld.id, name, author, duration, songOld.contentUri)
         }
         return songNew
     }
 
-    fun getPicture(context: Context, song: Song): Bitmap? {
+    fun getPicture(context: Context, smallIcon: Boolean = true): Bitmap? {
         var picture: Bitmap? = null
         MediaMetadataRetriever().apply {
-            setDataSource(context, Uri.parse(song.contentUri))
+            setDataSource(context, Uri.parse(this@Song.contentUri))
             embeddedPicture?.let {
                 picture = BitmapFactory.decodeByteArray(it, 0, it.size)
+            }
+        }
+        if (picture == null) {
+            if (smallIcon) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    picture = context.getDrawable(R.drawable.ic_dvd_player)?.toBitmap()
+                }
+            } else {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    picture = context.getDrawable(R.drawable.img_dvd_player)?.toBitmap()
+                }
             }
         }
         return picture
