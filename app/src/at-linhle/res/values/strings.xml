@@ -53,4 +53,5 @@
     <string name="week_nine_button_description">Week 9</string>
     <string name="music_service_content_title">Playing</string>
     <string name="play_song_fragment_property_description">rotation</string>
+    <string name="create_notification_channel_name">Foreground Service Channel</string>
 </resources>

@@ -12,7 +12,6 @@ import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -20,20 +19,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week9.adapters.SongViewHolder
 import com.asiantech.intern20summer1.week9.models.Song
-import com.asiantech.intern20summer1.week9.services.MusicService
 import kotlinx.android.synthetic.`at-linhle`.fragment_list_song.*
 
 
 class ListSongFragment : Fragment() {
+    companion object {
+        private const val REQUEST_CODE_READ = 100
+        fun newInstance() = ListSongFragment()
+    }
 
     private var position: Int = 0
     private lateinit var songList: ArrayList<Song>
-
-    companion object {
-        private const val REQUEST_CODE_READ = 100
-        private const val EXTRA_SONG_NAME_KEY = "name"
-        fun newInstance() = ListSongFragment()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -69,8 +65,6 @@ class ListSongFragment : Fragment() {
             val title = cursor.getColumnIndex(MediaStore.Audio.Media.TITLE)
             val artist = cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST)
             val duration = cursor.getColumnIndex(MediaStore.Audio.Media.DURATION)
-            val path =
-                Uri.parse(cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.DATA)))
             do {
                 val currentId = cursor.getLong(id)
                 val imgUri = ContentUris.withAppendedId(uri, currentId)

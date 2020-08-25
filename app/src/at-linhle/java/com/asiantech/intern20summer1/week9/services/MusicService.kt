@@ -1,5 +1,6 @@
 package com.asiantech.intern20summer1.week9.services
 
+import android.app.Notification
 import android.app.Service
 import android.content.Context
 import android.content.Intent
@@ -9,7 +10,6 @@ import android.net.Uri
 import android.os.Binder
 import android.os.Build
 import android.os.IBinder
-import android.util.Log
 import androidx.annotation.RequiresApi
 import com.asiantech.intern20summer1.week9.models.Song
 
@@ -33,6 +33,7 @@ class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnCo
     private lateinit var songBinder: SongBinder
     private var loopType = 0
     private var position = 0
+    private val notification: Notification? = null
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun initMediaPlayer() {
@@ -48,6 +49,7 @@ class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnCo
         super.onCreate()
         songBinder = SongBinder()
         initMediaPlayer()
+        startForeground(position, notification)
     }
 
     override fun onBind(p0: Intent?): IBinder? {
@@ -79,6 +81,7 @@ class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnCo
     override fun onDestroy() {
         mediaPlayer.release()
         super.onDestroy()
+        stopForeground(true)
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
@@ -92,7 +95,7 @@ class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnCo
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-     fun nextSong() {
+    fun nextSong() {
         position++
         if (position >= songList.size) {
             position = DEFAULT_SONG_POSITION
@@ -117,9 +120,10 @@ class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnCo
         return mediaPlayer.currentPosition
     }
 
-    fun getPosition(): Int{
+    fun getPosition(): Int {
         return position
     }
+
     fun pause() {
         mediaPlayer.pause()
     }

@@ -23,6 +23,7 @@ import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week9.adapters.SongViewHolder.Companion.ONE_THOUSAND
 import com.asiantech.intern20summer1.week9.adapters.SongViewHolder.Companion.SIXTY
+import com.asiantech.intern20summer1.week9.extensions.CreateNotification
 import com.asiantech.intern20summer1.week9.extensions.Utils
 import com.asiantech.intern20summer1.week9.models.Song
 import com.asiantech.intern20summer1.week9.services.MusicService
@@ -50,6 +51,7 @@ class PlaySongFragment : Fragment() {
     private var position = 0
     private var intent: Intent? = null
     private var isPlay = false
+    private var createNotification: CreateNotification? = null
 
     @Suppress("DEPRECATION")
     private var handler = Handler()
@@ -69,6 +71,7 @@ class PlaySongFragment : Fragment() {
                 true
             }
             updateUI()
+            createNotification(position)
         }
 
         override fun onServiceDisconnected(name: ComponentName) {
@@ -88,26 +91,12 @@ class PlaySongFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         context?.apply {
             initView(this)
             val intent = Intent(this, MusicService::class.java)
             activity?.bindService(intent, musicConnection, Service.BIND_AUTO_CREATE)
         }
         control()
-
-        rotate = ObjectAnimator.ofFloat(
-            circleImageViewLogo,
-            getString(R.string.play_song_fragment_property_description),
-            0F,
-            FLOAT_VALUE
-        ).apply {
-            duration = OBJECT_ANIMATOR_DURATION
-            repeatCount = ValueAnimator.INFINITE
-            repeatMode = ValueAnimator.RESTART
-            interpolator = LinearInterpolator()
-            start()
-        }
     }
 
     override fun onStart() {
@@ -137,14 +126,17 @@ class PlaySongFragment : Fragment() {
                 isPlay = false
                 rotate.resume()
             }
+            createNotification(position)
         }
 
         imgNexSong.setOnClickListener {
             onNextSong()
+            createNotification(position)
         }
 
         imgPreviousSong.setOnClickListener {
             onPreviousSong()
+            createNotification(position)
         }
     }
 
@@ -169,6 +161,18 @@ class PlaySongFragment : Fragment() {
         }
         val service = MusicService.newInstance(context, songList, position)
         context.startService(service)
+        rotate = ObjectAnimator.ofFloat(
+            circleImageViewLogo,
+            getString(R.string.play_song_fragment_property_description),
+            0F,
+            FLOAT_VALUE
+        ).apply {
+            duration = OBJECT_ANIMATOR_DURATION
+            repeatCount = ValueAnimator.INFINITE
+            repeatMode = ValueAnimator.RESTART
+            interpolator = LinearInterpolator()
+            start()
+        }
     }
 
     private fun setSongData() {
@@ -193,6 +197,12 @@ class PlaySongFragment : Fragment() {
                 handler.postDelayed(this, 333)
             }
         })
+    }
+
+    private fun createNotification(position: Int) {
+        createNotification = CreateNotification(musicService)
+        val notification = createNotification?.createNotificationMusic(songList[position], isPlay)
+        musicService.startForeground(1, notification)
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
