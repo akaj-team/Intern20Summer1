@@ -112,10 +112,6 @@ class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnCo
         playSong()
     }
 
-    fun getDuration(): Int {
-        return mediaPlayer.duration
-    }
-
     fun getCurrentPosition(): Int {
         return mediaPlayer.currentPosition
     }

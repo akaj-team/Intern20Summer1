@@ -57,11 +57,11 @@ class PlaySongFragment : Fragment() {
     private var handler = Handler()
 
     private val musicConnection: ServiceConnection = object : ServiceConnection {
+        @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
         @SuppressLint("ClickableViewAccessibility")
         override fun onServiceConnected(name: ComponentName, service: IBinder) {
             val songBinder: MusicService.SongBinder = service as MusicService.SongBinder
             musicService = songBinder.getService()
-            seekBar?.max = musicService.getDuration()
             seekBar?.setOnTouchListener { p0, p1 ->
                 if (p1?.action == MotionEvent.ACTION_MOVE) {
                     if (p0?.id == R.id.seekBar) {
@@ -131,12 +131,10 @@ class PlaySongFragment : Fragment() {
 
         imgNexSong.setOnClickListener {
             onNextSong()
-            createNotification(position)
         }
 
         imgPreviousSong.setOnClickListener {
             onPreviousSong()
-            createNotification(position)
         }
     }
 
@@ -176,8 +174,10 @@ class PlaySongFragment : Fragment() {
     }
 
     private fun setSongData() {
-        val model = songList[musicService.getPosition()]
+        position = musicService.getPosition()
+        val model = songList[position]
         tvSongName?.text = model.songName
+        tvArtist?.text = model.artist
         val duration = model.duration
         tvEndTime?.text = getDuration(duration)
         val bitmap = context?.let { Utils.convertToBitmap(it, Uri.parse(model.imgUri)) }
@@ -190,17 +190,22 @@ class PlaySongFragment : Fragment() {
 
     fun updateUI() {
         activity?.runOnUiThread(object : Runnable {
+            @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
             override fun run() {
+                seekBar?.max = songList[position].duration
                 val progress = musicService.getCurrentPosition()
                 seekBar?.progress = progress
                 tvStartTime.text = getDuration(musicService.getCurrentPosition())
+                if (progress > seekBar?.max?.minus(0) ?: 0) {
+                    onNextSong()
+                }
                 handler.postDelayed(this, 333)
             }
         })
     }
 
     private fun createNotification(position: Int) {
-        createNotification = CreateNotification(musicService)
+        createNotification = CreateNotification(requireContext())
         val notification = createNotification?.createNotificationMusic(songList[position], isPlay)
         musicService.startForeground(1, notification)
     }
@@ -217,6 +222,7 @@ class PlaySongFragment : Fragment() {
             rotate.resume()
             isPlay = false
         }
+        createNotification(position)
     }
 
 
@@ -232,6 +238,7 @@ class PlaySongFragment : Fragment() {
             rotate.resume()
             isPlay = false
         }
+        createNotification(position)
     }
 
     private fun getDuration(duration: Int): String {

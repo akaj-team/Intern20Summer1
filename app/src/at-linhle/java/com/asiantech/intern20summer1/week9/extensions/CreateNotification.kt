@@ -17,8 +17,7 @@ import com.asiantech.intern20summer1.week9.views.MusicMediaActivity
 
 class CreateNotification(private val context: Context) {
     private var session: MediaSessionCompat? = null
-    private var manager: NotificationManager = context
-        .getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+    private var manager: NotificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
     companion object {
         private const val ACTION_PAUSE = "pause"
@@ -59,7 +58,6 @@ class CreateNotification(private val context: Context) {
             addAction(notificationAction(ACTION_KILL_MEDIA, isPlaying))
         }
         return notificationBuilder.build()
-
     }
 
     private fun notificationAction(action: String, isPlaying: Boolean): NotificationCompat.Action? {
