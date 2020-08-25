@@ -19,4 +19,7 @@
     <color name="w6_dot_indicator_color">#ED3F40</color>
     <color name="w6_background_activity_one">#FFEB4F</color>
     <color name="red">#FF0000</color>
+    <color name="w9_background_center_color">#1D90C5</color>
+    <color name="w9_background_start_color">#95FFDE</color>
+    <color name="w9_status_bar">#5BC9D2</color>
 </resources>

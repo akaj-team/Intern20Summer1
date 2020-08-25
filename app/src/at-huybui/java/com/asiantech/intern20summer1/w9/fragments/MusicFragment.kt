@@ -48,7 +48,6 @@ class MusicFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         service.isOpenApp = false  // clear state is open app
-        service.timerUpdateCurrent.cancel()
     }
 
     private fun initView() {

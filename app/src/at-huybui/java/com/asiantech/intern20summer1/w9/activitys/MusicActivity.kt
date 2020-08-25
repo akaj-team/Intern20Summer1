@@ -47,7 +47,7 @@ class MusicActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_music)
-        setColorStatusBar(R.color.background_white)
+        setColorStatusBar()
         handleReplaceFragment(SplashFragment.newInstance(), false)
         svc = Intent(this, service::class.java)
         bindService(svc, connection, Context.BIND_AUTO_CREATE)
@@ -74,17 +74,13 @@ class MusicActivity : AppCompatActivity() {
         fragmentTransaction.commit()
     }
 
-    private fun setColorStatusBar(color: Int) {
+    private fun setColorStatusBar() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             this.apply {
-                window.statusBarColor = ContextCompat.getColor(this, color)
-                if (color == R.color.background_white) {
-                    window.decorView.systemUiVisibility =
-                        window.decorView.systemUiVisibility.or(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
-                } else {
-                    window.decorView.systemUiVisibility =
-                        window.decorView.systemUiVisibility.and(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv())
-                }
+                window.statusBarColor =
+                    ContextCompat.getColor(this, R.color.w9_status_bar)
+                window.decorView.systemUiVisibility =
+                    window.decorView.systemUiVisibility.and(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv())
             }
         }
     }

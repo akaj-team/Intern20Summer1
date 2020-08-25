@@ -34,7 +34,7 @@ class AudioService : Service(), ClickPlayable {
     private var iBinder: IBinder = LocalBinder()
     var songPosition = 0
     var isRandom = false
-    var isOpenApp = false
+    var isOpenApp = true
 
     private lateinit var notification: NotificationManager
     internal var onUpdateCurrentPosition: (Int) -> Unit = {}
@@ -43,11 +43,12 @@ class AudioService : Service(), ClickPlayable {
     internal var onShuffleSong: () -> Unit = {}
     internal val timerUpdateCurrent = object : CountDownTimer(500, 500) {
         override fun onFinish() {
-            if(isOpenApp) {
+            d("servicelog", "[curent] " + audioPlayer.currentPosition.toString())
+            if (isOpenApp) {
                 currentTime = audioPlayer.currentPosition
                 onUpdateCurrentPosition.invoke(currentTime)
-                this.start()
             }
+            this.start()
         }
 
         override fun onTick(p0: Long) {}
@@ -74,7 +75,6 @@ class AudioService : Service(), ClickPlayable {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         d("servicelog", "onStartCommand")
-        timerUpdateCurrent.start()
         createChannel()
         return START_NOT_STICKY
     }
@@ -104,7 +104,8 @@ class AudioService : Service(), ClickPlayable {
     private fun createChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
-                CreatePlayerNotification.CHANNEL_ID, "HUY",
+                CreatePlayerNotification.CHANNEL_ID,
+                CreatePlayerNotification.CHANNEL_NAME,
                 NotificationManager.IMPORTANCE_LOW
             )
             notification = getSystemService(NotificationManager::class.java)
@@ -137,9 +138,7 @@ class AudioService : Service(), ClickPlayable {
         CreatePlayerNotification().createNotification(
             this,
             songLists[songPosition],
-            R.drawable.ic_pause_notification,
-            songPosition,
-            songLists.size - 1
+            R.drawable.ic_pause_notification
         )
         songPlaying = songLists[songPosition]
         audioPlayer.release()
@@ -163,9 +162,7 @@ class AudioService : Service(), ClickPlayable {
         CreatePlayerNotification().createNotification(
             this,
             songLists[songPosition],
-            R.drawable.ic_previous_notification,
-            songPosition,
-            songLists.size - 1
+            R.drawable.ic_previous_notification
         )
         if (songPosition > 0) {
             songPosition -= 1
@@ -179,9 +176,7 @@ class AudioService : Service(), ClickPlayable {
         CreatePlayerNotification().createNotification(
             this,
             songLists[songPosition],
-            R.drawable.ic_pause_notification,
-            songPosition,
-            songLists.size - 1
+            R.drawable.ic_pause_notification
         )
         if (!audioPlayer.isPlaying) {
             audioPlayer.start()
@@ -196,9 +191,7 @@ class AudioService : Service(), ClickPlayable {
         CreatePlayerNotification().createNotification(
             this,
             songLists[songPosition],
-            R.drawable.ic_play_notification,
-            songPosition,
-            songLists.size - 1
+            R.drawable.ic_play_notification
         )
         if (audioPlayer.isPlaying) {
             audioPlayer.pause()
@@ -213,9 +206,7 @@ class AudioService : Service(), ClickPlayable {
         CreatePlayerNotification().createNotification(
             this,
             songLists[songPosition],
-            R.drawable.ic_next_notification,
-            songPosition,
-            songLists.size - 1
+            R.drawable.ic_next_notification
         )
         if (songPosition < songLists.size - 1) {
             songPosition += 1

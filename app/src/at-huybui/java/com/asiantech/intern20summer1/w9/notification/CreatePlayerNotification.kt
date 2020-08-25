@@ -10,18 +10,20 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.graphics.drawable.toBitmap
 import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.w9.activitys.MusicActivity
 import com.asiantech.intern20summer1.w9.models.Song
 
 class CreatePlayerNotification {
     companion object {
-        const val CHANNEL_ID = "channel_id_1"
+        const val CHANNEL_ID = "MusicPlayerID"
+        const val CHANNEL_NAME = "Music Player"
         const val ACTION_PREVIOUS = "action_previous"
         const val ACTION_PLAY = "action_play"
         const val ACTION_NEXT = "action_next"
         var notification = Notification()
     }
 
-    fun createNotification(context: Context, song: Song, playerButton: Int, pos: Int, size: Int) {
+    fun createNotification(context: Context, song: Song, playerButton: Int) {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
@@ -67,13 +69,21 @@ class CreatePlayerNotification {
                 PendingIntent.FLAG_UPDATE_CURRENT
             )
 
+            val notifyIntent = Intent(context, MusicActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            }
+            val notifyPendingIntent = PendingIntent.getActivity(
+                context, 0, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT
+            )
+
             notification = NotificationCompat.Builder(context, CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_play_button)
+                .setSmallIcon(R.drawable.ic_music_notification)
                 .setLargeIcon(picture)
                 .setContentTitle(song.nameSong)
                 .setContentText(song.singer)
                 .setOnlyAlertOnce(true)
                 .setShowWhen(false)
+                .setContentIntent(notifyPendingIntent)
                 .addAction(iconPrevious, "previous", pendingIntentPrevious)
                 .addAction(playerButton, "play", pendingIntentPlay)
                 .addAction(iconNext, "next", pendingIntentNext)
