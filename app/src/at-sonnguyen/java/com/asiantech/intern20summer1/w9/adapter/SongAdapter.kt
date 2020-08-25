@@ -42,7 +42,7 @@ class SongAdapter(private val recyclerViewHolder: MutableList<Song>) :
         internal fun binData(){
             recyclerViewHolder[adapterPosition].let {
                 Glide.with(itemView.context)
-                    .load(it.imageUri)
+                    .load(it.image)
                     .placeholder(R.drawable.ic_launcher_foreground)
                     .into(imgSong)
                 tvSongName.text = it.songName

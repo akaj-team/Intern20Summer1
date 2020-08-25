@@ -67,4 +67,6 @@
     <string name="w9_music_player_fragment_play_or_pause_image_view_description">play or pause</string>
     <string name="w9_music_player_fragment_skip_next_icon_description">skip next</string>
     <string name="w9_music_player_fragment_replay_icon_description">replay</string>
+    <string name="w9_channel_name">FSC</string>
+    <string name="w9_put_extra_action_value">put extra action</string>
 </resources>

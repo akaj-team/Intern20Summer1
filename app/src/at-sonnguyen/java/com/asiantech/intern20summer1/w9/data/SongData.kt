@@ -13,19 +13,23 @@ import java.util.concurrent.TimeUnit
 object SongData {
     private var songList = mutableListOf<Song>()
     fun getSong(context: Context): MutableList<Song> {
-        val cursor = context.contentResolver?.query(
+        songList.clear()
+        val songCursor = context.contentResolver?.query(
             MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
             null,
             null,
             null,
             null
         )
-        val columnId = cursor?.getColumnIndexOrThrow(MediaStore.Video.Media._ID)
-        while (cursor != null && cursor.moveToNext()) {
-            val id = columnId?.let { cursor.getLong(it) }
-            val songName = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.TITLE))
-            val duration = cursor.getInt(cursor.getColumnIndex(MediaStore.Audio.Media.DURATION))
-            val singerName = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST))
+        val idColumn = songCursor?.getColumnIndexOrThrow(MediaStore.Video.Media._ID)
+        while (songCursor != null && songCursor.moveToNext()) {
+            val id = idColumn?.let { songCursor.getLong(it) }
+            val songDuration =
+                songCursor.getInt(songCursor.getColumnIndex(MediaStore.Audio.Media.DURATION))
+            val songName =
+                songCursor.getString(songCursor.getColumnIndex(MediaStore.Audio.Media.TITLE))
+            val songArtist =
+                songCursor.getString(songCursor.getColumnIndex(MediaStore.Audio.Media.ARTIST))
             val uri: Uri? =
                 id?.let {
                     ContentUris.withAppendedId(
@@ -34,11 +38,17 @@ object SongData {
                     )
                 }
             val albumId: Long? =
-                cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ALBUM_ID))
+                songCursor.getLong(songCursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ALBUM_ID))
             val sArtworkUri = Uri.parse("content://media/external/audio/albumart")
             val albumArtUri = albumId?.let { ContentUris.withAppendedId(sArtworkUri, it) }
             songList.apply {
-                add(Song(duration, songName, singerName, albumArtUri))
+                uri?.let {
+                    albumArtUri?.let { it1 ->
+                        Song(
+                            songDuration, songName, it, songArtist, it1
+                        )
+                    }
+                }?.let { add(it) }
             }
         }
         return songList
