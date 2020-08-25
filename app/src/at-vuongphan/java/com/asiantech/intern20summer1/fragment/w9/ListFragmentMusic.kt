@@ -70,7 +70,6 @@ class ListFragmentMusic : Fragment(), View.OnClickListener {
     override fun onStart() {
         super.onStart()
         val intent = Intent(context, MusicService::class.java)
-        context?.bindService(intent, musicConnection, Context.BIND_AUTO_CREATE)
         positionMusicPlaying = musicService.getPosition()
         btnPlayPause.isSelected = musicService.isPlaying()
         setStatus()

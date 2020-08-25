@@ -8,6 +8,7 @@ import android.media.AudioManager
 import android.os.Bundle
 import android.os.Handler
 import android.os.IBinder
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -163,10 +164,6 @@ class MusicScreenFragment : Fragment(), View.OnClickListener {
     }
 
     private fun handleSeekBar() {
-        val maxSeekBar = musicService.getTime()
-        if (maxSeekBar != null) {
-            seekBar.max = maxSeekBar
-        }
         btnPausePlay.isSelected = true
 
         seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
@@ -176,16 +173,19 @@ class MusicScreenFragment : Fragment(), View.OnClickListener {
             override fun onStartTrackingTouch(p0: SeekBar?) {
             }
 
-            override fun onStopTrackingTouch(p0: SeekBar?) {
-                musicService.seekTo(seekBar.progress)
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                if (seekBar != null) {
+                    musicService.seekTo(seekBar.progress)
+                }
             }
         })
         runnable = object : Runnable {
             override fun run() {
+                val currentDuration = musicService.getCurrentDuration()
                 position = musicService.getPosition()
                 setImage()
-                val currentDuration = musicService.getCurrentDuration()
                 val current = musicService.getTime()
+                Log.d("aaa", "run: $current")
                 if (currentDuration != null) {
                     seekBar.progress = currentDuration
                     tvDuration.text =
@@ -194,6 +194,10 @@ class MusicScreenFragment : Fragment(), View.OnClickListener {
                         MusicData.toMin(currentDuration.toLong(), requireContext())
                 }
                 handler.postDelayed(this, DELAY_TIME)
+                if (current != null) {
+                    seekBar?.max = current
+                }
+                Log.d("AAA", "dddd: ${seekBar.max}")
             }
         }
         handler.post(runnable)

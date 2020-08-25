@@ -10,7 +10,7 @@ class MusicActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.w9_activity_music)
-        replacePlayListFragment(0, false)
+        handleReplaceFragment(ListFragmentMusic.newInstance(), false, parent = R.id.frContainer)
     }
 
     internal fun handleReplaceFragment(

@@ -7,6 +7,7 @@ import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.media.AudioAttributes
 import android.media.MediaPlayer
 import android.os.Binder
 import android.os.Build
@@ -50,15 +51,6 @@ class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
         return binder
     }
 
-    override fun onUnbind(intent: Intent?): Boolean {
-        return super.onUnbind(intent)
-        if (mediaPlayer != null) {
-            mediaPlayer?.stop()
-            mediaPlayer?.release()
-        }
-        return false
-    }
-
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
         val position = intent.getIntExtra("put", DEFAULT_VALUE_POSITION)
         if (position != DEFAULT_VALUE_POSITION) {
@@ -88,7 +80,7 @@ class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
                 isPlaying = true
             }
             MusicAction.CLOSE -> {
-                Companion.stopService(MusicService())
+                stopSelf()
             }
         }
         createNotificationChannel()
@@ -104,6 +96,7 @@ class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
         super.onDestroy()
         mediaPlayer?.stop()
         unregisterReceiver(BroadcastReceiver())
+        stopForeground(true)
         Toast.makeText(this, getString(R.string.toast_destroy_services), Toast.LENGTH_LONG).show()
     }
 
@@ -134,9 +127,19 @@ class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
             mediaPlayer?.release()
         }
         mediaPlayer = MediaPlayer()
+        if (Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            mediaPlayer?.setAudioAttributes(
+                AudioAttributes.Builder().setContentType(AudioAttributes.CONTENT_TYPE_MUSIC).build()
+            )
+        }
         mediaPlayer?.setOnCompletionListener {
             playNext()
         }
+        mediaPlayer?.setOnPreparedListener(object : MediaPlayer.OnPreparedListener {
+            override fun onPrepared(mp: MediaPlayer?) {
+                mp?.start()
+            }
+        })
     }
 
     private fun createAction(action: String): PendingIntent? {
