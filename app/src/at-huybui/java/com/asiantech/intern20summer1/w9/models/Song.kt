@@ -27,20 +27,22 @@ data class Song(
     @ColumnInfo(name = CONTENT_URI) var contentUri: String = "null"
 ):Serializable {
     companion object {
-        const val COLUMN_ID = BaseColumns._ID
-        const val TABLE_NAME = "villains"
-        const val NAME_SONG = "name_song"
-        const val NAME_SINGER = "name_singer"
-        const val DURATION_SONG = "length_song"
-        const val CONTENT_URI = "content_uri"
+        private const val COLUMN_ID = BaseColumns._ID
+        internal const val TABLE_NAME = "villains"
+        private const val NAME_SONG = "name_song"
+        private const val NAME_SINGER = "name_singer"
+        private const val DURATION_SONG = "length_song"
+        private const val CONTENT_URI = "content_uri"
+        private const val DEFAULT_NAME = "no name"
+        private const val DEFAULT_DURATION = "00:00"
     }
 
     fun getData(context: Context, song: Song): Song {
-        var songNew = song
+        var songNew: Song
         MediaMetadataRetriever().apply {
-            var name = "no name"
-            var duration = "00:00"
-            var author = "no name"
+            var duration = DEFAULT_DURATION
+            var author = DEFAULT_NAME
+            var name = song.nameSong
             setDataSource(context, Uri.parse(song.contentUri))
             extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)?.let {
                 duration = convertDuration(it)
@@ -68,7 +70,7 @@ data class Song(
     }
 
     fun convertDuration(duration: String?): String {
-        var result = "00:00"
+        var result = DEFAULT_DURATION
         duration?.let {
             val durationInt = it.toInt()
             val second = ((durationInt / 1000) % 60).toString().padStart(2, '0')

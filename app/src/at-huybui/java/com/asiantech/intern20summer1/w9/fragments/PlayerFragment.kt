@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w9.activitys.MusicActivity
 import com.asiantech.intern20summer1.w9.models.Song
+import com.asiantech.intern20summer1.w9.services.AudioService
 import kotlinx.android.synthetic.`at-huybui`.w9_fragment_player.*
 
 /**
@@ -20,9 +21,12 @@ import kotlinx.android.synthetic.`at-huybui`.w9_fragment_player.*
 class PlayerFragment : Fragment() {
 
     companion object {
-        internal fun newInstance() = PlayerFragment()
+        internal fun newInstance(lists: MutableList<Song>) = PlayerFragment().apply {
+            lists.toCollection(songLists)
+        }
     }
 
+    private var songLists = mutableListOf<Song>()
     private val service = MusicActivity.service
     private var isUpdateSeekBar = false
 
@@ -76,16 +80,16 @@ class PlayerFragment : Fragment() {
     private fun initButtonView() {
         btnPlayer_Player?.setOnClickListener {
             if (service.audioPlayer.isPlaying) {
-                service.onPauseMusic()
+                service.onMusicPause()
             } else {
-                service.onResumeMusic()
+                service.onMusicResume()
             }
         }
         btnLeft_Player?.setOnClickListener {
-            service.onNextLeftMusic()
+            service.onMusicPrevious()
         }
         btnRight_Player?.setOnClickListener {
-            service.onNextRightMusic()
+            service.onMusicNext()
         }
 
         btnReplay_Player?.setOnClickListener {
@@ -97,6 +101,18 @@ class PlayerFragment : Fragment() {
                 btnReplay_Player?.setImageResource(R.drawable.ic_replay_on)
             }
         }
+
+        btnRandom_Player?.setOnClickListener {
+            if(service.isRandom){
+                btnRandom_Player.setImageResource(R.drawable.ic_random_off)
+                service.isRandom = false
+                service.onShuffleMusic(songLists)
+            }else{
+                btnRandom_Player.setImageResource(R.drawable.ic_random_on)
+                service.isRandom = true
+                service.onShuffleMusic(songLists)
+            }
+        }
     }
 
     private fun onServiceListener() {
@@ -106,22 +122,32 @@ class PlayerFragment : Fragment() {
                 seekBar?.progress = it
             }
         }
-        service.onStartPlayer = {
-            service.songPlaying?.let { song ->
-                val bitmap = Song().getPicture(requireContext(), song)
-                btnPlayer_Player?.setImageResource(R.drawable.ic_pause_button)
-                imgDvd_Player?.setImageBitmap(bitmap)
-                imgDvd_Player?.startAnim()
-                handleSeekBar()
+
+        service.onPlayer = { statePlayer ->
+            when (statePlayer) {
+                AudioService.StatePlayer.START -> {
+                    service.songPlaying?.let { song ->
+                        val bitmap = Song().getPicture(requireContext(), song)
+                        btnPlayer_Player?.setImageResource(R.drawable.ic_pause_button)
+                        if(bitmap != null){
+                            imgDvd_Player?.setImageBitmap(bitmap)
+                        }else{
+                            imgDvd_Player?.setImageResource(R.drawable.img_dvd_player)
+                        }
+                        imgDvd_Player?.startAnim()
+                        handleSeekBar()
+                    }
+                }
+                AudioService.StatePlayer.PAUSE -> {
+                    btnPlayer_Player?.setImageResource(R.drawable.ic_play_button)
+                    imgDvd_Player?.pauseAnim()
+                }
+                AudioService.StatePlayer.RESUME -> {
+                    btnPlayer_Player?.setImageResource(R.drawable.ic_pause_button)
+                    imgDvd_Player?.resumeAnim()
+
+                }
             }
-        }
-        service.onPausePlayer = {
-            btnPlayer_Player?.setImageResource(R.drawable.ic_play_button)
-            imgDvd_Player?.pauseAnim()
-        }
-        service.onResumePlayer = {
-            btnPlayer_Player?.setImageResource(R.drawable.ic_pause_button)
-            imgDvd_Player?.resumeAnim()
         }
     }
 }

@@ -1,8 +1,6 @@
 package com.asiantech.intern20summer1.w9.fragments
 
-import android.content.ContentUris
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
@@ -13,10 +11,8 @@ import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w9.activitys.MusicActivity
 import com.asiantech.intern20summer1.w9.managers.SongRecyclerAdapter
 import com.asiantech.intern20summer1.w9.models.Song
-import com.asiantech.intern20summer1.w9.services.BackgroundSoundService
+import com.asiantech.intern20summer1.w9.services.AudioService
 import kotlinx.android.synthetic.`at-huybui`.w9_fragment_music.*
-import java.text.SimpleDateFormat
-import java.util.concurrent.TimeUnit
 
 /**
  * Asian Tech Co., Ltd.
@@ -27,10 +23,12 @@ import java.util.concurrent.TimeUnit
 class MusicFragment : Fragment() {
 
     companion object {
-        internal fun newInstance() = MusicFragment()
+        internal fun newInstance(songListsNew: MutableList<Song>) = MusicFragment().apply {
+            songListsNew.toCollection(songLists)
+        }
     }
 
-    private val songLists = mutableListOf<Song>()
+    private var songLists = mutableListOf<Song>()
     private val songAdapter = SongRecyclerAdapter(songLists)
     private val service = MusicActivity.service
 
@@ -59,16 +57,16 @@ class MusicFragment : Fragment() {
     private fun initButtonListener() {
         imgPlayer?.setOnClickListener {
             if (service.audioPlayer.isPlaying) {
-                service.onPauseMusic()
+                service.onMusicPause()
             } else {
-                service.onResumeMusic()
+                service.onMusicResume()
             }
         }
         imgLeftNext?.setOnClickListener {
-            service.onNextLeftMusic()
+            service.onMusicPrevious()
         }
         imgRightNext?.setOnClickListener {
-            service.onNextRightMusic()
+            service.onMusicNext()
         }
     }
 
@@ -80,63 +78,26 @@ class MusicFragment : Fragment() {
         }
 
         songAdapter.onItemClick = { position ->
-            service.onStartMusic(position)
+            service.songPosition = position
+            service.onMusicStart()
         }
     }
 
     private fun initSongData() {
-        scanSongInStore().apply {
-            toCollection(songLists)
-            toCollection(service.songList)
-            songAdapter.notifyDataSetChanged()
-        }
+        service.songLists.clear()
+        songLists.toCollection(service.songLists)
     }
 
-    private fun scanSongInStore(): MutableList<Song> {
-        val songListsNew = mutableListOf<Song>()
-        val projection = arrayOf(
-            MediaStore.Audio.Media._ID,
-            MediaStore.Audio.Media.DISPLAY_NAME
-        )
-        val selection = "${MediaStore.Audio.Media.DATE_ADDED} >= ?"
-        val selectionArgs = arrayOf(
-            dateToTimestamp(day = 22, month = 10, year = 2000).toString()
-        )
-        val sortOrder = "${MediaStore.Audio.Media.DATE_ADDED} DESC"
-
-        requireContext().applicationContext.contentResolver.query(
-            MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
-            projection,
-            selection,
-            selectionArgs,
-            sortOrder
-        )?.use { cursor ->
-            val idColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media._ID)
-            while (cursor.moveToNext()) {
-                val id = cursor.getLong(idColumn)
-                val contentUri = ContentUris.withAppendedId(
-                    MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, id
-                )
-
-                val song = Song(id = id, contentUri = contentUri.toString())
-                songListsNew.add(song)
-            }
-        }
-        return songListsNew
-    }
-
-    private fun dateToTimestamp(day: Int, month: Int, year: Int): Long =
-        SimpleDateFormat("dd.MM.yyyy").let { formatter ->
-            TimeUnit.MICROSECONDS.toSeconds(formatter.parse("$day.$month.$year")?.time ?: 0)
-        }
-
-    private fun initPlayerBar(sv: BackgroundSoundService) {
-        d("XXX", sv.songPlaying.toString())
+    private fun initPlayerBar(sv: AudioService) {
         sv.songPlaying?.let {
             if (sv.audioPlayer.isPlaying) {
                 imgPlayer?.setImageResource(R.drawable.ic_pause_button)
                 val bitmap = Song().getPicture(requireContext(), it)
-                imgDvdPlayerBar?.setImageBitmap(bitmap)
+                if (bitmap != null) {
+                    imgDvdPlayerBar?.setImageBitmap(bitmap)
+                } else {
+                    imgDvdPlayerBar?.setImageResource(R.drawable.img_dvd_player)
+                }
                 imgDvdPlayerBar?.startAnim()
             } else {
                 imgPlayer?.setImageResource(R.drawable.ic_play_button)
@@ -148,22 +109,39 @@ class MusicFragment : Fragment() {
     }
 
     private fun onServiceListener() {
-        service.onStartPlayerBar = {
-            service.songPlaying?.let { song ->
-                val bitmap = Song().getPicture(requireContext(), song)
-                imgDvdPlayerBar?.setImageBitmap(bitmap)
-                imgPlayer?.setImageResource(R.drawable.ic_pause_button)
-                imgDvdPlayerBar?.startAnim()
-                tvNameSongPlayerBar?.text = song.nameSong
+        service.onPlayerBar = { statePlayer ->
+            when (statePlayer) {
+                AudioService.StatePlayer.START -> {
+                    service.songPlaying?.let { song ->
+                        val bitmap = Song().getPicture(requireContext(), song)
+                        if (bitmap == null) {
+                            imgDvdPlayerBar?.setImageResource(R.drawable.ic_dvd_player)
+                        } else {
+                            imgDvdPlayerBar?.setImageBitmap(bitmap)
+                        }
+                        imgPlayer?.setImageResource(R.drawable.ic_pause_button)
+                        imgDvdPlayerBar?.startAnim()
+                        tvNameSongPlayerBar?.text = song.nameSong
+                    }
+                }
+                AudioService.StatePlayer.RESUME -> {
+                    imgDvdPlayerBar?.resumeAnim()
+                    imgPlayer?.setImageResource(R.drawable.ic_pause_button)
+                }
+                AudioService.StatePlayer.PAUSE -> {
+                    imgDvdPlayerBar?.pauseAnim()
+                    imgPlayer?.setImageResource(R.drawable.ic_play_button)
+                }
             }
         }
-        service.onPausePlayerBar = {
-            imgDvdPlayerBar?.pauseAnim()
-            imgPlayer?.setImageResource(R.drawable.ic_play_button)
-        }
-        service.onResumePlayerBar = {
-            imgDvdPlayerBar?.resumeAnim()
-            imgPlayer?.setImageResource(R.drawable.ic_pause_button)
+
+        service.onShuffleSong = {
+            songLists.clear()
+            service.songLists.toCollection(songLists)
+            songLists.forEach {
+                d("ZZZ", "xxx ->" + it.contentUri)
+            }
+            songAdapter.notifyDataSetChanged()
         }
     }
 }

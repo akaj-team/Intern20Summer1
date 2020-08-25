@@ -11,13 +11,4 @@
         android:layout_height="@dimen/w8_splash_logo_size"
         android:layout_centerInParent="true"
         android:src="@drawable/img_logo_music" />
-
-    <ProgressBar
-        android:id="@+id/progressBarMusic"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="@dimen/w8_splash_progress_bar_width"
-        android:layout_height="@dimen/w8_splash_progress_bar_height"
-        android:layout_below="@id/imgSplashMusicLogo"
-        android:layout_centerHorizontal="true"
-        tools:progress="50" />
 </RelativeLayout>

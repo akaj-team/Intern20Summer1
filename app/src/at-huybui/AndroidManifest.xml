@@ -29,10 +29,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <service android:name=".test.ServiceTest"/>
         <service
-            android:name=".w9.services.BackgroundSoundService"
+            android:name=".w9.services.AudioService"
             android:enabled="true"
             tools:ignore="Instantiatable" />
+        <receiver android:name=".test.NotificationService"/>
+        <receiver android:name=".w9.notification.NotificationBroadcastReceiver"/>
     </application>
 
 </manifest>

@@ -1,5 +1,6 @@
 package com.asiantech.intern20summer1.w9.managers
 
+import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -54,9 +55,13 @@ class SongRecyclerAdapter(private val songList: List<Song>) :
                 nameSong.text = songNew.nameSong
                 nameSinger.text = songNew.singer
                 lengthSong.text = songNew.duration
-                Song().getPicture(itemView.context, song)?.let {
-                    iconPlayer.setImageBitmap(it)
+                val bitmap = Song().getPicture(itemView.context, song)
+                if (bitmap == null) {
+                    iconPlayer.setImageResource(R.drawable.ic_dvd_player)
+                } else {
+                    iconPlayer.setImageBitmap(bitmap)
                 }
+                d("XXX", "[adapter]" + songNew.contentUri)
             }
         }
     }

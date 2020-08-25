@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.asiantech.intern20summer1.w9.fragments.MusicFragment
 import com.asiantech.intern20summer1.w9.fragments.PlayerFragment
+import com.asiantech.intern20summer1.w9.models.Song
 
 /**
  * Asian Tech Co., Ltd.
@@ -12,7 +13,10 @@ import com.asiantech.intern20summer1.w9.fragments.PlayerFragment
  * This is class for adapter of view pager in music activity
  */
 
-class ViewPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(
+class ViewPagerAdapter(
+    fm: FragmentManager,
+    private val songLists: MutableList<Song>
+) : FragmentPagerAdapter(
     fm,
     BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
 ) {
@@ -24,11 +28,10 @@ class ViewPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(
     override fun getItem(position: Int): Fragment {
 
         return if (position == 0) {
-            MusicFragment.newInstance()
+            MusicFragment.newInstance(songLists)
         } else {
-            PlayerFragment.newInstance()
+            PlayerFragment.newInstance(songLists)
         }
     }
-
     override fun getCount() = NUMBER_OF_PAGER
 }

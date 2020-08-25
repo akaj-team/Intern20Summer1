@@ -13,7 +13,8 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w9.fragments.SplashFragment
-import com.asiantech.intern20summer1.w9.services.BackgroundSoundService
+import com.asiantech.intern20summer1.w9.models.Song
+import com.asiantech.intern20summer1.w9.services.AudioService
 import com.asiantech.intern20summer1.w9.services.ViewPagerAdapter
 import kotlinx.android.synthetic.`at-huybui`.activity_music.*
 
@@ -26,10 +27,8 @@ import kotlinx.android.synthetic.`at-huybui`.activity_music.*
 
 class MusicActivity : AppCompatActivity() {
 
-    private val viewPagerAdapter by lazy { ViewPagerAdapter(supportFragmentManager) }
-
     companion object {
-        var service = BackgroundSoundService()
+        var service = AudioService()
         var svc = Intent()
         var bound = false
         var connection = object : ServiceConnection {
@@ -38,7 +37,7 @@ class MusicActivity : AppCompatActivity() {
             }
 
             override fun onServiceConnected(component: ComponentName?, iBinder: IBinder?) {
-                val binder = iBinder as BackgroundSoundService.LocalBinder
+                val binder = iBinder as AudioService.LocalBinder
                 service = binder.getService()
                 bound = true
             }
@@ -55,10 +54,10 @@ class MusicActivity : AppCompatActivity() {
         startService(svc)
     }
 
-    override fun onStop() {
-        super.onStop()
+    override fun onDestroy() {
         unbindService(connection)
         bound = false
+        super.onDestroy()
     }
 
     internal fun handleReplaceFragment(
@@ -90,7 +89,8 @@ class MusicActivity : AppCompatActivity() {
         }
     }
 
-    internal fun initViewPager() {
+    internal fun initViewPager(songLists: MutableList<Song>) {
+        val viewPagerAdapter by lazy { ViewPagerAdapter(supportFragmentManager,songLists) }
         containerViewPager?.apply {
             adapter = viewPagerAdapter
         }
