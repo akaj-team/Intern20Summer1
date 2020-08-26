@@ -34,7 +34,7 @@ class SplashFragment : Fragment() {
         private const val TICK_TIMER = 10L
         private const val PROGRESS_BAR_MAX_VALUE = 100
         private const val TICK_REQUEST_PERMISSION = 5
-        private const val TICK_LOAD_DATA_MUSIC = 50
+        private const val TICK_LOAD_DATA_MUSIC = 10
         private const val TIME_SET = "1.1.2000"
         private const val DATE_FORMAT = "dd.MM.yyyy"
     }

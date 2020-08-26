@@ -28,6 +28,7 @@ class AudioService : Service(), ClickPlayable {
 
     companion object{
         private const val VOLUME = 100f
+        private const val TICK_TIMER = 500L
     }
 
     internal var audioPlayer = MediaPlayer()
@@ -43,7 +44,7 @@ class AudioService : Service(), ClickPlayable {
     internal var onShuffleSong: () -> Unit = {}
     private var iBinder: IBinder = LocalBinder()
     private lateinit var notification: NotificationManager
-    private val timerUpdateCurrent = object : CountDownTimer(500, 500) {
+    private val timerUpdateCurrent = object : CountDownTimer(TICK_TIMER, TICK_TIMER) {
         override fun onFinish() {
             if (isOpenApp) {
                 currentTime = audioPlayer.currentPosition

@@ -56,6 +56,11 @@ class PlayerFragment : Fragment() {
         initHandleSeekBar()
     }
 
+    private fun initPlayerClickListener() {
+        listenerClickButtonControl()
+        listenerClickButtonRandomAndLoop()
+    }
+
     private fun initPlayerView() {
         tvNameSong_Player.isSelected = true // set auto run text view
         service.songPlaying?.let { song ->
@@ -68,53 +73,6 @@ class PlayerFragment : Fragment() {
             } else {
                 imgDvd_Player?.setImageResource(R.drawable.ic_play_button)
                 imgDvd_Music?.endAnim()
-            }
-        }
-    }
-
-
-    private fun initPlayerClickListener() {
-        btnPlay_Player?.setOnClickListener {
-            if (service.audioPlayer.isPlaying) {
-                if (service.audioPlayer.isPlaying) {
-                    service.onMusicPause()
-                } else {
-                    service.onMusicResume()
-                }
-            }
-        }
-        btnPrevious_Player?.setOnClickListener {
-            if (service.audioPlayer.isPlaying) {
-                service.onMusicPrevious()
-            }
-        }
-        btnNext_Player?.setOnClickListener {
-            if (service.audioPlayer.isPlaying) {
-                service.onMusicNext()
-            }
-        }
-
-        btnReplay_Player?.setOnClickListener {
-            if (service.audioPlayer.isPlaying) {
-                if (service.audioPlayer.isLooping) {
-                    service.audioPlayer.isLooping = false
-                    btnReplay_Player?.setImageResource(R.drawable.ic_replay_off)
-                } else {
-                    service.audioPlayer.isLooping = true
-                    btnReplay_Player?.setImageResource(R.drawable.ic_replay_on)
-                }
-            }
-        }
-
-        btnRandom_Player?.setOnClickListener {
-            if(service.isRandom){
-                btnRandom_Player.setImageResource(R.drawable.ic_random_off)
-                service.isRandom = false
-                service.onShuffleMusic(songLists)
-            } else {
-                btnRandom_Player.setImageResource(R.drawable.ic_random_on)
-                service.isRandom = true
-                service.onShuffleMusic(songLists)
             }
         }
     }
@@ -186,6 +144,53 @@ class PlayerFragment : Fragment() {
                     imgDvd_Player?.resumeAnim()
 
                 }
+            }
+        }
+    }
+
+    private fun listenerClickButtonControl() {
+        btnPlay_Player?.setOnClickListener {
+            if (service.audioPlayer.isPlaying) {
+                if (service.audioPlayer.isPlaying) {
+                    service.onMusicPause()
+                } else {
+                    service.onMusicResume()
+                }
+            }
+        }
+        btnPrevious_Player?.setOnClickListener {
+            if (service.audioPlayer.isPlaying) {
+                service.onMusicPrevious()
+            }
+        }
+        btnNext_Player?.setOnClickListener {
+            if (service.audioPlayer.isPlaying) {
+                service.onMusicNext()
+            }
+        }
+    }
+
+    private fun listenerClickButtonRandomAndLoop() {
+        btnReplay_Player?.setOnClickListener {
+            if (service.audioPlayer.isPlaying) {
+                if (service.audioPlayer.isLooping) {
+                    service.audioPlayer.isLooping = false
+                    btnReplay_Player?.setImageResource(R.drawable.ic_replay_off)
+                } else {
+                    service.audioPlayer.isLooping = true
+                    btnReplay_Player?.setImageResource(R.drawable.ic_replay_on)
+                }
+            }
+        }
+        btnRandom_Player?.setOnClickListener {
+            if (service.isRandom) {
+                btnRandom_Player.setImageResource(R.drawable.ic_random_off)
+                service.isRandom = false
+                service.onShuffleMusic(songLists)
+            } else {
+                btnRandom_Player.setImageResource(R.drawable.ic_random_on)
+                service.isRandom = true
+                service.onShuffleMusic(songLists)
             }
         }
     }
