@@ -36,7 +36,7 @@
     </LinearLayout>
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/circleImageSong"
+        android:id="@+id/circleImageSongMusicPlayer"
         android:layout_width="@dimen/w9_song_image_music_player_fragment_size"
         android:layout_height="@dimen/w9_song_image_music_player_fragment_size"
         android:layout_below="@id/linearLayoutSongName"
@@ -48,7 +48,7 @@
         android:id="@+id/tvSingerNameMusicPlayer"
         android:layout_width="match_parent"
         android:layout_height="@dimen/w9_sing_text_view_music_player_fragment_height"
-        android:layout_below="@id/circleImageSong"
+        android:layout_below="@id/circleImageSongMusicPlayer"
         android:layout_marginTop="@dimen/w9_singer_text_view_music_player_fragment_margin_top"
         android:gravity="center"
         android:textSize="@dimen/w9_song_name_text_view_card_view_size"
@@ -63,7 +63,7 @@
         android:weightSum="5">
 
         <ImageView
-            android:id="@+id/imgShuffle"
+            android:id="@+id/imgShuffleMusicPlayer"
             android:layout_width="@dimen/w9_icon_width"
             android:layout_height="match_parent"
             android:layout_gravity="center"
@@ -72,7 +72,7 @@
             android:contentDescription="@string/w9_music_player_fragment_shuffle_icon_description" />
 
         <ImageView
-            android:id="@+id/imgSkipPrevious"
+            android:id="@+id/imgSkipPreviousMusicPlayer"
             android:layout_width="@dimen/w9_icon_width"
             android:layout_height="match_parent"
             android:layout_gravity="center"
@@ -81,7 +81,7 @@
             android:contentDescription="@string/w9_music_player_fragment_skip_previous_description" />
 
         <ImageView
-            android:id="@+id/imgSongPlayer"
+            android:id="@+id/imgPlayMusicPlayer"
             android:layout_width="@dimen/w9_icon_width"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -89,7 +89,7 @@
             android:contentDescription="@string/w9_music_player_fragment_play_or_pause_image_view_description" />
 
         <ImageView
-            android:id="@+id/imgSkipNext"
+            android:id="@+id/imgSkipNextMusicPlayer"
             android:layout_width="@dimen/w9_icon_width"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -97,7 +97,7 @@
             android:contentDescription="@string/w9_music_player_fragment_skip_next_icon_description" />
 
         <ImageView
-            android:id="@+id/imgReplay"
+            android:id="@+id/imgReplayMusicPlayer"
             android:layout_width="@dimen/w9_icon_width"
             android:layout_height="match_parent"
             android:layout_gravity="center"
@@ -107,7 +107,7 @@
     </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatSeekBar
-        android:id="@+id/seekBarDuration"
+        android:id="@+id/seekBarDurationMusicPlayer"
         android:layout_width="match_parent"
         android:layout_height="@dimen/w9_music_player_fragment_seek_bar_height"
         android:layout_below="@id/linearLayoutSkip"
@@ -119,7 +119,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/seekBarDuration"
+        android:layout_below="@id/seekBarDurationMusicPlayer"
         android:layout_marginLeft="@dimen/w9_relative_layout_time_music_player_fragment_margin"
         android:layout_marginRight="@dimen/w9_relative_layout_time_music_player_fragment_margin">
 

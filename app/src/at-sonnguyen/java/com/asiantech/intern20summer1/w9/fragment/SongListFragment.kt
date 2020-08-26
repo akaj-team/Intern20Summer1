@@ -70,9 +70,10 @@ class SongListFragment : Fragment() {
     }
     private fun setCardViewData(){
         Glide.with(requireContext())
-            .load(songs[positionSongPlaying].imageUri)
+            .load(songs[positionSongPlaying].image)
             .placeholder(R.drawable.ic_launcher_foreground)
             .into(imgSmallSong)
         tvCardViewSongName.text = songs[positionSongPlaying].songName
     }
+
 }
