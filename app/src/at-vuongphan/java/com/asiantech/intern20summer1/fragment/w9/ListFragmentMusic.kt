@@ -20,8 +20,9 @@ import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.activity.w9.MusicActivity
 import com.asiantech.intern20summer1.adapter.w9.MusicAdapter
 import com.asiantech.intern20summer1.data.w9.Music
-import com.asiantech.intern20summer1.data.w9.MusicAction
 import com.asiantech.intern20summer1.data.w9.MusicData
+import com.asiantech.intern20summer1.service.MusicAction
+import com.asiantech.intern20summer1.service.w9.MusicService
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.`at-vuongphan`.w9_fragment_list_music.*
 
@@ -36,15 +37,6 @@ class ListFragmentMusic : Fragment(), View.OnClickListener {
     companion object {
         internal fun newInstance(): ListFragmentMusic {
             return ListFragmentMusic()
-        }
-
-        private const val ARG_POS = "position"
-        private const val ARG_PLAYING = "isPlaying"
-        fun newInstance(position: Int, isPlaying: Boolean) = ListFragmentMusic().apply {
-            arguments = Bundle().apply {
-                putInt(ARG_POS, position)
-                putBoolean(ARG_PLAYING, isPlaying)
-            }
         }
 
         private const val PERMISSION_CODE = 101
@@ -70,6 +62,7 @@ class ListFragmentMusic : Fragment(), View.OnClickListener {
     override fun onStart() {
         super.onStart()
         val intent = Intent(context, MusicService::class.java)
+        context?.bindService(intent, musicConnection, Context.BIND_AUTO_CREATE)
         positionMusicPlaying = musicService.getPosition()
         btnPlayPause.isSelected = musicService.isPlaying()
         setStatus()
@@ -89,7 +82,7 @@ class ListFragmentMusic : Fragment(), View.OnClickListener {
             btnBack -> {
                 sendAction(MusicAction.PREVIOUS)
                 positionMusicPlaying--
-                btnPlayPause?.setBackgroundResource(R.drawable.ic_play_circle_outline_red)
+                btnPlayPause?.setBackgroundResource(R.drawable.ic_pause_circle_outline_red)
                 setStatus()
             }
         }
@@ -120,7 +113,7 @@ class ListFragmentMusic : Fragment(), View.OnClickListener {
     private fun onPausePlayMusic() {
         isPlaying = if (!isPlaying) {
             sendAction(MusicAction.PLAY)
-            btnPlayPause.isSelected = true
+            btnPlayPause?.isSelected = true
             setStatus()
             btnPlayPause.setBackgroundResource(R.drawable.ic_pause_circle_outline_red)
             true
@@ -140,7 +133,7 @@ class ListFragmentMusic : Fragment(), View.OnClickListener {
         context?.startService(intent)
     }
 
-    private fun setStatus() {
+    internal fun setStatus() {
         if (positionMusicPlaying > music.size - 1 || positionMusicPlaying < 0) {
             positionMusicPlaying = 0
             Glide.with(requireContext())
@@ -188,20 +181,20 @@ class ListFragmentMusic : Fragment(), View.OnClickListener {
     }
 
     private fun initAdapter() {
-        rvMusic.adapter = adapterRecycler
-        rvMusic.layoutManager = LinearLayoutManager(context)
-        rvMusic.setHasFixedSize(false)
+        rvMusic?.adapter = adapterRecycler
+        rvMusic?.layoutManager = LinearLayoutManager(context)
+        rvMusic?.setHasFixedSize(false)
     }
 
     private fun initListeners() {
         adapterRecycler.onSongClicked = {
             Toast.makeText(context, music[it].name, Toast.LENGTH_SHORT).show()
             positionMusicPlaying = it
-            btnPlayPause.setBackgroundResource(R.drawable.ic_pause_circle_outline_red)
+            btnPlayPause?.setBackgroundResource(R.drawable.ic_pause_circle_outline_red)
             playMusic(it)
         }
         adapterRecycler.notifyDataSetChanged()
-        cardViewBottom?.setOnLongClickListener {
+        clPlay?.setOnLongClickListener {
             (activity as? MusicActivity)?.handleReplaceFragment(
                 MusicScreenFragment.newInstance(
                     positionMusicPlaying

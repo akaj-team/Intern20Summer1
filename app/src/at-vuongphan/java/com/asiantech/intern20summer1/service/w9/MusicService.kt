@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.fragment.w9
+package com.asiantech.intern20summer1.service.w9
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -17,13 +17,14 @@ import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.data.w9.Music
-import com.asiantech.intern20summer1.data.w9.MusicAction
 import com.asiantech.intern20summer1.data.w9.MusicData
+import com.asiantech.intern20summer1.service.MusicAction
 
 @Suppress("UNREACHABLE_CODE")
 class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener,
     MediaPlayer.OnCompletionListener {
     private val filter = IntentFilter()
+    private var intent: Intent? = null
     private var binder = LocalBinder()
     private var positionSong: Int = 0
     private var isPlaying = false
@@ -42,7 +43,7 @@ class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
             ContextCompat.startForegroundService(context, startIntent)
         }
 
-        fun stopService(context: Context) {
+        fun stopService1(context: Context) {
             context.stopService(Intent(context, MusicService::class.java))
         }
     }
@@ -81,6 +82,7 @@ class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
             }
             MusicAction.CLOSE -> {
                 stopSelf()
+                stopService1(MusicService())
             }
         }
         createNotificationChannel()
@@ -95,8 +97,6 @@ class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
     override fun onDestroy() {
         super.onDestroy()
         mediaPlayer?.stop()
-        unregisterReceiver(BroadcastReceiver())
-        stopForeground(true)
         Toast.makeText(this, getString(R.string.toast_destroy_services), Toast.LENGTH_LONG).show()
     }
 
@@ -127,7 +127,7 @@ class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
             mediaPlayer?.release()
         }
         mediaPlayer = MediaPlayer()
-        if (Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mediaPlayer?.setAudioAttributes(
                 AudioAttributes.Builder().setContentType(AudioAttributes.CONTENT_TYPE_MUSIC).build()
             )
@@ -135,11 +135,7 @@ class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
         mediaPlayer?.setOnCompletionListener {
             playNext()
         }
-        mediaPlayer?.setOnPreparedListener(object : MediaPlayer.OnPreparedListener {
-            override fun onPrepared(mp: MediaPlayer?) {
-                mp?.start()
-            }
-        })
+        mediaPlayer?.setOnPreparedListener { mp -> mp?.start() }
     }
 
     private fun createAction(action: String): PendingIntent? {
@@ -206,7 +202,11 @@ class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
     }
 
     private fun playSong() {
-        mediaPlayer?.start()
+        isPlaying = false
+        if (intent == null) {
+        } else {
+            mediaPlayer?.start()
+        }
     }
 
     private fun createNotificationChannel() {

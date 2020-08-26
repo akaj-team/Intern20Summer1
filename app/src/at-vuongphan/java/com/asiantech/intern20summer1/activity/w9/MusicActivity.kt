@@ -27,16 +27,4 @@ class MusicActivity : AppCompatActivity() {
         }
         fragmentTransaction.commit()
     }
-
-    internal fun replacePlayListFragment(position: Int, isPlaying: Boolean) {
-        supportFragmentManager.beginTransaction()
-            .replace(
-                R.id.frContainer,
-                ListFragmentMusic.newInstance(position, isPlaying).apply {
-                },
-                null
-            )
-            .addToBackStack(null)
-            .commit()
-    }
 }

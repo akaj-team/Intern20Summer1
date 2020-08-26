@@ -4,7 +4,6 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
-import android.media.AudioManager
 import android.os.Bundle
 import android.os.Handler
 import android.os.IBinder
@@ -18,8 +17,9 @@ import android.widget.SeekBar
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.data.w9.Music
-import com.asiantech.intern20summer1.data.w9.MusicAction
 import com.asiantech.intern20summer1.data.w9.MusicData
+import com.asiantech.intern20summer1.service.MusicAction
+import com.asiantech.intern20summer1.service.w9.MusicService
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.`at-vuongphan`.fragment_auto_play_music.*
 import kotlinx.android.synthetic.`at-vuongphan`.w9_fragment_list_music.*
@@ -32,7 +32,6 @@ class MusicScreenFragment : Fragment(), View.OnClickListener {
     private var musicBound = false
     private var position = 0
     private var isPlaying = false
-    private lateinit var audioManager: AudioManager
     private val music = mutableListOf<Music>()
     private var musicConnection = object : ServiceConnection {
         override fun onServiceDisconnected(p0: ComponentName?) {
@@ -197,7 +196,6 @@ class MusicScreenFragment : Fragment(), View.OnClickListener {
                 if (current != null) {
                     seekBar?.max = current
                 }
-                Log.d("AAA", "dddd: ${seekBar.max}")
             }
         }
         handler.post(runnable)

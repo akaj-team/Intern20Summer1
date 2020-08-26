@@ -1,5 +1,6 @@
 package com.asiantech.intern20summer1.data.w9
 
+import android.annotation.SuppressLint
 import android.content.ContentUris
 import android.content.Context
 import android.graphics.Bitmap
@@ -13,6 +14,8 @@ import java.util.concurrent.TimeUnit
 
 object MusicData {
     private val musicData = mutableListOf<Music>()
+
+    @SuppressLint("Recycle")
     fun getMusic(context: Context): MutableList<Music> {
         musicData.clear()
         val songCursor = context.contentResolver?.query(

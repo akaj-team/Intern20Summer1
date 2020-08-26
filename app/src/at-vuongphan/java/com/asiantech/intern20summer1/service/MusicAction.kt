@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.data.w9
+package com.asiantech.intern20summer1.service
 
 object MusicAction {
     internal const val NEXT = "next"

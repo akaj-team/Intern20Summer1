@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.fragment.w9
+package com.asiantech.intern20summer1.service.w9
 
 import android.content.BroadcastReceiver
 import android.content.Context

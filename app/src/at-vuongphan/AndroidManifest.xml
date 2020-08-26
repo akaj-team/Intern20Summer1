@@ -35,7 +35,7 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".fragment.w9.MusicService" />
+        <service android:name=".service.w9.MusicService" />
     </application>
 
 </manifest>
