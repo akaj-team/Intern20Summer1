@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <uses-feature android:name="android.hardware.camera" />
 
@@ -16,10 +17,12 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:launchMode="singleTop"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:screenOrientation="portrait"
         android:supportsRtl="true"
-        android:theme="@style/AppThemeWeek7">
-        <activity android:name=".week9.activity.HomeWeekNineActivity"></activity>
+        android:theme="@style/AppThemeWeek9">
+        <activity android:name=".week9.MainActivityWeek9" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,6 +45,13 @@
         <activity android:name=".week7.activity.HomeWeekSevenActivity" />
         <activity android:name=".week7.activity.RegisterWeekSevenActivity" />
         <activity android:name=".week7.activity.SplashWeekSevenActivity" />
-    </application>
+        <activity
+            android:name=".week9ver1.activity.HomeWeekNineActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
 
+        <service android:name=".week9ver1.service.MusicService" />
+        <service android:name=".week9.service.PlayMusicService" />
+    </application>
 </manifest>

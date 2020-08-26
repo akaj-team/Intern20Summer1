@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardViewItemListSong"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/card_view_item_list_song_margin_horizontal"
+    android:layout_marginVertical="@dimen/card_view_item_list_song_margin_vertical"
+    app:cardCornerRadius="@dimen/card_view_item_list_song_corner_radius">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/linear_layout_item_list_song_padding">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewSongImage"
+            android:layout_width="@dimen/card_view_song_image_size"
+            android:layout_height="@dimen/card_view_song_image_size"
+            app:cardCornerRadius="@dimen/card_view_song_image_corner_radius"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imgSongImage"
+                android:layout_width="@dimen/image_view_song_image_size"
+                android:layout_height="@dimen/image_view_song_image_size"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_music" />
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:id="@+id/llMainContentSong"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/linear_layout_content_song_margin_left"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@id/cardViewSongImage"
+            app:layout_constraintLeft_toRightOf="@id/cardViewSongImage"
+            app:layout_constraintTop_toTopOf="@+id/cardViewSongImage">
+
+            <TextView
+                android:id="@+id/tvSongTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textSize="@dimen/text_view_song_title_text_size"
+                android:textStyle="bold"
+                tools:text="Nonstop 2020" />
+
+            <TextView
+                android:id="@+id/tvSongArtist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_view_song_artist_text_size"
+                tools:text="Kappa" />
+
+            <TextView
+                android:id="@+id/tvSongDuration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_view_song_artist_text_size"
+                tools:text="2:22" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".week9.MainActivityWeek9">
+
+    <ImageView
+        android:id="@+id/imgFragmentMainPlayerMusicBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.3"
+        android:background="@color/colorImageFragmentMainPlayerMusicBackground"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/img_cat" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgDiskPlayer"
+        android:layout_width="@dimen/image_view_disk_player_size"
+        android:layout_height="@dimen/image_view_disk_player_size"
+        android:layout_marginTop="@dimen/image_view_disk_player_margin_top"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/img_cat" />
+
+    <TextView
+        android:id="@+id/tvMusicNameMainPlaying"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="@dimen/text_view_music_name_main_playing_margin_left"
+        android:layout_marginRight="@dimen/text_view_music_name_main_playing_margin_left"
+        tools:text="Hello song"
+        android:textAlignment="center"
+        android:textSize="@dimen/text_view_music_name_main_playing_text_size"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/seekBarMusicPlaying"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imgDiskPlayer" />
+
+    <TextView
+        android:id="@+id/tvMusicArtistMainPlaying"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Little cat"
+        android:textSize="@dimen/text_view_music_artist_main_playing_text_size"
+        app:layout_constraintLeft_toLeftOf="@id/tvMusicNameMainPlaying"
+        app:layout_constraintRight_toRightOf="@id/tvMusicNameMainPlaying"
+        app:layout_constraintTop_toBottomOf="@id/tvMusicNameMainPlaying" />
+
+    <TextView
+        android:id="@+id/tvTimeStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="00:00"
+        android:textSize="@dimen/text_view_time_start_text_size"
+        app:layout_constraintBottom_toBottomOf="@id/seekBarMusicPlaying"
+        app:layout_constraintRight_toLeftOf="@id/seekBarMusicPlaying"
+        app:layout_constraintTop_toTopOf="@id/seekBarMusicPlaying" />
+
+    <TextView
+        android:id="@+id/tvTimeEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="02:02"
+        android:textSize="@dimen/text_view_time_start_text_size"
+        app:layout_constraintBottom_toBottomOf="@id/seekBarMusicPlaying"
+        app:layout_constraintLeft_toRightOf="@id/seekBarMusicPlaying"
+        app:layout_constraintTop_toTopOf="@id/seekBarMusicPlaying" />
+
+
+    <SeekBar
+        android:id="@+id/seekBarMusicPlaying"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/seek_bar_music_playing_margin_left"
+        android:layout_marginRight="@dimen/seek_bar_music_playing_margin_right"
+        android:layout_marginBottom="@dimen/seek_bar_music_playing_margin_bottom"
+        android:thumbTint="@color/colorSeekBarMusicPlaying"
+        app:layout_constraintBottom_toTopOf="@id/imgPlayAndPauseMain"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgPlayAndPauseMain"
+        android:layout_width="@dimen/image_view_play_and_pause_main_size"
+        android:layout_height="@dimen/image_view_play_and_pause_main_size"
+        android:layout_marginBottom="@dimen/image_view_play_and_pause_main_margin_bottom"
+        android:src="@drawable/ic_pause"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgPreviousMain"
+        android:layout_width="@dimen/image_view_play_and_pause_main_size"
+        android:layout_height="@dimen/image_view_play_and_pause_main_size"
+        android:src="@drawable/ic_previous"
+        app:layout_constraintBottom_toBottomOf="@id/imgPlayAndPauseMain"
+        app:layout_constraintLeft_toRightOf="@id/imgShuffle"
+        app:layout_constraintRight_toLeftOf="@id/imgPlayAndPauseMain"
+        app:layout_constraintTop_toTopOf="@id/imgPlayAndPauseMain" />
+
+    <ImageView
+        android:id="@+id/imgNextMain"
+        android:layout_width="@dimen/image_view_play_and_pause_main_size"
+        android:layout_height="@dimen/image_view_play_and_pause_main_size"
+        android:src="@drawable/ic_next"
+        app:layout_constraintBottom_toBottomOf="@id/imgPlayAndPauseMain"
+        app:layout_constraintLeft_toRightOf="@id/imgPlayAndPauseMain"
+        app:layout_constraintRight_toLeftOf="@id/imgRenew"
+        app:layout_constraintTop_toTopOf="@id/imgPlayAndPauseMain" />
+
+    <ImageView
+        android:id="@+id/imgShuffle"
+        android:layout_width="@dimen/image_view_shuffle_size"
+        android:layout_height="@dimen/image_view_shuffle_size"
+        android:src="@drawable/ic_shuffle"
+        app:layout_constraintBottom_toBottomOf="@id/imgPlayAndPauseMain"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/imgPreviousMain"
+        app:layout_constraintTop_toTopOf="@id/imgPlayAndPauseMain" />
+
+    <ImageView
+        android:id="@+id/imgRenew"
+        android:layout_width="@dimen/image_view_shuffle_size"
+        android:layout_height="@dimen/image_view_shuffle_size"
+        android:src="@drawable/ic_auto_renew_black_24"
+        app:layout_constraintBottom_toBottomOf="@id/imgPlayAndPauseMain"
+        app:layout_constraintLeft_toRightOf="@id/imgNextMain"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/imgPlayAndPauseMain" />
+</androidx.constraintlayout.widget.ConstraintLayout>

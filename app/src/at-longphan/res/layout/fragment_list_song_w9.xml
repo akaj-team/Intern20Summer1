@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorContainerFragmentListSongBackground"
+    android:orientation="vertical"
+    tools:context=".week9.MainActivityWeek9">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewListSong"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/recycler_view_list_song_margin_top"
+        android:layout_weight="12"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cardViewPlayMusic"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="bottom"
+        android:layout_weight="1"
+        android:background="@color/colorPrimaryDarkWeek9">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgImagePlaying"
+            android:layout_width="@dimen/image_view_image_playing_size"
+            android:layout_height="@dimen/image_view_image_playing_size"
+            android:layout_margin="@dimen/image_view_image_playing_margin"
+            android:src="@drawable/ic_music"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvTitlePlaying"
+            android:layout_width="@dimen/text_view_title_playing_width"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/text_view_title_playing_margin_left"
+            android:singleLine="true"
+            tools:text="The new dawn"
+            android:textSize="@dimen/text_view_title_playing_text_size"
+            app:layout_constraintBottom_toBottomOf="@id/imgImagePlaying"
+            app:layout_constraintLeft_toRightOf="@id/imgImagePlaying"
+            app:layout_constraintTop_toTopOf="@id/imgImagePlaying" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideLinePlayMusic"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.7"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <ImageView
+            android:id="@+id/imgPrevious"
+            android:layout_width="@dimen/image_view_previous_size"
+            android:layout_height="@dimen/image_view_previous_size"
+            android:src="@drawable/ic_previous"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="@id/guideLinePlayMusic"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imgPlayAndPause"
+            android:layout_width="@dimen/image_view_previous_size"
+            android:layout_height="@dimen/image_view_previous_size"
+            android:src="@drawable/ic_play"
+            app:layout_constraintBottom_toBottomOf="@id/imgPrevious"
+            app:layout_constraintLeft_toRightOf="@+id/imgPrevious"
+            app:layout_constraintRight_toLeftOf="@id/imgNext"
+            app:layout_constraintTop_toTopOf="@id/imgPrevious" />
+
+        <ImageView
+            android:id="@+id/imgNext"
+            android:layout_width="@dimen/image_view_previous_size"
+            android:layout_height="@dimen/image_view_previous_size"
+            android:src="@drawable/ic_next"
+            app:layout_constraintBottom_toBottomOf="@id/imgPrevious"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/imgPrevious" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

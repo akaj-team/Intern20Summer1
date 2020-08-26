@@ -252,4 +252,34 @@
     <dimen name="image_view_icon_spinner_w7_margin_top">18dp</dimen>
     <dimen name="image_view_icon_spinner_w7_margin_right">18dp</dimen>
     <dimen name="spinner_w7_padding">10dp</dimen>
+
+    <dimen name="linear_layout_content_song_margin_left">10dp</dimen>
+    <dimen name="recycler_view_list_song_margin_top">4dp</dimen>
+    <dimen name="image_view_image_playing_size">40dp</dimen>
+    <dimen name="image_view_image_playing_margin">5dp</dimen>
+    <dimen name="text_view_title_playing_width">200dp</dimen>
+    <dimen name="text_view_title_playing_margin_left">10dp</dimen>
+    <dimen name="text_view_title_playing_text_size">13sp</dimen>
+    <dimen name="image_view_previous_size">30dp</dimen>
+    <dimen name="image_view_disk_player_size">280dp</dimen>
+    <dimen name="image_view_disk_player_margin_top">50dp</dimen>
+    <dimen name="text_view_music_name_main_playing_margin_left">30dp</dimen>
+    <dimen name="text_view_music_name_main_playing_text_size">18sp</dimen>
+    <dimen name="text_view_music_artist_main_playing_text_size">15sp</dimen>
+    <dimen name="text_view_time_start_text_size">12sp</dimen>
+    <dimen name="seek_bar_music_playing_margin_left">50dp</dimen>
+    <dimen name="seek_bar_music_playing_margin_right">50dp</dimen>
+    <dimen name="seek_bar_music_playing_margin_bottom">50dp</dimen>
+    <dimen name="image_view_play_and_pause_main_size">40dp</dimen>
+    <dimen name="image_view_play_and_pause_main_margin_bottom">50dp</dimen>
+    <dimen name="image_view_shuffle_size">20dp</dimen>
+    <dimen name="card_view_item_list_song_margin_horizontal">8dp</dimen>
+    <dimen name="card_view_item_list_song_margin_vertical">4dp</dimen>
+    <dimen name="card_view_item_list_song_corner_radius">10dp</dimen>
+    <dimen name="linear_layout_item_list_song_padding">5dp</dimen>
+    <dimen name="card_view_song_image_size">60dp</dimen>
+    <dimen name="card_view_song_image_corner_radius">10dp</dimen>
+    <dimen name="image_view_song_image_size">60dp</dimen>
+    <dimen name="text_view_song_title_text_size">14sp</dimen>
+    <dimen name="text_view_song_artist_text_size">13sp</dimen>
 </resources>

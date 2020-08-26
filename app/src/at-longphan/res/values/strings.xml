@@ -88,4 +88,9 @@
     <string name="text_view_plant_new_title_dialog_w7_text">Trồng cây</string>
     <string name="button_ok_plant_new_w7_text">OK</string>
     <string name="button_week_9_description">Week 9: Service - Broadcast Receiver</string>
+
+    <string name="toast_shuffle_enable">Shuffle is enable</string>
+    <string name="toast_shuffle_disable">Shuffle is enable</string>
+    <string name="toast_replay_enable">Replay is enable</string>
+    <string name="toast_replay_disable">Replay is disable</string>
 </resources>

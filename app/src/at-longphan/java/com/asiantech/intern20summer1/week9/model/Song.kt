@@ -1,27 +1,41 @@
 package com.asiantech.intern20summer1.week9.model
 
-class Song {
+import android.os.Parcel
+import android.os.Parcelable
 
-    internal var id: Int? = null
-    internal var name: String? = null
-    internal var singer: String? = null
-    internal var length: String? = null
-    internal var imageUrl: String? = null
-    internal var status: Boolean = false
+data class Song(
+    internal var path : String,
+    internal var name: String,
+    internal var artist: String,
+    internal var image: String,
+    internal var duration: Int) : Parcelable {
 
-    constructor(
-        id: Int,
-        name: String,
-        singer: String,
-        length: String,
-        imageUrl: String,
-        status: Boolean
-    ) {
-        this.id = id
-        this.name = name
-        this.singer = singer
-        this.length = length
-        this.imageUrl = imageUrl
-        this.status = status
+    constructor(parcel: Parcel) : this(
+        parcel.readString().toString(),
+        parcel.readString().toString(),
+        parcel.readString().toString(),
+        parcel.readString().toString(),
+        parcel.readInt())
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(path)
+        parcel.writeString(name)
+        parcel.writeString(artist)
+        parcel.writeString(image)
+        parcel.writeInt(duration)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<Song> {
+        override fun createFromParcel(parcel: Parcel): Song {
+            return Song(parcel)
+        }
+
+        override fun newArray(size: Int): Array<Song?> {
+            return arrayOfNulls(size)
+        }
     }
 }

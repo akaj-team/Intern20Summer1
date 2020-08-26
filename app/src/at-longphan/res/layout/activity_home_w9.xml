@@ -1,66 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/flListMusicActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.asiantech.intern20summer1.week9.activity.HomeWeekNineActivity">
+    tools:context="com.asiantech.intern20summer1.week9.MainActivityWeek9">
 
-    <FrameLayout
-        android:id="@+id/frameLayoutActivityHome"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <RelativeLayout
-            android:id="@+id/rlContainer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <RelativeLayout
-                android:id="@+id/toolbarHomeWeeK9"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:background="#FF8811">
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/imgAvatarHeaderWeek7"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_centerVertical="true"
-                    android:layout_margin="10dp"
-                    android:src="@drawable/img_cat" />
-
-                <EditText
-                    android:id="@+id/edtSearchW9"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_gravity="center"
-                    android:backgroundTint="#FFF8F0"
-                    android:drawableLeft="@drawable/ic_search"
-                    android:hint="Tìm kiếm bài hát, MV, playlist..."
-                    android:singleLine="true"
-                    android:textColor="#FFFFFF"
-                    android:textColorHint="#FFF8F0"
-                    android:textSize="13sp" />
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/imgMoreW9"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_margin="10dp"
-                    android:src="@drawable/ic_more" />
-            </RelativeLayout>
-
-            <FrameLayout
-                android:id="@+id/flHostFragment"
-                android:name="androidx.navigation.fragment.NavHostFragment"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@id/toolbarHomeWeeK9"
-                android:layout_alignParentBottom="true"
-                android:background="@color/colorWhite" />
-        </RelativeLayout>
-    </FrameLayout>
-</RelativeLayout>
+</FrameLayout>

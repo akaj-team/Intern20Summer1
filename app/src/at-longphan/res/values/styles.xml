@@ -74,4 +74,10 @@
     <style name="SpinnerWithNoArrow" parent="@android:style/Widget.Spinner">
         <item name="android:background">@drawable/bg_spinner_w7</item>
     </style>
+
+    <style name="AppThemeWeek9" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimaryWeek9</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkWeek9</item>
+        <item name="colorAccent">@color/colorAccentWeek9</item>
+    </style>
 </resources>
