@@ -13,18 +13,13 @@ import com.asiantech.intern20summer1.week9.adapter.SongAdapter
 import com.asiantech.intern20summer1.week9.model.Song
 import com.asiantech.intern20summer1.week9.model.Units
 
+
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS", "DEPRECATION")
 class PlayMusicService : Service(), MediaPlayer.OnCompletionListener {
-    override fun onCompletion(mp: MediaPlayer?) {
-        if (!isReNew) {
-            initNextMusic()
-        } else playMedia(currentPosition)
-        createNotification(currentPosition)
-    }
 
     companion object {
         var isShuffle = false
-        var isReNew = false
+        var isRepeat = false
     }
 
     private var currentPosition = 0
@@ -34,12 +29,42 @@ class PlayMusicService : Service(), MediaPlayer.OnCompletionListener {
     private var isPlaying = false
     private var notification: Notification? = null
 
+    private val broadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            when (intent?.action) {
+                Units.ACTION_PREVIOUS -> {
+                    playPrev()
+                    createNotification(currentPosition)
+                }
+                Units.ACTION_PLAY_PAUSE -> {
+                    togglePlayAndPause()
+                    createNotification(currentPosition)
+                }
+                Units.ACTION_SKIP_NEXT -> {
+                    playNext()
+                    createNotification(currentPosition)
+                }
+                Units.ACTION_KILL_MEDIA -> {
+                    mMediaPlayer?.stop()
+                    mMediaPlayer?.release()
+                    stopForeground(true)
+                }
+            }
+        }
+    }
+
+    override fun onCompletion(mp: MediaPlayer?) {
+        if (!isRepeat) {
+            playNext()
+        } else playMedia(currentPosition)
+        createNotification(currentPosition)
+    }
+
     override fun onBind(intent: Intent?): IBinder? {
         return mBinder
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-
         intent?.apply {
             currentPosition = intent.getIntExtra(SongAdapter.SONG_ITEM_POSITION, 0)
             musicDataList = intent.getParcelableArrayListExtra(SongAdapter.SONG_LIST_PATH)
@@ -64,7 +89,7 @@ class PlayMusicService : Service(), MediaPlayer.OnCompletionListener {
         }
     }
 
-    fun initNextMusic() {
+    internal fun playNext() {
         currentPosition++
         if (currentPosition > musicDataList.size - 1) {
             currentPosition = 0
@@ -72,7 +97,7 @@ class PlayMusicService : Service(), MediaPlayer.OnCompletionListener {
         playMedia(currentPosition)
     }
 
-    fun initPreviousMusic() {
+    internal fun playPrev() {
         currentPosition--
         if (currentPosition < 0) {
             currentPosition = musicDataList.size - 1
@@ -80,7 +105,7 @@ class PlayMusicService : Service(), MediaPlayer.OnCompletionListener {
         playMedia(currentPosition)
     }
 
-    fun initPlayPause() {
+    internal fun togglePlayAndPause() {
         if (mMediaPlayer?.isPlaying!!) {
             mMediaPlayer?.pause()
         } else {
@@ -88,19 +113,19 @@ class PlayMusicService : Service(), MediaPlayer.OnCompletionListener {
         }
     }
 
-    fun seekTo(current: Int) {
+    internal fun seekTo(current: Int) {
         mMediaPlayer?.seekTo(current)
     }
 
-    fun currentPosition() = mMediaPlayer?.currentPosition
+    internal fun currentPosition() = mMediaPlayer?.currentPosition
 
-    fun initPosition(): Int = currentPosition
+    internal fun initPosition(): Int = currentPosition
 
-    fun isPlaying(): Boolean = mMediaPlayer?.isPlaying!!
+    internal fun isPlaying(): Boolean = mMediaPlayer?.isPlaying!!
 
-    fun isRenew(): Boolean = isReNew
+    internal fun isRepeat(): Boolean = isRepeat
 
-    fun isShulle(): Boolean = isShuffle
+    internal fun isShuffle(): Boolean = isShuffle
 
     inner class LocalBinder : Binder() {
         internal val getServerInstance: PlayMusicService
@@ -109,33 +134,10 @@ class PlayMusicService : Service(), MediaPlayer.OnCompletionListener {
 
     private fun createNotification(position: Int) {
         notification = Notification(this)
-        val notification = notification?.createNotification(musicDataList[position], isPlaying)
+        val notification =
+            notification?.createPlayMusicNotification(musicDataList[position], isPlaying)
         this.startForeground(1, notification)
         isPlaying = this.isPlaying()
-    }
-
-    private val broadcastReceiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context?, intent: Intent?) {
-            when (intent?.action) {
-                Units.ACTION_PREVIOUS -> {
-                    initPreviousMusic()
-                    createNotification(currentPosition)
-                }
-                Units.ACTION_PLAY_PAUSE -> {
-                    initPlayPause()
-                    createNotification(currentPosition)
-                }
-                Units.ACTION_SKIP_NEXT -> {
-                    initNextMusic()
-                    createNotification(currentPosition)
-                }
-                Units.ACTION_KILL_MEDIA -> {
-                    mMediaPlayer?.stop()
-                    mMediaPlayer?.release()
-                    stopForeground(true)
-                }
-            }
-        }
     }
 
     private fun addAction() {

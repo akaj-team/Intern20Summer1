@@ -7,6 +7,7 @@
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="@dimen/card_view_item_list_song_margin_horizontal"
     android:layout_marginVertical="@dimen/card_view_item_list_song_margin_vertical"
+    android:alpha="0.9"
     app:cardCornerRadius="@dimen/card_view_item_list_song_corner_radius">
 
     <LinearLayout
@@ -18,7 +19,9 @@
             android:id="@+id/cardViewSongImage"
             android:layout_width="@dimen/card_view_song_image_size"
             android:layout_height="@dimen/card_view_song_image_size"
+            android:layout_margin="@dimen/card_view_song_image_margin"
             app:cardCornerRadius="@dimen/card_view_song_image_corner_radius"
+            app:cardElevation="1dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent">

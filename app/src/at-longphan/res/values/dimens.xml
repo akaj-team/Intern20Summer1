@@ -282,4 +282,8 @@
     <dimen name="image_view_song_image_size">60dp</dimen>
     <dimen name="text_view_song_title_text_size">14sp</dimen>
     <dimen name="text_view_song_artist_text_size">13sp</dimen>
+    <dimen name="card_view_song_image_margin">3dp</dimen>
+    <dimen name="image_view_next_margin_right">10dp</dimen>
+    <dimen name="image_view_previous_margin_left">10dp</dimen>
+    <dimen name="guide_lide_play_music_bar_constraint_guide_begin">250dp</dimen>
 </resources>

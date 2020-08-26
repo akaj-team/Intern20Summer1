@@ -22,7 +22,7 @@ import com.asiantech.intern20summer1.week9.service.PlayMusicService
 class Notification(playMusicService: PlayMusicService) {
 
     companion object {
-        private const val REQUEST_CODE = 101
+        private const val REQUEST_CODE = 4
         private const val NOTIFICATION_CHANNEL_ID = "CHANNEL_ID"
         private const val NOTIFICATION_CHANNEL_NAME = "Foreground Service Channel"
     }
@@ -33,7 +33,7 @@ class Notification(playMusicService: PlayMusicService) {
     private var manager: NotificationManager? = playMusicService
         .getSystemService(Context.NOTIFICATION_SERVICE) as? NotificationManager
 
-    fun createNotification(music: Song, isPlaying: Boolean): Notification? {
+    fun createPlayMusicNotification(song: Song, isPlaying: Boolean): Notification? {
         builder = NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)
         createNotificationChannel()
         val intentActivity = Intent(context, MainActivityWeek9::class.java)
@@ -47,10 +47,10 @@ class Notification(playMusicService: PlayMusicService) {
                     .setMediaSession(session?.sessionToken)
                     .setShowActionsInCompactView(0, 1, 2, 3)
             )
-            setContentTitle(music.name)
+            setContentTitle(song.name)
             setSmallIcon(R.drawable.ic_music)
-            setLargeIcon(Units.songArt(Uri.parse(music.path), context))
-            setContentText(music.artist)
+            setLargeIcon(Units.songArt(Uri.parse(song.path), context))
+            setContentText(song.artist)
             setContentIntent(pendingIntent)
             setAutoCancel(true)
             setOnlyAlertOnce(true)

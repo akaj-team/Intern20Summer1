@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorContainerFragmentListSongBackground"
+    android:background="@drawable/img_autumn"
     android:orientation="vertical"
     tools:context=".week9.MainActivityWeek9">
 
@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cardViewPlayMusic"
+        android:id="@+id/cardViewPlayMusicBar"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_gravity="bottom"
@@ -42,28 +42,29 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/text_view_title_playing_margin_left"
             android:singleLine="true"
-            tools:text="The new dawn"
             android:textSize="@dimen/text_view_title_playing_text_size"
             app:layout_constraintBottom_toBottomOf="@id/imgImagePlaying"
             app:layout_constraintLeft_toRightOf="@id/imgImagePlaying"
-            app:layout_constraintTop_toTopOf="@id/imgImagePlaying" />
+            app:layout_constraintTop_toTopOf="@id/imgImagePlaying"
+            tools:text="The new dawn" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideLinePlayMusic"
+            android:id="@+id/guideLinePlayMusicBar"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.7"
+            app:layout_constraintGuide_end="161dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
 
         <ImageView
             android:id="@+id/imgPrevious"
-            android:layout_width="@dimen/image_view_previous_size"
+            android:layout_width="wrap_content"
             android:layout_height="@dimen/image_view_previous_size"
+            android:layout_marginLeft="@dimen/image_view_previous_margin_left"
             android:src="@drawable/ic_previous"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="@id/guideLinePlayMusic"
+            app:layout_constraintLeft_toLeftOf="@id/guideLinePlayMusicBar"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
@@ -78,8 +79,9 @@
 
         <ImageView
             android:id="@+id/imgNext"
-            android:layout_width="@dimen/image_view_previous_size"
+            android:layout_width="wrap_content"
             android:layout_height="@dimen/image_view_previous_size"
+            android:layout_marginRight="@dimen/image_view_next_margin_right"
             android:src="@drawable/ic_next"
             app:layout_constraintBottom_toBottomOf="@id/imgPrevious"
             app:layout_constraintRight_toRightOf="parent"

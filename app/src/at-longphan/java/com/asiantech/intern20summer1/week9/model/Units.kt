@@ -13,12 +13,12 @@ import java.util.concurrent.TimeUnit
 
 object Units {
 
-    private var songs: ArrayList<Song> = arrayListOf()
-    const val ACTION_PLAY_PAUSE = "playpause"
-    const val ACTION_SKIP_NEXT = "skipnext"
-    const val ACTION_PREVIOUS = "previous"
-    const val ACTION_KILL_MEDIA = "killmedia"
+    internal const val ACTION_PLAY_PAUSE = "playpause"
+    internal const val ACTION_SKIP_NEXT = "skipnext"
+    internal const val ACTION_PREVIOUS = "previous"
+    internal const val ACTION_KILL_MEDIA = "killmedia"
     private const val SONG_TIME_FORMAT = "%02d:%02d"
+    private var songs: ArrayList<Song> = arrayListOf()
 
     fun convertTimeMusic(millis: Int): String {
         return String.format(

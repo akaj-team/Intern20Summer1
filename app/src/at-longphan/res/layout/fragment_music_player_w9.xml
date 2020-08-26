@@ -112,7 +112,7 @@
         android:src="@drawable/ic_next"
         app:layout_constraintBottom_toBottomOf="@id/imgPlayAndPauseMain"
         app:layout_constraintLeft_toRightOf="@id/imgPlayAndPauseMain"
-        app:layout_constraintRight_toLeftOf="@id/imgRenew"
+        app:layout_constraintRight_toLeftOf="@id/imgRepeat"
         app:layout_constraintTop_toTopOf="@id/imgPlayAndPauseMain" />
 
     <ImageView
@@ -126,10 +126,10 @@
         app:layout_constraintTop_toTopOf="@id/imgPlayAndPauseMain" />
 
     <ImageView
-        android:id="@+id/imgRenew"
+        android:id="@+id/imgRepeat"
         android:layout_width="@dimen/image_view_shuffle_size"
         android:layout_height="@dimen/image_view_shuffle_size"
-        android:src="@drawable/ic_auto_renew_black_24"
+        android:src="@drawable/ic_auto_repeat_black_24"
         app:layout_constraintBottom_toBottomOf="@id/imgPlayAndPauseMain"
         app:layout_constraintLeft_toRightOf="@id/imgNextMain"
         app:layout_constraintRight_toRightOf="parent"

@@ -15,7 +15,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,6 +29,10 @@ import kotlinx.android.synthetic.`at-longphan`.fragment_list_song_w9.*
 
 class SongListFragment : Fragment() {
 
+    companion object {
+        private const val READ_AND_WRITE_REQUEST_CODE = 3
+    }
+
     private var songs: ArrayList<Song> = arrayListOf()
     private var listPath: ArrayList<String> = ArrayList()
     private var adapter = SongAdapter(songs)
@@ -39,8 +42,20 @@ class SongListFragment : Fragment() {
     private var isPlaying = false
     private var playMusicService = PlayMusicService()
 
-    companion object {
-        private const val REQUEST_CODE = 1000
+    private var mConnection: ServiceConnection = object : ServiceConnection {
+        override fun onServiceDisconnected(name: ComponentName) {
+            mBounded = false
+            playMusicService.stopSelf()
+        }
+
+        override fun onServiceConnected(name: ComponentName, service: IBinder) {
+            mBounded = true
+            val mLocalBinder = service as PlayMusicService.LocalBinder
+            playMusicService = mLocalBinder.getServerInstance
+            mPosition = playMusicService.initPosition()
+            isPlaying = playMusicService.isPlaying()
+            initPlayMusicBarView()
+        }
     }
 
     override fun onCreateView(
@@ -56,20 +71,12 @@ class SongListFragment : Fragment() {
 
         initView()
         initAdapter()
-        initListener()
-        if (ContextCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.READ_EXTERNAL_STORAGE
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(
-                requireActivity(),
-                arrayOf(
-                    Manifest.permission.READ_EXTERNAL_STORAGE,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE
-                ), REQUEST_CODE
-            )
-        } else initData()
+        initListeners()
+        if (checkReadAndWritePermissions()) {
+            initData()
+        } else {
+            requestReadAndWritePermissions()
+        }
     }
 
     override fun onRequestPermissionsResult(
@@ -77,10 +84,16 @@ class SongListFragment : Fragment() {
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        if (requestCode == REQUEST_CODE) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(requireContext(), "Successes", Toast.LENGTH_LONG).show()
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == READ_AND_WRITE_REQUEST_CODE) {
+            if (checkReadAndWritePermissions()) {
                 initData()
+            } else {
+                Toast.makeText(
+                    context,
+                    getString(R.string.toast_read_and_write_permission_denied),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }
@@ -99,14 +112,37 @@ class SongListFragment : Fragment() {
         }
     }
 
-    private fun initBottomView() {
+    private fun checkReadAndWritePermissions(): Boolean {
+        val permissionRead = ContextCompat.checkSelfPermission(
+            requireContext(),
+            Manifest.permission.READ_EXTERNAL_STORAGE
+        )
+        val permissionWrite = ContextCompat.checkSelfPermission(
+            requireContext(),
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+        )
+        return permissionRead == PackageManager.PERMISSION_GRANTED
+                && permissionWrite == PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun requestReadAndWritePermissions() {
+        requestPermissions(
+            arrayOf(
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ), READ_AND_WRITE_REQUEST_CODE
+        )
+    }
+
+    private fun initPlayMusicBarView() {
         imgImagePlaying.setImageURI(Uri.parse(songs[mPosition].image))
         tvTitlePlaying.text = songs[mPosition].name
-        initPlayPauseButton()
+        initButtonPlayAndPause()
     }
 
     private fun initView() {
         recyclerViewListSong.layoutManager = LinearLayoutManager(requireContext())
+        cardViewPlayMusicBar.visibility = View.GONE
     }
 
     private fun initData() {
@@ -120,38 +156,35 @@ class SongListFragment : Fragment() {
     private fun initAdapter() {
         recyclerViewListSong.adapter = adapter
         adapter.onItemClicked = {
+            cardViewPlayMusicBar?.visibility = View.VISIBLE
             mPosition = it
-            Toast.makeText(
-                requireContext(),
-                "Playing " + songs[it].name,
-                Toast.LENGTH_SHORT
-            ).show()
+
             val musicDataIntent = Intent(requireContext(), PlayMusicService::class.java)
             musicDataIntent.putStringArrayListExtra(SongAdapter.SONG_LIST_PATH, listPath)
             musicDataIntent.putParcelableArrayListExtra(SongAdapter.SONG_LIST_PATH, songs)
             musicDataIntent.putExtra(SongAdapter.SONG_ITEM_POSITION, mPosition)
             requireContext().startForegroundService(musicDataIntent)
             isPlaying = true
-            initBottomView()
+            initPlayMusicBarView()
         }
     }
 
-    private fun initListener() {
+    private fun initListeners() {
         imgPlayAndPause.setOnClickListener {
-            initPlayPauseMedia()
+            togglePlayAndPause()
         }
         imgNext.setOnClickListener {
-            nextMusic()
+            playNext()
         }
         imgPrevious.setOnClickListener {
-            previousMusic()
+            playPrev()
         }
-        cardViewPlayMusic.setOnClickListener {
-            initMainMediaPage()
+        cardViewPlayMusicBar.setOnClickListener {
+            replaceMusicPlayerFragment()
         }
     }
 
-    private fun initMainMediaPage() {
+    private fun replaceMusicPlayerFragment() {
         (activity as MainActivityWeek9)
             .replaceFragment(
                 MusicPlayerFragment
@@ -160,7 +193,7 @@ class SongListFragment : Fragment() {
             )
     }
 
-    private fun initPlayPauseButton() {
+    private fun initButtonPlayAndPause() {
         if (isPlaying) {
             imgPlayAndPause.setImageResource(R.drawable.ic_pause)
         } else {
@@ -168,7 +201,7 @@ class SongListFragment : Fragment() {
         }
     }
 
-    private fun initPlayPauseMedia() {
+    private fun togglePlayAndPause() {
         isPlaying = when (isPlaying) {
             true -> {
                 imgPlayAndPause.setImageResource(R.drawable.ic_play)
@@ -179,42 +212,26 @@ class SongListFragment : Fragment() {
                 true
             }
         }
-        playMusicService.initPlayPause()
+        playMusicService.togglePlayAndPause()
     }
 
-    private fun nextMusic() {
-        playMusicService.initNextMusic()
+    private fun playNext() {
+        playMusicService.playNext()
         mPosition = playMusicService.initPosition()
         createNotification(mPosition)
-        initBottomView()
+        initPlayMusicBarView()
     }
 
-    private fun previousMusic() {
-        playMusicService.initPreviousMusic()
+    private fun playPrev() {
+        playMusicService.playPrev()
         mPosition = playMusicService.initPosition()
         createNotification(mPosition)
-        initBottomView()
-    }
-
-    private var mConnection: ServiceConnection = object : ServiceConnection {
-        override fun onServiceDisconnected(name: ComponentName) {
-            mBounded = false
-            playMusicService.stopSelf()
-        }
-
-        override fun onServiceConnected(name: ComponentName, service: IBinder) {
-            mBounded = true
-            val mLocalBinder = service as PlayMusicService.LocalBinder
-            playMusicService = mLocalBinder.getServerInstance
-            mPosition = playMusicService.initPosition()
-            isPlaying = playMusicService.isPlaying()
-            initBottomView()
-        }
+        initPlayMusicBarView()
     }
 
     private fun createNotification(position: Int) {
         notification = Notification(playMusicService)
-        val notification = notification?.createNotification(songs[position], isPlaying)
+        val notification = notification?.createPlayMusicNotification(songs[position], isPlaying)
         playMusicService.startForeground(1, notification)
         isPlaying = playMusicService.isPlaying()
     }
