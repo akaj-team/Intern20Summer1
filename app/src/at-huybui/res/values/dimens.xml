@@ -83,11 +83,11 @@
     <dimen name="w9_player_next_icon_padding">20dp</dimen>
     <dimen name="w9_player_icon_player_padding">15dp</dimen>
     <dimen name="w9_player_player_bar_margin_bottom">20dp</dimen>
-    <dimen name="w9_music_logo_app_size">80dp</dimen>
+    <dimen name="w9_music_logo_app_size">50dp</dimen>
     <dimen name="w9_music_logo_margin_top">10dp</dimen>
     <dimen name="w9_music_recycler_view_margin_left_right">20dp</dimen>
-    <dimen name="w9_music_recycler_view_margin_top">100dp</dimen>
-    <dimen name="w9_music_recycler_view_margin_bottom">10dp</dimen>
+    <dimen name="w9_music_recycler_view_margin_top">10dp</dimen>
+    <dimen name="w9_music_recycler_view_margin_bottom">4dp</dimen>
     <dimen name="w9_music_player_bar_height">60dp</dimen>
     <dimen name="w9_music_icon_did_padding">5dp</dimen>
     <dimen name="w9_music_icon_player_bar_padding">15dp</dimen>
@@ -114,7 +114,7 @@
     <dimen name="w9_icon_duration_margin_bottom">10dp</dimen>
     <dimen name="w9_icon_duration_margin_right">10dp</dimen>
     <dimen name="w9_icon_duration_text_size">15dp</dimen>
-    <dimen name="w9_card_view_radius">5dp</dimen>
+    <dimen name="w9_card_view_radius">20dp</dimen>
     <dimen name="w9_card_view_margin">3dp</dimen>
-    <dimen name="w9_card_view_elevation">10dp</dimen>
+    <dimen name="w9_card_view_elevation">5dp</dimen>
 </resources>
