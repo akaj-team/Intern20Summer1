@@ -1,140 +1,155 @@
 package com.asiantech.intern20summer1.week9.services
 
-import android.app.Notification
 import android.app.Service
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.media.AudioAttributes
+import android.content.IntentFilter
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Binder
-import android.os.Build
 import android.os.IBinder
-import androidx.annotation.RequiresApi
+import com.asiantech.intern20summer1.week9.extensions.CreateNotification
+import com.asiantech.intern20summer1.week9.extensions.CreateNotification.Companion.ACTION_KILL_MEDIA
+import com.asiantech.intern20summer1.week9.extensions.CreateNotification.Companion.ACTION_PAUSE
+import com.asiantech.intern20summer1.week9.extensions.CreateNotification.Companion.ACTION_PREVIOUS
+import com.asiantech.intern20summer1.week9.extensions.CreateNotification.Companion.ACTION_SKIP_NEXT
 import com.asiantech.intern20summer1.week9.models.Song
 
-class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener {
-
+class MusicService : Service(), MediaPlayer.OnCompletionListener {
     companion object {
-        private const val LIST_SONG_KEY = "list"
-        private const val SONG_POSITION_KEY = "position"
-        private const val DEFAULT_SONG_POSITION = 0
-
-        fun newInstance(context: Context, songList: ArrayList<Song>, currentPosition: Int): Intent {
-            val musicServiceIntent = Intent(context, MusicService::class.java)
-            musicServiceIntent.putParcelableArrayListExtra(LIST_SONG_KEY, songList)
-            musicServiceIntent.putExtra(SONG_POSITION_KEY, currentPosition)
-            return musicServiceIntent
-        }
+        internal const val LIST_SONG_KEY = "list"
+        internal const val SONG_POSITION_KEY = "position"
+        var isShuffle = false
+        var isRePeat = false
     }
 
-    private lateinit var songList: ArrayList<Song>
-    private lateinit var mediaPlayer: MediaPlayer
-    private lateinit var songBinder: SongBinder
-    private var loopType = 0
-    private var position = 0
-    private val notification: Notification? = null
+    private var currentPosition = 0
+    private var musicDataList: ArrayList<Song> = ArrayList()
+    private var mediaPlayer: MediaPlayer? = MediaPlayer()
+    private val binder = LocalBinder()
+    private var isPlaying = false
+    private var notification: CreateNotification? = null
 
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    private fun initMediaPlayer() {
-        mediaPlayer = MediaPlayer()
-        mediaPlayer.setAudioAttributes(
-            AudioAttributes.Builder().setContentType(AudioAttributes.CONTENT_TYPE_MUSIC).build()
-        )
-        mediaPlayer.setOnPreparedListener(this)
+    override fun onCompletion(mp: MediaPlayer?) {
+        if (!isRePeat) {
+            initNextMusic()
+        } else playMedia(currentPosition)
+        createNotification(currentPosition)
     }
 
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    override fun onCreate() {
-        super.onCreate()
-        songBinder = SongBinder()
-        initMediaPlayer()
-        startForeground(position, notification)
+    override fun onBind(intent: Intent?): IBinder? {
+        return binder
     }
 
-    override fun onBind(p0: Intent?): IBinder? {
-        return songBinder
-    }
-
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         intent?.apply {
-            songList = getParcelableArrayListExtra<Song>(LIST_SONG_KEY) as ArrayList<Song>
-            position = getIntExtra(SONG_POSITION_KEY, DEFAULT_SONG_POSITION)
+            currentPosition = intent.getIntExtra(SONG_POSITION_KEY, 0)
+            musicDataList =
+                intent.getParcelableArrayListExtra<Song>(LIST_SONG_KEY) as ArrayList<Song>
         }
-        playSong()
+        createNotification(currentPosition)
+        playMedia(currentPosition)
+        addAction()
         return START_NOT_STICKY
     }
 
-    override fun onPrepared(p0: MediaPlayer?) {
-        mediaPlayer.start()
-    }
-
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    override fun onCompletion(p0: MediaPlayer?) {
-        when (loopType) {
-            0 -> nextSong()
-            1 -> playSong()
+    private fun playMedia(position: Int) {
+        if (mediaPlayer != null) {
+            mediaPlayer?.stop()
+            mediaPlayer?.release()
+        }
+        mediaPlayer = MediaPlayer()
+        mediaPlayer?.setOnCompletionListener(this)
+        mediaPlayer?.setDataSource(applicationContext, Uri.parse(musicDataList[position].path))
+        mediaPlayer?.prepare()
+        mediaPlayer?.setOnPreparedListener {
+            mediaPlayer?.start()
         }
     }
 
-    override fun onDestroy() {
-        mediaPlayer.release()
-        super.onDestroy()
-        stopForeground(true)
-    }
-
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    private fun playSong() {
-        mediaPlayer.stop()
-        mediaPlayer.release()
-        initMediaPlayer()
-        val song = songList[position]
-        mediaPlayer.setDataSource(applicationContext, Uri.parse(song.path))
-        mediaPlayer.prepareAsync()
-    }
-
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    fun nextSong() {
-        position++
-        if (position >= songList.size) {
-            position = DEFAULT_SONG_POSITION
+    fun initNextMusic() {
+        currentPosition++
+        if (currentPosition > musicDataList.size - 1) {
+            currentPosition = 0
         }
-        playSong()
+        playMedia(currentPosition)
     }
 
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    fun previousSong() {
-        position--
-        if (position < 0) {
-            position = (songList.size) - 1
+    fun initPreviousMusic() {
+        currentPosition--
+        if (currentPosition < 0) {
+            currentPosition = musicDataList.size - 1
         }
-        playSong()
+        playMedia(currentPosition)
     }
 
-    fun getCurrentPosition(): Int {
-        return mediaPlayer.currentPosition
-    }
-
-    fun getPosition(): Int {
-        return position
-    }
-
-    fun pause() {
-        mediaPlayer.pause()
-    }
-
-    fun start() {
-        mediaPlayer.start()
-    }
-
-    fun seekTo(progress: Int) {
-        mediaPlayer.seekTo(progress)
-    }
-
-    inner class SongBinder : Binder() {
-        fun getService(): MusicService {
-            return this@MusicService
+    fun initPlayPause() {
+        if (mediaPlayer?.isPlaying!!) {
+            mediaPlayer?.pause()
+        } else {
+            mediaPlayer?.start()
         }
+    }
+
+    fun seekTo(current: Int) {
+        mediaPlayer?.seekTo(current)
+    }
+
+    fun currentPosition() = mediaPlayer?.currentPosition
+
+    fun initPosition(): Int = currentPosition
+
+    fun isPlaying(): Boolean = mediaPlayer?.isPlaying!!
+
+    fun isRepeat(): Boolean = isRePeat
+
+    fun isShuffle(): Boolean = isShuffle
+
+    inner class LocalBinder : Binder() {
+        internal val getServerInstance: MusicService
+            get() = this@MusicService
+    }
+
+    private fun createNotification(position: Int) {
+        notification = CreateNotification(this)
+        val notification = notification?.createNotification(musicDataList[position], isPlaying)
+        this.startForeground(1, notification)
+        isPlaying = this.isPlaying()
+    }
+
+    private val broadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            when (intent?.action) {
+                ACTION_PREVIOUS -> {
+                    initPreviousMusic()
+                    createNotification(currentPosition)
+                }
+                ACTION_PAUSE -> {
+                    initPlayPause()
+                    createNotification(currentPosition)
+                }
+                ACTION_SKIP_NEXT -> {
+                    initNextMusic()
+                    createNotification(currentPosition)
+                }
+                ACTION_KILL_MEDIA -> {
+                    mediaPlayer?.stop()
+                    mediaPlayer?.release()
+                    stopForeground(true)
+                }
+            }
+        }
+    }
+
+    private fun addAction() {
+        val filter = IntentFilter()
+        filter.apply {
+            addAction(ACTION_PAUSE)
+            addAction(ACTION_SKIP_NEXT)
+            addAction(ACTION_PREVIOUS)
+            addAction(ACTION_KILL_MEDIA)
+        }
+        registerReceiver(broadcastReceiver, filter)
     }
 }

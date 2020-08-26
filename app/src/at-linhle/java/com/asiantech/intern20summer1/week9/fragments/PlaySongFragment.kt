@@ -1,23 +1,20 @@
 package com.asiantech.intern20summer1.week9.fragments
 
-import android.animation.ObjectAnimator
-import android.animation.ValueAnimator
-import android.annotation.SuppressLint
-import android.app.Service
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
+import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.IBinder
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.LinearInterpolator
+import android.widget.SeekBar
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
@@ -27,54 +24,56 @@ import com.asiantech.intern20summer1.week9.extensions.CreateNotification
 import com.asiantech.intern20summer1.week9.extensions.Utils
 import com.asiantech.intern20summer1.week9.models.Song
 import com.asiantech.intern20summer1.week9.services.MusicService
+import com.asiantech.intern20summer1.week9.services.MusicService.Companion.isRePeat
+import com.asiantech.intern20summer1.week9.services.MusicService.Companion.isShuffle
 import kotlinx.android.synthetic.`at-linhle`.fragment_play_song.*
 
 class PlaySongFragment : Fragment() {
 
     companion object {
-        private const val OBJECT_ANIMATOR_DURATION = 6000L
-        private const val FLOAT_VALUE = 360F
+        private const val DELAY_TIME = 500L
         private const val LIST_SONG_KEY = "list"
-        private const val SONG_POSITION_KEY = "position"
-        fun newInstance(songList: ArrayList<Song>, position: Int) =
+        private const val IS_SONG_PLAY_KEY = "isPlay"
+        fun newInstance(songList: ArrayList<Song>, isPlay: Boolean) =
             PlaySongFragment().apply {
                 arguments = Bundle().apply {
                     putParcelableArrayList(LIST_SONG_KEY, songList)
-                    putInt(SONG_POSITION_KEY, position)
+                    putBoolean(IS_SONG_PLAY_KEY, isPlay)
                 }
             }
     }
 
-    private lateinit var musicService: MusicService
-    private lateinit var rotate: ObjectAnimator
-    private lateinit var songList: ArrayList<Song>
+    private var musicService = MusicService()
+    private var songList: ArrayList<Song> = ArrayList()
     private var position = 0
-    private var intent: Intent? = null
-    private var isPlay = false
+    private var isPlaying = false
     private var createNotification: CreateNotification? = null
+    private var bounded: Boolean = false
 
     @Suppress("DEPRECATION")
     private var handler = Handler()
 
-    private val musicConnection: ServiceConnection = object : ServiceConnection {
-        @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-        @SuppressLint("ClickableViewAccessibility")
-        override fun onServiceConnected(name: ComponentName, service: IBinder) {
-            val songBinder: MusicService.SongBinder = service as MusicService.SongBinder
-            musicService = songBinder.getService()
-            seekBar?.setOnTouchListener { p0, p1 ->
-                if (p1?.action == MotionEvent.ACTION_MOVE) {
-                    if (p0?.id == R.id.seekBar) {
-                        musicService.seekTo(seekBar.progress)
-                    }
-                }
-                true
-            }
-            updateUI()
-            createNotification(position)
+    private var musicConnection: ServiceConnection = object : ServiceConnection {
+        override fun onServiceDisconnected(name: ComponentName) {
+            bounded = false
+            musicService.stopSelf()
         }
 
-        override fun onServiceDisconnected(name: ComponentName) {
+        override fun onServiceConnected(name: ComponentName, service: IBinder) {
+            bounded = true
+            val localBinder = service as MusicService.LocalBinder
+            musicService = localBinder.getServerInstance
+            position = musicService.initPosition()
+            isPlaying = musicService.isPlaying()
+            initView(requireContext())
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            songList = it.getParcelableArrayList<Song>(LIST_SONG_KEY)!!
+            isPlaying = it.getBoolean(IS_SONG_PLAY_KEY)
         }
     }
 
@@ -83,71 +82,53 @@ class PlaySongFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        getSongData()
-        activity?.startService(context?.let { MusicService.newInstance(it, songList, position) })
         return inflater.inflate(R.layout.fragment_play_song, container, false)
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        context?.apply {
-            initView(this)
-            val intent = Intent(this, MusicService::class.java)
-            activity?.bindService(intent, musicConnection, Service.BIND_AUTO_CREATE)
-        }
+        initPlayPauseButton()
+        updateUI()
         control()
     }
 
     override fun onStart() {
         super.onStart()
-        if (intent == null) {
-            intent = Intent(context, MusicService::class.java)
-            context?.bindService(intent, musicConnection, Context.BIND_AUTO_CREATE)
-        }
+        val intent = Intent(requireContext(), MusicService::class.java)
+        context?.bindService(intent, musicConnection, Context.BIND_AUTO_CREATE)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        activity?.stopService(intent)
+    override fun onStop() {
+        super.onStop()
+        if (bounded) {
+            context?.unbindService(musicConnection)
+            bounded = false
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun control() {
         imgPlay.setOnClickListener {
-            if (!isPlay) {
-                musicService.pause()
-                imgPlay?.setImageResource(R.drawable.ic_baseline_play_circle_filled_24)
-                isPlay = true
-                rotate.pause()
-            } else {
-                musicService.start()
-                imgPlay?.setImageResource(R.drawable.ic_baseline_pause_circle_filled_24)
-                isPlay = false
-                rotate.resume()
-            }
+            initPlayPauseMedia()
             createNotification(position)
         }
-
         imgNexSong.setOnClickListener {
             onNextSong()
         }
-
         imgPreviousSong.setOnClickListener {
             onPreviousSong()
         }
-    }
-
-    private fun getSongData() {
-        arguments?.apply {
-            songList = getParcelableArrayList<Song>(LIST_SONG_KEY) as ArrayList<Song>
-            position = getInt(SONG_POSITION_KEY)
+        imgShuffle.setOnClickListener {
+            onShuffle()
+        }
+        imgRepeat.setOnClickListener {
+            onRepeat()
         }
     }
 
     private fun initView(context: Context) {
-        val song = songList[position]
-
+        val song = songList[musicService.initPosition()]
         tvSongName?.text = song.songName
         tvArtist?.text = song.artist
         tvEndTime?.text = getDuration(song.duration)
@@ -157,88 +138,143 @@ class PlaySongFragment : Fragment() {
         } else {
             circleImageViewLogo?.setImageBitmap(bitmap)
         }
-        val service = MusicService.newInstance(context, songList, position)
-        context.startService(service)
-        rotate = ObjectAnimator.ofFloat(
-            circleImageViewLogo,
-            getString(R.string.play_song_fragment_property_description),
-            0F,
-            FLOAT_VALUE
-        ).apply {
-            duration = OBJECT_ANIMATOR_DURATION
-            repeatCount = ValueAnimator.INFINITE
-            repeatMode = ValueAnimator.RESTART
-            interpolator = LinearInterpolator()
-            start()
-        }
-    }
-
-    private fun setSongData() {
-        position = musicService.getPosition()
-        val model = songList[position]
-        tvSongName?.text = model.songName
-        tvArtist?.text = model.artist
-        val duration = model.duration
-        tvEndTime?.text = getDuration(duration)
-        val bitmap = context?.let { Utils.convertToBitmap(it, Uri.parse(model.imgUri)) }
-        if (bitmap == null) {
-            circleImageViewLogo?.setImageResource(R.drawable.logo)
+        if (isRePeat) {
+            imgRepeat.setColorFilter(Color.MAGENTA)
         } else {
-            circleImageViewLogo?.setImageBitmap(bitmap)
+            imgShuffle.setColorFilter(Color.GRAY)
+        }
+        if (isShuffle) {
+            imgShuffle.setColorFilter(Color.MAGENTA)
+        } else {
+            imgShuffle.setColorFilter(Color.GRAY)
+        }
+        initPlayPauseButton()
+    }
+
+    private fun initPlayPauseButton() {
+        if (!isPlaying) {
+            imgPlay?.setImageResource(R.drawable.ic_baseline_play_circle_filled_24)
+        } else {
+            imgPlay?.setImageResource(R.drawable.ic_baseline_pause_circle_filled_24)
         }
     }
 
-    fun updateUI() {
-        activity?.runOnUiThread(object : Runnable {
-            @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-            override fun run() {
-                seekBar?.max = songList[position].duration
-                val progress = musicService.getCurrentPosition()
-                seekBar?.progress = progress
-                tvStartTime.text = getDuration(musicService.getCurrentPosition())
-                if (progress > seekBar?.max?.minus(0) ?: 0) {
-                    onNextSong()
-                }
-                handler.postDelayed(this, 333)
+    private fun onNextSong() {
+        position++
+        if (position > songList.size - 1) position = 0
+        musicService.initNextMusic()
+        createNotification(position)
+        isPlaying = true
+        initView(requireContext())
+    }
+
+    private fun onPreviousSong() {
+        position--
+        if (position < 0) position = songList.size - 1
+        musicService.initPreviousMusic()
+        createNotification(position)
+        isPlaying = true
+        initView(requireContext())
+    }
+
+    private fun initPlayPauseMedia() {
+        isPlaying = when (isPlaying) {
+            true -> {
+                imgPlay.setImageResource(R.drawable.ic_baseline_play_circle_filled_24)
+                true
+            }
+            else -> {
+                imgPlay.setImageResource(R.drawable.ic_baseline_pause_circle_filled_24)
+                false
+            }
+        }
+        musicService.initPlayPause()
+    }
+
+    private fun onShuffle() {
+        if (!isShuffle) {
+            imgShuffle.setColorFilter(Color.MAGENTA)
+            isShuffle = true
+            Toast.makeText(
+                requireContext(),
+                getString(R.string.shuffle_enabled_description),
+                Toast.LENGTH_SHORT
+            ).show()
+        } else {
+            imgShuffle.setColorFilter(Color.GRAY)
+            isShuffle = false
+            Toast.makeText(
+                requireContext(),
+                getString(R.string.shuffle_disabled_description),
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
+
+    private fun onRepeat() {
+        if (!isRePeat) {
+            imgRepeat.setColorFilter(Color.MAGENTA)
+            isRePeat = true
+            Toast.makeText(
+                requireContext(),
+                getString(R.string.repeat_enabled_description),
+                Toast.LENGTH_SHORT
+            ).show()
+        } else {
+            imgRepeat.setColorFilter(Color.GRAY)
+            isRePeat = false
+            Toast.makeText(
+                requireContext(),
+                getString(R.string.repeat_disabled_description),
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
+
+    private fun updateUI() {
+        seekBar?.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                tvStartTime?.text = seekBar?.progress?.let { getDuration(it) }
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                seekBar?.progress?.let { musicService.seekTo(it) }
             }
         })
+        var position = this.position
+        val runnable = object : Runnable {
+            override fun run() {
+                seekBar?.max = songList[this@PlaySongFragment.position].duration
+                this@PlaySongFragment.position = musicService.initPosition()
+                val currentPosition = musicService.currentPosition()
+                if (currentPosition != null) {
+                    seekBar?.progress = currentPosition
+                    tvStartTime?.text = seekBar?.progress?.let { getDuration(it) }
+                    tvEndTime?.text = getDuration(songList[this@PlaySongFragment.position].duration)
+                }
+                if (this@PlaySongFragment.position > position) {
+                    try {
+                        position = this@PlaySongFragment.position
+                        initView(requireContext())
+                    } catch (e: NullPointerException) {
+                    }
+                }
+                handler.postDelayed(this, DELAY_TIME)
+            }
+        }
+        handler.post(runnable)
     }
 
     private fun createNotification(position: Int) {
-        createNotification = CreateNotification(requireContext())
-        val notification = createNotification?.createNotificationMusic(songList[position], isPlay)
+        createNotification = CreateNotification(musicService)
+        val notification = createNotification?.createNotification(songList[position], isPlaying)
         musicService.startForeground(1, notification)
-    }
-
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    private fun onNextSong() {
-        if (!isPlay) {
-            musicService.nextSong()
-            setSongData()
-        } else {
-            musicService.nextSong()
-            setSongData()
-            imgPlay?.setImageResource(R.drawable.ic_baseline_pause_circle_filled_24)
-            rotate.resume()
-            isPlay = false
-        }
-        createNotification(position)
-    }
-
-
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    private fun onPreviousSong() {
-        if (!isPlay) {
-            musicService.previousSong()
-            setSongData()
-        } else {
-            musicService.previousSong()
-            setSongData()
-            imgPlay?.setImageResource(R.drawable.ic_baseline_pause_circle_filled_24)
-            rotate.resume()
-            isPlay = false
-        }
-        createNotification(position)
+        isPlaying = musicService.isPlaying()
+        isRePeat = musicService.isRepeat()
+        isShuffle = musicService.isShuffle()
     }
 
     private fun getDuration(duration: Int): String {

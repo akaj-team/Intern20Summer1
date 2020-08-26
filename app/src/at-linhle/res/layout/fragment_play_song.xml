@@ -47,13 +47,25 @@
         app:layout_constraintTop_toBottomOf="@+id/tvSongName" />
 
     <ImageView
+        android:id="@+id/imgShuffle"
+        android:layout_width="@dimen/previous_image_view_size"
+        android:layout_height="@dimen/previous_image_view_size"
+        android:layout_marginRight="@dimen/previous_image_view_margin_right"
+        android:src="@drawable/ic_baseline_shuffle_24"
+        app:layout_constraintBottom_toBottomOf="@+id/imgPlay"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/imgPreviousSong"
+        app:layout_constraintTop_toTopOf="@+id/imgPlay" />
+
+    <ImageView
         android:id="@+id/imgPreviousSong"
         android:layout_width="@dimen/previous_image_view_size"
         android:layout_height="@dimen/previous_image_view_size"
         android:layout_marginRight="@dimen/previous_image_view_margin_right"
         android:src="@drawable/ic_baseline_skip_previous_24"
         app:layout_constraintBottom_toBottomOf="@+id/imgPlay"
-        app:layout_constraintEnd_toStartOf="@+id/imgPlay"
+        app:layout_constraintRight_toLeftOf="@id/imgPlay"
+        app:layout_constraintLeft_toRightOf="@id/imgShuffle"
         app:layout_constraintTop_toTopOf="@+id/imgPlay" />
 
     <ImageView
@@ -62,9 +74,21 @@
         android:layout_height="@dimen/next_image_view_size"
         android:layout_marginLeft="@dimen/next_image_view_margin_left"
         android:src="@drawable/ic_baseline_skip_next_24"
-        app:layout_constraintBottom_toBottomOf="@+id/imgPlay"
-        app:layout_constraintStart_toEndOf="@+id/imgPlay"
-        app:layout_constraintTop_toTopOf="@+id/imgPlay" />
+        app:layout_constraintBottom_toBottomOf="@id/imgPlay"
+        app:layout_constraintLeft_toRightOf="@id/imgPlay"
+        app:layout_constraintRight_toLeftOf="@id/imgRepeat"
+        app:layout_constraintTop_toTopOf="@id/imgPlay" />
+
+    <ImageView
+        android:id="@+id/imgRepeat"
+        android:layout_width="@dimen/previous_image_view_size"
+        android:layout_height="@dimen/previous_image_view_size"
+        android:layout_marginRight="@dimen/previous_image_view_margin_right"
+        android:src="@drawable/ic_baseline_repeat_24"
+        app:layout_constraintBottom_toBottomOf="@id/imgPlay"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/imgNexSong"
+        app:layout_constraintTop_toTopOf="@id/imgPlay" />
 
     <SeekBar
         android:id="@+id/seekBar"

@@ -1,7 +1,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorGray">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewSongContainer"
@@ -12,5 +14,74 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clBottomMedia"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/constrain_layout_layout_height"
+        android:background="@drawable/bg_bottom_media"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <ImageView
+            android:id="@+id/imgMusicArt"
+            android:layout_width="@dimen/music_art_image_view_size"
+            android:layout_height="@dimen/music_art_image_view_size"
+            android:layout_marginLeft="@dimen/music_art_image_view_margin_left"
+            android:layout_marginTop="@dimen/music_art_image_view_margin_top"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvMusicName"
+            android:layout_width="@dimen/music_name_text_view_layout_width"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/music_name_text_view_margin_left"
+            android:layout_marginTop="@dimen/music_name_text_view_margin_top"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/music_name_text_view_text_size"
+            app:layout_constraintLeft_toRightOf="@id/imgMusicArt"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvSingerName"
+            android:layout_width="@dimen/singer_name_text_view_layout_width"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/singer_name_text_view_margin_left"
+            android:paddingTop="@dimen/singer_name_text_view_padding_top"
+            android:textSize="@dimen/singer_name_text_view_text_size"
+            app:layout_constraintLeft_toRightOf="@id/imgMusicArt"
+            app:layout_constraintTop_toBottomOf="@id/tvMusicName"
+            tools:ignore="SmallSp" />
+
+        <ImageView
+            android:id="@+id/imgPlayPause"
+            android:layout_width="@dimen/play_pause_image_view_size"
+            android:layout_height="@dimen/play_pause_image_view_size"
+            android:layout_marginTop="@dimen/play_pause_image_view_margin_top"
+            android:src="@drawable/ic_baseline_pause_circle_filled_24"
+            app:layout_constraintLeft_toRightOf="@id/tvSingerName"
+            app:layout_constraintTop_toBottomOf="@id/tvMusicName" />
+
+        <ImageView
+            android:id="@+id/imgNext"
+            android:layout_width="@dimen/skip_next_previous_image_view_size"
+            android:layout_height="@dimen/skip_next_previous_image_view_size"
+            android:layout_marginLeft="@dimen/skip_next_previous_margin_left_right"
+            android:layout_marginTop="@dimen/skip_next_previous_margin_top"
+            android:src="@drawable/ic_baseline_skip_next_24"
+            app:layout_constraintLeft_toLeftOf="@id/imgPlayPause"
+            app:layout_constraintTop_toTopOf="@id/imgPlayPause" />
+
+        <ImageView
+            android:id="@+id/imgPrevious"
+            android:layout_width="@dimen/skip_next_previous_image_view_size"
+            android:layout_height="@dimen/skip_next_previous_image_view_size"
+            android:layout_marginTop="@dimen/skip_next_previous_margin_top"
+            android:layout_marginRight="@dimen/skip_next_previous_margin_left_right"
+            android:src="@drawable/ic_baseline_skip_previous_24"
+            app:layout_constraintRight_toRightOf="@id/imgPlayPause"
+            app:layout_constraintTop_toTopOf="@id/imgPlayPause" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
