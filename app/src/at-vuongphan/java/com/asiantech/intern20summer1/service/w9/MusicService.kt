@@ -24,7 +24,6 @@ import com.asiantech.intern20summer1.service.MusicAction
 class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener,
     MediaPlayer.OnCompletionListener {
     private val filter = IntentFilter()
-    private var intent: Intent? = null
     private var binder = LocalBinder()
     private var positionSong: Int = 0
     private var isPlaying = false
@@ -203,10 +202,7 @@ class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
 
     private fun playSong() {
         isPlaying = false
-        if (intent == null) {
-        } else {
-            mediaPlayer?.start()
-        }
+        mediaPlayer?.start()
     }
 
     private fun createNotificationChannel() {

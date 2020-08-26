@@ -173,11 +173,15 @@ class ListFragmentMusic : Fragment(), View.OnClickListener {
                     }
                 }
                 == PackageManager.PERMISSION_DENIED) {
-                val permission =
-                    arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                requestPermissions(permission, PERMISSION_CODE)
+                permissionWrite()
             }
         }
+    }
+
+    private fun permissionWrite() {
+        val permission =
+            arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        requestPermissions(permission, PERMISSION_CODE)
     }
 
     private fun initAdapter() {
