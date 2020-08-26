@@ -9,6 +9,7 @@
     app:cardElevation="@dimen/w9_card_view_elevation">
 
     <RelativeLayout
+        android:background="@drawable/w9_bg_icon_recycler"
         android:layout_width="match_parent"
         android:layout_height="@dimen/w9_item_recycler_height">
 

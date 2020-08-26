@@ -25,6 +25,7 @@ class PlayerFragment : Fragment() {
         internal fun newInstance(lists: MutableList<Song>) = PlayerFragment().apply {
             lists.toCollection(songLists)
         }
+        private const val DEFAULT_DURATION = "00:00"
     }
 
     private var songLists = mutableListOf<Song>()
@@ -75,25 +76,33 @@ class PlayerFragment : Fragment() {
     private fun initPlayerClickListener() {
         btnPlay_Player?.setOnClickListener {
             if (service.audioPlayer.isPlaying) {
-                service.onMusicPause()
-            } else {
-                service.onMusicResume()
+                if (service.audioPlayer.isPlaying) {
+                    service.onMusicPause()
+                } else {
+                    service.onMusicResume()
+                }
             }
         }
         btnPrevious_Player?.setOnClickListener {
-            service.onMusicPrevious()
+            if (service.audioPlayer.isPlaying) {
+                service.onMusicPrevious()
+            }
         }
         btnNext_Player?.setOnClickListener {
-            service.onMusicNext()
+            if (service.audioPlayer.isPlaying) {
+                service.onMusicNext()
+            }
         }
 
         btnReplay_Player?.setOnClickListener {
-            if (service.audioPlayer.isLooping) {
-                service.audioPlayer.isLooping = false
-                btnReplay_Player?.setImageResource(R.drawable.ic_replay_off)
-            } else {
-                service.audioPlayer.isLooping = true
-                btnReplay_Player?.setImageResource(R.drawable.ic_replay_on)
+            if (service.audioPlayer.isPlaying) {
+                if (service.audioPlayer.isLooping) {
+                    service.audioPlayer.isLooping = false
+                    btnReplay_Player?.setImageResource(R.drawable.ic_replay_off)
+                } else {
+                    service.audioPlayer.isLooping = true
+                    btnReplay_Player?.setImageResource(R.drawable.ic_replay_on)
+                }
             }
         }
 
@@ -111,6 +120,8 @@ class PlayerFragment : Fragment() {
     }
 
     private fun initHandleSeekBar() {
+        tvDuration_Player?.text = DEFAULT_DURATION
+        tvCurrent_Player?.text = DEFAULT_DURATION
         if (service.audioPlayer.isPlaying) {
             service.audioPlayer.duration.let { duration ->
                 tvDuration_Player?.text = Song().convertDuration(duration.toString())
@@ -145,7 +156,9 @@ class PlayerFragment : Fragment() {
 
     private fun initServiceListener() {
         service.onUpdateCurrentPosition = {
-            tvCurrent_Player?.text = Song().convertDuration(it.toString())
+            if (service.audioPlayer.isPlaying) {
+                tvCurrent_Player?.text = Song().convertDuration(it.toString())
+            }
             if (!isUpdateSeekBar) {
                 seekBar?.progress = it
             }

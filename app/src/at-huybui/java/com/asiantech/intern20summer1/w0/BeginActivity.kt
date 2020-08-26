@@ -7,7 +7,6 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.test.TestActivity
 import com.asiantech.intern20summer1.w3.MainActivity
 import com.asiantech.intern20summer1.w4.activity.SplashActivity
 import com.asiantech.intern20summer1.w6.firstactivity.ViewPagerOneActivity
@@ -41,11 +40,6 @@ class BeginActivity : AppCompatActivity() {
 
         btnBeginW9?.setOnClickListener {
             Intent(this, MusicActivity::class.java).also { intent ->
-                startActivity(intent)
-            }
-        }
-        btnTestActivity?.setOnClickListener {
-            Intent(this, TestActivity::class.java).also { intent ->
                 startActivity(intent)
             }
         }

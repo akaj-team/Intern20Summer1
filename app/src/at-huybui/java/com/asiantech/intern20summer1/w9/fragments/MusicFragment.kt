@@ -11,6 +11,7 @@ import com.asiantech.intern20summer1.w9.activitys.MusicActivity
 import com.asiantech.intern20summer1.w9.managers.SongRecyclerAdapter
 import com.asiantech.intern20summer1.w9.models.Song
 import com.asiantech.intern20summer1.w9.services.AudioService
+import kotlinx.android.synthetic.`at-huybui`.activity_music.*
 import kotlinx.android.synthetic.`at-huybui`.w9_fragment_music.*
 
 /**
@@ -87,22 +88,33 @@ class MusicFragment : Fragment() {
         songAdapter.onItemClick = { position ->
             service.songPosition = position
             service.onMusicStart()
+            (activity as MusicActivity).containerViewPager.setCurrentItem(1, true)
         }
     }
 
     private fun initPlayerBarClickListener() {
         btnPlay_Music?.setOnClickListener {
             if (service.audioPlayer.isPlaying) {
-                service.onMusicPause()
-            } else {
-                service.onMusicResume()
+                if (service.audioPlayer.isPlaying) {
+                    service.onMusicPause()
+                } else {
+                    service.onMusicResume()
+                }
             }
         }
         btnPrevious_Music?.setOnClickListener {
-            service.onMusicPrevious()
+            if (service.audioPlayer.isPlaying) {
+                service.onMusicPrevious()
+            }
         }
         btnNext_Music?.setOnClickListener {
-            service.onMusicNext()
+            if (service.audioPlayer.isPlaying) {
+                service.onMusicNext()
+            }
+        }
+
+        rlPlayerBar?.setOnClickListener {
+            (activity as MusicActivity).containerViewPager.setCurrentItem(1, true)
         }
     }
 
