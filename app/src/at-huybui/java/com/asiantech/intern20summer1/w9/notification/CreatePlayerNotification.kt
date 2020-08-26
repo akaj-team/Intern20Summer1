@@ -13,6 +13,12 @@ import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w9.activitys.MusicActivity
 import com.asiantech.intern20summer1.w9.models.Song
 
+/**
+ * Asian Tech Co., Ltd.
+ * Created by at-huybui on 08/25/20
+ * This is class to create player notification
+ */
+
 class CreatePlayerNotification {
     companion object {
         const val CHANNEL_ID = "MusicPlayerID"
@@ -24,19 +30,15 @@ class CreatePlayerNotification {
     }
 
     fun createNotification(context: Context, song: Song, playerButton: Int) {
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-
-            val iconPrevious = R.drawable.ic_previous_notification
-            val iconNext = R.drawable.ic_next_notification
-
             val notificationManagerCompat = NotificationManagerCompat.from(context)
             var picture = song.getPicture(context, false)
             if (picture == null) {
                 picture = context.getDrawable(R.drawable.img_logo_music)?.toBitmap()
             }
             val mediaSessionCompat = MediaSessionCompat(context, "tag")
-
+            // create previous button in notification
+            val iconPrevious = R.drawable.ic_previous_notification
             val intentPrevious =
                 Intent(
                     context,
@@ -48,8 +50,7 @@ class CreatePlayerNotification {
                 intentPrevious,
                 PendingIntent.FLAG_UPDATE_CURRENT
             )
-
-
+            // create play button in notification
             val intentPlay =
                 Intent(context, NotificationBroadcastReceiver::class.java).setAction(ACTION_PLAY)
             val pendingIntentPlay = PendingIntent.getBroadcast(
@@ -58,8 +59,8 @@ class CreatePlayerNotification {
                 intentPlay,
                 PendingIntent.FLAG_UPDATE_CURRENT
             )
-
-
+            // create next button in notification
+            val iconNext = R.drawable.ic_next_notification
             val intentNext =
                 Intent(context, NotificationBroadcastReceiver::class.java).setAction(ACTION_NEXT)
             val pendingIntentNext = PendingIntent.getBroadcast(
@@ -68,7 +69,7 @@ class CreatePlayerNotification {
                 intentNext,
                 PendingIntent.FLAG_UPDATE_CURRENT
             )
-
+            // create intent to application when click on notification
             val notifyIntent = Intent(context, MusicActivity::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             }
@@ -84,9 +85,9 @@ class CreatePlayerNotification {
                 .setOnlyAlertOnce(true)
                 .setShowWhen(false)
                 .setContentIntent(notifyPendingIntent)
-                .addAction(iconPrevious, "previous", pendingIntentPrevious)
-                .addAction(playerButton, "play", pendingIntentPlay)
-                .addAction(iconNext, "next", pendingIntentNext)
+                .addAction(iconPrevious, ACTION_PREVIOUS, pendingIntentPrevious)
+                .addAction(playerButton, ACTION_PLAY, pendingIntentPlay)
+                .addAction(iconNext, ACTION_NEXT, pendingIntentNext)
                 .setStyle(
                     androidx.media.app.NotificationCompat.MediaStyle()
                         .setShowActionsInCompactView(0, 1, 2)

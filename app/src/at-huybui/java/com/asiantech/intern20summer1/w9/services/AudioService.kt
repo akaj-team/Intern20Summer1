@@ -12,7 +12,6 @@ import android.os.Binder
 import android.os.Build
 import android.os.CountDownTimer
 import android.os.IBinder
-import android.util.Log.d
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w9.models.Song
 import com.asiantech.intern20summer1.w9.notification.ClickPlayable
@@ -27,23 +26,25 @@ import com.asiantech.intern20summer1.w9.notification.NotificationBroadcastReceiv
 
 class AudioService : Service(), ClickPlayable {
 
-    var audioPlayer = MediaPlayer()
-    var songLists = mutableListOf<Song>()
-    var songPlaying: Song? = null
-    var currentTime = 0
-    private var iBinder: IBinder = LocalBinder()
-    var songPosition = 0
-    var isRandom = false
-    var isOpenApp = true
+    companion object{
+        private const val VOLUME = 100f
+    }
 
-    private lateinit var notification: NotificationManager
+    internal var audioPlayer = MediaPlayer()
+    internal var songLists = mutableListOf<Song>()
+    internal var songPlaying: Song? = null
+    internal var currentTime = 0
+    internal var songPosition = 0
+    internal var isRandom = false
+    internal var isOpenApp = true
     internal var onUpdateCurrentPosition: (Int) -> Unit = {}
     internal var onPlayer: (StatePlayer) -> Unit = {}
     internal var onPlayerBar: (StatePlayer) -> Unit = {}
     internal var onShuffleSong: () -> Unit = {}
-    internal val timerUpdateCurrent = object : CountDownTimer(500, 500) {
+    private var iBinder: IBinder = LocalBinder()
+    private lateinit var notification: NotificationManager
+    private val timerUpdateCurrent = object : CountDownTimer(500, 500) {
         override fun onFinish() {
-            d("servicelog", "[curent] " + audioPlayer.currentPosition.toString())
             if (isOpenApp) {
                 currentTime = audioPlayer.currentPosition
                 onUpdateCurrentPosition.invoke(currentTime)
@@ -54,27 +55,17 @@ class AudioService : Service(), ClickPlayable {
         override fun onTick(p0: Long) {}
     }
 
-    enum class StatePlayer { START, PAUSE, RESUME }
-
-    inner class LocalBinder : Binder() {
-        fun getService(): AudioService {
-            return this@AudioService
-        }
+    override fun onCreate() {
+        super.onCreate()
+        timerUpdateCurrent.start()
+        registerReceiver(broadcastReceiver, IntentFilter(NotificationBroadcastReceiver.ACTION_KEY))
     }
 
     override fun onBind(arg0: Intent?): IBinder? {
         return iBinder
     }
 
-    override fun onCreate() {
-        d("servicelog", "onCreate")
-        super.onCreate()
-        timerUpdateCurrent.start()
-        registerReceiver(broadcastReceiver, IntentFilter(NotificationBroadcastReceiver.ACTION_KEY))
-    }
-
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        d("servicelog", "onStartCommand")
         createChannel()
         return START_NOT_STICKY
     }
@@ -82,7 +73,6 @@ class AudioService : Service(), ClickPlayable {
     override fun onTaskRemoved(rootIntent: Intent?) {
         super.onTaskRemoved(rootIntent)
         timerUpdateCurrent.cancel()
-        d("servicelog", "onDestroy")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             notification.cancelAll()
         }
@@ -92,7 +82,7 @@ class AudioService : Service(), ClickPlayable {
 
     }
 
-    fun onShuffleMusic(songList: MutableList<Song>) {
+    internal fun onShuffleMusic(songList: MutableList<Song>) {
         if (isRandom) {
             songLists.shuffle()
         } else {
@@ -144,7 +134,7 @@ class AudioService : Service(), ClickPlayable {
         audioPlayer.release()
         audioPlayer = MediaPlayer.create(this, Uri.parse(songPlaying?.contentUri))
         audioPlayer.apply {
-            setVolume(100f, 100f)
+            setVolume(VOLUME, VOLUME)
             start()
             setOnCompletionListener {
                 if (!audioPlayer.isLooping) {
@@ -214,5 +204,13 @@ class AudioService : Service(), ClickPlayable {
             songPosition = 0
         }
         onMusicStart()
+    }
+    // this is enum class for status click
+    enum class StatePlayer { START, PAUSE, RESUME }
+
+    inner class LocalBinder : Binder() {
+        fun getService(): AudioService {
+            return this@AudioService
+        }
     }
 }

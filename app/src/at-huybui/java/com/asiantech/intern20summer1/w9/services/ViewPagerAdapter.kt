@@ -9,7 +9,7 @@ import com.asiantech.intern20summer1.w9.models.Song
 
 /**
  * Asian Tech Co., Ltd.
- * Created by at-huybui on 07/30/20
+ * Created by at-huybui on 08/24/20
  * This is class for adapter of view pager in music activity
  */
 

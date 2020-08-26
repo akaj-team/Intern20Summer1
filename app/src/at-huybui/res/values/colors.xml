@@ -22,4 +22,5 @@
     <color name="w9_background_center_color">#1D90C5</color>
     <color name="w9_background_start_color">#95FFDE</color>
     <color name="w9_status_bar">#5BC9D2</color>
+    <color name="w9_music_player_bar_background">#60F70FFF</color>
 </resources>

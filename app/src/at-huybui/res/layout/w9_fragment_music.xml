@@ -11,52 +11,42 @@
         android:layout_height="@dimen/w9_music_logo_app_size"
         android:layout_centerHorizontal="true"
         android:src="@drawable/img_logo_music"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="@dimen/w9_music_logo_margin_top" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewSongList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/rlPlayerBar"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="10dp" />
+        android:layout_marginLeft="@dimen/w9_music_recycler_view_margin_left_right"
+        android:layout_marginTop="@dimen/w9_music_recycler_view_margin_top"
+        android:layout_marginRight="@dimen/w9_music_recycler_view_margin_left_right"
+        android:layout_marginBottom="@dimen/w9_music_recycler_view_margin_bottom" />
 
     <RelativeLayout
         android:clickable="true"
         android:id="@+id/rlPlayerBar"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="@dimen/w9_music_player_bar_height"
         android:layout_alignParentBottom="true"
-        android:background="#60F70FFF"
+        android:background="@color/w9_music_player_bar_background"
         android:focusable="true">
 
         <com.asiantech.intern20summer1.w9.views.DvdRotateView
             android:id="@+id/imgDvd.Music"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            app:civ_border_width="1dp"
+            android:layout_width="@dimen/w9_music_player_bar_height"
+            android:layout_height="@dimen/w9_music_player_bar_height"
+            android:padding="@dimen/w9_music_icon_did_padding"
+            app:civ_border_width="0dp"
             app:civ_border_color="@color/background_white"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="5dp"
             android:src="@drawable/ic_dvd_player" />
-
-        <ImageView
-            android:id="@+id/btnPrevious.Music"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toLeftOf="@id/btnPlay.Music"
-            android:adjustViewBounds="true"
-            android:padding="15dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_left_button" />
 
         <TextView
             android:id="@+id/tvSongName.Music"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/w9_music_player_bar_name_song_margin_top"
             android:layout_toLeftOf="@+id/btnPrevious.Music"
             android:layout_toRightOf="@+id/imgDvd.Music"
             android:ellipsize="marquee"
@@ -66,7 +56,7 @@
             android:scrollHorizontally="true"
             android:singleLine="true"
             tools:text="Day la ten bai hat, no selam ow day"
-            android:textSize="15sp"
+            android:textSize="@dimen/w9_music_player_bar_name_song_text_size"
             android:textColor="@color/black"/>
 
         <TextView
@@ -78,7 +68,17 @@
             android:layout_toRightOf="@+id/imgDvd.Music"
             android:singleLine="true"
             tools:text="Day la ten ca si, no selam ow day"
-            android:textSize="15sp"/>
+            android:textSize="@dimen/w9_music_player_bar_name_singer_text_size" />
+
+        <ImageView
+            android:id="@+id/btnPrevious.Music"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/btnPlay.Music"
+            android:adjustViewBounds="true"
+            android:padding="@dimen/w9_music_icon_player_bar_padding"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_left_button" />
 
         <ImageView
             android:id="@+id/btnPlay.Music"
@@ -86,7 +86,7 @@
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@id/btnNext.Music"
             android:adjustViewBounds="true"
-            android:padding="15dp"
+            android:padding="@dimen/w9_music_icon_player_bar_padding"
             android:scaleType="fitXY"
             android:src="@drawable/ic_play_button" />
 
@@ -96,7 +96,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:adjustViewBounds="true"
-            android:padding="15dp"
+            android:padding="@dimen/w9_music_icon_player_bar_padding"
             android:scaleType="fitXY"
             android:src="@drawable/ic_right_button" />
     </RelativeLayout>

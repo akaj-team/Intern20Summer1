@@ -38,6 +38,8 @@ data class Song(
         private const val CONTENT_URI = "content_uri"
         private const val DEFAULT_NAME = "no name"
         private const val DEFAULT_DURATION = "00:00"
+        private const val MINISECOUND = 1000
+        private const val MINUTE = 60
     }
 
     fun getData(context: Context): Song {
@@ -88,8 +90,8 @@ data class Song(
         var result = DEFAULT_DURATION
         duration?.let {
             val durationInt = it.toInt()
-            val second = ((durationInt / 1000) % 60).toString().padStart(2, '0')
-            val minute = ((durationInt / 1000) / 60).toString().padStart(2, '0')
+            val second = ((durationInt / MINISECOUND) % MINUTE).toString().padStart(2, '0')
+            val minute = ((durationInt / MINISECOUND) / MINUTE).toString().padStart(2, '0')
             result = "$minute:$second"
         }
         return result

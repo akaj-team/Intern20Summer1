@@ -24,7 +24,6 @@ import kotlinx.android.synthetic.`at-huybui`.activity_music.*
  * This is activity class for main activity of music application
  */
 
-
 class MusicActivity : AppCompatActivity() {
 
     companion object {
@@ -60,7 +59,14 @@ class MusicActivity : AppCompatActivity() {
         super.onDestroy()
     }
 
-    internal fun handleReplaceFragment(
+    internal fun initViewPager(songLists: MutableList<Song>) {
+        val viewPagerAdapter by lazy { ViewPagerAdapter(supportFragmentManager, songLists) }
+        containerViewPager?.apply {
+            adapter = viewPagerAdapter
+        }
+    }
+
+    private fun handleReplaceFragment(
         fragment: Fragment,
         isBackStack: Boolean = false,
         nameBackStack: String = ""
@@ -82,13 +88,6 @@ class MusicActivity : AppCompatActivity() {
                 window.decorView.systemUiVisibility =
                     window.decorView.systemUiVisibility.and(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv())
             }
-        }
-    }
-
-    internal fun initViewPager(songLists: MutableList<Song>) {
-        val viewPagerAdapter by lazy { ViewPagerAdapter(supportFragmentManager,songLists) }
-        containerViewPager?.apply {
-            adapter = viewPagerAdapter
         }
     }
 }

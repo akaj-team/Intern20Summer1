@@ -1,12 +1,12 @@
 package com.asiantech.intern20summer1.w9.fragments
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.ContentUris
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.provider.MediaStore
-import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,6 +33,10 @@ class SplashFragment : Fragment() {
         private const val VALUE_TIMER = 120000L
         private const val TICK_TIMER = 10L
         private const val PROGRESS_BAR_MAX_VALUE = 100
+        private const val TICK_REQUEST_PERMISSION = 5
+        private const val TICK_LOAD_DATA_MUSIC = 50
+        private const val TIME_SET = "1.1.2000"
+        private const val DATE_FORMAT = "dd.MM.yyyy"
     }
 
     var listSong = mutableListOf<Song>()
@@ -60,18 +64,15 @@ class SplashFragment : Fragment() {
             override fun onTick(p0: Long) {
                 progressCount += 1
                 when (progressCount) {
-                    5 -> {
+                    TICK_REQUEST_PERMISSION -> {
                         if (!isCheckStorePermission()) {
                             requestStorePermission()
                             progressCount = 0
                         }
                     }
-                    30 -> {
+                    TICK_LOAD_DATA_MUSIC -> {
                         Thread(Runnable {
                             scanSongInStore().toCollection(listSong)
-                            listSong.forEach {
-                                d("XXXX",it.contentUri)
-                            }
                         }).start()
                     }
                     PROGRESS_BAR_MAX_VALUE -> {
@@ -90,9 +91,7 @@ class SplashFragment : Fragment() {
             MediaStore.Audio.Media.DISPLAY_NAME
         )
         val selection = "${MediaStore.Audio.Media.DATE_ADDED} >= ?"
-        val selectionArgs = arrayOf(
-            dateToTimestamp(day = 22, month = 10, year = 2000).toString()
-        )
+        val selectionArgs = arrayOf(dateToTimestamp().toString())
         val sortOrder = "${MediaStore.Audio.Media.DATE_ADDED} DESC"
 
         requireContext().applicationContext.contentResolver.query(
@@ -111,9 +110,7 @@ class SplashFragment : Fragment() {
                 )
                 val name = cursor.getString(nameColumn)
                 val song =
-                    Song(id = id, nameSong = name, contentUri = contentUri.toString()).getData(
-                        requireContext()
-                    )
+                    Song(id, name, contentUri = contentUri.toString()).getData(requireContext())
                 songListsNew.add(song)
             }
         }
@@ -134,8 +131,9 @@ class SplashFragment : Fragment() {
         )
     }
 
-    private fun dateToTimestamp(day: Int, month: Int, year: Int): Long =
-        SimpleDateFormat("dd.MM.yyyy").let { formatter ->
-            TimeUnit.MICROSECONDS.toSeconds(formatter.parse("$day.$month.$year")?.time ?: 0)
+    @SuppressLint("SimpleDateFormat")
+    private fun dateToTimestamp(): Long =
+        SimpleDateFormat(DATE_FORMAT).let { formatter ->
+            TimeUnit.MICROSECONDS.toSeconds(formatter.parse(TIME_SET)?.time ?: 0)
         }
 }

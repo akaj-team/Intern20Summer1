@@ -8,7 +8,7 @@ import android.util.AttributeSet
 /**
  * Asian Tech Co., Ltd.
  * Created by at-huybui on 08/21/20
- * This is cuctom view class for dvd view
+ * This is custom view class for dvd view
  */
 
 class DvdRotateView(context: Context?, attrs: AttributeSet?) :

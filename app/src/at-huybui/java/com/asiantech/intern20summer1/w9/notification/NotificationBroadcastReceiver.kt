@@ -4,6 +4,12 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 
+/**
+ * Asian Tech Co., Ltd.
+ * Created by at-huybui on 08/25/20
+ * This is BroadcastReceiver class for notification
+ */
+
 open class NotificationBroadcastReceiver: BroadcastReceiver() {
     companion object{
         internal const val ACTION_KEY = "player_music"
