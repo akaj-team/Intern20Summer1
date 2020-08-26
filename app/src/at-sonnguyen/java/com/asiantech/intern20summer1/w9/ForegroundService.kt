@@ -57,6 +57,10 @@ class ForegroundService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer
             isPlaying = true
         }
         when (intent.action) {
+            MusicAction.PLAY ->{
+                playSong()
+            }
+
             MusicAction.PREVIOUS -> {
                 playPrevious()
             }

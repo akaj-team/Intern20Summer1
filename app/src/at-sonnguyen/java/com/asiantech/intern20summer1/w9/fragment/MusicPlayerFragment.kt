@@ -83,7 +83,7 @@ class MusicPlayerFragment : Fragment() {
     private fun initData() {
         songs.clear()
         songs.addAll(SongData.getSong(requireContext()))
-        setImage()
+        setData()
     }
 
     private fun initListener() {
@@ -96,7 +96,7 @@ class MusicPlayerFragment : Fragment() {
         handleSeekBarListener()
     }
 
-    private fun setImage() {
+    private fun setData() {
         tvSingerNameMusicPlayer.text = songs[position].singerName
         tvSongNameMusicPlayer.text = songs[position].songName
         circleImageSongMusicPlayer.setImageURI(songs[position].image)
@@ -143,14 +143,23 @@ class MusicPlayerFragment : Fragment() {
     }
 
     private fun onPauseOrPlayMusic() {
-        isPlaying = if (!isPlaying) {
-            sendAction(MusicAction.PLAY)
-            imgPlayMusicPlayer.isSelected = true
-            true
-        } else {
+//        isPlaying = if (!isPlaying) {
+//            sendAction(MusicAction.PLAY)
+//            imgPlayMusicPlayer.isSelected = true
+//            true
+//        } else {
+//            sendAction(MusicAction.PAUSE)
+//            imgPlayMusicPlayer.isSelected = false
+//            false
+//        }
+        if (isPlaying){
             sendAction(MusicAction.PAUSE)
             imgPlayMusicPlayer.isSelected = false
-            false
+            isPlaying = false
+        } else{
+            sendAction(MusicAction.PLAY)
+            imgPlayMusicPlayer.isSelected = true
+            isPlaying = true
         }
     }
 
