@@ -72,10 +72,6 @@
     <color name="colorPrimaryWeek9">#FF8811</color>
     <color name="colorPrimaryDarkWeek9">#F4D06F</color>
     <color name="colorAccentWeek9">#FAAC40</color>
-    <color name="textview_color_account">#30BE76</color>
-    <color name="itemview_color_background">#d4d4d4</color>
-    <color name="color_background">#ededed</color>
-    <color name="color_text">#787878</color>
     <color name="colorImageViewShuffleEnableWeek9Background">#FF8811</color>
     <color name="colorContainerFragmentListSongBackground">#FD9A29</color>
     <color name="colorImageFragmentMainPlayerMusicBackground">#FDEED0</color>
