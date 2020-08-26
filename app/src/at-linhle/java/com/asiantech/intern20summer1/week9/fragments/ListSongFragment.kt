@@ -132,7 +132,6 @@ class ListSongFragment : Fragment() {
             makeRequest()
         } else {
             initData()
-            isPlaying = true
             context?.apply {
                 initViewToBottomMedia()
             }

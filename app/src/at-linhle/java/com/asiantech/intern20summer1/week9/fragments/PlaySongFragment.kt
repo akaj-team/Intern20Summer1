@@ -244,6 +244,10 @@ class PlaySongFragment : Fragment() {
                 seekBar?.progress?.let { musicService.seekTo(it) }
             }
         })
+        handleSeekBarChange()
+    }
+
+    private fun handleSeekBarChange(){
         var position = this.position
         val runnable = object : Runnable {
             override fun run() {
@@ -256,11 +260,8 @@ class PlaySongFragment : Fragment() {
                     tvEndTime?.text = getDuration(songList[this@PlaySongFragment.position].duration)
                 }
                 if (this@PlaySongFragment.position > position) {
-                    try {
-                        position = this@PlaySongFragment.position
-                        initView(requireContext())
-                    } catch (e: NullPointerException) {
-                    }
+                    position = this@PlaySongFragment.position
+                    initView(requireContext())
                 }
                 handler.postDelayed(this, DELAY_TIME)
             }
