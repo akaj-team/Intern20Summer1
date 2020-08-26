@@ -76,8 +76,8 @@ class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
                 loopMusic()
             }
             MusicAction.PLAY -> {
-                playSong()
                 isPlaying = true
+                playSong()
             }
             MusicAction.CLOSE -> {
                 stopSelf()
@@ -217,15 +217,28 @@ class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
                 createAction(MusicAction.PREVIOUS)
             )
             .addAction(
-                R.drawable.ic_pause_circle_outline_red,
+                if (isPlaying) {
+                    R.drawable.ic_pause_circle_outline_red
+                } else {
+                    R.drawable.ic_play_circle_outline_red
+                },
                 null,
                 createAction(MusicAction.PAUSE)
+            )
+            .addAction(
+                if (isPlaying) {
+                    R.drawable.ic_play_circle_outline_red
+                } else {
+                    R.drawable.ic_pause_circle_outline_red
+                },
+                null,
+                createAction(MusicAction.PLAY)
             )
             .addAction(R.drawable.ic_skip_next_red, null, createAction(MusicAction.NEXT))
             .addAction(R.drawable.ic_close_black_24dp, null, createAction(MusicAction.CLOSE))
             .setStyle(
                 androidx.media.app.NotificationCompat.MediaStyle()
-                    .setShowActionsInCompactView(1, 2, 3, 4)
+                    .setShowActionsInCompactView(1, 2, 3)
             )
             .build()
         startForeground(1, notification)
