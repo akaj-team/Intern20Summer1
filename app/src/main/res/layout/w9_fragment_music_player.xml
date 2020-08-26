@@ -85,7 +85,7 @@
             android:layout_width="@dimen/w9_icon_width"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:src="@drawable/ic_baseline_play_circle_outline_24"
+            android:src="@drawable/w9_pause_or_play_image_selector"
             android:contentDescription="@string/w9_music_player_fragment_play_or_pause_image_view_description" />
 
         <ImageView

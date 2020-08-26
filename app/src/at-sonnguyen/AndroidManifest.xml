@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.asiantech.intern20summer1">
 
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
@@ -19,9 +20,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".w6.activity.StepActivity"/>
-        <activity android:name=".w6.activity.HomeActivity"/>
-        <activity android:name=".w9.activity.MusicPlayerActivity"/>
+        <activity android:name=".w6.activity.StepActivity" />
+        <activity android:name=".w6.activity.HomeActivity" />
+        <activity android:name=".w9.activity.MusicPlayerActivity" />
+
+        <service android:name=".w9.ForegroundService" />
     </application>
 
 </manifest>

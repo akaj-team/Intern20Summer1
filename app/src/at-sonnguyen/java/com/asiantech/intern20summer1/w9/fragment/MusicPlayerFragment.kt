@@ -11,10 +11,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w9.ForegroundService
+import com.asiantech.intern20summer1.w9.activity.MusicPlayerActivity
 import com.asiantech.intern20summer1.w9.data.MusicAction
 import com.asiantech.intern20summer1.w9.data.Song
 import com.asiantech.intern20summer1.w9.data.SongData
@@ -83,6 +83,7 @@ class MusicPlayerFragment : Fragment() {
     private fun initData() {
         songs.clear()
         songs.addAll(SongData.getSong(requireContext()))
+        setImage()
     }
 
     private fun initListener() {
@@ -92,18 +93,22 @@ class MusicPlayerFragment : Fragment() {
         handlePlayImageViewListener()
         handleShuffleImageViewListener()
         handleSkipNextImageViewListener()
+        handleSeekBarListener()
     }
+
     private fun setImage() {
+        tvSingerNameMusicPlayer.text = songs[position].singerName
+        tvSongNameMusicPlayer.text = songs[position].songName
         circleImageSongMusicPlayer.setImageURI(songs[position].image)
         Glide.with(requireContext())
             .load(songs[position].image)
-            .placeholder(R.drawable.ic_music)
+            .placeholder(R.drawable.ic_song)
             .into(circleImageSongMusicPlayer)
     }
 
     private fun handleBackImageViewListener() {
         imgBackMusicPlayer.setOnClickListener {
-            Toast.makeText(context, "back", Toast.LENGTH_SHORT).show()
+            (activity as? MusicPlayerActivity)?.onBackPressed()
         }
     }
 
@@ -113,24 +118,25 @@ class MusicPlayerFragment : Fragment() {
         }
     }
 
-    private fun handlePlayImageViewListener(){
+    private fun handlePlayImageViewListener() {
         imgPlayMusicPlayer.setOnClickListener {
             onPauseOrPlayMusic()
         }
     }
 
-    private fun handleSkipNextImageViewListener(){
+    private fun handleSkipNextImageViewListener() {
         imgSkipNextMusicPlayer.setOnClickListener {
             sendAction(MusicAction.NEXT)
         }
     }
-    private fun handleShuffleImageViewListener(){
+
+    private fun handleShuffleImageViewListener() {
         imgShuffleMusicPlayer.setOnClickListener {
             sendAction(MusicAction.SHUFFLE)
         }
     }
 
-    private fun handleLoopImageViewListener(){
+    private fun handleLoopImageViewListener() {
         imgReplayMusicPlayer.setOnClickListener {
             sendAction(MusicAction.LOOP)
         }
@@ -154,11 +160,13 @@ class MusicPlayerFragment : Fragment() {
         intent.putExtra(action, getString(R.string.w9_put_extra_action_value))
         context?.startService(intent)
     }
+
     private fun handleSeekBarListener() {
         seekBarDurationMusicPlayer.max = songs[position].duration
         imgPlayMusicPlayer.isSelected = true
 
-        seekBarDurationMusicPlayer.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+        seekBarDurationMusicPlayer.setOnSeekBarChangeListener(object :
+            SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
             }
 
@@ -172,7 +180,6 @@ class MusicPlayerFragment : Fragment() {
         runnable = object : Runnable {
             override fun run() {
                 position = musicService.getPosition()
-                setImage()
                 val currentDuration = musicService.getCurrentDuration()
                 if (currentDuration != null) {
                     seekBarDurationMusicPlayer.progress = currentDuration

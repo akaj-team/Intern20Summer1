@@ -46,7 +46,7 @@
     <dimen name="w9_song_image_card_view_width_">60dp</dimen>
     <dimen name="w9_image_song_card_view_margin_left">20dp</dimen>
     <dimen name="w9_song_name_text_view__card_view_margin_top">5dp</dimen>
-    <dimen name="w9_song_name_text_view_card_view_size">18sp</dimen>
+    <dimen name="w9_song_name_text_view_card_view_size">13sp</dimen>
     <dimen name="w9_icon_card_view_size">30dp</dimen>
     <dimen name="w9_next_icon_margin_right">20dp</dimen>
     <dimen name="w9_play_image_view_card_view_margin_right">10dp</dimen>

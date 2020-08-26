@@ -41,7 +41,7 @@
                 android:layout_toEndOf="@id/imgSmallSong" />
 
             <ImageView
-                android:id="@+id/imgNext"
+                android:id="@+id/imgNextSongList"
                 android:layout_width="@dimen/w9_icon_card_view_size"
                 android:layout_height="@dimen/w9_icon_card_view_size"
                 android:layout_alignParentRight="true"
@@ -57,10 +57,10 @@
                 android:layout_width="@dimen/w9_icon_card_view_size"
                 android:layout_height="@dimen/w9_icon_card_view_size"
                 android:layout_centerVertical="true"
-                android:layout_toLeftOf="@id/imgNext"
+                android:layout_toLeftOf="@id/imgNextSongList"
                 android:layout_marginRight="@dimen/w9_play_image_view_card_view_margin_right"
-                android:src="@drawable/ic_baseline_play_circle_outline_24"
-                android:layout_toStartOf="@id/imgNext"
+                android:src="@drawable/w9_pause_or_play_image_selector"
+                android:layout_toStartOf="@id/imgNextSongList"
                 android:layout_marginEnd="@dimen/w9_play_image_view_card_view_margin_right"
                 android:contentDescription="@string/w9_play_image_view_description" />
         </RelativeLayout>
