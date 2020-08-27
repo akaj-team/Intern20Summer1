@@ -64,7 +64,11 @@ data class Song(
         return songNew
     }
 
-    fun getPicture(context: Context, smallIcon: Boolean = true): Bitmap? {
+    fun getPicture(
+        context: Context,
+        smallIcon: Boolean = true,
+        notification: Boolean = false
+    ): Bitmap? {
         var picture: Bitmap? = null
         MediaMetadataRetriever().apply {
             setDataSource(context, Uri.parse(this@Song.contentUri))
@@ -72,7 +76,7 @@ data class Song(
                 picture = BitmapFactory.decodeByteArray(it, 0, it.size)
             }
         }
-        if (picture == null) {
+        if (picture == null && !notification) {
             if (smallIcon) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     picture = context.getDrawable(R.drawable.ic_dvd_player)?.toBitmap()
