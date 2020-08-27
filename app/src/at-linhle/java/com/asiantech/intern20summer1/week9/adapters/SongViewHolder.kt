@@ -46,7 +46,7 @@ class SongViewHolder(private val songItems: MutableList<Song>) :
             val song = songItems[position]
             tvSongName.text = song.songName
             tvArtist.text = song.artist
-            tvDuration.text = getDuration(song.duration)
+            tvDuration.text = getDuration(itemView,song.duration)
             val bitmap = Utils.convertToBitmap(itemView.context, Uri.parse(song.imgUri))
             if (bitmap != null) {
                 imgSong.setImageBitmap(bitmap)
@@ -60,9 +60,9 @@ class SongViewHolder(private val songItems: MutableList<Song>) :
         }
     }
 
-    fun getDuration(duration: Int): String {
+    fun getDuration(itemView: View, duration: Int): String {
         val seconds = duration / ONE_THOUSAND % SIXTY
         val minutes = ((duration - seconds) / ONE_THOUSAND / SIXTY).toLong()
-        return String.format("%02d: %02d", minutes, seconds)
+        return String.format(itemView.context.getString(R.string.duration_description), minutes, seconds)
     }
 }

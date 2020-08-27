@@ -226,7 +226,7 @@ class ListSongFragment : Fragment() {
             if (!isServiceConnected) {
                 Toast.makeText(
                     activity,
-                    "The first time you in, you must select song in list to play",
+                    getString(R.string.is_service_connected_description),
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
@@ -244,7 +244,7 @@ class ListSongFragment : Fragment() {
             if (!isServiceConnected) {
                 Toast.makeText(
                     activity,
-                    "The first time you in, you must select song in list to play",
+                    getString(R.string.is_service_connected_description),
                     Toast.LENGTH_SHORT
                 ).show()
             } else {

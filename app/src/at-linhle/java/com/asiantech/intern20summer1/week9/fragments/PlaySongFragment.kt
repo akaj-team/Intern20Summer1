@@ -288,6 +288,6 @@ class PlaySongFragment : Fragment() {
     private fun getDuration(duration: Int): String {
         val seconds = duration / ONE_THOUSAND % SIXTY
         val minutes = ((duration - seconds) / ONE_THOUSAND / SIXTY).toLong()
-        return String.format("%02d: %02d", minutes, seconds)
+        return String.format(getString(R.string.duration_description), minutes, seconds)
     }
 }

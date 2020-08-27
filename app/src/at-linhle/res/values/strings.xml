@@ -58,4 +58,6 @@
     <string name="shuffle_disabled_description">Shuffle is disabled</string>
     <string name="repeat_enabled_description">Repeat is enabled</string>
     <string name="repeat_disabled_description">Repeat is disabled</string>
+    <string name="duration_description">%02d: %02d</string>
+    <string name="is_service_connected_description">The first time you in, you must select song in list to play</string>
 </resources>
