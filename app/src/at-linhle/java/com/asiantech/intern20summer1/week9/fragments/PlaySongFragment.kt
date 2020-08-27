@@ -49,6 +49,7 @@ class PlaySongFragment : Fragment() {
     private var isPlaying = false
     private var createNotification: CreateNotification? = null
     private var bounded: Boolean = false
+    private var run = true
 
     @Suppress("DEPRECATION")
     private var handler = Handler()
@@ -101,6 +102,7 @@ class PlaySongFragment : Fragment() {
 
     override fun onStop() {
         super.onStop()
+        run = false
         if (bounded) {
             context?.unbindService(musicConnection)
             bounded = false
@@ -251,21 +253,24 @@ class PlaySongFragment : Fragment() {
         var position = this.position
         val runnable = object : Runnable {
             override fun run() {
-                seekBar?.max = songList[this@PlaySongFragment.position].duration
-                this@PlaySongFragment.position = musicService.initPosition()
-                val currentPosition = musicService.currentPosition()
-                if (currentPosition != null) {
-                    seekBar?.progress = currentPosition
-                    tvStartTime?.text = seekBar?.progress?.let { getDuration(it) }
-                    tvEndTime?.text = getDuration(songList[this@PlaySongFragment.position].duration)
+                if (run) {
+                    seekBar?.max = songList[this@PlaySongFragment.position].duration
+                    this@PlaySongFragment.position = musicService.initPosition()
+                    val currentPosition = musicService.currentPosition()
+                    if (currentPosition != null) {
+                        seekBar?.progress = currentPosition
+                        tvStartTime?.text = seekBar?.progress?.let { getDuration(it) }
+                        tvEndTime?.text =
+                            getDuration(songList[this@PlaySongFragment.position].duration)
+                    }
+                    if (this@PlaySongFragment.position > position) {
+                        position = this@PlaySongFragment.position
+                        initView(requireContext())
+                    } else {
+                        initView(requireContext())
+                    }
+                    handler.postDelayed(this, DELAY_TIME)
                 }
-                if (this@PlaySongFragment.position > position) {
-                    position = this@PlaySongFragment.position
-                    initView(requireContext())
-                } else {
-                    initView(requireContext())
-                }
-                handler.postDelayed(this, DELAY_TIME)
             }
         }
         handler.post(runnable)

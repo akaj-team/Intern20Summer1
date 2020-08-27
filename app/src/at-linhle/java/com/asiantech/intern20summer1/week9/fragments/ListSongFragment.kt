@@ -14,6 +14,7 @@ import android.os.IBinder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -45,6 +46,7 @@ class ListSongFragment : Fragment() {
     private var bounded: Boolean = false
     private var isPlaying = false
     private var musicService = MusicService()
+    private var isServiceConnected = false
 
     @Suppress("DEPRECATION")
     private var handler = Handler()
@@ -64,6 +66,7 @@ class ListSongFragment : Fragment() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -77,9 +80,9 @@ class ListSongFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         handleRenderUI()
+        runTimePermission()
         initView()
         initAdapter()
-        runTimePermission()
         control()
     }
 
@@ -152,6 +155,7 @@ class ListSongFragment : Fragment() {
     private fun initAdapter() {
         recyclerViewSongContainer.adapter = adapter
         adapter.onClicked = {
+            isServiceConnected = true
             position = it
             val musicDataIntent = Intent(requireContext(), MusicService::class.java)
             musicDataIntent.putStringArrayListExtra(LIST_SONG_KEY, listPath)
@@ -167,7 +171,7 @@ class ListSongFragment : Fragment() {
         val song = listMusic[musicService.initPosition()]
         tvMusicName?.text = song.songName
         tvSingerName?.text = song.artist
-        val bitmap = Utils.convertToBitmap(requireContext(), Uri.parse(song.imgUri))
+        val bitmap = context?.let { Utils.convertToBitmap(it, Uri.parse(song.imgUri)) }
         if (bitmap != null) {
             imgMusicArt?.setImageBitmap(bitmap)
         } else {
@@ -219,8 +223,16 @@ class ListSongFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun control() {
         imgPlayPause.setOnClickListener {
-            initPlayPauseMedia()
-            createNotification(position)
+            if (!isServiceConnected) {
+                Toast.makeText(
+                    activity,
+                    "The first time you in, you must select song in list to play",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                initPlayPauseMedia()
+                createNotification(position)
+            }
         }
         imgNext.setOnClickListener {
             onNextSong()
@@ -229,17 +241,21 @@ class ListSongFragment : Fragment() {
             onPreviousSong()
         }
         clBottomMedia.setOnClickListener {
-            initMainMediaPage()
+            if (!isServiceConnected) {
+                Toast.makeText(
+                    activity,
+                    "The first time you in, you must select song in list to play",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                initMainMediaPage()
+            }
         }
     }
 
     private fun initMainMediaPage() {
         (activity as MusicMediaActivity)
-            .replaceFragment(
-                PlaySongFragment
-                    .newInstance(listMusic, isPlaying)
-                , true
-            )
+            .replaceFragment(PlaySongFragment.newInstance(listMusic, isPlaying), true)
     }
 
     private fun createNotification(position: Int) {
