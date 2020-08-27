@@ -152,7 +152,7 @@ class PlaySongFragment : Fragment() {
     }
 
     private fun initPlayPauseButton() {
-        if (!isPlaying) {
+        if (!musicService.isPlaying()) {
             imgPlay?.setImageResource(R.drawable.ic_baseline_play_circle_filled_24)
         } else {
             imgPlay?.setImageResource(R.drawable.ic_baseline_pause_circle_filled_24)
@@ -247,7 +247,7 @@ class PlaySongFragment : Fragment() {
         handleSeekBarChange()
     }
 
-    private fun handleSeekBarChange(){
+    private fun handleSeekBarChange() {
         var position = this.position
         val runnable = object : Runnable {
             override fun run() {
@@ -261,6 +261,8 @@ class PlaySongFragment : Fragment() {
                 }
                 if (this@PlaySongFragment.position > position) {
                     position = this@PlaySongFragment.position
+                    initView(requireContext())
+                } else {
                     initView(requireContext())
                 }
                 handler.postDelayed(this, DELAY_TIME)

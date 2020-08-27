@@ -9,6 +9,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.os.IBinder
 import android.view.LayoutInflater
 import android.view.View
@@ -31,6 +32,7 @@ import kotlinx.android.synthetic.`at-linhle`.fragment_list_song.*
 
 class ListSongFragment : Fragment() {
     companion object {
+        private const val DELAY_TIME = 500L
         private const val REQUEST_CODE_READ = 100
         fun newInstance() = ListSongFragment()
     }
@@ -43,6 +45,9 @@ class ListSongFragment : Fragment() {
     private var bounded: Boolean = false
     private var isPlaying = false
     private var musicService = MusicService()
+
+    @Suppress("DEPRECATION")
+    private var handler = Handler()
 
     private var musicConnection: ServiceConnection = object : ServiceConnection {
         override fun onServiceDisconnected(name: ComponentName) {
@@ -71,6 +76,7 @@ class ListSongFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        handleRenderUI()
         initView()
         initAdapter()
         runTimePermission()
@@ -158,9 +164,10 @@ class ListSongFragment : Fragment() {
     }
 
     private fun initViewToBottomMedia() {
-        tvMusicName?.text = listMusic[position].songName
-        tvSingerName?.text = listMusic[position].artist
-        val bitmap = Utils.convertToBitmap(requireContext(), Uri.parse(listMusic[position].imgUri))
+        val song = listMusic[musicService.initPosition()]
+        tvMusicName?.text = song.songName
+        tvSingerName?.text = song.artist
+        val bitmap = Utils.convertToBitmap(requireContext(), Uri.parse(song.imgUri))
         if (bitmap != null) {
             imgMusicArt?.setImageBitmap(bitmap)
         } else {
@@ -170,7 +177,7 @@ class ListSongFragment : Fragment() {
     }
 
     private fun initPlayPauseButton() {
-        if (!isPlaying) {
+        if (!musicService.isPlaying()) {
             imgPlayPause?.setImageResource(R.drawable.ic_baseline_play_circle_filled_24)
         } else {
             imgPlayPause?.setImageResource(R.drawable.ic_baseline_pause_circle_filled_24)
@@ -240,5 +247,21 @@ class ListSongFragment : Fragment() {
         val notification = notification?.createNotification(listMusic[position], isPlaying)
         musicService.startForeground(1, notification)
         isPlaying = musicService.isPlaying()
+    }
+
+    private fun handleRenderUI() {
+        var uiPosition = position
+        val runnable = object : Runnable {
+            override fun run() {
+                if (position > uiPosition) {
+                    uiPosition = position
+                    initViewToBottomMedia()
+                } else {
+                    initViewToBottomMedia()
+                }
+                handler.postDelayed(this, DELAY_TIME)
+            }
+        }
+        handler.post(runnable)
     }
 }
