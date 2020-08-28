@@ -68,7 +68,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:src="@drawable/ic_baseline_shuffle_24"
+            android:src="@drawable/w9_shuffle_icon_selector"
             android:contentDescription="@string/w9_music_player_fragment_shuffle_icon_description" />
 
         <ImageView
@@ -102,7 +102,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:src="@drawable/ic_baseline_sync_24"
+            android:src="@drawable/w9_loop_icon_selector"
             android:contentDescription="@string/w9_music_player_fragment_replay_icon_description" />
     </LinearLayout>
 

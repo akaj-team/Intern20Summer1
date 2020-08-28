@@ -19,7 +19,7 @@ import com.asiantech.intern20summer1.w9.data.MusicAction
 import com.asiantech.intern20summer1.w9.data.Song
 import com.asiantech.intern20summer1.w9.data.SongData
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.w9_fragment_music_player.*
+import kotlinx.android.synthetic.`at-sonnguyen`.w9_fragment_music_player.*
 
 class MusicPlayerFragment : Fragment() {
 
@@ -35,6 +35,8 @@ class MusicPlayerFragment : Fragment() {
     private var position = 0
     private var musicService = ForegroundService()
     private var isPlaying = false
+    private var isLooping = false
+    private var isShuffle = false
     private var musicBound = false
     private val songs = mutableListOf<Song>()
     val handler = Handler()
@@ -83,7 +85,7 @@ class MusicPlayerFragment : Fragment() {
     private fun initData() {
         songs.clear()
         songs.addAll(SongData.getSong(requireContext()))
-        setData()
+        setData(requireContext())
     }
 
     private fun initListener() {
@@ -96,7 +98,7 @@ class MusicPlayerFragment : Fragment() {
         handleSeekBarListener()
     }
 
-    private fun setData() {
+    private fun setData(context: Context) {
         tvSingerNameMusicPlayer.text = songs[position].singerName
         tvSongNameMusicPlayer.text = songs[position].songName
         circleImageSongMusicPlayer.setImageURI(songs[position].image)
@@ -183,7 +185,9 @@ class MusicPlayerFragment : Fragment() {
             }
 
             override fun onStopTrackingTouch(p0: SeekBar?) {
-                musicService.seekTo(seekBarDurationMusicPlayer.progress)
+                p0?.progress?.let {
+                    musicService.seekTo(it)
+                }
             }
         })
         runnable = object : Runnable {
@@ -198,6 +202,10 @@ class MusicPlayerFragment : Fragment() {
                         (songs[position].duration - currentDuration).toLong(),
                         requireContext()
                     )
+                }
+                if (this@MusicPlayerFragment.position > position){
+                    position = this@MusicPlayerFragment.position
+                    setData(requireContext())
                 }
                 handler.postDelayed(this, 100)
             }

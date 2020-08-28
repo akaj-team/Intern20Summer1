@@ -2,7 +2,6 @@ package com.asiantech.intern20summer1.w9.fragment
 
 import android.Manifest
 import android.content.ComponentName
-import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
 import android.content.pm.PackageManager
@@ -21,7 +20,7 @@ import com.asiantech.intern20summer1.w9.adapter.SongAdapter
 import com.asiantech.intern20summer1.w9.data.MusicAction
 import com.asiantech.intern20summer1.w9.data.Song
 import com.asiantech.intern20summer1.w9.data.SongData
-import com.bumptech.glide.Glide
+import com.asiantech.intern20summer1.w9.notification.CreateNotification
 import kotlinx.android.synthetic.`at-sonnguyen`.w9_fragment_song_list.*
 
 class SongListFragment : Fragment() {
@@ -31,12 +30,16 @@ class SongListFragment : Fragment() {
         internal fun instance() = SongListFragment()
     }
 
-    private var songs = mutableListOf<Song>()
-    private var musicBound = false
-    private var songAdapter = SongAdapter(songs)
-    private var musicService = ForegroundService()
-    private var isPlaying = false
     private var positionSongPlaying = DEFAULT_VALUE
+    private var musicBound = false
+    private var isPlaying = false
+    private var isLooping = false
+    private var isShuffle = false
+    private var notification: CreateNotification? = null
+    private var musicService = ForegroundService()
+    private var songs = mutableListOf<Song>()
+    private lateinit var songAdapter: SongAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -55,11 +58,11 @@ class SongListFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        val intent = Intent(context, ForegroundService::class.java)
-        context?.bindService(intent, musicServiceConnection, Context.BIND_AUTO_CREATE)
-        positionSongPlaying = musicService.getPosition()
-        imgPlaySongList.isSelected = musicService.isPlaying()
-        setCardViewData()
+//        val intent = Intent(context, ForegroundService::class.java)
+////        context?.bindService(intent, musicServiceConnection, Context.BIND_AUTO_CREATE)
+////        positionSongPlaying = musicService.getPosition()
+////        imgPlaySongList.isSelected = musicService.isPlaying()
+////        setCardViewData()
     }
 
     private var musicServiceConnection = object : ServiceConnection {
@@ -73,6 +76,7 @@ class SongListFragment : Fragment() {
         }
 
         override fun onServiceDisconnected(p0: ComponentName?) {
+            musicService.stopSelf()
             musicBound = false
         }
 
@@ -118,10 +122,21 @@ class SongListFragment : Fragment() {
 
     private fun handleItemClickListener() {
         songAdapter.onItemClicked = {
-            sendAction(MusicAction.NEXT)
             positionSongPlaying = it
             setCardViewData()
             playMusic(it)
+        }
+    }
+
+    private fun onPauseOrPlayMusic() {
+        isPlaying = if (!isPlaying) {
+            sendAction(MusicAction.PLAY)
+            imgPlaySongList.isSelected = true
+            true
+        } else {
+            imgPlaySongList.isSelected = false
+            sendAction(MusicAction.PAUSE)
+            false
         }
     }
 
@@ -139,7 +154,7 @@ class SongListFragment : Fragment() {
         }
     }
 
-    private fun handleSongImageViewListener(){
+    private fun handleSongImageViewListener() {
         imgSmallSong.setOnClickListener {
             (activity as? MusicPlayerActivity)?.replaceFragment(
                 MusicPlayerFragment.instance(
@@ -156,17 +171,17 @@ class SongListFragment : Fragment() {
         isPlaying = true
     }
 
-    private fun onPauseOrPlayMusic() {
-        isPlaying = if (!isPlaying) {
-            sendAction(MusicAction.PLAY)
-            imgPlaySongList.isSelected = true
-            true
-        } else {
-            imgPlaySongList.isSelected = false
-            sendAction(MusicAction.PAUSE)
-            false
-        }
-    }
+//    private fun onPauseOrPlayMusic() {
+//        isPlaying = if (!isPlaying) {
+//            sendAction(MusicAction.PLAY)
+//            imgPlaySongList.isSelected = true
+//            true
+//        } else {
+//            imgPlaySongList.isSelected = false
+//            sendAction(MusicAction.PAUSE)
+//            false
+//        }
+//    }
 
     private fun sendAction(action: String) {
         val intent = Intent(requireContext(), ForegroundService::class.java)
@@ -176,11 +191,12 @@ class SongListFragment : Fragment() {
     }
 
     private fun setCardViewData() {
-        Glide.with(requireContext())
-            .load(songs[positionSongPlaying].image)
-            .placeholder(R.drawable.ic_song)
-            .into(imgSmallSong)
+        var bitmap = SongData.convertUriToBitmap(songs[positionSongPlaying].uri,requireContext())
+        if (bitmap == null){
+            imgSmallSong.setImageResource(R.drawable.ic_song)
+        }else{
+            imgSmallSong.setImageBitmap(bitmap)
+        }
         tvCardViewSongName.text = songs[positionSongPlaying].songName
     }
-
 }
