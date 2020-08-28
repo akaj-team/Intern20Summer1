@@ -30,7 +30,7 @@
             android:id="@+id/imgImagePlaying"
             android:layout_width="@dimen/image_view_image_playing_size"
             android:layout_height="@dimen/image_view_image_playing_size"
-            android:layout_margin="@dimen/image_view_image_playing_margin"
+            android:layout_marginLeft="@dimen/image_view_image_playing_margin_left"
             android:src="@drawable/ic_music"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"

@@ -51,15 +51,13 @@ object Units {
         val selection =
             MediaStore.Audio.Media.IS_MUSIC + " != ? "
 
-        val selectionArgs = arrayOf<String>(
-            "0"
-        )
+        val selectionArgs = arrayOf<String>("0")
 
         val projection = arrayOf(
             MediaStore.Audio.Media._ID,
             MediaStore.Audio.Media.ARTIST,
             MediaStore.Audio.Media.TITLE,
-            MediaStore.Audio.Media.DISPLAY_NAME,
+            "_data",
             MediaStore.Audio.Media.ALBUM_ID,
             MediaStore.Audio.Media.DURATION
         )
@@ -74,36 +72,40 @@ object Units {
             sortOrder
         )
 
-        while (musicCursor != null && musicCursor.moveToNext()) {
-            val songID =
-                musicCursor.getInt(musicCursor.getColumnIndex(MediaStore.Audio.Media._ID))
+        if (musicCursor != null && musicCursor.moveToFirst()) {
+            val dataColumn = musicCursor.getColumnIndex("_data")
 
-            val songName =
-                musicCursor.getString(musicCursor.getColumnIndex(MediaStore.Audio.Media.TITLE))
+            val titleColumn = musicCursor.getColumnIndex(MediaStore.Audio.Media.TITLE)
 
-            val songArtist =
-                musicCursor.getString(musicCursor.getColumnIndex(MediaStore.Audio.Media.ARTIST))
+            val artistColumn = musicCursor.getColumnIndex(MediaStore.Audio.Media.ARTIST)
 
-            val songDuration =
-                musicCursor.getInt(musicCursor.getColumnIndex(MediaStore.Audio.Media.DURATION))
+            val durationColumn = musicCursor.getColumnIndex(MediaStore.Audio.Media.DURATION)
 
-            val albumId: Long =
-                musicCursor.getLong(musicCursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID))
+            val albumIdColumn = musicCursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID)
             val sArtWorkUri: Uri = Uri.parse("content://media/external/audio/albumart")
-            val albumArtUri: String = ContentUris.withAppendedId(sArtWorkUri, albumId).toString()
 
-            val songPath = Uri.withAppendedPath(uri, songID.toString()).toString()
+            do {
+                val songData = Uri.parse(musicCursor.getString(dataColumn))
 
-            songs.add(
-                Song(
-                    songPath,
-                    songName,
-                    songArtist,
-                    albumArtUri,
-                    //ContentUris.withAppendedId(uri, songIDLong).toString(),
-                    songDuration
+                val songName = musicCursor.getString(titleColumn)
+
+                val songArtist =  musicCursor.getString(artistColumn)
+
+                val songAlbumId =  musicCursor.getLong(albumIdColumn)
+                val albumArtUri= ContentUris.withAppendedId(sArtWorkUri, songAlbumId)
+
+                val songDuration =  musicCursor.getInt(durationColumn)
+
+                songs.add(
+                    Song(
+                        songData.toString(),
+                        songName,
+                        songArtist,
+                        albumArtUri.toString(),
+                        songDuration
+                    )
                 )
-            )
+            } while (musicCursor.moveToNext())
         }
         musicCursor?.close()
 
