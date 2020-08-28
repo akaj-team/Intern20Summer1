@@ -2,8 +2,10 @@ package com.asiantech.intern20summer1.week9
 
 import android.app.Notification
 import android.app.Service
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.media.AudioAttributes
 import android.media.MediaPlayer
 import android.net.Uri
@@ -11,26 +13,24 @@ import android.os.Binder
 import android.os.Build
 import android.os.IBinder
 import androidx.annotation.RequiresApi
+import com.asiantech.intern20summer1.week9.MusicNotification.Companion.KILL
+import com.asiantech.intern20summer1.week9.MusicNotification.Companion.NEXT
+import com.asiantech.intern20summer1.week9.MusicNotification.Companion.PAUSE
+import com.asiantech.intern20summer1.week9.MusicNotification.Companion.PREVIOUS
 
 class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener {
     companion object {
         private const val LIST_KEY = "list"
         private const val POSITION_KEY = "position"
         private const val DEFAULT_POSITION_KEY = 0
-
-        fun newInstance(context: Context, songList: ArrayList<Song>): Intent {
-            val musicServiceIntent = Intent(context, MusicService::class.java)
-            musicServiceIntent.putParcelableArrayListExtra(LIST_KEY, songList)
-            return musicServiceIntent
-        }
     }
 
     private lateinit var songList: ArrayList<Song>
     private lateinit var mediaPlayer: MediaPlayer
     private lateinit var songBinder: SongBinder
-    private var loopType = 0
-    private var notification: Notification? = null
+    private var notification: MusicNotification? = null
     private var position = 0
+    private var isPlaying = false
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun initMediaPlayer() {
@@ -46,7 +46,7 @@ class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnCo
         super.onCreate()
         songBinder = SongBinder()
         initMediaPlayer()
-        startForeground(position, notification)
+        startForeground(position, Notification())
     }
 
     override fun onBind(intent: Intent?): IBinder? {
@@ -62,6 +62,8 @@ class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnCo
             position = getIntExtra(POSITION_KEY, DEFAULT_POSITION_KEY)
         }
         playSong()
+        createNotification(position)
+        addAction()
         return START_NOT_STICKY
     }
 
@@ -77,20 +79,18 @@ class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnCo
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCompletion(mp: MediaPlayer?) {
-        when (loopType) {
-            0 -> nextSong()
-            1 -> playSong()
-        }
+        nextSong()
+        createNotification(position)
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun playSong() {
         mediaPlayer.stop()
         mediaPlayer.release()
-        initMediaPlayer()
-        val song = songList[position]
-        mediaPlayer.setDataSource(applicationContext, Uri.parse(song.path))
-        mediaPlayer.prepareAsync()
+        mediaPlayer = MediaPlayer()
+        mediaPlayer.setOnCompletionListener(this)
+        mediaPlayer.setDataSource(applicationContext, Uri.parse(songList[position].path))
+        mediaPlayer.prepare()
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
@@ -111,9 +111,7 @@ class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnCo
         playSong()
     }
 
-    fun getCurrentPosition() {
-        mediaPlayer.currentPosition
-    }
+    fun isPlaying() = mediaPlayer.isPlaying
 
     fun getPosition() = position
 
@@ -127,5 +125,49 @@ class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnCo
         fun getService(): MusicService {
             return this@MusicService
         }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    private fun createNotification(position: Int) {
+        notification = MusicNotification(this)
+        val notification = notification?.createNotification(songList[position], isPlaying())
+        this.startForeground(1, notification)
+        isPlaying = this.isPlaying()
+    }
+
+    private fun broadcastReceiver() = object : BroadcastReceiver() {
+        @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+        override fun onReceive(context: Context?, intent: Intent?) {
+            when (intent?.action) {
+                PREVIOUS -> {
+                    previousSong()
+                    createNotification(position)
+                }
+                PAUSE -> {
+                    pause()
+                    createNotification(position)
+                }
+                NEXT -> {
+                    nextSong()
+                    createNotification(position)
+                }
+                KILL -> {
+                    mediaPlayer.stop()
+                    mediaPlayer.release()
+                    stopForeground(true)
+                }
+            }
+        }
+    }
+
+    private fun addAction(){
+        val filter = IntentFilter()
+        filter.apply {
+            addAction(PAUSE)
+            addAction(PREVIOUS)
+            addAction(NEXT)
+            addAction(KILL)
+        }
+        registerReceiver(broadcastReceiver(),filter)
     }
 }

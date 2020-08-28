@@ -5,7 +5,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Song(
-    var duration: String = "",
+    var duration: Int = 0,
     var name: String? = "",
     var author: String? = "",
     var imgUri: String? = "",
