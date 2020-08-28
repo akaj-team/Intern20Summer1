@@ -1,7 +1,9 @@
 package com.asiantech.intern20summer1.week9.fragment
 
 import android.Manifest
+import android.app.ActivityManager
 import android.content.ComponentName
+import android.content.Context
 import android.content.Context.BIND_AUTO_CREATE
 import android.content.Intent
 import android.content.ServiceConnection
@@ -68,7 +70,6 @@ class SongListFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initView()
         initAdapter()
         initListeners()
@@ -142,14 +143,17 @@ class SongListFragment : Fragment() {
 
     private fun initView() {
         recyclerViewListSong.layoutManager = LinearLayoutManager(requireContext())
-        cardViewPlayMusicBar.visibility = View.GONE
+
+        if (!isMyServiceRunning(PlayMusicService::class.java)) {
+            cardViewPlayMusicBar.visibility = View.GONE
+        } else {
+            cardViewPlayMusicBar.visibility = View.VISIBLE
+        }
     }
 
     private fun initData() {
         songs.clear()
-        songs.apply {
-            addAll(Units.insertData(requireContext()))
-        }
+        songs.addAll(Units.insertData(requireContext()))
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -205,10 +209,12 @@ class SongListFragment : Fragment() {
         isPlaying = when (isPlaying) {
             true -> {
                 imgPlayAndPause.setImageResource(R.drawable.ic_play)
+                createNotification(mPosition)
                 false
             }
             else -> {
                 imgPlayAndPause.setImageResource(R.drawable.ic_pause)
+                createNotification(mPosition)
                 true
             }
         }
@@ -216,6 +222,7 @@ class SongListFragment : Fragment() {
     }
 
     private fun playNext() {
+        isPlaying = true
         playMusicService.playNext()
         mPosition = playMusicService.initPosition()
         createNotification(mPosition)
@@ -223,6 +230,7 @@ class SongListFragment : Fragment() {
     }
 
     private fun playPrev() {
+        isPlaying = true
         playMusicService.playPrev()
         mPosition = playMusicService.initPosition()
         createNotification(mPosition)
@@ -233,6 +241,16 @@ class SongListFragment : Fragment() {
         notification = Notification(playMusicService)
         val notification = notification?.createPlayMusicNotification(songs[position], isPlaying)
         playMusicService.startForeground(1, notification)
-        isPlaying = playMusicService.isPlaying()
+        //isPlaying = playMusicService.isPlaying()
+    }
+
+    private fun isMyServiceRunning(serviceClass: Class<*>): Boolean {
+        val manager = context?.getSystemService(Context.ACTIVITY_SERVICE) as? ActivityManager
+        for (service in manager!!.getRunningServices(Int.MAX_VALUE)) {
+            if (serviceClass.name == service.service.className) {
+                return true
+            }
+        }
+        return false
     }
 }

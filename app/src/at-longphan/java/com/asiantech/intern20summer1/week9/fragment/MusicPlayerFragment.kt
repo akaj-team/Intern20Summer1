@@ -21,6 +21,7 @@ import com.asiantech.intern20summer1.week9.Notification
 import com.asiantech.intern20summer1.week9.model.Song
 import com.asiantech.intern20summer1.week9.model.Units
 import com.asiantech.intern20summer1.week9.service.PlayMusicService
+import com.asiantech.intern20summer1.week9.service.PlayMusicService.Companion.currentPos
 import com.asiantech.intern20summer1.week9.service.PlayMusicService.Companion.isRepeat
 import com.asiantech.intern20summer1.week9.service.PlayMusicService.Companion.isShuffle
 import kotlinx.android.synthetic.`at-longphan`.fragment_music_player_w9.*
@@ -153,19 +154,19 @@ class MusicPlayerFragment : Fragment() {
 
     private fun nextMusic() {
         isPlaying = true
-        mPosition++
-        if (mPosition > listMainMusic.size - 1) mPosition = 0
+       /* mPosition++
+        if (mPosition > listMainMusic.size - 1) mPosition = 0*/
         playMusicService.playNext()
-        createNotification(mPosition)
+        createNotification(currentPos)
         initView()
     }
 
     private fun previousMusic() {
         isPlaying = true
-        mPosition--
-        if (mPosition < 0) mPosition = listMainMusic.size - 1
+        /*mPosition--
+        if (mPosition < 0) mPosition = listMainMusic.size - 1*/
         playMusicService.playPrev()
-        createNotification(mPosition)
+        createNotification(currentPos)
         initView()
     }
 

@@ -156,6 +156,7 @@ class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
     internal fun playNext() {
         if (shuffle) {
             var newSong = songPosn
+
             while (newSong == songPosn) {
                 newSong = rand.nextInt(songs.size)
             }

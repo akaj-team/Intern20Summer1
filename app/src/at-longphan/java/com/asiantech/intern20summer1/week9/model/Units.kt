@@ -45,32 +45,62 @@ object Units {
     @SuppressLint("Recycle", "InlinedApi")
     fun insertData(context: Context): ArrayList<Song> {
         songs.clear()
-        val musicCursor: Cursor? = context.contentResolver.query(
-            MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
-            null,
-            null,
-            null,
-            null
+
+        val uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
+
+        val selection =
+            MediaStore.Audio.Media.IS_MUSIC + " != ? "
+
+        val selectionArgs = arrayOf<String>(
+            "0"
         )
+
+        val projection = arrayOf(
+            MediaStore.Audio.Media._ID,
+            MediaStore.Audio.Media.ARTIST,
+            MediaStore.Audio.Media.TITLE,
+            MediaStore.Audio.Media.DISPLAY_NAME,
+            MediaStore.Audio.Media.ALBUM_ID,
+            MediaStore.Audio.Media.DURATION
+        )
+
+        val sortOrder = "${MediaStore.Audio.Media.DISPLAY_NAME} ASC"
+
+        val musicCursor: Cursor? = context.contentResolver.query(
+            uri,
+            projection,
+            selection,
+            selectionArgs,
+            sortOrder
+        )
+
         while (musicCursor != null && musicCursor.moveToNext()) {
+            val songID =
+                musicCursor.getInt(musicCursor.getColumnIndex(MediaStore.Audio.Media._ID))
+
             val songName =
                 musicCursor.getString(musicCursor.getColumnIndex(MediaStore.Audio.Media.TITLE))
+
             val songArtist =
                 musicCursor.getString(musicCursor.getColumnIndex(MediaStore.Audio.Media.ARTIST))
+
             val songDuration =
                 musicCursor.getInt(musicCursor.getColumnIndex(MediaStore.Audio.Media.DURATION))
+
             val albumId: Long =
                 musicCursor.getLong(musicCursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID))
             val sArtWorkUri: Uri = Uri.parse("content://media/external/audio/albumart")
-            val data =
-                Uri.parse(musicCursor.getString(musicCursor.getColumnIndex(MediaStore.Audio.Media.DATA)))
             val albumArtUri: String = ContentUris.withAppendedId(sArtWorkUri, albumId).toString()
+
+            val songPath = Uri.withAppendedPath(uri, songID.toString()).toString()
+
             songs.add(
                 Song(
-                    data.toString(),
+                    songPath,
                     songName,
                     songArtist,
                     albumArtUri,
+                    //ContentUris.withAppendedId(uri, songIDLong).toString(),
                     songDuration
                 )
             )

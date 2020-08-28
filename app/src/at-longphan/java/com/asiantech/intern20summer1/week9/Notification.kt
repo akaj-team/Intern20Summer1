@@ -86,6 +86,7 @@ class Notification(playMusicService: PlayMusicService) {
             ACTION_KILL_MEDIA -> R.drawable.ic_close_black_24
             else -> R.drawable.ic_previous
         }
+        
         return NotificationCompat.Action.Builder(
             icon,
             action,

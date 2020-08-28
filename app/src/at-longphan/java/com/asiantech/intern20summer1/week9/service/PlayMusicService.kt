@@ -12,7 +12,7 @@ import com.asiantech.intern20summer1.week9.Notification
 import com.asiantech.intern20summer1.week9.adapter.SongAdapter
 import com.asiantech.intern20summer1.week9.model.Song
 import com.asiantech.intern20summer1.week9.model.Units
-
+import kotlin.random.Random
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS", "DEPRECATION")
 class PlayMusicService : Service(), MediaPlayer.OnCompletionListener {
@@ -20,29 +20,30 @@ class PlayMusicService : Service(), MediaPlayer.OnCompletionListener {
     companion object {
         var isShuffle = false
         var isRepeat = false
+        var currentPos = 0
     }
 
-    private var currentPosition = 0
     private var musicDataList: ArrayList<Song> = ArrayList()
     private var mMediaPlayer: MediaPlayer? = MediaPlayer()
     private val mBinder = LocalBinder()
     private var isPlaying = false
     private var notification: Notification? = null
+    private var rand: Random = Random
 
     private val broadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             when (intent?.action) {
                 Units.ACTION_PREVIOUS -> {
                     playPrev()
-                    createNotification(currentPosition)
+                    createNotification(currentPos)
                 }
                 Units.ACTION_PLAY_PAUSE -> {
                     togglePlayAndPause()
-                    createNotification(currentPosition)
+                    createNotification(currentPos)
                 }
                 Units.ACTION_SKIP_NEXT -> {
                     playNext()
-                    createNotification(currentPosition)
+                    createNotification(currentPos)
                 }
                 Units.ACTION_KILL_MEDIA -> {
                     mMediaPlayer?.stop()
@@ -53,11 +54,15 @@ class PlayMusicService : Service(), MediaPlayer.OnCompletionListener {
         }
     }
 
+    override fun onCreate() {
+        super.onCreate()
+    }
+
     override fun onCompletion(mp: MediaPlayer?) {
         if (!isRepeat) {
             playNext()
-        } else playMedia(currentPosition)
-        createNotification(currentPosition)
+        } else playMedia(currentPos)
+        createNotification(currentPos)
     }
 
     override fun onBind(intent: Intent?): IBinder? {
@@ -66,11 +71,11 @@ class PlayMusicService : Service(), MediaPlayer.OnCompletionListener {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         intent?.apply {
-            currentPosition = intent.getIntExtra(SongAdapter.SONG_ITEM_POSITION, 0)
+            currentPos = intent.getIntExtra(SongAdapter.SONG_ITEM_POSITION, 0)
             musicDataList = intent.getParcelableArrayListExtra(SongAdapter.SONG_LIST_PATH)
         }
-        createNotification(currentPosition)
-        playMedia(currentPosition)
+        createNotification(currentPos)
+        playMedia(currentPos)
         addAction()
         return START_NOT_STICKY
     }
@@ -90,19 +95,28 @@ class PlayMusicService : Service(), MediaPlayer.OnCompletionListener {
     }
 
     internal fun playNext() {
-        currentPosition++
-        if (currentPosition > musicDataList.size - 1) {
-            currentPosition = 0
+        if(isShuffle){
+            var newPos = currentPos
+            while (newPos == currentPos){
+                newPos = rand.nextInt(musicDataList.size)
+            }
+            currentPos = newPos
+        } else {
+            currentPos++
+            if (currentPos > musicDataList.size - 1) {
+                currentPos = 0
+            }
         }
-        playMedia(currentPosition)
+
+        playMedia(currentPos)
     }
 
     internal fun playPrev() {
-        currentPosition--
-        if (currentPosition < 0) {
-            currentPosition = musicDataList.size - 1
+        currentPos--
+        if (currentPos < 0) {
+            currentPos = musicDataList.size - 1
         }
-        playMedia(currentPosition)
+        playMedia(currentPos)
     }
 
     internal fun togglePlayAndPause() {
@@ -119,7 +133,7 @@ class PlayMusicService : Service(), MediaPlayer.OnCompletionListener {
 
     internal fun currentPosition() = mMediaPlayer?.currentPosition
 
-    internal fun initPosition(): Int = currentPosition
+    internal fun initPosition(): Int = currentPos
 
     internal fun isPlaying(): Boolean = mMediaPlayer?.isPlaying!!
 

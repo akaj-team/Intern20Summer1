@@ -162,9 +162,9 @@ class HomeWeekNineActivity : AppCompatActivity(), MediaController.MediaPlayerCon
 
     private val musicConnection = object : ServiceConnection {
         override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
-            val binder : MusicService.MusicBinder = service as MusicService.MusicBinder
+            val binder : MusicService.MusicBinder? = service as? MusicService.MusicBinder
             // Get service
-            musicSrv = binder.getService()
+            musicSrv = binder?.getService()
             // Pass list
             musicSrv?.setList(songList)
             musicBound = true
