@@ -65,9 +65,9 @@ class CreateNotification(foregroundService: ForegroundService) {
         val icon: Int = when (action) {
             MusicAction.PREVIOUS -> R.drawable.ic_baseline_skip_previous_24
             MusicAction.PAUSE -> if (isPlaying) {
-                R.drawable.ic_baseline_play_circle_outline_24
-            } else {
                 R.drawable.ic_baseline_pause_24
+            } else {
+                R.drawable.ic_baseline_play_arrow_24
             }
             MusicAction.NEXT -> R.drawable.ic_baseline_skip_next_24
             MusicAction.CLOSE -> R.drawable.ic_baseline_close_24

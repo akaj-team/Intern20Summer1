@@ -15,10 +15,9 @@ import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w9.ForegroundService
 import com.asiantech.intern20summer1.w9.activity.MusicPlayerActivity
-import com.asiantech.intern20summer1.w9.data.MusicAction
 import com.asiantech.intern20summer1.w9.data.Song
 import com.asiantech.intern20summer1.w9.data.SongData
-import com.bumptech.glide.Glide
+import com.asiantech.intern20summer1.w9.notification.CreateNotification
 import kotlinx.android.synthetic.`at-sonnguyen`.w9_fragment_music_player.*
 
 class MusicPlayerFragment : Fragment() {
@@ -38,6 +37,7 @@ class MusicPlayerFragment : Fragment() {
     private var isLooping = false
     private var isShuffle = false
     private var musicBound = false
+    private var notification: CreateNotification? = null
     private val songs = mutableListOf<Song>()
     val handler = Handler()
     private lateinit var runnable: Runnable
@@ -82,6 +82,12 @@ class MusicPlayerFragment : Fragment() {
         initListener()
     }
 
+    override fun onStop() {
+        super.onStop()
+        context?.unbindService(musicServiceConnection)
+        musicBound = false
+    }
+
     private fun initData() {
         songs.clear()
         songs.addAll(SongData.getSong(requireContext()))
@@ -102,10 +108,10 @@ class MusicPlayerFragment : Fragment() {
         tvSingerNameMusicPlayer.text = songs[position].singerName
         tvSongNameMusicPlayer.text = songs[position].songName
         circleImageSongMusicPlayer.setImageURI(songs[position].image)
-        Glide.with(requireContext())
-            .load(songs[position].image)
-            .placeholder(R.drawable.ic_song)
-            .into(circleImageSongMusicPlayer)
+//        Glide.with(requireContext())
+//            .load(songs[position].image)
+//            .placeholder(R.drawable.ic_song)
+//            .into(circleImageSongMusicPlayer)
     }
 
     private fun handleBackImageViewListener() {
@@ -116,8 +122,20 @@ class MusicPlayerFragment : Fragment() {
 
     private fun handleSkipPreviousImageViewListener() {
         imgSkipPreviousMusicPlayer.setOnClickListener {
-            sendAction(MusicAction.PREVIOUS)
+            playPrevious()
+            handleSeekBarListener()
         }
+    }
+
+    private fun playPrevious() {
+        musicService.playPrevious(position)
+        position--
+        if (position < 0) {
+            position = songs.size - 1
+        }
+        isPlaying = true
+        createNotification(position)
+        setData(requireContext())
     }
 
     private fun handlePlayImageViewListener() {
@@ -128,19 +146,31 @@ class MusicPlayerFragment : Fragment() {
 
     private fun handleSkipNextImageViewListener() {
         imgSkipNextMusicPlayer.setOnClickListener {
-            sendAction(MusicAction.NEXT)
+            playNext()
         }
+    }
+
+    private fun playNext() {
+        musicService.playNext(position)
+        position++
+        if (position > songs.size - 1) {
+            position = 0
+        }
+        isPlaying = true
+        createNotification(position)
+        setData(requireContext())
+        handleSeekBarListener()
     }
 
     private fun handleShuffleImageViewListener() {
         imgShuffleMusicPlayer.setOnClickListener {
-            sendAction(MusicAction.SHUFFLE)
+            onShuffle()
         }
     }
 
     private fun handleLoopImageViewListener() {
         imgReplayMusicPlayer.setOnClickListener {
-            sendAction(MusicAction.LOOP)
+            onLoop()
         }
     }
 
@@ -154,13 +184,14 @@ class MusicPlayerFragment : Fragment() {
 //            imgPlayMusicPlayer.isSelected = false
 //            false
 //        }
-        if (isPlaying){
-            sendAction(MusicAction.PAUSE)
+
+        if (isPlaying) {
             imgPlayMusicPlayer.isSelected = false
+            musicService.onPauseOrPlay()
             isPlaying = false
-        } else{
-            sendAction(MusicAction.PLAY)
+        } else {
             imgPlayMusicPlayer.isSelected = true
+            musicService.onPauseOrPlay()
             isPlaying = true
         }
     }
@@ -174,8 +205,13 @@ class MusicPlayerFragment : Fragment() {
 
     private fun handleSeekBarListener() {
         seekBarDurationMusicPlayer.max = songs[position].duration
-        imgPlayMusicPlayer.isSelected = true
-
+        if (seekBarDurationMusicPlayer.progress >= seekBarDurationMusicPlayer.max) {
+            if (!isLooping) {
+                playNext()
+            } else {
+                musicService.seekTo(0)
+            }
+        }
         seekBarDurationMusicPlayer.setOnSeekBarChangeListener(object :
             SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
@@ -195,15 +231,15 @@ class MusicPlayerFragment : Fragment() {
                 position = musicService.getPosition()
                 val currentDuration = musicService.getCurrentDuration()
                 if (currentDuration != null) {
-                    seekBarDurationMusicPlayer.progress = currentDuration
-                    tvElapsedTimeLabel.text =
+                    seekBarDurationMusicPlayer?.progress = currentDuration
+                    tvElapsedTimeLabel?.text =
                         SongData.toMin(currentDuration.toLong(), requireContext())
-                    tvRemainingTime.text = SongData.toMin(
+                    tvRemainingTime?.text = SongData.toMin(
                         (songs[position].duration - currentDuration).toLong(),
                         requireContext()
                     )
                 }
-                if (this@MusicPlayerFragment.position > position){
+                if (this@MusicPlayerFragment.position > position) {
                     position = this@MusicPlayerFragment.position
                     setData(requireContext())
                 }
@@ -211,5 +247,38 @@ class MusicPlayerFragment : Fragment() {
             }
         }
         handler.post(runnable)
+    }
+
+    private fun createNotification(position: Int) {
+        notification = CreateNotification(musicService)
+        val notification = notification?.createNotification(songs[position], isPlaying)
+        musicService.startForeground(1, notification)
+        isLooping = musicService.isLoop()
+        isShuffle = musicService.isShuffle()
+    }
+
+    private fun onLoop() {
+        if (!isLooping) {
+            imgReplayMusicPlayer.isSelected = true
+            isLooping = true
+            musicService.loopMusic(isLooping)
+        } else {
+            imgReplayMusicPlayer.isSelected = false
+            isLooping = false
+            musicService.loopMusic(isLooping)
+        }
+    }
+
+    private fun onShuffle() {
+        if (isShuffle) {
+            imgShuffleMusicPlayer.isSelected = false
+            isShuffle = false
+            songs.clear()
+            songs.addAll(SongData.getSong(requireContext()))
+        } else {
+            imgShuffleMusicPlayer.isSelected = true
+            isShuffle = true
+            songs.shuffle()
+        }
     }
 }

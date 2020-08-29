@@ -30,7 +30,6 @@ class ForegroundService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer
 
     companion object {
         internal const val CHANNEL_ID = "Foreground Service"
-        private const val DEFAULT_POSITION_VALUE = 0
         private const val POSITION_KEY = "position Key"
         fun startService(context: Context, message: Int) {
             val startIntent = Intent(context, ForegroundService::class.java)
@@ -50,40 +49,6 @@ class ForegroundService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer
     }
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
-//        val position = intent.getIntExtra(POSITION_KEY, DEFAULT_POSITION_VALUE)
-//        if (position != DEFAULT_POSITION_VALUE) {
-//            positionSong = position
-//            playMusic()
-//            isPlaying = true
-//        }
-//        when (intent.action) {
-//            MusicAction.PLAY -> {
-//                isPlaying = true
-//                playSong()
-//            }
-//
-//            MusicAction.PREVIOUS -> {
-//                playPrevious()
-//            }
-//            MusicAction.PAUSE -> {
-//                isPlaying = false
-//                pauseMusic()
-//            }
-//            MusicAction.NEXT -> {
-//                playNext()
-//            }
-//            MusicAction.SHUFFLE -> {
-//                shuffleMusic()
-//            }
-//            MusicAction.LOOP -> {
-//                loopMusic()
-//            }
-//            MusicAction.CLOSE -> {
-//                Companion.stopService(ForegroundService())
-//            }
-//        }
-//        createNotificationMusicChannel()
-//        return START_REDELIVER_INTENT
         intent.apply { positionSong = intent.getIntExtra(POSITION_KEY, 0) }
         createNotification(positionSong)
         initMediaPlayer(positionSong)
@@ -93,16 +58,17 @@ class ForegroundService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer
 
     private fun createNotification(position: Int) {
         notification = CreateNotification(this)
+        isPlaying = this.isPlaying()
         val notification = notification?.createNotification(songs[position], isPlaying)
         this.startForeground(1, notification)
-        isPlaying = this.isPlaying()
+
     }
 
     private val broadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             when (intent?.action) {
                 MusicAction.PREVIOUS -> {
-                    playPrevious()
+                    playPrevious(positionSong)
                     createNotification(positionSong)
                 }
                 MusicAction.PAUSE -> {
@@ -110,11 +76,13 @@ class ForegroundService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer
                     createNotification(positionSong)
                 }
                 MusicAction.NEXT -> {
-                    playNext()
+                    playNext(positionSong)
                     createNotification(positionSong)
                 }
                 MusicAction.CLOSE -> {
-                    createNotification(positionSong)
+                    mediaPlayer?.stop()
+                    mediaPlayer?.release()
+                    stopForeground(true)
                 }
             }
         }
@@ -125,9 +93,14 @@ class ForegroundService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer
     }
 
     fun onPauseOrPlay() {
-        if (mediaPlayer?.isPlaying!!) {
+        mediaPlayer?.isPlaying?.let {
+            isPlaying = it
+        }
+        if (isPlaying) {
+            isPlaying = false
             mediaPlayer?.pause()
         } else {
+            isPlaying = true
             mediaPlayer?.start()
         }
     }
@@ -156,7 +129,7 @@ class ForegroundService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer
             addAction(MusicAction.PLAY)
             addAction(MusicAction.CLOSE)
         }
-        registerReceiver(MusicReceiver(), filter)
+        registerReceiver(broadcastReceiver, filter)
     }
 
     internal fun playMusic() {
@@ -168,7 +141,7 @@ class ForegroundService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer
         }
     }
 
-    internal fun initMediaPlayer(position: Int) {
+    private fun initMediaPlayer(position: Int) {
         if (mediaPlayer != null) {
             mediaPlayer?.stop()
             mediaPlayer?.release()
@@ -182,7 +155,13 @@ class ForegroundService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer
         }
     }
 
-    internal fun playNext() {
+    internal fun pause() {
+        isPlaying = false
+        mediaPlayer?.pause()
+    }
+
+    internal fun playNext(position: Int) {
+        positionSong = position
         positionSong++
         if (positionSong >= songs.size - 1) {
             positionSong = 0
@@ -190,7 +169,8 @@ class ForegroundService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer
         initMediaPlayer(positionSong)
     }
 
-    internal fun playPrevious() {
+    internal fun playPrevious(position: Int) {
+        positionSong = position
         positionSong--
         if (positionSong < 0) {
             positionSong = songs.size - 1
@@ -216,12 +196,8 @@ class ForegroundService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer
         return isPlaying
     }
 
-    internal fun loopMusic() {
-        mediaPlayer?.isLooping = true
-    }
-
-    internal fun pauseMusic() {
-        mediaPlayer?.pause()
+    internal fun loopMusic(isLoop: Boolean) {
+        mediaPlayer?.isLooping = isLoop
     }
 
     private fun playSong() {
@@ -241,6 +217,7 @@ class ForegroundService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer
     }
 
     override fun onPrepared(p0: MediaPlayer?) {
+        initMediaPlayer(0)
     }
 
     override fun onError(p0: MediaPlayer?, p1: Int, p2: Int): Boolean {
@@ -249,7 +226,7 @@ class ForegroundService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer
 
     override fun onCompletion(mediaPlayer: MediaPlayer?) {
         if (!isLooping) {
-            playNext()
+            playNext(positionSong)
         } else {
             playSong()
         }
