@@ -9,6 +9,7 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,9 +33,8 @@ class SongListFragment : Fragment() {
 
     private var positionSongPlaying = DEFAULT_VALUE
     private var isBound = false
+    private var flag = false
     private var isPlaying = false
-    private var isLooping = false
-    private var isShuffle = false
     private var notification: CreateNotification? = null
     private var musicService = ForegroundService()
     private var songs = mutableListOf<Song>()
@@ -61,12 +61,12 @@ class SongListFragment : Fragment() {
         val intent = Intent(context, ForegroundService::class.java)
         context?.bindService(intent, musicServiceConnection, Context.BIND_AUTO_CREATE)
         positionSongPlaying = musicService.getPosition()
-//        imgPlaySongList.isSelected = musicService.isPlaying()
-        imgPlaySongList.isSelected = true
-        isPlaying = true
-//        setCardViewData()
-        initCardView()
-        musicService.pause()
+        isPlaying = musicService.isPlaying()
+        Log.d("TAG00000", "onStart: isPlaying $isPlaying")
+        imgPlaySongList.isSelected = musicService.isPlaying()
+        Log.d("TAG00000", "onStart: isSelected  ${imgPlaySongList.isSelected}")
+        Log.d("TAG00000", "onStart: position $positionSongPlaying ")
+        setCardViewData()
     }
 
     private var musicServiceConnection = object : ServiceConnection {
@@ -75,6 +75,7 @@ class SongListFragment : Fragment() {
             musicService = binder.getService
             positionSongPlaying = musicService.getPosition()
             imgPlaySongList.isSelected = musicService.isPlaying()
+            Log.d("TAG00000", "AAAA: 000000  ${imgPlaySongList.isSelected}")
             setCardViewData()
             isBound = true
         }
@@ -131,6 +132,7 @@ class SongListFragment : Fragment() {
     private fun handleItemClickListener() {
         songAdapter.onItemClicked = {
             isPlaying = true
+            flag = true
             positionSongPlaying = it
             setCardViewData()
             playMusic(it)
@@ -139,19 +141,22 @@ class SongListFragment : Fragment() {
 
     private fun onPauseOrPlayMusic() {
         musicService.onPauseOrPlay()
-        isPlaying = if (!isPlaying) {
-            imgPlaySongList.isSelected = true
-            true
-        } else {
-            imgPlaySongList.isSelected = false
-            false
-        }
+        isPlaying = !isPlaying
+        imgPlaySongList.isSelected = !imgPlaySongList.isSelected
         createNotification(positionSongPlaying)
     }
 
     private fun handlePlayImageViewListener() {
         imgPlaySongList.setOnClickListener {
-            onPauseOrPlayMusic()
+            if (flag) {
+                onPauseOrPlayMusic()
+            } else {
+                playMusic(positionSongPlaying)
+                isPlaying = true
+                flag = true
+                imgPlaySongList.isSelected = true
+                createNotification(positionSongPlaying)
+            }
         }
     }
 
@@ -159,9 +164,10 @@ class SongListFragment : Fragment() {
         imgNextSongList.setOnClickListener {
             musicService.playNext(positionSongPlaying)
             positionSongPlaying++
-            if (positionSongPlaying > songs.size - 1){
+            if (positionSongPlaying > songs.size - 1) {
                 positionSongPlaying = 0
             }
+            flag = true
             setCardViewData()
             createNotification(positionSongPlaying)
         }
@@ -184,29 +190,21 @@ class SongListFragment : Fragment() {
         isPlaying = true
     }
 
-    private fun initCardView(){
-        ForegroundService.startService(requireContext(),0)
 
-        isPlaying = true
-        musicService.pause()
-//        imgPlaySongList?.isSelected = true
-        setCardViewData()
-    }
-
-     private fun setCardViewData() {
-        val bitmap = SongData.convertUriToBitmap(songs[positionSongPlaying].uri,requireContext())
-        if (bitmap == null){
+    private fun setCardViewData() {
+        val bitmap = SongData.convertUriToBitmap(songs[positionSongPlaying].uri, requireContext())
+        if (bitmap == null) {
             imgSmallSong.setImageResource(R.drawable.ic_song)
-        }else{
+        } else {
             imgSmallSong.setImageBitmap(bitmap)
         }
         tvCardViewSongName.text = songs[positionSongPlaying].songName
     }
 
-    private fun createNotification(position: Int){
+    private fun createNotification(position: Int) {
         notification = CreateNotification(musicService)
-        val notification = notification?.createNotification(songs[position],isPlaying)
-        musicService.startForeground(1,notification)
+        val notification = notification?.createNotification(songs[position], isPlaying)
+        musicService.startForeground(1, notification)
         isPlaying = musicService.isPlaying()
     }
 }

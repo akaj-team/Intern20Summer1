@@ -7,6 +7,7 @@ import android.content.ServiceConnection
 import android.os.Bundle
 import android.os.Handler
 import android.os.IBinder
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,6 +33,7 @@ class MusicPlayerFragment : Fragment() {
     }
 
     private var position = 0
+    private var flag = false
     private var musicService = ForegroundService()
     private var isPlaying = false
     private var isLooping = false
@@ -62,6 +64,7 @@ class MusicPlayerFragment : Fragment() {
             musicService = binder.getService
             circleImageSongMusicPlayer.isSelected = musicService.isPlaying()
             isPlaying = musicService.isPlaying()
+            flag = isPlaying
             musicBound = true
         }
 
@@ -91,7 +94,7 @@ class MusicPlayerFragment : Fragment() {
     private fun initData() {
         songs.clear()
         songs.addAll(SongData.getSong(requireContext()))
-        setData(requireContext())
+        setData()
     }
 
     private fun initListener() {
@@ -104,14 +107,16 @@ class MusicPlayerFragment : Fragment() {
         handleSeekBarListener()
     }
 
-    private fun setData(context: Context) {
+    private fun setData() {
         tvSingerNameMusicPlayer.text = songs[position].singerName
         tvSongNameMusicPlayer.text = songs[position].songName
-        circleImageSongMusicPlayer.setImageURI(songs[position].image)
-//        Glide.with(requireContext())
-//            .load(songs[position].image)
-//            .placeholder(R.drawable.ic_song)
-//            .into(circleImageSongMusicPlayer)
+        Log.d("TAG00000", "setData: $position")
+        val bitmap = SongData.convertUriToBitmap(songs[position].uri,requireContext())
+        if (bitmap==null){
+            circleImageSongMusicPlayer.setImageResource(R.drawable.ic_song)
+        }else{
+            circleImageSongMusicPlayer.setImageBitmap(bitmap)
+        }
     }
 
     private fun handleBackImageViewListener() {
@@ -134,13 +139,23 @@ class MusicPlayerFragment : Fragment() {
             position = songs.size - 1
         }
         isPlaying = true
+        imgPlayMusicPlayer.isSelected = true
+        flag = true
         createNotification(position)
-        setData(requireContext())
+        setData()
     }
 
     private fun handlePlayImageViewListener() {
         imgPlayMusicPlayer.setOnClickListener {
-            onPauseOrPlayMusic()
+            if (flag){
+                onPauseOrPlayMusic()
+                Log.d("TAG", "handlePlayImageViewListener: $isPlaying")
+                Log.d("TAG", "handlePlayImageViewListener: 0000")
+            }else{
+                flag = true
+                playSong(position)
+                Log.d("TAG", "handlePlayImageViewListener: 1111")
+            }
         }
     }
 
@@ -150,6 +165,12 @@ class MusicPlayerFragment : Fragment() {
         }
     }
 
+    private fun playSong(position: Int){
+        ForegroundService.startService(requireContext(), position)
+        imgPlayMusicPlayer.isSelected = true
+        isPlaying = true
+    }
+
     private fun playNext() {
         musicService.playNext(position)
         position++
@@ -157,8 +178,11 @@ class MusicPlayerFragment : Fragment() {
             position = 0
         }
         isPlaying = true
+        flag = true
+        imgPlayMusicPlayer.isSelected = true
         createNotification(position)
-        setData(requireContext())
+        Log.d("TAG00000", "playNext: $position ")
+        setData()
         handleSeekBarListener()
     }
 
@@ -175,33 +199,18 @@ class MusicPlayerFragment : Fragment() {
     }
 
     private fun onPauseOrPlayMusic() {
-//        isPlaying = if (!isPlaying) {
-//            sendAction(MusicAction.PLAY)
-//            imgPlayMusicPlayer.isSelected = true
-//            true
-//        } else {
-//            sendAction(MusicAction.PAUSE)
-//            imgPlayMusicPlayer.isSelected = false
-//            false
-//        }
-
-        if (isPlaying) {
-            imgPlayMusicPlayer.isSelected = false
-            musicService.onPauseOrPlay()
-            isPlaying = false
-        } else {
-            imgPlayMusicPlayer.isSelected = true
-            musicService.onPauseOrPlay()
-            isPlaying = true
-        }
+        musicService.onPauseOrPlay()
+        isPlaying = !isPlaying
+        imgPlayMusicPlayer.isSelected = !imgPlayMusicPlayer.isSelected
+        createNotification(position)
     }
 
-    private fun sendAction(action: String) {
-        val intent = Intent(requireContext(), ForegroundService::class.java)
-        intent.action = action
-        intent.putExtra(action, getString(R.string.w9_put_extra_action_value))
-        context?.startService(intent)
-    }
+//    private fun sendAction(action: String) {
+//        val intent = Intent(requireContext(), ForegroundService::class.java)
+//        intent.action = action
+//        intent.putExtra(action, getString(R.string.w9_put_extra_action_value))
+//        context?.startService(intent)
+//    }
 
     private fun handleSeekBarListener() {
         seekBarDurationMusicPlayer.max = songs[position].duration
@@ -241,7 +250,7 @@ class MusicPlayerFragment : Fragment() {
                 }
                 if (this@MusicPlayerFragment.position > position) {
                     position = this@MusicPlayerFragment.position
-                    setData(requireContext())
+                    setData()
                 }
                 handler.postDelayed(this, 100)
             }
