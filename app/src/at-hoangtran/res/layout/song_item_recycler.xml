@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/lnItem"
     android:layout_width="match_parent"
     android:layout_height="50dp">
 
@@ -12,26 +13,23 @@
 
     <TextView
         android:id="@+id/tvSongName"
-        android:textStyle="bold"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginRight="20dp"
-        android:text="aaaaaaaaaa" />
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/tvSongAuthor"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginRight="20dp"
-        android:text="aaaaaaa" />
+        android:layout_marginRight="20dp" />
 
     <TextView
         android:id="@+id/tvSongDuration"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_weight="1"
-        android:text="10:00" />
+        android:layout_weight="1" />
 </LinearLayout>

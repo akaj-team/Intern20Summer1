@@ -20,8 +20,8 @@ import com.asiantech.intern20summer1.week9.MusicNotification.Companion.PREVIOUS
 
 class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener {
     companion object {
-        private const val LIST_KEY = "list"
-        private const val POSITION_KEY = "position"
+        internal const val LIST_KEY = "list"
+        internal const val POSITION_KEY = "position"
         private const val DEFAULT_POSITION_KEY = 0
     }
 
@@ -84,7 +84,7 @@ class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnCo
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    private fun playSong() {
+    fun playSong() {
         mediaPlayer.stop()
         mediaPlayer.release()
         mediaPlayer = MediaPlayer()
@@ -160,7 +160,7 @@ class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnCo
         }
     }
 
-    private fun addAction(){
+    private fun addAction() {
         val filter = IntentFilter()
         filter.apply {
             addAction(PAUSE)
@@ -168,6 +168,6 @@ class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnCo
             addAction(NEXT)
             addAction(KILL)
         }
-        registerReceiver(broadcastReceiver(),filter)
+        registerReceiver(broadcastReceiver(), filter)
     }
 }

@@ -1,22 +1,19 @@
 package com.asiantech.intern20summer1.week9
 
-import android.Manifest
 import android.annotation.SuppressLint
-import android.content.*
-import android.content.pm.PackageManager
+import android.content.ComponentName
+import android.content.Context
+import android.content.Intent
+import android.content.ServiceConnection
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.media.MediaMetadataRetriever
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.*
-import android.provider.MediaStore
 import android.widget.SeekBar
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.asiantech.intern20summer1.R
 import kotlinx.android.synthetic.`at-hoangtran`.activity_music_player.*
 import kotlinx.android.synthetic.`at-hoangtran`.song_item_recycler.*
@@ -38,7 +35,6 @@ class MusicPlayerActivity : AppCompatActivity() {
     private var totalTime: Int = 0
     private lateinit var mp: MediaPlayer
     private lateinit var songList: ArrayList<Song>
-    private val songAdapter = MusicAdapter(songList)
 
 
     private var serviceConnection: ServiceConnection = object : ServiceConnection {
@@ -68,7 +64,14 @@ class MusicPlayerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_music_player)
 
+        showSongListFragment()
         handleProgressBar()
+    }
+
+    private fun showSongListFragment() {
+        val fragment = SongListFragment
+        val trans = supportFragmentManager.beginTransaction()
+        trans.add(R.id.flContainer, fragment.newInstance()).commit()
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
@@ -142,57 +145,6 @@ class MusicPlayerActivity : AppCompatActivity() {
         if (sec < 10) timeLabel += "0"
         timeLabel += sec
         return timeLabel
-    }
-
-    @RequiresApi(Build.VERSION_CODES.Q)
-    private fun getSongFromDevice() {
-        songList = arrayListOf()
-        val adapter = MusicAdapter(songList)
-        val contentResolver = contentResolver
-        val uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
-        val cursor = contentResolver.query(uri, null, null, null, null)
-
-        if (cursor != null && cursor.moveToFirst()) {
-            val id = cursor.getColumnIndex(MediaStore.Audio.Media._ID)
-            val title = cursor.getColumnIndex(MediaStore.Audio.Media.TITLE)
-            val author = cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST)
-            val duration = cursor.getColumnIndex(MediaStore.Audio.Media.DURATION)
-            do {
-                val currentId = cursor.getLong(id)
-                val imgUri = ContentUris.withAppendedId(uri, currentId)
-                val currentTitle = cursor.getString(title)
-                val currentArtist = cursor.getString(author)
-                val currentDuration = cursor.getInt(duration)
-                songList.add(
-                    Song(
-                        currentDuration, currentTitle, currentArtist, imgUri.toString(), currentId
-                    )
-                )
-            } while (cursor.moveToNext())
-            cursor.close()
-        }
-        songRecyclerView.layoutManager = LinearLayoutManager(this)
-        handleButton()
-        songRecyclerView.adapter = adapter
-    }
-
-    @RequiresApi(Build.VERSION_CODES.Q)
-    private fun runTimePermission() {
-        val permission =
-            ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
-        if (permission != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions()
-        } else {
-            getSongFromDevice()
-        }
-    }
-
-    private fun requestPermissions() {
-        ActivityCompat.requestPermissions(
-            this,
-            arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-            READ_REQUEST_CODE
-        )
     }
 
     private fun initView(context: Context) {
