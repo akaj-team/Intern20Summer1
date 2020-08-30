@@ -7,7 +7,6 @@ import android.content.ServiceConnection
 import android.os.Bundle
 import android.os.Handler
 import android.os.IBinder
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,10 +17,12 @@ import com.asiantech.intern20summer1.w9.ForegroundService
 import com.asiantech.intern20summer1.w9.activity.MusicPlayerActivity
 import com.asiantech.intern20summer1.w9.data.Song
 import com.asiantech.intern20summer1.w9.data.SongData
+import com.asiantech.intern20summer1.w9.fragment.SongListFragment.Companion.DELAY_TIME
 import com.asiantech.intern20summer1.w9.notification.CreateNotification
 import kotlinx.android.synthetic.`at-sonnguyen`.w9_fragment_music_player.*
 import kotlin.properties.Delegates
 
+@Suppress("DEPRECATION")
 class MusicPlayerFragment : Fragment() {
 
     companion object {
@@ -46,7 +47,7 @@ class MusicPlayerFragment : Fragment() {
     private val songs = mutableListOf<Song>()
     val handler = Handler()
     private lateinit var runnable: Runnable
-    private var isRun = true
+    private var isRuning = true
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -65,12 +66,10 @@ class MusicPlayerFragment : Fragment() {
 
     private var musicServiceConnection = object : ServiceConnection {
         override fun onServiceConnected(p0: ComponentName?, p1: IBinder?) {
-            var binder = p1 as ForegroundService.LocalBinder
+            val binder = p1 as ForegroundService.LocalBinder
             musicService = binder.getService
-            Log.d("TAG00000", "onServiceConnected: $isPlayingPlayer")
             imgPlayMusicPlayer.isSelected = musicService.isPlaying
             flag = isPlayingPlayer
-            Log.d("TAG00000", "onServiceConnected: isSelected: ${imgPlayMusicPlayer.isSelected}")
             musicBound = true
         }
 
@@ -94,7 +93,7 @@ class MusicPlayerFragment : Fragment() {
     override fun onStop() {
         super.onStop()
         context?.unbindService(musicServiceConnection)
-        isRun = false
+        isRuning = false
         musicBound = false
     }
 
@@ -117,7 +116,6 @@ class MusicPlayerFragment : Fragment() {
     private fun setData() {
         tvSingerNameMusicPlayer?.text = songs[position].singerName
         tvSongNameMusicPlayer?.text = songs[position].songName
-        Log.d("TAG00000", "setData: $position")
         val bitmap = SongData.convertUriToBitmap(songs[position].uri, requireContext())
         if (bitmap == null) {
             circleImageSongMusicPlayer?.setImageResource(R.drawable.ic_song)
@@ -157,12 +155,9 @@ class MusicPlayerFragment : Fragment() {
         imgPlayMusicPlayer.setOnClickListener {
             if (flag) {
                 onPauseOrPlayMusic()
-                Log.d("TAG", "handlePlayImageViewListener: $isPlayingPlayer")
-                Log.d("TAG", "handlePlayImageViewListener: 0000")
             } else {
                 flag = true
                 playSong(position)
-                Log.d("TAG", "handlePlayImageViewListener: 1111")
             }
         }
     }
@@ -191,10 +186,6 @@ class MusicPlayerFragment : Fragment() {
         flag = true
         imgPlayMusicPlayer.isSelected = isPlayingPlayer
         createNotification(position)
-        Log.d("TAG00000", "playNext: $position ")
-        Log.d("TAG00000", "playNext: isShuffle musicPlayer : $isShuffle  ")
-        Log.d("TAG00000", "playNext: isShuffle ${musicService.isShuffle}")
-        Log.d("TAG00000", "playNext: isPlaying ${musicService.isPlaying()}")
         setData()
         handleSeekBarListener()
     }
@@ -244,26 +235,9 @@ class MusicPlayerFragment : Fragment() {
         })
         runnable = object : Runnable {
             override fun run() {
-//                position = musicService.getPosition()
-//                val currentDuration = musicService.getCurrentDuration()
-//                if (currentDuration != null) {
-//                    seekBarDurationMusicPlayer?.progress = currentDuration
-//                    tvElapsedTimeLabel?.text =
-//                        SongData.toMin(currentDuration.toLong(), requireContext())
-//                    tvRemainingTime?.text = SongData.toMin(
-//                        (songs[position].duration - currentDuration).toLong(),
-//                        requireContext()
-//                    )
-//                }
-//                if (this@MusicPlayerFragment.position != currentDuration) {
-//                    setData()
-//                }else{
-//                    setData()
-//                }
-//                handler.postDelayed(this, 100)
-                var currentPosition = this@MusicPlayerFragment.position
-                if (isRun){
-                    seekBarDurationMusicPlayer?.max = songs[position].duration
+                val currentPosition = this@MusicPlayerFragment.position
+                if (isRuning){
+                 seekBarDurationMusicPlayer?.max = songs[position].duration
                     position = musicService.getPosition()
                     val currentDuration = musicService.getCurrentDuration()
                     if (currentDuration != null){
@@ -272,12 +246,12 @@ class MusicPlayerFragment : Fragment() {
                         tvRemainingTime?.text = SongData.toMin((songs[this@MusicPlayerFragment.position].duration - currentDuration).toLong(),requireContext())
                     }
                     if (this@MusicPlayerFragment.position != currentPosition){
-                        currentPosition = this@MusicPlayerFragment.position
+                        this@MusicPlayerFragment.position
                         setData()
                     }else {
                         setData()
                     }
-                    handler.postDelayed(this,100)
+                    handler.postDelayed(this,DELAY_TIME.toLong())
                 }
 
             }
@@ -312,17 +286,10 @@ class MusicPlayerFragment : Fragment() {
             musicService.isShuffle = false
             imgShuffleMusicPlayer.isSelected = false
             isShuffle = false
-//            songs.clear()
-//            songs.addAll(SongData.getSong(requireContext()))
-//            musicService.playNext(position)
-//            position = musicService.getPosition()
         } else {
             imgShuffleMusicPlayer.isSelected = true
             isShuffle = true
             musicService.isShuffle = true
-//            musicService.playNext(position)
-//            position = musicService.getPosition()
-//            songs.shuffle()
         }
     }
 }

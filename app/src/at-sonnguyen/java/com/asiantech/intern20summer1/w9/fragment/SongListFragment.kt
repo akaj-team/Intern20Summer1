@@ -10,7 +10,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.IBinder
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,10 +24,12 @@ import com.asiantech.intern20summer1.w9.data.SongData
 import com.asiantech.intern20summer1.w9.notification.CreateNotification
 import kotlinx.android.synthetic.`at-sonnguyen`.w9_fragment_song_list.*
 
+@Suppress("DEPRECATION")
 class SongListFragment : Fragment() {
     companion object {
         private const val PERMISSION_CODE = 1001
         private const val DEFAULT_VALUE = 0
+        internal const val DELAY_TIME = 100
         internal fun instance() = SongListFragment()
     }
 
@@ -65,10 +66,7 @@ class SongListFragment : Fragment() {
         context?.bindService(intent, musicServiceConnection, Context.BIND_AUTO_CREATE)
         positionSongPlaying = musicService.getPosition()
         isPlayingSongList = musicService.isPlaying()
-        Log.d("TAG00000", "onStart: isPlaying $isPlayingSongList")
         imgPlaySongList.isSelected = musicService.isPlaying()
-        Log.d("TAG00000", "onStart: isSelected  ${imgPlaySongList.isSelected}")
-        Log.d("TAG00000", "onStart: position $positionSongPlaying ")
         setCardViewData()
     }
 
@@ -78,7 +76,6 @@ class SongListFragment : Fragment() {
             musicService = binder.getService
             positionSongPlaying = musicService.getPosition()
             imgPlaySongList.isSelected = musicService.isPlaying()
-            Log.d("TAG00000", "ServiceConnect: 000000  ${imgPlaySongList.isSelected}")
             setCardViewData()
             isBound = true
         }
@@ -141,7 +138,6 @@ class SongListFragment : Fragment() {
             playMusic(it)
             createNotification(it)
             isPlayingSongList = true
-            Log.d("TAG00000", "handleItemClickListener: isPlaying $isPlayingSongList")
         }
     }
 
@@ -172,7 +168,6 @@ class SongListFragment : Fragment() {
             musicService.isPlaying =true
             isPlayingSongList =true
             musicService.playNext(positionSongPlaying)
-            Log.d("TAG00000", "handleNextImageViewListener: isPlaying ${musicService.isPlaying()}")
             positionSongPlaying++
             if (positionSongPlaying > songs.size - 1) {
                 positionSongPlaying = 0
@@ -185,7 +180,6 @@ class SongListFragment : Fragment() {
 
     private fun handleSongImageViewListener() {
         imgSmallSong.setOnClickListener {
-            Log.d("TAG00000", "handleSongImageViewListener: isPlaying : $isPlayingSongList ")
             (activity as? MusicPlayerActivity)?.replaceFragment(
                 MusicPlayerFragment.instance(positionSongPlaying, isPlayingSongList)
             )
@@ -198,8 +192,6 @@ class SongListFragment : Fragment() {
         isPlayingSongList = true
         musicService.isPlaying =true
         imgPlaySongList.isSelected = isPlayingSongList
-        Log.d("TAG00000", "playMusic: isPlaying $isPlayingSongList")
-        Log.d("TAG00000", "playMusic: isSelected ${imgPlaySongList.isSelected}")
     }
 
 
@@ -230,7 +222,7 @@ class SongListFragment : Fragment() {
                 } else {
                     setCardViewData()
                 }
-                handler.postDelayed(this, 100)
+                handler.postDelayed(this, DELAY_TIME.toLong())
             }
         }
         handler.post(runnable)
