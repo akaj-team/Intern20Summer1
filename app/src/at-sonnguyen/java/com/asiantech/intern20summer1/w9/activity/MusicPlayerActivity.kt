@@ -11,7 +11,7 @@ class MusicPlayerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.w9_activity_music_player)
 //        replaceFragmentMain(SongListFragment.instance())
-        replaceFragment(SongListFragment())
+        replaceFragment(SongListFragment.instance())
     }
     internal fun replaceFragmentMain(fragment: Fragment){
         val transaction = supportFragmentManager.beginTransaction()

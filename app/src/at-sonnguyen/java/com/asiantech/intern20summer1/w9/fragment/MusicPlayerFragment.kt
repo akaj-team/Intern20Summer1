@@ -20,13 +20,16 @@ import com.asiantech.intern20summer1.w9.data.Song
 import com.asiantech.intern20summer1.w9.data.SongData
 import com.asiantech.intern20summer1.w9.notification.CreateNotification
 import kotlinx.android.synthetic.`at-sonnguyen`.w9_fragment_music_player.*
+import kotlin.properties.Delegates
 
 class MusicPlayerFragment : Fragment() {
 
     companion object {
         private const val ARGUMENT_POSITION_KEY = "position_key"
-        internal fun instance(position: Int) = MusicPlayerFragment().apply {
+        private const val ARGUMENT_IS_PLAYING_KEY = "is_playing"
+        internal fun instance(position: Int, isPlaying: Boolean) = MusicPlayerFragment().apply {
             arguments = Bundle().apply {
+                putBoolean(ARGUMENT_IS_PLAYING_KEY, isPlaying)
                 putInt(ARGUMENT_POSITION_KEY, position)
             }
         }
@@ -35,7 +38,7 @@ class MusicPlayerFragment : Fragment() {
     private var position = 0
     private var flag = false
     private var musicService = ForegroundService()
-    private var isPlaying = false
+    private var isPlayingPlayer by Delegates.notNull<Boolean>()
     private var isLooping = false
     private var isShuffle = false
     private var musicBound = false
@@ -43,6 +46,7 @@ class MusicPlayerFragment : Fragment() {
     private val songs = mutableListOf<Song>()
     val handler = Handler()
     private lateinit var runnable: Runnable
+    private var isRun = true
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -55,6 +59,7 @@ class MusicPlayerFragment : Fragment() {
         super.onCreate(savedInstanceState)
         arguments?.let {
             position = it.getInt(ARGUMENT_POSITION_KEY)
+            isPlayingPlayer = it.getBoolean(ARGUMENT_IS_PLAYING_KEY)
         }
     }
 
@@ -62,9 +67,10 @@ class MusicPlayerFragment : Fragment() {
         override fun onServiceConnected(p0: ComponentName?, p1: IBinder?) {
             var binder = p1 as ForegroundService.LocalBinder
             musicService = binder.getService
-            circleImageSongMusicPlayer.isSelected = musicService.isPlaying()
-            isPlaying = musicService.isPlaying()
-            flag = isPlaying
+            Log.d("TAG00000", "onServiceConnected: $isPlayingPlayer")
+            imgPlayMusicPlayer.isSelected = musicService.isPlaying
+            flag = isPlayingPlayer
+            Log.d("TAG00000", "onServiceConnected: isSelected: ${imgPlayMusicPlayer.isSelected}")
             musicBound = true
         }
 
@@ -88,6 +94,7 @@ class MusicPlayerFragment : Fragment() {
     override fun onStop() {
         super.onStop()
         context?.unbindService(musicServiceConnection)
+        isRun = false
         musicBound = false
     }
 
@@ -108,14 +115,14 @@ class MusicPlayerFragment : Fragment() {
     }
 
     private fun setData() {
-        tvSingerNameMusicPlayer.text = songs[position].singerName
-        tvSongNameMusicPlayer.text = songs[position].songName
+        tvSingerNameMusicPlayer?.text = songs[position].singerName
+        tvSongNameMusicPlayer?.text = songs[position].songName
         Log.d("TAG00000", "setData: $position")
-        val bitmap = SongData.convertUriToBitmap(songs[position].uri,requireContext())
-        if (bitmap==null){
-            circleImageSongMusicPlayer.setImageResource(R.drawable.ic_song)
-        }else{
-            circleImageSongMusicPlayer.setImageBitmap(bitmap)
+        val bitmap = SongData.convertUriToBitmap(songs[position].uri, requireContext())
+        if (bitmap == null) {
+            circleImageSongMusicPlayer?.setImageResource(R.drawable.ic_song)
+        } else {
+            circleImageSongMusicPlayer?.setImageBitmap(bitmap)
         }
     }
 
@@ -138,7 +145,8 @@ class MusicPlayerFragment : Fragment() {
         if (position < 0) {
             position = songs.size - 1
         }
-        isPlaying = true
+        isPlayingPlayer = true
+        musicService.isPlaying = true
         imgPlayMusicPlayer.isSelected = true
         flag = true
         createNotification(position)
@@ -147,11 +155,11 @@ class MusicPlayerFragment : Fragment() {
 
     private fun handlePlayImageViewListener() {
         imgPlayMusicPlayer.setOnClickListener {
-            if (flag){
+            if (flag) {
                 onPauseOrPlayMusic()
-                Log.d("TAG", "handlePlayImageViewListener: $isPlaying")
+                Log.d("TAG", "handlePlayImageViewListener: $isPlayingPlayer")
                 Log.d("TAG", "handlePlayImageViewListener: 0000")
-            }else{
+            } else {
                 flag = true
                 playSong(position)
                 Log.d("TAG", "handlePlayImageViewListener: 1111")
@@ -165,10 +173,11 @@ class MusicPlayerFragment : Fragment() {
         }
     }
 
-    private fun playSong(position: Int){
+    private fun playSong(position: Int) {
         ForegroundService.startService(requireContext(), position)
         imgPlayMusicPlayer.isSelected = true
-        isPlaying = true
+        isPlayingPlayer = true
+        musicService.isPlaying = true
     }
 
     private fun playNext() {
@@ -177,11 +186,15 @@ class MusicPlayerFragment : Fragment() {
         if (position > songs.size - 1) {
             position = 0
         }
-        isPlaying = true
+        isPlayingPlayer = true
+        musicService.isPlaying = true
         flag = true
-        imgPlayMusicPlayer.isSelected = true
+        imgPlayMusicPlayer.isSelected = isPlayingPlayer
         createNotification(position)
         Log.d("TAG00000", "playNext: $position ")
+        Log.d("TAG00000", "playNext: isShuffle musicPlayer : $isShuffle  ")
+        Log.d("TAG00000", "playNext: isShuffle ${musicService.isShuffle}")
+        Log.d("TAG00000", "playNext: isPlaying ${musicService.isPlaying()}")
         setData()
         handleSeekBarListener()
     }
@@ -200,17 +213,11 @@ class MusicPlayerFragment : Fragment() {
 
     private fun onPauseOrPlayMusic() {
         musicService.onPauseOrPlay()
-        isPlaying = !isPlaying
+        isPlayingPlayer = !isPlayingPlayer
         imgPlayMusicPlayer.isSelected = !imgPlayMusicPlayer.isSelected
+        musicService.isPlaying = !musicService.isPlaying
         createNotification(position)
     }
-
-//    private fun sendAction(action: String) {
-//        val intent = Intent(requireContext(), ForegroundService::class.java)
-//        intent.action = action
-//        intent.putExtra(action, getString(R.string.w9_put_extra_action_value))
-//        context?.startService(intent)
-//    }
 
     private fun handleSeekBarListener() {
         seekBarDurationMusicPlayer.max = songs[position].duration
@@ -237,22 +244,42 @@ class MusicPlayerFragment : Fragment() {
         })
         runnable = object : Runnable {
             override fun run() {
-                position = musicService.getPosition()
-                val currentDuration = musicService.getCurrentDuration()
-                if (currentDuration != null) {
-                    seekBarDurationMusicPlayer?.progress = currentDuration
-                    tvElapsedTimeLabel?.text =
-                        SongData.toMin(currentDuration.toLong(), requireContext())
-                    tvRemainingTime?.text = SongData.toMin(
-                        (songs[position].duration - currentDuration).toLong(),
-                        requireContext()
-                    )
+//                position = musicService.getPosition()
+//                val currentDuration = musicService.getCurrentDuration()
+//                if (currentDuration != null) {
+//                    seekBarDurationMusicPlayer?.progress = currentDuration
+//                    tvElapsedTimeLabel?.text =
+//                        SongData.toMin(currentDuration.toLong(), requireContext())
+//                    tvRemainingTime?.text = SongData.toMin(
+//                        (songs[position].duration - currentDuration).toLong(),
+//                        requireContext()
+//                    )
+//                }
+//                if (this@MusicPlayerFragment.position != currentDuration) {
+//                    setData()
+//                }else{
+//                    setData()
+//                }
+//                handler.postDelayed(this, 100)
+                var currentPosition = this@MusicPlayerFragment.position
+                if (isRun){
+                    seekBarDurationMusicPlayer?.max = songs[position].duration
+                    position = musicService.getPosition()
+                    val currentDuration = musicService.getCurrentDuration()
+                    if (currentDuration != null){
+                        seekBarDurationMusicPlayer?.progress = currentDuration
+                        tvElapsedTimeLabel?.text = SongData.toMin(currentDuration.toLong(),requireContext())
+                        tvRemainingTime?.text = SongData.toMin((songs[this@MusicPlayerFragment.position].duration - currentDuration).toLong(),requireContext())
+                    }
+                    if (this@MusicPlayerFragment.position != currentPosition){
+                        currentPosition = this@MusicPlayerFragment.position
+                        setData()
+                    }else {
+                        setData()
+                    }
+                    handler.postDelayed(this,100)
                 }
-                if (this@MusicPlayerFragment.position > position) {
-                    position = this@MusicPlayerFragment.position
-                    setData()
-                }
-                handler.postDelayed(this, 100)
+
             }
         }
         handler.post(runnable)
@@ -260,7 +287,7 @@ class MusicPlayerFragment : Fragment() {
 
     private fun createNotification(position: Int) {
         notification = CreateNotification(musicService)
-        val notification = notification?.createNotification(songs[position], isPlaying)
+        val notification = notification?.createNotification(songs[position], isPlayingPlayer)
         musicService.startForeground(1, notification)
         isLooping = musicService.isLoop()
         isShuffle = musicService.isShuffle()
@@ -268,10 +295,12 @@ class MusicPlayerFragment : Fragment() {
 
     private fun onLoop() {
         if (!isLooping) {
+            musicService.isLooping = true
             imgReplayMusicPlayer.isSelected = true
             isLooping = true
             musicService.loopMusic(isLooping)
         } else {
+            musicService.isLooping = false
             imgReplayMusicPlayer.isSelected = false
             isLooping = false
             musicService.loopMusic(isLooping)
@@ -280,14 +309,20 @@ class MusicPlayerFragment : Fragment() {
 
     private fun onShuffle() {
         if (isShuffle) {
+            musicService.isShuffle = false
             imgShuffleMusicPlayer.isSelected = false
             isShuffle = false
-            songs.clear()
-            songs.addAll(SongData.getSong(requireContext()))
+//            songs.clear()
+//            songs.addAll(SongData.getSong(requireContext()))
+//            musicService.playNext(position)
+//            position = musicService.getPosition()
         } else {
             imgShuffleMusicPlayer.isSelected = true
             isShuffle = true
-            songs.shuffle()
+            musicService.isShuffle = true
+//            musicService.playNext(position)
+//            position = musicService.getPosition()
+//            songs.shuffle()
         }
     }
 }

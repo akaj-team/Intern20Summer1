@@ -26,5 +26,4 @@
 
         <service android:name=".w9.ForegroundService" />
     </application>
-
 </manifest>

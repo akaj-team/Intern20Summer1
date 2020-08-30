@@ -14,18 +14,19 @@ import com.asiantech.intern20summer1.w9.data.MusicAction
 import com.asiantech.intern20summer1.w9.data.Song
 import com.asiantech.intern20summer1.w9.data.SongData
 import com.asiantech.intern20summer1.w9.notification.CreateNotification
+import kotlin.random.Random.Default.nextInt
 
 class ForegroundService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener,
     MediaPlayer.OnCompletionListener {
 
     private var binder = LocalBinder()
     private var positionSong = 0
-    private var isShuffle = false
-    private var isLooping = false
+     var isShuffle = false
+     var isLooping = false
     private var notification: CreateNotification? = null
     private val songs = mutableListOf<Song>()
     private var mediaPlayer: MediaPlayer? = null
-    private var isPlaying = false
+    var isPlaying = false
     private var filter = IntentFilter()
 
     companion object {
@@ -153,6 +154,7 @@ class ForegroundService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer
         mediaPlayer?.setOnPreparedListener {
             mediaPlayer?.start()
         }
+        isPlaying = true
     }
 
     internal fun pause() {
@@ -161,11 +163,16 @@ class ForegroundService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer
     }
 
     internal fun playNext(position: Int) {
-        positionSong = position
-        positionSong++
-        if (positionSong >= songs.size - 1) {
-            positionSong = 0
+        if (!isShuffle){
+            positionSong = position
+            positionSong++
+            if (positionSong >= songs.size) {
+                positionSong = 0
+            }
+        }else{
+            positionSong = nextInt(0,songs.size)
         }
+        isPlaying = true
         initMediaPlayer(positionSong)
     }
 
@@ -175,6 +182,7 @@ class ForegroundService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer
         if (positionSong < 0) {
             positionSong = songs.size - 1
         }
+        isPlaying = true
         initMediaPlayer(positionSong)
     }
 
@@ -201,6 +209,7 @@ class ForegroundService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer
     }
 
     private fun playSong() {
+        isPlaying = true
         mediaPlayer?.start()
     }
 
@@ -227,6 +236,7 @@ class ForegroundService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer
     override fun onCompletion(mediaPlayer: MediaPlayer?) {
         if (!isLooping) {
             playNext(positionSong)
+            createNotification(positionSong)
         } else {
             playSong()
         }

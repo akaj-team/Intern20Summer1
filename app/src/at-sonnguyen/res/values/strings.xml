@@ -41,7 +41,7 @@
     <string name="w4_app_name">Week 4 - Activity - Intent - Fragment</string>
     <string name="week_9_button_text">Week 9</string>
     <string name="week_9_service_broadcast_receiver">Week 9 - Service- BroadcastReceiver</string>
-    <string name="duration_text_view">%d:%d</string>
+    <string name="duration_text_view">%d:%02d</string>
     <string name="w9_next_image_view_description">next image view</string>
     <string name="w9_play_image_view_description">play image view description</string>
     <string name="w9_back_image_view_music_player_fragment_text">Back Image View</string>
