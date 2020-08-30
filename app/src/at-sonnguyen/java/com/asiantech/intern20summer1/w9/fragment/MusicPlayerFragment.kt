@@ -17,10 +17,8 @@ import com.asiantech.intern20summer1.w9.ForegroundService
 import com.asiantech.intern20summer1.w9.activity.MusicPlayerActivity
 import com.asiantech.intern20summer1.w9.data.Song
 import com.asiantech.intern20summer1.w9.data.SongData
-import com.asiantech.intern20summer1.w9.fragment.SongListFragment.Companion.DELAY_TIME
 import com.asiantech.intern20summer1.w9.notification.CreateNotification
 import kotlinx.android.synthetic.`at-sonnguyen`.w9_fragment_music_player.*
-import kotlin.properties.Delegates
 
 @Suppress("DEPRECATION")
 class MusicPlayerFragment : Fragment() {
@@ -39,7 +37,6 @@ class MusicPlayerFragment : Fragment() {
     private var position = 0
     private var flag = false
     private var musicService = ForegroundService()
-    private var isPlayingPlayer by Delegates.notNull<Boolean>()
     private var isLooping = false
     private var isShuffle = false
     private var musicBound = false
@@ -47,7 +44,7 @@ class MusicPlayerFragment : Fragment() {
     private val songs = mutableListOf<Song>()
     val handler = Handler()
     private lateinit var runnable: Runnable
-    private var isRuning = true
+    private var isRunning = true
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -60,7 +57,7 @@ class MusicPlayerFragment : Fragment() {
         super.onCreate(savedInstanceState)
         arguments?.let {
             position = it.getInt(ARGUMENT_POSITION_KEY)
-            isPlayingPlayer = it.getBoolean(ARGUMENT_IS_PLAYING_KEY)
+            musicService.isPlaying = it.getBoolean(ARGUMENT_IS_PLAYING_KEY)
         }
     }
 
@@ -69,7 +66,7 @@ class MusicPlayerFragment : Fragment() {
             val binder = p1 as ForegroundService.LocalBinder
             musicService = binder.getService
             imgPlayMusicPlayer.isSelected = musicService.isPlaying
-            flag = isPlayingPlayer
+            flag = musicService.isPlaying
             musicBound = true
         }
 
@@ -93,7 +90,7 @@ class MusicPlayerFragment : Fragment() {
     override fun onStop() {
         super.onStop()
         context?.unbindService(musicServiceConnection)
-        isRuning = false
+        isRunning = false
         musicBound = false
     }
 
@@ -143,7 +140,6 @@ class MusicPlayerFragment : Fragment() {
         if (position < 0) {
             position = songs.size - 1
         }
-        isPlayingPlayer = true
         musicService.isPlaying = true
         imgPlayMusicPlayer.isSelected = true
         flag = true
@@ -171,7 +167,6 @@ class MusicPlayerFragment : Fragment() {
     private fun playSong(position: Int) {
         ForegroundService.startService(requireContext(), position)
         imgPlayMusicPlayer.isSelected = true
-        isPlayingPlayer = true
         musicService.isPlaying = true
     }
 
@@ -181,10 +176,9 @@ class MusicPlayerFragment : Fragment() {
         if (position > songs.size - 1) {
             position = 0
         }
-        isPlayingPlayer = true
         musicService.isPlaying = true
         flag = true
-        imgPlayMusicPlayer.isSelected = isPlayingPlayer
+        imgPlayMusicPlayer.isSelected = musicService.isPlaying
         createNotification(position)
         setData()
         handleSeekBarListener()
@@ -204,7 +198,6 @@ class MusicPlayerFragment : Fragment() {
 
     private fun onPauseOrPlayMusic() {
         musicService.onPauseOrPlay()
-        isPlayingPlayer = !isPlayingPlayer
         imgPlayMusicPlayer.isSelected = !imgPlayMusicPlayer.isSelected
         musicService.isPlaying = !musicService.isPlaying
         createNotification(position)
@@ -219,6 +212,11 @@ class MusicPlayerFragment : Fragment() {
                 musicService.seekTo(0)
             }
         }
+        handleSeekBarDurationChangeListener()
+        refreshData()
+    }
+
+    private fun handleSeekBarDurationChangeListener() {
         seekBarDurationMusicPlayer.setOnSeekBarChangeListener(object :
             SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
@@ -233,25 +231,32 @@ class MusicPlayerFragment : Fragment() {
                 }
             }
         })
+    }
+
+    private fun refreshData(){
         runnable = object : Runnable {
             override fun run() {
                 val currentPosition = this@MusicPlayerFragment.position
-                if (isRuning){
-                 seekBarDurationMusicPlayer?.max = songs[position].duration
+                if (isRunning) {
+                    seekBarDurationMusicPlayer?.max = songs[position].duration
                     position = musicService.getPosition()
                     val currentDuration = musicService.getCurrentDuration()
-                    if (currentDuration != null){
+                    if (currentDuration != null) {
                         seekBarDurationMusicPlayer?.progress = currentDuration
-                        tvElapsedTimeLabel?.text = SongData.toMin(currentDuration.toLong(),requireContext())
-                        tvRemainingTime?.text = SongData.toMin((songs[this@MusicPlayerFragment.position].duration - currentDuration).toLong(),requireContext())
+                        tvElapsedTimeLabel?.text =
+                            SongData.toMin(currentDuration.toLong(), requireContext())
+                        tvRemainingTime?.text = SongData.toMin(
+                            (songs[this@MusicPlayerFragment.position].duration - currentDuration).toLong(),
+                            requireContext()
+                        )
                     }
-                    if (this@MusicPlayerFragment.position != currentPosition){
+                    if (this@MusicPlayerFragment.position != currentPosition) {
                         this@MusicPlayerFragment.position
                         setData()
-                    }else {
+                    } else {
                         setData()
                     }
-                    handler.postDelayed(this,DELAY_TIME.toLong())
+                    handler.postDelayed(this, SongListFragment.DELAY_TIME.toLong())
                 }
 
             }
@@ -261,7 +266,7 @@ class MusicPlayerFragment : Fragment() {
 
     private fun createNotification(position: Int) {
         notification = CreateNotification(musicService)
-        val notification = notification?.createNotification(songs[position], isPlayingPlayer)
+        val notification = notification?.createNotification(songs[position], musicService.isPlaying)
         musicService.startForeground(1, notification)
         isLooping = musicService.isLoop()
         isShuffle = musicService.isShuffle()

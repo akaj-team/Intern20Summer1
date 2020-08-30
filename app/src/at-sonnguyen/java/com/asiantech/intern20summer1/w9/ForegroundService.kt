@@ -1,6 +1,5 @@
 package com.asiantech.intern20summer1.w9
 
-import android.app.PendingIntent
 import android.app.Service
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -36,11 +35,6 @@ class ForegroundService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer
             val startIntent = Intent(context, ForegroundService::class.java)
             startIntent.putExtra(POSITION_KEY, message)
             ContextCompat.startForegroundService(context, startIntent)
-        }
-
-        fun stopService(context: Context) {
-            val stopIntent = Intent(context, ForegroundService::class.java)
-            context.stopService(stopIntent)
         }
     }
 
@@ -106,12 +100,6 @@ class ForegroundService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer
         }
     }
 
-    private fun createAction(action: String): PendingIntent? {
-        val intent = Intent(this, ForegroundService::class.java)
-        intent.action = action
-        return PendingIntent.getService(this, 0, intent, 0)
-    }
-
     override fun onCreate() {
         super.onCreate()
         songs.addAll(SongData.getSong(this))
@@ -133,15 +121,6 @@ class ForegroundService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer
         registerReceiver(broadcastReceiver, filter)
     }
 
-    internal fun playMusic() {
-        initMediaPlayer(positionSong)
-        mediaPlayer?.setDataSource(this, songs[positionSong].uri)
-        mediaPlayer?.prepare()
-        mediaPlayer?.setOnPreparedListener {
-            mediaPlayer?.start()
-        }
-    }
-
     private fun initMediaPlayer(position: Int) {
         if (mediaPlayer != null) {
             mediaPlayer?.stop()
@@ -155,11 +134,6 @@ class ForegroundService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer
             mediaPlayer?.start()
         }
         isPlaying = true
-    }
-
-    internal fun pause() {
-        isPlaying = false
-        mediaPlayer?.pause()
     }
 
     internal fun playNext(position: Int) {
@@ -189,16 +163,6 @@ class ForegroundService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer
     internal fun isLoop() = isLooping
 
     internal fun isShuffle() = isShuffle
-
-    internal fun shuffleSong() {
-        if (isShuffle) {
-            songs.clear()
-            songs.addAll(SongData.getSong(this))
-            isShuffle = false
-        } else {
-            songs.shuffle()
-        }
-    }
 
     internal fun isPlaying(): Boolean {
         return isPlaying
