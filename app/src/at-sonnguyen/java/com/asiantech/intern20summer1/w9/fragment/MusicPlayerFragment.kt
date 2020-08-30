@@ -258,7 +258,6 @@ class MusicPlayerFragment : Fragment() {
                     }
                     handler.postDelayed(this, SongListFragment.DELAY_TIME.toLong())
                 }
-
             }
         }
         handler.post(runnable)
