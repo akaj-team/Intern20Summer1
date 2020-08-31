@@ -79,5 +79,6 @@
     <dimen name="w9_music_player_fragment_seek_bar_margin_left">10dp</dimen>
     <dimen name="w9_music_player_fragment_seek_bar_margin_top">25dp</dimen>
     <dimen name="w9_icon_width">0dp</dimen>
+    <dimen name="w9_song_name_text_view_width">0dp</dimen>
 
 </resources>

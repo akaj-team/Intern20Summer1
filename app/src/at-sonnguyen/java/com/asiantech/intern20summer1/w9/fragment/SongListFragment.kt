@@ -201,10 +201,8 @@ class SongListFragment : Fragment() {
 
     private fun createNotification(position: Int) {
         notification = CreateNotification(musicService)
-//        val notification = notification?.createNotification(songs[position], isPlayingSongList)
         val notification = notification?.createNotification(songs[position], musicService.isPlaying)
         musicService.startForeground(1, notification)
-//        isPlayingSongList = musicService.isPlaying()
     }
 
     private fun refreshCardView() {

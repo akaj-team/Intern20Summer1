@@ -38,7 +38,6 @@ class MusicPlayerFragment : Fragment() {
     private var flag = false
     private var musicService = ForegroundService()
     private var isLooping = false
-    private var isShuffle = false
     private var musicBound = false
     private var notification: CreateNotification? = null
     private val songs = mutableListOf<Song>()
@@ -206,7 +205,7 @@ class MusicPlayerFragment : Fragment() {
     private fun handleSeekBarListener() {
         seekBarDurationMusicPlayer.max = songs[position].duration
         if (seekBarDurationMusicPlayer.progress >= seekBarDurationMusicPlayer.max) {
-            if (!isLooping) {
+            if (musicService.isLooping) {
                 playNext()
             } else {
                 musicService.seekTo(0)
@@ -268,7 +267,7 @@ class MusicPlayerFragment : Fragment() {
         val notification = notification?.createNotification(songs[position], musicService.isPlaying)
         musicService.startForeground(1, notification)
         isLooping = musicService.isLoop()
-        isShuffle = musicService.isShuffle()
+//        isShuffle = musicService.isShuffle()
     }
 
     private fun onLoop() {
@@ -286,13 +285,13 @@ class MusicPlayerFragment : Fragment() {
     }
 
     private fun onShuffle() {
-        if (isShuffle) {
+        if (musicService.isShuffle) {
             musicService.isShuffle = false
             imgShuffleMusicPlayer.isSelected = false
-            isShuffle = false
+//            isShuffle = false
         } else {
             imgShuffleMusicPlayer.isSelected = true
-            isShuffle = true
+//            isShuffle = true
             musicService.isShuffle = true
         }
     }

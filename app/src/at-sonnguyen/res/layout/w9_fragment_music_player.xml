@@ -24,7 +24,7 @@
 
         <TextView
             android:id="@+id/tvSongNameMusicPlayer"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/w9_song_name_text_view_width"
             android:layout_height="@dimen/w9_music_player_fragment_song_name_text_view_height"
             android:layout_weight="1"
             android:gravity="center_vertical"
@@ -113,8 +113,7 @@
         android:layout_below="@id/linearLayoutSkip"
         android:layout_marginLeft="@dimen/w9_music_player_fragment_seek_bar_margin_left"
         android:layout_marginTop="@dimen/w9_music_player_fragment_seek_bar_margin_top"
-        android:layout_marginRight="@dimen/w9_music_player_fragment_seek_bar_margin_left"
-        android:progress="50" />
+        android:layout_marginRight="@dimen/w9_music_player_fragment_seek_bar_margin_left" />
 
     <RelativeLayout
         android:layout_width="match_parent"

@@ -6,6 +6,4 @@ object MusicAction {
     internal const val PLAY = "play"
     internal const val PAUSE = "pause"
     internal const val CLOSE = "close"
-    internal const val SHUFFLE = "shuffle"
-    internal const val LOOP = "loop"
 }
