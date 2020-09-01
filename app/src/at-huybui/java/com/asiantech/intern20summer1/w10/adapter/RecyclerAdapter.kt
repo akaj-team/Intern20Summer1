@@ -7,19 +7,23 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.asiantech.intern20summer1.R
-import kotlinx.android.synthetic.`at-huybui`.recycler_item.view.*
+import com.asiantech.intern20summer1.w10.models.PostItem
+import com.bumptech.glide.Glide
+import kotlinx.android.synthetic.`at-huybui`.w10_item_recycler_post.view.*
 
-class RecyclerAdapter(private val mutableList: MutableList<ItemRecycler>) :
+class RecyclerAdapter(private val mutableList: MutableList<PostItem>) :
     RecyclerView.Adapter<RecyclerAdapter.ItemViewHolder>() {
 
     companion object {
         private const val BLACK_HEART_SYMBOL = "\uD83D\uDDA4"
     }
+
     internal var onItemClicked: (position: Int) -> Unit = {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val itemView =
-            LayoutInflater.from(parent.context).inflate(R.layout.recycler_item, parent, false)
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.w10_item_recycler_post, parent, false)
         return ItemViewHolder(itemView)
     }
 
@@ -30,33 +34,35 @@ class RecyclerAdapter(private val mutableList: MutableList<ItemRecycler>) :
     }
 
     inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private var name1: TextView = itemView.tvName1W5
-        private var name2: TextView = itemView.tvName2W5
-        private var image: ImageView = itemView.imgImageW5
-        private var iconHeart: ImageView = itemView.imgIconHeartW5
-        private var information: TextView = itemView.tvInformationW5
-        private var amountHeart: TextView = itemView.tvAmountHeartW5
+
+
+        private var image: ImageView = itemView.imgImage_Item_w10
+        private var iconLike: ImageView = itemView.imgHeart_Item_w10
+        private var content: TextView = itemView.tvContent_Item_w10
+        private var createdAt: TextView = itemView.tvCreatedAt_Item_w10
+        private var likeCount: TextView = itemView.tvLikeCount_Item_w10
 
         init {
-            iconHeart.setOnClickListener {
+            iconLike.setOnClickListener {
                 onItemClicked.invoke(adapterPosition)
             }
         }
 
         fun bindData() {
             mutableList[adapterPosition].let { item ->
-                val stName1 = "${adapterPosition + 1}. ${item.name}"
-                val stAmountHeart = "$BLACK_HEART_SYMBOL ${item.amountHeart} likes"
-                name1.text = stName1
-                name2.text = item.name
-                information.text = item.information
-                amountHeart.text = stAmountHeart
-                if (item.isStatusHeart) {
-                    iconHeart.setImageResource(R.drawable.ic_heart_red)
+
+                Glide.with(itemView)
+                    .load("https://vntalking.com/wp-content/uploads/2019/04/hoc-react-native-tu-co-ban.png")
+                    .into(image)
+                val stLikeCount = "$BLACK_HEART_SYMBOL ${item.like_count} likes"
+                content.text = item.content
+                likeCount.text = stLikeCount
+                createdAt.text = item.created_at
+                if (item.like_flag) {
+                    iconLike.setImageResource(R.drawable.w10_ic_heart_red)
                 } else {
-                    iconHeart.setImageResource(R.drawable.ic_heart_transparent)
+                    iconLike.setImageResource(R.drawable.w10_ic_heart_transparent)
                 }
-                image.setImageResource(item.image)
             }
         }
     }

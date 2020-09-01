@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardElevation="10dp"
+    android:layout_margin="@dimen/w10_item_card_view_margin"
+    app:cardCornerRadius="@dimen/w10_item_card_view_radius"
+    android:background="@color/status_bar">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvName.Item.w10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/w10_item_margin_left_right"
+            android:layout_marginTop="@dimen/w10_item_name_top_margin_top"
+            tools:text="name"
+            android:textColor="@color/black"
+            android:textSize="@dimen/w10_item_name_text_size"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/imgImage.Item.w10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/w10_item_margin_left_right"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            tools:src="@drawable/logo_music" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/w10_item_margin_left_right_icon">
+
+            <ImageView
+                android:id="@+id/imgHeart.Item.w10"
+                android:layout_width="@dimen/w10_item_icon_heart_size"
+                android:layout_height="@dimen/w10_item_icon_heart_size"
+                android:src="@drawable/w10_ic_heart_transparent" />
+
+            <ImageView
+                android:layout_width="@dimen/w10_item_icon_heart_size"
+                android:layout_height="@dimen/w10_item_icon_heart_size"
+                android:layout_marginLeft="@dimen/w10_item_margin_left_right"
+                android:layout_marginRight="@dimen/w10_item_margin_left_right"
+                android:src="@drawable/w10_ic_messenger" />
+
+            <ImageView
+                android:layout_width="@dimen/w10_item_icon_heart_size"
+                android:layout_height="@dimen/w10_item_icon_heart_size"
+                android:src="@drawable/w10_ic_plane" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/w10_item_margin_left_right_icon"
+            android:layout_marginTop="@dimen/w10_item_line_black_margin_top"
+            android:layout_marginRight="@dimen/w10_item_margin_left_right_icon"
+            android:background="@color/accent" />
+
+        <TextView
+            android:id="@+id/tvLikeCount.Item.w10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/w10_item_margin_left_right_icon"
+            android:textColor="@color/black"
+            android:textSize="@dimen/w10_item_likes_text_size"
+            android:textStyle="bold"
+            tools:text="🖤  12k likes" />
+
+        <TextView
+            android:id="@+id/tvCreatedAt.Item.w10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/w10_item_margin_left_right_icon"
+            android:textColor="@color/black"
+            android:textSize="@dimen/w10_item_likes_text_size"
+            android:textStyle="bold"
+            tools:text="🖤  12k likes" />
+
+        <TextView
+            android:id="@+id/tvContent.Item.w10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/w10_item_margin_left_right_icon"
+            android:layout_marginRight="@dimen/w10_item_margin_left_right_icon"
+            tools:text="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+            android:textColor="@color/black"
+            android:textSize="@dimen/w10_item_name_text_size" />
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
