@@ -13,6 +13,8 @@ import android.os.IBinder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
@@ -57,6 +59,7 @@ class SongListFragment : Fragment() {
         initData()
         refreshCardView()
         initListener()
+        startAnimation()
     }
 
     override fun onStart() {
@@ -219,5 +222,10 @@ class SongListFragment : Fragment() {
             }
         }
         handler.post(runnable)
+    }
+
+    private fun startAnimation(){
+        val rotate : Animation = AnimationUtils.loadAnimation(context,R.anim.w9_anim_image)
+        imgSmallSong.startAnimation(rotate)
     }
 }

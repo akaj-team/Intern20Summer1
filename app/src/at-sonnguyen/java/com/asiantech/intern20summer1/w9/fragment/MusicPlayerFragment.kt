@@ -10,6 +10,8 @@ import android.os.IBinder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.SeekBar
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
@@ -118,6 +120,7 @@ class MusicPlayerFragment : Fragment() {
         } else {
             circleImageSongMusicPlayer?.setImageBitmap(bitmap)
         }
+        startAnimation()
     }
 
     private fun handleBackImageViewListener() {
@@ -230,6 +233,11 @@ class MusicPlayerFragment : Fragment() {
                 }
             }
         })
+    }
+
+    private fun startAnimation(){
+        val rotate : Animation = AnimationUtils.loadAnimation(context,R.anim.w9_anim_image)
+        circleImageSongMusicPlayer.startAnimation(rotate)
     }
 
     private fun refreshData(){
