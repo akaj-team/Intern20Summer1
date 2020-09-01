@@ -58,4 +58,24 @@
     <dimen name="layout_home_marin">20dp</dimen>
     <dimen name="link_text_view_radius">2dp</dimen>
     <dimen name="text_view_padding">3dp</dimen>
+    <dimen name="height_20dp">20dp</dimen>
+    <dimen name="height_50dp">50dp</dimen>
+    <dimen name="height_375dp">375dp</dimen>
+    <dimen name="height_180dp">180dp</dimen>
+    <dimen name="margin_10dp">10dp</dimen>
+    <dimen name="margin_28dp">28dp</dimen>
+    <dimen name="margin_5dp">5dp</dimen>
+    <dimen name="margin_120">120dp</dimen>
+    <dimen name="margin_30">30dp</dimen>
+    <dimen name="margin_100">100dp</dimen>
+    <dimen name="margin_8dp">8dp</dimen>
+    <dimen name="margin_80dp">80dp</dimen>
+    <dimen name="margin_16dp">16dp</dimen>
+    <dimen name="margin_250dp">250dp</dimen>
+    <dimen name="text_size_15sp">15sp</dimen>
+    <dimen name="text_size_30sp">30sp</dimen>
+    <dimen name="text_size_18sp">18sp</dimen>
+    <dimen name="text_size_24sp">24sp</dimen>
+    <dimen name="text_size_38sp">38sp</dimen>
+    <dimen name="padding_12dp">12dp</dimen>
 </resources>

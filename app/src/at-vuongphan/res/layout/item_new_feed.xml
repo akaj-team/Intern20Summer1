@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/CardView.Light"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/margin_5dp"
+    app:cardCornerRadius="@dimen/margin_10dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        style="@style/CardView.Light"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_5dp"
+        android:background="@color/colorWhite">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgAvatar"
+            android:layout_width="@dimen/height_50dp"
+            android:layout_height="@dimen/height_50dp"
+            android:layout_margin="@dimen/margin_10dp"
+            android:src="@drawable/ronaldo"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_10dp"
+            android:textColor="@color/colorText"
+            android:textSize="@dimen/text_size_15sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/imgAvatar"
+            app:layout_constraintLeft_toRightOf="@id/imgAvatar"
+            app:layout_constraintTop_toTopOf="@id/imgAvatar"
+            tools:text="Thanh Vuong" />
+
+        <ImageView
+            android:id="@+id/imgOption"
+            android:layout_width="@dimen/height_20dp"
+            android:layout_height="@dimen/height_20dp"
+            android:layout_margin="@dimen/height_20dp"
+            android:src="@drawable/ic_baseline_delete_sweep_24"
+            app:layout_constraintBottom_toBottomOf="@id/imgAvatar"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/imgAvatar" />
+
+        <ImageView
+            android:id="@+id/imgMainPhoto"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_375dp"
+            android:layout_marginTop="@dimen/margin_10dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imgAvatar"
+            tools:src="@drawable/tran_thi_duyen" />
+
+        <ImageView
+            android:id="@+id/imgHeart"
+            android:layout_width="@dimen/height_50dp"
+            android:layout_height="@dimen/height_50dp"
+            android:src="@drawable/ic_heart"
+            app:layout_constraintLeft_toLeftOf="@id/imgMainPhoto"
+            app:layout_constraintTop_toBottomOf="@id/imgMainPhoto" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgComment"
+            android:layout_width="@dimen/height_50dp"
+            android:layout_height="@dimen/height_50dp"
+            android:src="@drawable/ic_comment"
+            app:layout_constraintLeft_toRightOf="@id/imgHeart"
+            app:layout_constraintTop_toTopOf="@id/imgHeart" />
+
+        <ImageView
+            android:id="@+id/imgShare"
+            android:layout_width="@dimen/height_50dp"
+            android:layout_height="@dimen/height_50dp"
+            android:src="@drawable/ic_share"
+            app:layout_constraintLeft_toRightOf="@id/imgComment"
+            app:layout_constraintTop_toTopOf="@id/imgHeart" />
+
+        <View
+            android:id="@+id/vLine"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="@dimen/margin_10dp"
+            android:layout_marginRight="@dimen/margin_10dp"
+            android:background="@color/colorPrimary"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imgHeart" />
+
+        <ImageView
+            android:id="@+id/imgHeartBlack"
+            android:layout_width="@dimen/height_20dp"
+            android:layout_height="@dimen/height_20dp"
+            android:layout_margin="@dimen/margin_10dp"
+            android:src="@drawable/ic_heart_black"
+            app:layout_constraintLeft_toLeftOf="@id/imgMainPhoto"
+            app:layout_constraintTop_toBottomOf="@id/vLine" />
+
+        <TextView
+            android:id="@+id/tvHeartNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/height_20dp"
+            android:text="@string/text_view_text_like_number"
+            android:textColor="@color/colorText"
+            app:layout_constraintBottom_toBottomOf="@id/imgHeartBlack"
+            app:layout_constraintLeft_toRightOf="@id/imgHeartBlack"
+            app:layout_constraintTop_toTopOf="@id/imgHeartBlack" />
+
+        <TextView
+            android:id="@+id/tvLike"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/height_20dp"
+            android:layout_marginLeft="2dp"
+            android:textColor="@color/colorText"
+            app:layout_constraintBottom_toBottomOf="@id/imgHeartBlack"
+            app:layout_constraintLeft_toRightOf="@id/tvHeartNumber"
+            app:layout_constraintTop_toTopOf="@id/imgHeartBlack" />
+
+        <TextView
+            android:id="@+id/tvNameStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/height_20dp"
+            android:textColor="@color/colorText"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="@id/imgHeartBlack"
+            app:layout_constraintTop_toBottomOf="@id/imgHeartBlack"
+            tools:text="Thanh Vuong" />
+
+        <TextView
+            android:id="@+id/tvFoodName"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/height_20dp"
+            android:layout_marginLeft="@dimen/margin_10dp"
+            android:textColor="@color/colorText"
+            app:layout_constraintLeft_toRightOf="@id/tvNameStatus"
+            app:layout_constraintTop_toTopOf="@id/tvNameStatus"
+            tools:text="Pizza" />
+
+        <TextView
+            android:id="@+id/tvStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorText"
+            android:textSize="15sp"
+            app:layout_constraintLeft_toLeftOf="@id/vLine"
+            app:layout_constraintTop_toBottomOf="@id/tvNameStatus"
+            tools:text="This is the hamburger that I make, feel so good " />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

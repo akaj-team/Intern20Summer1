@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.asiantech.intern20summer1.activity
 
 import android.os.Build

@@ -14,4 +14,7 @@
     <color name="colorBlack">#000000</color>
     <color name="colorYellow">#FDD835</color>
     <color name="colorSilver">#C0C0C0</color>
+    <color name="text_view_color_account">#30BE76</color>
+    <color name="colorBackground">#d1d1d1</color>
+    <color name="colorText">#737373</color>
 </resources>

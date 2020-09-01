@@ -57,4 +57,14 @@
     <string name="image_camera">Camera</string>
     <string name="image_gallery">Gallery</string>
     <string name="enter_input_your_email">Enter input your number phone</string>
+    <string name="text_view_text_like_number">%d likes</string>
+    <string name="edit_text_new_feed">Noi dung post</string>
+    <string name="title_new_post">New Post</string>
+    <string name="text_view_register_now">Register Now</string>
+    <string name="text_view_don_account">Do not have an Account</string>
+    <string name="text_view_your_account">Sign into your Account</string>
+    <string name="text_view_hello">Hello</string>
+    <string name="text_view_username">UserName</string>
+    <string name="text_view_create_account">Create an Account</string>
+    <string name="text_view_an_account">Already have an Account</string>
 </resources>
