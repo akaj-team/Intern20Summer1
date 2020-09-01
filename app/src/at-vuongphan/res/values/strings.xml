@@ -67,4 +67,10 @@
     <string name="text_view_username">UserName</string>
     <string name="text_view_create_account">Create an Account</string>
     <string name="text_view_an_account">Already have an Account</string>
+    <string name="dialog_title_error">Error</string>
+    <string name="dialog_text_ok">OK</string>
+    <string name="dialog_text_cancel">Cancel</string>
+    <string name="dialog_title_delete">Delete newfeed</string>
+    <string name="dialog_message_delete">Are you sure to Delete</string>
+
 </resources>

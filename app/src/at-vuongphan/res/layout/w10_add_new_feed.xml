@@ -8,7 +8,7 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tbAddNewFeed"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:background="@color/text_view_color_account"
         app:layout_collapseMode="pin"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
@@ -67,7 +67,9 @@
         android:layout_below="@id/circleImgAvatar"
         android:layout_marginHorizontal="@dimen/margin_10dp"
         android:layout_marginTop="@dimen/height_20dp"
+        android:background="@drawable/rounded_border_edittext"
         android:hint="@string/edit_text_new_feed"
         android:importantForAutofill="no"
+        android:paddingLeft="@dimen/margin_10dp"
         tools:ignore="TextFields" />
 </RelativeLayout>

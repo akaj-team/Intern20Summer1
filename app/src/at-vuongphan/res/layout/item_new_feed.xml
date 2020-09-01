@@ -106,7 +106,6 @@
             android:id="@+id/tvHeartNumber"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/height_20dp"
-            android:text="@string/text_view_text_like_number"
             android:textColor="@color/colorText"
             app:layout_constraintBottom_toBottomOf="@id/imgHeartBlack"
             app:layout_constraintLeft_toRightOf="@id/imgHeartBlack"

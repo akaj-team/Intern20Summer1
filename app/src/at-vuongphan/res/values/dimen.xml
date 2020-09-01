@@ -66,6 +66,7 @@
     <dimen name="margin_28dp">28dp</dimen>
     <dimen name="margin_5dp">5dp</dimen>
     <dimen name="margin_120">120dp</dimen>
+    <dimen name="margin_130">130dp</dimen>
     <dimen name="margin_30">30dp</dimen>
     <dimen name="margin_100">100dp</dimen>
     <dimen name="margin_8dp">8dp</dimen>
