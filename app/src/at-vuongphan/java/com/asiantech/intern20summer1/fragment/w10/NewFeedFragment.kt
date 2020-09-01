@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.asiantech.intern20summer1.fragment.w10
 
 import android.app.AlertDialog
@@ -24,8 +26,12 @@ class NewFeedFragment : Fragment() {
     private var newfeeds = mutableListOf<NewPost>()
     private var adapterNewFeeds = ItemFeedAdapter(newfeeds)
     private var isLoading = false
-    private val delayTime: Long = 2000
     private var currentPos = -1
+
+    companion object {
+        private const val DELAY_TIME = 2000L
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
@@ -85,7 +91,7 @@ class NewFeedFragment : Fragment() {
                 getListAPI()
                 adapterNewFeeds.notifyDataSetChanged()
                 srlRefreshItem.isRefreshing = false
-            }, delayTime)
+            }, DELAY_TIME)
         }
 
         recyclerViewMain.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -100,7 +106,7 @@ class NewFeedFragment : Fragment() {
                             adapterNewFeeds.notifyDataSetChanged()
                             isLoading = false
                             progressBar.visibility = View.INVISIBLE
-                        }, delayTime)
+                        }, DELAY_TIME)
                     }
                 }
             }

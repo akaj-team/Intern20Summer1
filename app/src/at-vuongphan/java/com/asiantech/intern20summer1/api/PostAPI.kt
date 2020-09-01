@@ -16,5 +16,4 @@ interface PostAPI {
 
     @DELETE("api/posts/{id}")
     fun deleteNewPost(@Path("id") id: Int): Call<NewPost>
-
 }
