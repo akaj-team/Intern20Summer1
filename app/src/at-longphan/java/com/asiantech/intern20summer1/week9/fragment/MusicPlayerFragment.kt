@@ -29,7 +29,7 @@ import kotlinx.android.synthetic.`at-longphan`.fragment_music_player_w9.*
 class MusicPlayerFragment : Fragment() {
 
     companion object {
-        const val DELAY_TIME: Long = 1000
+        const val DELAY_TIME: Long = 0
         const val LIST_SONG_KEY = "list_song_key"
         const val IS_PLAYING_KEY = "is_playing_key"
         fun newInstance(songs: ArrayList<Song>, isPlaying: Boolean) =
@@ -41,7 +41,7 @@ class MusicPlayerFragment : Fragment() {
             }
     }
 
-    private var listMainMusic: ArrayList<Song> = ArrayList()
+    private var songs: ArrayList<Song> = ArrayList()
     private var mPosition = 0
     private var notification: Notification? = null
     private val mHandler = Handler()
@@ -75,7 +75,7 @@ class MusicPlayerFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            listMainMusic = it.getParcelableArrayList<Song>(LIST_SONG_KEY)!!
+            songs = it.getParcelableArrayList<Song>(LIST_SONG_KEY)!!
             isPlaying = it.getBoolean(IS_PLAYING_KEY)
         }
     }
@@ -85,6 +85,10 @@ class MusicPlayerFragment : Fragment() {
         initImageListeners()
         handleSeekBarMusicPlaying()
         initButtonPlayAndPause()
+
+        /*playMusicService.onMusicNotificationSelected = {
+            initView()
+        }*/
     }
 
     override fun onStart() {
@@ -103,51 +107,51 @@ class MusicPlayerFragment : Fragment() {
 
     @SuppressLint("ResourceType")
     private fun initView() {
-        imgFragmentMainPlayerMusicBackground.let {
-            it.setImageURI(Uri.parse(listMainMusic[mPosition].image))
+        imgFragmentMainPlayerMusicBackground?.let {
+            it.setImageURI(Uri.parse(songs[mPosition].image))
         }
-        imgDiskPlayer.setImageURI(Uri.parse(listMainMusic[mPosition].image))
-        tvMusicNameMainPlaying.text = listMainMusic[mPosition].name
-        tvMusicArtistMainPlaying.text = listMainMusic[mPosition].artist
+        imgDiskPlayer?.setImageURI(Uri.parse(songs[mPosition].image))
+        tvMusicNameMainPlaying?.text = songs[mPosition].name
+        tvMusicArtistMainPlaying?.text = songs[mPosition].artist
 
         if (isRepeat) {
-            imgRepeat.setColorFilter(Color.parseColor(resources.getString(R.color.colorImageViewShuffleEnableWeek9Background)))
+            imgRepeat?.setColorFilter(Color.parseColor(resources.getString(R.color.colorImageViewShuffleEnableWeek9Background)))
         } else {
-            imgRepeat.setColorFilter(Color.GRAY)
+            imgRepeat?.setColorFilter(Color.GRAY)
         }
 
         if (isShuffle) {
-            imgShuffle.setColorFilter(Color.parseColor(resources.getString(R.color.colorImageViewShuffleEnableWeek9Background)))
+            imgShuffle?.setColorFilter(Color.parseColor(resources.getString(R.color.colorImageViewShuffleEnableWeek9Background)))
         } else {
-            imgShuffle.setColorFilter(Color.GRAY)
+            imgShuffle?.setColorFilter(Color.GRAY)
         }
 
         val rotation = AnimationUtils.loadAnimation(requireContext(), R.anim.rotate)
-        imgDiskPlayer.startAnimation(rotation)
+        imgDiskPlayer?.startAnimation(rotation)
     }
 
     private fun initButtonPlayAndPause() {
         if (isPlaying) {
-            imgPlayAndPauseMain.setImageResource(R.drawable.ic_pause)
+            imgPlayAndPauseMain?.setImageResource(R.drawable.ic_pause)
         } else {
-            imgPlayAndPauseMain.setImageResource(R.drawable.ic_play)
+            imgPlayAndPauseMain?.setImageResource(R.drawable.ic_play)
         }
     }
 
     private fun initImageListeners() {
-        imgPlayAndPauseMain.setOnClickListener {
+        imgPlayAndPauseMain?.setOnClickListener {
             togglePlayAndPause()
         }
-        imgNextMain.setOnClickListener {
+        imgNextMain?.setOnClickListener {
             nextMusic()
         }
-        imgPreviousMain.setOnClickListener {
+        imgPreviousMain?.setOnClickListener {
             previousMusic()
         }
-        imgShuffle.setOnClickListener {
+        imgShuffle?.setOnClickListener {
             toggleShuffle()
         }
-        imgRepeat.setOnClickListener {
+        imgRepeat?.setOnClickListener {
             toggleRepeat()
         }
     }
@@ -172,10 +176,10 @@ class MusicPlayerFragment : Fragment() {
 
     private fun togglePlayAndPause() {
         isPlaying = if (isPlaying) {
-            imgPlayAndPauseMain.setImageResource(R.drawable.ic_play)
+            imgPlayAndPauseMain?.setImageResource(R.drawable.ic_play)
             false
         } else {
-            imgPlayAndPauseMain.setImageResource(R.drawable.ic_pause)
+            imgPlayAndPauseMain?.setImageResource(R.drawable.ic_pause)
             true
         }
         playMusicService.togglePlayAndPause()
@@ -184,10 +188,10 @@ class MusicPlayerFragment : Fragment() {
     @SuppressLint("ResourceType")
     private fun toggleShuffle() {
         isShuffle = if (!isShuffle) {
-            imgShuffle.setColorFilter(Color.parseColor(resources.getString(R.color.colorImageViewShuffleEnableWeek9Background)))
+            imgShuffle?.setColorFilter(Color.parseColor(resources.getString(R.color.colorImageViewShuffleEnableWeek9Background)))
             true
         } else {
-            imgShuffle.setColorFilter(Color.GRAY)
+            imgShuffle?.setColorFilter(Color.GRAY)
             false
         }
     }
@@ -195,16 +199,16 @@ class MusicPlayerFragment : Fragment() {
     @SuppressLint("ResourceType")
     private fun toggleRepeat() {
         isRepeat = if (!isRepeat) {
-            imgRepeat.setColorFilter(Color.parseColor(resources.getString(R.color.colorImageViewShuffleEnableWeek9Background)))
+            imgRepeat?.setColorFilter(Color.parseColor(resources.getString(R.color.colorImageViewShuffleEnableWeek9Background)))
             true
         } else {
-            imgRepeat.setColorFilter(Color.GRAY)
+            imgRepeat?.setColorFilter(Color.GRAY)
             false
         }
     }
 
     private fun handleSeekBarMusicPlaying() {
-        seekBarMusicPlaying.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+        seekBarMusicPlaying?.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 tvTimeStart?.text = Units.convertTimeMusic(seekBarMusicPlaying.progress)
             }
@@ -220,13 +224,13 @@ class MusicPlayerFragment : Fragment() {
         var position = mPosition
         val runnable = object : Runnable {
             override fun run() {
-                seekBarMusicPlaying?.max = listMainMusic[mPosition].duration
+                seekBarMusicPlaying?.max = songs[mPosition].duration
                 mPosition = playMusicService.initPosition()
                 val currentPosition = playMusicService.currentPosition()
                 if (currentPosition != null) {
                     seekBarMusicPlaying?.progress = currentPosition
                     tvTimeStart?.text = Units.convertTimeMusic(seekBarMusicPlaying.progress)
-                    tvTimeEnd?.text = Units.convertTimeMusic(listMainMusic[mPosition].duration)
+                    tvTimeEnd?.text = Units.convertTimeMusic(songs[mPosition].duration)
                 }
                 if (mPosition > position) {
                     try {
@@ -245,7 +249,7 @@ class MusicPlayerFragment : Fragment() {
     private fun createNotification(position: Int) {
         notification = Notification(playMusicService)
         val notification =
-            notification?.createPlayMusicNotification(listMainMusic[position], isPlaying)
+            notification?.createPlayMusicNotification(songs[position], isPlaying)
         playMusicService.startForeground(1, notification)
         isPlaying = playMusicService.isPlaying()
         isRepeat = playMusicService.isRepeat()

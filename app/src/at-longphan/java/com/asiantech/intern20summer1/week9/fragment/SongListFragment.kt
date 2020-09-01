@@ -36,7 +36,6 @@ class SongListFragment : Fragment() {
     }
 
     private var songs: ArrayList<Song> = arrayListOf()
-    private var listPath: ArrayList<String> = ArrayList()
     private var adapter = SongAdapter(songs)
     private var mPosition: Int = 0
     private var notification: Notification? = null
@@ -54,6 +53,13 @@ class SongListFragment : Fragment() {
             mBounded = true
             val mLocalBinder = service as PlayMusicService.LocalBinder
             playMusicService = mLocalBinder.getServerInstance
+            playMusicService.onMusicNotificationSelected = {
+                Runnable {
+                    mPosition = playMusicService.initPosition()
+                    //isPlaying = playMusicService.isPlaying()
+                    initPlayMusicBarView()
+                }
+            }
             mPosition = playMusicService.initPosition()
             isPlaying = playMusicService.isPlaying()
             initPlayMusicBarView()
@@ -135,7 +141,7 @@ class SongListFragment : Fragment() {
         )
     }
 
-    private fun initPlayMusicBarView() {
+    internal fun initPlayMusicBarView() {
         imgImagePlaying.setImageURI(Uri.parse(songs[mPosition].image))
         tvTitlePlaying.text = songs[mPosition].name
         initButtonPlayAndPause()
@@ -164,7 +170,6 @@ class SongListFragment : Fragment() {
             mPosition = it
 
             val musicDataIntent = Intent(requireContext(), PlayMusicService::class.java)
-            musicDataIntent.putStringArrayListExtra(SongAdapter.SONG_LIST_PATH, listPath)
             musicDataIntent.putParcelableArrayListExtra(SongAdapter.SONG_LIST_PATH, songs)
             musicDataIntent.putExtra(SongAdapter.SONG_ITEM_POSITION, mPosition)
             requireContext().startForegroundService(musicDataIntent)

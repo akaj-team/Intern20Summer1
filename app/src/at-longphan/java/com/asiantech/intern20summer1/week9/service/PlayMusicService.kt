@@ -14,6 +14,7 @@ import com.asiantech.intern20summer1.week9.model.Song
 import com.asiantech.intern20summer1.week9.model.Units
 import kotlin.random.Random
 
+
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS", "DEPRECATION")
 class PlayMusicService : Service(), MediaPlayer.OnCompletionListener {
 
@@ -30,20 +31,26 @@ class PlayMusicService : Service(), MediaPlayer.OnCompletionListener {
     private var notification: Notification? = null
     private var rand: Random = Random
 
+    /**
+     * Actions in notification was init here
+     */
     private val broadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             when (intent?.action) {
                 Units.ACTION_PREVIOUS -> {
                     playPrev()
                     createNotification(currentPos)
+                    onMusicNotificationSelected()
                 }
                 Units.ACTION_PLAY_PAUSE -> {
                     togglePlayAndPause()
                     createNotification(currentPos)
+                    onMusicNotificationSelected()
                 }
                 Units.ACTION_SKIP_NEXT -> {
                     playNext()
                     createNotification(currentPos)
+                    onMusicNotificationSelected()
                 }
                 Units.ACTION_KILL_MEDIA -> {
                     mMediaPlayer?.stop()
@@ -54,6 +61,8 @@ class PlayMusicService : Service(), MediaPlayer.OnCompletionListener {
         }
     }
 
+    internal var onMusicNotificationSelected: () -> Unit = {}
+
     override fun onCreate() {
         super.onCreate()
     }
@@ -62,6 +71,7 @@ class PlayMusicService : Service(), MediaPlayer.OnCompletionListener {
         if (!isRepeat) {
             playNext()
         } else playMedia(currentPos)
+        onMusicNotificationSelected.invoke()
         createNotification(currentPos)
     }
 
@@ -125,6 +135,7 @@ class PlayMusicService : Service(), MediaPlayer.OnCompletionListener {
         } else {
             mMediaPlayer?.start()
         }
+        //isPlaying = isPlaying()
     }
 
     internal fun seekTo(current: Int) {

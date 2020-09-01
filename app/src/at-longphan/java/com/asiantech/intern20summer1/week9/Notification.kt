@@ -98,7 +98,7 @@ class Notification(playMusicService: PlayMusicService) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val serviceChannel = NotificationChannel(
                 NOTIFICATION_CHANNEL_ID, NOTIFICATION_CHANNEL_NAME,
-                NotificationManager.IMPORTANCE_DEFAULT
+                NotificationManager.IMPORTANCE_LOW
             )
             manager?.createNotificationChannel(serviceChannel)
         }
