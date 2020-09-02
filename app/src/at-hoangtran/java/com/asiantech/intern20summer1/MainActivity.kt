@@ -12,6 +12,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import com.asiantech.intern20summer1.week10.hideSoftKeyboard
 import kotlinx.android.synthetic.`at-hoangtran`.activity_main.*
 
 class MainActivity : AppCompatActivity() {

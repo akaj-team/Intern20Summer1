@@ -9,4 +9,19 @@
     <string name="sign_up_button">SIGN UP</string>
     <string name="not_register">Not Registered yet? </string>
     <string name="sign">Sign up!</string>
+    <string name="email_ID">Email ID</string>
+    <string name="or">Or</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="register_now">Dont\'t have an account? Register Now</string>
+    <string name="login">Login</string>
+    <string name="facebook">Facebook</string>
+    <string name="google">Google</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="register">Register</string>
+    <string name="mobile">Mobile Number</string>
+    <string name="name">Full Name</string>
+    <string name="avatar">Avatar</string>
+    <string name="register_to_music_festival">Register to Music Festival</string>
+    <string name="agreement">By registering you agree to Term &amp; Conditions and Privacy Policy of the Festival</string>
+    <string name="home">Home</string>
 </resources>
