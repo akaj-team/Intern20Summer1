@@ -55,4 +55,6 @@
     <string name="w10_delete_post_image_description">delete post</string>
     <string name="w10_error_dialog_title">ERROR</string>
     <string name="w10_ok_button_text">OK</string>
+    <string name="week_10_api">Week 10 - API</string>
+    <string name="w10_button_text">Week10</string>
 </resources>

@@ -60,4 +60,22 @@
             android:text="@string/w7_button_text"
             android:layout_height="@dimen/begin_button_height" />
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:weightSum="1"
+        android:gravity="center"
+        android:layout_height="@dimen/begin_item_height">
+
+        <TextView
+            android:layout_width="@dimen/begin_text_view_width"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/week_10_api" />
+
+        <Button
+            android:id="@+id/btnWeek10"
+            android:layout_width="@dimen/begin_button_width"
+            android:text="@string/w10_button_text"
+            android:layout_height="@dimen/begin_button_height" />
+    </LinearLayout>
 </LinearLayout>
