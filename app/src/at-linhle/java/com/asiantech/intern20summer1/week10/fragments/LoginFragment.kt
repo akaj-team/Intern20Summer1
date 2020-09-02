@@ -1,6 +1,8 @@
 package com.asiantech.intern20summer1.week10.fragments
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +22,8 @@ import java.util.regex.Pattern
 class LoginFragment : Fragment() {
     companion object {
         internal const val KEY_STRING_FULL_NAME = "fullName"
+        internal const val SHARED_PREFERENCE_FILE = "userSharedPreference"
+        internal const val SHARED_PREFERENCE_TOKEN = "token"
         internal fun newInstance() = LoginFragment()
     }
 
@@ -92,14 +96,25 @@ class LoginFragment : Fragment() {
 
                 override fun onResponse(call: Call<User>, response: Response<User>) {
                     if (response.isSuccessful) {
-                        response.body().apply {
+                        val sharedPreferences = activity?.getSharedPreferences(
+                            SHARED_PREFERENCE_FILE,
+                            Context.MODE_PRIVATE
+                        )
+                        val editor: SharedPreferences.Editor? = sharedPreferences?.edit()
+                        response.body()?.apply {
+                            editor?.putString(SHARED_PREFERENCE_TOKEN, token)
+                            editor?.apply()
                             val intent = Intent(activity, HomeApiActivity::class.java)
-                            intent.putExtra(KEY_STRING_FULL_NAME, this?.email)
+                            intent.putExtra(KEY_STRING_FULL_NAME, this.fullName)
                             activity?.startActivity(intent)
                             activity?.finish()
                         }
                     } else {
-                        Toast.makeText(requireContext(), "Email or password incorrect!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            requireContext(),
+                            "Email or password incorrect!",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
             })

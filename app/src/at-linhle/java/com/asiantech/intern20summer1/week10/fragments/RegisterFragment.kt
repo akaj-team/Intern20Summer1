@@ -113,15 +113,19 @@ class RegisterFragment : Fragment() {
                 ApiClient.createUserService()?.addNewUser(UserRegister(email, password, fullName))
             callApi?.enqueue(object : retrofit2.Callback<User> {
                 override fun onFailure(call: Call<User>, t: Throwable) {
-                    Toast.makeText(requireContext(), "Đăng Ký Thất Bại", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, "Đăng Ký Thất Bại", Toast.LENGTH_SHORT).show()
                 }
 
                 override fun onResponse(call: Call<User>, response: Response<User>) {
-                    Toast.makeText(requireContext(), "Đăng Ký Thành Công", Toast.LENGTH_SHORT).show()
+                    if(response.isSuccessful){
+                        Toast.makeText(activity, "Đăng Ký Thành Công", Toast.LENGTH_SHORT).show()
+                        onRegisterSuccess(email, password)
+                        activity?.onBackPressed()
+                    }else {
+                        Toast.makeText(activity, "Email Đã Có Người Đăng Ký", Toast.LENGTH_SHORT).show()
+                    }
                 }
             })
-            onRegisterSuccess(email, password)
-            activity?.onBackPressed()
         }
     }
 }
