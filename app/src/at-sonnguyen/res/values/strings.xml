@@ -39,4 +39,20 @@
     <string name="begin_week6_button_text">Week 6</string>
     <string name="w6_app_name">Week 6 - ViewPager - TabLayout</string>
     <string name="w4_app_name">Week 4 - Activity - Intent - Fragment</string>
+    <string name="w10_register_fragment_title_text_view_text">Register</string>
+    <string name="w10_email_text_view_text">Email</string>
+    <string name="w10_logo_image_description">logo image</string>
+    <string name="w10_full_name_text_view_text">FullName</string>
+    <string name="w10_password_text_view_text">Password</string>
+    <string name="w10_login_fragment_title">Login</string>
+    <string name="w10_picture_item_description">picture Item</string>
+    <string name="send_image_view_description">send_icon</string>
+    <string name="w10_comment_image_view_description">icon_comment</string>
+    <string name="w10_like_image_view_description">icon_like</string>
+    <string name="w10_item_number_of_like">%d like</string>
+    <string name="w10_status_edit_text_hint">Status</string>
+    <string name="w10_item_image_description">item image</string>
+    <string name="w10_delete_post_image_description">delete post</string>
+    <string name="w10_error_dialog_title">ERROR</string>
+    <string name="w10_ok_button_text">OK</string>
 </resources>

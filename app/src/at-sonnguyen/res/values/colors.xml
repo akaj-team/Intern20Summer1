@@ -13,4 +13,10 @@
     <color name="colorBackgroundTablayout">#ea9a31</color>
     <color name="colorTablayoutNonSelected">#0C0C0C</color>
     <color name="colorTablayoutSelected">#F41515</color>
+    <color name="colorButtonProfileText">#333131</color>
+    <color name="colorTitleTextViewText">#000000</color>
+    <color name="colorRelativeLayoutStroke">#AEA9A9</color>
+    <color name="colorRelativeLayoutSolid">#F8F8F8</color>
+    <color name="colorW4ButtonSolid">#CA7900</color>
+    <color name="colorLineTextViewW5">#606060</color>
 </resources>
