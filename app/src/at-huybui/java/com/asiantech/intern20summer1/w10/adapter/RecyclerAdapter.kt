@@ -52,7 +52,7 @@ class RecyclerAdapter(private val mutableList: MutableList<PostItem>) :
             mutableList[adapterPosition].let { item ->
 
                 Glide.with(itemView)
-                    .load("https://vntalking.com/wp-content/uploads/2019/04/hoc-react-native-tu-co-ban.png")
+                    .load(item.image)
                     .into(image)
                 val stLikeCount = "$BLACK_HEART_SYMBOL ${item.like_count} likes"
                 content.text = item.content

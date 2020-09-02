@@ -9,11 +9,15 @@ import com.asiantech.intern20summer1.R
 
 class SignUpFragment : Fragment() {
 
+    companion object {
+        internal fun newInstance() = SignUpFragment()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.w10_fragment_sign_up,container,false)
+        return inflater.inflate(R.layout.w10_fragment_sign_up, container, false)
     }
 }

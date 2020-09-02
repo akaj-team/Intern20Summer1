@@ -9,7 +9,8 @@
         android:layout_height="60dp">
 
         <ImageView
-            android:padding="10dp"
+            android:id="@+id/imgHome.Home.w10"
+            android:padding="15dp"
             android:layout_width="60dp"
             android:src="@drawable/w10_ic_menu"
             android:layout_height="60dp"/>
@@ -20,10 +21,19 @@
             android:layout_height="wrap_content"
             android:text="Home"
             android:textSize="30sp"/>
+
+        <ImageView
+            android:id="@+id/imgAddPost.Home.w10"
+            android:padding="15dp"
+            android:layout_width="60dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/w10_ic_add"
+            android:layout_height="60dp"/>
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView.Home.w10"
+        android:scrollbars="vertical"
         android:layout_below="@id/toolbar.Home.w10"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

@@ -7,6 +7,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.w10.activity.ApiMainActivity
 import com.asiantech.intern20summer1.w3.MainActivity
 import com.asiantech.intern20summer1.w4.activity.SplashActivity
 import com.asiantech.intern20summer1.w6.firstactivity.ViewPagerOneActivity
@@ -34,6 +35,15 @@ class BeginActivity : AppCompatActivity() {
 
         btnBeginW4?.setOnClickListener {
             val intent = Intent(this, SplashActivity::class.java)
+            startActivity(intent)
+        }
+        btnTest_Begin?.setOnClickListener {
+            val intent = Intent(this, TestActivity::class.java)
+            startActivity(intent)
+        }
+
+        btnBeginW10?.setOnClickListener {
+            val intent = Intent(this, ApiMainActivity::class.java)
             startActivity(intent)
         }
     }

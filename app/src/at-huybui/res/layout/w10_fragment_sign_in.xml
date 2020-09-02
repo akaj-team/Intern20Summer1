@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="20dp"
-        android:text="Register"
+        android:text="Đăng nhập"
         android:textColor="@color/black"
         android:textSize="30sp" />
 
@@ -46,22 +46,6 @@
         android:paddingRight="@dimen/w10_edit_text_padding_left_right"
         android:textSize="@dimen/w10_editext_text_size" />
 
-    <EditText
-        android:id="@+id/edtRePass.SignIn.w10"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/w10_editext_height"
-        android:layout_below="@id/edtPassword.SignIn.w10"
-        android:layout_marginLeft="@dimen/w10_edit_text_margin_left_right"
-        android:layout_marginTop="@dimen/w10_edit_text_margin_top"
-        android:layout_marginRight="@dimen/w10_edit_text_margin_left_right"
-        android:background="@drawable/w10_bg_editext"
-        android:hint="rewrite password"
-        android:importantForAutofill="no"
-        android:inputType="text"
-        android:paddingLeft="@dimen/w10_edit_text_padding_left_right"
-        android:paddingRight="@dimen/w10_edit_text_padding_left_right"
-        android:textSize="@dimen/w10_editext_text_size" />
-
     <Button
         android:id="@+id/btnSignIn.SignIn.w10"
         android:layout_width="match_parent"
@@ -73,4 +57,17 @@
         android:background="@drawable/bg_w7_button_register_disable"
         android:text="sign in"
         android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/tvRegister.SignIn.w10"
+        android:layout_below="@id/edtPassword.SignIn.w10"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/w10_edit_text_margin_left_right"
+        android:layout_marginTop="20dp"
+        android:text="Đăng ký ngay"
+        android:textColor="@color/black"
+        android:textSize="15sp" />
 </RelativeLayout>

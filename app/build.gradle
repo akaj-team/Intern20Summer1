@@ -84,6 +84,9 @@ android {
 }
 
 dependencies {
+    implementation 'com.github.ronaldsmartin:Material-ViewPagerIndicator:1.0.4'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation "com.github.bumptech.glide:glide:4.11.0"
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.github.takusemba:cropme:2.0.5'
@@ -97,7 +100,7 @@ dependencies {
     //noinspection GradleCompatible,GradleCompatible
     implementation 'com.android.support:recyclerview-v7:28.0.0'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
-    api 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
+    api 'com.theartofdev.edmodo:android-image-cropper:2.8.+'    
     //noinspection GradleCompatible
     implementation 'com.android.support:design:28.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
