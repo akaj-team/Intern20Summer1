@@ -14,9 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorYellow"
-            app:titleTextColor="@android:color/white">
-
-        </androidx.appcompat.widget.Toolbar>
+            app:titleTextColor="@android:color/white"/>
 
         <ImageView
             android:id="@+id/imgPlus"

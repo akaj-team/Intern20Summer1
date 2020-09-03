@@ -106,6 +106,7 @@ class LoginFragment : Fragment() {
                             editor?.apply()
                             val intent = Intent(activity, HomeApiActivity::class.java)
                             intent.putExtra(KEY_STRING_FULL_NAME, this.fullName)
+                            intent.putExtra(SHARED_PREFERENCE_TOKEN, token)
                             activity?.startActivity(intent)
                             activity?.finish()
                         }

@@ -11,6 +11,7 @@ object ApiClient {
     private const val REQUEST_TIMEOUT = 60
 
     internal fun createUserService(): ApiUserService? = getClient()?.create(ApiUserService::class.java)
+    internal fun cretePostService(): ApiPostService? = getClient()?.create(ApiPostService::class.java)
 
     private fun getClient(): Retrofit? {
         if (retrofit == null) {
