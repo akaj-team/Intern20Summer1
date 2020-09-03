@@ -6,15 +6,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.activity.w10.ActivityLogin
 import com.asiantech.intern20summer1.activity.w10.RecyclerViewNewFeed
+import com.asiantech.intern20summer1.api.ClientAPI
+import com.asiantech.intern20summer1.api.UserClient
 import com.asiantech.intern20summer1.extension.hideKeyboard
 import com.asiantech.intern20summer1.extension.isValidEmail
 import com.asiantech.intern20summer1.extension.isValidPasswordW10
+import com.asiantech.intern20summer1.fragment.w10.FragmentRegister.Companion.EMAIL_LENGTH
+import com.asiantech.intern20summer1.model.UserAutoSignIn
 import kotlinx.android.synthetic.`at-vuongphan`.w10_fragment_login.*
+import retrofit2.Call
+import retrofit2.Response
 
 class FragmentLogin : Fragment() {
     private var isUserNameValid = false
@@ -25,6 +31,14 @@ class FragmentLogin : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.w10_fragment_login, container, false)
+    }
+
+    internal fun setBackgroundButton() {
+        if (btnLogin.isEnabled) {
+            btnLogin?.setBackgroundResource(R.drawable.bg_button_login)
+        } else {
+            btnLogin?.setBackgroundResource(R.drawable.bg_button_dis_enable)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -42,7 +56,13 @@ class FragmentLogin : Fragment() {
 
     private fun initTextViewRegister() {
         tvCreateNewAccount?.setOnClickListener {
-            (activity as? ActivityLogin)?.openFragment(FragmentRegister(), true)
+            val transaction = fragmentManager?.beginTransaction()
+            transaction?.add(R.id.frContainer, FragmentRegister().apply {
+                onRegisterSuccess = { email, password ->
+                    this@FragmentLogin.edtEmail.setText(email)
+                    this@FragmentLogin.edtPassword.setText(password)
+                }
+            })?.addToBackStack(null)?.hide(this)?.commit()
         }
     }
 
@@ -57,14 +77,39 @@ class FragmentLogin : Fragment() {
 
     private fun initButtonLogin() {
         btnLogin?.setOnClickListener {
-            startActivity(Intent(context, RecyclerViewNewFeed::class.java))
+            val email = edtEmail?.text.toString()
+            val password = edtPassword.text.toString()
+            val service = ClientAPI.createServiceClient()?.create(UserClient::class.java)
+            val call = service?.login(email, password)
+            call?.enqueue(object : retrofit2.Callback<UserAutoSignIn> {
+                override fun onResponse(
+                    call: Call<UserAutoSignIn>,
+                    response: Response<UserAutoSignIn>
+                ) {
+                    if (response.isSuccessful) {
+                        response.body().apply {
+                            val intent = Intent(activity, RecyclerViewNewFeed::class.java)
+                            intent.putExtra("data", this?.email)
+                            activity?.startActivity(intent)
+                            activity?.finish()
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<UserAutoSignIn>, t: Throwable) {
+                    Toast.makeText(requireContext(), t.message, Toast.LENGTH_SHORT).show()
+                }
+            })
         }
     }
 
     private fun initEmail() {
         edtEmail.addTextChangedListener {
-            isUserNameValid = edtEmail.text.toString().isValidEmail()
+            isUserNameValid =
+                edtEmail.text.toString()
+                    .isValidEmail() && edtEmail.text.toString().length <= EMAIL_LENGTH
             btnLogin.isEnabled = isUserNameValid && isPassWordValid
+            setBackgroundButton()
         }
     }
 
@@ -75,6 +120,7 @@ class FragmentLogin : Fragment() {
             } else {
                 isPassWordValid = edtPassword.text.toString().isValidPasswordW10()
                 btnLogin?.isEnabled = isPassWordValid && isUserNameValid
+                setBackgroundButton()
             }
         }
     }

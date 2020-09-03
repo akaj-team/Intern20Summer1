@@ -38,6 +38,7 @@ class MainExerciseActivity : AppCompatActivity() {
     private fun initListenerButtonW1() {
         btnW1.setOnClickListener {
             startActivity(Intent(this, ActivityLogin::class.java))
+            finish()
         }
     }
 }

@@ -78,9 +78,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/margin_28dp"
-                android:background="@drawable/bg_button_login"
-                android:text="@string/login_button_description_text"
+                android:background="@drawable/bg_button_dis_enable"
                 android:enabled="false"
+                android:text="@string/login_button_description_text"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/text_size_18sp"
                 android:textStyle="bold" />
