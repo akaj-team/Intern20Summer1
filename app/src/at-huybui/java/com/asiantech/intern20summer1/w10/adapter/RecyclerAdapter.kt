@@ -16,6 +16,7 @@ class RecyclerAdapter(private val mutableList: MutableList<PostItem>) :
 
     companion object {
         private const val BLACK_HEART_SYMBOL = "\uD83D\uDDA4"
+        private const val URL_IMAGE = "http://at-a-trainning.000webhostapp.com/images/"
     }
 
     internal var onItemClicked: (position: Int) -> Unit = {}
@@ -52,7 +53,7 @@ class RecyclerAdapter(private val mutableList: MutableList<PostItem>) :
             mutableList[adapterPosition].let { item ->
 
                 Glide.with(itemView)
-                    .load(item.image)
+                    .load(URL_IMAGE + item.image)
                     .into(image)
                 val stLikeCount = "$BLACK_HEART_SYMBOL ${item.like_count} likes"
                 content.text = item.content

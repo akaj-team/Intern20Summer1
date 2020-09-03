@@ -107,6 +107,7 @@ class SignUpFragment : Fragment() {
                     if (response.body() != null) {
                         showToast("Đăng ký thành công")
                         response.body()?.let { onRegisterClick.invoke(requestAccount) }
+                        fragmentManager?.popBackStack()
                     }
                 }
 

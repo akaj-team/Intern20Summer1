@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w10.activity.ApiMainActivity
@@ -41,14 +42,15 @@ class SignInFragment : Fragment() {
 
     private fun initView(){
         initListenerButton()
+        handleEdiTextListener()
     }
 
     private fun initListenerButton() {
         tvRegister_SignIn_w10?.setOnClickListener {
             val fragment = SignUpFragment.newInstance()
             fragment.onRegisterClick = { account ->
-                edtEmail_SignIn_w10.hint = account.email
-                edtPassword_SignIn_w10.hint = account.password
+                edtEmail_SignIn_w10.setText(account.email)
+                edtPassword_SignIn_w10.setText(account.password)
             }
             (activity as ApiMainActivity).addFragment(fragment, true)
         }
@@ -80,17 +82,25 @@ class SignInFragment : Fragment() {
         })
     }
 
-    private hanle
+    private fun handleEdiTextListener(){
+        edtEmail_SignIn_w10?.addTextChangedListener {
+            checkEditText()
+        }
 
-    private fun isCheckEditText() {
+        edtPassword_SignIn_w10?.addTextChangedListener {
+            checkEditText()
+        }
+    }
+
+    private fun checkEditText() {
         if (edtEmail_SignIn_w10.text.isNullOrEmpty() || edtPassword_SignIn_w10.text.isNullOrEmpty()) {
             btnSignIn_SignIn_w10?.setBackgroundResource(R.drawable.w10_bg_button_disable)
-            btnRegister_SignUp_w10?.isEnabled = false
+            btnSignIn_SignIn_w10?.isEnabled = false
             d("button", "is Enabled: false")
         } else {
-            btnRegister_SignUp_w10?.setBackgroundResource(R.drawable.w10_bg_select_button)
-            btnRegister_SignUp_w10?.isEnabled = true
-            d("button", "is Enabled: false")
+            btnSignIn_SignIn_w10?.setBackgroundResource(R.drawable.w10_bg_select_button)
+            btnSignIn_SignIn_w10?.isEnabled = true
+            d("button", "is Enabled: true")
         }
     }
 
