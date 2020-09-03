@@ -8,6 +8,7 @@ import android.content.IntentFilter
 import android.media.MediaPlayer
 import android.os.Binder
 import android.os.IBinder
+import android.widget.Toast
 import com.asiantech.intern20summer1.week9.Notification
 import com.asiantech.intern20summer1.week9.adapter.SongAdapter
 import com.asiantech.intern20summer1.week9.model.Song
@@ -31,25 +32,20 @@ class PlayMusicService : Service(), MediaPlayer.OnCompletionListener {
     private var notification: Notification? = null
     private var rand: Random = Random
 
-    /**
-     * Actions in notification was init here
-     */
     private val broadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             when (intent?.action) {
                 Units.ACTION_PREVIOUS -> {
                     playPrev()
-                    createNotification(currentPos)
                     onMusicNotificationSelected()
                 }
                 Units.ACTION_PLAY_PAUSE -> {
                     togglePlayAndPause()
-                    createNotification(currentPos)
                     onMusicNotificationSelected()
+                    onNotificationChange()
                 }
                 Units.ACTION_SKIP_NEXT -> {
                     playNext()
-                    createNotification(currentPos)
                     onMusicNotificationSelected()
                 }
                 Units.ACTION_KILL_MEDIA -> {
@@ -62,6 +58,7 @@ class PlayMusicService : Service(), MediaPlayer.OnCompletionListener {
     }
 
     internal var onMusicNotificationSelected: () -> Unit = {}
+    internal var onNotificationChange: () -> Unit = {}
 
     override fun onCreate() {
         super.onCreate()
@@ -72,7 +69,6 @@ class PlayMusicService : Service(), MediaPlayer.OnCompletionListener {
             playNext()
         } else playMedia(currentPos)
         onMusicNotificationSelected.invoke()
-        createNotification(currentPos)
     }
 
     override fun onBind(intent: Intent?): IBinder? {
@@ -84,13 +80,13 @@ class PlayMusicService : Service(), MediaPlayer.OnCompletionListener {
             currentPos = intent.getIntExtra(SongAdapter.SONG_ITEM_POSITION, 0)
             musicDataList = intent.getParcelableArrayListExtra(SongAdapter.SONG_LIST_PATH)
         }
-        createNotification(currentPos)
         playMedia(currentPos)
         addAction()
         return START_NOT_STICKY
     }
 
     private fun playMedia(position: Int) {
+        isPlaying = true
         if (mMediaPlayer != null) {
             mMediaPlayer?.stop()
             mMediaPlayer?.release()
@@ -102,6 +98,7 @@ class PlayMusicService : Service(), MediaPlayer.OnCompletionListener {
         mMediaPlayer?.setOnPreparedListener {
             mMediaPlayer?.start()
         }
+        createNotification(currentPos)
     }
 
     internal fun playNext() {
@@ -117,7 +114,6 @@ class PlayMusicService : Service(), MediaPlayer.OnCompletionListener {
                 currentPos = 0
             }
         }
-
         playMedia(currentPos)
     }
 
@@ -135,7 +131,8 @@ class PlayMusicService : Service(), MediaPlayer.OnCompletionListener {
         } else {
             mMediaPlayer?.start()
         }
-        //isPlaying = isPlaying()
+        isPlaying = isMediaPlayerPlaying()
+        createNotification(currentPos)
     }
 
     internal fun seekTo(current: Int) {
@@ -146,11 +143,13 @@ class PlayMusicService : Service(), MediaPlayer.OnCompletionListener {
 
     internal fun initPosition(): Int = currentPos
 
-    internal fun isPlaying(): Boolean = mMediaPlayer?.isPlaying!!
+    internal fun isMediaPlayerPlaying(): Boolean = mMediaPlayer?.isPlaying!!
 
     internal fun isRepeat(): Boolean = isRepeat
 
     internal fun isShuffle(): Boolean = isShuffle
+
+    internal fun isPlaying(): Boolean = isPlaying
 
     inner class LocalBinder : Binder() {
         internal val getServerInstance: PlayMusicService
@@ -162,7 +161,6 @@ class PlayMusicService : Service(), MediaPlayer.OnCompletionListener {
         val notification =
             notification?.createPlayMusicNotification(musicDataList[position], isPlaying)
         this.startForeground(1, notification)
-        isPlaying = this.isPlaying()
     }
 
     private fun addAction() {

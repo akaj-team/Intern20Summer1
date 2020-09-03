@@ -53,16 +53,11 @@ class SongListFragment : Fragment() {
             mBounded = true
             val mLocalBinder = service as PlayMusicService.LocalBinder
             playMusicService = mLocalBinder.getServerInstance
-            playMusicService.onMusicNotificationSelected = {
-                Runnable {
-                    mPosition = playMusicService.initPosition()
-                    //isPlaying = playMusicService.isPlaying()
-                    initPlayMusicBarView()
-                }
-            }
             mPosition = playMusicService.initPosition()
-            isPlaying = playMusicService.isPlaying()
+            isPlaying = playMusicService.isMediaPlayerPlaying()
+
             initPlayMusicBarView()
+            handleOnNotificationListener()
         }
     }
 
@@ -142,18 +137,18 @@ class SongListFragment : Fragment() {
     }
 
     internal fun initPlayMusicBarView() {
-        imgImagePlaying.setImageURI(Uri.parse(songs[mPosition].image))
-        tvTitlePlaying.text = songs[mPosition].name
+        imgImagePlaying?.setImageURI(Uri.parse(songs[mPosition].image))
+        tvTitlePlaying?.text = songs[mPosition].name
         initButtonPlayAndPause()
     }
 
     private fun initView() {
-        recyclerViewListSong.layoutManager = LinearLayoutManager(requireContext())
+        recyclerViewListSong?.layoutManager = LinearLayoutManager(requireContext())
 
         if (!isMyServiceRunning(PlayMusicService::class.java)) {
-            cardViewPlayMusicBar.visibility = View.GONE
+            cardViewPlayMusicBar?.visibility = View.GONE
         } else {
-            cardViewPlayMusicBar.visibility = View.VISIBLE
+            cardViewPlayMusicBar?.visibility = View.VISIBLE
         }
     }
 
@@ -179,16 +174,16 @@ class SongListFragment : Fragment() {
     }
 
     private fun initListeners() {
-        imgPlayAndPause.setOnClickListener {
+        imgPlayAndPause?.setOnClickListener {
             togglePlayAndPause()
         }
-        imgNext.setOnClickListener {
+        imgNext?.setOnClickListener {
             playNext()
         }
-        imgPrevious.setOnClickListener {
+        imgPrevious?.setOnClickListener {
             playPrev()
         }
-        cardViewPlayMusicBar.setOnClickListener {
+        cardViewPlayMusicBar?.setOnClickListener {
             replaceMusicPlayerFragment()
         }
     }
@@ -204,22 +199,20 @@ class SongListFragment : Fragment() {
 
     private fun initButtonPlayAndPause() {
         if (isPlaying) {
-            imgPlayAndPause.setImageResource(R.drawable.ic_pause)
+            imgPlayAndPause?.setImageResource(R.drawable.ic_pause)
         } else {
-            imgPlayAndPause.setImageResource(R.drawable.ic_play)
+            imgPlayAndPause?.setImageResource(R.drawable.ic_play)
         }
     }
 
     private fun togglePlayAndPause() {
         isPlaying = when (isPlaying) {
             true -> {
-                imgPlayAndPause.setImageResource(R.drawable.ic_play)
-                createNotification(mPosition)
+                imgPlayAndPause?.setImageResource(R.drawable.ic_play)
                 false
             }
             else -> {
-                imgPlayAndPause.setImageResource(R.drawable.ic_pause)
-                createNotification(mPosition)
+                imgPlayAndPause?.setImageResource(R.drawable.ic_pause)
                 true
             }
         }
@@ -257,5 +250,13 @@ class SongListFragment : Fragment() {
             }
         }
         return false
+    }
+
+    private fun handleOnNotificationListener(){
+        playMusicService.onMusicNotificationSelected = {
+            mPosition = PlayMusicService.currentPos
+            isPlaying = playMusicService.isPlaying()
+            initPlayMusicBarView()
+        }
     }
 }

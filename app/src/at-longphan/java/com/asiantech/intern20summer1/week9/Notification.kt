@@ -78,9 +78,9 @@ class Notification(playMusicService: PlayMusicService) {
         val icon: Int = when (action) {
             ACTION_PREVIOUS -> R.drawable.ic_previous
             ACTION_PLAY_PAUSE -> if (isPlaying) {
-                R.drawable.ic_play
-            } else {
                 R.drawable.ic_pause
+            } else {
+                R.drawable.ic_play
             }
             ACTION_SKIP_NEXT -> R.drawable.ic_next
             ACTION_KILL_MEDIA -> R.drawable.ic_close_black_24
