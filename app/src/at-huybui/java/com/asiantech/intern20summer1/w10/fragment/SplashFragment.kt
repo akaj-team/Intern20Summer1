@@ -1,5 +1,6 @@
 package com.asiantech.intern20summer1.w10.fragment
 
+import android.content.Context.MODE_PRIVATE
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.LayoutInflater
@@ -12,6 +13,8 @@ import com.asiantech.intern20summer1.w10.activity.ApiMainActivity
 class SplashFragment : Fragment() {
 
     companion object {
+        private const val NAME_PREFERENCE = "preference"
+        private const val KEY_IS_LOGIN = "key_is_login"
         internal fun newInstance() = SplashFragment()
     }
 
@@ -27,20 +30,32 @@ class SplashFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        handleProgressSplash()
+
+    }
+
+    private fun handleProgressSplash(){
+        val preference = requireContext().getSharedPreferences(NAME_PREFERENCE, MODE_PRIVATE)
+        val isSignIn = preference.getBoolean(KEY_IS_LOGIN, false)
+
         val timer = object : CountDownTimer(50000L, 20L) {
             override fun onTick(p0: Long) {
                 count++
                 when (count) {
                     100 -> {
-                        (activity as ApiMainActivity).replaceFragment(SignInFragment.newInstance())
+                        if (isSignIn) {
+                         //   (activity as ApiMainActivity).replaceFragment(HomeFragment.newInstance())
+                        } else {
+                            (activity as ApiMainActivity).replaceFragment(SignInFragment.newInstance())
+                        }
                     }
                 }
             }
-
             override fun onFinish() {
             }
 
         }
         timer.start()
+
     }
 }

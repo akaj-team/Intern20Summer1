@@ -15,7 +15,7 @@
         android:textSize="30sp" />
 
     <EditText
-        android:id="@+id/edtUserName.SignIn.w10"
+        android:id="@+id/edtEmail.SignIn.w10"
         android:layout_width="match_parent"
         android:layout_height="@dimen/w10_editext_height"
         android:layout_below="@id/tvTitle.SignIn.w10"
@@ -34,7 +34,7 @@
         android:id="@+id/edtPassword.SignIn.w10"
         android:layout_width="match_parent"
         android:layout_height="@dimen/w10_editext_height"
-        android:layout_below="@id/edtUserName.SignIn.w10"
+        android:layout_below="@id/edtEmail.SignIn.w10"
         android:layout_marginLeft="@dimen/w10_edit_text_margin_left_right"
         android:layout_marginTop="@dimen/w10_edit_text_margin_top"
         android:layout_marginRight="@dimen/w10_edit_text_margin_left_right"
@@ -48,15 +48,16 @@
 
     <Button
         android:id="@+id/btnSignIn.SignIn.w10"
+        android:enabled="false"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="@dimen/w10_edit_text_margin_left_right"
         android:layout_marginRight="@dimen/w10_edit_text_margin_left_right"
         android:layout_marginBottom="20dp"
-        android:background="@drawable/bg_w7_button_register_disable"
+        android:background="@drawable/w10_bg_button_disable"
         android:text="sign in"
-        android:textColor="@color/black" />
+        android:textColor="@color/background_white" />
 
     <TextView
         android:id="@+id/tvRegister.SignIn.w10"

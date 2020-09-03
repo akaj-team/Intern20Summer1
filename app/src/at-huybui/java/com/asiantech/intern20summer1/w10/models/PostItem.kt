@@ -11,13 +11,18 @@ data class PostItem(
     @SerializedName("like_flag") var like_flag: Boolean = false
 )
 
+data class ResponseLike(
+    @SerializedName("message") var message: String = "",
+    @SerializedName("likeCount") var likeCount: Int = 0
+)
+
 /**
-        {
-        "id": 1,
-        "content": "This is post content",
-        "image": "filename.png",
-        "created_at": "2020-08-31T17:07:29.000000Z",
-        "like_count": 1,
-        "like_flag": true
-        }
+{
+"id": 1,
+"content": "This is post content",
+"image": "filename.png",
+"created_at": "2020-08-31T17:07:29.000000Z",
+"like_count": 1,
+"like_flag": true
+}
  */

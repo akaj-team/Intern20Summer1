@@ -1,6 +1,7 @@
 package com.asiantech.intern20summer1.w10.fragment
 
 import android.os.Bundle
+import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,8 +11,13 @@ import androidx.recyclerview.widget.SimpleItemAnimator
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w10.activity.ApiMainActivity
 import com.asiantech.intern20summer1.w10.adapter.RecyclerAdapter
+import com.asiantech.intern20summer1.w10.api.Api
+import com.asiantech.intern20summer1.w10.api.ApiPostService
+import com.asiantech.intern20summer1.w10.models.Account
 import com.asiantech.intern20summer1.w10.models.PostItem
 import kotlinx.android.synthetic.`at-huybui`.w10_fragment_home.*
+import retrofit2.Call
+import retrofit2.Response
 
 class HomeFragment : Fragment() {
 
@@ -21,9 +27,16 @@ class HomeFragment : Fragment() {
         private const val CONTENT =
             """ahihi anh huy pro vô đối đẹp trai hết sức tưởng tượng luôn á"""
         private const val CREATED = "12:45"
-        internal fun newInstance() = HomeFragment()
+        private const val KEY_PUT_ACCOUNT = "key_put_account"
+        internal fun newInstance(account: Account) = HomeFragment().apply {
+            arguments = Bundle().apply {
+                putSerializable(KEY_PUT_ACCOUNT, account)
+            }
+        }
     }
 
+    private var callApi: ApiPostService? = null
+    private var account = Account()
     var postLists = mutableListOf<PostItem>()
     var postAdapter = RecyclerAdapter(postLists)
     override fun onCreateView(
@@ -31,6 +44,9 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        callApi = Api().newInstance()?.create(ApiPostService::class.java)
+        account = arguments?.getSerializable(KEY_PUT_ACCOUNT) as Account
+        d("homeFragment", account.toString())
         return inflater.inflate(R.layout.w10_fragment_home, container, false)
     }
 
@@ -56,16 +72,20 @@ class HomeFragment : Fragment() {
     }
 
     private fun initData() {
-        postLists.add(PostItem(0, CONTENT, IMAGE_ADD, CREATED, (1..1000).random(), false))
-        postLists.add(PostItem(0, CONTENT, IMAGE_ADD, CREATED, (1..1000).random(), false))
-        postLists.add(PostItem(0, CONTENT, IMAGE_ADD, CREATED, (1..1000).random(), false))
-        postLists.add(PostItem(0, CONTENT, IMAGE_ADD, CREATED, (1..1000).random(), false))
-        postLists.add(PostItem(0, CONTENT, IMAGE_ADD, CREATED, (1..1000).random(), false))
-        postLists.add(PostItem(0, CONTENT, IMAGE_ADD, CREATED, (1..1000).random(), false))
-        postLists.add(PostItem(0, CONTENT, IMAGE_ADD, CREATED, (1..1000).random(), false))
-        postLists.add(PostItem(0, CONTENT, IMAGE_ADD, CREATED, (1..1000).random(), false))
-        postLists.add(PostItem(0, CONTENT, IMAGE_ADD, CREATED, (1..1000).random(), false))
-        postLists.add(PostItem(0, CONTENT, IMAGE_ADD, CREATED, (1..1000).random(), false))
+        callApi?.getPostLists(account.token)?.enqueue(object : retrofit2.Callback<List<PostItem>> {
+            override fun onResponse(
+                call: Call<List<PostItem>>,
+                response: Response<List<PostItem>>
+            ) {
+                response.body()?.toCollection(postLists)
+                d("homeFragment",postLists.toString())
+                postAdapter.notifyDataSetChanged()
+            }
+
+            override fun onFailure(call: Call<List<PostItem>>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+        })
     }
 
     private fun initAdapter() {

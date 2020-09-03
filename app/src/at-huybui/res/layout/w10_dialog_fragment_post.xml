@@ -13,7 +13,7 @@
             android:layout_width="60dp"
             android:layout_height="match_parent"
             android:padding="10dp"
-            android:src="@drawable/icon_error" />
+            android:src="@drawable/w10_ic_close" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -28,7 +28,7 @@
             android:layout_width="60dp"
             android:layout_height="match_parent"
             android:padding="10dp"
-            android:src="@drawable/icon_tick" />
+            android:src="@drawable/w10_ic_tick" />
 
     </LinearLayout>
 
