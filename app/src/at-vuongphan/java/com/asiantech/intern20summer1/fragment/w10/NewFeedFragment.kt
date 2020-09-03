@@ -17,7 +17,7 @@ import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.activity.w10.RecyclerViewNewFeed
 import com.asiantech.intern20summer1.adapter.ItemFeedAdapter
 import com.asiantech.intern20summer1.api.ClientAPI
-import com.asiantech.intern20summer1.api.PostAPI
+import com.asiantech.intern20summer1.model.ItemLike
 import com.asiantech.intern20summer1.model.NewPost
 import kotlinx.android.synthetic.`at-vuongphan`.w10_fragment_new_feed.*
 import retrofit2.Call
@@ -26,6 +26,7 @@ import retrofit2.Response
 class NewFeedFragment : Fragment() {
     private var newfeeds = mutableListOf<NewPost>()
     private var adapterNewFeeds = ItemFeedAdapter(newfeeds)
+    private var newLike = mutableListOf<ItemLike>()
     private var isLoading = false
     private var currentPos = -1
     private lateinit var token: String
@@ -77,6 +78,7 @@ class NewFeedFragment : Fragment() {
             if (isHeart) {
                 newfeeds[it].like_flag = !isHeart
                 newfeeds[it].like_count--
+
             } else {
                 newfeeds[it].like_flag = !isHeart
                 newfeeds[it].like_count++
@@ -122,8 +124,7 @@ class NewFeedFragment : Fragment() {
     }
 
     private fun initHeart(id: Int, newFeed: NewPost) {
-        val service = ClientAPI.createServiceClient()?.create(PostAPI::class.java)
-        val call = service?.updateNewPost(token, id, newFeed)
+        val call = ClientAPI.createPost()?.updateNewPost(token, id, newFeed)
         call?.enqueue(object : retrofit2.Callback<NewPost> {
             override fun onFailure(call: Call<NewPost>, t: Throwable) {
                 t.message?.let { displayErrorDialog(it) }
@@ -145,8 +146,7 @@ class NewFeedFragment : Fragment() {
     }
 
     private fun getListAPI() {
-        val service = ClientAPI.createServiceClient()?.create(PostAPI::class.java)
-        val call = token.let { service?.getPost(it) }
+        val call = ClientAPI.createPost()?.getPost(token)
         call?.enqueue(object : retrofit2.Callback<MutableList<NewPost>> {
             override fun onFailure(call: Call<MutableList<NewPost>>, t: Throwable) {
                 t.message?.let { it -> displayErrorDialog(it) }
@@ -166,8 +166,7 @@ class NewFeedFragment : Fragment() {
     }
 
     private fun deleteNewFeed(id: Int) {
-        val service = ClientAPI.createServiceClient()?.create(PostAPI::class.java)
-        val call = service?.deletePosts(token, id)
+        val call = ClientAPI.createPost()?.deletePosts(token, id)
         call?.enqueue(object : retrofit2.Callback<NewPost> {
             override fun onFailure(call: Call<NewPost>, t: Throwable) {
                 t.message?.let { displayErrorDialog(it) }

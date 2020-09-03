@@ -1,5 +1,6 @@
 package com.asiantech.intern20summer1.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.model.NewPost
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.`at-vuongphan`.item_new_feed.view.*
 
@@ -16,6 +18,7 @@ class ItemFeedAdapter(private val newFeeds: MutableList<NewPost>) :
     RecyclerView.Adapter<ItemFeedAdapter.NewFeedViewHolder>() {
     internal var onItemClicked: (position: Int) -> Unit = {}
     internal var onItemDeleteClicked: (position: Int) -> Unit = {}
+    private var url = "http://at-a-trainning.000webhostapp.com/images/"
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewFeedViewHolder {
         val view =
@@ -37,7 +40,6 @@ class ItemFeedAdapter(private val newFeeds: MutableList<NewPost>) :
         private val tvLike: TextView = itemView.tvLike
         private val tvStatus: TextView = itemView.tvStatus
         private val tvNameStatus: TextView = itemView.tvNameStatus
-        private val tvFoodName: TextView = itemView.tvFoodName
         private val imgDelete: ImageView = itemView.imgOption
 
         init {
@@ -51,15 +53,17 @@ class ItemFeedAdapter(private val newFeeds: MutableList<NewPost>) :
 
         fun bindData() {
             newFeeds[adapterPosition].let {
+                val image = url.plus(it.image)
                 tvName.text = it.content
-                Glide.with(itemView)
-                    .load(it.image)
+                val options = RequestOptions()
+                    .centerCrop()
                     .placeholder(R.drawable.tran_thi_duyen)
-                    .into(imgAvatar)
+                Log.d("Ima", "bindData: $image")
                 Glide.with(itemView)
-                    .load(it.image)
-                    .placeholder(R.drawable.tran_thi_duyen)
+                    .load(image)
+                    .apply(options)
                     .into(imgMain)
+
                 if (it.like_flag) imgHeart.setImageResource(R.drawable.ic_hearted) else imgHeart.setImageResource(
                     R.drawable.ic_heart
                 )

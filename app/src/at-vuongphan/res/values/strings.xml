@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">[Vuong]Intern20Summer1</string>
+    <string name="app_name">THANHVUONG</string>
     <string name="email_id_text_view_description_text">Enter your email ID</string>
     <string name="type_password_text_view_description_text">Type your password</string>
     <string name="retype_password_text_view_description_text">Retype your password</string>

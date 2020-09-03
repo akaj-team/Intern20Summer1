@@ -8,13 +8,13 @@ interface PostAPI {
     @GET("api/posts")
     fun getPost(@Header("token") token: String): Call<MutableList<NewPost>>
 
-    @DELETE("api/posts/{id}")
+    @DELETE("api/post/{id}")
     fun deletePosts(@Header("token") token: String, @Path("id") id: Int): Call<NewPost>
 
-    @POST("api/posts")
+    @POST("api/post")
     fun addNewPost(@Body newFeedModel: NewPost): Call<NewPost>
 
-    @PUT("api/posts/{id}")
+    @PUT("api/post/{id}")
     fun updateNewPost(
         @Header("token") token: String,
         @Path("id") id: Int,

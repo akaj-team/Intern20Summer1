@@ -3,6 +3,7 @@ package com.asiantech.intern20summer1.fragment.w10
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +13,6 @@ import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.activity.w10.RecyclerViewNewFeed
 import com.asiantech.intern20summer1.api.ClientAPI
-import com.asiantech.intern20summer1.api.UserClient
 import com.asiantech.intern20summer1.extension.hideKeyboard
 import com.asiantech.intern20summer1.extension.isValidEmail
 import com.asiantech.intern20summer1.extension.isValidPasswordW10
@@ -79,14 +79,19 @@ class FragmentLogin : Fragment() {
         btnLogin?.setOnClickListener {
             val email = edtEmail?.text.toString()
             val password = edtPassword.text.toString()
-            val service = ClientAPI.createServiceClient()?.create(UserClient::class.java)
-            val call = service?.login(email, password)
+            val call = ClientAPI.createUserService()?.login(email, password)
             call?.enqueue(object : retrofit2.Callback<UserAutoSignIn> {
                 override fun onResponse(
                     call: Call<UserAutoSignIn>,
                     response: Response<UserAutoSignIn>
                 ) {
                     if (response.isSuccessful) {
+                        Log.d(
+                            "aaa", String.format(
+                                "\nrequest:\n%s\nheaders:\n%s",
+                                response.body().toString(), response.headers()
+                            )
+                        )
                         response.body().apply {
                             val id = this?.id
                             val email = this?.email

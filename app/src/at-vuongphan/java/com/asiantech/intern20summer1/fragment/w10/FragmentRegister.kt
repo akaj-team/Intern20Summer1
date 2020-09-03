@@ -9,7 +9,6 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.api.ClientAPI
-import com.asiantech.intern20summer1.api.UserClient
 import com.asiantech.intern20summer1.extension.hideKeyboard
 import com.asiantech.intern20summer1.extension.isValidEmail
 import com.asiantech.intern20summer1.extension.isValidPasswordW10
@@ -57,8 +56,9 @@ class FragmentRegister : Fragment() {
             val userName = edtUserName.text.toString()
             val email = edtEmail.text.toString()
             val password = edtPassword.text.toString()
-            val service = ClientAPI.createServiceClient()?.create(UserClient::class.java)
-            val call = service?.addNewUserRegister(UserRegister(email, password, userName))
+
+            val call = ClientAPI.createUserService()
+                ?.addNewUserRegister(UserRegister(email, password, userName))
             call?.enqueue(object : retrofit2.Callback<UserAutoSignIn> {
                 override fun onFailure(call: retrofit2.Call<UserAutoSignIn>, t: Throwable) {
                     t.message?.let { it1 -> NewFeedFragment().displayErrorDialog(it1) }

@@ -13,6 +13,6 @@ data class NewPost(
 
 data class ItemLike(
     @SerializedName("message") var message: String,
-    @SerializedName("like_count") var like_cont: Int,
+    @SerializedName("like_count") var like_count: Int,
     @SerializedName("like_flag") var like_flag: Boolean
 )
