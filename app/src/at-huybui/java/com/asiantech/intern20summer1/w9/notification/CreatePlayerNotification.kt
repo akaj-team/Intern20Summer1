@@ -1,6 +1,8 @@
 package com.asiantech.intern20summer1.w9.notification
 
 import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
@@ -8,6 +10,7 @@ import android.os.Build
 import android.support.v4.media.session.MediaSessionCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.graphics.drawable.toBitmap
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w9.activitys.MusicActivity
@@ -27,6 +30,7 @@ class CreatePlayerNotification {
         const val ACTION_PLAY = "action_play"
         const val ACTION_NEXT = "action_next"
         var notification = Notification()
+        var notificationManager: NotificationManager? = null
     }
 
     fun createNotification(context: Context, song: Song, playerButton: Int) {
@@ -96,6 +100,24 @@ class CreatePlayerNotification {
                 .setPriority(NotificationCompat.PRIORITY_LOW).build()
             notification.flags = Notification.FLAG_NO_CLEAR
             notificationManagerCompat.notify(1, notification)
+        }
+    }
+
+    internal fun createChannel(context: Context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(
+                CHANNEL_ID,
+                CHANNEL_NAME,
+                NotificationManager.IMPORTANCE_LOW
+            )
+            notificationManager = getSystemService(context, NotificationManager::class.java)
+            notificationManager?.createNotificationChannel(channel)
+        }
+    }
+
+    internal fun cancelNotification() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            notificationManager?.cancelAll()
         }
     }
 }

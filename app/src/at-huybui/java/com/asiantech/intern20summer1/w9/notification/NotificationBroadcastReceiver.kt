@@ -16,6 +16,10 @@ open class NotificationBroadcastReceiver: BroadcastReceiver() {
         internal const val ACTION_NAME = "action_name"
     }
     override fun onReceive(context: Context?, intent: Intent?) {
-        context?.sendBroadcast(Intent(ACTION_KEY).putExtra(ACTION_NAME,intent?.action))
+        context?.sendBroadcast(
+            Intent(ACTION_KEY).putExtra(
+                ACTION_NAME, intent?.action
+            )
+        )
     }
 }

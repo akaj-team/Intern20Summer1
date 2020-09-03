@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w9.activitys.MusicActivity
+import com.asiantech.intern20summer1.w9.models.SharedViewModel
 import com.asiantech.intern20summer1.w9.models.Song
 import com.asiantech.intern20summer1.w9.services.AudioService
 import kotlinx.android.synthetic.`at-huybui`.w9_fragment_music.*
@@ -22,12 +24,11 @@ import kotlinx.android.synthetic.`at-huybui`.w9_fragment_player.*
 class PlayerFragment : Fragment() {
 
     companion object {
-        internal fun newInstance(lists: MutableList<Song>) = PlayerFragment().apply {
-            lists.toCollection(songLists)
-        }
+        internal fun newInstance() = PlayerFragment()
         private const val DEFAULT_DURATION = "00:00"
     }
 
+    private lateinit var viewModel: SharedViewModel
     private var songLists = mutableListOf<Song>()
     private val service = MusicActivity.service
     private var isUpdateSeekBar = false
@@ -42,7 +43,13 @@ class PlayerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initData()
         initView()
+    }
+
+    private fun initData() {
+        viewModel = ViewModelProvider(activity as MusicActivity).get(SharedViewModel::class.java)
+        viewModel.songLists.value?.toCollection(songLists)
     }
 
     private fun initView() {

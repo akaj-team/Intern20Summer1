@@ -1,11 +1,10 @@
-package com.asiantech.intern20summer1.w9.services
+package com.asiantech.intern20summer1.w9.managers
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.asiantech.intern20summer1.w9.fragments.MusicFragment
 import com.asiantech.intern20summer1.w9.fragments.PlayerFragment
-import com.asiantech.intern20summer1.w9.models.Song
 
 /**
  * Asian Tech Co., Ltd.
@@ -14,8 +13,7 @@ import com.asiantech.intern20summer1.w9.models.Song
  */
 
 class ViewPagerAdapter(
-    fm: FragmentManager,
-    private val songLists: MutableList<Song>
+    fm: FragmentManager
 ) : FragmentPagerAdapter(
     fm,
     BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
@@ -28,9 +26,9 @@ class ViewPagerAdapter(
     override fun getItem(position: Int): Fragment {
 
         return if (position == 0) {
-            MusicFragment.newInstance(songLists)
+            MusicFragment.newInstance()
         } else {
-            PlayerFragment.newInstance(songLists)
+            PlayerFragment.newInstance()
         }
     }
     override fun getCount() = NUMBER_OF_PAGER

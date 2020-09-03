@@ -12,7 +12,6 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.asiantech.intern20summer1.R
-import java.io.Serializable
 
 /**
  * Asian Tech Co., Ltd.
@@ -28,7 +27,7 @@ data class Song(
     @ColumnInfo(name = NAME_SINGER) var singer: String? = "null",
     @ColumnInfo(name = DURATION_SONG) var duration: String? = "00:00",
     @ColumnInfo(name = CONTENT_URI) var contentUri: String = "null"
-):Serializable {
+) {
     companion object {
         private const val COLUMN_ID = BaseColumns._ID
         internal const val TABLE_NAME = "villains"

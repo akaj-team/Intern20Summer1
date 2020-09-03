@@ -1,7 +1,5 @@
 package com.asiantech.intern20summer1.w9.services
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
 import android.app.Service
 import android.content.Context
 import android.content.Intent
@@ -9,7 +7,6 @@ import android.content.IntentFilter
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Binder
-import android.os.Build
 import android.os.CountDownTimer
 import android.os.IBinder
 import com.asiantech.intern20summer1.R
@@ -43,7 +40,7 @@ class AudioService : Service(), ClickPlayable {
     internal var onPlayerBar: (StatePlayer) -> Unit = {}
     internal var onShuffleSong: () -> Unit = {}
     private var iBinder: IBinder = LocalBinder()
-    private lateinit var notification: NotificationManager
+    private var notification = CreatePlayerNotification()
     private val timerUpdateCurrent = object : CountDownTimer(TICK_TIMER, TICK_TIMER) {
         override fun onFinish() {
             if (isOpenApp) {
@@ -67,16 +64,14 @@ class AudioService : Service(), ClickPlayable {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        createChannel()
+        notification.createChannel(applicationContext)
         return START_NOT_STICKY
     }
 
     override fun onTaskRemoved(rootIntent: Intent?) {
         super.onTaskRemoved(rootIntent)
         timerUpdateCurrent.cancel()
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            notification.cancelAll()
-        }
+        notification.cancelNotification()
         audioPlayer.release()
         unregisterReceiver(broadcastReceiver)
         stopSelf()
@@ -89,18 +84,6 @@ class AudioService : Service(), ClickPlayable {
         } else {
             songLists.clear()
             songList.toCollection(songLists)
-        }
-    }
-
-    private fun createChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(
-                CreatePlayerNotification.CHANNEL_ID,
-                CreatePlayerNotification.CHANNEL_NAME,
-                NotificationManager.IMPORTANCE_LOW
-            )
-            notification = getSystemService(NotificationManager::class.java)
-            notification.createNotificationChannel(channel)
         }
     }
 

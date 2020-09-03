@@ -5,10 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w9.activitys.MusicActivity
 import com.asiantech.intern20summer1.w9.managers.SongRecyclerAdapter
+import com.asiantech.intern20summer1.w9.models.SharedViewModel
 import com.asiantech.intern20summer1.w9.models.Song
 import com.asiantech.intern20summer1.w9.services.AudioService
 import kotlinx.android.synthetic.`at-huybui`.activity_music.*
@@ -23,11 +25,10 @@ import kotlinx.android.synthetic.`at-huybui`.w9_fragment_music.*
 class MusicFragment : Fragment() {
 
     companion object {
-        internal fun newInstance(songListsNew: MutableList<Song>) = MusicFragment().apply {
-            songListsNew.toCollection(songLists)
-        }
+        internal fun newInstance() = MusicFragment()
     }
 
+    private lateinit var viewModel: SharedViewModel
     private var songLists = mutableListOf<Song>()
     private val songAdapter = SongRecyclerAdapter(songLists)
     private val service = MusicActivity.service
@@ -42,6 +43,7 @@ class MusicFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initData()
         initView()
         initAudioService()
     }
@@ -49,6 +51,11 @@ class MusicFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         service.isOpenApp = false  // clear state is open app
+    }
+
+    private fun initData() {
+        viewModel = ViewModelProvider(activity as MusicActivity).get(SharedViewModel::class.java)
+        viewModel.songLists.value?.toCollection(songLists)
     }
 
     private fun initView() {
@@ -62,7 +69,7 @@ class MusicFragment : Fragment() {
     }
 
     private fun initPlayerBarView() {
-        tvSongName_Music.isSelected = true // set auto run text view
+        tvSongName_Music?.isSelected = true // set auto run text view
         service.songPlaying?.let { song ->
             tvSongName_Music?.text = song.nameSong
             tvSinger_Music?.text = song.singer
@@ -117,7 +124,7 @@ class MusicFragment : Fragment() {
     }
 
     private fun initAudioService() {
-        if (service.songLists.size < 1) {
+        if (service.songLists.isNullOrEmpty()) {
             songLists.toCollection(service.songLists)
         }
         service.isOpenApp = true // set status is open app in onCreate

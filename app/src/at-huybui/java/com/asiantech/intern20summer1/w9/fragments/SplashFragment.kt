@@ -13,8 +13,10 @@ import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w9.activitys.MusicActivity
+import com.asiantech.intern20summer1.w9.models.SharedViewModel
 import com.asiantech.intern20summer1.w9.models.Song
 import java.text.SimpleDateFormat
 import java.util.concurrent.TimeUnit
@@ -32,15 +34,16 @@ class SplashFragment : Fragment() {
         private const val PERMISSION_REQUEST_CODE = 200
         private const val VALUE_TIMER = 120000L
         private const val TICK_TIMER = 10L
-        private const val PROGRESS_BAR_MAX_VALUE = 100
         private const val TICK_REQUEST_PERMISSION = 5
         private const val TICK_LOAD_DATA_MUSIC = 10
         private const val TIME_SET = "1.1.2000"
         private const val DATE_FORMAT = "dd.MM.yyyy"
     }
 
-    var listSong = mutableListOf<Song>()
     var progressCount = 0
+    private lateinit var viewModel: SharedViewModel
+    private var listSong = mutableListOf<Song>()
+    private var isLoadComplete = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,6 +55,7 @@ class SplashFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(activity as MusicActivity).get(SharedViewModel::class.java)
         handleProgressBar()
     }
 
@@ -71,14 +75,17 @@ class SplashFragment : Fragment() {
                         }
                     }
                     TICK_LOAD_DATA_MUSIC -> {
-                        Thread(Runnable {
+                        Thread {
                             scanSongInStore().toCollection(listSong)
-                        }).start()
+                            isLoadComplete = true
+                        }.start()
                     }
-                    PROGRESS_BAR_MAX_VALUE -> {
-                        (activity as MusicActivity).initViewPager(listSong)
-                        this.cancel()
-                    }
+                }
+
+                if (isLoadComplete) {
+                    viewModel.setSongLists(listSong)
+                    (activity as MusicActivity).initViewPager()
+                    this.cancel()
                 }
             }
         }.start()
