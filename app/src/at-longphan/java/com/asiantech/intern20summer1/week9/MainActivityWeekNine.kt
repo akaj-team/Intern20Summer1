@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week9.fragment.SongListFragment
 
-class MainActivityWeek9 : AppCompatActivity() {
+class MainActivityWeekNine : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,6 +19,10 @@ class MainActivityWeek9 : AppCompatActivity() {
 
     internal fun replaceFragment(fragment: Fragment, isAddToBackStack: Boolean = false) {
         val transaction = supportFragmentManager.beginTransaction()
+        transaction.setCustomAnimations(
+            android.R.anim.fade_in,
+            android.R.anim.fade_out
+        )
         transaction.replace(R.id.flListMusicActivity, fragment, null)
         if (isAddToBackStack) {
             transaction.addToBackStack(null)

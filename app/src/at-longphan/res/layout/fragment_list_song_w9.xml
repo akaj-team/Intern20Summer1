@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/img_autumn"
     android:orientation="vertical"
-    tools:context=".week9.MainActivityWeek9">
+    tools:context=".week9.MainActivityWeekNine">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewListSong"

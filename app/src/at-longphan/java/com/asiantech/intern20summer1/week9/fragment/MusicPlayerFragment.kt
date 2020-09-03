@@ -15,24 +15,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.SeekBar
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.week9.Notification
 import com.asiantech.intern20summer1.week9.model.Song
 import com.asiantech.intern20summer1.week9.model.Units
 import com.asiantech.intern20summer1.week9.service.PlayMusicService
-import com.asiantech.intern20summer1.week9.service.PlayMusicService.Companion.isRepeat
-import com.asiantech.intern20summer1.week9.service.PlayMusicService.Companion.isShuffle
 import kotlinx.android.synthetic.`at-longphan`.fragment_music_player_w9.*
 
 class MusicPlayerFragment : Fragment() {
 
     companion object {
-        const val DELAY_TIME: Long = 0
-        const val LIST_SONG_KEY = "list_song_key"
-        const val IS_PLAYING_KEY = "is_playing_key"
-        fun newInstance(songs: ArrayList<Song>, isPlaying: Boolean) =
+        internal const val DELAY_TIME: Long = 0
+        internal const val LIST_SONG_KEY = "list_song_key"
+        internal const val IS_PLAYING_KEY = "is_playing_key"
+        internal fun newInstance(songs: ArrayList<Song>, isPlaying: Boolean) =
             MusicPlayerFragment().apply {
                 arguments = Bundle().apply {
                     putParcelableArrayList(LIST_SONG_KEY, songs)
@@ -43,7 +39,6 @@ class MusicPlayerFragment : Fragment() {
 
     private var songs: ArrayList<Song> = ArrayList()
     private var mPosition = 0
-    private var notification: Notification? = null
     private val mHandler = Handler()
     private var mBounded: Boolean = false
     private var isPlaying = false
@@ -56,14 +51,12 @@ class MusicPlayerFragment : Fragment() {
         }
 
         override fun onServiceConnected(name: ComponentName, service: IBinder) {
-
             mBounded = true
             val mLocalBinder = service as? PlayMusicService.LocalBinder
             mLocalBinder?.let { playMusicService = it.getServerInstance }
-            mPosition = playMusicService.initPosition()
-            isPlaying = playMusicService.isPlaying()
+            mPosition = playMusicService.currentPos
+            isPlaying = playMusicService.isPlaying
             initView()
-
             handleOnNotificationTogglePlay()
         }
     }
@@ -88,8 +81,6 @@ class MusicPlayerFragment : Fragment() {
         initImageListeners()
         handleSeekBarMusicPlaying()
         initButtonPlayAndPauseView()
-
-
     }
 
     override fun onStart() {
@@ -113,22 +104,22 @@ class MusicPlayerFragment : Fragment() {
         tvMusicNameMainPlaying?.text = songs[mPosition].name
         tvMusicArtistMainPlaying?.text = songs[mPosition].artist
 
-        if (isRepeat) {
+        if (playMusicService.isRepeat) {
             imgRepeat?.setColorFilter(Color.parseColor(resources.getString(R.color.colorImageViewShuffleEnableWeek9Background)))
         } else {
             imgRepeat?.setColorFilter(Color.GRAY)
         }
 
-        if (isShuffle) {
+        if (playMusicService.isShuffle) {
             imgShuffle?.setColorFilter(Color.parseColor(resources.getString(R.color.colorImageViewShuffleEnableWeek9Background)))
         } else {
             imgShuffle?.setColorFilter(Color.GRAY)
         }
 
-        val rotation = AnimationUtils.loadAnimation(context, R.anim.rotate)
+        val rotation = AnimationUtils.loadAnimation(playMusicService, R.anim.rotate)
         imgDiskPlayer?.startAnimation(rotation)
-        Toast.makeText(context, "lol", Toast.LENGTH_LONG).show()
-        isPlaying = playMusicService.isPlaying()
+
+        isPlaying = playMusicService.isPlaying
         initButtonPlayAndPauseView()
     }
 
@@ -183,7 +174,7 @@ class MusicPlayerFragment : Fragment() {
 
     @SuppressLint("ResourceType")
     private fun toggleShuffle() {
-        isShuffle = if (!isShuffle) {
+        playMusicService.isShuffle = if (!playMusicService.isShuffle) {
             imgShuffle?.setColorFilter(Color.parseColor(resources.getString(R.color.colorImageViewShuffleEnableWeek9Background)))
             true
         } else {
@@ -194,7 +185,7 @@ class MusicPlayerFragment : Fragment() {
 
     @SuppressLint("ResourceType")
     private fun toggleRepeat() {
-        isRepeat = if (!isRepeat) {
+        playMusicService.isRepeat = if (!playMusicService.isRepeat) {
             imgRepeat?.setColorFilter(Color.parseColor(resources.getString(R.color.colorImageViewShuffleEnableWeek9Background)))
             true
         } else {
@@ -221,7 +212,7 @@ class MusicPlayerFragment : Fragment() {
         val runnable = object : Runnable {
             override fun run() {
                 seekBarMusicPlaying?.max = songs[mPosition].duration
-                mPosition = playMusicService.initPosition()
+                mPosition = playMusicService.currentPos
                 val currentPosition = playMusicService.currentPosition()
                 if (currentPosition != null) {
                     seekBarMusicPlaying?.progress = currentPosition
@@ -229,12 +220,8 @@ class MusicPlayerFragment : Fragment() {
                     tvTimeEnd?.text = Units.convertTimeMusic(songs[mPosition].duration)
                 }
                 if (mPosition > position) {
-                    try {
-                        position = mPosition
-                        initView()
-                    } catch (e: NullPointerException) {
-                        e.printStackTrace()
-                    }
+                    position = mPosition
+                    initView()
                 }
                 mHandler.postDelayed(this, DELAY_TIME)
             }
@@ -242,19 +229,9 @@ class MusicPlayerFragment : Fragment() {
         mHandler.post(runnable)
     }
 
-    private fun createNotification(position: Int) {
-        notification = Notification(playMusicService)
-        val notification =
-            notification?.createPlayMusicNotification(songs[position], isPlaying)
-        playMusicService.startForeground(1, notification)
-        isPlaying = playMusicService.isPlaying()
-        isRepeat = playMusicService.isRepeat()
-        isShuffle = playMusicService.isShuffle()
-    }
-
-    private fun handleOnNotificationTogglePlay(){
+    private fun handleOnNotificationTogglePlay() {
         playMusicService.onNotificationChange = {
-            isPlaying = playMusicService.isPlaying()
+            isPlaying = playMusicService.isPlaying
             initButtonPlayAndPauseView()
         }
     }

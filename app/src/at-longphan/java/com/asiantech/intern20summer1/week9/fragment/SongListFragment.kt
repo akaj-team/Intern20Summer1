@@ -21,8 +21,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.week9.MainActivityWeek9
-import com.asiantech.intern20summer1.week9.Notification
+import com.asiantech.intern20summer1.week9.MainActivityWeekNine
 import com.asiantech.intern20summer1.week9.adapter.SongAdapter
 import com.asiantech.intern20summer1.week9.model.Song
 import com.asiantech.intern20summer1.week9.model.Units
@@ -38,7 +37,6 @@ class SongListFragment : Fragment() {
     private var songs: ArrayList<Song> = arrayListOf()
     private var adapter = SongAdapter(songs)
     private var mPosition: Int = 0
-    private var notification: Notification? = null
     private var mBounded: Boolean = false
     private var isPlaying = false
     private var playMusicService = PlayMusicService()
@@ -53,7 +51,7 @@ class SongListFragment : Fragment() {
             mBounded = true
             val mLocalBinder = service as PlayMusicService.LocalBinder
             playMusicService = mLocalBinder.getServerInstance
-            mPosition = playMusicService.initPosition()
+            mPosition = playMusicService.currentPos
             isPlaying = playMusicService.isMediaPlayerPlaying()
 
             initPlayMusicBarView()
@@ -189,7 +187,7 @@ class SongListFragment : Fragment() {
     }
 
     private fun replaceMusicPlayerFragment() {
-        (activity as MainActivityWeek9)
+        (activity as MainActivityWeekNine)
             .replaceFragment(
                 MusicPlayerFragment
                     .newInstance(songs, isPlaying)
@@ -222,24 +220,15 @@ class SongListFragment : Fragment() {
     private fun playNext() {
         isPlaying = true
         playMusicService.playNext()
-        mPosition = playMusicService.initPosition()
-        createNotification(mPosition)
+        mPosition = playMusicService.currentPos
         initPlayMusicBarView()
     }
 
     private fun playPrev() {
         isPlaying = true
         playMusicService.playPrev()
-        mPosition = playMusicService.initPosition()
-        createNotification(mPosition)
+        mPosition = playMusicService.currentPos
         initPlayMusicBarView()
-    }
-
-    private fun createNotification(position: Int) {
-        notification = Notification(playMusicService)
-        val notification = notification?.createPlayMusicNotification(songs[position], isPlaying)
-        playMusicService.startForeground(1, notification)
-        //isPlaying = playMusicService.isPlaying()
     }
 
     private fun isMyServiceRunning(serviceClass: Class<*>): Boolean {
@@ -252,10 +241,10 @@ class SongListFragment : Fragment() {
         return false
     }
 
-    private fun handleOnNotificationListener(){
+    private fun handleOnNotificationListener() {
         playMusicService.onMusicNotificationSelected = {
-            mPosition = PlayMusicService.currentPos
-            isPlaying = playMusicService.isPlaying()
+            mPosition = playMusicService.currentPos
+            isPlaying = playMusicService.isPlaying
             initPlayMusicBarView()
         }
     }

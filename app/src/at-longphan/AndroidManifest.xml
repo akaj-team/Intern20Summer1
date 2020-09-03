@@ -22,7 +22,7 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppThemeWeek9">
-        <activity android:name=".week9.MainActivityWeek9" />
+        <activity android:name=".week9.MainActivityWeekNine" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

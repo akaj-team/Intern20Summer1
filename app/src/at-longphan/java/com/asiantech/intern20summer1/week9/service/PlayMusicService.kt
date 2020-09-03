@@ -8,27 +8,22 @@ import android.content.IntentFilter
 import android.media.MediaPlayer
 import android.os.Binder
 import android.os.IBinder
-import android.widget.Toast
 import com.asiantech.intern20summer1.week9.Notification
 import com.asiantech.intern20summer1.week9.adapter.SongAdapter
 import com.asiantech.intern20summer1.week9.model.Song
 import com.asiantech.intern20summer1.week9.model.Units
 import kotlin.random.Random
 
-
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS", "DEPRECATION")
 class PlayMusicService : Service(), MediaPlayer.OnCompletionListener {
 
-    companion object {
-        var isShuffle = false
-        var isRepeat = false
-        var currentPos = 0
-    }
-
+    internal var currentPos = 0
+    internal var isShuffle = false
+    internal var isRepeat = false
+    internal var isPlaying = false
     private var musicDataList: ArrayList<Song> = ArrayList()
     private var mMediaPlayer: MediaPlayer? = MediaPlayer()
     private val mBinder = LocalBinder()
-    private var isPlaying = false
     private var notification: Notification? = null
     private var rand: Random = Random
 
@@ -59,10 +54,6 @@ class PlayMusicService : Service(), MediaPlayer.OnCompletionListener {
 
     internal var onMusicNotificationSelected: () -> Unit = {}
     internal var onNotificationChange: () -> Unit = {}
-
-    override fun onCreate() {
-        super.onCreate()
-    }
 
     override fun onCompletion(mp: MediaPlayer?) {
         if (!isRepeat) {
@@ -102,9 +93,9 @@ class PlayMusicService : Service(), MediaPlayer.OnCompletionListener {
     }
 
     internal fun playNext() {
-        if(isShuffle){
+        if (isShuffle) {
             var newPos = currentPos
-            while (newPos == currentPos){
+            while (newPos == currentPos) {
                 newPos = rand.nextInt(musicDataList.size)
             }
             currentPos = newPos
@@ -141,15 +132,7 @@ class PlayMusicService : Service(), MediaPlayer.OnCompletionListener {
 
     internal fun currentPosition() = mMediaPlayer?.currentPosition
 
-    internal fun initPosition(): Int = currentPos
-
     internal fun isMediaPlayerPlaying(): Boolean = mMediaPlayer?.isPlaying!!
-
-    internal fun isRepeat(): Boolean = isRepeat
-
-    internal fun isShuffle(): Boolean = isShuffle
-
-    internal fun isPlaying(): Boolean = isPlaying
 
     inner class LocalBinder : Binder() {
         internal val getServerInstance: PlayMusicService

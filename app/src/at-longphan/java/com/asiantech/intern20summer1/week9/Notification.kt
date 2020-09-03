@@ -33,10 +33,10 @@ class Notification(playMusicService: PlayMusicService) {
     private var manager: NotificationManager? = playMusicService
         .getSystemService(Context.NOTIFICATION_SERVICE) as? NotificationManager
 
-    fun createPlayMusicNotification(song: Song, isPlaying: Boolean): Notification? {
+    internal fun createPlayMusicNotification(song: Song, isPlaying: Boolean): Notification? {
         builder = NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)
         createNotificationChannel()
-        val intentActivity = Intent(context, MainActivityWeek9::class.java)
+        val intentActivity = Intent(context, MainActivityWeekNine::class.java)
         val pendingIntent = PendingIntent.getActivity(
             context,
             0, intentActivity, PendingIntent.FLAG_UPDATE_CURRENT
@@ -84,9 +84,9 @@ class Notification(playMusicService: PlayMusicService) {
             }
             ACTION_SKIP_NEXT -> R.drawable.ic_next
             ACTION_KILL_MEDIA -> R.drawable.ic_close_black_24
-            else -> R.drawable.ic_previous
+            else -> R.drawable.ic_music
         }
-        
+
         return NotificationCompat.Action.Builder(
             icon,
             action,

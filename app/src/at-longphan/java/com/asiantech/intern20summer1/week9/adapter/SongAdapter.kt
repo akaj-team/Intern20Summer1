@@ -17,8 +17,8 @@ class SongAdapter(internal val songs: ArrayList<Song>) :
     RecyclerView.Adapter<SongAdapter.SongViewHolder>() {
 
     companion object {
-        const val SONG_LIST_PATH = "song_list_path"
-        const val SONG_ITEM_POSITION = "song_item_position"
+        internal const val SONG_LIST_PATH = "song_list_path"
+        internal const val SONG_ITEM_POSITION = "song_item_position"
     }
 
     internal var onItemClicked: (position: Int) -> Unit = {}
@@ -48,7 +48,7 @@ class SongAdapter(internal val songs: ArrayList<Song>) :
             }
         }
 
-        fun bindData() {
+        internal fun bindData() {
             songs[adapterPosition].let {
                 val requestOption = RequestOptions().placeholder(R.drawable.ic_music_note_60)
                 songNameTextView.text = it.name
