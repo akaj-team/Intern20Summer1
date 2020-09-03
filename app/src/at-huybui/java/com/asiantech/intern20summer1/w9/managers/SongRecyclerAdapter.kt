@@ -3,8 +3,6 @@ package com.asiantech.intern20summer1.w9.managers
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w9.models.Song
@@ -35,10 +33,10 @@ class SongRecyclerAdapter(private val songList: List<Song>) :
     }
 
     inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private var iconPlayer: ImageView = itemView.btnPlayItem
-        private var nameSong: TextView = itemView.tvNameSongItem
-        private var nameSinger: TextView = itemView.tvNameSingerItem
-        private var lengthSong: TextView = itemView.tvLengthSongItem
+        private var iconPlayer = itemView.btnPlayItem
+        private var nameSong = itemView.tvNameSongItem
+        private var nameSinger = itemView.tvNameSingerItem
+        private var lengthSong = itemView.tvLengthSongItem
 
         init {
             itemView.setOnClickListener {
