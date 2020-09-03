@@ -10,11 +10,12 @@ import android.content.Intent
  * This is BroadcastReceiver class for notification
  */
 
-open class NotificationBroadcastReceiver: BroadcastReceiver() {
-    companion object{
+open class NotificationBroadcastReceiver : BroadcastReceiver() {
+    companion object {
         internal const val ACTION_KEY = "player_music"
         internal const val ACTION_NAME = "action_name"
     }
+
     override fun onReceive(context: Context?, intent: Intent?) {
         context?.sendBroadcast(
             Intent(ACTION_KEY).putExtra(

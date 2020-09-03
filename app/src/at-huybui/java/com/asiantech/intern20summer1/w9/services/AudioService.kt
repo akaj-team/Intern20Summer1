@@ -23,7 +23,7 @@ import com.asiantech.intern20summer1.w9.notification.NotificationBroadcastReceiv
 
 class AudioService : Service(), ClickPlayable {
 
-    companion object{
+    companion object {
         private const val VOLUME = 100f
         private const val TICK_TIMER = 500L
     }
@@ -189,6 +189,7 @@ class AudioService : Service(), ClickPlayable {
         }
         onMusicStart()
     }
+
     // this is enum class for status click
     enum class StatePlayer { START, PAUSE, RESUME }
 

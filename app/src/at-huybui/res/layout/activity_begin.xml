@@ -65,11 +65,5 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/begin_margin_button"
             android:text="@string/w9_service_broadcast" />
-        <Button
-            android:id="@+id/btnTestActivity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/begin_margin_button"
-            android:text="Test" />
     </LinearLayout>
 </ScrollView>

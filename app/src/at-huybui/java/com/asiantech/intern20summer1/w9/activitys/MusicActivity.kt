@@ -13,9 +13,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w9.fragments.SplashFragment
+import com.asiantech.intern20summer1.w9.managers.ViewPagerAdapter
 import com.asiantech.intern20summer1.w9.models.SharedViewModel
 import com.asiantech.intern20summer1.w9.services.AudioService
-import com.asiantech.intern20summer1.w9.managers.ViewPagerAdapter
 import kotlinx.android.synthetic.`at-huybui`.activity_music.*
 
 /**

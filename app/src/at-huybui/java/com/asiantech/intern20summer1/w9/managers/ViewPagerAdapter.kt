@@ -31,5 +31,6 @@ class ViewPagerAdapter(
             PlayerFragment.newInstance()
         }
     }
+
     override fun getCount() = NUMBER_OF_PAGER
 }

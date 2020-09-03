@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/bg_music_app">
 
     <TextView
         android:id="@+id/tvNameSong.Player"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:layout_marginLeft="@dimen/w9_player_name_song_margin_left_right"
         android:layout_marginTop="@dimen/w9_player_name_song_margin_top"
         android:layout_marginRight="@dimen/w9_player_name_song_margin_left_right"
-        android:layout_height="wrap_content"
         android:ellipsize="marquee"
-        android:layout_centerHorizontal="true"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:gravity="center"
@@ -87,8 +87,8 @@
         android:layout_marginRight="@dimen/w9_player_seekbar_margin_right"
         android:layout_marginBottom="@dimen/w9_player_seekbar_margin_bottom"
         android:thumbTint="@color/background_white"
-        tools:progress="50"
-        tools:ignore="UnusedAttribute" />
+        tools:ignore="UnusedAttribute"
+        tools:progress="50" />
 
     <RelativeLayout
         android:id="@+id/rlPlayerBar.Player"
@@ -101,8 +101,8 @@
             android:id="@+id/btnPlay.Player"
             android:layout_width="@dimen/w9_player_player_bar_height"
             android:layout_height="@dimen/w9_player_player_bar_height"
-            android:padding="@dimen/w9_player_icon_player_padding"
             android:layout_centerHorizontal="true"
+            android:padding="@dimen/w9_player_icon_player_padding"
             android:src="@drawable/ic_play_button" />
 
         <ImageView
