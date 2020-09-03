@@ -7,38 +7,14 @@
     android:background="@color/colorWhite"
     android:orientation="vertical">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imgAvatar"
-        android:layout_width="@dimen/avatar_image_view_width"
-        android:layout_height="@dimen/avatar_image_view_height"
-        android:layout_marginLeft="@dimen/avatar_image_view_margin_left"
-        android:layout_marginTop="@dimen/margin_top"
-        android:src="@drawable/img_profile"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tvUserName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/user_name_text_view_margin_left"
-        android:textColor="@android:color/black"
-        android:textSize="@dimen/text_view_text_size"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/imgAvatar"
-        app:layout_constraintStart_toEndOf="@+id/imgAvatar"
-        app:layout_constraintTop_toTopOf="@+id/imgAvatar"
-        tools:text="sayabaaaa" />
-
     <ImageView
         android:id="@+id/imgTimeLine"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/margin_top"
         app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgAvatar"
+        app:layout_constraintTop_toTopOf="parent"
         tools:src="@drawable/ic_01" />
 
     <RelativeLayout
@@ -54,7 +30,7 @@
             android:layout_width="@dimen/icon_width"
             android:layout_height="@dimen/icon_height"
             android:layout_marginTop="@dimen/margin_top"
-            android:src="@drawable/ic_heart_bold" />
+            tools:src="@drawable/ic_heart_bold" />
 
         <ImageView
             android:id="@+id/imgComment"
@@ -115,34 +91,35 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/tvProfileName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/imgHeart"
-            android:layout_marginLeft="@dimen/text_view_margin_left"
-            android:layout_marginTop="@dimen/margin_top"
-            android:textColor="@android:color/black"
-            android:textSize="@dimen/text_view_text_size"
-            android:textStyle="bold"
-            tools:text="sayabaaaa" />
-
-        <TextView
+            android:id="@+id/tvPostTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/imgHeart"
             android:layout_marginStart="@dimen/user_name_text_view_margin_left"
             android:layout_marginLeft="@dimen/user_name_text_view_margin_left"
             android:layout_marginTop="@dimen/margin_top"
-            android:layout_toRightOf="@id/tvProfileName"
             android:text="@string/status_text_view"
             android:textColor="@android:color/black"
             android:textSize="@dimen/text_view_text_size" />
 
         <TextView
+            android:id="@+id/tvTimeCreated"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/imgHeart"
+            android:layout_marginLeft="@dimen/text_view_margin_left"
+            android:layout_marginTop="@dimen/margin_top"
+            android:textColor="@android:color/black"
+            android:layout_toRightOf="@id/tvPostTitle"
+            android:textSize="@dimen/text_view_text_size"
+            android:textStyle="bold"
+            tools:text="sayabaaaa" />
+
+        <TextView
             android:id="@+id/tvStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tvProfileName"
+            android:layout_below="@id/tvPostTitle"
             android:layout_marginLeft="@dimen/text_view_margin_left"
             android:text="@string/detail_status_text_view"
             android:textColor="@android:color/black"

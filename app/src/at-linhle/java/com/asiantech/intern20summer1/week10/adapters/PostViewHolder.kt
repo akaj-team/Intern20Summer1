@@ -1,14 +1,13 @@
 package com.asiantech.intern20summer1.week10.adapters
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week10.models.Post
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.`at-linhle`.item_list_time_line.view.*
 import kotlinx.android.synthetic.`at-linhle`.loading_layout.view.*
 
@@ -22,7 +21,7 @@ class PostViewHolder(
     }
 
     internal var onHeartClicked: (Int) -> Unit = {}
-
+    private val imageUrl = "https://at-a-trainning.000webhostapp.com/images/"
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == VIEW_ITEM_TYPE) {
             val view =
@@ -63,7 +62,7 @@ class PostViewHolder(
             val tvCountLike = itemView.tvCountLike
 
             postItem?.let {
-//                Glide.with(itemView).load(it.image).into(imgPost)
+                Glide.with(itemView).load(imageUrl + it.image).into(imgPost)
                 tvContent.text = it.content
                 tvCountLike.text = it.likeCount.toString()
                 if (it.likeFlag) {

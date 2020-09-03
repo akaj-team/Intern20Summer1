@@ -7,7 +7,7 @@ class Post(
     @SerializedName("user_id") val userId: Int,
     @SerializedName("content") val content: String,
     @SerializedName("image") val image: String,
-    @SerializedName("create_at") val createAt: String,
+    @SerializedName("created_at") val createAt: String,
     @SerializedName("like_count") var likeCount: Int,
     @SerializedName("like_flag") var likeFlag: Boolean
 )

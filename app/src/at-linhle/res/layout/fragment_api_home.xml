@@ -14,15 +14,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorYellow"
-            app:titleTextColor="@android:color/white"/>
+            app:titleTextColor="@android:color/white" />
 
         <ImageView
             android:id="@+id/imgPlus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/plus_image_margin_right"
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
+            android:layout_marginRight="@dimen/plus_image_margin_right"
             android:background="@drawable/ic_baseline_add_circle_outline_24" />
     </RelativeLayout>
 
