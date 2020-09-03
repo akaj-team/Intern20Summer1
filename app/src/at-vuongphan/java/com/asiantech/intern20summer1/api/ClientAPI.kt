@@ -16,8 +16,8 @@ object ClientAPI {
     internal fun createUserService(): UserClient? =
         getClient()?.create(UserClient::class.java)
 
-    internal fun createPost(): PostAPI? =
-        getClient()?.create(PostAPI::class.java)
+    internal fun createPost(): PostsAPI? =
+        getClient()?.create(PostsAPI::class.java)
 
     //private const val API_URL = "https://5f4e0faceeec51001608f40b.mockapi.io/"
     fun getClient(): Retrofit? {

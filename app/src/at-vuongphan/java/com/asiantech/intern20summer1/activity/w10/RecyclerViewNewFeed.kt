@@ -9,7 +9,7 @@ import com.asiantech.intern20summer1.fragment.w10.NewFeedFragment
 import com.asiantech.intern20summer1.model.UserAutoSignIn
 
 class RecyclerViewNewFeed : AppCompatActivity() {
-    private lateinit var token: String
+    internal lateinit var token: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.w10_activity_recyclerview)

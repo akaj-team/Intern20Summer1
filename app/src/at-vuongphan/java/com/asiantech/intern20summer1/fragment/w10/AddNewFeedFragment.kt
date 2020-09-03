@@ -1,6 +1,7 @@
 package com.asiantech.intern20summer1.fragment.w10
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -12,7 +13,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.activity.w10.RecyclerViewNewFeed
+import com.asiantech.intern20summer1.api.ClientAPI
+import com.asiantech.intern20summer1.model.NewPost
+import com.asiantech.intern20summer1.model.Post
 import kotlinx.android.synthetic.`at-vuongphan`.w10_add_new_feed.*
+import retrofit2.Call
+import retrofit2.Response
 
 class AddNewFeedFragment : Fragment() {
     companion object {
@@ -39,6 +46,7 @@ class AddNewFeedFragment : Fragment() {
                 ), GALLERY_AVATAR_CODE
             )
         }
+        createPost()
     }
 
     override fun onRequestPermissionsResult(
@@ -66,5 +74,31 @@ class AddNewFeedFragment : Fragment() {
             imgPicture = data?.data
             circleImgAvatar.setImageURI(imgPicture)
         }
+    }
+
+    private fun createPost() {
+        val body = edtNoidung.text.toString()
+        val image = imgPicture.toString()
+        val call =
+            ClientAPI.createPost()?.createPost(RecyclerViewNewFeed().token, Post(body, image))
+        call?.enqueue(object : retrofit2.Callback<NewPost> {
+            override fun onResponse(call: Call<NewPost>, response: Response<NewPost>) {
+            }
+
+            override fun onFailure(call: Call<NewPost>, t: Throwable) {
+                t.message?.let { it1 -> displayErrorDialog(it1) }
+            }
+        })
+        (activity as? RecyclerViewNewFeed)?.openFragment(NewFeedFragment())
+    }
+
+    private fun displayErrorDialog(message: String) {
+        val errorDialog = AlertDialog.Builder(requireContext())
+        errorDialog.setTitle(
+            getString(R.string.dialog_title_error)
+        )
+            .setMessage(message)
+            .setPositiveButton(R.string.dialog_text_ok) { dialog, _ -> dialog.dismiss() }
+            .show()
     }
 }

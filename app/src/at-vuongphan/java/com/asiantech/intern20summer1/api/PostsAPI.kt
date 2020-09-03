@@ -1,10 +1,11 @@
 package com.asiantech.intern20summer1.api
 
 import com.asiantech.intern20summer1.model.NewPost
+import com.asiantech.intern20summer1.model.Post
 import retrofit2.Call
 import retrofit2.http.*
 
-interface PostAPI {
+interface PostsAPI {
     @GET("api/posts")
     fun getPost(@Header("token") token: String): Call<MutableList<NewPost>>
 
@@ -20,4 +21,7 @@ interface PostAPI {
         @Path("id") id: Int,
         @Body newFeed: NewPost
     ): Call<NewPost>
+
+    @POST("api/post")
+    fun createPost(@Header("token") token: String, @Body newPost: Post): Call<NewPost>
 }
