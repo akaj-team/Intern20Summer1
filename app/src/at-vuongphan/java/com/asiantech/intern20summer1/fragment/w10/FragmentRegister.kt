@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
@@ -62,8 +61,7 @@ class FragmentRegister : Fragment() {
             val call = service?.addNewUserRegister(UserRegister(email, password, userName))
             call?.enqueue(object : retrofit2.Callback<UserAutoSignIn> {
                 override fun onFailure(call: retrofit2.Call<UserAutoSignIn>, t: Throwable) {
-                    // t.message?.let { it1 -> NewFeedFragment().displayErrorDialog(it1) }
-                    Toast.makeText(requireContext(), "that bai", Toast.LENGTH_SHORT).show()
+                    t.message?.let { it1 -> NewFeedFragment().displayErrorDialog(it1) }
                 }
 
                 override fun onResponse(

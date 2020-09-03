@@ -88,10 +88,31 @@ class FragmentLogin : Fragment() {
                 ) {
                     if (response.isSuccessful) {
                         response.body().apply {
-                            val intent = Intent(activity, RecyclerViewNewFeed::class.java)
-                            intent.putExtra("data", this?.email)
-                            activity?.startActivity(intent)
-                            activity?.finish()
+                            val id = this?.id
+                            val email = this?.email
+                            val full_name = this?.full_name
+                            val token = this?.token
+                            val intent = Intent(activity, RecyclerViewNewFeed::class.java).apply {
+                                Bundle().let {
+                                    val account =
+                                        token?.let { it1 ->
+                                            full_name?.let { it2 ->
+                                                email?.let { it3 ->
+                                                    id?.let { it4 ->
+                                                        UserAutoSignIn(
+                                                            it4, it3, it2,
+                                                            it1
+                                                        )
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    it.putSerializable("data", account)
+                                    putExtras(it)
+                                    startActivity(this)
+                                    activity?.finish()
+                                }
+                            }
                         }
                     }
                 }

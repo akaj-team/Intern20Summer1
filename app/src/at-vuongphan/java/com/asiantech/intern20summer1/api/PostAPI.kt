@@ -6,14 +6,18 @@ import retrofit2.http.*
 
 interface PostAPI {
     @GET("api/posts")
-    fun getAllPost(): Call<MutableList<NewPost>>
+    fun getPost(@Header("token") token: String): Call<MutableList<NewPost>>
+
+    @DELETE("api/posts/{id}")
+    fun deletePosts(@Header("token") token: String, @Path("id") id: Int): Call<NewPost>
 
     @POST("api/posts")
     fun addNewPost(@Body newFeedModel: NewPost): Call<NewPost>
 
     @PUT("api/posts/{id}")
-    fun updateNewPost(@Path("id") id: Int, @Body newFeed: NewPost): Call<NewPost>
-
-    @DELETE("api/posts/{id}")
-    fun deleteNewPost(@Path("id") id: Int): Call<NewPost>
+    fun updateNewPost(
+        @Header("token") token: String,
+        @Path("id") id: Int,
+        @Body newFeed: NewPost
+    ): Call<NewPost>
 }

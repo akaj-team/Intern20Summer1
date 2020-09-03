@@ -1,6 +1,7 @@
 package com.asiantech.intern20summer1.model
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 class UserAutoSignIn(
     @SerializedName("id")
@@ -11,4 +12,4 @@ class UserAutoSignIn(
     var full_name: String,
     @SerializedName("token")
     var token: String
-)
+) : Serializable
