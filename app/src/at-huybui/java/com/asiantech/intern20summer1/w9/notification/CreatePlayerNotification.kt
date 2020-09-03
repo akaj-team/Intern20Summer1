@@ -30,7 +30,7 @@ class CreatePlayerNotification {
     }
 
     fun createNotification(context: Context, song: Song, playerButton: Int) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             val notificationManagerCompat = NotificationManagerCompat.from(context)
             var picture = song.getPicture(context, smallIcon = false, notification = true)
             if (picture == null) {

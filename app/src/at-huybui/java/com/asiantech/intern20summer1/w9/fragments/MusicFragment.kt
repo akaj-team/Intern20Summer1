@@ -95,11 +95,9 @@ class MusicFragment : Fragment() {
     private fun initPlayerBarClickListener() {
         btnPlay_Music?.setOnClickListener {
             if (service.audioPlayer.isPlaying) {
-                if (service.audioPlayer.isPlaying) {
-                    service.onMusicPause()
-                } else {
-                    service.onMusicResume()
-                }
+                service.onMusicPause()
+            } else {
+                service.onMusicResume()
             }
         }
         btnPrevious_Music?.setOnClickListener {
