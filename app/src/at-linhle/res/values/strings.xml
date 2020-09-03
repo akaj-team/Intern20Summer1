@@ -54,4 +54,8 @@
     <string name="user_name_edit_text_hint">Please Input Full Name</string>
     <string name="login_text_view_description">Login</string>
     <string name="week_ten_button_description">Week 10</string>
+
+    <string name="like_text_view_description">Like</string>
+    <string name="status_text_view">Recording history</string>
+    <string name="detail_status_text_view">Life is short. Time is fast. No reply. No rewind. So enjoy every moment as it comes</string>
 </resources>
