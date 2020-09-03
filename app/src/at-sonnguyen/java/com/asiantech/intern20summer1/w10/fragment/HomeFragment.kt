@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,13 +13,8 @@ import androidx.recyclerview.widget.SimpleItemAnimator
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w10.activity.HomeActivity
 import com.asiantech.intern20summer1.w10.adapter.RecyclerViewAdapter
-import com.asiantech.intern20summer1.w10.api.APIClient
-import com.asiantech.intern20summer1.w10.api.PostAPI
 import com.asiantech.intern20summer1.w10.data.Post
 import kotlinx.android.synthetic.`at-sonnguyen`.w10_fragment_home.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class HomeFragment : Fragment() {
     private var posts = mutableListOf<Post>()
@@ -56,33 +50,33 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.d("TAG000", "onViewCreated: ")
-        getAllPost()
+//        getAllPost()
         initAdapter()
     }
 
-    private fun getAllPost() {
-        val service = APIClient.createServiceClient()?.create(PostAPI::class.java)
-        Log.d("TAG000", "getAllPost: 1")
-        val call = service?.getAllPost()
-        Log.d("TAG000", "getAllPost: 2")
-        call?.enqueue(object : Callback<MutableList<Post>> {
-            override fun onResponse(
-                call: Call<MutableList<Post>>,
-                response: Response<MutableList<Post>>
-            ) {
-                Toast.makeText(requireContext(), "load success", Toast.LENGTH_SHORT).show()
-                Log.d("TAG000", "onResponse: load success")
-            }
-
-            override fun onFailure(call: Call<MutableList<Post>>, t: Throwable) {
-                t.message?.let {
-                    displayErrorDialog(it)
-                    Log.d("TAG000", "onFailure: fail")
-                }
-            }
-
-        })
-    }
+//    private fun getAllPost() {
+//        val service = APIClient.createServiceClient()?.create(PostAPI::class.java)
+//        Log.d("TAG000", "getAllPost: 1")
+//        val call = service?.getAllPost()
+//        Log.d("TAG000", "getAllPost: 2")
+//        call?.enqueue(object : Callback<MutableList<Post>> {
+//            override fun onResponse(
+//                call: Call<MutableList<Post>>,
+//                response: Response<MutableList<Post>>
+//            ) {
+//                Toast.makeText(requireContext(), "load success", Toast.LENGTH_SHORT).show()
+//                Log.d("TAG000", "onResponse: load success")
+//            }
+//
+//            override fun onFailure(call: Call<MutableList<Post>>, t: Throwable) {
+//                t.message?.let {
+//                    displayErrorDialog(it)
+//                    Log.d("TAG000", "onFailure: fail")
+//                }
+//            }
+//
+//        })
+//    }
 
     private fun initAdapter() {
         recyclerViewHome.layoutManager = LinearLayoutManager(requireContext())
@@ -95,26 +89,26 @@ class HomeFragment : Fragment() {
                 posts[it].like_count++
                 posts[it].like_flag = !posts[it].like_flag
             }
-            handleHeartListener(posts[it].id,posts[it])
+//            handleHeartListener(posts[it].id,posts[it])
             postAdapter.notifyItemChanged(it,null)
             (recyclerViewHome?.itemAnimator as? SimpleItemAnimator)?.supportsChangeAnimations = false
         }
     }
 
-    private fun handleHeartListener(id: Int, post: Post) {
-        val service = APIClient.createServiceClient()?.create(PostAPI::class.java)
-        val call = service?.updatePost(id, post)
-        call?.enqueue(object : Callback<Post> {
-            override fun onResponse(call: Call<Post>, response: Response<Post>) {}
-
-            override fun onFailure(call: Call<Post>, t: Throwable) {
-                t.message?.let {
-                    displayErrorDialog(it)
-                }
-            }
-
-        })
-    }
+//    private fun handleHeartListener(id: Int, post: Post) {
+//        val service = APIClient.createServiceClient()?.create(PostAPI::class.java)
+//        val call = service?.updatePost(id, post)
+//        call?.enqueue(object : Callback<Post> {
+//            override fun onResponse(call: Call<Post>, response: Response<Post>) {}
+//
+//            override fun onFailure(call: Call<Post>, t: Throwable) {
+//                t.message?.let {
+//                    displayErrorDialog(it)
+//                }
+//            }
+//
+//        })
+//    }
 
     private fun displayErrorDialog(message: String) {
         val dialog = AlertDialog.Builder(requireContext())

@@ -12,7 +12,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.w10_activity_login)
         replaceFragment(LoginFragment.newInstance())
     }
-    private fun replaceFragment(fragment: Fragment){
+    internal fun replaceFragment(fragment: Fragment){
         supportFragmentManager.beginTransaction()
             .replace(R.id.frameLayoutMain,fragment,null)
             .addToBackStack(null)
