@@ -31,6 +31,7 @@ class AudioService : Service(), ClickPlayable {
     internal var audioPlayer = MediaPlayer()
     internal var songLists = mutableListOf<Song>()
     internal var songPlaying: Song? = null
+    internal var isPlaying = false
     internal var currentTime = 0
     internal var songPosition = 0
     internal var isRandom = false
@@ -109,6 +110,7 @@ class AudioService : Service(), ClickPlayable {
     }
 
     override fun onMusicStart() {
+        isPlaying = true
         CreatePlayerNotification().createNotification(
             this,
             songLists[songPosition],

@@ -69,18 +69,18 @@ class MusicFragment : Fragment() {
     }
 
     private fun initPlayerBarView() {
-        tvSongName_Music?.isSelected = true // set auto run text view
+        imgDvd?.createAnim()
+        tvSongName?.isSelected = true // set auto run text view
         service.songPlaying?.let { song ->
-            tvSongName_Music?.text = song.nameSong
-            tvSinger_Music?.text = song.singer
+            tvSongName?.text = song.nameSong
+            tvSinger?.text = song.singer
             val bitmap = song.getPicture(requireContext())
-            imgDvd_Music?.setImageBitmap(bitmap)
+            imgDvd?.setImageBitmap(bitmap)
             if (service.audioPlayer.isPlaying) {
-                btnPlay_Music?.setImageResource(R.drawable.ic_pause_button)
-                imgDvd_Music?.startAnim()
+                btnPlay?.setImageResource(R.drawable.ic_pause_button)
+                imgDvd?.startAnim()
             } else {
-                btnPlay_Music?.setImageResource(R.drawable.ic_play_button)
-                imgDvd_Music?.endAnim()
+                btnPlay?.setImageResource(R.drawable.ic_play_button)
             }
         }
     }
@@ -100,20 +100,22 @@ class MusicFragment : Fragment() {
     }
 
     private fun initPlayerBarClickListener() {
-        btnPlay_Music?.setOnClickListener {
-            if (service.audioPlayer.isPlaying) {
-                service.onMusicPause()
-            } else {
-                service.onMusicResume()
+        btnPlay?.setOnClickListener {
+            if (service.isPlaying) {
+                if (service.audioPlayer.isPlaying) {
+                    service.onMusicPause()
+                } else {
+                    service.onMusicResume()
+                }
             }
         }
-        btnPrevious_Music?.setOnClickListener {
-            if (service.audioPlayer.isPlaying) {
+        btnPrevious?.setOnClickListener {
+            if (service.isPlaying) {
                 service.onMusicPrevious()
             }
         }
-        btnNext_Music?.setOnClickListener {
-            if (service.audioPlayer.isPlaying) {
+        btnNext?.setOnClickListener {
+            if (service.isPlaying) {
                 service.onMusicNext()
             }
         }
@@ -133,21 +135,21 @@ class MusicFragment : Fragment() {
             when (statePlayer) {
                 AudioService.StatePlayer.START -> {
                     service.songPlaying?.let { song ->
+                        btnPlay?.setImageResource(R.drawable.ic_pause_button)
                         val bitmap = song.getPicture(requireContext())
-                        btnPlay_Music?.setImageResource(R.drawable.ic_pause_button)
-                        imgDvd_Music?.setImageBitmap(bitmap)
-                        imgDvd_Music?.startAnim()
-                        tvSongName_Music?.text = song.nameSong
-                        tvSinger_Music?.text = song.singer
+                        imgDvd?.setImageBitmap(bitmap)
+                        imgDvd?.startAnim()
+                        tvSongName?.text = song.nameSong
+                        tvSinger?.text = song.singer
                     }
                 }
                 AudioService.StatePlayer.RESUME -> {
-                    imgDvd_Music?.resumeAnim()
-                    btnPlay_Music?.setImageResource(R.drawable.ic_pause_button)
+                    imgDvd?.resumeAnim()
+                    btnPlay?.setImageResource(R.drawable.ic_pause_button)
                 }
                 AudioService.StatePlayer.PAUSE -> {
-                    imgDvd_Music?.pauseAnim()
-                    btnPlay_Music?.setImageResource(R.drawable.ic_play_button)
+                    imgDvd?.pauseAnim()
+                    btnPlay?.setImageResource(R.drawable.ic_play_button)
                 }
             }
         }

@@ -23,7 +23,7 @@ class DvdRotateView(context: Context?, attrs: AttributeSet?) :
 
     private var animRotate = ObjectAnimator()
 
-    internal fun startAnim() {
+    internal fun createAnim() {
         if (animRotate.isStarted) {
             animRotate.end()
         }
@@ -31,6 +31,9 @@ class DvdRotateView(context: Context?, attrs: AttributeSet?) :
         animRotate.duration = DURATION
         animRotate.repeatCount = ObjectAnimator.INFINITE
         animRotate.repeatMode = ObjectAnimator.RESTART
+    }
+
+    internal fun startAnim() {
         animRotate.start()
     }
 
@@ -42,11 +45,11 @@ class DvdRotateView(context: Context?, attrs: AttributeSet?) :
 
     internal fun resumeAnim() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            animRotate.resume()
+            if (animRotate.isStarted) {
+                animRotate.resume()
+            } else {
+                animRotate.start()
+            }
         }
-    }
-
-    internal fun endAnim() {
-        animRotate.end()
     }
 }

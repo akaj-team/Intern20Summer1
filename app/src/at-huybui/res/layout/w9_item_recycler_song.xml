@@ -14,20 +14,20 @@
         android:background="@drawable/w9_bg_icon_recycler">
 
         <com.asiantech.intern20summer1.w9.views.DvdRotateView
-            android:id="@+id/btnPlayItem"
+            android:id="@+id/imgDvd"
             android:layout_width="@dimen/w9_item_recycler_height"
             android:layout_height="@dimen/w9_item_recycler_height"
             android:padding="@dimen/w9_item_icon_dvd_padding"
             android:src="@drawable/ic_dvd_player" />
 
         <TextView
-            android:id="@+id/tvNameSongItem"
+            android:id="@+id/tvNameSong"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/w9_icon_name_song_margin_left"
             android:layout_marginTop="@dimen/w9_icon_name_song_margin_top"
             android:layout_marginRight="50dp"
-            android:layout_toRightOf="@+id/btnPlayItem"
+            android:layout_toRightOf="@+id/imgDvd"
             android:ellipsize="marquee"
             android:focusable="true"
             android:focusableInTouchMode="true"
@@ -40,21 +40,21 @@
             tools:text="nameSong" />
 
         <TextView
-            android:id="@+id/tvNameSingerItem"
+            android:id="@+id/tvNameSinger"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_marginLeft="@dimen/w9_icon_name_song_margin_left"
             android:layout_marginRight="@dimen/w9_icon_name_singer_margin_right"
             android:layout_marginBottom="@dimen/w9_icon_name_singer_margin_bottom"
-            android:layout_toRightOf="@+id/btnPlayItem"
+            android:layout_toRightOf="@+id/imgDvd"
             android:lines="1"
             android:singleLine="true"
             android:textSize="@dimen/w9_icon_name_singer_text_size"
             tools:text="nameSinger" />
 
         <TextView
-            android:id="@+id/tvLengthSongItem"
+            android:id="@+id/tvLengthSong"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"

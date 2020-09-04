@@ -33,10 +33,10 @@ class SongRecyclerAdapter(private val songList: List<Song>) :
     }
 
     inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private var iconPlayer = itemView.btnPlayItem
-        private var nameSong = itemView.tvNameSongItem
-        private var nameSinger = itemView.tvNameSingerItem
-        private var lengthSong = itemView.tvLengthSongItem
+        private var iconPlayer = itemView.imgDvd
+        private var nameSong = itemView.tvNameSong
+        private var nameSinger = itemView.tvNameSinger
+        private var lengthSong = itemView.tvLengthSong
 
         init {
             itemView.setOnClickListener {
