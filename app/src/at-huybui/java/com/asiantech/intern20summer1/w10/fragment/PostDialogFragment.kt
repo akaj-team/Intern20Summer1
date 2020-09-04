@@ -3,11 +3,14 @@ package com.asiantech.intern20summer1.w10.fragment
 import android.Manifest
 import android.app.Activity
 import android.content.ContentValues
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +20,20 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w10.activity.ApiMainActivity
+import com.asiantech.intern20summer1.w10.api.Api
+import com.asiantech.intern20summer1.w10.api.ApiPostService
+import com.asiantech.intern20summer1.w10.api.FileInformation
+import com.asiantech.intern20summer1.w10.models.PostContent
+import com.asiantech.intern20summer1.w10.models.ResponsePost
+import com.google.gson.Gson
 import kotlinx.android.synthetic.`at-huybui`.w10_dialog_fragment_post.*
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
+import retrofit2.Response
+import java.io.File
+
 
 class PostDialogFragment : DialogFragment() {
 
@@ -29,6 +45,7 @@ class PostDialogFragment : DialogFragment() {
         internal fun newInstance() = PostDialogFragment()
     }
 
+    private var callApi: ApiPostService? = null
     private var imageUri: Uri? = null
     private var isCameraAllowed = false
     private var isCheckGallery = false
@@ -38,6 +55,7 @@ class PostDialogFragment : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        callApi = Api.getInstance()?.create(ApiPostService::class.java)
         return inflater.inflate(R.layout.w10_dialog_fragment_post, container, false)
     }
 
@@ -56,11 +74,11 @@ class PostDialogFragment : DialogFragment() {
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
                 REQUEST_IMAGE_CAPTURE -> {
-                    imgContent_Post?.setImageURI(imageUri)
+                    imgContent?.setImageURI(imageUri)
                 }
                 REQUEST_SELECT_IMAGE_IN_ALBUM -> {
                     imageUri = data?.data
-                    imgContent_Post?.setImageURI(imageUri)
+                    imgContent?.setImageURI(imageUri)
                 }
             }
         }
@@ -72,11 +90,11 @@ class PostDialogFragment : DialogFragment() {
 
 
     private fun initListener() {
-        btnBack_Post?.setOnClickListener {
+        btnBack?.setOnClickListener {
             dialog?.dismiss()
         }
 
-        btnPost_Post?.setOnClickListener {
+        btnPost?.setOnClickListener {
             handlePostContent()
         }
 
@@ -84,12 +102,55 @@ class PostDialogFragment : DialogFragment() {
     }
 
     private fun handlePostContent() {
+        val image = File(imageUri?.path.toString()).asRequestBody("image/*".toMediaTypeOrNull())
+        val text = Gson().toJson(PostContent(edtContent?.text.toString())).toString()
+        val body = text.toRequestBody("text".toMediaTypeOrNull())
+        val preference = requireContext().getSharedPreferences(
+            SplashFragment.NAME_PREFERENCE,
+            Context.MODE_PRIVATE
+        )
+        val token = preference.getString(SplashFragment.KEY_TOKEN, "").toString()
+        d("posta", "[image] " + image.toString())
+        d("posta", "[body] " + body.toString())
+        d("posta", "[token] " + token)
+        d("posta", "open post")
+        callApi?.createPost(token, createMultiPartBody(), body)
+            ?.enqueue(object : retrofit2.Callback<ResponsePost> {
+                override fun onResponse(
+                    call: retrofit2.Call<ResponsePost>,
+                    response: Response<ResponsePost>
+                ) {
 
+                    d("posta", "[onResponse]" + response.toString())
+                    if (response.body()?.message == Api.MESSAGE_CREATE_POST_SUCCESS) {
+                        val text = "Đăng bài viết thành công"
+                        ApiMainActivity().showToast(requireContext(), text)
+                        dialog?.dismiss()
+                    } else {
+                        val text = "Đăng bài viết không thành công"
+                        ApiMainActivity().showToast(requireContext(), text)
+                    }
+                }
+
+                override fun onFailure(call: retrofit2.Call<ResponsePost>, t: Throwable) {
+                    d("posta", "[onFailure]$call")
+                    t.printStackTrace()
+                }
+            })
+        d("posta", "finish post")
     }
 
+    private fun createMultiPartBody(): MultipartBody.Part? {
+        imageUri?.let {
+            val file = FileInformation().getFile(requireContext(),it)
+            val image = file.asRequestBody("image/*".toMediaTypeOrNull())
+            return MultipartBody.Part.createFormData("image", file.name, image)
+        }
+        return null
+    }
 
     private fun handleForAvatarImage() {
-        imgContent_Post.setOnClickListener {
+        imgContent.setOnClickListener {
             val builder = (activity as ApiMainActivity).let { it1 -> AlertDialog.Builder(it1) }
             builder.setTitle("select")
             val select = arrayOf("camera", "gallery")
@@ -117,6 +178,7 @@ class PostDialogFragment : DialogFragment() {
             dialog.show()
         }
     }
+
 
     /**
      * This function capture a image from camera

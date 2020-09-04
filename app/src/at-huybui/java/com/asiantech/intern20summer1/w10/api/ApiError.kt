@@ -15,10 +15,6 @@ import java.io.IOException
 data class ApiError(var statusCode: Int = 0, var message: String = "")
 
 class ErrorUtils {
-    companion object {
-        internal const val MESSAGE_EMAIL_HAS_BEEN_TAKEN = "The email has already been taken."
-        internal const val BAD_REQUEST_CODE = 400
-    }
 
     fun parseError(response: Response<*>): ApiError? {
         val converter: Converter<ResponseBody, ApiError>? = Api.getInstance()

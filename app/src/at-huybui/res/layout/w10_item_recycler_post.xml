@@ -28,7 +28,7 @@
 
         <ImageView
             android:id="@+id/imgImage.Item.w10"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/w10_item_margin_left_right"
             android:adjustViewBounds="true"

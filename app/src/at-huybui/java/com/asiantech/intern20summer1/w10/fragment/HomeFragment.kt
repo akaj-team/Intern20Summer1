@@ -66,7 +66,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun initListener() {
-        imgAddPost_Home_w10?.setOnClickListener {
+        imgAddPost?.setOnClickListener {
             (activity as ApiMainActivity).handleShowDialogFragment()
         }
     }
@@ -101,13 +101,13 @@ class HomeFragment : Fragment() {
             }
 
             postAdapter.notifyItemChanged(position, null)
-            (recyclerView_Home_w10.itemAnimator as? SimpleItemAnimator)?.supportsChangeAnimations =
+            (recyclerView.itemAnimator as? SimpleItemAnimator)?.supportsChangeAnimations =
                 false
         }
 
-        recyclerView_Home_w10.adapter = postAdapter
-        recyclerView_Home_w10.layoutManager = LinearLayoutManager(requireContext())
-        recyclerView_Home_w10.setHasFixedSize(true)
+        recyclerView.adapter = postAdapter
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.setHasFixedSize(true)
     }
 
 }

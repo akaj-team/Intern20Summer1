@@ -11,6 +11,7 @@ import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w10.activity.ApiMainActivity
 import com.asiantech.intern20summer1.w10.api.Api
 import com.asiantech.intern20summer1.w10.api.ApiAccountService
+import com.asiantech.intern20summer1.w10.api.ErrorUtils
 import com.asiantech.intern20summer1.w10.models.Account
 import retrofit2.Call
 import retrofit2.Response
@@ -20,7 +21,7 @@ class SplashFragment : Fragment() {
     companion object {
         internal const val NAME_PREFERENCE = "preference"
         internal const val KEY_IS_LOGIN = "key_is_login"
-        internal const val KEY_TOKEN_LOGIN = "key_token_login"
+        internal const val KEY_TOKEN = "key_token_login"
         internal fun newInstance() = SplashFragment()
     }
 
@@ -52,7 +53,7 @@ class SplashFragment : Fragment() {
                 when (count) {
                     10 -> {
                         if (isSignIn) {
-                            autoSignIn(preference.getString(KEY_TOKEN_LOGIN, ""))
+                            autoSignIn(preference.getString(KEY_TOKEN, ""))
                         } else {
                             (activity as ApiMainActivity).replaceFragment(SignInFragment.newInstance())
                         }
@@ -72,15 +73,17 @@ class SplashFragment : Fragment() {
         token?.let {
             callApi?.autoSignIn(it)?.enqueue(object : retrofit2.Callback<Account> {
                 override fun onResponse(call: Call<Account>, response: Response<Account>) {
-                    response.body()?.let { account ->
-                        (activity as ApiMainActivity).replaceFragment(
-                            HomeFragment.newInstance(
-                                account
+                    if (response.isSuccessful) {
+                        response.body()?.let { account ->
+                            (activity as ApiMainActivity).replaceFragment(
+                                HomeFragment.newInstance(account)
                             )
-                        )
-                    }
-                    if (response.body() == null) {
-                        (activity as ApiMainActivity).replaceFragment(SignInFragment.newInstance())
+                        }
+                    } else {
+                        val error = ErrorUtils().parseError(response)
+                        if (error?.message == Api.MESSAGE_UNAUTHORIZED) {
+                            (activity as ApiMainActivity).replaceFragment(SignInFragment.newInstance())
+                        }
                     }
                 }
 

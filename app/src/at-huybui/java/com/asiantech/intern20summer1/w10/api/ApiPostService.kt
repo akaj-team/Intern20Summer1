@@ -2,6 +2,8 @@ package com.asiantech.intern20summer1.w10.api
 
 import com.asiantech.intern20summer1.w10.models.PostItem
 import com.asiantech.intern20summer1.w10.models.ResponseLike
+import com.asiantech.intern20summer1.w10.models.ResponsePost
+import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
@@ -16,13 +18,13 @@ interface ApiPostService {
         private const val PAST_GET_POST_LIST ="/api/posts"
     }
 
-
     @Multipart
     @POST(PART_CREATE_POST)
     fun createPost(
-        @Part("file\"; filename=\"pp.png\" ") file: RequestBody?,
-        @Part("FirstName") fname: RequestBody?
-    )
+        @Header("token") token: String,
+        @Part image: MultipartBody.Part? = null,
+        @Part("body") body: RequestBody
+    ): Call<ResponsePost>
 
     @Multipart
     @POST(PART_UPDATE_POST)

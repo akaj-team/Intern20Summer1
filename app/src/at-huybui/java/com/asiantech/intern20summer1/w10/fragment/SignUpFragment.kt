@@ -44,11 +44,11 @@ class SignUpFragment : Fragment() {
     }
 
     private fun initView() {
-        btnBack_SignUp_w10?.setOnClickListener {
+        btnBack?.setOnClickListener {
             fragmentManager?.popBackStack()
         }
 
-        btnRegister_SignUp_w10?.setOnClickListener {
+        btnRegister?.setOnClickListener {
             registerAccount()
         }
 
@@ -56,51 +56,51 @@ class SignUpFragment : Fragment() {
     }
 
     private fun handleForEditText() {
-        edtEmail_SignUp_w10?.addTextChangedListener {
+        edtEmail?.addTextChangedListener {
             checkEditText()
         }
-        edtPassword_SignUp_w10?.addTextChangedListener {
+        edtPassword?.addTextChangedListener {
             checkEditText()
         }
-        edtEmail_SignUp_w10?.addTextChangedListener {
+        edtEmail?.addTextChangedListener {
             checkEditText()
         }
-        edtRePass_SignUp_w10?.addTextChangedListener {
+        edtRePass?.addTextChangedListener {
             checkEditText()
         }
     }
 
     private fun checkEditText() {
         if (isCheckEmail() && isCheckName() && isCheckPassword()) {
-            btnRegister_SignUp_w10?.setBackgroundResource(R.drawable.w10_bg_select_button)
-            btnRegister_SignUp_w10?.isEnabled = true
+            btnRegister?.setBackgroundResource(R.drawable.w10_bg_select_button)
+            btnRegister?.isEnabled = true
             d("button", "is Enabled: true")
         } else {
-            btnRegister_SignUp_w10?.setBackgroundResource(R.drawable.w10_bg_button_disable)
-            btnRegister_SignUp_w10?.isEnabled = false
+            btnRegister?.setBackgroundResource(R.drawable.w10_bg_button_disable)
+            btnRegister?.isEnabled = false
             d("button", "is Enabled: false")
         }
     }
 
     private fun isCheckEmail() =
-        PatternsCompat.EMAIL_ADDRESS.matcher(edtEmail_SignUp_w10?.text.toString()).matches()
+        PatternsCompat.EMAIL_ADDRESS.matcher(edtEmail?.text.toString()).matches()
 
     private fun isCheckPassword(): Boolean {
-        val isCheck = edtPassword_SignUp_w10.text.toString().matches(REGEX_PASSWORD.toRegex())
-        val isMatch = edtPassword_SignUp_w10.text.toString() == edtRePass_SignUp_w10.text.toString()
+        val isCheck = edtPassword.text.toString().matches(REGEX_PASSWORD.toRegex())
+        val isMatch = edtPassword.text.toString() == edtRePass.text.toString()
         d("button", "ischeck : $isCheck | isMatch : $isMatch")
         return isCheck && isMatch
     }
 
     private fun isCheckName(): Boolean {
-        val name = edtFullName_SignUp_w10.text.toString()
+        val name = edtFullName.text.toString()
         return (name.isNotEmpty()) && (name.length < 65)
     }
 
     private fun registerAccount() {
-        val email = edtEmail_SignUp_w10.text.toString()
-        val fullName = edtFullName_SignUp_w10.text.toString()
-        val password = edtPassword_SignUp_w10.text.toString()
+        val email = edtEmail.text.toString()
+        val fullName = edtFullName.text.toString()
+        val password = edtPassword.text.toString()
         val requestAccount = RequestAccount(email, password, fullName)
         callApi?.createUser(requestAccount)
             ?.enqueue(object : retrofit2.Callback<Account> {
@@ -111,8 +111,8 @@ class SignUpFragment : Fragment() {
                         fragmentManager?.popBackStack()
                     } else {
                         val error = ErrorUtils().parseError(response)
-                        if (error?.statusCode == ErrorUtils.BAD_REQUEST_CODE && error.message ==
-                            ErrorUtils.MESSAGE_EMAIL_HAS_BEEN_TAKEN
+                        if (error?.message ==
+                            Api.MESSAGE_EMAIL_HAS_BEEN_TAKEN
                         ) {
                             showToast("Tài khoản Email đã tồn tại")
                         }

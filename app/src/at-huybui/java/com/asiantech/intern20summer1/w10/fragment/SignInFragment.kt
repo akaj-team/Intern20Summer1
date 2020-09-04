@@ -13,6 +13,7 @@ import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w10.activity.ApiMainActivity
 import com.asiantech.intern20summer1.w10.api.Api
 import com.asiantech.intern20summer1.w10.api.ApiAccountService
+import com.asiantech.intern20summer1.w10.api.ErrorUtils
 import com.asiantech.intern20summer1.w10.models.Account
 import kotlinx.android.synthetic.`at-huybui`.w10_fragment_sign_in.*
 import retrofit2.Response
@@ -45,40 +46,43 @@ class SignInFragment : Fragment() {
     }
 
     private fun initListenerButton() {
-        tvRegister_SignIn_w10?.setOnClickListener {
+        tvRegister?.setOnClickListener {
             val fragment = SignUpFragment.newInstance()
             fragment.onRegisterClick = { account ->
-                edtEmail_SignIn_w10.setText(account.email)
-                edtPassword_SignIn_w10.setText(account.password)
+                edtEmail.setText(account.email)
+                edtPassword.setText(account.password)
             }
             (activity as ApiMainActivity).addFragment(fragment, true)
         }
 
-        btnSignIn_SignIn_w10?.setOnClickListener {
+        btnSignIn?.setOnClickListener {
             isCheckAccount()
         }
     }
 
     private fun isCheckAccount() {
-        val email = edtEmail_SignIn_w10.text.toString()
-        val password = edtPassword_SignIn_w10.text.toString()
+        val email = edtEmail.text.toString()
+        val password = edtPassword.text.toString()
         callApi?.login(email, password)?.enqueue(object : retrofit2.Callback<Account> {
             override fun onResponse(call: retrofit2.Call<Account>, response: Response<Account>) {
-                if (response.body() != null) {
+                if (response.isSuccessful) {
                     response.body()?.let { account ->
                         val preference = requireContext().getSharedPreferences(
                             SplashFragment.NAME_PREFERENCE,
                             MODE_PRIVATE
                         )
                         preference.edit().putBoolean(SplashFragment.KEY_IS_LOGIN, true).apply()
-                        preference.edit().putString(SplashFragment.KEY_TOKEN_LOGIN, account.token).apply()
+                        preference.edit().putString(SplashFragment.KEY_TOKEN, account.token)
+                            .apply()
                         (activity as ApiMainActivity).replaceFragment(
                             HomeFragment.newInstance(account)
                         )
                     }
                 } else {
-                    d("signin", response.body().toString())
-                    showToast("Tài khoản hoặc mật khẩu không đúng")
+                    val error = ErrorUtils().parseError(response)
+                    if (error?.message == Api.MESSAGE_LOGIN_INCORRECT) {
+                        showToast("Tài khoản hoặc mật khẩu không đúng")
+                    }
                 }
             }
 
@@ -88,23 +92,23 @@ class SignInFragment : Fragment() {
     }
 
     private fun handleEdiTextListener(){
-        edtEmail_SignIn_w10?.addTextChangedListener {
+        edtEmail?.addTextChangedListener {
             checkEditText()
         }
 
-        edtPassword_SignIn_w10?.addTextChangedListener {
+        edtPassword?.addTextChangedListener {
             checkEditText()
         }
     }
 
     private fun checkEditText() {
-        if (edtEmail_SignIn_w10.text.isNullOrEmpty() || edtPassword_SignIn_w10.text.isNullOrEmpty()) {
-            btnSignIn_SignIn_w10?.setBackgroundResource(R.drawable.w10_bg_button_disable)
-            btnSignIn_SignIn_w10?.isEnabled = false
+        if (edtEmail.text.isNullOrEmpty() || edtPassword.text.isNullOrEmpty()) {
+            btnSignIn?.setBackgroundResource(R.drawable.w10_bg_button_disable)
+            btnSignIn?.isEnabled = false
             d("button", "is Enabled: false")
         } else {
-            btnSignIn_SignIn_w10?.setBackgroundResource(R.drawable.w10_bg_select_button)
-            btnSignIn_SignIn_w10?.isEnabled = true
+            btnSignIn?.setBackgroundResource(R.drawable.w10_bg_select_button)
+            btnSignIn?.isEnabled = true
             d("button", "is Enabled: true")
         }
     }

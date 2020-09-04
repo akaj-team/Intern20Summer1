@@ -8,8 +8,8 @@ import retrofit2.http.*
 interface ApiAccountService {
 
     companion object {
-        private const val PART_CREATE_POST = "api/user"
-        private const val PART_AUTO_SIGNIN = "api/autosignin"
+        private const val PART_CREATE_POST = "/api/user"
+        private const val PART_AUTO_SIGNIN = "/api/autosignin"
         private const val PART_LOGIN = "/api/login"
     }
 

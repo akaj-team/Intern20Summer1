@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/tvTitle.SignIn.w10"
+        android:id="@+id/tvTitle"
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -15,10 +15,10 @@
         android:textSize="30sp" />
 
     <EditText
-        android:id="@+id/edtEmail.SignIn.w10"
+        android:id="@+id/edtEmail"
         android:layout_width="match_parent"
         android:layout_height="@dimen/w10_editext_height"
-        android:layout_below="@id/tvTitle.SignIn.w10"
+        android:layout_below="@id/tvTitle"
         android:layout_marginLeft="@dimen/w10_edit_text_margin_left_right"
         android:layout_marginTop="@dimen/w10_edit_text_margin_top"
         android:layout_marginRight="@dimen/w10_edit_text_margin_left_right"
@@ -31,10 +31,10 @@
         android:textSize="@dimen/w10_editext_text_size" />
 
     <EditText
-        android:id="@+id/edtPassword.SignIn.w10"
+        android:id="@+id/edtPassword"
         android:layout_width="match_parent"
         android:layout_height="@dimen/w10_editext_height"
-        android:layout_below="@id/edtEmail.SignIn.w10"
+        android:layout_below="@id/edtEmail"
         android:layout_marginLeft="@dimen/w10_edit_text_margin_left_right"
         android:layout_marginTop="@dimen/w10_edit_text_margin_top"
         android:layout_marginRight="@dimen/w10_edit_text_margin_left_right"
@@ -47,7 +47,7 @@
         android:textSize="@dimen/w10_editext_text_size" />
 
     <Button
-        android:id="@+id/btnSignIn.SignIn.w10"
+        android:id="@+id/btnSignIn"
         android:enabled="false"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -60,8 +60,8 @@
         android:textColor="@color/background_white" />
 
     <TextView
-        android:id="@+id/tvRegister.SignIn.w10"
-        android:layout_below="@id/edtPassword.SignIn.w10"
+        android:id="@+id/tvRegister"
+        android:layout_below="@id/edtPassword"
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

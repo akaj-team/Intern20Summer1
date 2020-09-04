@@ -1,6 +1,7 @@
 package com.asiantech.intern20summer1.w0
 
 import android.os.Bundle
+import android.os.Environment
 import android.util.Log.d
 import androidx.appcompat.app.AppCompatActivity
 import com.asiantech.intern20summer1.R
@@ -38,8 +39,8 @@ class TestActivity : AppCompatActivity() {
                         d("testa", "[sign up]" + response.body().toString())
                     } else {
                         val error = ErrorUtils().parseError(response)
-                        if (error?.statusCode == ErrorUtils.BAD_REQUEST_CODE && error.message ==
-                            ErrorUtils.MESSAGE_EMAIL_HAS_BEEN_TAKEN
+                        if (error?.message ==
+                            Api.MESSAGE_EMAIL_HAS_BEEN_TAKEN
                         ) {
                             d("testa", "[error: code]" + error.statusCode)
                             d("testa", "[error: mess]" + error.message)
@@ -53,22 +54,8 @@ class TestActivity : AppCompatActivity() {
         }
 
         btnGet_Test?.setOnClickListener {
-            var email = edtEmail_Test.text.toString()
-            var pass = edtPass_Test.text.toString()
-            callApi?.login(email,pass)?.enqueue(object : retrofit2.Callback<Account> {
-                override fun onResponse(call: Call<Account>, response: Response<Account>) {
-                    if (response.body() == null) {
-                        d("test","[login: mess]" + response.body().toString())
-                        d("test", response.code().toString())
-                    } else {
-                        d("test","[login: mess]" + response.body().toString())
-                        d("test","[login]" +  response.body().toString())
-                    }
-                }
-
-                override fun onFailure(call: Call<Account>, t: Throwable) {
-                }
-            })
+            d("testpart", "1 : " + Environment.getExternalStorageDirectory().toString())
+                d("testpart", "2 : " + Environment.getExternalStorageState().toString())
         }
     }
 }

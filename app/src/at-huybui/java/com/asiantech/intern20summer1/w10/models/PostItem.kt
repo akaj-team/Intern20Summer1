@@ -16,6 +16,12 @@ data class ResponseLike(
     @SerializedName("likeCount") var likeCount: Int = 0
 )
 
+data class ResponsePost(
+    @SerializedName("message") var message: String = ""
+)
+
+data class PostContent(@SerializedName("content") var content: String)
+
 /**
 {
 "id": 1,

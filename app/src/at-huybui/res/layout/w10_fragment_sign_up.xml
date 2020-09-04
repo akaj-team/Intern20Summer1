@@ -5,14 +5,14 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/btnBack.SignUp.w10"
+        android:id="@+id/btnBack"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_margin="20dp"
         android:src="@drawable/w10_ic_close" />
 
     <TextView
-        android:id="@+id/tvTitle.SignUp.w10"
+        android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -26,19 +26,19 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_marginTop="10dp"
-        android:id="@+id/imgAvatar.SignUp.w10"
+        android:id="@+id/imgAvatar"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_below="@id/tvTitle.SignUp.w10"
+        android:layout_below="@id/tvTitle"
         android:layout_centerHorizontal="true"
         android:scaleType="centerCrop"
         android:src="@drawable/img_avatar_default" />
 
     <EditText
-        android:id="@+id/edtEmail.SignUp.w10"
+        android:id="@+id/edtEmail"
         android:layout_width="match_parent"
         android:layout_height="@dimen/w10_editext_height"
-        android:layout_below="@id/imgAvatar.SignUp.w10"
+        android:layout_below="@id/imgAvatar"
         android:layout_marginLeft="@dimen/w10_edit_text_margin_left_right"
         android:layout_marginTop="@dimen/w10_edit_text_margin_top"
         android:layout_marginRight="@dimen/w10_edit_text_margin_left_right"
@@ -51,10 +51,10 @@
         android:textSize="@dimen/w10_editext_text_size" />
 
     <EditText
-        android:id="@+id/edtFullName.SignUp.w10"
+        android:id="@+id/edtFullName"
         android:layout_width="match_parent"
         android:layout_height="@dimen/w10_editext_height"
-        android:layout_below="@id/edtEmail.SignUp.w10"
+        android:layout_below="@id/edtEmail"
         android:layout_marginLeft="@dimen/w10_edit_text_margin_left_right"
         android:layout_marginTop="@dimen/w10_edit_text_margin_top"
         android:layout_marginRight="@dimen/w10_edit_text_margin_left_right"
@@ -68,10 +68,10 @@
 
 
     <EditText
-        android:id="@+id/edtPassword.SignUp.w10"
+        android:id="@+id/edtPassword"
         android:layout_width="match_parent"
         android:layout_height="@dimen/w10_editext_height"
-        android:layout_below="@id/edtFullName.SignUp.w10"
+        android:layout_below="@id/edtFullName"
         android:layout_marginLeft="@dimen/w10_edit_text_margin_left_right"
         android:layout_marginTop="@dimen/w10_edit_text_margin_top"
         android:layout_marginRight="@dimen/w10_edit_text_margin_left_right"
@@ -84,10 +84,10 @@
         android:textSize="@dimen/w10_editext_text_size" />
 
     <EditText
-        android:id="@+id/edtRePass.SignUp.w10"
+        android:id="@+id/edtRePass"
         android:layout_width="match_parent"
         android:layout_height="@dimen/w10_editext_height"
-        android:layout_below="@id/edtPassword.SignUp.w10"
+        android:layout_below="@id/edtPassword"
         android:layout_marginLeft="@dimen/w10_edit_text_margin_left_right"
         android:layout_marginTop="@dimen/w10_edit_text_margin_top"
         android:layout_marginRight="@dimen/w10_edit_text_margin_left_right"
@@ -100,7 +100,7 @@
         android:textSize="@dimen/w10_editext_text_size" />
 
     <Button
-        android:id="@+id/btnRegister.SignUp.w10"
+        android:id="@+id/btnRegister"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:background="@drawable/w10_bg_button_disable"
