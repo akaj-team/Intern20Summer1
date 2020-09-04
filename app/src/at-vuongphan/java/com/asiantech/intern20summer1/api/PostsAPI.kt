@@ -1,7 +1,8 @@
 package com.asiantech.intern20summer1.api
 
 import com.asiantech.intern20summer1.model.NewPost
-import com.asiantech.intern20summer1.model.Post
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -22,6 +23,11 @@ interface PostsAPI {
         @Body newFeed: NewPost
     ): Call<NewPost>
 
+    @Multipart
     @POST("api/post")
-    fun createPost(@Header("token") token: String, @Body newPost: Post): Call<NewPost>
+    fun createPost(
+        @Header("token") token: String,
+        @Part image: MultipartBody.Part,
+        @Part("body") body: RequestBody
+    ): Call<RequestBody>
 }

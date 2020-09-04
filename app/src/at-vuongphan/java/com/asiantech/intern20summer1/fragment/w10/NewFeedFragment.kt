@@ -8,6 +8,7 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,7 +18,6 @@ import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.activity.w10.RecyclerViewNewFeed
 import com.asiantech.intern20summer1.adapter.ItemFeedAdapter
 import com.asiantech.intern20summer1.api.ClientAPI
-import com.asiantech.intern20summer1.model.ItemLike
 import com.asiantech.intern20summer1.model.NewPost
 import kotlinx.android.synthetic.`at-vuongphan`.w10_fragment_new_feed.*
 import retrofit2.Call
@@ -26,10 +26,9 @@ import retrofit2.Response
 class NewFeedFragment : Fragment() {
     private var newfeeds = mutableListOf<NewPost>()
     private var adapterNewFeeds = ItemFeedAdapter(newfeeds)
-    private var newLike = mutableListOf<ItemLike>()
     private var isLoading = false
     private var currentPos = -1
-    private lateinit var token: String
+    internal var token: String? = null
 
     companion object {
         private const val DELAY_TIME = 2000L
@@ -48,11 +47,15 @@ class NewFeedFragment : Fragment() {
         val view = inflater.inflate(R.layout.w10_fragment_new_feed, container, false)
         val toolbar = view?.findViewById<androidx.appcompat.widget.Toolbar>(R.id.tbNewFeed)
         (activity as RecyclerViewNewFeed).setSupportActionBar(toolbar)
-        val bundle = arguments
-        if (bundle != null) {
-            token = bundle.getString("data").toString()
-        } else {
-            Toast.makeText(requireContext(), "error", Toast.LENGTH_SHORT).show()
+        val imgPlus = view.findViewById<ImageView>(R.id.imgPlus)
+        getToken()
+        imgPlus?.setOnClickListener {
+            Bundle().let {
+                it.putString("token", token)
+                val addNewFeedFragment = AddNewFeedFragment()
+                addNewFeedFragment.arguments = it
+                (activity as? RecyclerViewNewFeed)?.openFragment(addNewFeedFragment, true)
+            }
         }
         return view
     }
@@ -61,13 +64,6 @@ class NewFeedFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         getListAPI()
         initListener()
-        initImageViewPlus()
-    }
-
-    private fun initImageViewPlus() {
-        imgPlus?.setOnClickListener {
-            (activity as? RecyclerViewNewFeed)?.openFragment(AddNewFeedFragment())
-        }
     }
 
     private fun initAdapter() {
@@ -92,6 +88,15 @@ class NewFeedFragment : Fragment() {
             currentPos = it
         }
         //itemOnclick(adapterNewFeeds)
+    }
+
+    private fun getToken() {
+        val bundle = arguments
+        if (bundle != null) {
+            token = bundle.getString("data").toString()
+        } else {
+            Toast.makeText(requireContext(), "error", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun initListener() {
@@ -124,7 +129,7 @@ class NewFeedFragment : Fragment() {
     }
 
     private fun initHeart(id: Int, newFeed: NewPost) {
-        val call = ClientAPI.createPost()?.updateNewPost(token, id, newFeed)
+        val call = token?.let { ClientAPI.createPost()?.updateNewPost(it, id, newFeed) }
         call?.enqueue(object : retrofit2.Callback<NewPost> {
             override fun onFailure(call: Call<NewPost>, t: Throwable) {
                 t.message?.let { displayErrorDialog(it) }
@@ -146,7 +151,7 @@ class NewFeedFragment : Fragment() {
     }
 
     private fun getListAPI() {
-        val call = ClientAPI.createPost()?.getPost(token)
+        val call = token?.let { ClientAPI.createPost()?.getPost(it) }
         call?.enqueue(object : retrofit2.Callback<MutableList<NewPost>> {
             override fun onFailure(call: Call<MutableList<NewPost>>, t: Throwable) {
                 t.message?.let { it -> displayErrorDialog(it) }
@@ -166,7 +171,7 @@ class NewFeedFragment : Fragment() {
     }
 
     private fun deleteNewFeed(id: Int) {
-        val call = ClientAPI.createPost()?.deletePosts(token, id)
+        val call = token?.let { ClientAPI.createPost()?.deletePosts(it, id) }
         call?.enqueue(object : retrofit2.Callback<NewPost> {
             override fun onFailure(call: Call<NewPost>, t: Throwable) {
                 t.message?.let { displayErrorDialog(it) }

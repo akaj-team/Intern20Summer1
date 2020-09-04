@@ -69,6 +69,8 @@ class ItemFeedAdapter(private val newFeeds: MutableList<NewPost>) :
                 )
                 tvStatus.text = it.content
                 tvNameStatus.text = it.created_at
+                Log.d("TAG", "bindData: ${it.like_count}")
+                Log.d("TAG", "bindData: ${it.like_flag}")
                 tvLike.text =
                     itemView.context.getString(R.string.text_view_text_like_number, it.like_count)
             }

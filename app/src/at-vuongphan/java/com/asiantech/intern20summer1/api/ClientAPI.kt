@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit
 object ClientAPI {
 
     private var retrofit: Retrofit? = null
-    private var API_TIMEOUT = 60
+    private const val API_TIMEOUT = 60
 
     private const val API_URL = "https://at-a-trainning.000webhostapp.com/"
     internal fun createUserService(): UserClient? =
@@ -20,7 +20,7 @@ object ClientAPI {
         getClient()?.create(PostsAPI::class.java)
 
     //private const val API_URL = "https://5f4e0faceeec51001608f40b.mockapi.io/"
-    fun getClient(): Retrofit? {
+    private fun getClient(): Retrofit? {
         val httpLoggingInterceptor = HttpLoggingInterceptor().apply {
             level =
                 if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE

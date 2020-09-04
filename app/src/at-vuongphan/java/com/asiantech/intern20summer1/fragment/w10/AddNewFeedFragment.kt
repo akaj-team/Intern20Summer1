@@ -1,31 +1,35 @@
 package com.asiantech.intern20summer1.fragment.w10
 
 import android.app.Activity
-import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Base64
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.activity.w10.RecyclerViewNewFeed
 import com.asiantech.intern20summer1.api.ClientAPI
-import com.asiantech.intern20summer1.model.NewPost
-import com.asiantech.intern20summer1.model.Post
 import kotlinx.android.synthetic.`at-vuongphan`.w10_add_new_feed.*
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
 import retrofit2.Response
+import java.io.File
 
 class AddNewFeedFragment : Fragment() {
     companion object {
         var GALLERY_AVATAR_CODE = 101
     }
 
+    var token: String? = null
     var imgPicture: Uri? = null
 
     override fun onCreateView(
@@ -33,7 +37,15 @@ class AddNewFeedFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.w10_add_new_feed, container, false)
+        val view = inflater.inflate(R.layout.w10_add_new_feed, container, false)
+        val bundle = this.arguments
+        if (bundle != null) {
+            token = bundle.getString("token").toString()
+        } else {
+            Toast.makeText(requireContext(), "error", Toast.LENGTH_SHORT).show()
+        }
+        Log.d("TAG", "onCreateView: $token")
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -46,6 +58,7 @@ class AddNewFeedFragment : Fragment() {
                 ), GALLERY_AVATAR_CODE
             )
         }
+        initImageViewBack()
         createPost()
     }
 
@@ -77,28 +90,32 @@ class AddNewFeedFragment : Fragment() {
     }
 
     private fun createPost() {
-        val body = edtNoidung.text.toString()
-        val image = imgPicture.toString()
-        val call =
-            ClientAPI.createPost()?.createPost(RecyclerViewNewFeed().token, Post(body, image))
-        call?.enqueue(object : retrofit2.Callback<NewPost> {
-            override fun onResponse(call: Call<NewPost>, response: Response<NewPost>) {
-            }
+        btnCreatePost.setOnClickListener {
+            val file = File(imgPicture.toString())
+            val content = """content"""
+            val a = """this is post"""
+            val c = "{$content : $a}"
+            val requestBody = Base64.encodeToString(file.readBytes(), Base64.DEFAULT)
+                .toRequestBody("image/*".toMediaTypeOrNull())
+            val part = MultipartBody.Part.createFormData("newImage", file.name, requestBody)
+            val body = a.toRequestBody("text/plant".toMediaTypeOrNull())
+            val call = token?.let { ClientAPI.createPost()?.createPost(it, part, body) }
+            call?.enqueue(object : retrofit2.Callback<RequestBody> {
+                override fun onResponse(call: Call<RequestBody>, response: Response<RequestBody>) {
 
-            override fun onFailure(call: Call<NewPost>, t: Throwable) {
-                t.message?.let { it1 -> displayErrorDialog(it1) }
-            }
-        })
-        (activity as? RecyclerViewNewFeed)?.openFragment(NewFeedFragment())
+                }
+
+                override fun onFailure(call: Call<RequestBody>, t: Throwable) {
+
+                }
+            })
+            (fragmentManager?.popBackStack())
+        }
     }
 
-    private fun displayErrorDialog(message: String) {
-        val errorDialog = AlertDialog.Builder(requireContext())
-        errorDialog.setTitle(
-            getString(R.string.dialog_title_error)
-        )
-            .setMessage(message)
-            .setPositiveButton(R.string.dialog_text_ok) { dialog, _ -> dialog.dismiss() }
-            .show()
+    private fun initImageViewBack() {
+        imgBackDetail?.setOnClickListener {
+            fragmentManager?.popBackStack()
+        }
     }
 }

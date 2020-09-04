@@ -40,15 +40,6 @@
                 android:text="@string/title_new_post"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/text_size_30sp" />
-
-            <ImageView
-                android:layout_width="@dimen/margin_30"
-                android:layout_height="@dimen/margin_30"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/margin_120"
-                android:layout_toRightOf="@id/tvTitle"
-                android:background="@drawable/ic_baseline_check_circle_outline_24" />
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
 
@@ -73,4 +64,14 @@
         android:importantForAutofill="no"
         android:paddingLeft="@dimen/margin_10dp"
         tools:ignore="TextFields" />
+
+    <Button
+        android:id="@+id/btnCreatePost"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_50dp"
+        android:layout_below="@id/edtNoidung"
+        android:layout_marginHorizontal="@dimen/height_50dp"
+        android:layout_marginTop="@dimen/margin_30"
+        android:background="@drawable/bg_button"
+        android:text="@string/button_create_post" />
 </RelativeLayout>

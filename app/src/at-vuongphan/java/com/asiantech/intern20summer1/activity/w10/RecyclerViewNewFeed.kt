@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.fragment.w10.AddNewFeedFragment
 import com.asiantech.intern20summer1.fragment.w10.NewFeedFragment
 import com.asiantech.intern20summer1.model.UserAutoSignIn
 
@@ -15,9 +16,11 @@ class RecyclerViewNewFeed : AppCompatActivity() {
         setContentView(R.layout.w10_activity_recyclerview)
         getData()
         val fragment = NewFeedFragment()
+        val fragmentAdd = AddNewFeedFragment()
         val bundle = Bundle()
         bundle.putString("data", token)
         fragment.arguments = bundle
+        fragmentAdd.arguments = bundle
         openFragment(fragment)
     }
 
@@ -39,6 +42,5 @@ class RecyclerViewNewFeed : AppCompatActivity() {
         (intent?.extras?.getSerializable("data") as? UserAutoSignIn).let {
             token = it?.token.toString()
         }
-        Log.d("token", "getData: $token")
     }
 }
