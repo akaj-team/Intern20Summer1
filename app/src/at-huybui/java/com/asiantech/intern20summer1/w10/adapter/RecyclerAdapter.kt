@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w10.models.PostItem
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kotlinx.android.synthetic.`at-huybui`.w10_item_recycler_post.view.*
 
 class RecyclerAdapter(private val mutableList: MutableList<PostItem>) :

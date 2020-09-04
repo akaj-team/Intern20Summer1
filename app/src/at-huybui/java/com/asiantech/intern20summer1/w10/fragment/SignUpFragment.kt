@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w10.api.Api
 import com.asiantech.intern20summer1.w10.api.ApiAccountService
+import com.asiantech.intern20summer1.w10.api.ErrorUtils
 import com.asiantech.intern20summer1.w10.models.Account
 import com.asiantech.intern20summer1.w10.models.RequestAccount
 import kotlinx.android.synthetic.`at-huybui`.w10_fragment_sign_up.*
@@ -33,7 +34,7 @@ class SignUpFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        callApi = Api().newInstance()?.create(ApiAccountService::class.java)
+        callApi = Api.getInstance()?.create(ApiAccountService::class.java)
         return inflater.inflate(R.layout.w10_fragment_sign_up, container, false)
     }
 
@@ -104,10 +105,17 @@ class SignUpFragment : Fragment() {
         callApi?.createUser(requestAccount)
             ?.enqueue(object : retrofit2.Callback<Account> {
                 override fun onResponse(call: Call<Account>, response: Response<Account>) {
-                    if (response.body() != null) {
+                    if (response.isSuccessful) {
                         showToast("Đăng ký thành công")
                         response.body()?.let { onRegisterClick.invoke(requestAccount) }
                         fragmentManager?.popBackStack()
+                    } else {
+                        val error = ErrorUtils().parseError(response)
+                        if (error?.statusCode == ErrorUtils.BAD_REQUEST_CODE && error.message ==
+                            ErrorUtils.MESSAGE_EMAIL_HAS_BEEN_TAKEN
+                        ) {
+                            showToast("Tài khoản Email đã tồn tại")
+                        }
                     }
                 }
 

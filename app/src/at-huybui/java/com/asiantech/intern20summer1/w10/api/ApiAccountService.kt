@@ -14,7 +14,7 @@ interface ApiAccountService {
     }
 
     @GET(PART_AUTO_SIGNIN)
-    fun autoSignIn(): Call<Account>
+    fun autoSignIn(@Header("token") token: String): Call<Account>
 
     @POST(PART_LOGIN)
     @FormUrlEncoded

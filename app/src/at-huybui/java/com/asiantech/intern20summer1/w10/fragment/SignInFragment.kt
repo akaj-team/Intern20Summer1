@@ -1,5 +1,6 @@
 package com.asiantech.intern20summer1.w10.fragment
 
+import android.content.Context.MODE_PRIVATE
 import android.os.Bundle
 import android.util.Log.d
 import android.view.LayoutInflater
@@ -14,8 +15,6 @@ import com.asiantech.intern20summer1.w10.api.Api
 import com.asiantech.intern20summer1.w10.api.ApiAccountService
 import com.asiantech.intern20summer1.w10.models.Account
 import kotlinx.android.synthetic.`at-huybui`.w10_fragment_sign_in.*
-import kotlinx.android.synthetic.`at-huybui`.w10_fragment_sign_up.*
-import retrofit2.Call
 import retrofit2.Response
 
 class SignInFragment : Fragment() {
@@ -31,7 +30,7 @@ class SignInFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        callApi = Api().newInstance()?.create(ApiAccountService::class.java)
+        callApi = Api.getInstance()?.create(ApiAccountService::class.java)
         return inflater.inflate(R.layout.w10_fragment_sign_in, container, false)
     }
 
@@ -64,11 +63,17 @@ class SignInFragment : Fragment() {
         val email = edtEmail_SignIn_w10.text.toString()
         val password = edtPassword_SignIn_w10.text.toString()
         callApi?.login(email, password)?.enqueue(object : retrofit2.Callback<Account> {
-            override fun onResponse(call: Call<Account>, response: Response<Account>) {
+            override fun onResponse(call: retrofit2.Call<Account>, response: Response<Account>) {
                 if (response.body() != null) {
-                    response.body()?.let {
+                    response.body()?.let { account ->
+                        val preference = requireContext().getSharedPreferences(
+                            SplashFragment.NAME_PREFERENCE,
+                            MODE_PRIVATE
+                        )
+                        preference.edit().putBoolean(SplashFragment.KEY_IS_LOGIN, true).apply()
+                        preference.edit().putString(SplashFragment.KEY_TOKEN_LOGIN, account.token).apply()
                         (activity as ApiMainActivity).replaceFragment(
-                            HomeFragment.newInstance(it)
+                            HomeFragment.newInstance(account)
                         )
                     }
                 } else {
@@ -77,7 +82,7 @@ class SignInFragment : Fragment() {
                 }
             }
 
-            override fun onFailure(call: Call<Account>, t: Throwable) {
+            override fun onFailure(call: retrofit2.Call<Account>, t: Throwable) {
             }
         })
     }

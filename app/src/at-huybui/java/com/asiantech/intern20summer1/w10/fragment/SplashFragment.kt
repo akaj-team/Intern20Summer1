@@ -9,15 +9,22 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w10.activity.ApiMainActivity
+import com.asiantech.intern20summer1.w10.api.Api
+import com.asiantech.intern20summer1.w10.api.ApiAccountService
+import com.asiantech.intern20summer1.w10.models.Account
+import retrofit2.Call
+import retrofit2.Response
 
 class SplashFragment : Fragment() {
 
     companion object {
-        private const val NAME_PREFERENCE = "preference"
-        private const val KEY_IS_LOGIN = "key_is_login"
+        internal const val NAME_PREFERENCE = "preference"
+        internal const val KEY_IS_LOGIN = "key_is_login"
+        internal const val KEY_TOKEN_LOGIN = "key_token_login"
         internal fun newInstance() = SplashFragment()
     }
 
+    private var callApi: ApiAccountService? = null
     var count = 0
 
     override fun onCreateView(
@@ -25,6 +32,7 @@ class SplashFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        callApi = Api.getInstance()?.create(ApiAccountService::class.java)
         return inflater.inflate(R.layout.w10_fragment_splash, container, false)
     }
 
@@ -42,20 +50,42 @@ class SplashFragment : Fragment() {
             override fun onTick(p0: Long) {
                 count++
                 when (count) {
-                    100 -> {
+                    10 -> {
                         if (isSignIn) {
-                         //   (activity as ApiMainActivity).replaceFragment(HomeFragment.newInstance())
+                            autoSignIn(preference.getString(KEY_TOKEN_LOGIN, ""))
                         } else {
                             (activity as ApiMainActivity).replaceFragment(SignInFragment.newInstance())
                         }
+                        this.cancel()
                     }
                 }
             }
+
             override fun onFinish() {
             }
 
         }
         timer.start()
+    }
 
+    private fun autoSignIn(token: String?) {
+        token?.let {
+            callApi?.autoSignIn(it)?.enqueue(object : retrofit2.Callback<Account> {
+                override fun onResponse(call: Call<Account>, response: Response<Account>) {
+                    response.body()?.let { account ->
+                        (activity as ApiMainActivity).replaceFragment(
+                            HomeFragment.newInstance(
+                                account
+                            )
+                        )
+                    }
+                    if (response.body() == null) {
+                        (activity as ApiMainActivity).replaceFragment(SignInFragment.newInstance())
+                    }
+                }
+
+                override fun onFailure(call: Call<Account>, t: Throwable) {}
+            })
+        }
     }
 }

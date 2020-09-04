@@ -44,7 +44,7 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        callApi = Api().newInstance()?.create(ApiPostService::class.java)
+        callApi = Api.getInstance()?.create(ApiPostService::class.java)
         account = arguments?.getSerializable(KEY_PUT_ACCOUNT) as Account
         d("homeFragment", account.toString())
         return inflater.inflate(R.layout.w10_fragment_home, container, false)
