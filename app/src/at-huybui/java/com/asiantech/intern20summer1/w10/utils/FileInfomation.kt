@@ -13,6 +13,10 @@ import java.io.File
 
 internal class FileInformation {
 
+    companion object {
+        private const val CONTENT_URI = "content://downloads/public_downloads"
+    }
+
     fun getFile(context: Context, uri: Uri): File {
         return File(getPath(context, uri).toString())
     }
@@ -26,24 +30,34 @@ internal class FileInformation {
      */
     fun getPath(context: Context, uri: Uri): String? {
         var pathReturn: String? = "unknown"
-        // DocumentProvider
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT
             && DocumentsContract.isDocumentUri(context, uri)
         ) {
-            // ExternalStorageProvider
+            getPathE(context, uri)
+        } else if ("content".equals(uri.scheme, ignoreCase = true)) {
+            pathReturn = getDataColumn(context, uri, null, null)
+        } else if ("file".equals(uri.scheme, ignoreCase = true)) {
+            pathReturn = uri.path
+        }
+        return pathReturn
+    }
+
+    private fun getPathE(context: Context, uri: Uri): String? {
+        var pathReturn: String? = "unknown"
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             if (isExternalStorageDocument(uri)) {
                 val docId = DocumentsContract.getDocumentId(uri)
                 val split = docId.split(":".toRegex()).toTypedArray()
                 val type = split[0]
                 if ("primary".equals(type, ignoreCase = true)) {
                     @Suppress("DEPRECATION")
-                    pathReturn =
-                        Environment.getExternalStorageDirectory().toString() + "/" + split[1]
+                    pathReturn = "${Environment.getExternalStorageDirectory()}/${split[1]}"
                 }
             } else if (isDownloadsDocument(uri)) {
-                val id = DocumentsContract.getDocumentId(uri)
                 val contentUri = ContentUris.withAppendedId(
-                    Uri.parse("content://downloads/public_downloads"), java.lang.Long.valueOf(id)
+                    Uri.parse(CONTENT_URI),
+                    java.lang.Long.valueOf(DocumentsContract.getDocumentId(uri))
                 )
                 pathReturn = getDataColumn(context, contentUri, null, null)
             } else if (isMediaDocument(uri)) {
@@ -62,16 +76,8 @@ internal class FileInformation {
                         contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
                     }
                 }
-                val selection = "_id=?"
-                val selectionArgs = arrayOf(
-                    split[1]
-                )
-                pathReturn = getDataColumn(context, contentUri, selection, selectionArgs)
+                pathReturn = getDataColumn(context, contentUri, "_id=?", arrayOf(split[1]))
             }
-        } else if ("content".equals(uri.scheme, ignoreCase = true)) {
-            pathReturn = getDataColumn(context, uri, null, null)
-        } else if ("file".equals(uri.scheme, ignoreCase = true)) {
-            pathReturn = uri.path
         }
         return pathReturn
     }
