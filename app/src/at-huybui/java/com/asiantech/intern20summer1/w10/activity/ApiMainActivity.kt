@@ -6,13 +6,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.w10.fragment.PostDialogFragment
 import com.asiantech.intern20summer1.w10.fragment.SplashFragment
 
 class ApiMainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.w10_activity_ipi)
+        setContentView(R.layout.w10_activity_api)
         replaceFragment(SplashFragment.newInstance())
     }
 

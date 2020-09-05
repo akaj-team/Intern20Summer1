@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.w10.api
+package com.asiantech.intern20summer1.w10.utils
 
 import android.content.ContentUris
 import android.content.Context
@@ -25,7 +25,7 @@ internal class FileInformation {
      * @param context The context.
      */
     fun getPath(context: Context, uri: Uri): String? {
-
+        var pathReturn: String? = "unknown"
         // DocumentProvider
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT
             && DocumentsContract.isDocumentUri(context, uri)
@@ -37,14 +37,15 @@ internal class FileInformation {
                 val type = split[0]
                 if ("primary".equals(type, ignoreCase = true)) {
                     @Suppress("DEPRECATION")
-                    return Environment.getExternalStorageDirectory().toString() + "/" + split[1]
+                    pathReturn =
+                        Environment.getExternalStorageDirectory().toString() + "/" + split[1]
                 }
             } else if (isDownloadsDocument(uri)) {
                 val id = DocumentsContract.getDocumentId(uri)
                 val contentUri = ContentUris.withAppendedId(
                     Uri.parse("content://downloads/public_downloads"), java.lang.Long.valueOf(id)
                 )
-                return getDataColumn(context, contentUri, null, null)
+                pathReturn = getDataColumn(context, contentUri, null, null)
             } else if (isMediaDocument(uri)) {
                 val docId = DocumentsContract.getDocumentId(uri)
                 val split = docId.split(":".toRegex()).toTypedArray()
@@ -65,14 +66,14 @@ internal class FileInformation {
                 val selectionArgs = arrayOf(
                     split[1]
                 )
-                return getDataColumn(context, contentUri, selection, selectionArgs)
+                pathReturn = getDataColumn(context, contentUri, selection, selectionArgs)
             }
         } else if ("content".equals(uri.scheme, ignoreCase = true)) {
-            return getDataColumn(context, uri, null, null)
+            pathReturn = getDataColumn(context, uri, null, null)
         } else if ("file".equals(uri.scheme, ignoreCase = true)) {
-            return uri.path
+            pathReturn = uri.path
         }
-        return "unknown"
+        return pathReturn
     }
 
     fun getName(context: Context, uri: Uri?): String? {
@@ -86,7 +87,12 @@ internal class FileInformation {
                 )
             }
             cursor?.close()
-        } finally {
+        } catch (ae: ArithmeticException) {
+            ae.printStackTrace()
+        } catch (ne: NumberFormatException) {
+            ne.printStackTrace()
+        } catch (ea: IllegalArgumentException) {
+            ea.printStackTrace()
         }
         return fileName
     }
@@ -105,7 +111,12 @@ internal class FileInformation {
                 }
             }
             cursor?.close()
-        } finally {
+        } catch (ae: ArithmeticException) {
+            ae.printStackTrace()
+        } catch (ne: NumberFormatException) {
+            ne.printStackTrace()
+        } catch (ea: IllegalArgumentException) {
+            ea.printStackTrace()
         }
         return fileSize
     }
@@ -124,22 +135,25 @@ internal class FileInformation {
         context: Context, uri: Uri?, selection: String?,
         selectionArgs: Array<String>?
     ): String? {
-        var cursor: Cursor? = null
-        val column = "_data"
-        val projection = arrayOf(
-            column
-        )
         try {
+            val column = "_data"
+            val projection = arrayOf(column)
+            var cursor: Cursor? = null
             cursor = context.contentResolver.query(
                 uri!!, projection, selection, selectionArgs,
                 null
             )
             if (cursor != null && cursor.moveToFirst()) {
-                val column_index = cursor.getColumnIndexOrThrow(column)
-                return cursor.getString(column_index)
+                val columnIndex = cursor.getColumnIndexOrThrow(column)
+                return cursor.getString(columnIndex)
             }
-        } finally {
             cursor?.close()
+        } catch (ae: ArithmeticException) {
+            ae.printStackTrace()
+        } catch (ne: NumberFormatException) {
+            ne.printStackTrace()
+        } catch (ea: IllegalArgumentException) {
+            ea.printStackTrace()
         }
         return null
     }

@@ -22,6 +22,7 @@ import retrofit2.Response
 class SignUpFragment : Fragment() {
 
     companion object {
+        private const val MAX_LENGTH_EMAIL = 65
         private const val REGEX_PASSWORD = """^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,16}$"""
         internal fun newInstance() = SignUpFragment()
     }
@@ -94,7 +95,7 @@ class SignUpFragment : Fragment() {
 
     private fun isCheckName(): Boolean {
         val name = edtFullName.text.toString()
-        return (name.isNotEmpty()) && (name.length < 65)
+        return (name.isNotEmpty()) && (name.length < MAX_LENGTH_EMAIL)
     }
 
     private fun registerAccount() {

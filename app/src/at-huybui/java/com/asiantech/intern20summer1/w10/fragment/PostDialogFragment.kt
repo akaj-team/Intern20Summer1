@@ -20,11 +20,10 @@ import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w10.activity.ApiMainActivity
 import com.asiantech.intern20summer1.w10.api.Api
 import com.asiantech.intern20summer1.w10.api.ApiPostService
-import com.asiantech.intern20summer1.w10.api.FileInformation
+import com.asiantech.intern20summer1.w10.utils.FileInformation
 import com.asiantech.intern20summer1.w10.models.PostContent
 import com.asiantech.intern20summer1.w10.models.ResponsePost
 import com.asiantech.intern20summer1.w10.utils.AppUtils
-import com.bumptech.glide.util.Util
 import com.google.gson.Gson
 import kotlinx.android.synthetic.`at-huybui`.w10_dialog_fragment_post.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull

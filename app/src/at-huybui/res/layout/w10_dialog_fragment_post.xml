@@ -3,34 +3,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/llToolBar"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/btnBack"
             android:layout_width="60dp"
-            android:layout_height="match_parent"
+            android:layout_height="60dp"
             android:padding="10dp"
             android:src="@drawable/w10_ic_close" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
+            android:layout_centerInParent="true"
             android:text="new post"
             android:textSize="30sp" />
 
         <ImageView
             android:id="@+id/btnPost"
             android:layout_width="60dp"
-            android:layout_height="match_parent"
+            android:layout_height="60dp"
+            android:layout_alignParentRight="true"
             android:padding="10dp"
             android:src="@drawable/w10_ic_tick" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <ScrollView
         android:layout_below="@id/llToolBar"

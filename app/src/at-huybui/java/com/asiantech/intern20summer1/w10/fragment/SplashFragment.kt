@@ -19,6 +19,9 @@ import retrofit2.Response
 class SplashFragment : Fragment() {
 
     companion object {
+        private const val FINISH_TIMER = 50000L
+        private const val STEP_TIMER = 20L
+        private const val TICK_LOGIN = 10
         internal fun newInstance() = SplashFragment()
     }
 
@@ -42,11 +45,11 @@ class SplashFragment : Fragment() {
 
     private fun handleProgressSplash(){
         val isLogin = AppUtils().getIsLogin(requireContext())
-        val timer = object : CountDownTimer(50000L, 20L) {
+        val timer = object : CountDownTimer(FINISH_TIMER, STEP_TIMER) {
             override fun onTick(p0: Long) {
                 count++
                 when (count) {
-                    10 -> {
+                    TICK_LOGIN -> {
                         if (isLogin) {
                             autoSignIn(AppUtils().getToken(requireContext()))
                         } else {
