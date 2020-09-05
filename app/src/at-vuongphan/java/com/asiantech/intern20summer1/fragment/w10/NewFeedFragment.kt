@@ -5,6 +5,7 @@ package com.asiantech.intern20summer1.fragment.w10
 import android.app.AlertDialog
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +19,7 @@ import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.activity.w10.RecyclerViewNewFeed
 import com.asiantech.intern20summer1.adapter.ItemFeedAdapter
 import com.asiantech.intern20summer1.api.ClientAPI
+import com.asiantech.intern20summer1.model.ApiResponse
 import com.asiantech.intern20summer1.model.NewPost
 import kotlinx.android.synthetic.`at-vuongphan`.w10_fragment_new_feed.*
 import retrofit2.Call
@@ -84,10 +86,12 @@ class NewFeedFragment : Fragment() {
             (recyclerViewMain.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
         }
         adapterNewFeeds.onItemDeleteClicked = {
+            Log.d("TAG", "initAdapter: ${newfeeds[it]}")
+            Log.d("TAG", "initAdapter: ${newfeeds[it].id}")
             displayDeleteDialog(newfeeds[it].id)
             currentPos = it
         }
-        //itemOnclick(adapterNewFeeds)
+        itemOnclick(adapterNewFeeds)
     }
 
     private fun getToken() {
@@ -172,12 +176,12 @@ class NewFeedFragment : Fragment() {
 
     private fun deleteNewFeed(id: Int) {
         val call = token?.let { ClientAPI.createPost()?.deletePosts(it, id) }
-        call?.enqueue(object : retrofit2.Callback<NewPost> {
-            override fun onFailure(call: Call<NewPost>, t: Throwable) {
+        call?.enqueue(object : retrofit2.Callback<ApiResponse> {
+            override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
                 t.message?.let { displayErrorDialog(it) }
             }
 
-            override fun onResponse(call: Call<NewPost>, response: Response<NewPost>) {
+            override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
                 newfeeds.removeAt(currentPos)
                 adapterNewFeeds.notifyDataSetChanged()
             }
@@ -193,5 +197,26 @@ class NewFeedFragment : Fragment() {
             .setNegativeButton(R.string.dialog_text_cancel) { dialog, _ -> dialog.dismiss() }
             .setPositiveButton(R.string.dialog_text_ok) { _, _ -> deleteNewFeed(id) }
             .show()
+    }
+
+    private fun itemOnclick(adapter: ItemFeedAdapter) {
+        adapter.click(object : ItemFeedAdapter.Onclick {
+            override fun iconEditFeed(post: NewPost) {
+                val id = post.id
+                val content = post.content
+                val create_at = post.created_at
+                val like_count = post.like_count
+                val like_flag = post.like_flag
+                val image = post.image
+                Log.d("TAG", "iconEditFeed: ${post.image}")
+                (activity as? RecyclerViewNewFeed)?.openFragment(
+                    Update.newInstance(
+                        id,
+                        content,
+                        image
+                    ), true
+                )
+            }
+        })
     }
 }

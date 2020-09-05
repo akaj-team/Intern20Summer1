@@ -1,6 +1,5 @@
 package com.asiantech.intern20summer1.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,7 +17,8 @@ class ItemFeedAdapter(private val newFeeds: MutableList<NewPost>) :
     RecyclerView.Adapter<ItemFeedAdapter.NewFeedViewHolder>() {
     internal var onItemClicked: (position: Int) -> Unit = {}
     internal var onItemDeleteClicked: (position: Int) -> Unit = {}
-    private var url = "http://at-a-trainning.000webhostapp.com/images/"
+    private var url = "https://at-a-trainning.000webhostapp.com/images/"
+    var onClick: Onclick? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewFeedViewHolder {
         val view =
@@ -52,13 +52,13 @@ class ItemFeedAdapter(private val newFeeds: MutableList<NewPost>) :
         }
 
         fun bindData() {
+            val post = newFeeds[adapterPosition]
             newFeeds[adapterPosition].let {
                 val image = url.plus(it.image)
                 tvName.text = it.content
                 val options = RequestOptions()
                     .centerCrop()
                     .placeholder(R.drawable.tran_thi_duyen)
-                Log.d("Ima", "bindData: $image")
                 Glide.with(itemView)
                     .load(image)
                     .apply(options)
@@ -69,11 +69,20 @@ class ItemFeedAdapter(private val newFeeds: MutableList<NewPost>) :
                 )
                 tvStatus.text = it.content
                 tvNameStatus.text = it.created_at
-                Log.d("TAG", "bindData: ${it.like_count}")
-                Log.d("TAG", "bindData: ${it.like_flag}")
                 tvLike.text =
                     itemView.context.getString(R.string.text_view_text_like_number, it.like_count)
             }
+            imgAvatar.setOnClickListener {
+                onClick?.iconEditFeed(post)
+            }
         }
+    }
+
+    fun click(onClick: Onclick) {
+        this.onClick = onClick
+    }
+
+    interface Onclick {
+        fun iconEditFeed(post: NewPost)
     }
 }

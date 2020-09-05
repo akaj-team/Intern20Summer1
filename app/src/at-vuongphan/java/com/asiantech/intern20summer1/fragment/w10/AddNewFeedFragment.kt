@@ -1,3 +1,5 @@
+@file:Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
+
 package com.asiantech.intern20summer1.fragment.w10
 
 import android.app.Activity
@@ -6,7 +8,6 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -15,11 +16,12 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.api.ClientAPI
+import com.asiantech.intern20summer1.model.ApiResponse
+import com.asiantech.intern20summer1.model.Post
 import kotlinx.android.synthetic.`at-vuongphan`.w10_add_new_feed.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
-import okhttp3.RequestBody.Companion.toRequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import retrofit2.Call
 import retrofit2.Response
 import java.io.File
@@ -44,7 +46,6 @@ class AddNewFeedFragment : Fragment() {
         } else {
             Toast.makeText(requireContext(), "error", Toast.LENGTH_SHORT).show()
         }
-        Log.d("TAG", "onCreateView: $token")
         return view
     }
 
@@ -91,21 +92,17 @@ class AddNewFeedFragment : Fragment() {
 
     private fun createPost() {
         btnCreatePost.setOnClickListener {
-            val file = File(imgPicture.toString())
-            val content = """content"""
-            val a = """this is post"""
-            val c = "{$content : $a}"
-            val requestBody = Base64.encodeToString(file.readBytes(), Base64.DEFAULT)
-                .toRequestBody("image/*".toMediaTypeOrNull())
-            val part = MultipartBody.Part.createFormData("newImage", file.name, requestBody)
-            val body = a.toRequestBody("text/plant".toMediaTypeOrNull())
-            val call = token?.let { ClientAPI.createPost()?.createPost(it, part, body) }
-            call?.enqueue(object : retrofit2.Callback<RequestBody> {
-                override fun onResponse(call: Call<RequestBody>, response: Response<RequestBody>) {
+            val file = File(getPath(imgPicture))
+            val fileReqBody = file.asRequestBody("image/*".toMediaTypeOrNull())
+            val part = MultipartBody.Part.createFormData("image", file.name, fileReqBody)
+            val content = edtNoidung.text.toString()
+            val call = token?.let { ClientAPI.createPost()?.createPost(it, Post(content), part) }
+            call?.enqueue(object : retrofit2.Callback<ApiResponse> {
+                override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
 
                 }
 
-                override fun onFailure(call: Call<RequestBody>, t: Throwable) {
+                override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
 
                 }
             })
@@ -117,5 +114,19 @@ class AddNewFeedFragment : Fragment() {
         imgBackDetail?.setOnClickListener {
             fragmentManager?.popBackStack()
         }
+    }
+
+    private fun getPath(uri: Uri?): String? {
+        val result: String
+        val cursor = uri?.let { context?.contentResolver?.query(it, null, null, null, null) }
+        if (cursor == null) {
+            result = uri?.path.toString()
+        } else {
+            cursor.moveToFirst()
+            val idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA)
+            result = cursor.getString(idx)
+            cursor.close()
+        }
+        return result
     }
 }

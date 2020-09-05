@@ -1,8 +1,9 @@
 package com.asiantech.intern20summer1.api
 
+import com.asiantech.intern20summer1.model.ApiResponse
 import com.asiantech.intern20summer1.model.NewPost
+import com.asiantech.intern20summer1.model.Post
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -11,7 +12,7 @@ interface PostsAPI {
     fun getPost(@Header("token") token: String): Call<MutableList<NewPost>>
 
     @DELETE("api/post/{id}")
-    fun deletePosts(@Header("token") token: String, @Path("id") id: Int): Call<NewPost>
+    fun deletePosts(@Header("token") token: String, @Path("id") id: Int): Call<ApiResponse>
 
     @POST("api/post")
     fun addNewPost(@Body newFeedModel: NewPost): Call<NewPost>
@@ -27,7 +28,16 @@ interface PostsAPI {
     @POST("api/post")
     fun createPost(
         @Header("token") token: String,
-        @Part image: MultipartBody.Part,
-        @Part("body") body: RequestBody
-    ): Call<RequestBody>
+        @Part("id") id: Int,
+        @Part("body") body: Post,
+        @Part image: MultipartBody.Part? = null
+    ): Call<ApiResponse>
+
+    @Multipart
+    @POST("api/post/{id}")
+    fun updatePost(
+        @Header("token") token: String,
+        @Part("body") body: Post,
+        @Part image: MultipartBody.Part? = null
+    ): Call<ApiResponse>
 }
