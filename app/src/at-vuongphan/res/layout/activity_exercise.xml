@@ -70,5 +70,21 @@
             android:layout_marginLeft="@dimen/layout_margin_left"
             android:layout_toRightOf="@id/btnW5"
             android:text="@string/button_exercise_w6" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlButton4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rlButton3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/edit_text_margin_top">
+
+        <Button
+            android:id="@+id/btnW10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_exercise_w5" />
     </RelativeLayout>
 </RelativeLayout>

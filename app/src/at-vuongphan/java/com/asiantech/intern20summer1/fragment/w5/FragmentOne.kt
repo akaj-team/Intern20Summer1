@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.fragment
+package com.asiantech.intern20summer1.fragment.w5
 
 import android.os.Bundle
 import android.view.LayoutInflater

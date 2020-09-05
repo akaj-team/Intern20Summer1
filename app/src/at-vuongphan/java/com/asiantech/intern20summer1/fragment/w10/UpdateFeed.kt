@@ -15,9 +15,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.activity.w10.RecyclerViewNewFeed
-import com.asiantech.intern20summer1.api.ClientAPI
-import com.asiantech.intern20summer1.model.ApiResponse
-import com.asiantech.intern20summer1.model.Post
+import com.asiantech.intern20summer1.api.w10.ClientAPI
+import com.asiantech.intern20summer1.model.w10.ApiResponse
+import com.asiantech.intern20summer1.model.w10.Post
 import com.bumptech.glide.Glide
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.`at-vuongphan`.w10_update_new_feed.*

@@ -1,7 +1,7 @@
-package com.asiantech.intern20summer1.api
+package com.asiantech.intern20summer1.api.w10
 
-import com.asiantech.intern20summer1.model.UserAutoSignIn
-import com.asiantech.intern20summer1.model.UserRegister
+import com.asiantech.intern20summer1.model.w10.UserAutoSignIn
+import com.asiantech.intern20summer1.model.w10.UserRegister
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*

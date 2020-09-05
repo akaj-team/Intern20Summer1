@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.data
+package com.asiantech.intern20summer1.model.data
 
 import android.os.Parcel
 import android.os.Parcelable

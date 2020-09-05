@@ -11,13 +11,13 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.activity.w10.RecyclerViewNewFeed
-import com.asiantech.intern20summer1.api.ClientAPI
-import com.asiantech.intern20summer1.api.ErrorUtils
+import com.asiantech.intern20summer1.api.w10.ClientAPI
+import com.asiantech.intern20summer1.api.w10.ErrorUtils
 import com.asiantech.intern20summer1.extension.hideKeyboard
 import com.asiantech.intern20summer1.extension.isValidEmail
 import com.asiantech.intern20summer1.extension.isValidPasswordW10
 import com.asiantech.intern20summer1.fragment.w10.FragmentRegister.Companion.EMAIL_LENGTH
-import com.asiantech.intern20summer1.model.UserAutoSignIn
+import com.asiantech.intern20summer1.model.w10.UserAutoSignIn
 import kotlinx.android.synthetic.`at-vuongphan`.w10_fragment_login.*
 import retrofit2.Call
 import retrofit2.Response
@@ -109,32 +109,40 @@ class FragmentLogin : Fragment() {
         }
     }
 
-    private fun initPutDataLogin(account: UserAutoSignIn) {
-        val id = account.id
-        val email = account.email
-        val full_name = account.full_name
-        val token = account.token
+    private fun initPutDataLogin(user: UserAutoSignIn) {
         Intent(activity, RecyclerViewNewFeed::class.java).apply {
             Bundle().let {
-                val accountData =
-                    token.let { it1 ->
-                        full_name.let { it2 ->
-                            email.let { it3 ->
-                                id.let { it4 ->
-                                    UserAutoSignIn(
-                                        it4, it3, it2,
-                                        it1
-                                    )
-                                }
-                            }
-                        }
-                    }
-                it.putSerializable("data", accountData)
+                addBundleAccount(it, user)
                 putExtras(it)
-                startActivity(this)
-                activity?.finish()
+                initStartActivity(this)
             }
         }
+    }
+
+    private fun initStartActivity(intent: Intent) {
+        startActivity(intent)
+        activity?.finish()
+    }
+
+    private fun addBundleAccount(bundle: Bundle, user: UserAutoSignIn) {
+        val id = user.id
+        val email = user.email
+        val full_name = user.full_name
+        val token = user.token
+        val accountData =
+            token.let { it1 ->
+                full_name.let { it2 ->
+                    email.let { it3 ->
+                        id.let { it4 ->
+                            UserAutoSignIn(
+                                it4, it3, it2,
+                                it1
+                            )
+                        }
+                    }
+                }
+            }
+        bundle.putSerializable("data", accountData)
     }
 
     private fun initEmail() {

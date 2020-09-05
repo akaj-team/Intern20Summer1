@@ -8,12 +8,12 @@ import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.api.ClientAPI
+import com.asiantech.intern20summer1.api.w10.ClientAPI
 import com.asiantech.intern20summer1.extension.hideKeyboard
 import com.asiantech.intern20summer1.extension.isValidEmail
 import com.asiantech.intern20summer1.extension.isValidPasswordW10
-import com.asiantech.intern20summer1.model.UserAutoSignIn
-import com.asiantech.intern20summer1.model.UserRegister
+import com.asiantech.intern20summer1.model.w10.UserAutoSignIn
+import com.asiantech.intern20summer1.model.w10.UserRegister
 import kotlinx.android.synthetic.`at-vuongphan`.w10_fragment_register.*
 import retrofit2.Response
 

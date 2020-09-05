@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.data
+package com.asiantech.intern20summer1.model.data
 
 import com.asiantech.intern20summer1.R
 

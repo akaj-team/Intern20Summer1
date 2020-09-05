@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.api
+package com.asiantech.intern20summer1.api.w10
 
 import okhttp3.ResponseBody
 import retrofit2.Converter

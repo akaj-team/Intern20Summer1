@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.fragment.w10.AddNewFeedFragment
 import com.asiantech.intern20summer1.fragment.w10.NewFeedFragment
-import com.asiantech.intern20summer1.model.UserAutoSignIn
+import com.asiantech.intern20summer1.model.w10.UserAutoSignIn
 
 class RecyclerViewNewFeed : AppCompatActivity() {
     internal lateinit var token: String

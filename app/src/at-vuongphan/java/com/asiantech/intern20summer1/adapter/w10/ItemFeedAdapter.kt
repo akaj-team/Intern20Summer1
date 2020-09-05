@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.adapter
+package com.asiantech.intern20summer1.adapter.w10
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,7 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.model.NewPost
+import com.asiantech.intern20summer1.model.w10.NewPost
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import de.hdodenhof.circleimageview.CircleImageView

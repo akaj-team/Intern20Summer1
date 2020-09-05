@@ -1,13 +1,13 @@
 @file:Suppress("DEPRECATION")
 
-package com.asiantech.intern20summer1.activity
+package com.asiantech.intern20summer1.activity.w4
 
 import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.data.User
+import com.asiantech.intern20summer1.model.data.User
 import kotlinx.android.synthetic.`at-vuongphan`.home_activity.*
 
 class HomeActivity : AppCompatActivity() {

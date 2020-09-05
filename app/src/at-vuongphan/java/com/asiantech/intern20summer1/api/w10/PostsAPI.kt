@@ -1,9 +1,9 @@
-package com.asiantech.intern20summer1.api
+package com.asiantech.intern20summer1.api.w10
 
-import com.asiantech.intern20summer1.model.ApiResponse
-import com.asiantech.intern20summer1.model.NewPost
-import com.asiantech.intern20summer1.model.Post
-import com.asiantech.intern20summer1.model.ResponseLike
+import com.asiantech.intern20summer1.model.w10.ApiResponse
+import com.asiantech.intern20summer1.model.w10.NewPost
+import com.asiantech.intern20summer1.model.w10.Post
+import com.asiantech.intern20summer1.model.w10.ResponseLike
 import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.*

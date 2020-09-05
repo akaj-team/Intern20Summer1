@@ -5,6 +5,9 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.activity.w10.ActivityLogin
+import com.asiantech.intern20summer1.activity.w3.MainActivity
+import com.asiantech.intern20summer1.activity.w4.SplashActivity
+import com.asiantech.intern20summer1.activity.w6.ViewPagerActivity
 import kotlinx.android.synthetic.`at-vuongphan`.activity_exercise.*
 
 class MainExerciseActivity : AppCompatActivity() {
@@ -14,7 +17,7 @@ class MainExerciseActivity : AppCompatActivity() {
         initListenerButtonW3()
         initListenerButtonW4()
         initListenerButtonW6()
-        initListenerButtonW1()
+        initListenerButtonW10()
     }
 
     private fun initListenerButtonW3() {
@@ -35,8 +38,8 @@ class MainExerciseActivity : AppCompatActivity() {
         }
     }
 
-    private fun initListenerButtonW1() {
-        btnW1.setOnClickListener {
+    private fun initListenerButtonW10() {
+        btnW10?.setOnClickListener {
             startActivity(Intent(this, ActivityLogin::class.java))
             finish()
         }

@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.model
+package com.asiantech.intern20summer1.model.w10
 
 import com.google.gson.annotations.SerializedName
 

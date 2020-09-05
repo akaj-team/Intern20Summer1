@@ -17,11 +17,11 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.activity.w10.RecyclerViewNewFeed
-import com.asiantech.intern20summer1.adapter.ItemFeedAdapter
-import com.asiantech.intern20summer1.api.ClientAPI
-import com.asiantech.intern20summer1.model.ApiResponse
-import com.asiantech.intern20summer1.model.NewPost
-import com.asiantech.intern20summer1.model.ResponseLike
+import com.asiantech.intern20summer1.adapter.w10.ItemFeedAdapter
+import com.asiantech.intern20summer1.api.w10.ClientAPI
+import com.asiantech.intern20summer1.model.w10.ApiResponse
+import com.asiantech.intern20summer1.model.w10.NewPost
+import com.asiantech.intern20summer1.model.w10.ResponseLike
 import kotlinx.android.synthetic.`at-vuongphan`.w10_fragment_new_feed.*
 import retrofit2.Call
 import retrofit2.Response

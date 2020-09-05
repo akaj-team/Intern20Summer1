@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.fragment
+package com.asiantech.intern20summer1.fragment.w5
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.data.ensign
-import com.asiantech.intern20summer1.data.image
+import com.asiantech.intern20summer1.model.data.ensign
+import com.asiantech.intern20summer1.model.data.image
 import kotlinx.android.synthetic.`at-vuongphan`.fragment_two.*
 
 class FragmentTwo : Fragment() {

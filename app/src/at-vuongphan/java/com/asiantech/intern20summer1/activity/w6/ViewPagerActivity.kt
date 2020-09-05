@@ -1,6 +1,6 @@
 @file:Suppress("DEPRECATION")
 
-package com.asiantech.intern20summer1.activity
+package com.asiantech.intern20summer1.activity.w6
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,8 +8,8 @@ import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.adapter.PagerAdapterFragment
-import com.asiantech.intern20summer1.fragment.PagePosition
+import com.asiantech.intern20summer1.adapter.w6.PagerAdapterFragment
+import com.asiantech.intern20summer1.fragment.w5.PagePosition
 import kotlinx.android.synthetic.`at-vuongphan`.activity_viewpager.*
 
 class ViewPagerActivity : AppCompatActivity() {
