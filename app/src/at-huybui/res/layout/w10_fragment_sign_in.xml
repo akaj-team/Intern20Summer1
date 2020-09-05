@@ -8,11 +8,10 @@
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="20dp"
-        android:text="Đăng nhập"
+        android:layout_marginTop="@dimen/w10_signin_title_margin_top"
+        android:text="@string/w10_login"
         android:textColor="@color/black"
-        android:textSize="30sp" />
+        android:textSize="@dimen/w10_signin_title_text_size" />
 
     <EditText
         android:id="@+id/edtEmail"
@@ -23,9 +22,9 @@
         android:layout_marginTop="@dimen/w10_edit_text_margin_top"
         android:layout_marginRight="@dimen/w10_edit_text_margin_left_right"
         android:background="@drawable/w10_bg_editext"
-        android:hint="user name"
+        android:hint="@string/w10_email"
         android:importantForAutofill="no"
-        android:inputType="text"
+        android:inputType="textEmailAddress"
         android:paddingLeft="@dimen/w10_edit_text_padding_left_right"
         android:paddingRight="@dimen/w10_edit_text_padding_left_right"
         android:textSize="@dimen/w10_editext_text_size" />
@@ -39,9 +38,9 @@
         android:layout_marginTop="@dimen/w10_edit_text_margin_top"
         android:layout_marginRight="@dimen/w10_edit_text_margin_left_right"
         android:background="@drawable/w10_bg_editext"
-        android:hint="password"
+        android:hint="@string/w10_password"
         android:importantForAutofill="no"
-        android:inputType="text"
+        android:inputType="textPassword"
         android:paddingLeft="@dimen/w10_edit_text_padding_left_right"
         android:paddingRight="@dimen/w10_edit_text_padding_left_right"
         android:textSize="@dimen/w10_editext_text_size" />
@@ -54,9 +53,9 @@
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="@dimen/w10_edit_text_margin_left_right"
         android:layout_marginRight="@dimen/w10_edit_text_margin_left_right"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="@dimen/w10_signin_button_margin_bottom"
         android:background="@drawable/w10_bg_button_disable"
-        android:text="sign in"
+        android:text="@string/w10_signin"
         android:textColor="@color/background_white" />
 
     <TextView
@@ -67,8 +66,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_marginRight="@dimen/w10_edit_text_margin_left_right"
-        android:layout_marginTop="20dp"
-        android:text="Đăng ký ngay"
+        android:layout_marginTop="@dimen/w10_signin_register_text_margin_top"
+        android:text="@string/w10_register_now"
         android:textColor="@color/black"
-        android:textSize="15sp" />
+        android:textSize="@dimen/w10_signin_register_text_siz" />
 </RelativeLayout>

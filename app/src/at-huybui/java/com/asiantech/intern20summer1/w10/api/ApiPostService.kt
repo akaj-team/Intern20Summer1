@@ -15,7 +15,7 @@ interface ApiPostService {
         private const val PART_CREATE_POST = "/api/post"
         private const val PART_UPDATE_POST = "/api/post/{id}"
         private const val PART_LIKE_POST = "/api/post/{id}/like"
-        private const val PAST_GET_POST_LIST ="/api/posts"
+        private const val PAST_GET_POSTS ="/api/posts"
     }
 
     @Multipart
@@ -29,17 +29,18 @@ interface ApiPostService {
     @Multipart
     @POST(PART_UPDATE_POST)
     fun updatePost(
-        @Part("id") id: Int = 0,
-        @Part("file\"; filename=\"pp.png\" ") file: RequestBody?,
-        @Part("FirstName") fname: RequestBody?
-    )
+        @Header("token") token: String,
+        @Path("id") id: Int = 0,
+        @Part image: MultipartBody.Part? = null,
+        @Part("body") body: RequestBody
+    ): Call<ResponsePost>
 
     @DELETE(PART_UPDATE_POST)
     fun deletePost(@Header("token") token: String, @Path("id") id: Int = 0): Call<ResponsePost>
 
     @POST(PART_LIKE_POST)
-    fun likePost(@Part("id") id: Int = 0): Call<ResponseLike>
+    fun likePost(@Header("token") token: String,@Path("id") id: Int = 0): Call<ResponseLike>
 
-    @GET(PAST_GET_POST_LIST)
+    @GET(PAST_GET_POSTS)
     fun getPostLists(@Header("token") token: String): Call<List<PostItem>>
 }

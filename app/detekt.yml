@@ -5,7 +5,6 @@ test-pattern: # Configure exclusions for test sources
   active: true
   patterns: # Test file regexes
     - '.*/test/.*'
-    - '.*Test.kt'
     - '.*Spec.kt'
     - '.*UI.kt'
   exclude-rule-sets:

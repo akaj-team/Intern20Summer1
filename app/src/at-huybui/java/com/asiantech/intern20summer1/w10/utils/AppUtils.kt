@@ -2,6 +2,9 @@ package com.asiantech.intern20summer1.w10.utils
 
 import android.content.Context
 import android.widget.Toast
+import com.asiantech.intern20summer1.w0.TestClass
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * Asian Tech Co., Ltd.
@@ -15,6 +18,8 @@ class AppUtils {
         internal const val KEY_IS_LOGIN = "key_is_login"
         internal const val KEY_TOKEN = "key_token_login"
         private const val KEY_ID_USER = "key_id_user"
+        private const val FORMAT_CODE_BEFORE = "yyyy-MM-dd'T'HH:mm:ss"
+        private const val FORMAT_CODE_AFTER = "HH:mm dd/MM/yyyy"
     }
 
     internal fun showToast(context: Context, any: Any, duration: Int = Toast.LENGTH_SHORT) {
@@ -68,5 +73,13 @@ class AppUtils {
             Context.MODE_PRIVATE
         )
         return preference.getBoolean(KEY_IS_LOGIN, false)
+    }
+
+    internal fun convertDate(date: String): String {
+        var dateReturn = ""
+        SimpleDateFormat(FORMAT_CODE_BEFORE, Locale.US).parse(date)?.let {
+            dateReturn = SimpleDateFormat(FORMAT_CODE_AFTER, Locale.US).format(it)
+        }
+        return dateReturn
     }
 }

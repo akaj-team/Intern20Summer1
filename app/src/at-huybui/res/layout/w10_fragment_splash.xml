@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <ImageView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="@dimen/w10_splash_logo_size"
+        android:layout_height="@dimen/w10_splash_logo_size"
         android:src="@drawable/logo"
         android:layout_centerInParent="true"/>
 </RelativeLayout>

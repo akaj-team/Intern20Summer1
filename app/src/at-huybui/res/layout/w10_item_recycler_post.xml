@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardElevation="10dp"
+    app:cardElevation="@dimen/w10_item_card_elevation"
     android:layout_margin="@dimen/w10_item_card_view_margin"
     app:cardCornerRadius="@dimen/w10_item_card_view_radius"
     android:background="@color/status_bar">
@@ -31,9 +31,9 @@
         android:id="@+id/btnMenu"
         android:layout_alignParentRight="true"
         android:src="@drawable/w10_ic_menu"
-        android:layout_width="wrap_content"
-        android:padding="5dp"
-        android:layout_height="wrap_content"/>
+        android:layout_width="@dimen/w10_item_icon_menu_size"
+        android:padding="@dimen/w10_item_icon_menu_padding"
+        android:layout_height="@dimen/w10_item_icon_menu_size"/>
 </RelativeLayout>
 
         <ImageView
@@ -95,7 +95,7 @@
             android:textColor="@color/black"
             android:textSize="@dimen/w10_item_likes_text_size"
             android:textStyle="bold"
-            tools:text="🖤  12k likes" />
+            tools:text="10:10" />
 
         <TextView
             android:id="@+id/tvContent.Item.w10"

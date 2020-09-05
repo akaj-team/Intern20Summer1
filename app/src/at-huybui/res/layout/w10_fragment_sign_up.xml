@@ -6,9 +6,9 @@
 
     <ImageView
         android:id="@+id/btnBack"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_margin="20dp"
+        android:layout_width="@dimen/w10_signup_icon_back_size"
+        android:layout_height="@dimen/w10_signup_icon_back_size"
+        android:padding="@dimen/w10_signup_icon_back_padding"
         android:src="@drawable/w10_ic_close" />
 
     <TextView
@@ -16,36 +16,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="20dp"
-        android:text="Register"
+        android:layout_marginTop="@dimen/w10_signup_title_margin_top"
+        android:text="@string/w10_register"
         android:textColor="@color/black"
-        android:textSize="30sp" />
-
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:layout_marginTop="10dp"
-        android:id="@+id/imgAvatar"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_below="@id/tvTitle"
-        android:layout_centerHorizontal="true"
-        android:scaleType="centerCrop"
-        android:src="@drawable/img_avatar_default" />
+        android:textSize="@dimen/w10_signup_title_size" />
 
     <EditText
         android:id="@+id/edtEmail"
         android:layout_width="match_parent"
         android:layout_height="@dimen/w10_editext_height"
-        android:layout_below="@id/imgAvatar"
+        android:layout_below="@id/tvTitle"
         android:layout_marginLeft="@dimen/w10_edit_text_margin_left_right"
         android:layout_marginTop="@dimen/w10_edit_text_margin_top"
         android:layout_marginRight="@dimen/w10_edit_text_margin_left_right"
         android:background="@drawable/w10_bg_editext"
-        android:hint="Email"
+        android:hint="@string/w10_email"
         android:importantForAutofill="no"
-        android:inputType="text"
+        android:inputType="textEmailAddress"
         android:paddingLeft="@dimen/w10_edit_text_padding_left_right"
         android:paddingRight="@dimen/w10_edit_text_padding_left_right"
         android:textSize="@dimen/w10_editext_text_size" />
@@ -59,7 +46,7 @@
         android:layout_marginTop="@dimen/w10_edit_text_margin_top"
         android:layout_marginRight="@dimen/w10_edit_text_margin_left_right"
         android:background="@drawable/w10_bg_editext"
-        android:hint="Full Name"
+        android:hint="@string/w10_full_name"
         android:importantForAutofill="no"
         android:inputType="text"
         android:paddingLeft="@dimen/w10_edit_text_padding_left_right"
@@ -76,9 +63,9 @@
         android:layout_marginTop="@dimen/w10_edit_text_margin_top"
         android:layout_marginRight="@dimen/w10_edit_text_margin_left_right"
         android:background="@drawable/w10_bg_editext"
-        android:hint="password"
+        android:hint="@string/w10_password"
         android:importantForAutofill="no"
-        android:inputType="text"
+        android:inputType="textPassword"
         android:paddingLeft="@dimen/w10_edit_text_padding_left_right"
         android:paddingRight="@dimen/w10_edit_text_padding_left_right"
         android:textSize="@dimen/w10_editext_text_size" />
@@ -92,7 +79,7 @@
         android:layout_marginTop="@dimen/w10_edit_text_margin_top"
         android:layout_marginRight="@dimen/w10_edit_text_margin_left_right"
         android:background="@drawable/w10_bg_editext"
-        android:hint="rewrite password"
+        android:hint="@string/w10_rewrite_password"
         android:importantForAutofill="no"
         android:inputType="text"
         android:paddingLeft="@dimen/w10_edit_text_padding_left_right"
@@ -107,7 +94,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="@dimen/w10_edit_text_margin_left_right"
         android:layout_marginRight="@dimen/w10_edit_text_margin_left_right"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="@dimen/w10_signin_button_margin_bottom"
         android:enabled="false"
         android:text="@string/register"
         android:textColor="@color/background_white" />

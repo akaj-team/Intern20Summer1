@@ -14,7 +14,8 @@ data class PostItem(
 
 data class ResponseLike(
     @SerializedName("message") var message: String = "",
-    @SerializedName("likeCount") var likeCount: Int = 0
+    @SerializedName("likeCount") var likeCount: Int = 0,
+    @SerializedName("like_flag") var like_flag: Boolean = false
 )
 
 data class ResponsePost(

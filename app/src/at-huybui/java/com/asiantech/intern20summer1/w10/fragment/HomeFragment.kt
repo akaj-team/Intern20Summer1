@@ -15,6 +15,7 @@ import com.asiantech.intern20summer1.w10.adapter.RecyclerAdapter
 import com.asiantech.intern20summer1.w10.api.Api
 import com.asiantech.intern20summer1.w10.api.ApiPostService
 import com.asiantech.intern20summer1.w10.models.PostItem
+import com.asiantech.intern20summer1.w10.models.ResponseLike
 import com.asiantech.intern20summer1.w10.models.ResponsePost
 import com.asiantech.intern20summer1.w10.utils.AppUtils
 import kotlinx.android.synthetic.`at-huybui`.w10_fragment_home.*
@@ -56,7 +57,7 @@ class HomeFragment : Fragment() {
 
     private fun initListener() {
         imgAddPost?.setOnClickListener {
-            handleShowDialogFragment()
+            handleShowDialogPostFragment()
         }
     }
 
@@ -83,18 +84,24 @@ class HomeFragment : Fragment() {
 
     private fun initAdapter() {
 
-        postAdapter.onItemClicked = { position ->
-            postLists[position].let {
-                it.like_flag = !it.like_flag
-                if (it.like_flag) {
-                    it.like_count++
-                } else {
-                    it.like_count--
-                }
-            }
-            postAdapter.notifyItemChanged(position, null)
-            (recyclerView.itemAnimator as? SimpleItemAnimator)?.supportsChangeAnimations =
-                true
+        postAdapter.onLikeClicked = { position ->
+            val token = AppUtils().getToken(requireContext())
+           callApi?.likePost(token,postLists[position].id)?.enqueue(object :retrofit2.Callback<ResponseLike>{
+               override fun onResponse(call: Call<ResponseLike>, response: Response<ResponseLike>) {
+                   if(response.isSuccessful){
+                       response.body()?.let {
+                           d("likePost",it.toString())
+                           postLists[position].like_flag = it.like_flag
+                           postLists[position].like_count = it.likeCount
+                       }
+                       postAdapter.notifyItemChanged(position, null)
+                       (recyclerView.itemAnimator as? SimpleItemAnimator)?.supportsChangeAnimations =
+                           true
+                   }
+               }
+
+               override fun onFailure(call: Call<ResponseLike>, t: Throwable) {}
+           })
         }
         postAdapter.onMenuClicked = { view, position ->
             showMenuItem(view, position)
@@ -111,30 +118,10 @@ class HomeFragment : Fragment() {
         popupMenu.setOnMenuItemClickListener { item ->
             when (item.itemId) {
                 R.id.menuDelete -> {
-                    AppUtils().showToast(requireContext(), "menu delete")
-                    val token = AppUtils().getToken(requireContext())
-                    val id = postLists[position].id
-                    callApi?.deletePost(token, id)
-                        ?.enqueue(object : retrofit2.Callback<ResponsePost> {
-                            override fun onResponse(
-                                call: Call<ResponsePost>,
-                                response: Response<ResponsePost>
-                            ) {
-                                d("responseA", "onResponse")
-                                if (response.isSuccessful) {
-                                    d("responseA", response.body()?.message.toString())
-                                    postLists.removeAt(position)
-                                    postAdapter.notifyDataSetChanged()
-                                }
-                            }
-
-                            override fun onFailure(call: Call<ResponsePost>, t: Throwable) {
-                                d("responseA", "onFailure")
-                            }
-                        })
+                    deletePost(position)
                 }
                 R.id.menuUpdate -> {
-                    AppUtils().showToast(requireContext(), "menu update")
+                    handleShowDialogUpdateFragment(postLists[position])
                 }
             }
             return@setOnMenuItemClickListener false
@@ -142,7 +129,31 @@ class HomeFragment : Fragment() {
         popupMenu.show()
     }
 
-    private fun handleShowDialogFragment() {
+    private fun deletePost(position: Int) {
+        val token = AppUtils().getToken(requireContext())
+        val id = postLists[position].id
+        callApi?.deletePost(token, id)
+            ?.enqueue(object : retrofit2.Callback<ResponsePost> {
+                override fun onResponse(
+                    call: Call<ResponsePost>,
+                    response: Response<ResponsePost>
+                ) {
+                    d("responseA", "onResponse")
+                    if (response.isSuccessful) {
+                        d("responseA", response.body()?.message.toString())
+                        postLists.removeAt(position)
+                        postAdapter.notifyDataSetChanged()
+                        AppUtils().showToast(requireContext(), "menu delete")
+                    }
+                }
+
+                override fun onFailure(call: Call<ResponsePost>, t: Throwable) {
+                    d("responseA", "onFailure")
+                }
+            })
+    }
+
+    private fun handleShowDialogPostFragment() {
         val fragmentManager = (activity as ApiMainActivity).supportFragmentManager
         val fragment = PostDialogFragment.newInstance()
         fragment.onPostClick = {
@@ -151,4 +162,12 @@ class HomeFragment : Fragment() {
         fragment.show(fragmentManager, null)
     }
 
+    private fun handleShowDialogUpdateFragment(postItem: PostItem) {
+        val fragmentManager = (activity as ApiMainActivity).supportFragmentManager
+        val fragment = UpdateDialogFragment.newInstance(postItem)
+        fragment.onPostClick = {
+            initData()
+        }
+        fragment.show(fragmentManager, null)
+    }
 }

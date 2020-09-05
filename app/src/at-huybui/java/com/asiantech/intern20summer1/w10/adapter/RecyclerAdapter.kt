@@ -16,10 +16,10 @@ class RecyclerAdapter(private val mutableList: MutableList<PostItem>) :
 
     companion object {
         private const val BLACK_HEART_SYMBOL = "\uD83D\uDDA4"
-        private const val URL_IMAGE = "http://at-a-trainning.000webhostapp.com/images/"
+        internal const val URL_IMAGE = "http://at-a-trainning.000webhostapp.com/images/"
     }
 
-    internal var onItemClicked: (position: Int) -> Unit = {}
+    internal var onLikeClicked: (position: Int) -> Unit = {}
     internal var onMenuClicked: (view: View, position: Int) -> Unit = { _, _ -> }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
@@ -47,7 +47,7 @@ class RecyclerAdapter(private val mutableList: MutableList<PostItem>) :
 
         init {
             iconLike.setOnClickListener {
-                onItemClicked.invoke(adapterPosition)
+                onLikeClicked.invoke(adapterPosition)
             }
 
             btnMenu.setOnClickListener {
@@ -70,7 +70,7 @@ class RecyclerAdapter(private val mutableList: MutableList<PostItem>) :
                 val stLikeCount = "$BLACK_HEART_SYMBOL ${item.like_count} likes"
                 content.text = item.content
                 likeCount.text = stLikeCount
-                createdAt.text = item.created_at
+                createdAt.text = AppUtils().convertDate(item.created_at)
                 if (item.like_flag) {
                     iconLike.setImageResource(R.drawable.w10_ic_heart_red)
                 } else {

@@ -14,6 +14,7 @@ class Api {
         internal const val MESSAGE_LOGIN_INCORRECT = "Email or password incorrect!"
         internal const val MESSAGE_UNAUTHORIZED = "Unauthorized!"
         internal const val MESSAGE_EMAIL_HAS_BEEN_TAKEN = "The email has already been taken."
+        internal const val MESSAGE_UPDATE_POST_SUCCESS ="Update post success!"
 
         //--
         private const val BASE_URL = "https://at-a-trainning.000webhostapp.com"
