@@ -3,7 +3,6 @@ package com.asiantech.intern20summer1.fragment.w10
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +12,7 @@ import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.activity.w10.RecyclerViewNewFeed
 import com.asiantech.intern20summer1.api.ClientAPI
+import com.asiantech.intern20summer1.api.ErrorUtils
 import com.asiantech.intern20summer1.extension.hideKeyboard
 import com.asiantech.intern20summer1.extension.isValidEmail
 import com.asiantech.intern20summer1.extension.isValidPasswordW10
@@ -86,38 +86,18 @@ class FragmentLogin : Fragment() {
                     response: Response<UserAutoSignIn>
                 ) {
                     if (response.isSuccessful) {
-                        Log.d(
-                            "aaa", String.format(
-                                "\nrequest:\n%s\nheaders:\n%s",
-                                response.body().toString(), response.headers()
-                            )
-                        )
                         response.body().apply {
-                            val id = this?.id
-                            val email = this?.email
-                            val full_name = this?.full_name
-                            val token = this?.token
-                            val intent = Intent(activity, RecyclerViewNewFeed::class.java).apply {
-                                Bundle().let {
-                                    val account =
-                                        token?.let { it1 ->
-                                            full_name?.let { it2 ->
-                                                email?.let { it3 ->
-                                                    id?.let { it4 ->
-                                                        UserAutoSignIn(
-                                                            it4, it3, it2,
-                                                            it1
-                                                        )
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    it.putSerializable("data", account)
-                                    putExtras(it)
-                                    startActivity(this)
-                                    activity?.finish()
-                                }
-                            }
+                            this?.let { it1 -> initPutDataLogin(it1) }
+                        }
+                    } else {
+                        val error = ErrorUtils().parseError(response)
+                        if (error?.message == ClientAPI.MESSAGE_LOGIN_INCORRECT) {
+                            Toast.makeText(
+                                requireContext(),
+                                resources.getString(R.string.register_error),
+                                Toast.LENGTH_SHORT
+                            )
+                                .show()
                         }
                     }
                 }
@@ -126,6 +106,34 @@ class FragmentLogin : Fragment() {
                     Toast.makeText(requireContext(), t.message, Toast.LENGTH_SHORT).show()
                 }
             })
+        }
+    }
+
+    private fun initPutDataLogin(account: UserAutoSignIn) {
+        val id = account.id
+        val email = account.email
+        val full_name = account.full_name
+        val token = account.token
+        Intent(activity, RecyclerViewNewFeed::class.java).apply {
+            Bundle().let {
+                val accountData =
+                    token.let { it1 ->
+                        full_name.let { it2 ->
+                            email.let { it3 ->
+                                id.let { it4 ->
+                                    UserAutoSignIn(
+                                        it4, it3, it2,
+                                        it1
+                                    )
+                                }
+                            }
+                        }
+                    }
+                it.putSerializable("data", accountData)
+                putExtras(it)
+                startActivity(this)
+                activity?.finish()
+            }
         }
     }
 

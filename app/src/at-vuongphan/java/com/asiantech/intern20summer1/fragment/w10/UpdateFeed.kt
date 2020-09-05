@@ -1,5 +1,3 @@
-@file:Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
-
 package com.asiantech.intern20summer1.fragment.w10
 
 import android.app.Activity
@@ -12,12 +10,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.activity.w10.RecyclerViewNewFeed
 import com.asiantech.intern20summer1.api.ClientAPI
 import com.asiantech.intern20summer1.model.ApiResponse
 import com.asiantech.intern20summer1.model.Post
+import com.bumptech.glide.Glide
+import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.`at-vuongphan`.w10_update_new_feed.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -30,6 +32,8 @@ class UpdateFeed : Fragment() {
     companion object {
         var token: String? = null
         var idUpdate: Int? = null
+        private var url = "https://at-a-trainning.000webhostapp.com/images/"
+        private var newImage: String? = null
         var content: String? = null
         var image: String? = null
         var imgPicture: Uri? = null
@@ -42,13 +46,19 @@ class UpdateFeed : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val view = inflater.inflate(R.layout.w10_update_new_feed, container, false)
         getDataUpdate()
-        return inflater.inflate(R.layout.w10_update_new_feed, container, false)
+        view.findViewById<EditText>(R.id.edtNoidung).setText(content)
+        Log.d("TAG", "mmmm ${url.plus(image)}")
+        Glide.with(view)
+            .load(url.plus(image))
+            .into(view.findViewById<CircleImageView>(R.id.circleImgAvatar))
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        edtNoidung.setText(content)
+        initImageViewBack()
         initAvatarOnclick()
         updatePost()
     }
@@ -56,9 +66,9 @@ class UpdateFeed : Fragment() {
     private fun updatePost() {
         btnCreatePost?.setOnClickListener {
             if (imgPicture == null) {
-                imgPicture = Uri.parse(image)
-                Log.d("TAG", "updatePost: $imgPicture")
+                imgPicture = Uri.parse(url.plus(image))
             }
+            Log.d("TAG", "updatePost: $imgPicture")
             val newId = idUpdate
             val newContent = edtNoidung.text.toString()
             val file = File(getPath(imgPicture))
@@ -84,7 +94,13 @@ class UpdateFeed : Fragment() {
 
                 }
             })
-            (fragmentManager?.popBackStack())
+            (activity as? RecyclerViewNewFeed)?.openFragment(NewFeedFragment.newInstance())
+        }
+    }
+
+    private fun initImageViewBack() {
+        imgBackDetail?.setOnClickListener {
+            fragmentManager?.popBackStack()
         }
     }
 

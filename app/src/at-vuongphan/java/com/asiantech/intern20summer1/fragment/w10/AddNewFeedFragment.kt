@@ -106,7 +106,7 @@ class AddNewFeedFragment : Fragment() {
 
                 }
             })
-            (activity as? RecyclerViewNewFeed)?.openFragment(NewFeedFragment())
+            (activity as? RecyclerViewNewFeed)?.openFragment(NewFeedFragment.newInstance())
         }
     }
 

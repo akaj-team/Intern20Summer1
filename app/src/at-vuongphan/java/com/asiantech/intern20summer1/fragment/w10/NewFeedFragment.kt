@@ -21,6 +21,7 @@ import com.asiantech.intern20summer1.adapter.ItemFeedAdapter
 import com.asiantech.intern20summer1.api.ClientAPI
 import com.asiantech.intern20summer1.model.ApiResponse
 import com.asiantech.intern20summer1.model.NewPost
+import com.asiantech.intern20summer1.model.ResponseLike
 import kotlinx.android.synthetic.`at-vuongphan`.w10_fragment_new_feed.*
 import retrofit2.Call
 import retrofit2.Response
@@ -34,6 +35,7 @@ class NewFeedFragment : Fragment() {
 
     companion object {
         private const val DELAY_TIME = 2000L
+        internal fun newInstance() = NewFeedFragment()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,25 +73,40 @@ class NewFeedFragment : Fragment() {
     private fun initAdapter() {
         recyclerViewMain.layoutManager = LinearLayoutManager(requireContext())
         recyclerViewMain.adapter = adapterNewFeeds
-        adapterNewFeeds.onItemClicked = {
-            val isHeart = newfeeds[it].like_flag
-            if (isHeart) {
-                newfeeds[it].like_flag = !isHeart
-                newfeeds[it].like_count--
-
-            } else {
-                newfeeds[it].like_flag = !isHeart
-                newfeeds[it].like_count++
-            }
-            initHeart(newfeeds[it].id, newfeeds[it])
-            adapterNewFeeds.notifyItemChanged(it, null)
-            (recyclerViewMain.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
+        Log.d("sdsdsds", "initAdapter: $token")
+        adapterNewFeeds.onItemClicked = { position ->
+            addLike(position)
+            initListener()
         }
         adapterNewFeeds.onItemDeleteClicked = {
             displayDeleteDialog(newfeeds[it].id)
             currentPos = it
         }
         itemOnclick(adapterNewFeeds)
+    }
+
+    private fun addLike(position: Int) {
+        token?.let { ClientAPI.createPost()?.likePost(it, newfeeds[position].id) }
+            ?.enqueue(object : retrofit2.Callback<ResponseLike> {
+                override fun onResponse(
+                    call: Call<ResponseLike>,
+                    response: Response<ResponseLike>
+                ) {
+                    if (response.isSuccessful) {
+                        response.body()?.let {
+                            newfeeds[position].like_count = it.likeCount
+                            newfeeds[position].like_flag = it.like_flag
+                            adapterNewFeeds.notifyItemChanged(position, null)
+                            (recyclerViewMain.itemAnimator as? SimpleItemAnimator)?.supportsChangeAnimations =
+                                true
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<ResponseLike>, t: Throwable) {
+                }
+            })
+
     }
 
     private fun getToken() {
@@ -126,18 +143,6 @@ class NewFeedFragment : Fragment() {
                         }, DELAY_TIME)
                     }
                 }
-            }
-        })
-    }
-
-    private fun initHeart(id: Int, newFeed: NewPost) {
-        val call = token?.let { ClientAPI.createPost()?.updateNewPost(it, id, newFeed) }
-        call?.enqueue(object : retrofit2.Callback<NewPost> {
-            override fun onFailure(call: Call<NewPost>, t: Throwable) {
-                t.message?.let { displayErrorDialog(it) }
-            }
-
-            override fun onResponse(call: Call<NewPost>, response: Response<NewPost>) {
             }
         })
     }
