@@ -3,10 +3,8 @@ package com.asiantech.intern20summer1.w10.fragment
 import android.Manifest
 import android.app.Activity
 import android.content.ContentValues
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -25,6 +23,8 @@ import com.asiantech.intern20summer1.w10.api.ApiPostService
 import com.asiantech.intern20summer1.w10.api.FileInformation
 import com.asiantech.intern20summer1.w10.models.PostContent
 import com.asiantech.intern20summer1.w10.models.ResponsePost
+import com.asiantech.intern20summer1.w10.utils.AppUtils
+import com.bumptech.glide.util.Util
 import com.google.gson.Gson
 import kotlinx.android.synthetic.`at-huybui`.w10_dialog_fragment_post.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -45,6 +45,7 @@ class PostDialogFragment : DialogFragment() {
         internal fun newInstance() = PostDialogFragment()
     }
 
+    internal var onPostClick: () -> Unit = {}
     private var callApi: ApiPostService? = null
     private var imageUri: Uri? = null
     private var isCameraAllowed = false
@@ -105,15 +106,8 @@ class PostDialogFragment : DialogFragment() {
         val image = File(imageUri?.path.toString()).asRequestBody("image/*".toMediaTypeOrNull())
         val text = Gson().toJson(PostContent(edtContent?.text.toString())).toString()
         val body = text.toRequestBody("text".toMediaTypeOrNull())
-        val preference = requireContext().getSharedPreferences(
-            SplashFragment.NAME_PREFERENCE,
-            Context.MODE_PRIVATE
-        )
-        val token = preference.getString(SplashFragment.KEY_TOKEN, "").toString()
-        d("posta", "[image] " + image.toString())
-        d("posta", "[body] " + body.toString())
-        d("posta", "[token] " + token)
-        d("posta", "open post")
+
+        val token = AppUtils().getToken(requireContext())
         callApi?.createPost(token, createMultiPartBody(), body)
             ?.enqueue(object : retrofit2.Callback<ResponsePost> {
                 override fun onResponse(
@@ -125,6 +119,7 @@ class PostDialogFragment : DialogFragment() {
                     if (response.body()?.message == Api.MESSAGE_CREATE_POST_SUCCESS) {
                         val text = "Đăng bài viết thành công"
                         ApiMainActivity().showToast(requireContext(), text)
+                        onPostClick.invoke()
                         dialog?.dismiss()
                     } else {
                         val text = "Đăng bài viết không thành công"

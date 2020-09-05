@@ -35,7 +35,7 @@ interface ApiPostService {
     )
 
     @DELETE(PART_UPDATE_POST)
-    fun deletePost(@Part("id") id: Int = 0)
+    fun deletePost(@Header("token") token: String, @Path("id") id: Int = 0): Call<ResponsePost>
 
     @POST(PART_LIKE_POST)
     fun likePost(@Part("id") id: Int = 0): Call<ResponseLike>

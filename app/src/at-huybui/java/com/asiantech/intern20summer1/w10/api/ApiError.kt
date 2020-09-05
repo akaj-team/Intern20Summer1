@@ -14,7 +14,7 @@ import java.io.IOException
 
 data class ApiError(var statusCode: Int = 0, var message: String = "")
 
-class ErrorUtils {
+    class ErrorUtils {
 
     fun parseError(response: Response<*>): ApiError? {
         val converter: Converter<ResponseBody, ApiError>? = Api.getInstance()

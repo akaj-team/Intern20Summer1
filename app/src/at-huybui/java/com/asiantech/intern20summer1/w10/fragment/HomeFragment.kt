@@ -5,6 +5,7 @@ import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.SimpleItemAnimator
@@ -13,8 +14,9 @@ import com.asiantech.intern20summer1.w10.activity.ApiMainActivity
 import com.asiantech.intern20summer1.w10.adapter.RecyclerAdapter
 import com.asiantech.intern20summer1.w10.api.Api
 import com.asiantech.intern20summer1.w10.api.ApiPostService
-import com.asiantech.intern20summer1.w10.models.Account
 import com.asiantech.intern20summer1.w10.models.PostItem
+import com.asiantech.intern20summer1.w10.models.ResponsePost
+import com.asiantech.intern20summer1.w10.utils.AppUtils
 import kotlinx.android.synthetic.`at-huybui`.w10_fragment_home.*
 import retrofit2.Call
 import retrofit2.Response
@@ -22,21 +24,10 @@ import retrofit2.Response
 class HomeFragment : Fragment() {
 
     companion object {
-        private const val IMAGE_ADD =
-            """https://kynguyenlamdep.com/wp-content/uploads/2020/01/hinh-anh-dep-hoa-bo-cong-anh.jpg"""
-        private const val CONTENT =
-            """ahihi anh huy pro vô đối đẹp trai hết sức tưởng tượng luôn á"""
-        private const val CREATED = "12:45"
-        private const val KEY_PUT_ACCOUNT = "key_put_account"
-        internal fun newInstance(account: Account) = HomeFragment().apply {
-            arguments = Bundle().apply {
-                putSerializable(KEY_PUT_ACCOUNT, account)
-            }
-        }
+        internal fun newInstance() = HomeFragment()
     }
 
     private var callApi: ApiPostService? = null
-    private var account = Account()
     var postLists = mutableListOf<PostItem>()
     var postAdapter = RecyclerAdapter(postLists)
     override fun onCreateView(
@@ -45,8 +36,6 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         callApi = Api.getInstance()?.create(ApiPostService::class.java)
-        account = arguments?.getSerializable(KEY_PUT_ACCOUNT) as Account
-        d("homeFragment", account.toString())
         return inflater.inflate(R.layout.w10_fragment_home, container, false)
     }
 
@@ -67,18 +56,21 @@ class HomeFragment : Fragment() {
 
     private fun initListener() {
         imgAddPost?.setOnClickListener {
-            (activity as ApiMainActivity).handleShowDialogFragment()
+            handleShowDialogFragment()
         }
     }
 
     private fun initData() {
-        callApi?.getPostLists(account.token)?.enqueue(object : retrofit2.Callback<List<PostItem>> {
+        d("initdata", "initdata")
+        val token = AppUtils().getToken(requireContext())
+        callApi?.getPostLists(token)?.enqueue(object : retrofit2.Callback<List<PostItem>> {
             override fun onResponse(
                 call: Call<List<PostItem>>,
                 response: Response<List<PostItem>>
             ) {
+                postLists.clear()
                 response.body()?.toCollection(postLists)
-                d("homeFragment",postLists.toString())
+                d("homeFragment", postLists.toString())
                 postAdapter.notifyDataSetChanged()
             }
 
@@ -86,6 +78,7 @@ class HomeFragment : Fragment() {
                 TODO("Not yet implemented")
             }
         })
+        postAdapter.notifyDataSetChanged()
     }
 
     private fun initAdapter() {
@@ -99,15 +92,63 @@ class HomeFragment : Fragment() {
                     it.like_count--
                 }
             }
-
             postAdapter.notifyItemChanged(position, null)
             (recyclerView.itemAnimator as? SimpleItemAnimator)?.supportsChangeAnimations =
-                false
+                true
+        }
+        postAdapter.onMenuClicked = { view, position ->
+            showMenuItem(view, position)
         }
 
         recyclerView.adapter = postAdapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.setHasFixedSize(true)
+    }
+
+    private fun showMenuItem(view: View, position: Int) {
+        val popupMenu = PopupMenu(requireContext(), view)
+        popupMenu.menuInflater.inflate(R.menu.w10_menu_item, popupMenu.menu)
+        popupMenu.setOnMenuItemClickListener { item ->
+            when (item.itemId) {
+                R.id.menuDelete -> {
+                    AppUtils().showToast(requireContext(), "menu delete")
+                    val token = AppUtils().getToken(requireContext())
+                    val id = postLists[position].id
+                    callApi?.deletePost(token, id)
+                        ?.enqueue(object : retrofit2.Callback<ResponsePost> {
+                            override fun onResponse(
+                                call: Call<ResponsePost>,
+                                response: Response<ResponsePost>
+                            ) {
+                                d("responseA", "onResponse")
+                                if (response.isSuccessful) {
+                                    d("responseA", response.body()?.message.toString())
+                                    postLists.removeAt(position)
+                                    postAdapter.notifyDataSetChanged()
+                                }
+                            }
+
+                            override fun onFailure(call: Call<ResponsePost>, t: Throwable) {
+                                d("responseA", "onFailure")
+                            }
+                        })
+                }
+                R.id.menuUpdate -> {
+                    AppUtils().showToast(requireContext(), "menu update")
+                }
+            }
+            return@setOnMenuItemClickListener false
+        }
+        popupMenu.show()
+    }
+
+    private fun handleShowDialogFragment() {
+        val fragmentManager = (activity as ApiMainActivity).supportFragmentManager
+        val fragment = PostDialogFragment.newInstance()
+        fragment.onPostClick = {
+            initData()
+        }
+        fragment.show(fragmentManager, null)
     }
 
 }

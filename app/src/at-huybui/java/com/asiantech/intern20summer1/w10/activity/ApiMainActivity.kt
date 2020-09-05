@@ -32,11 +32,11 @@ class ApiMainActivity : AppCompatActivity() {
         fragmentTransaction.commit()
     }
 
-    internal fun handleShowDialogFragment() {
-        val fragmentManager = supportFragmentManager
-        val fragment = PostDialogFragment.newInstance()
-        fragment.show(fragmentManager, null)
-    }
+//    internal fun handleShowDialogFragment() {
+//        val fragmentManager = supportFragmentManager
+//        val fragment = PostDialogFragment.newInstance()
+//        fragment.show(fragmentManager, null)
+//    }
 
     internal fun showToast(context: Context, any: Any, duration: Int = Toast.LENGTH_SHORT) {
         Toast.makeText(context, any.toString(), duration).show()

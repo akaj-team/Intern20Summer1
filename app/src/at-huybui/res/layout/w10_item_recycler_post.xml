@@ -14,17 +14,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/tvName.Item.w10"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/w10_item_margin_left_right"
-            android:layout_marginTop="@dimen/w10_item_name_top_margin_top"
-            tools:text="name"
-            android:textColor="@color/black"
-            android:textSize="@dimen/w10_item_name_text_size"
-            android:textStyle="bold" />
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/tvName.Item.w10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/w10_item_margin_left_right"
+        android:layout_marginTop="@dimen/w10_item_name_top_margin_top"
+        tools:text="name"
+        android:textColor="@color/black"
+        android:textSize="@dimen/w10_item_name_text_size"
+        android:textStyle="bold" />
+    <ImageView
+        android:id="@+id/btnMenu"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/w10_ic_menu"
+        android:layout_width="wrap_content"
+        android:padding="5dp"
+        android:layout_height="wrap_content"/>
+</RelativeLayout>
 
         <ImageView
             android:id="@+id/imgImage.Item.w10"

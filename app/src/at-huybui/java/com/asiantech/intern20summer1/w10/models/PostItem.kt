@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class PostItem(
     @SerializedName("id") var id: Int = 0,
+    @SerializedName("user_id") var user_id: Int = 0,
     @SerializedName("content") var content: String = "",
     @SerializedName("image") var image: String = "",
     @SerializedName("created_at") var created_at: String = "",

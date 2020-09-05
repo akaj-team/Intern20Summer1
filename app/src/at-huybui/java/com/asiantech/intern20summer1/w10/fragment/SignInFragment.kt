@@ -1,6 +1,5 @@
 package com.asiantech.intern20summer1.w10.fragment
 
-import android.content.Context.MODE_PRIVATE
 import android.os.Bundle
 import android.util.Log.d
 import android.view.LayoutInflater
@@ -15,6 +14,7 @@ import com.asiantech.intern20summer1.w10.api.Api
 import com.asiantech.intern20summer1.w10.api.ApiAccountService
 import com.asiantech.intern20summer1.w10.api.ErrorUtils
 import com.asiantech.intern20summer1.w10.models.Account
+import com.asiantech.intern20summer1.w10.utils.AppUtils
 import kotlinx.android.synthetic.`at-huybui`.w10_fragment_sign_in.*
 import retrofit2.Response
 
@@ -67,15 +67,11 @@ class SignInFragment : Fragment() {
             override fun onResponse(call: retrofit2.Call<Account>, response: Response<Account>) {
                 if (response.isSuccessful) {
                     response.body()?.let { account ->
-                        val preference = requireContext().getSharedPreferences(
-                            SplashFragment.NAME_PREFERENCE,
-                            MODE_PRIVATE
-                        )
-                        preference.edit().putBoolean(SplashFragment.KEY_IS_LOGIN, true).apply()
-                        preference.edit().putString(SplashFragment.KEY_TOKEN, account.token)
-                            .apply()
+                        AppUtils().putIsLogin(requireContext(), true)
+                        AppUtils().putToken(requireContext(), account.token)
+                        AppUtils().putIdUser(requireContext(),account.id)
                         (activity as ApiMainActivity).replaceFragment(
-                            HomeFragment.newInstance(account)
+                            HomeFragment.newInstance()
                         )
                     }
                 } else {
