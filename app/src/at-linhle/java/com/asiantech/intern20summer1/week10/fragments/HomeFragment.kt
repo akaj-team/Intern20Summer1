@@ -22,8 +22,8 @@ class HomeFragment : Fragment() {
     companion object {
         private const val LAST_ITEM_POSITION = 10
         private const val DELAY_TIME = 2000L
-        private const val KEY_STRING_FULL_NAME = "fullName"
-        private const val KEY_STRING_TOKEN = "token"
+        internal const val KEY_STRING_FULL_NAME = "fullName"
+        internal const val KEY_STRING_TOKEN = "token"
         internal fun newInstance(fullName: String?, token: String?) = HomeFragment().apply {
             arguments = Bundle().apply {
                 putString(KEY_STRING_FULL_NAME, fullName)
@@ -121,7 +121,7 @@ class HomeFragment : Fragment() {
 
     private fun handleClickingAddPostButton() {
         imgPlus.setOnClickListener {
-            (activity as HomeApiActivity).replaceFragment(AddNewPostFragment.newInstance(), true)
+            (activity as HomeApiActivity).replaceFragment(AddNewPostFragment.newInstance(token, fullName), true)
         }
     }
 }

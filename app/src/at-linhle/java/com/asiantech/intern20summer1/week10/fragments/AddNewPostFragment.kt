@@ -1,23 +1,301 @@
 package com.asiantech.intern20summer1.week10.fragments
 
+import android.Manifest
+import android.app.Activity
+import android.app.AlertDialog
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.week10.api.ApiClient
+import com.asiantech.intern20summer1.week10.fragments.HomeFragment.Companion.KEY_STRING_FULL_NAME
+import com.asiantech.intern20summer1.week10.fragments.HomeFragment.Companion.KEY_STRING_TOKEN
+import com.asiantech.intern20summer1.week10.models.Body
+import com.asiantech.intern20summer1.week10.models.PostResponse
+import com.asiantech.intern20summer1.week10.views.HomeApiActivity
+import com.theartofdev.edmodo.cropper.CropImage
+import kotlinx.android.synthetic.`at-linhle`.fragment_api_add_post.*
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import retrofit2.Call
+import retrofit2.Response
+import java.io.ByteArrayOutputStream
+import java.io.File
 
-class AddNewPostFragment: Fragment() {
+class AddNewPostFragment : Fragment() {
 
-    companion object{
-        internal fun newInstance() = AddNewPostFragment()
+    companion object {
+        private const val KEY_IMAGE = "data"
+        private const val OPEN_CAMERA_REQUEST = 1
+        private const val PICK_IMAGE_REQUEST = 2
+        private const val KEY_IMAGE_GALLERY = "image/*"
+        private const val QUALITY_IMAGE_INDEX = 100
+        private const val ASPECT_IMAGE_RATIO = 1
+        internal fun newInstance(token: String?, fullName: String?) = AddNewPostFragment().apply {
+            arguments = Bundle().apply {
+                putString(KEY_STRING_TOKEN, token)
+                putString(KEY_STRING_FULL_NAME, fullName)
+            }
+        }
     }
+
+    private var checkCameraStatus = false
+    private var token: String? = null
+    private var fullName: String? = null
+    private var imageUri: Uri? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        getToken()
         return inflater.inflate(R.layout.fragment_api_add_post, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        toolbarAddPost.title = "New Post"
+        handleClickingAddPostImage()
+        handleOnClickListener()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+                OPEN_CAMERA_REQUEST -> {
+                    if (!isStoragePermissionsAllowed()) {
+                        makeStorageRequest()
+                    } else {
+                        cropImageCamera(data)
+                    }
+                }
+                PICK_IMAGE_REQUEST -> {
+                    cropImageGallery(data)
+                }
+                CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE -> {
+                    showImage(data)
+                }
+            }
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String?>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == OPEN_CAMERA_REQUEST) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                checkCameraStatus = true
+                if (!isStoragePermissionsAllowed()) {
+                    makeStorageRequest()
+                } else {
+                    openCamera()
+                }
+            }
+        }
+        if (requestCode == PICK_IMAGE_REQUEST) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (!checkCameraStatus) {
+                    openStorage()
+                } else {
+                    openCamera()
+                }
+            }
+        }
+    }
+
+    private fun getToken() {
+        token = arguments?.getString(KEY_STRING_TOKEN)
+        fullName = arguments?.getString(KEY_STRING_FULL_NAME)
+    }
+
+    private fun handleOnClickListener() {
+        imgArrowBack.setOnClickListener {
+            (activity as HomeApiActivity).onBackPressed()
+        }
+        imgDone.setOnClickListener {
+            handleAddNewPostApi()
+        }
+    }
+
+    private fun cropImageCamera(data: Intent?) {
+        (data?.extras?.get(KEY_IMAGE) as? Bitmap)?.let {
+            getImageUri(it)?.let { uri -> handleCropImage(uri) }
+        }
+    }
+
+    private fun cropImageGallery(data: Intent?) {
+        data?.data?.let {
+            handleCropImage(it)
+        }
+    }
+
+    private fun showImage(data: Intent?) {
+        CropImage.getActivityResult(data).uri?.apply {
+            val bitmap = MediaStore.Images.Media.getBitmap(activity?.contentResolver, this)
+            imageUri = this
+            imgPost.setImageBitmap(bitmap)
+        }
+    }
+
+    private fun handleGetImageFile(): MultipartBody.Part? {
+        imageUri?.let {
+            val file = File(getPath(it))
+            val image = file.asRequestBody(KEY_IMAGE_GALLERY.toMediaTypeOrNull())
+            return MultipartBody.Part.createFormData("image", file.name, image)
+        }
+        return null
+    }
+
+    private fun getPath(uri: Uri?): String {
+        val result: String
+        val cursor = uri?.let { context?.contentResolver?.query(it, null, null, null, null) }
+        if (cursor == null) {
+            result = uri?.path.toString()
+        } else {
+            cursor.moveToFirst()
+            val index = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA)
+            result = cursor.getString(index)
+            cursor.close()
+        }
+        return result
+    }
+
+    private fun handleCropImage(uri: Uri) {
+        context?.let {
+            CropImage.activity(uri).setAspectRatio(
+                ASPECT_IMAGE_RATIO,
+                ASPECT_IMAGE_RATIO
+            )
+                .start(it, this)
+        }
+    }
+
+    private fun getImageUri(inImage: Bitmap): Uri? {
+        val bytes = ByteArrayOutputStream()
+        inImage.compress(Bitmap.CompressFormat.JPEG, QUALITY_IMAGE_INDEX, bytes)
+        val path =
+            MediaStore.Images.Media.insertImage(
+                context?.contentResolver,
+                inImage,
+                resources.getString(R.string.sign_up_fragment_image_profile_title),
+                null
+            )
+        return Uri.parse(path)
+    }
+
+    private fun isStoragePermissionsAllowed() = ContextCompat.checkSelfPermission(
+        requireContext(),
+        Manifest.permission.READ_EXTERNAL_STORAGE
+    ) == PackageManager.PERMISSION_GRANTED
+
+    private fun isCameraPermissionAllowed(): Boolean {
+        val permissionCamera =
+            ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
+        val permissionWrite =
+            ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            )
+        return permissionCamera == PackageManager.PERMISSION_GRANTED
+                && permissionWrite == PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun makeStorageRequest() {
+        requestPermissions(
+            arrayOf(
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ), PICK_IMAGE_REQUEST
+        )
+    }
+
+    private fun makeCameraRequest() {
+        requestPermissions(arrayOf(Manifest.permission.CAMERA), OPEN_CAMERA_REQUEST)
+    }
+
+    private fun openStorage() {
+        val intentImage = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        intentImage.type = KEY_IMAGE_GALLERY
+        startActivityForResult(intentImage, PICK_IMAGE_REQUEST)
+    }
+
+    private fun openCamera() {
+        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        startActivityForResult(cameraIntent, OPEN_CAMERA_REQUEST)
+    }
+
+    private fun handleClickingAddPostImage() {
+        imgPost.setOnClickListener {
+            val dialogBuilder = AlertDialog.Builder(context)
+            dialogBuilder.setTitle(R.string.add_post_fragment_choose_option_dialog)
+            val optionList = arrayOf(
+                resources.getString(R.string.add_post_fragment_gallery),
+                resources.getString(R.string.add_post_fragment_camera)
+            )
+            dialogBuilder.setItems(optionList) { _, which ->
+                when (which) {
+                    0 -> {
+                        if (isStoragePermissionsAllowed()) {
+                            openStorage()
+                        } else {
+                            makeStorageRequest()
+                        }
+                    }
+                    1 -> {
+                        if (isCameraPermissionAllowed()) {
+                            openCamera()
+                        } else {
+                            makeCameraRequest()
+                        }
+                    }
+                }
+            }
+            // Create and show the alert dialog
+            val dialog = dialogBuilder.create()
+            dialog.show()
+        }
+    }
+
+    private fun handleAddNewPostApi() {
+        val body = Body(edtContent.text.toString())
+        val callApi = token?.let {
+            ApiClient.cretePostService()?.addNewPost(it, handleGetImageFile(), body)
+        }
+        callApi?.enqueue(object : retrofit2.Callback<PostResponse> {
+            override fun onFailure(call: Call<PostResponse>, t: Throwable) {
+                Toast.makeText(activity, t.message, Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onResponse(call: Call<PostResponse>, response: Response<PostResponse>) {
+                if (response.isSuccessful) {
+                    response.body()?.apply {
+                        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
+                    }
+                    activity?.onBackPressed()
+                } else {
+                    Toast.makeText(
+                        activity,
+                        "Đăng Không Thành Công, Thử Lại !!!!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        })
     }
 }

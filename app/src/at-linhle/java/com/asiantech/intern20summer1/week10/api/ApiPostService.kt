@@ -1,12 +1,22 @@
 package com.asiantech.intern20summer1.week10.api
 
+import com.asiantech.intern20summer1.week10.models.Body
 import com.asiantech.intern20summer1.week10.models.Post
+import com.asiantech.intern20summer1.week10.models.PostResponse
+import okhttp3.MultipartBody
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Header
+import retrofit2.http.*
 
 interface ApiPostService {
 
     @GET("/api/posts")
-    fun getListPost(@Header("token") token : String): Call<MutableList<Post>>
+    fun getListPost(@Header("token") token: String): Call<MutableList<Post>>
+
+    @POST("/api/post")
+    @Multipart
+    fun addNewPost(
+        @Header("token") token: String,
+        @Part image: MultipartBody.Part? = null,
+        @Part("body") body: Body
+    ): Call<PostResponse>
 }

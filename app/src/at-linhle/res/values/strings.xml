@@ -61,4 +61,7 @@
     <string name="content_edit_text_description">What do you think ?</string>
     <string name="content_text_view_description">Content</string>
     <string name="post_image_text_view_description">Choose Image</string>
+    <string name="add_post_fragment_choose_option_dialog">Choose an option:</string>
+    <string name="add_post_fragment_gallery">Gallery</string>
+    <string name="add_post_fragment_camera">Camera</string>
 </resources>
