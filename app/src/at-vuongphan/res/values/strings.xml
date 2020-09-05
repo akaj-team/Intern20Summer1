@@ -60,6 +60,7 @@
     <string name="text_view_text_like_number">%d likes</string>
     <string name="edit_text_new_feed">Noi dung post</string>
     <string name="title_new_post">New Post</string>
+    <string name="title_update_new_post">Update Post</string>
     <string name="text_view_register_now">Register Now</string>
     <string name="text_view_don_account">Do not have an Account</string>
     <string name="text_view_your_account">Sign into your Account</string>
@@ -73,4 +74,5 @@
     <string name="dialog_title_delete">Delete newfeed</string>
     <string name="dialog_message_delete">Are you sure to Delete</string>
     <string name="button_create_post">Create Post</string>
+    <string name="button_update_post">Update Post</string>
 </resources>

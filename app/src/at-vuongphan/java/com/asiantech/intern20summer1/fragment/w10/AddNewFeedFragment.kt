@@ -8,13 +8,13 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.activity.w10.RecyclerViewNewFeed
 import com.asiantech.intern20summer1.api.ClientAPI
 import com.asiantech.intern20summer1.model.ApiResponse
 import com.asiantech.intern20summer1.model.Post
@@ -106,7 +106,7 @@ class AddNewFeedFragment : Fragment() {
 
                 }
             })
-            (fragmentManager?.popBackStack())
+            (activity as? RecyclerViewNewFeed)?.openFragment(NewFeedFragment())
         }
     }
 

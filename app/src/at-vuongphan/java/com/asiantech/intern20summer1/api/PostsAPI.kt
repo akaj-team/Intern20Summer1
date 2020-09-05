@@ -14,9 +14,6 @@ interface PostsAPI {
     @DELETE("api/post/{id}")
     fun deletePosts(@Header("token") token: String, @Path("id") id: Int): Call<ApiResponse>
 
-    @POST("api/post")
-    fun addNewPost(@Body newFeedModel: NewPost): Call<NewPost>
-
     @PUT("api/post/{id}")
     fun updateNewPost(
         @Header("token") token: String,
@@ -28,7 +25,6 @@ interface PostsAPI {
     @POST("api/post")
     fun createPost(
         @Header("token") token: String,
-        @Part("id") id: Int,
         @Part("body") body: Post,
         @Part image: MultipartBody.Part? = null
     ): Call<ApiResponse>
@@ -37,6 +33,7 @@ interface PostsAPI {
     @POST("api/post/{id}")
     fun updatePost(
         @Header("token") token: String,
+        @Part("id") id: Int,
         @Part("body") body: Post,
         @Part image: MultipartBody.Part? = null
     ): Call<ApiResponse>

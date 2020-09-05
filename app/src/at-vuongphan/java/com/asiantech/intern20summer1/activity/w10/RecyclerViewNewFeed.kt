@@ -1,7 +1,6 @@
 package com.asiantech.intern20summer1.activity.w10
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R

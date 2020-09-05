@@ -86,8 +86,6 @@ class NewFeedFragment : Fragment() {
             (recyclerViewMain.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
         }
         adapterNewFeeds.onItemDeleteClicked = {
-            Log.d("TAG", "initAdapter: ${newfeeds[it]}")
-            Log.d("TAG", "initAdapter: ${newfeeds[it].id}")
             displayDeleteDialog(newfeeds[it].id)
             currentPos = it
         }
@@ -204,18 +202,19 @@ class NewFeedFragment : Fragment() {
             override fun iconEditFeed(post: NewPost) {
                 val id = post.id
                 val content = post.content
-                val create_at = post.created_at
-                val like_count = post.like_count
-                val like_flag = post.like_flag
                 val image = post.image
+                Bundle().let {
+                    it.putString("token", token)
+                    it.putInt("id", id)
+                    it.putString("content", content)
+                    it.putString("image", image)
+                    val update = UpdateFeed.newInstance()
+                    update.arguments = it
+                    (activity as? RecyclerViewNewFeed)?.openFragment(
+                        update, true
+                    )
+                }
                 Log.d("TAG", "iconEditFeed: ${post.image}")
-                (activity as? RecyclerViewNewFeed)?.openFragment(
-                    Update.newInstance(
-                        id,
-                        content,
-                        image
-                    ), true
-                )
             }
         })
     }
