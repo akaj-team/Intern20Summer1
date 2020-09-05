@@ -71,4 +71,15 @@
     <string name="crop_complete">Crop complete</string>
     <string name="w4_crop_your_picture">Crop your picture</string>
     <string name="w10_api">W10 - API</string>
+    <string name="w10_new_post">New post</string>
+    <string name="w10_enter_content">Enter content</string>
+    <string name="w10_home">Home</string>
+    <string name="w10_login">Login</string>
+    <string name="w10_email">Email</string>
+    <string name="w10_password">Password</string>
+    <string name="w10_signin">SignIn</string>
+    <string name="w10_register_now">Register now!</string>
+    <string name="w10_register">Register</string>
+    <string name="w10_full_name">Full Name</string>
+    <string name="w10_rewrite_password">Rewrite password</string>
 </resources>

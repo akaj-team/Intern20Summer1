@@ -10,48 +10,66 @@
     app:cardCornerRadius="@dimen/w10_item_card_view_radius"
     android:background="@color/status_bar">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <TextView
-        android:id="@+id/tvName.Item.w10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/w10_item_margin_left_right"
-        android:layout_marginTop="@dimen/w10_item_name_top_margin_top"
-        tools:text="name"
-        android:textColor="@color/black"
-        android:textSize="@dimen/w10_item_name_text_size"
-        android:textStyle="bold" />
-    <ImageView
-        android:id="@+id/btnMenu"
-        android:layout_alignParentRight="true"
-        android:src="@drawable/w10_ic_menu"
-        android:layout_width="@dimen/w10_item_icon_menu_size"
-        android:padding="@dimen/w10_item_icon_menu_padding"
-        android:layout_height="@dimen/w10_item_icon_menu_size"/>
-</RelativeLayout>
 
-        <ImageView
-            android:id="@+id/imgImage.Item.w10"
+        <RelativeLayout
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/w10_item_margin_left_right"
-            android:adjustViewBounds="true"
-            android:scaleType="fitXY"
-            tools:src="@drawable/logo_music" />
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvName.Item.w10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/w10_item_margin_left_right"
+                android:layout_marginTop="@dimen/w10_item_name_top_margin_top"
+                android:textColor="@color/black"
+                android:textSize="@dimen/w10_item_name_text_size"
+                android:textStyle="bold"
+                tools:text="name" />
+
+            <ImageView
+                android:id="@+id/btnMenu"
+                android:layout_width="@dimen/w10_item_icon_menu_size"
+                android:layout_height="@dimen/w10_item_icon_menu_size"
+                android:layout_alignParentRight="true"
+                android:padding="@dimen/w10_item_icon_menu_padding"
+                android:src="@drawable/w10_ic_menu" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlImage"
+            android:layout_below="@id/toolbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_centerInParent="true"
+                android:layout_width="@dimen/w10_progress_bar_size"
+                android:layout_height="@dimen/w10_progress_bar_size" />
+            <ImageView
+                android:id="@+id/imgImage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/w10_item_margin_left_right"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/w10_img_placeholder" />
+        </RelativeLayout>
 
         <LinearLayout
+            android:id="@+id/llIcon"
+            android:layout_below="@id/rlImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/w10_item_margin_left_right_icon">
 
             <ImageView
-                android:id="@+id/imgHeart.Item.w10"
+                android:id="@+id/btnLike"
                 android:layout_width="@dimen/w10_item_icon_heart_size"
                 android:layout_height="@dimen/w10_item_icon_heart_size"
                 android:src="@drawable/w10_ic_heart_transparent" />
@@ -70,15 +88,8 @@
         </LinearLayout>
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="@dimen/w10_item_margin_left_right_icon"
-            android:layout_marginTop="@dimen/w10_item_line_black_margin_top"
-            android:layout_marginRight="@dimen/w10_item_margin_left_right_icon"
-            android:background="@color/accent" />
-
-        <TextView
-            android:id="@+id/tvLikeCount.Item.w10"
+            android:id="@+id/tvLikeCount"
+            android:layout_below="@id/llIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/w10_item_margin_left_right_icon"
@@ -88,7 +99,8 @@
             tools:text="🖤  12k likes" />
 
         <TextView
-            android:id="@+id/tvCreatedAt.Item.w10"
+            android:id="@+id/tvCreatedAt"
+            android:layout_below="@id/tvLikeCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/w10_item_margin_left_right_icon"
@@ -98,13 +110,15 @@
             tools:text="10:10" />
 
         <TextView
-            android:id="@+id/tvContent.Item.w10"
+            android:id="@+id/tvContent"
+            android:layout_below="@id/tvCreatedAt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/w10_item_margin_left_right_icon"
             android:layout_marginRight="@dimen/w10_item_margin_left_right_icon"
+            android:layout_marginBottom="@dimen/w10_item_margin_bottom"
             tools:text="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
             android:textColor="@color/black"
             android:textSize="@dimen/w10_item_name_text_size" />
-    </LinearLayout>
+    </RelativeLayout>
 </androidx.cardview.widget.CardView>

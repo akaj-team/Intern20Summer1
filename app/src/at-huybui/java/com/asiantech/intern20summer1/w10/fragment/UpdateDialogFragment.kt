@@ -108,12 +108,13 @@ class UpdateDialogFragment : DialogFragment() {
     }
 
     private fun initDisPlayView() {
-        if (!postItem.image.isNullOrEmpty()) {
+        if (postItem.image.isNotEmpty()) {
             Glide.with(requireContext())
                 .load(RecyclerAdapter.URL_IMAGE + postItem.image)
                 .into(imgContent)
         }
         tvTitle?.text = "Edit Post"
+        edtContent?.setText(postItem.content)
     }
 
     private fun handleUpdateContent() {

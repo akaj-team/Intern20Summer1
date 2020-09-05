@@ -73,11 +73,11 @@ class HomeFragment : Fragment() {
                 response.body()?.toCollection(postLists)
                 d("homeFragment", postLists.toString())
                 postAdapter.notifyDataSetChanged()
+                (recyclerView.itemAnimator as? SimpleItemAnimator)?.supportsChangeAnimations =
+                    true
             }
 
-            override fun onFailure(call: Call<List<PostItem>>, t: Throwable) {
-                TODO("Not yet implemented")
-            }
+            override fun onFailure(call: Call<List<PostItem>>, t: Throwable) {}
         })
         postAdapter.notifyDataSetChanged()
     }

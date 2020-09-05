@@ -13,15 +13,4 @@
     <string name="item_cay_sap_thu_hoach">Cây Sắp Thu Hoạch</string>
     <string name="item_cay_bi_sau">Cây Bị Sâu</string>
     <string name="item_cay_bi_thieu_nuoc">Cây Bị Thiếu Nước</string>
-    <string name="w10_new_post">New post</string>
-    <string name="w10_enter_content">Enter content</string>
-    <string name="w10_home">Home</string>
-    <string name="w10_login">Login</string>
-    <string name="w10_email">Email</string>
-    <string name="w10_password">Password</string>
-    <string name="w10_signin">SignIn</string>
-    <string name="w10_register_now">Register now!</string>
-    <string name="w10_register">Register</string>
-    <string name="w10_full_name">Full Name</string>
-    <string name="w10_rewrite_password">Rewrite password</string>
 </resources>
