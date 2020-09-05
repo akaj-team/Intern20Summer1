@@ -7,19 +7,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.week4.activity.HomeActivity
-import com.asiantech.intern20summer1.week4.model.User
-import com.asiantech.intern20summer1.week4.other.SignInActivityData
+import com.asiantech.intern20summer1.week10.activity.TimeLineActivity
+import com.asiantech.intern20summer1.week10.api.RetrofitClient
+import com.asiantech.intern20summer1.week10.model.User
+import com.asiantech.intern20summer1.week10.model.UserLogin
 import com.asiantech.intern20summer1.week4.other.isValidEmail
 import com.asiantech.intern20summer1.week4.other.isValidPassword
-import kotlinx.android.synthetic.`at-longphan`.fragment_sign_in.*
+import kotlinx.android.synthetic.`at-longphan`.fragment_sign_in_w10.*
+import retrofit2.Call
+import retrofit2.Response
 
 class SignInFragment : Fragment() {
-
-    private var userLogin = User()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,44 +43,79 @@ class SignInFragment : Fragment() {
     }
 
     private fun handleEditTextEmailIdListener() {
-        edtEmailId.addTextChangedListener {
-            btnSignIn.isEnabled =
-                isValidEmail(it.toString()) && isValidPassword(edtPassword.text.toString())
+        edtEmailIdFragmentSignInW10?.addTextChangedListener {
+            btnSignInW10?.isEnabled =
+                isValidEmail(it.toString()) && isValidPassword(edtPasswordFragmentSignInW10.text.toString())
             changeStatusForSignInButton()
         }
     }
 
     private fun handleEditTextPasswordListener() {
-        edtPassword.addTextChangedListener {
-            btnSignIn.isEnabled =
-                isValidPassword(it.toString()) && isValidEmail(edtEmailId.text.toString())
+        edtPasswordFragmentSignInW10?.addTextChangedListener {
+            btnSignInW10?.isEnabled =
+                isValidPassword(it.toString()) && isValidEmail(edtEmailIdFragmentSignInW10.text.toString())
             changeStatusForSignInButton()
         }
     }
 
     private fun handleButtonSignInListener() {
-        btnSignIn.setOnClickListener {
+        btnSignInW10?.setOnClickListener {
             /*userLogin.email = edtEmailId.text.toString()
             userLogin.password = edtPassword.text.toString()*/
-            if (isSignInEnabled()) {
+
+            /*if (isSignInEnabled()) {
                 loginApp()
             } else {
                 showInvalidLoginDialog()
-            }
+            }*/
+
+            val email = edtEmailIdFragmentSignInW10?.text.toString()
+            val password = edtPasswordFragmentSignInW10?.text.toString()
+
+            val callApi =
+                RetrofitClient.createUserService()
+                    ?.login(UserLogin(email, password))
+
+            progressBarFragmentSignInW10?.visibility = View.VISIBLE
+            callApi?.enqueue(object : retrofit2.Callback<User> {
+                override fun onFailure(call: Call<User>, t: Throwable) {
+                    progressBarFragmentSignInW10?.visibility = View.INVISIBLE
+                    Toast.makeText(requireContext(), "Sign in failed!", Toast.LENGTH_SHORT).show()
+                }
+
+                override fun onResponse(call: Call<User>, response: Response<User>) {
+                    progressBarFragmentSignInW10?.visibility = View.INVISIBLE
+                    if (response.code() == 200) {
+                        Toast.makeText(
+                            context,
+                            getString(R.string.text_sign_in_success),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        fragmentManager?.popBackStack()
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            "Sign in failed! Code " + response.code(),
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
+                    }
+                }
+            })
         }
     }
 
     private fun handleTextViewRegisterNowListener() {
-        tvRegisterNow.setOnClickListener {
+        tvRegisterNowW10?.setOnClickListener {
             openSignUpFragment()
         }
     }
 
     private fun changeStatusForSignInButton() {
-        if (btnSignIn.isEnabled) {
-            btnSignIn.setBackgroundResource(R.drawable.bg_button_enable)
+        if (btnSignInW10?.isEnabled!!) {
+            btnSignInW10?.setBackgroundResource(R.drawable.bg_button_enable)
         } else {
-            btnSignIn.setBackgroundResource(R.drawable.bg_button_unable)
+            btnSignInW10?.setBackgroundResource(R.drawable.bg_button_unable)
         }
     }
 
@@ -86,9 +123,8 @@ class SignInFragment : Fragment() {
         val transaction = fragmentManager?.beginTransaction()
         transaction?.add(R.id.fragmentContainer, SignUpFragment().apply {
             onRegisterSuccess = { userRegister ->
-                userLogin = userRegister
-                this@SignInFragment.edtEmailId.setText(userRegister.email)
-                this@SignInFragment.edtPassword.setText(userRegister.password)
+                this@SignInFragment.edtEmailIdFragmentSignInW10.setText(userRegister.email)
+                this@SignInFragment.edtPasswordFragmentSignInW10.setText(userRegister.password)
             }
         })
             ?.addToBackStack(null)
@@ -97,9 +133,9 @@ class SignInFragment : Fragment() {
     }
 
     private fun loginApp() {
-        val homeActivityIntent = Intent(this.context, HomeActivity::class.java)
-        homeActivityIntent.putExtra(SignInActivityData.SIGN_IN_USER, userLogin)
-        startActivity(homeActivityIntent)
+        val timeLineActivityIntent = Intent(this.context, TimeLineActivity::class.java)
+        //.putExtra(SignInActivityData.SIGN_IN_USER, userLogin)
+        startActivity(timeLineActivityIntent)
         this.activity?.finish()
     }
 
@@ -109,7 +145,4 @@ class SignInFragment : Fragment() {
             .setPositiveButton(getString(R.string.invalid_login_dialog_title_confirm)) { _: DialogInterface, _: Int -> }
         builder.show()
     }
-
-    private fun isSignInEnabled(): Boolean =
-        userLogin.email.equals(edtEmailId.text.toString()) && userLogin.password.equals(edtPassword.text.toString())
 }

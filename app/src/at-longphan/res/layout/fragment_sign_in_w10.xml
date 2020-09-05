@@ -6,6 +6,13 @@
     android:background="@color/colorContainerSignInFragmentBackground"
     tools:context="com.asiantech.intern20summer1.week4.fragment.SignInFragment">
 
+    <ProgressBar
+        android:id="@+id/progressBarFragmentSignInW10"
+        android:layout_width="@dimen/progress_bar_width_W5"
+        android:layout_height="@dimen/progress_bar_height"
+        android:layout_gravity="center"
+        android:visibility="invisible" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -90,7 +97,7 @@
                 android:text="@string/text_view_email_id_description" />
 
             <EditText
-                android:id="@+id/edtEmailId"
+                android:id="@+id/edtEmailIdFragmentSignInW10"
                 style="@style/EditTextDescriptionMusicApp"
                 android:inputType="textEmailAddress"
                 app:backgroundTint="@color/colorMainWeek4" />
@@ -100,7 +107,7 @@
                 android:text="@string/text_view_password_description" />
 
             <EditText
-                android:id="@+id/edtPassword"
+                android:id="@+id/edtPasswordFragmentSignInW10"
                 style="@style/EditTextDescriptionMusicApp"
                 android:inputType="textPassword"
                 app:backgroundTint="@color/colorMainWeek4" />
@@ -116,7 +123,7 @@
             android:textSize="@dimen/text_view_forgot_password_description_text_size" />
 
         <Button
-            android:id="@+id/btnSignIn"
+            android:id="@+id/btnSignInW10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/button_login_margin_top"
@@ -141,7 +148,7 @@
                 android:textSize="@dimen/text_view_do_not_have_account" />
 
             <TextView
-                android:id="@+id/tvRegisterNow"
+                android:id="@+id/tvRegisterNowW10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/text_view_register_now_margin_left"

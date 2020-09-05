@@ -5,6 +5,13 @@
     android:layout_height="match_parent"
     tools:context="com.asiantech.intern20summer1.week4.fragment.SignUpFragment">
 
+    <ProgressBar
+        android:id="@+id/progressBarFragmentSignUpW10"
+        android:layout_width="@dimen/progress_bar_width_W5"
+        android:layout_height="@dimen/progress_bar_height"
+        android:layout_gravity="center"
+        android:visibility="invisible" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,39 +41,19 @@
             android:text="@string/text_view_full_name_description" />
 
         <EditText
-            android:id="@+id/edtFullName"
+            android:id="@+id/edtFullNameW10"
             style="@style/EditTextDescriptionMusicApp"
             android:inputType="textPersonName"
             app:backgroundTint="@color/colorMainWeek4" />
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imgAvatar"
-            android:layout_width="@dimen/circle_image_view_register_avatar_width"
-            android:layout_height="@dimen/circle_image_view_register_avatar_height"
-            android:layout_gravity="center"
-            android:layout_marginBottom="@dimen/circle_image_view_register_avatar_margin_bottom"
-            android:src="@mipmap/ic_launcher"
-            app:civ_border_color="@color/colorCircleImageViewRegisterAvatarBorder"
-            app:civ_border_width="@dimen/circle_image_view_register_avatar_border_width" />
 
         <TextView
             style="@style/TextViewDescriptionMusicApp"
             android:text="@string/text_view_email_description" />
 
         <EditText
-            android:id="@+id/edtEmail"
+            android:id="@+id/edtEmailW10"
             style="@style/EditTextDescriptionMusicApp"
             android:inputType="textEmailAddress"
-            app:backgroundTint="@color/colorMainWeek4" />
-
-        <TextView
-            style="@style/TextViewDescriptionMusicApp"
-            android:text="@string/text_view_mobile_number_description" />
-
-        <EditText
-            android:id="@+id/edtMobileNumber"
-            style="@style/EditTextDescriptionMusicApp"
-            android:inputType="number"
             app:backgroundTint="@color/colorMainWeek4" />
 
         <TextView
@@ -74,7 +61,7 @@
             android:text="@string/text_view_password_description" />
 
         <EditText
-            android:id="@+id/edtPassword"
+            android:id="@+id/edtPasswordW10"
             style="@style/EditTextDescriptionMusicApp"
             android:inputType="textPassword"
             app:backgroundTint="@color/colorMainWeek4" />
@@ -84,13 +71,13 @@
             android:text="@string/text_view_confirm_password_description" />
 
         <EditText
-            android:id="@+id/edtConfirmPassword"
+            android:id="@+id/edtConfirmPasswordW10"
             style="@style/EditTextDescriptionMusicApp"
             android:inputType="textPassword"
             app:backgroundTint="@color/colorMainWeek4" />
 
         <Button
-            android:id="@+id/btnSignUp"
+            android:id="@+id/btnSignUpW10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/button_register_margin_top"

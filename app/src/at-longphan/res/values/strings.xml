@@ -89,4 +89,5 @@
     <string name="button_ok_plant_new_w7_text">OK</string>
 
     <string name="button_week_10_description">Week 10: API</string>
+    <string name="text_sign_in_success">Sign in successfully!</string>
 </resources>
