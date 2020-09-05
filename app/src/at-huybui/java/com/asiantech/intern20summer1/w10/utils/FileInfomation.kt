@@ -34,7 +34,7 @@ internal class FileInformation {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT
             && DocumentsContract.isDocumentUri(context, uri)
         ) {
-            getPathE(context, uri)
+            getPathExternal(context, uri)
         } else if ("content".equals(uri.scheme, ignoreCase = true)) {
             pathReturn = getDataColumn(context, uri, null, null)
         } else if ("file".equals(uri.scheme, ignoreCase = true)) {
@@ -43,7 +43,7 @@ internal class FileInformation {
         return pathReturn
     }
 
-    private fun getPathE(context: Context, uri: Uri): String? {
+    private fun getPathExternal(context: Context, uri: Uri): String? {
         var pathReturn: String? = "unknown"
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             if (isExternalStorageDocument(uri)) {
@@ -61,23 +61,31 @@ internal class FileInformation {
                 )
                 pathReturn = getDataColumn(context, contentUri, null, null)
             } else if (isMediaDocument(uri)) {
-                val docId = DocumentsContract.getDocumentId(uri)
-                val split = docId.split(":".toRegex()).toTypedArray()
-                val type = split[0]
-                var contentUri: Uri? = null
-                when (type) {
-                    "image" -> {
-                        contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-                    }
-                    "video" -> {
-                        contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI
-                    }
-                    "audio" -> {
-                        contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
-                    }
-                }
-                pathReturn = getDataColumn(context, contentUri, "_id=?", arrayOf(split[1]))
+                getPathMediaDocument(context, uri)
             }
+        }
+        return pathReturn
+    }
+
+    private fun getPathMediaDocument(context: Context, uri: Uri): String? {
+        var pathReturn: String? = "unknown"
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            val docId = DocumentsContract.getDocumentId(uri)
+            val split = docId.split(":".toRegex()).toTypedArray()
+            val type = split[0]
+            var contentUri: Uri? = null
+            when (type) {
+                "image" -> {
+                    contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+                }
+                "video" -> {
+                    contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI
+                }
+                "audio" -> {
+                    contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
+                }
+            }
+            pathReturn = getDataColumn(context, contentUri, "_id=?", arrayOf(split[1]))
         }
         return pathReturn
     }
