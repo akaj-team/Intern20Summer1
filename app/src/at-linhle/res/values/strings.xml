@@ -58,4 +58,7 @@
     <string name="like_text_view_description">Like</string>
     <string name="status_text_view">Recording history</string>
     <string name="detail_status_text_view">Life is short. Time is fast. No reply. No rewind. So enjoy every moment as it comes</string>
+    <string name="content_edit_text_description">What do you think ?</string>
+    <string name="content_text_view_description">Content</string>
+    <string name="post_image_text_view_description">Choose Image</string>
 </resources>

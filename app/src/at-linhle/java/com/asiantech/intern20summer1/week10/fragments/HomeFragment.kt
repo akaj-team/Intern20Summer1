@@ -8,11 +8,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week10.adapters.PostViewHolder
 import com.asiantech.intern20summer1.week10.api.ApiClient
 import com.asiantech.intern20summer1.week10.models.Post
+import com.asiantech.intern20summer1.week10.views.HomeApiActivity
 import kotlinx.android.synthetic.`at-linhle`.fragment_api_home.*
 import retrofit2.Call
 import retrofit2.Response
@@ -20,6 +20,8 @@ import retrofit2.Response
 class HomeFragment : Fragment() {
 
     companion object {
+        private const val LAST_ITEM_POSITION = 10
+        private const val DELAY_TIME = 2000L
         private const val KEY_STRING_FULL_NAME = "fullName"
         private const val KEY_STRING_TOKEN = "token"
         internal fun newInstance(fullName: String?, token: String?) = HomeFragment().apply {
@@ -28,9 +30,6 @@ class HomeFragment : Fragment() {
                 putString(KEY_STRING_TOKEN, token)
             }
         }
-
-        private const val LAST_ITEM_POSITION = 10
-        private const val DELAY_TIME = 2000L
     }
 
     private lateinit var postItems: MutableList<Post?>
@@ -53,6 +52,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         handleSwipeRefresh()
         toolbarHome.title = fullName
+        handleClickingAddPostButton()
     }
 
     private fun initAdapter() {
@@ -107,7 +107,7 @@ class HomeFragment : Fragment() {
         })
     }
 
-    private fun handleSwipeRefresh(){
+    private fun handleSwipeRefresh() {
         swipeContainer.setOnRefreshListener {
             Handler().postDelayed({
                 postItems.clear()
@@ -116,6 +116,12 @@ class HomeFragment : Fragment() {
                 adapter.notifyDataSetChanged()
                 swipeContainer.isRefreshing = false
             }, DELAY_TIME)
+        }
+    }
+
+    private fun handleClickingAddPostButton() {
+        imgPlus.setOnClickListener {
+            (activity as HomeApiActivity).replaceFragment(AddNewPostFragment.newInstance(), true)
         }
     }
 }
