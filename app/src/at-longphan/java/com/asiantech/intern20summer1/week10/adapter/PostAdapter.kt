@@ -11,7 +11,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week10.model.Post
-import com.asiantech.intern20summer1.week10.other.PostViewHolder
+import com.asiantech.intern20summer1.week10.other.IMAGE_FOLDER_URL
+import com.asiantech.intern20summer1.week10.viewholder.PostViewHolder
+import com.bumptech.glide.Glide
 
 class PostAdapter : RecyclerView.Adapter<PostViewHolder> {
 
@@ -37,62 +39,65 @@ class PostAdapter : RecyclerView.Adapter<PostViewHolder> {
     }
 
     override fun onBindViewHolder(viewHolder: PostViewHolder, position: Int) {
-        val timeLineItem = posts[position]
+        val postItem = posts[position]
 
         // Set itemView based on views and data model
-        val userNameTextView: TextView? = viewHolder.userNameTextView
-        userNameTextView?.text = timeLineItem.userName
+        val userIdTextView: TextView? = viewHolder.fullNameTextView
+        userIdTextView?.text = postItem.userId
 
         val imageImageView = viewHolder.imageImageView
-        when {
+        /*when {
             position % PICTURE_3 == 0 -> imageImageView?.setImageResource(R.drawable.img_cat3)
             position % PICTURE_2 == 0 -> imageImageView?.setImageResource(R.drawable.img_cat2)
             else -> imageImageView?.setImageResource(R.drawable.img_cat)
+        }*/
+        imageImageView?.let {
+            Glide.with(it).load(IMAGE_FOLDER_URL.plus(postItem.image)).into(it)
         }
 
-        val isLikedImageView = viewHolder.isLikedImageView
-        if (timeLineItem.isLiked) {
-            isLikedImageView?.setImageResource(R.drawable.ic_heart_filled)
+        val likeFlagImageView = viewHolder.likeFlagImageView
+        if (postItem.likeFlag) {
+            likeFlagImageView?.setImageResource(R.drawable.ic_heart_filled)
         } else {
-            isLikedImageView?.setImageResource(R.drawable.ic_heart)
+            likeFlagImageView?.setImageResource(R.drawable.ic_heart)
         }
-        isLikedImageView?.setOnClickListener {
+        likeFlagImageView?.setOnClickListener {
             onIsLikedImageViewClick.invoke(position)
         }
 
-        val likesTextView = viewHolder.likesTextView
-        likesTextView?.text = timeLineItem.likes.toString()
+        val likeCountTextView = viewHolder.likeCountTextView
+        likeCountTextView?.text = postItem.likeCount.toString()
 
         val isPluralLikeTextView = viewHolder.isPluralLikeTextView
 
         when {
-            timeLineItem.likes > 1 -> {
+            postItem.likeCount > 1 -> {
                 isPluralLikeTextView?.text =
                     context.getString(R.string.text_view_plural_like_description)
                 isPluralLikeTextView?.setTypeface(Typeface.DEFAULT_BOLD, Typeface.NORMAL)
-                likesTextView?.visibility = View.VISIBLE
+                likeCountTextView?.visibility = View.VISIBLE
             }
-            timeLineItem.likes == 1 -> {
+            postItem.likeCount == 1 -> {
                 isPluralLikeTextView?.text =
                     context.getString(R.string.text_view_not_plural_like_description)
                 isPluralLikeTextView?.setTypeface(Typeface.DEFAULT_BOLD, Typeface.NORMAL)
-                likesTextView?.visibility = View.VISIBLE
+                likeCountTextView?.visibility = View.VISIBLE
             }
-            timeLineItem.likes == 0 -> {
-                likesTextView?.visibility = View.INVISIBLE
+            postItem.likeCount == 0 -> {
+                likeCountTextView?.visibility = View.INVISIBLE
                 isPluralLikeTextView?.text =
                     context.getString(R.string.text_view_first_like_description)
                 isPluralLikeTextView?.setTypeface(Typeface.DEFAULT, Typeface.ITALIC)
             }
         }
 
-        val userNameAndCaption = timeLineItem.userName + " " + timeLineItem.caption
-        val spannableString = SpannableString(userNameAndCaption)
-        timeLineItem.userName?.length?.let {
+        val userIdAndContent = postItem.userId + " " + postItem.content
+        val spannableString = SpannableString(userIdAndContent)
+        postItem.userId?.length?.let {
             spannableString.setSpan(StyleSpan(Typeface.BOLD), 0, it, 0)
         }
-        val captionTextView: TextView? = viewHolder.captionTextView
-        captionTextView?.text = spannableString
+        val contentTextView: TextView? = viewHolder.contentTextView
+        contentTextView?.text = spannableString
     }
 
     override fun getItemCount(): Int {

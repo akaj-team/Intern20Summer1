@@ -1,20 +1,36 @@
 package com.asiantech.intern20summer1.week10.activity
 
+import android.app.AlertDialog
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
+import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.week5.adapter.TimeLineItemAdapter
-import com.asiantech.intern20summer1.week5.model.TimeLineItem
-import kotlinx.android.synthetic.`at-longphan`.activity_time_line.*
+import com.asiantech.intern20summer1.week10.adapter.PostAdapter
+import com.asiantech.intern20summer1.week10.api.RetrofitClient
+import com.asiantech.intern20summer1.week10.model.Post
+import com.asiantech.intern20summer1.week10.model.User
+import com.asiantech.intern20summer1.week10.other.*
+import kotlinx.android.synthetic.`at-longphan`.activity_time_line_w10.*
+import retrofit2.Call
+import retrofit2.Response
 
 class TimeLineActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
+
+    /**
+     * lay user tu share preference
+     * add token vao header request api
+     * call api
+     */
 
     companion object {
         private const val TIME_DELAY: Long = 2000
@@ -22,24 +38,30 @@ class TimeLineActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListen
         private const val ITEMS_TAKE: Int = 10
     }
 
-    private var timeLineItemsAll = mutableListOf<TimeLineItem>()
-    private var timeLineItemsShowed = mutableListOf<TimeLineItem>()
-    private lateinit var rvTimeLineItems: RecyclerView
+    private lateinit var loginUser: User
+    private var postItemsAll = listOf<Post>()
+    private var postItemsShowed = mutableListOf<Post>()
+    private lateinit var rvPostItems: RecyclerView
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
-    private lateinit var adapter: TimeLineItemAdapter
+    private var adapter: PostAdapter? = null
     private var isLoading = false
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_time_line_w10)
         configStatusBar()
+
+        loginUser = getLoginUserData()
+
         initRecyclerView()
         initData()
-        initAdapter()
-        initIsLikedImageViewClickListener()
-        assignRecyclerView()
-        initSwipeRefreshLayout()
-        initScrollListener()
+        //initAdapter()
+
+        //initIsLikedImageViewClickListener()
+        //assignRecyclerView()
+        //initSwipeRefreshLayout()
+        //initScrollListener()
     }
 
     override fun onRefresh() {
@@ -55,64 +77,113 @@ class TimeLineActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListen
     }
 
     private fun initRecyclerView() {
-        rvTimeLineItems = findViewById(R.id.recycleViewTimeLine)
+        rvPostItems = findViewById(R.id.recycleViewTimeLineW10)
     }
 
     private fun initSwipeRefreshLayout() {
-        swipeRefreshLayout = findViewById(R.id.swipeContainer)
+        swipeRefreshLayout = findViewById(R.id.swipeContainerW10)
         swipeRefreshLayout.setOnRefreshListener(this)
     }
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun initData() {
-        timeLineItemsAll = TimeLineItem().createTimeLineItemsList(ITEMS_INIT)
+
+        /*postItemsAll = TimeLineItem().createTimeLineItemsList(ITEMS_INIT)
         for (i in 0 until ITEMS_TAKE) {
-            timeLineItemsShowed.add(timeLineItemsAll[i])
-        }
+            postItemsShowed.add(postItemsAll[i])
+        }*/
+        val callApi =
+            RetrofitClient.createPostService()
+                ?.getPosts(loginUser.token)
+
+        val builder = AlertDialog.Builder(this)
+        builder.setView(R.layout.progress_dialog_loading)
+        val progressDialogLoading = builder.create()
+        progressDialogLoading?.show()
+
+        callApi?.enqueue(object : retrofit2.Callback<List<Post>> {
+            override fun onFailure(call: Call<List<Post>>, t: Throwable) {
+                progressDialogLoading?.dismiss()
+                Toast.makeText(
+                    this@TimeLineActivity,
+                    getString(R.string.text_no_network_conennection),
+                    Toast.LENGTH_SHORT
+                )
+                    .show()
+            }
+
+            override fun onResponse(call: Call<List<Post>>, response: Response<List<Post>>) {
+                progressDialogLoading?.dismiss()
+                when (response.code()) {
+                    200 -> {
+                        postItemsAll = response.body()!!
+
+                        for (i in 0 until ITEMS_TAKE) {
+                            postItemsShowed.add(postItemsAll[i])
+                        }
+
+                        initAdapter()
+                        initIsLikedImageViewClickListener()
+                        assignRecyclerView()
+                        initSwipeRefreshLayout()
+                        initScrollListener()
+                    }
+                    else -> {
+                        Toast.makeText(
+                            this@TimeLineActivity,
+                            getString(R.string.text_error_occurred),
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
+                    }
+                }
+            }
+        })
     }
 
     private fun initAdapter() {
-        adapter = TimeLineItemAdapter(this, timeLineItemsShowed)
+        adapter = PostAdapter(this@TimeLineActivity, postItemsShowed)
     }
 
     private fun initIsLikedImageViewClickListener() {
-        adapter.onIsLikedImageViewClick = { position ->
-            timeLineItemsShowed[position].let {
-                it.isLiked = !it.isLiked
-                if (it.isLiked) {
-                    it.likes++
+        adapter?.onIsLikedImageViewClick = { position ->
+            postItemsShowed[position].let {
+                it.likeFlag = !it.likeFlag
+                if (it.likeFlag) {
+                    it.likeCount++
                 } else {
-                    if (it.likes > 0) {
-                        it.likes--
+                    if (it.likeCount > 0) {
+                        it.likeCount--
                     }
                 }
-                if (it.likes > 1) {
+                if (it.likeCount > 1) {
                     it.isPluralLike = true
                 }
             }
-            adapter.notifyItemChanged(position)
+            adapter?.notifyItemChanged(position)
             // Remove flash animation when interact with a row item
-            (rvTimeLineItems.itemAnimator as? SimpleItemAnimator)?.supportsChangeAnimations = false
+            (rvPostItems.itemAnimator as? SimpleItemAnimator)?.supportsChangeAnimations = false
         }
     }
 
     private fun assignRecyclerView() {
-        rvTimeLineItems.adapter = adapter
-        rvTimeLineItems.layoutManager = LinearLayoutManager(this)
+        rvPostItems.adapter = adapter
+        rvPostItems.layoutManager = LinearLayoutManager(this)
     }
 
     private fun initScrollListener() {
-        rvTimeLineItems.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        rvPostItems.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 val linearLayoutManager = recyclerView.layoutManager as? LinearLayoutManager?
                 if (!isLoading) {
                     linearLayoutManager?.let {
-                        if (it.findLastCompletelyVisibleItemPosition() == timeLineItemsShowed.size - 1
-                            && timeLineItemsShowed.size < timeLineItemsAll.size
+                        if (it.findLastCompletelyVisibleItemPosition() == postItemsShowed.size - 1
+                            && postItemsShowed.size < postItemsAll.size
                         ) {
                             loadMore()
                             isLoading = true
-                            progressBarW5.visibility = View.VISIBLE
+                            progressBarW10.visibility = View.VISIBLE
                         }
                     }
                 }
@@ -122,23 +193,35 @@ class TimeLineActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListen
 
     private fun loadMore() {
         Handler().postDelayed({
-            var currentSize = timeLineItemsShowed.size
+            var currentSize = postItemsShowed.size
             val nextLimit = currentSize + 10
-            while (currentSize < timeLineItemsAll.size && currentSize < nextLimit) {
-                timeLineItemsShowed.add(timeLineItemsAll[currentSize])
+            while (currentSize < postItemsAll.size && currentSize < nextLimit) {
+                postItemsShowed.add(postItemsAll[currentSize])
                 currentSize++
             }
-            adapter.notifyDataSetChanged()
+            adapter?.notifyDataSetChanged()
             isLoading = false
-            progressBarW5.visibility = View.INVISIBLE
+            progressBarW10.visibility = View.INVISIBLE
         }, TIME_DELAY)
     }
 
     private fun reloadData() {
-        timeLineItemsShowed.clear()
+        postItemsShowed.clear()
         for (i in 0 until ITEMS_TAKE) {
-            timeLineItemsShowed.add(timeLineItemsAll[i])
+            postItemsShowed.add(postItemsAll[i])
         }
-        adapter.notifyDataSetChanged()
+        adapter?.notifyDataSetChanged()
+    }
+
+    private fun getLoginUserData(): User {
+        val sharePref: SharedPreferences =
+            this.getSharedPreferences(USER_DATA_PREFS_WEEK_10, Context.MODE_PRIVATE)
+
+        return User(
+            sharePref.getInt(ID_KEY, -1),
+            sharePref.getString(EMAIL_KEY, null),
+            sharePref.getString(FULL_NAME_KEY, null),
+            sharePref.getString(TOKEN_KEY, null)
+        )
     }
 }

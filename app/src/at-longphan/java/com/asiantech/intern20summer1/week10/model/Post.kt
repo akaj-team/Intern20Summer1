@@ -1,32 +1,35 @@
 package com.asiantech.intern20summer1.week10.model
 
+import com.google.gson.annotations.SerializedName
+
 class Post() {
 
     companion object {
         private const val RANDOM_LIKES_RANGE = 4
     }
 
-    internal var userName: String? = null
-    internal var imageUri: String? = null
-    internal var caption: String? = null
-    internal var isLiked: Boolean = false
-    internal var likes: Int = 0
+    @SerializedName("id") internal var id: Int? = null
+    @SerializedName("user_id") internal var userId: String? = null
+    @SerializedName("image") internal var image: String? = null
+    @SerializedName("content") internal var content: String? = null
+    @SerializedName("created_at") internal var createAt: String? = null
+    @SerializedName("like_flag") internal var likeFlag: Boolean = false
+    @SerializedName("like_count") internal var likeCount: Int = 0
     internal var isPluralLike: Boolean = false
 
     constructor(
-        name: String,
-        imageUri: String,
-        caption: String,
-        isLiked: Boolean,
-        likes: Int,
-        isPluralLike: Boolean
+        userId: String,
+        image: String,
+        content: String,
+        likeFlag: Boolean,
+        likeCount: Int
     ) : this() {
-        this.userName = name
-        this.imageUri = imageUri
-        this.caption = caption
-        this.isLiked = isLiked
-        this.likes = likes
-        this.isPluralLike = isPluralLike
+        this.userId = userId
+        this.image = image
+        this.content = content
+        this.likeFlag = likeFlag
+        this.likeCount = likeCount
+        this.isPluralLike = likeCount > 1
     }
 
     fun createTimeLineItemsList(numItems: Int): MutableList<Post> {
@@ -39,8 +42,7 @@ class Post() {
                     "",
                     "This is content, this is content this is content this is content",
                     random != 0 && i % 2 == 0,
-                    random,
-                    random > 1
+                    random
                 )
             )
         }

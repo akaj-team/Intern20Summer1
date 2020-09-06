@@ -1,13 +1,15 @@
 package com.asiantech.intern20summer1.week10.fragment
 
 import android.app.AlertDialog
-import android.content.DialogInterface
+import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
@@ -15,6 +17,7 @@ import com.asiantech.intern20summer1.week10.activity.TimeLineActivity
 import com.asiantech.intern20summer1.week10.api.RetrofitClient
 import com.asiantech.intern20summer1.week10.model.User
 import com.asiantech.intern20summer1.week10.model.UserLogin
+import com.asiantech.intern20summer1.week10.other.*
 import com.asiantech.intern20summer1.week4.other.isValidEmail
 import com.asiantech.intern20summer1.week4.other.isValidPassword
 import kotlinx.android.synthetic.`at-longphan`.fragment_sign_in_w10.*
@@ -23,6 +26,8 @@ import retrofit2.Response
 
 class SignInFragment : Fragment() {
 
+    private lateinit var loginUser: User
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -30,11 +35,13 @@ class SignInFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_sign_in_w10, container, false)
     }
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         handleListeners()
     }
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun handleListeners() {
         handleEditTextEmailIdListener()
         handleEditTextPasswordListener()
@@ -58,17 +65,9 @@ class SignInFragment : Fragment() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun handleButtonSignInListener() {
         btnSignInW10?.setOnClickListener {
-            /*userLogin.email = edtEmailId.text.toString()
-            userLogin.password = edtPassword.text.toString()*/
-
-            /*if (isSignInEnabled()) {
-                loginApp()
-            } else {
-                showInvalidLoginDialog()
-            }*/
-
             val email = edtEmailIdFragmentSignInW10?.text.toString()
             val password = edtPasswordFragmentSignInW10?.text.toString()
 
@@ -76,29 +75,54 @@ class SignInFragment : Fragment() {
                 RetrofitClient.createUserService()
                     ?.login(UserLogin(email, password))
 
-            progressBarFragmentSignInW10?.visibility = View.VISIBLE
+            val builder = AlertDialog.Builder(context)
+            builder.setView(R.layout.progress_dialog_loading)
+            val progressDialogLoading = builder.create()
+            progressDialogLoading?.show()
+
             callApi?.enqueue(object : retrofit2.Callback<User> {
                 override fun onFailure(call: Call<User>, t: Throwable) {
-                    progressBarFragmentSignInW10?.visibility = View.INVISIBLE
-                    Toast.makeText(requireContext(), "Sign in failed!", Toast.LENGTH_SHORT).show()
+                    progressDialogLoading?.dismiss()
+                    Toast.makeText(
+                        requireContext(),
+                        getString(R.string.text_no_network_conennection),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
 
                 override fun onResponse(call: Call<User>, response: Response<User>) {
-                    progressBarFragmentSignInW10?.visibility = View.INVISIBLE
-                    if (response.code() == 200) {
-                        Toast.makeText(
-                            context,
-                            getString(R.string.text_sign_in_success),
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        fragmentManager?.popBackStack()
-                    } else {
-                        Toast.makeText(
-                            requireContext(),
-                            "Sign in failed! Code " + response.code(),
-                            Toast.LENGTH_SHORT
-                        )
-                            .show()
+                    progressDialogLoading.dismiss()
+                    when (response.code()) {
+                        200 -> {
+                            if (response.body() != null) {
+                                loginUser = response.body()!!
+                            }
+
+                            saveLoginUserData()
+
+                            loginApp()
+
+                            Toast.makeText(
+                                context,
+                                getString(R.string.text_sign_in_success),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                        401 -> {
+                            Toast.makeText(
+                                context,
+                                getString(R.string.text_unauthorized),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                        else -> {
+                            Toast.makeText(
+                                requireContext(),
+                                getString(R.string.text_error_occurred),
+                                Toast.LENGTH_SHORT
+                            )
+                                .show()
+                        }
                     }
                 }
             })
@@ -134,15 +158,18 @@ class SignInFragment : Fragment() {
 
     private fun loginApp() {
         val timeLineActivityIntent = Intent(this.context, TimeLineActivity::class.java)
-        //.putExtra(SignInActivityData.SIGN_IN_USER, userLogin)
         startActivity(timeLineActivityIntent)
         this.activity?.finish()
     }
 
-    private fun showInvalidLoginDialog() {
-        val builder = AlertDialog.Builder(this.context)
-            .setTitle(getString(R.string.invalid_login_dialog_title))
-            .setPositiveButton(getString(R.string.invalid_login_dialog_title_confirm)) { _: DialogInterface, _: Int -> }
-        builder.show()
+    private fun saveLoginUserData() {
+        val sharePref =
+            context?.getSharedPreferences(USER_DATA_PREFS_WEEK_10, Context.MODE_PRIVATE)
+        val editor = sharePref?.edit()
+        editor?.putInt(ID_KEY, loginUser.id)
+        editor?.putString(EMAIL_KEY, loginUser.email)
+        editor?.putString(FULL_NAME_KEY, loginUser.fullName)
+        editor?.putString(TOKEN_KEY, loginUser.token)
+        editor?.apply()
     }
 }

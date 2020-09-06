@@ -90,4 +90,8 @@
 
     <string name="button_week_10_description">Week 10: API</string>
     <string name="text_sign_in_success">Sign in successfully!</string>
+    <string name="text_unauthorized">Invalid email or password!</string>
+    <string name="text_error_occurred">Error occurred, please try later!</string>
+    <string name="text_no_network_conennection">No network connection!</string>
+    <string name="text_view_progress_dialog_loading_text">loading..</string>
 </resources>

@@ -6,13 +6,6 @@
     android:background="@color/colorContainerSignInFragmentBackground"
     tools:context="com.asiantech.intern20summer1.week4.fragment.SignInFragment">
 
-    <ProgressBar
-        android:id="@+id/progressBarFragmentSignInW10"
-        android:layout_width="@dimen/progress_bar_width_W5"
-        android:layout_height="@dimen/progress_bar_height"
-        android:layout_gravity="center"
-        android:visibility="invisible" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

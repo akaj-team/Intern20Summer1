@@ -3,22 +3,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.asiantech.intern20summer1.week5.activity.TimeLineActivity">
+    tools:context="com.asiantech.intern20summer1.week10.activity.TimeLineActivity">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipeContainer"
+        android:id="@+id/swipeContainerW10"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycleViewTimeLine"
+            android:id="@+id/recycleViewTimeLineW10"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="vertical" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <ProgressBar
-        android:id="@+id/progressBarW5"
+        android:id="@+id/progressBarW10"
         android:layout_width="@dimen/progress_bar_width_W5"
         android:layout_height="@dimen/progress_bar_height"
         android:layout_centerInParent="true"

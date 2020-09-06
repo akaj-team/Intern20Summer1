@@ -46,6 +46,7 @@
             android:theme="@style/SplashscreenTheme" />
         <activity android:name=".week10.activity.SignInActivity" />
         <activity android:name=".week10.activity.HomeActivity" />
+        <activity android:name=".week10.activity.TimeLineActivity" />
     </application>
 
 </manifest>

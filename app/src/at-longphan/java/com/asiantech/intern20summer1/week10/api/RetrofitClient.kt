@@ -14,6 +14,9 @@ object RetrofitClient {
     internal fun createUserService(): UserService? =
         getClient()?.create(UserService::class.java)
 
+    internal fun createPostService(): PostService? =
+        getClient()?.create(PostService::class.java)
+
     private fun getClient(): Retrofit? {
         if (retrofit == null) {
             retrofit = Retrofit.Builder()

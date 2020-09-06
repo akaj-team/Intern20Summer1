@@ -13,7 +13,7 @@
         android:layout_margin="@dimen/linear_layout_name_above_margin">
 
         <TextView
-            android:id="@+id/tvUserNameWeek5"
+            android:id="@+id/tvUserNameWeek10"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
@@ -31,7 +31,7 @@
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/imgImagePost"
+        android:id="@+id/imgImagePostWeek10"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
@@ -44,7 +44,7 @@
         android:padding="@dimen/linear_layout_interact_padding">
 
         <ImageView
-            android:id="@+id/imgIsLiked"
+            android:id="@+id/imgIsLikedWeek10"
             android:layout_width="@dimen/image_view_is_liked_width"
             android:layout_height="@dimen/image_view_is_liked_height"
             android:layout_marginHorizontal="@dimen/image_view_is_liked_margin_horizontal"
@@ -90,7 +90,7 @@
                 android:src="@drawable/ic_heart_filled" />
 
             <TextView
-                android:id="@+id/tvLikes"
+                android:id="@+id/tvLikesWeek10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/text_view_likes_margin_left"
@@ -101,7 +101,7 @@
                 tools:text="12" />
 
             <TextView
-                android:id="@+id/tvIsPluralLike"
+                android:id="@+id/tvIsPluralLikeWeek10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/text_view_like_description_margin_left"
@@ -118,7 +118,7 @@
             android:layout_marginTop="@dimen/linear_layout_name_and_content_margin_top">
 
             <TextView
-                android:id="@+id/tvCaptionWeek5"
+                android:id="@+id/tvCaptionWeek10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-light"
