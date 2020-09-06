@@ -9,6 +9,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week10.api.ApiClient
+import com.asiantech.intern20summer1.week10.extensions.handleOnTouchScreen
 import com.asiantech.intern20summer1.week10.models.User
 import com.asiantech.intern20summer1.week10.models.UserRegister
 import kotlinx.android.synthetic.`at-linhle`.fragment_api_register.*
@@ -39,6 +40,7 @@ class RegisterFragment : Fragment() {
         handleRegisterEmailTextChanged()
         handleRegisterFullNameTextChanged()
         handleRegisterPasswordTextChanged()
+        handleOnTouchScreen(llRegisterMain)
     }
 
     private fun isSignUpFullNameValid(fullName: String) = fullName.length <= 64
@@ -117,12 +119,13 @@ class RegisterFragment : Fragment() {
                 }
 
                 override fun onResponse(call: Call<User>, response: Response<User>) {
-                    if(response.isSuccessful){
+                    if (response.isSuccessful) {
                         Toast.makeText(activity, "Đăng Ký Thành Công", Toast.LENGTH_SHORT).show()
                         onRegisterSuccess(email, password)
                         activity?.onBackPressed()
-                    }else {
-                        Toast.makeText(activity, "Email Đã Có Người Đăng Ký", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(activity, "Email Đã Có Người Đăng Ký", Toast.LENGTH_SHORT)
+                            .show()
                     }
                 }
             })

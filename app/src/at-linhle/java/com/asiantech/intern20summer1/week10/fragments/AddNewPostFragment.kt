@@ -17,6 +17,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week10.api.ApiClient
+import com.asiantech.intern20summer1.week10.extensions.handleOnTouchScreen
 import com.asiantech.intern20summer1.week10.fragments.HomeFragment.Companion.KEY_STRING_TOKEN
 import com.asiantech.intern20summer1.week10.models.Body
 import com.asiantech.intern20summer1.week10.models.PostResponse
@@ -64,6 +65,7 @@ class AddNewPostFragment : Fragment() {
         toolbarAddPost.title = getString(R.string.add_new_post_fragment_toolbar_title)
         handleClickingAddPostImage()
         handleOnClickListener()
+        handleOnTouchScreen(llAddPostMain)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

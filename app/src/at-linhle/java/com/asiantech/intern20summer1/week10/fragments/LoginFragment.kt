@@ -12,6 +12,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week10.api.ApiClient
+import com.asiantech.intern20summer1.week10.extensions.handleOnTouchScreen
 import com.asiantech.intern20summer1.week10.models.User
 import com.asiantech.intern20summer1.week10.views.HomeApiActivity
 import kotlinx.android.synthetic.`at-linhle`.fragment_api_login.*
@@ -44,6 +45,7 @@ class LoginFragment : Fragment() {
         handleLoginEmailTextChanged()
         handleLoginPasswordTextChanged()
         handleClickingLoginButton()
+        handleOnTouchScreen(llLoginMain)
     }
 
     private fun isSignUpPasswordValid(password: String) =

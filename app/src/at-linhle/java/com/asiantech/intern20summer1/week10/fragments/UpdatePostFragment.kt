@@ -17,6 +17,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week10.api.ApiClient
+import com.asiantech.intern20summer1.week10.extensions.handleOnTouchScreen
 import com.asiantech.intern20summer1.week10.fragments.AddNewPostFragment.Companion.ASPECT_IMAGE_RATIO
 import com.asiantech.intern20summer1.week10.fragments.AddNewPostFragment.Companion.KEY_IMAGE
 import com.asiantech.intern20summer1.week10.fragments.AddNewPostFragment.Companion.KEY_IMAGE_GALLERY
@@ -76,7 +77,7 @@ class UpdatePostFragment : Fragment() {
         handleOnClickListener()
         handleClickingAddPostImage()
         handleRenderDataInView()
-        Toast.makeText(activity, imageName, Toast.LENGTH_SHORT).show()
+        handleOnTouchScreen(llUpdatePostMain)
     }
 
     private fun getData() {
@@ -201,7 +202,7 @@ class UpdatePostFragment : Fragment() {
     private fun handleGetImageFile(): MultipartBody.Part? {
         if (imageUri == null) {
             return imageName?.let { MultipartBody.Part.createFormData("image", it) }
-        }else {
+        } else {
             imageUri?.let {
                 val file = File(getPath(it))
                 val image = file.asRequestBody(KEY_IMAGE_GALLERY.toMediaTypeOrNull())
