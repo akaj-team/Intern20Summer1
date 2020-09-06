@@ -5,6 +5,13 @@ import com.asiantech.intern20summer1.w10.models.RequestAccount
 import retrofit2.Call
 import retrofit2.http.*
 
+/**
+ * Asian Tech Co., Ltd.
+ * Intern20Summer1 Project.
+ * Created by at-huybui on 02/09/2020.
+ * This is ApiAccountService class. It will progress Api for Account model
+ */
+
 interface ApiAccountService {
 
     companion object {

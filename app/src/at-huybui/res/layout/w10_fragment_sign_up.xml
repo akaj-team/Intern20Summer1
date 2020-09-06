@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:background="@color/background_white"
     android:layout_height="match_parent">
-
     <ImageView
         android:id="@+id/btnBack"
         android:layout_width="@dimen/w10_signup_icon_back_size"
@@ -98,4 +97,13 @@
         android:enabled="false"
         android:text="@string/register"
         android:textColor="@color/background_white" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="@dimen/w10_progress_bar_size"
+        android:layout_height="@dimen/w10_progress_bar_size"
+        android:layout_centerInParent="true"
+        android:visibility="invisible" />
+
 </RelativeLayout>

@@ -2,15 +2,14 @@ package com.asiantech.intern20summer1.w10.utils
 
 import android.content.Context
 import android.widget.Toast
-import com.asiantech.intern20summer1.w0.TestClass
 import java.text.SimpleDateFormat
 import java.util.*
 
 /**
  * Asian Tech Co., Ltd.
  * Intern20Summer1 Project.
- * Created by at-huybui on 05/09/2020.
- * This is AppUtils (TODO)
+ * Created by at-huybui on 01/09/2020.
+ * This is AppUtils class. this contain method util for project
  */
 class AppUtils {
     companion object {

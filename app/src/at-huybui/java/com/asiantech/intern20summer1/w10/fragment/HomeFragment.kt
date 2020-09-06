@@ -1,6 +1,7 @@
 package com.asiantech.intern20summer1.w10.fragment
 
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w10.activity.ApiMainActivity
@@ -22,6 +24,13 @@ import kotlinx.android.synthetic.`at-huybui`.w10_fragment_home.*
 import retrofit2.Call
 import retrofit2.Response
 
+/**
+ * Asian Tech Co., Ltd.
+ * Intern20Summer1 Project.
+ * Created by at-huybui on 01/09/2020.
+ * This is HomeFragment class. It is fragment to display home page
+ */
+
 class HomeFragment : Fragment() {
 
     companion object {
@@ -30,7 +39,9 @@ class HomeFragment : Fragment() {
 
     private var callApi: ApiPostService? = null
     var postLists = mutableListOf<PostItem>()
-    var postAdapter = RecyclerAdapter(postLists)
+    var postListRecycler = mutableListOf<PostItem>()
+    var postAdapter = RecyclerAdapter(postListRecycler)
+    private var isLoadMore = false
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -53,6 +64,7 @@ class HomeFragment : Fragment() {
     private fun initRecyclerView() {
         initData()
         initAdapter()
+        handleForLoadMoreAndRefreshListener()
     }
 
     private fun initListener() {
@@ -61,7 +73,10 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun initData() {
+    private fun initData(isSwiped: Boolean = false) {
+        if (!isSwiped) {
+            progressBar?.visibility = View.VISIBLE
+        }
         d("initdata", "initdata")
         val token = AppUtils().getToken(requireContext())
         callApi?.getPostLists(token)?.enqueue(object : retrofit2.Callback<List<PostItem>> {
@@ -70,11 +85,18 @@ class HomeFragment : Fragment() {
                 response: Response<List<PostItem>>
             ) {
                 postLists.clear()
+                postListRecycler.clear()
+                postListRecycler.add(PostItem())
                 response.body()?.toCollection(postLists)
-                d("homeFragment", postLists.toString())
+                if (postLists.size < 10) {
+                    initDataRecycler(0, postLists.size)
+                } else {
+                    initDataRecycler(0, 10)
+                }
                 postAdapter.notifyDataSetChanged()
-                (recyclerView.itemAnimator as? SimpleItemAnimator)?.supportsChangeAnimations =
-                    true
+                (recyclerView.itemAnimator as? SimpleItemAnimator)?.supportsChangeAnimations = true
+                progressBar?.visibility = View.INVISIBLE
+                swipeRefreshContainer.isRefreshing = false
             }
 
             override fun onFailure(call: Call<List<PostItem>>, t: Throwable) {}
@@ -86,22 +108,26 @@ class HomeFragment : Fragment() {
 
         postAdapter.onLikeClicked = { position ->
             val token = AppUtils().getToken(requireContext())
-           callApi?.likePost(token,postLists[position].id)?.enqueue(object :retrofit2.Callback<ResponseLike>{
-               override fun onResponse(call: Call<ResponseLike>, response: Response<ResponseLike>) {
-                   if(response.isSuccessful){
-                       response.body()?.let {
-                           d("likePost",it.toString())
-                           postLists[position].like_flag = it.like_flag
-                           postLists[position].like_count = it.likeCount
-                       }
-                       postAdapter.notifyItemChanged(position, null)
-                       (recyclerView.itemAnimator as? SimpleItemAnimator)?.supportsChangeAnimations =
-                           true
-                   }
-               }
+            callApi?.likePost(token, postLists[position].id)
+                ?.enqueue(object : retrofit2.Callback<ResponseLike> {
+                    override fun onResponse(
+                        call: Call<ResponseLike>,
+                        response: Response<ResponseLike>
+                    ) {
+                        if (response.isSuccessful) {
+                            response.body()?.let {
+                                d("likePost", it.toString())
+                                postLists[position].like_flag = it.like_flag
+                                postLists[position].like_count = it.like_count
+                            }
+                            postAdapter.notifyItemChanged(position, null)
+                            (recyclerView.itemAnimator as? SimpleItemAnimator)?.supportsChangeAnimations =
+                                true
+                        }
+                    }
 
-               override fun onFailure(call: Call<ResponseLike>, t: Throwable) {}
-           })
+                    override fun onFailure(call: Call<ResponseLike>, t: Throwable) {}
+                })
         }
         postAdapter.onMenuClicked = { view, position ->
             showMenuItem(view, position)
@@ -169,5 +195,46 @@ class HomeFragment : Fragment() {
             initData()
         }
         fragment.show(fragmentManager, null)
+    }
+
+
+    private fun handleForLoadMoreAndRefreshListener() {
+        swipeRefreshContainer.setOnRefreshListener {
+            initData(true)
+            postAdapter.notifyDataSetChanged()
+        }
+
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val linearLayoutManager = recyclerView.layoutManager as LinearLayoutManager
+                val lastVisibleItem = linearLayoutManager.findLastCompletelyVisibleItemPosition()
+                d("loadmore",
+                    "$lastVisibleItem :  : | ${postListRecycler.size - 1}")
+                if (!isLoadMore && (lastVisibleItem == postListRecycler.size - 1)) {
+                    isLoadMore = true
+                    Handler().postDelayed({
+                        val currentSize = postListRecycler.size - 1
+                        if (postLists.size - currentSize < 10) {
+                            initDataRecycler(currentSize, postLists.size)
+                        } else {
+                            initDataRecycler(currentSize, currentSize + 10)
+                        }
+                        postAdapter.notifyDataSetChanged()
+                    }, 2000)
+                }
+                isLoadMore = false
+            }
+        })
+    }
+
+    private fun initDataRecycler(start: Int, end: Int) {
+        progressBar.visibility = View.VISIBLE
+        d("testSise", postListRecycler.size.toString())
+        postListRecycler.removeAt(postListRecycler.size - 1)
+        for (i in start until end) {
+            postListRecycler.add(postLists[i])
+        }
+        postListRecycler.add(PostItem())
     }
 }

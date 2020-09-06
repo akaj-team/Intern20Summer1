@@ -5,6 +5,13 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
+/**
+ * Asian Tech Co., Ltd.
+ * Intern20Summer1 Project.
+ * Created by at-huybui on 02/09/2020.
+ * This is Api class. It is class progress connect Api
+ */
+
 class Api {
 
     companion object {

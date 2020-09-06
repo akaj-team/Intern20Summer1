@@ -18,6 +18,13 @@ import com.asiantech.intern20summer1.w10.utils.AppUtils
 import kotlinx.android.synthetic.`at-huybui`.w10_fragment_sign_in.*
 import retrofit2.Response
 
+/**
+ * Asian Tech Co., Ltd.
+ * Intern20Summer1 Project.
+ * Created by at-huybui on 01/09/2020.
+ * This is SignInFragment class. It is fragment to display sign in page
+ */
+
 class SignInFragment : Fragment() {
 
     companion object {
@@ -61,6 +68,7 @@ class SignInFragment : Fragment() {
     }
 
     private fun isCheckAccount() {
+        progressBar?.visibility = View.VISIBLE
         val email = edtEmail.text.toString()
         val password = edtPassword.text.toString()
         callApi?.login(email, password)?.enqueue(object : retrofit2.Callback<Account> {
@@ -69,7 +77,7 @@ class SignInFragment : Fragment() {
                     response.body()?.let { account ->
                         AppUtils().putIsLogin(requireContext(), true)
                         AppUtils().putToken(requireContext(), account.token)
-                        AppUtils().putIdUser(requireContext(),account.id)
+                        AppUtils().putIdUser(requireContext(), account.id)
                         (activity as ApiMainActivity).replaceFragment(
                             HomeFragment.newInstance()
                         )
@@ -80,6 +88,8 @@ class SignInFragment : Fragment() {
                         showToast("Tài khoản hoặc mật khẩu không đúng")
                     }
                 }
+
+                progressBar?.visibility = View.INVISIBLE
             }
 
             override fun onFailure(call: retrofit2.Call<Account>, t: Throwable) {

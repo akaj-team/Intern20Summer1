@@ -11,6 +11,12 @@ import android.provider.MediaStore
 import android.provider.OpenableColumns
 import java.io.File
 
+/**
+ * Asian Tech Co., Ltd.
+ * Intern20Summer1 Project.
+ * Created by at-huybui on 01/09/2020.
+ * This is FileInformation class. this is class to handle file in progress
+ */
 internal class FileInformation {
 
     companion object {

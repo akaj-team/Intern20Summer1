@@ -16,33 +16,74 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import kotlinx.android.synthetic.`at-huybui`.w10_item_recycler_post.view.*
 
-class RecyclerAdapter(private val mutableList: MutableList<PostItem>) :
-    RecyclerView.Adapter<RecyclerAdapter.ItemViewHolder>() {
+/**
+ * Asian Tech Co., Ltd.
+ * Intern20Summer1 Project.
+ * Created by at-huybui on 01/09/2020.
+ * This is RecyclerAdapter class. It is adapter for recycler view to display posts
+ */
+
+class RecyclerAdapter(private var mutableList: List<Any> = emptyList()) :
+    RecyclerView.Adapter<RecyclerAdapter.BaseViewHolder<*>>() {
 
     companion object {
+        private const val TYPE_NOMAL = 0
+        private const val TYPE_LOAD = 1
+
         private const val BLACK_HEART_SYMBOL = "\uD83D\uDDA4"
-        internal const val URL_IMAGE = "http://at-a-trainning.000webhostapp.com/images/"
+        internal const val URL_IMAGE = "https://at-a-trainning.000webhostapp.com/images/"
     }
 
     internal var onLikeClicked: (position: Int) -> Unit = {}
     internal var onMenuClicked: (view: View, position: Int) -> Unit = { _, _ -> }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        val itemView =
-            LayoutInflater.from(parent.context)
-                .inflate(R.layout.w10_item_recycler_post, parent, false)
-        return ItemViewHolder(itemView)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<*> {
+        return when (viewType) {
+            TYPE_NOMAL -> {
+                val view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.w10_item_recycler_post, parent, false)
+                ItemViewHolder(view)
+            }
+            TYPE_LOAD -> {
+                val view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.w10_item_recycler_load_more, parent, false)
+                LoadMoreViewHolder(view)
+            }
+            else -> throw IllegalArgumentException("Invalid view type")
+        }
     }
 
     override fun getItemCount() = mutableList.size
 
-    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        holder.bindData()
+    override fun getItemViewType(position: Int): Int {
+        return when {
+            position < (mutableList.size - 1) -> {
+                TYPE_NOMAL
+            }
+            position == (mutableList.size - 1) -> {
+                TYPE_LOAD
+            }
+            else -> {
+                throw IllegalArgumentException(position.toString())
+            }
+        }
     }
 
-    inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    override fun onBindViewHolder(holder: BaseViewHolder<*>, position: Int) {
+        val element = mutableList[position]
+        if (holder is ItemViewHolder) {
+            holder.bind(element as PostItem)
+        } else if (holder is LoadMoreViewHolder) {
+            holder.bind(element as PostItem)
+        }
+    }
 
+    class LoadMoreViewHolder(itemView: View) : BaseViewHolder<PostItem>(itemView) {
+        override fun bind(item: PostItem) {
+        }
+    }
 
+    inner class ItemViewHolder(itemView: View) : BaseViewHolder<PostItem>(itemView) {
         private var image = itemView.imgImage
         private var iconLike = itemView.btnLike
         private var content = itemView.tvContent
@@ -61,25 +102,23 @@ class RecyclerAdapter(private val mutableList: MutableList<PostItem>) :
             }
         }
 
-        fun bindData() {
-            mutableList[adapterPosition].let { item ->
-                val id = AppUtils().getIdUser(itemView.context)
-                if (id == item.user_id) {
-                    btnMenu.visibility = View.VISIBLE
-                } else {
-                    btnMenu.visibility = View.INVISIBLE
-                }
-                d("adapter", "id = $id | user = ${item.user_id} | $adapterPosition")
-                loadImage(item)
-                val stLikeCount = "$BLACK_HEART_SYMBOL ${item.like_count} likes"
-                content.text = item.content
-                likeCount.text = stLikeCount
-                createdAt.text = AppUtils().convertDate(item.created_at)
-                if (item.like_flag) {
-                    iconLike.setImageResource(R.drawable.w10_ic_heart_red)
-                } else {
-                    iconLike.setImageResource(R.drawable.w10_ic_heart_transparent)
-                }
+        override fun bind(item: PostItem) {
+            val id = AppUtils().getIdUser(itemView.context)
+            if (id == item.user_id) {
+                btnMenu.visibility = View.VISIBLE
+            } else {
+                btnMenu.visibility = View.INVISIBLE
+            }
+            d("adapter", "id = $id | user = ${item.user_id} | $adapterPosition")
+            loadImage(item)
+            val stLikeCount = "$BLACK_HEART_SYMBOL ${item.like_count} likes"
+            content.text = item.content
+            likeCount.text = stLikeCount
+            createdAt.text = AppUtils().convertDate(item.created_at)
+            if (item.like_flag) {
+                iconLike.setImageResource(R.drawable.w10_ic_heart_red)
+            } else {
+                iconLike.setImageResource(R.drawable.w10_ic_heart_transparent)
             }
         }
 
@@ -111,5 +150,9 @@ class RecyclerAdapter(private val mutableList: MutableList<PostItem>) :
                 })
                 .into(image)
         }
+    }
+
+    abstract class BaseViewHolder<T>(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        abstract fun bind(item: T)
     }
 }

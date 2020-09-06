@@ -20,10 +20,10 @@ import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w10.activity.ApiMainActivity
 import com.asiantech.intern20summer1.w10.api.Api
 import com.asiantech.intern20summer1.w10.api.ApiPostService
-import com.asiantech.intern20summer1.w10.utils.FileInformation
 import com.asiantech.intern20summer1.w10.models.PostContent
 import com.asiantech.intern20summer1.w10.models.ResponsePost
 import com.asiantech.intern20summer1.w10.utils.AppUtils
+import com.asiantech.intern20summer1.w10.utils.FileInformation
 import com.google.gson.Gson
 import kotlinx.android.synthetic.`at-huybui`.w10_dialog_fragment_post.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -33,6 +33,12 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Response
 import java.io.File
 
+/**
+ * Asian Tech Co., Ltd.
+ * Intern20Summer1 Project.
+ * Created by at-huybui on 02/09/2020.
+ * This is PostDialogFragment class. It is fragment to display add new post page
+ */
 
 class PostDialogFragment : DialogFragment() {
 
@@ -102,10 +108,10 @@ class PostDialogFragment : DialogFragment() {
     }
 
     private fun handlePostContent() {
+        progressBar?.visibility = View.VISIBLE
         val image = File(imageUri?.path.toString()).asRequestBody("image/*".toMediaTypeOrNull())
         val text = Gson().toJson(PostContent(edtContent?.text.toString())).toString()
         val body = text.toRequestBody("text".toMediaTypeOrNull())
-
         val token = AppUtils().getToken(requireContext())
         callApi?.createPost(token, createMultiPartBody(), body)
             ?.enqueue(object : retrofit2.Callback<ResponsePost> {
@@ -124,6 +130,7 @@ class PostDialogFragment : DialogFragment() {
                         val text = "Đăng bài viết không thành công"
                         ApiMainActivity().showToast(requireContext(), text)
                     }
+                    progressBar?.visibility = View.INVISIBLE
                 }
 
                 override fun onFailure(call: retrofit2.Call<ResponsePost>, t: Throwable) {

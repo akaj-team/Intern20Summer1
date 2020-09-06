@@ -19,6 +19,13 @@ import kotlinx.android.synthetic.`at-huybui`.w10_fragment_sign_up.*
 import retrofit2.Call
 import retrofit2.Response
 
+/**
+ * Asian Tech Co., Ltd.
+ * Intern20Summer1 Project.
+ * Created by at-huybui on 01/09/2020.
+ * This is SignInFragment class. It is fragment to display sign up page
+ */
+
 class SignUpFragment : Fragment() {
 
     companion object {
@@ -99,6 +106,7 @@ class SignUpFragment : Fragment() {
     }
 
     private fun registerAccount() {
+        progressBar?.visibility = View.VISIBLE
         val email = edtEmail.text.toString()
         val fullName = edtFullName.text.toString()
         val password = edtPassword.text.toString()
@@ -118,6 +126,7 @@ class SignUpFragment : Fragment() {
                             showToast("Tài khoản Email đã tồn tại")
                         }
                     }
+                    progressBar?.visibility = View.INVISIBLE
                 }
 
                 override fun onFailure(call: Call<Account>, t: Throwable) {}

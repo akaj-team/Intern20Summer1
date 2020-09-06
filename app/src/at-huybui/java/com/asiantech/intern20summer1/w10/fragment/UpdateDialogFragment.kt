@@ -34,8 +34,13 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Response
-import java.io.File
 
+/**
+ * Asian Tech Co., Ltd.
+ * Intern20Summer1 Project.
+ * Created by at-huybui on 01/09/2020.
+ * This is UpdateDialogFragment class. It is fragment to display update the post page
+ */
 
 class UpdateDialogFragment : DialogFragment() {
 
@@ -118,10 +123,9 @@ class UpdateDialogFragment : DialogFragment() {
     }
 
     private fun handleUpdateContent() {
-        val image = File(imageUri?.path.toString()).asRequestBody("image/*".toMediaTypeOrNull())
+        progressBar?.visibility = View.VISIBLE
         val text = Gson().toJson(PostContent(edtContent?.text.toString())).toString()
         val body = text.toRequestBody("text".toMediaTypeOrNull())
-
         val token = AppUtils().getToken(requireContext())
         callApi?.updatePost(token, postItem.id, createMultiPartBody(), body)
             ?.enqueue(object : retrofit2.Callback<ResponsePost> {
@@ -140,6 +144,7 @@ class UpdateDialogFragment : DialogFragment() {
                         val text = "Update bài viết không thành công"
                         ApiMainActivity().showToast(requireContext(), text)
                     }
+                    progressBar?.visibility = View.INVISIBLE
                 }
 
                 override fun onFailure(call: retrofit2.Call<ResponsePost>, t: Throwable) {

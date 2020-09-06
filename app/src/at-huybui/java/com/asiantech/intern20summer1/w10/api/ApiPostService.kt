@@ -8,6 +8,12 @@ import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
 
+/**
+ * Asian Tech Co., Ltd.
+ * Intern20Summer1 Project.
+ * Created by at-huybui on 02/09/2020.
+ * This is ApiPostService class. It will progress Api for Post model
+ */
 
 interface ApiPostService {
 
