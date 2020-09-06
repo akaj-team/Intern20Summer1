@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week10.api.ApiClient
 import com.asiantech.intern20summer1.week10.extensions.handleOnTouchScreen
+import com.asiantech.intern20summer1.week10.fragments.LoginFragment.Companion.MAX_EMAIL_LENGTH
 import com.asiantech.intern20summer1.week10.models.User
 import com.asiantech.intern20summer1.week10.models.UserRegister
 import kotlinx.android.synthetic.`at-linhle`.fragment_api_register.*
@@ -19,6 +20,7 @@ import java.util.regex.Pattern
 
 class RegisterFragment : Fragment() {
     companion object {
+        private const val MAX_FULL_NAME_LENGTH = 64
         internal fun newInstance() = RegisterFragment()
     }
 
@@ -43,13 +45,14 @@ class RegisterFragment : Fragment() {
         handleOnTouchScreen(llRegisterMain)
     }
 
-    private fun isSignUpFullNameValid(fullName: String) = fullName.length <= 64
+    private fun isSignUpFullNameValid(fullName: String) = fullName.length <= MAX_FULL_NAME_LENGTH
 
     private fun isSignUpPasswordValid(password: String) =
         passwordPattern.matcher(password).matches()
 
     private fun isSignUpEmailValid(email: String) =
-        android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches() && email.length <= 264
+        android.util.Patterns.EMAIL_ADDRESS.matcher(email)
+            .matches() && email.length <= MAX_EMAIL_LENGTH
 
     private fun isCorrectFormat(
         fullName: String,

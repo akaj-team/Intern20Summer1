@@ -26,6 +26,7 @@ class LoginFragment : Fragment() {
         internal const val SHARED_PREFERENCE_FILE = "userSharedPreference"
         internal const val SHARED_PREFERENCE_TOKEN = "token"
         internal const val KEY_STRING_USER_ID = "id"
+        internal const val MAX_EMAIL_LENGTH = 264
         internal fun newInstance() = LoginFragment()
     }
 
@@ -52,7 +53,7 @@ class LoginFragment : Fragment() {
         passwordPattern.matcher(password).matches()
 
     private fun isSignUpEmailValid(email: String) =
-        android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches() && email.length <= 264
+        android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches() && email.length <= MAX_EMAIL_LENGTH
 
     private fun isCorrectFormat(
         email: String,
