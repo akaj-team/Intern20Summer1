@@ -17,14 +17,16 @@ class Api {
     companion object {
         //-- message from api server
         internal const val MESSAGE_CREATE_POST_SUCCESS = "Create Post success."
-        internal const val MESSAGE_MISSING_DATA = "Missing data!"
         internal const val MESSAGE_LOGIN_INCORRECT = "Email or password incorrect!"
         internal const val MESSAGE_UNAUTHORIZED = "Unauthorized!"
         internal const val MESSAGE_EMAIL_HAS_BEEN_TAKEN = "The email has already been taken."
-        internal const val MESSAGE_UPDATE_POST_SUCCESS ="Update post success!"
+        internal const val MESSAGE_UPDATE_POST_SUCCESS = "Update post success!"
 
-        //--
+        //-- base url and image url
         private const val BASE_URL = "https://at-a-trainning.000webhostapp.com"
+        internal const val IMAGE_URL = "https://at-a-trainning.000webhostapp.com/images/"
+
+        //-- create retrofit
         private var retrofit: Retrofit? = null
         private fun provideOkHttpClient(): OkHttpClient = OkHttpClient
             .Builder()

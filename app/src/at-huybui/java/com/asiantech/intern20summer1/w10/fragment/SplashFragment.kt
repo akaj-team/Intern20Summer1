@@ -84,7 +84,7 @@ class SplashFragment : Fragment() {
             }
 
             override fun onFinish() {
-                AppUtils().showToast(requireContext(), "Hết thời gian chờ")
+                AppUtils().showToast(requireContext(), getString(R.string.w10_finish_wait_time))
                 (activity as ApiMainActivity).finish()
             }
 
@@ -144,8 +144,8 @@ class SplashFragment : Fragment() {
 
     private fun selectInternetDialog() {
         val builder = (activity as ApiMainActivity).let { AlertDialog.Builder(it) }
-        builder.setTitle("Yêu cầu kết nối internet")
-        val select = arrayOf("wifi", "netword"
+        builder.setTitle(getString(R.string.w10_connect_internet_from))
+        val select = arrayOf(getString(R.string.w10_wifi), getString(R.string.w10_mobile_network)
         )
         builder.setItems(select) { _, which ->
             when (which) {

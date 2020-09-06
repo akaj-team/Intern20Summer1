@@ -82,4 +82,22 @@
     <string name="w10_register">Register</string>
     <string name="w10_full_name">Full Name</string>
     <string name="w10_rewrite_password">Rewrite password</string>
+    <string name="w10_text_likes">likes</string>
+    <string name="w10_complete_post">Đăng bài viết thành công</string>
+    <string name="w10_error_post">Đăng bài viết không thành công</string>
+    <string name="w10_select_picture">Select picture from</string>
+    <string name="w10_camera">Camera</string>
+    <string name="w10_gallery">Gallery</string>
+    <string name="w10_email_or_pass_invalid">Tài khoản hoặc mật khẩu không đúng</string>
+    <string name="w10_register_complete">Đăng ký thành công</string>
+    <string name="w10_email_is_been_take">Tài khoản Email đã tồn tại</string>
+    <string name="w10_finish_wait_time">Hết thời gian chờ</string>
+    <string name="w10_connect_internet_from">Connect Internet From</string>
+    <string name="w10_wifi">Wifi</string>
+    <string name="w10_mobile_network">Mobile Network</string>
+    <string name="w10_edit_post">Edit Post</string>
+    <string name="w10_update_complete">Update bài viết thành công</string>
+    <string name="w10_error_update">Update bài viết không thành công</string>
+    <string name="w10_menu_remove">Xóa</string>
+    <string name="w10_menu_edit">Chỉnh Sửa</string>
 </resources>

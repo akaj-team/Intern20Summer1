@@ -5,20 +5,21 @@ import android.app.Activity
 import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w10.activity.ApiMainActivity
-import com.asiantech.intern20summer1.w10.adapter.RecyclerAdapter
 import com.asiantech.intern20summer1.w10.api.Api
 import com.asiantech.intern20summer1.w10.api.ApiPostService
 import com.asiantech.intern20summer1.w10.models.PostContent
@@ -49,6 +50,7 @@ class UpdateDialogFragment : DialogFragment() {
         private const val REQUEST_SELECT_IMAGE_IN_ALBUM = 101
         private const val PERMISSION_REQUEST_CODE = 200
         private const val TYPE_IMAGE = "image/*"
+        private const val TYPE_TEXT = "text"
         internal fun newInstance(item: PostItem) = UpdateDialogFragment().apply {
             postItem = item
         }
@@ -67,6 +69,10 @@ class UpdateDialogFragment : DialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         callApi = Api.getInstance()?.create(ApiPostService::class.java)
+        dialog?.window?.apply {
+            setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            requestFeature(Window.FEATURE_NO_TITLE)
+        }
         return inflater.inflate(R.layout.w10_dialog_fragment_post, container, false)
     }
 
@@ -115,17 +121,17 @@ class UpdateDialogFragment : DialogFragment() {
     private fun initDisPlayView() {
         if (postItem.image.isNotEmpty()) {
             Glide.with(requireContext())
-                .load(RecyclerAdapter.URL_IMAGE + postItem.image)
+                .load(Api.IMAGE_URL + postItem.image)
                 .into(imgContent)
         }
-        tvTitle?.text = "Edit Post"
+        tvTitle?.text = getString(R.string.w10_edit_post)
         edtContent?.setText(postItem.content)
     }
 
     private fun handleUpdateContent() {
         progressBar?.visibility = View.VISIBLE
-        val text = Gson().toJson(PostContent(edtContent?.text.toString())).toString()
-        val body = text.toRequestBody("text".toMediaTypeOrNull())
+        val postJson = Gson().toJson(PostContent(edtContent?.text.toString())).toString()
+        val body = postJson.toRequestBody(TYPE_TEXT.toMediaTypeOrNull())
         val token = AppUtils().getToken(requireContext())
         callApi?.updatePost(token, postItem.id, createMultiPartBody(), body)
             ?.enqueue(object : retrofit2.Callback<ResponsePost> {
@@ -134,32 +140,29 @@ class UpdateDialogFragment : DialogFragment() {
                     response: Response<ResponsePost>
                 ) {
 
-                    d("posta", "[onResponse]" + response.body().toString())
                     if (response.body()?.message == Api.MESSAGE_UPDATE_POST_SUCCESS) {
-                        val text = "Update bài viết thành công"
+                        val text = getString(R.string.w10_update_complete)
                         ApiMainActivity().showToast(requireContext(), text)
                         onPostClick.invoke()
                         dialog?.dismiss()
                     } else {
-                        val text = "Update bài viết không thành công"
+                        val text = getString(R.string.w10_error_update)
                         ApiMainActivity().showToast(requireContext(), text)
                     }
                     progressBar?.visibility = View.INVISIBLE
                 }
 
                 override fun onFailure(call: retrofit2.Call<ResponsePost>, t: Throwable) {
-                    d("posta", "[onFailure]$call")
                     t.printStackTrace()
                 }
             })
-        d("posta", "finish post")
     }
 
     private fun createMultiPartBody(): MultipartBody.Part? {
         imageUri?.let {
             val file = FileInformation().getFile(requireContext(), it)
-            val image = file.asRequestBody("image/*".toMediaTypeOrNull())
-            return MultipartBody.Part.createFormData("image", file.name, image)
+            val image = file.asRequestBody(TYPE_IMAGE.toMediaTypeOrNull())
+            return MultipartBody.Part.createFormData(TYPE_IMAGE, file.name, image)
         }
         return null
     }
@@ -167,8 +170,8 @@ class UpdateDialogFragment : DialogFragment() {
     private fun handleForAvatarImage() {
         imgContent.setOnClickListener {
             val builder = (activity as ApiMainActivity).let { it1 -> AlertDialog.Builder(it1) }
-            builder.setTitle("select")
-            val select = arrayOf("camera", "gallery")
+            builder.setTitle(getString(R.string.w10_select_picture))
+            val select = arrayOf(getString(R.string.w10_camera), getString(R.string.w10_gallery))
             builder.setItems(select) { _, which ->
                 when (which) {
                     0 -> {

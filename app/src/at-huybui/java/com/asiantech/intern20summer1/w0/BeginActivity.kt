@@ -37,10 +37,6 @@ class BeginActivity : AppCompatActivity() {
             val intent = Intent(this, SplashActivity::class.java)
             startActivity(intent)
         }
-        btnTest_Begin?.setOnClickListener {
-            val intent = Intent(this, TestActivity::class.java)
-            startActivity(intent)
-        }
 
         btnBeginW10?.setOnClickListener {
             val intent = Intent(this, ApiMainActivity::class.java)

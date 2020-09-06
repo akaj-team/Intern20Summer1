@@ -1,12 +1,12 @@
 package com.asiantech.intern20summer1.w10.adapter
 
 import android.graphics.drawable.Drawable
-import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.w10.api.Api
 import com.asiantech.intern20summer1.w10.models.PostItem
 import com.asiantech.intern20summer1.w10.utils.AppUtils
 import com.bumptech.glide.Glide
@@ -27,11 +27,9 @@ class RecyclerAdapter(private var mutableList: List<Any> = emptyList()) :
     RecyclerView.Adapter<RecyclerAdapter.BaseViewHolder<*>>() {
 
     companion object {
-        private const val TYPE_NOMAL = 0
+        private const val TYPE_POST = 0
         private const val TYPE_LOAD = 1
-
         private const val BLACK_HEART_SYMBOL = "\uD83D\uDDA4"
-        internal const val URL_IMAGE = "https://at-a-trainning.000webhostapp.com/images/"
     }
 
     internal var onLikeClicked: (position: Int) -> Unit = {}
@@ -39,7 +37,7 @@ class RecyclerAdapter(private var mutableList: List<Any> = emptyList()) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<*> {
         return when (viewType) {
-            TYPE_NOMAL -> {
+            TYPE_POST -> {
                 val view = LayoutInflater.from(parent.context)
                     .inflate(R.layout.w10_item_recycler_post, parent, false)
                 ItemViewHolder(view)
@@ -58,7 +56,7 @@ class RecyclerAdapter(private var mutableList: List<Any> = emptyList()) :
     override fun getItemViewType(position: Int): Int {
         return when {
             position < (mutableList.size - 1) -> {
-                TYPE_NOMAL
+                TYPE_POST
             }
             position == (mutableList.size - 1) -> {
                 TYPE_LOAD
@@ -109,9 +107,9 @@ class RecyclerAdapter(private var mutableList: List<Any> = emptyList()) :
             } else {
                 btnMenu.visibility = View.INVISIBLE
             }
-            d("adapter", "id = $id | user = ${item.user_id} | $adapterPosition")
             loadImage(item)
-            val stLikeCount = "$BLACK_HEART_SYMBOL ${item.like_count} likes"
+            val text = itemView.context.getString(R.string.w10_text_likes)
+            val stLikeCount = "$BLACK_HEART_SYMBOL ${item.like_count} $text"
             content.text = item.content
             likeCount.text = stLikeCount
             createdAt.text = AppUtils().convertDate(item.created_at)
@@ -125,7 +123,7 @@ class RecyclerAdapter(private var mutableList: List<Any> = emptyList()) :
         private fun loadImage(item: PostItem) {
             progressBar.visibility = View.VISIBLE
             Glide.with(itemView)
-                .load(URL_IMAGE + item.image)
+                .load(Api.IMAGE_URL + item.image)
                 .placeholder(R.drawable.w10_img_placeholder)
                 .listener(object : RequestListener<Drawable> {
                     override fun onLoadFailed(

@@ -1,11 +1,9 @@
 package com.asiantech.intern20summer1.w10.fragment
 
 import android.os.Bundle
-import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
@@ -85,7 +83,8 @@ class SignInFragment : Fragment() {
                 } else {
                     val error = ErrorUtils().parseError(response)
                     if (error?.message == Api.MESSAGE_LOGIN_INCORRECT) {
-                        showToast("Tài khoản hoặc mật khẩu không đúng")
+                        AppUtils().showToast(requireContext(),
+                            getString(R.string.w10_email_or_pass_invalid))
                     }
                 }
 
@@ -111,15 +110,9 @@ class SignInFragment : Fragment() {
         if (edtEmail.text.isNullOrEmpty() || edtPassword.text.isNullOrEmpty()) {
             btnSignIn?.setBackgroundResource(R.drawable.w10_bg_button_disable)
             btnSignIn?.isEnabled = false
-            d("button", "is Enabled: false")
         } else {
             btnSignIn?.setBackgroundResource(R.drawable.w10_bg_select_button)
             btnSignIn?.isEnabled = true
-            d("button", "is Enabled: true")
         }
-    }
-
-    private fun showToast(any: Any, duration: Int = Toast.LENGTH_SHORT) {
-        Toast.makeText(requireContext(), any.toString(), duration).show()
     }
 }

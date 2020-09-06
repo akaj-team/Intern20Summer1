@@ -51,7 +51,9 @@
                 android:id="@+id/imgImage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/w10_item_margin_left_right"
+                android:layout_marginBottom="@dimen/w10_item_margin_left_right"
+                android:layout_marginLeft="@dimen/w10_item_margin_left_right"
+                android:layout_marginRight="@dimen/w10_item_margin_left_right"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
                 android:src="@drawable/w10_img_placeholder" />
@@ -89,22 +91,22 @@
                 android:layout_width="@dimen/w10_item_icon_heart_size"
                 android:layout_height="@dimen/w10_item_icon_heart_size"
                 android:src="@drawable/w10_ic_plane" />
+
+            <TextView
+                android:layout_gravity="center"
+                android:id="@+id/tvLikeCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/w10_item_margin_left_right_icon"
+                android:textColor="@color/black"
+                android:textSize="@dimen/w10_item_likes_text_size"
+                android:textStyle="bold"
+                tools:text="🖤  12k likes" />
         </LinearLayout>
 
         <TextView
-            android:id="@+id/tvLikeCount"
-            android:layout_below="@id/llIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/w10_item_margin_left_right_icon"
-            android:textColor="@color/black"
-            android:textSize="@dimen/w10_item_likes_text_size"
-            android:textStyle="bold"
-            tools:text="🖤  12k likes" />
-
-        <TextView
             android:id="@+id/tvCreatedAt"
-            android:layout_below="@id/tvLikeCount"
+            android:layout_below="@id/llIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/w10_item_margin_left_right_icon"

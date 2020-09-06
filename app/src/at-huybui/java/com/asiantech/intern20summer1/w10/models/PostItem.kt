@@ -41,4 +41,3 @@ data class ResponsePost(
  * This is PostContent class. It is model for content the new post
  */
 data class PostContent(@SerializedName("content") var content: String)
-

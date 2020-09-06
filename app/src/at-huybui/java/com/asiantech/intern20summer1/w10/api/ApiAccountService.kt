@@ -16,11 +16,11 @@ interface ApiAccountService {
 
     companion object {
         private const val PART_CREATE_POST = "/api/user"
-        private const val PART_AUTO_SIGNIN = "/api/autosignin"
+        private const val PART_AUTO_SIGN_IN = "/api/autosignin"
         private const val PART_LOGIN = "/api/login"
     }
 
-    @GET(PART_AUTO_SIGNIN)
+    @GET(PART_AUTO_SIGN_IN)
     fun autoSignIn(@Header("token") token: String): Call<Account>
 
     @POST(PART_LOGIN)

@@ -27,4 +27,3 @@ data class RequestAccount(
     @SerializedName("password") var password: String = "",
     @SerializedName("full_name") var full_name: String = ""
 )
-

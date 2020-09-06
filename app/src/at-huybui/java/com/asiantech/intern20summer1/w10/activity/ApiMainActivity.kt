@@ -3,6 +3,7 @@ package com.asiantech.intern20summer1.w10.activity
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -18,6 +19,7 @@ import com.asiantech.intern20summer1.w10.fragment.SplashFragment
  */
 
 class ApiMainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.w10_activity_api)
@@ -41,13 +43,17 @@ class ApiMainActivity : AppCompatActivity() {
         fragmentTransaction.commit()
     }
 
-    /**
-     * This function will change color of status bar follow api of device
-     */
     private fun setColorStatusBar() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             this.apply {
                 window.statusBarColor = ContextCompat.getColor(this, R.color.background_white)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    window.setDecorFitsSystemWindows(false)
+                } else {
+                    @Suppress("DEPRECATION")
+                    window.decorView.systemUiVisibility =
+                        window.decorView.systemUiVisibility.or(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
+                }
             }
         }
     }

@@ -2,7 +2,6 @@ package com.asiantech.intern20summer1.w10.utils
 
 import android.content.ContentUris
 import android.content.Context
-import android.database.Cursor
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
@@ -20,7 +19,11 @@ import java.io.File
 internal class FileInformation {
 
     companion object {
-        private const val CONTENT_URI = "content://downloads/public_downloads"
+        private const val CONTENT_PATH = "content://downloads/public_downloads"
+        private const val EXTERNAL_STORAGE_URI = "com.android.externalstorage.documents"
+        private const val EXTERNAL_DOWNLOADS_URI = "com.android.providers.downloads.documents"
+        private const val EXTERNAL_MEDIA_URI = "com.android.providers.media.documents"
+        private const val UNKNOWN = "unknown"
     }
 
     fun getFile(context: Context, uri: Uri): File {
@@ -34,8 +37,8 @@ internal class FileInformation {
      *
      * @param context The context.
      */
-    fun getPath(context: Context, uri: Uri): String? {
-        var pathReturn: String? = "unknown"
+    private fun getPath(context: Context, uri: Uri): String? {
+        var pathReturn: String? = UNKNOWN
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT
             && DocumentsContract.isDocumentUri(context, uri)
@@ -50,7 +53,7 @@ internal class FileInformation {
     }
 
     private fun getPathExternal(context: Context, uri: Uri): String? {
-        var pathReturn: String? = "unknown"
+        var pathReturn: String? = UNKNOWN
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             if (isExternalStorageDocument(uri)) {
                 val docId = DocumentsContract.getDocumentId(uri)
@@ -62,7 +65,7 @@ internal class FileInformation {
                 }
             } else if (isDownloadsDocument(uri)) {
                 val contentUri = ContentUris.withAppendedId(
-                    Uri.parse(CONTENT_URI),
+                    Uri.parse(CONTENT_PATH),
                     java.lang.Long.valueOf(DocumentsContract.getDocumentId(uri))
                 )
                 pathReturn = getDataColumn(context, contentUri, null, null)
@@ -74,7 +77,7 @@ internal class FileInformation {
     }
 
     private fun getPathMediaDocument(context: Context, uri: Uri): String? {
-        var pathReturn: String? = "unknown"
+        var pathReturn: String? = UNKNOWN
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             val docId = DocumentsContract.getDocumentId(uri)
             val split = docId.split(":".toRegex()).toTypedArray()
@@ -156,15 +159,13 @@ internal class FileInformation {
         selectionArgs: Array<String>?
     ): String? {
         try {
-            val column = "_data"
-            val projection = arrayOf(column)
-            var cursor: Cursor? = null
-            cursor = context.contentResolver.query(
+            val projection = arrayOf("_data")
+            val cursor = context.contentResolver.query(
                 uri!!, projection, selection, selectionArgs,
                 null
             )
             if (cursor != null && cursor.moveToFirst()) {
-                val columnIndex = cursor.getColumnIndexOrThrow(column)
+                val columnIndex = cursor.getColumnIndexOrThrow("_data")
                 return cursor.getString(columnIndex)
             }
             cursor?.close()
@@ -183,7 +184,7 @@ internal class FileInformation {
      * @return Whether the Uri authority is ExternalStorageProvider.
      */
     private fun isExternalStorageDocument(uri: Uri): Boolean {
-        return "com.android.externalstorage.documents" == uri.authority
+        return EXTERNAL_STORAGE_URI == uri.authority
     }
 
     /**
@@ -191,7 +192,7 @@ internal class FileInformation {
      * @return Whether the Uri authority is DownloadsProvider.
      */
     private fun isDownloadsDocument(uri: Uri): Boolean {
-        return "com.android.providers.downloads.documents" == uri.authority
+        return EXTERNAL_DOWNLOADS_URI == uri.authority
     }
 
     /**
@@ -199,6 +200,6 @@ internal class FileInformation {
      * @return Whether the Uri authority is MediaProvider.
      */
     private fun isMediaDocument(uri: Uri): Boolean {
-        return "com.android.providers.media.documents" == uri.authority
+        return EXTERNAL_MEDIA_URI == uri.authority
     }
 }

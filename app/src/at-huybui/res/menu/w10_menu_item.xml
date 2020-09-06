@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/menuDelete"
-        android:title="Xóa" />
+        android:title="@string/w10_menu_remove" />
     <item
         android:id="@+id/menuUpdate"
-        android:title="Chỉnh Sửa" />
+        android:title="@string/w10_menu_edit" />
 </menu>
