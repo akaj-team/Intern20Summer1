@@ -21,6 +21,7 @@ import java.util.regex.Pattern
 class RegisterFragment : Fragment() {
     companion object {
         private const val MAX_FULL_NAME_LENGTH = 64
+        private const val RESPONSE_CODE = 400
         internal fun newInstance() = RegisterFragment()
     }
 
@@ -118,17 +119,34 @@ class RegisterFragment : Fragment() {
                 ApiClient.createUserService()?.addNewUser(UserRegister(email, password, fullName))
             callApi?.enqueue(object : retrofit2.Callback<User> {
                 override fun onFailure(call: Call<User>, t: Throwable) {
-                    Toast.makeText(activity, "Đăng Ký Thất Bại", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, t.message, Toast.LENGTH_SHORT).show()
                 }
 
                 override fun onResponse(call: Call<User>, response: Response<User>) {
                     if (response.isSuccessful) {
-                        Toast.makeText(activity, "Đăng Ký Thành Công", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            activity,
+                            getString(R.string.register_fragment_register_success),
+                            Toast.LENGTH_SHORT
+                        ).show()
                         onRegisterSuccess(email, password)
                         activity?.onBackPressed()
                     } else {
-                        Toast.makeText(activity, "Email Đã Có Người Đăng Ký", Toast.LENGTH_SHORT)
-                            .show()
+                        if (response.code() == RESPONSE_CODE) {
+                            Toast.makeText(
+                                activity,
+                                getString(R.string.register_fragment_email_already_have),
+                                Toast.LENGTH_SHORT
+                            )
+                                .show()
+                        } else {
+                            Toast.makeText(
+                                activity,
+                                getString(R.string.register_fragment_register_fail),
+                                Toast.LENGTH_SHORT
+                            )
+                                .show()
+                        }
                     }
                 }
             })

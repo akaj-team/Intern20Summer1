@@ -68,4 +68,9 @@
     <string name="add_new_post_fragment_toast_fail">Add post fail, try again !!!!!</string>
     <string name="add_new_post_fragment_toolbar_title">Add New Post</string>
     <string name="update_post_fragment_toolbar_title">Update Post</string>
+    <string name="login_fragment_login_incorrect">Email or password incorrect!</string>
+    <string name="login_fragment_login_fail">Login Fail !!!</string>
+    <string name="register_fragment_register_success">Register successful !!!!!</string>
+    <string name="register_fragment_email_already_have">The email has already been taken.</string>
+    <string name="register_fragment_register_fail">Register fail !!!!!</string>
 </resources>

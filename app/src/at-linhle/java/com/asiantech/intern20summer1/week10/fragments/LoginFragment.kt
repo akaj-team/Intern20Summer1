@@ -27,6 +27,7 @@ class LoginFragment : Fragment() {
         internal const val SHARED_PREFERENCE_TOKEN = "token"
         internal const val KEY_STRING_USER_ID = "id"
         internal const val MAX_EMAIL_LENGTH = 264
+        private const val RESPONSE_CODE = 401
         internal fun newInstance() = LoginFragment()
     }
 
@@ -53,7 +54,8 @@ class LoginFragment : Fragment() {
         passwordPattern.matcher(password).matches()
 
     private fun isSignUpEmailValid(email: String) =
-        android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches() && email.length <= MAX_EMAIL_LENGTH
+        android.util.Patterns.EMAIL_ADDRESS.matcher(email)
+            .matches() && email.length <= MAX_EMAIL_LENGTH
 
     private fun isCorrectFormat(
         email: String,
@@ -116,11 +118,19 @@ class LoginFragment : Fragment() {
                             activity?.finish()
                         }
                     } else {
-                        Toast.makeText(
-                            requireContext(),
-                            "Email or password incorrect!",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        if (response.code() == RESPONSE_CODE) {
+                            Toast.makeText(
+                                requireContext(),
+                                getString(R.string.login_fragment_login_incorrect),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        } else {
+                            Toast.makeText(
+                                requireContext(),
+                                getString(R.string.login_fragment_login_fail),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
                     }
                 }
             })
