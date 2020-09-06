@@ -7,11 +7,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.w10.activity.HomeActivity.Companion.IMAGE_FOLDER_URL
 import com.asiantech.intern20summer1.w10.data.Post
 import com.bumptech.glide.Glide
 
 class RecyclerViewAdapter(private val items: MutableList<Post>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    internal var onLikeClicked:(position : Int) -> Unit = {}
 
     internal var onItemClicked: (position: Int) -> Unit = {}
 
@@ -34,11 +37,14 @@ class RecyclerViewAdapter(private val items: MutableList<Post>) :
         private val tvContent: TextView = itemView.findViewById(R.id.tvContent)
 
         init {
-            imgLike.setOnClickListener {
+            imgItem.setOnClickListener {
                 onItemClicked.invoke(adapterPosition)
             }
             imgDelete.setOnClickListener {
                 onItemClicked.invoke(adapterPosition)
+            }
+            imgLike.setOnClickListener {
+                onLikeClicked.invoke(adapterPosition)
             }
         }
 
@@ -46,7 +52,7 @@ class RecyclerViewAdapter(private val items: MutableList<Post>) :
             val item = items[adapterPosition]
             tvContent.text = item.content
             Glide.with(itemView)
-                .load(item.image)
+                .load(IMAGE_FOLDER_URL+item.image)
                 .placeholder(R.drawable.ic_launcher_background)
                 .into(imgItem)
             tvLikeCount.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_heart_black, 0, 0, 0)

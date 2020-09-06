@@ -90,7 +90,7 @@ class LoginFragment : Fragment(){
 
     private fun handleRegisterTextViewListener() {
         tvRegister.setOnClickListener {
-            (activity as? LoginActivity)?.replaceFragment(RegisterFragment?.newInstance())
+            (activity as? LoginActivity)?.replaceFragment(RegisterFragment.newInstance())
         }
     }
 
