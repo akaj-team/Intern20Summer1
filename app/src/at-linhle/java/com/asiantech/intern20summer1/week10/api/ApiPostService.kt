@@ -21,6 +21,15 @@ interface ApiPostService {
         @Part("body") body: Body
     ): Call<PostResponse>
 
+    @POST("/api/post/{id} ")
+    @Multipart
+    fun updatePost(
+        @Header("token") token: String,
+        @Path("id") id: Int,
+        @Part image: MultipartBody.Part? = null,
+        @Part("body") body: Body
+    ): Call<PostResponse>
+
     @POST("/api/post/{id}/like")
     fun updatePostLike(@Header("token") token: String, @Path("id") id: Int): Call<LikeResponse>
 }

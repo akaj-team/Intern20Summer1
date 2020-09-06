@@ -20,7 +20,7 @@
             android:background="@drawable/arrow_left" />
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbarAddPost"
+            android:id="@+id/toolbarUpdatePost"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -69,7 +69,7 @@
             android:textSize="@dimen/choose_image_text_view_text_size" />
 
         <ImageView
-            android:id="@+id/imgPost"
+            android:id="@+id/imgUpdatePost"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="@dimen/post_image_view_margin_bottom"

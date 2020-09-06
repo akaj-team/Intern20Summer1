@@ -17,12 +17,19 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week10.api.ApiClient
+import com.asiantech.intern20summer1.week10.fragments.AddNewPostFragment.Companion.ASPECT_IMAGE_RATIO
+import com.asiantech.intern20summer1.week10.fragments.AddNewPostFragment.Companion.KEY_IMAGE
+import com.asiantech.intern20summer1.week10.fragments.AddNewPostFragment.Companion.KEY_IMAGE_GALLERY
+import com.asiantech.intern20summer1.week10.fragments.AddNewPostFragment.Companion.OPEN_CAMERA_REQUEST
+import com.asiantech.intern20summer1.week10.fragments.AddNewPostFragment.Companion.PICK_IMAGE_REQUEST
+import com.asiantech.intern20summer1.week10.fragments.AddNewPostFragment.Companion.QUALITY_IMAGE_INDEX
 import com.asiantech.intern20summer1.week10.fragments.HomeFragment.Companion.KEY_STRING_TOKEN
 import com.asiantech.intern20summer1.week10.models.Body
 import com.asiantech.intern20summer1.week10.models.PostResponse
 import com.asiantech.intern20summer1.week10.views.HomeApiActivity
+import com.bumptech.glide.Glide
 import com.theartofdev.edmodo.cropper.CropImage
-import kotlinx.android.synthetic.`at-linhle`.fragment_api_add_post.*
+import kotlinx.android.synthetic.`at-linhle`.fragment_api_update_post.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -31,39 +38,87 @@ import retrofit2.Response
 import java.io.ByteArrayOutputStream
 import java.io.File
 
-class AddNewPostFragment : Fragment() {
-
+class UpdatePostFragment : Fragment() {
     companion object {
-        internal const val KEY_IMAGE = "data"
-        internal const val OPEN_CAMERA_REQUEST = 1
-        internal const val PICK_IMAGE_REQUEST = 2
-        internal const val KEY_IMAGE_GALLERY = "image/*"
-        internal const val QUALITY_IMAGE_INDEX = 100
-        internal const val ASPECT_IMAGE_RATIO = 1
-        internal fun newInstance(token: String?) = AddNewPostFragment().apply {
-            arguments = Bundle().apply {
-                putString(KEY_STRING_TOKEN, token)
+        private const val KEY_STRING_CONTENT = "content"
+        private const val KEY_STRING_IMAGE = "image"
+        private const val KEY_INT_ID = "id"
+        fun newInstance(token: String?, content: String?, imageName: String?, id: Int) =
+            UpdatePostFragment().apply {
+                arguments = Bundle().apply {
+                    putString(KEY_STRING_TOKEN, token)
+                    putString(KEY_STRING_CONTENT, content)
+                    putString(KEY_STRING_IMAGE, imageName)
+                    putInt(KEY_INT_ID, id)
+                }
             }
-        }
     }
 
-    private var checkCameraStatus = false
+    private val apiImageUrl = "https://at-a-trainning.000webhostapp.com/images/"
     private var token: String? = null
+    private var content: String? = null
+    private var imageName: String? = null
+    private var postId: Int = 0
+    private var checkCameraStatus = false
     private var imageUri: Uri? = null
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_api_add_post, container, false)
+        getData()
+        return inflater.inflate(R.layout.fragment_api_update_post, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        toolbarAddPost.title = getString(R.string.add_new_post_fragment_toolbar_title)
-        handleClickingAddPostImage()
+        toolbarUpdatePost.title = getString(R.string.update_post_fragment_toolbar_title)
         handleOnClickListener()
+        handleClickingAddPostImage()
+        handleRenderDataInView()
+        Toast.makeText(activity, imageName, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun getData() {
+        arguments?.let {
+            token = it.getString(KEY_STRING_TOKEN)
+            content = it.getString(KEY_STRING_CONTENT)
+            imageName = it.getString(KEY_STRING_IMAGE)
+            postId = it.getInt(KEY_INT_ID)
+        }
+    }
+
+    private fun handleRenderDataInView() {
+        edtContent.setText(content)
+        Glide.with(this).load(apiImageUrl + imageName).into(imgUpdatePost)
+    }
+
+    private fun handleUpdatePostApi() {
+        val body = Body(edtContent.text.toString())
+        val callApi = token?.let {
+            ApiClient.cretePostService()?.updatePost(it, postId, handleGetImageFile(), body)
+        }
+        callApi?.enqueue(object : retrofit2.Callback<PostResponse> {
+            override fun onFailure(call: Call<PostResponse>, t: Throwable) {
+                Toast.makeText(activity, t.message, Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onResponse(call: Call<PostResponse>, response: Response<PostResponse>) {
+                if (response.isSuccessful) {
+                    response.body()?.apply {
+                        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
+                    }
+                    activity?.onBackPressed()
+                } else {
+                    Toast.makeText(
+                        activity,
+                        getString(R.string.update_post_fragment_toast_fail),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+
+        })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -119,7 +174,7 @@ class AddNewPostFragment : Fragment() {
             (activity as HomeApiActivity).onBackPressed()
         }
         imgDone.setOnClickListener {
-            handleAddNewPostApi()
+            handleUpdatePostApi()
         }
     }
 
@@ -139,15 +194,19 @@ class AddNewPostFragment : Fragment() {
         CropImage.getActivityResult(data).uri?.apply {
             val bitmap = MediaStore.Images.Media.getBitmap(activity?.contentResolver, this)
             imageUri = this
-            imgPost.setImageBitmap(bitmap)
+            imgUpdatePost.setImageBitmap(bitmap)
         }
     }
 
     private fun handleGetImageFile(): MultipartBody.Part? {
-        imageUri?.let {
-            val file = File(getPath(it))
-            val image = file.asRequestBody(KEY_IMAGE_GALLERY.toMediaTypeOrNull())
-            return MultipartBody.Part.createFormData("image", file.name, image)
+        if (imageUri == null) {
+            return imageName?.let { MultipartBody.Part.createFormData("image", it) }
+        }else {
+            imageUri?.let {
+                val file = File(getPath(it))
+                val image = file.asRequestBody(KEY_IMAGE_GALLERY.toMediaTypeOrNull())
+                return MultipartBody.Part.createFormData("image", file.name, image)
+            }
         }
         return null
     }
@@ -216,7 +275,10 @@ class AddNewPostFragment : Fragment() {
     }
 
     private fun makeCameraRequest() {
-        requestPermissions(arrayOf(Manifest.permission.CAMERA), OPEN_CAMERA_REQUEST)
+        requestPermissions(
+            arrayOf(Manifest.permission.CAMERA),
+            OPEN_CAMERA_REQUEST
+        )
     }
 
     private fun openStorage() {
@@ -231,7 +293,7 @@ class AddNewPostFragment : Fragment() {
     }
 
     private fun handleClickingAddPostImage() {
-        imgPost.setOnClickListener {
+        imgUpdatePost.setOnClickListener {
             val dialogBuilder = AlertDialog.Builder(context)
             dialogBuilder.setTitle(R.string.add_post_fragment_choose_option_dialog)
             val optionList = arrayOf(
@@ -256,36 +318,8 @@ class AddNewPostFragment : Fragment() {
                     }
                 }
             }
-            // Create and show the alert dialog
             val dialog = dialogBuilder.create()
             dialog.show()
         }
-    }
-
-    private fun handleAddNewPostApi() {
-        val body = Body(edtContent.text.toString())
-        val callApi = token?.let {
-            ApiClient.cretePostService()?.addNewPost(it, handleGetImageFile(), body)
-        }
-        callApi?.enqueue(object : retrofit2.Callback<PostResponse> {
-            override fun onFailure(call: Call<PostResponse>, t: Throwable) {
-                Toast.makeText(activity, t.message, Toast.LENGTH_SHORT).show()
-            }
-
-            override fun onResponse(call: Call<PostResponse>, response: Response<PostResponse>) {
-                if (response.isSuccessful) {
-                    response.body()?.apply {
-                        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
-                    }
-                    activity?.onBackPressed()
-                } else {
-                    Toast.makeText(
-                        activity,
-                        getString(R.string.add_new_post_fragment_toast_fail),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-        })
     }
 }

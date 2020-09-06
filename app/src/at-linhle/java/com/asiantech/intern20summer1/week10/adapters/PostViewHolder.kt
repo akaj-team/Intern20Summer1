@@ -22,6 +22,7 @@ class PostViewHolder(
     }
 
     internal var onHeartClicked: (Int) -> Unit = {}
+    internal var onUpdateClicked: (Int) -> Unit = {}
     private val imageUrl = "https://at-a-trainning.000webhostapp.com/images/"
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == VIEW_ITEM_TYPE) {
@@ -62,15 +63,18 @@ class PostViewHolder(
             val imgLike = itemView.imgLike
             val tvCountLike = itemView.tvCountLike
             val imgDelete = itemView.imgDelete
+            val imgUpdate = itemView.imgUpdate
 
             postItem?.let {
                 Glide.with(itemView).load(imageUrl + it.image).into(imgPost)
                 tvContent.text = it.content
                 tvCountLike.text = it.likeCount.toString()
-                if(userId == it.userId){
+                if (userId == it.userId) {
                     imgDelete.visibility = View.VISIBLE
-                }else{
+                    imgUpdate.visibility = View.VISIBLE
+                } else {
                     imgDelete.visibility = View.INVISIBLE
+                    imgUpdate.visibility = View.INVISIBLE
                 }
                 if (it.likeFlag) {
                     imgLike.setImageResource(R.drawable.ic_heart_bold_active)
@@ -80,6 +84,10 @@ class PostViewHolder(
 
                 imgLike.setOnClickListener {
                     onHeartClicked(position)
+                }
+
+                imgUpdate.setOnClickListener {
+                    onUpdateClicked(position)
                 }
             }
         }

@@ -64,4 +64,8 @@
     <string name="add_post_fragment_choose_option_dialog">Choose an option:</string>
     <string name="add_post_fragment_gallery">Gallery</string>
     <string name="add_post_fragment_camera">Camera</string>
+    <string name="update_post_fragment_toast_fail">Update post fail, try again !!!!</string>
+    <string name="add_new_post_fragment_toast_fail">Add post fail, try again !!!!!</string>
+    <string name="add_new_post_fragment_toolbar_title">Add New Post</string>
+    <string name="update_post_fragment_toolbar_title">Update Post</string>
 </resources>

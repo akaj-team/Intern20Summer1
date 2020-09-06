@@ -115,4 +115,15 @@
     <dimen name="view_height">1dp</dimen>
     <dimen name="view_height_4dp">4dp</dimen>
     <dimen name="progressbar_margin_bottom">15dp</dimen>
+    <dimen name="arrow_back_image_view_size">30dp</dimen>
+    <dimen name="arrow_back_image_view_margin_left">15dp</dimen>
+    <dimen name="arrow_back_image_view_margin_top">14dp</dimen>
+    <dimen name="done_image_view_margin_top">14dp</dimen>
+    <dimen name="done_image_view_margin_right">20dp</dimen>
+    <dimen name="content_text_view_margin">20dp</dimen>
+    <dimen name="content_text_view_text_size">20sp</dimen>
+    <dimen name="content_edit_text_margin_left_right">20dp</dimen>
+    <dimen name="choose_image_text_view_margin">20dp</dimen>
+    <dimen name="choose_image_text_view_text_size">20sp</dimen>
+    <dimen name="post_image_view_margin_bottom">30dp</dimen>
 </resources>

@@ -56,9 +56,19 @@
             android:layout_height="@dimen/icon_height"
             android:layout_marginLeft="@dimen/image_view_margin_left"
             android:layout_marginTop="@dimen/margin_top"
-            android:visibility="invisible"
             android:layout_toRightOf="@id/imgShare"
-            android:src="@drawable/ic_baseline_delete_forever_24" />
+            android:src="@drawable/ic_baseline_delete_forever_24"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/imgUpdate"
+            android:layout_width="@dimen/icon_width"
+            android:layout_height="@dimen/icon_height"
+            android:layout_marginLeft="230dp"
+            android:layout_marginTop="@dimen/margin_top"
+            android:layout_toRightOf="@id/imgShare"
+            android:src="@drawable/ic_update"
+            android:visibility="invisible" />
 
         <View
             android:id="@+id/viewLine"
@@ -120,8 +130,8 @@
             android:layout_below="@id/imgHeart"
             android:layout_marginLeft="@dimen/text_view_margin_left"
             android:layout_marginTop="@dimen/margin_top"
-            android:textColor="@android:color/black"
             android:layout_toRightOf="@id/tvPostTitle"
+            android:textColor="@android:color/black"
             android:textSize="@dimen/text_view_text_size"
             android:textStyle="bold"
             tools:text="sayabaaaa" />

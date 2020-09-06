@@ -24,7 +24,6 @@ import retrofit2.Response
 class HomeFragment : Fragment() {
 
     companion object {
-        private const val LAST_ITEM_POSITION = 10
         private const val DELAY_TIME = 2000L
         internal const val KEY_STRING_TOKEN = "token"
         internal fun newInstance(fullName: String?, token: String?, userId: Int) =
@@ -64,8 +63,11 @@ class HomeFragment : Fragment() {
     private fun initAdapter() {
         postItems = postItemsStorage
         adapter = PostViewHolder(postItems, userId)
-        adapter.onHeartClicked = { position ->
-            handleClickingHeartIcon(position)
+        adapter.onHeartClicked = {
+            handleClickingHeartIcon(it)
+        }
+        adapter.onUpdateClicked = {
+            handleClickingUpdatePost(it)
         }
         recyclerViewContainer.layoutManager = LinearLayoutManager(context)
         recyclerViewContainer.adapter = adapter
@@ -93,6 +95,20 @@ class HomeFragment : Fragment() {
             }
 
         })
+    }
+
+    private fun handleClickingUpdatePost(position: Int) {
+        val id = postItems[position]?.id ?: 0
+        val content = postItems[position]?.content
+        val imageName = postItems[position]?.image
+        (activity as HomeApiActivity).replaceFragment(
+            UpdatePostFragment.newInstance(
+                token,
+                content,
+                imageName,
+                id
+            ), true
+        )
     }
 
     private fun getData() {
