@@ -15,11 +15,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week10.api.ApiClient
-import com.asiantech.intern20summer1.week10.fragments.HomeFragment.Companion.KEY_STRING_FULL_NAME
 import com.asiantech.intern20summer1.week10.fragments.HomeFragment.Companion.KEY_STRING_TOKEN
+import com.asiantech.intern20summer1.week10.fragments.LoginFragment.Companion.KEY_STRING_FULL_NAME
 import com.asiantech.intern20summer1.week10.models.Body
 import com.asiantech.intern20summer1.week10.models.PostResponse
 import com.asiantech.intern20summer1.week10.views.HomeApiActivity
@@ -42,17 +41,15 @@ class AddNewPostFragment : Fragment() {
         private const val KEY_IMAGE_GALLERY = "image/*"
         private const val QUALITY_IMAGE_INDEX = 100
         private const val ASPECT_IMAGE_RATIO = 1
-        internal fun newInstance(token: String?, fullName: String?) = AddNewPostFragment().apply {
+        internal fun newInstance(token: String?) = AddNewPostFragment().apply {
             arguments = Bundle().apply {
                 putString(KEY_STRING_TOKEN, token)
-                putString(KEY_STRING_FULL_NAME, fullName)
             }
         }
     }
 
     private var checkCameraStatus = false
     private var token: String? = null
-    private var fullName: String? = null
     private var imageUri: Uri? = null
 
     override fun onCreateView(
@@ -60,7 +57,6 @@ class AddNewPostFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        getToken()
         return inflater.inflate(R.layout.fragment_api_add_post, container, false)
     }
 
@@ -117,11 +113,6 @@ class AddNewPostFragment : Fragment() {
                 }
             }
         }
-    }
-
-    private fun getToken() {
-        token = arguments?.getString(KEY_STRING_TOKEN)
-        fullName = arguments?.getString(KEY_STRING_FULL_NAME)
     }
 
     private fun handleOnClickListener() {

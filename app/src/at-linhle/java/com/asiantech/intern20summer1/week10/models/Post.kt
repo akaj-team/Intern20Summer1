@@ -15,3 +15,9 @@ class Post(
 class PostResponse(@SerializedName("message") val message: String)
 
 class Body(@SerializedName("content") var content: String)
+
+class LikeResponse(
+    @SerializedName("message") var message: String,
+    @SerializedName("like_count") var likeCount: Int,
+    @SerializedName("like_flag") var likeFlag: Boolean
+)

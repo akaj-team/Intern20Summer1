@@ -8,9 +8,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.SimpleItemAnimator
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week10.adapters.PostViewHolder
 import com.asiantech.intern20summer1.week10.api.ApiClient
+import com.asiantech.intern20summer1.week10.fragments.LoginFragment.Companion.KEY_STRING_FULL_NAME
+import com.asiantech.intern20summer1.week10.fragments.LoginFragment.Companion.KEY_STRING_USER_ID
+import com.asiantech.intern20summer1.week10.models.LikeResponse
 import com.asiantech.intern20summer1.week10.models.Post
 import com.asiantech.intern20summer1.week10.views.HomeApiActivity
 import kotlinx.android.synthetic.`at-linhle`.fragment_api_home.*
@@ -22,14 +26,15 @@ class HomeFragment : Fragment() {
     companion object {
         private const val LAST_ITEM_POSITION = 10
         private const val DELAY_TIME = 2000L
-        internal const val KEY_STRING_FULL_NAME = "fullName"
         internal const val KEY_STRING_TOKEN = "token"
-        internal fun newInstance(fullName: String?, token: String?) = HomeFragment().apply {
-            arguments = Bundle().apply {
-                putString(KEY_STRING_FULL_NAME, fullName)
-                putString(KEY_STRING_TOKEN, token)
+        internal fun newInstance(fullName: String?, token: String?, userId: Int) =
+            HomeFragment().apply {
+                arguments = Bundle().apply {
+                    putString(KEY_STRING_FULL_NAME, fullName)
+                    putString(KEY_STRING_TOKEN, token)
+                    putInt(KEY_STRING_USER_ID, userId)
+                }
             }
-        }
     }
 
     private lateinit var postItems: MutableList<Post?>
@@ -37,6 +42,7 @@ class HomeFragment : Fragment() {
     private lateinit var adapter: PostViewHolder
     private var fullName: String? = null
     private var token: String? = null
+    private var userId: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -57,27 +63,43 @@ class HomeFragment : Fragment() {
 
     private fun initAdapter() {
         postItems = postItemsStorage
-        adapter = PostViewHolder(postItems)
-//        adapter.onHeartClicked = { position ->
-//            postItems[position]?.let {
-//                if (it.isLiked) {
-//                    it.isLiked = false
-//                    it.countLike--
-//                } else {
-//                    it.isLiked = true
-//                    it.countLike++
-//                }
-//                adapter.notifyItemChanged(position)
-//            }
-//        }
+        adapter = PostViewHolder(postItems, userId)
+        adapter.onHeartClicked = { position ->
+            handleClickingHeartIcon(position)
+        }
         recyclerViewContainer.layoutManager = LinearLayoutManager(context)
         recyclerViewContainer.adapter = adapter
+    }
+
+    private fun handleClickingHeartIcon(position: Int) {
+        val callApi = token?.let {
+            ApiClient.cretePostService()?.updatePostLike(it, postItems[position]?.id ?: 0)
+        }
+        callApi?.enqueue(object : retrofit2.Callback<LikeResponse> {
+            override fun onFailure(call: Call<LikeResponse>, t: Throwable) {
+                Toast.makeText(activity, t.message, Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onResponse(call: Call<LikeResponse>, response: Response<LikeResponse>) {
+                if (response.isSuccessful) {
+                    response.body()?.let {
+                        postItems[position]?.likeCount = it.likeCount
+                        postItems[position]?.likeFlag = it.likeFlag
+                        adapter.notifyItemChanged(position, null)
+                        (recyclerViewContainer?.itemAnimator as? SimpleItemAnimator)?.supportsChangeAnimations =
+                            true
+                    }
+                }
+            }
+
+        })
     }
 
     private fun getData() {
         arguments?.apply {
             fullName = getString(KEY_STRING_FULL_NAME)
             token = getString(KEY_STRING_TOKEN)
+            userId = getInt(KEY_STRING_USER_ID)
         }
     }
 
@@ -121,7 +143,9 @@ class HomeFragment : Fragment() {
 
     private fun handleClickingAddPostButton() {
         imgPlus.setOnClickListener {
-            (activity as HomeApiActivity).replaceFragment(AddNewPostFragment.newInstance(token, fullName), true)
+            (activity as HomeApiActivity).replaceFragment(
+                AddNewPostFragment.newInstance(token), true
+            )
         }
     }
 }

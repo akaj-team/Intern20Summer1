@@ -24,6 +24,7 @@ class LoginFragment : Fragment() {
         internal const val KEY_STRING_FULL_NAME = "fullName"
         internal const val SHARED_PREFERENCE_FILE = "userSharedPreference"
         internal const val SHARED_PREFERENCE_TOKEN = "token"
+        internal const val KEY_STRING_USER_ID = "id"
         internal fun newInstance() = LoginFragment()
     }
 
@@ -107,6 +108,7 @@ class LoginFragment : Fragment() {
                             val intent = Intent(activity, HomeApiActivity::class.java)
                             intent.putExtra(KEY_STRING_FULL_NAME, this.fullName)
                             intent.putExtra(SHARED_PREFERENCE_TOKEN, token)
+                            intent.putExtra(KEY_STRING_USER_ID, id)
                             activity?.startActivity(intent)
                             activity?.finish()
                         }

@@ -51,11 +51,12 @@
             android:src="@drawable/ic_direct" />
 
         <ImageView
+            android:id="@+id/imgDelete"
             android:layout_width="@dimen/icon_width"
             android:layout_height="@dimen/icon_height"
             android:layout_marginLeft="@dimen/image_view_margin_left"
             android:layout_marginTop="@dimen/margin_top"
-            android:visibility="visible"
+            android:visibility="invisible"
             android:layout_toRightOf="@id/imgShare"
             android:src="@drawable/ic_baseline_delete_forever_24" />
 

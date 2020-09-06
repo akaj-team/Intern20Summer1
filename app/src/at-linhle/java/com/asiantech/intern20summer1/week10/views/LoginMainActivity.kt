@@ -9,6 +9,7 @@ import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week10.api.ApiClient
 import com.asiantech.intern20summer1.week10.fragments.LoginFragment
 import com.asiantech.intern20summer1.week10.fragments.LoginFragment.Companion.KEY_STRING_FULL_NAME
+import com.asiantech.intern20summer1.week10.fragments.LoginFragment.Companion.KEY_STRING_USER_ID
 import com.asiantech.intern20summer1.week10.fragments.LoginFragment.Companion.SHARED_PREFERENCE_FILE
 import com.asiantech.intern20summer1.week10.fragments.LoginFragment.Companion.SHARED_PREFERENCE_TOKEN
 import com.asiantech.intern20summer1.week10.models.User
@@ -63,6 +64,7 @@ class LoginMainActivity : AppCompatActivity() {
                             val intent = Intent(this@LoginMainActivity, HomeApiActivity::class.java)
                             intent.putExtra(KEY_STRING_FULL_NAME, this.fullName)
                             intent.putExtra(SHARED_PREFERENCE_TOKEN, token)
+                            intent.putExtra(KEY_STRING_USER_ID, id)
                             startActivity(intent)
                             finish()
                         }

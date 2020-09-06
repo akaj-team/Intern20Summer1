@@ -12,7 +12,8 @@ import kotlinx.android.synthetic.`at-linhle`.item_list_time_line.view.*
 import kotlinx.android.synthetic.`at-linhle`.loading_layout.view.*
 
 class PostViewHolder(
-    internal var postItems: MutableList<Post?>
+    internal var postItems: MutableList<Post?>,
+    internal val userId: Int
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
@@ -60,11 +61,17 @@ class PostViewHolder(
             val imgPost = itemView.imgTimeLine
             val imgLike = itemView.imgLike
             val tvCountLike = itemView.tvCountLike
+            val imgDelete = itemView.imgDelete
 
             postItem?.let {
                 Glide.with(itemView).load(imageUrl + it.image).into(imgPost)
                 tvContent.text = it.content
                 tvCountLike.text = it.likeCount.toString()
+                if(userId == it.userId){
+                    imgDelete.visibility = View.VISIBLE
+                }else{
+                    imgDelete.visibility = View.INVISIBLE
+                }
                 if (it.likeFlag) {
                     imgLike.setImageResource(R.drawable.ic_heart_bold_active)
                 } else {
