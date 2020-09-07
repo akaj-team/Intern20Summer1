@@ -38,6 +38,16 @@
             tools:text="Thanh Vuong" />
 
         <ImageView
+            android:id="@+id/imgUpdate"
+            android:layout_width="@dimen/height_20dp"
+            android:layout_height="@dimen/height_20dp"
+            android:layout_margin="@dimen/height_50dp"
+            android:src="@drawable/ic_baseline_system_update_alt_24"
+            app:layout_constraintBottom_toBottomOf="@id/imgAvatar"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/imgAvatar" />
+
+        <ImageView
             android:id="@+id/imgOption"
             android:layout_width="@dimen/height_20dp"
             android:layout_height="@dimen/height_20dp"

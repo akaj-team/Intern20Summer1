@@ -29,6 +29,7 @@
     <string name="button_exercise_w5">Exercise_W5</string>
     <string name="button_exercise_w6">Exercise_W6</string>
     <string name="button_exercise_w10">Exercise_W10</string>
+    <string name="button_exercise_w11">Exercise_W11</string>
     <string name="facebook_id_button_description_text">Facebook</string>
     <string name="google_id_button_description_text">Google</string>
     <string name="edit_text_hint">Please input</string>
@@ -77,4 +78,13 @@
     <string name="button_create_post">Create Post</string>
     <string name="button_update_post">Update Post</string>
     <string name="register_error">Tài khoản hoặc mật khẩu không đúng</string>
+    <string name="key_token">token</string>
+    <string name="key_id">id</string>
+    <string name="key_content">content</string>
+    <string name="key_image_api">image</string>
+    <string name="key_data">data</string>
+    <string name="string_error">error</string>
+    <string name="denied_permission_gallery">Please open permission on settings</string>
+    <string name="string_gallery">image/*</string>
+    <string name="string_image">image</string>
 </resources>

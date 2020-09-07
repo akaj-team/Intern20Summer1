@@ -12,6 +12,11 @@ object ClientAPI {
     private var retrofit: Retrofit? = null
     private const val API_TIMEOUT = 60
     internal const val MESSAGE_LOGIN_INCORRECT = "Email or password incorrect!"
+    internal const val GET_API_POSTS = "api/posts"
+    internal const val DELETE_POST = "api/post/{id}"
+    internal const val CREATE_POST = "api/post"
+    internal const val UPDATE_POST = "api/post/{id}"
+    internal const val LIKE_POST = "api/post/{id}/like"
 
     private const val API_URL = "https://at-a-trainning.000webhostapp.com/"
     internal fun createUserService(): UserClient? =
@@ -20,7 +25,6 @@ object ClientAPI {
     internal fun createPost(): PostsAPI? =
         getClient()?.create(PostsAPI::class.java)
 
-    //private const val API_URL = "https://5f4e0faceeec51001608f40b.mockapi.io/"
     internal fun getClient(): Retrofit? {
         val httpLoggingInterceptor = HttpLoggingInterceptor().apply {
             level =

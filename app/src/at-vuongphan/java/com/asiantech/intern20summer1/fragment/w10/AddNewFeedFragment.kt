@@ -29,6 +29,7 @@ import java.io.File
 class AddNewFeedFragment : Fragment() {
     companion object {
         var GALLERY_AVATAR_CODE = 101
+        internal fun newInstance() = AddNewFeedFragment()
     }
 
     var token: String? = null
@@ -42,9 +43,13 @@ class AddNewFeedFragment : Fragment() {
         val view = inflater.inflate(R.layout.w10_add_new_feed, container, false)
         val bundle = this.arguments
         if (bundle != null) {
-            token = bundle.getString("token").toString()
+            token = bundle.getString(resources.getString(R.string.key_token)).toString()
         } else {
-            Toast.makeText(requireContext(), "error", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                requireContext(),
+                resources.getString(R.string.string_error),
+                Toast.LENGTH_SHORT
+            ).show()
         }
         return view
     }
@@ -71,12 +76,16 @@ class AddNewFeedFragment : Fragment() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == GALLERY_AVATAR_CODE && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-            intent.type = "image/*"
+            intent.type = resources.getString(R.string.string_gallery)
             startActivityForResult(intent, GALLERY_AVATAR_CODE)
             return
         } else {
             if (!this.shouldShowRequestPermissionRationale(android.Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                Toast.makeText(context, "Please open permission on settings", Toast.LENGTH_SHORT)
+                Toast.makeText(
+                    context,
+                    resources.getString(R.string.denied_permission_gallery),
+                    Toast.LENGTH_SHORT
+                )
                     .show()
             }
         }
@@ -93,17 +102,20 @@ class AddNewFeedFragment : Fragment() {
     private fun createPost() {
         btnCreatePost.setOnClickListener {
             val file = File(getPath(imgPicture))
-            val fileReqBody = file.asRequestBody("image/*".toMediaTypeOrNull())
-            val part = MultipartBody.Part.createFormData("image", file.name, fileReqBody)
+            val fileReqBody =
+                file.asRequestBody(resources.getString(R.string.string_gallery).toMediaTypeOrNull())
+            val part = MultipartBody.Part.createFormData(
+                resources.getString(R.string.string_image),
+                file.name,
+                fileReqBody
+            )
             val content = edtNoidung.text.toString()
             val call = token?.let { ClientAPI.createPost()?.createPost(it, Post(content), part) }
             call?.enqueue(object : retrofit2.Callback<ApiResponse> {
                 override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
-
                 }
 
                 override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
-
                 }
             })
             (activity as? RecyclerViewNewFeed)?.openFragment(NewFeedFragment.newInstance())
@@ -123,7 +135,8 @@ class AddNewFeedFragment : Fragment() {
             result = uri?.path.toString()
         } else {
             cursor.moveToFirst()
-            val idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA)
+            @Suppress("DEPRECATION") val idx =
+                cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA)
             result = cursor.getString(idx)
             cursor.close()
         }

@@ -85,6 +85,14 @@
             android:id="@+id/btnW10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/button_exercise_w5" />
+            android:text="@string/button_exercise_w10" />
+
+        <Button
+            android:id="@+id/btnW11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@id/btnW10"
+            android:text="@string/button_exercise_w11" />
     </RelativeLayout>
 </RelativeLayout>

@@ -21,6 +21,7 @@ class FragmentRegister : Fragment() {
     companion object {
         internal const val EMAIL_LENGTH = 264
         internal const val FULL_NAME_LENGTH = 64
+        internal fun newInstance() = FragmentRegister()
     }
 
     internal var onRegisterSuccess: (email: String, password: String) -> Unit = { _, _ -> }

@@ -8,17 +8,40 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tbNewFeed"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/text_view_color_account"
-        app:title="NewFeed"
+        android:layout_height="45dp"
+        android:background="@color/colorYellow"
         app:titleTextColor="@android:color/white">
 
-        <ImageView
-            android:id="@+id/imgPlus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_250dp"
-            android:background="@drawable/ic_baseline_control_point_24" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/height_20dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_baseline_menu_24" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="@dimen/height_20dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/title_new_post"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/text_size_18sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/imgPlus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/height_20dp"
+                android:background="@drawable/ic_baseline_control_point_24" />
+        </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.constraintlayout.widget.ConstraintLayout

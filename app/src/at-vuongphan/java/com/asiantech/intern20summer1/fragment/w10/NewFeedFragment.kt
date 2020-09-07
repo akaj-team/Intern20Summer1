@@ -5,7 +5,6 @@ package com.asiantech.intern20summer1.fragment.w10
 import android.app.AlertDialog
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -55,8 +54,8 @@ class NewFeedFragment : Fragment() {
         getToken()
         imgPlus?.setOnClickListener {
             Bundle().let {
-                it.putString("token", token)
-                val addNewFeedFragment = AddNewFeedFragment()
+                it.putString(resources.getString(R.string.key_token), token)
+                val addNewFeedFragment = AddNewFeedFragment.newInstance()
                 addNewFeedFragment.arguments = it
                 (activity as? RecyclerViewNewFeed)?.openFragment(addNewFeedFragment, true)
             }
@@ -73,7 +72,6 @@ class NewFeedFragment : Fragment() {
     private fun initAdapter() {
         recyclerViewMain.layoutManager = LinearLayoutManager(requireContext())
         recyclerViewMain.adapter = adapterNewFeeds
-        Log.d("sdsdsds", "initAdapter: $token")
         adapterNewFeeds.onItemClicked = { position ->
             addLike(position)
             initListener()
@@ -112,9 +110,13 @@ class NewFeedFragment : Fragment() {
     private fun getToken() {
         val bundle = arguments
         if (bundle != null) {
-            token = bundle.getString("data").toString()
+            token = bundle.getString(resources.getString(R.string.key_data)).toString()
         } else {
-            Toast.makeText(requireContext(), "error", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                requireContext(),
+                resources.getString(R.string.string_error),
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
@@ -205,22 +207,25 @@ class NewFeedFragment : Fragment() {
     private fun itemOnclick(adapter: ItemFeedAdapter) {
         adapter.click(object : ItemFeedAdapter.Onclick {
             override fun iconEditFeed(post: NewPost) {
-                val id = post.id
-                val content = post.content
-                val image = post.image
-                Bundle().let {
-                    it.putString("token", token)
-                    it.putInt("id", id)
-                    it.putString("content", content)
-                    it.putString("image", image)
-                    val update = UpdateFeed.newInstance()
-                    update.arguments = it
-                    (activity as? RecyclerViewNewFeed)?.openFragment(
-                        update, true
-                    )
-                }
-                Log.d("TAG", "iconEditFeed: ${post.image}")
+                sendDataUpdate(post)
             }
         })
+    }
+
+    private fun sendDataUpdate(post: NewPost) {
+        val id = post.id
+        val content = post.content
+        val image = post.image
+        Bundle().let {
+            it.putString(resources.getString(R.string.key_token), token)
+            it.putInt(resources.getString(R.string.key_id), id)
+            it.putString(resources.getString(R.string.key_content), content)
+            it.putString(resources.getString(R.string.key_image_api), image)
+            val update = UpdateFeedFragment.newInstance()
+            update.arguments = it
+            (activity as? RecyclerViewNewFeed)?.openFragment(
+                update, true
+            )
+        }
     }
 }

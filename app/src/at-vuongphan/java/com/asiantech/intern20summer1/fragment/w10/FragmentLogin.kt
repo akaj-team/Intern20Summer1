@@ -25,6 +25,11 @@ import retrofit2.Response
 class FragmentLogin : Fragment() {
     private var isUserNameValid = false
     private var isPassWordValid = false
+
+    companion object {
+        internal fun newInstance() = FragmentLogin()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -142,7 +147,7 @@ class FragmentLogin : Fragment() {
                     }
                 }
             }
-        bundle.putSerializable("data", accountData)
+        bundle.putSerializable(resources.getString(R.string.key_data), accountData)
     }
 
     private fun initEmail() {

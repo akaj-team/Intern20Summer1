@@ -18,7 +18,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/margin_16dp"
-            android:background="@drawable/bg_button"
             android:orientation="vertical"
             android:paddingEnd="@dimen/padding_12dp"
             android:paddingRight="@dimen/padding_12dp"
@@ -42,13 +41,14 @@
                 android:layout_marginTop="@dimen/height_20dp"
                 android:drawableLeft="@drawable/user_24"
                 android:drawablePadding="@dimen/padding_12dp"
+                android:backgroundTint="@color/colorWhite"
                 android:hint="@string/text_view_username"
                 android:inputType="textEmailAddress"
                 android:textSize="@dimen/text_size_18sp"
                 app:met_floatingLabel="highlight"
                 app:met_primaryColor="@color/colorRed"
                 app:met_singleLineEllipsis="true"
-                tools:ignore="RtlHardcoded" />
+                tools:ignore="RtlHardcoded,UnusedAttribute" />
 
             <com.rengwuxian.materialedittext.MaterialEditText
                 android:id="@+id/edtEmail"

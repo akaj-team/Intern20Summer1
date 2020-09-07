@@ -7,14 +7,14 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorGreenLight">#fbfef3</color>
     <color name="colorRoundGreenLight">#c3ddb0</color>
-    <color name="colorRed">#e9b5ae</color>
+    <color name="colorRed">#ED2409</color>
     <color name="colorButton">#b5de97</color>
     <color name="colorRoundButton">#cde9b9</color>
     <color name="colored">#FF0000</color>
     <color name="colorBlack">#000000</color>
     <color name="colorYellow">#FDD835</color>
     <color name="colorSilver">#C0C0C0</color>
-    <color name="text_view_color_account">#30BE76</color>
+    <color name="text_view_color_account">#9BE4BF</color>
     <color name="colorBackground">#d1d1d1</color>
     <color name="colorText">#737373</color>
 </resources>

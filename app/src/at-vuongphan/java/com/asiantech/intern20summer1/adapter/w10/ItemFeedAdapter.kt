@@ -15,6 +15,7 @@ import kotlinx.android.synthetic.`at-vuongphan`.item_new_feed.view.*
 
 class ItemFeedAdapter(private val newFeeds: MutableList<NewPost>) :
     RecyclerView.Adapter<ItemFeedAdapter.NewFeedViewHolder>() {
+
     internal var onItemClicked: (position: Int) -> Unit = {}
     internal var onItemDeleteClicked: (position: Int) -> Unit = {}
     private var url = "https://at-a-trainning.000webhostapp.com/images/"
@@ -41,6 +42,7 @@ class ItemFeedAdapter(private val newFeeds: MutableList<NewPost>) :
         private val tvStatus: TextView = itemView.tvStatus
         private val tvNameStatus: TextView = itemView.tvNameStatus
         private val imgDelete: ImageView = itemView.imgOption
+        private val imgUpdate: ImageView = itemView.imgUpdate
 
         init {
             imgHeart.setOnClickListener {
@@ -63,7 +65,10 @@ class ItemFeedAdapter(private val newFeeds: MutableList<NewPost>) :
                     .load(image)
                     .apply(options)
                     .into(imgMain)
-
+                Glide.with(itemView)
+                    .load(image)
+                    .apply(options)
+                    .into(imgAvatar)
                 if (it.like_flag) imgHeart.setImageResource(R.drawable.ic_hearted) else imgHeart.setImageResource(
                     R.drawable.ic_heart
                 )
@@ -72,7 +77,7 @@ class ItemFeedAdapter(private val newFeeds: MutableList<NewPost>) :
                 tvLike.text =
                     itemView.context.getString(R.string.text_view_text_like_number, it.like_count)
             }
-            imgAvatar.setOnClickListener {
+            imgUpdate.setOnClickListener {
                 onClick?.iconEditFeed(post)
             }
         }

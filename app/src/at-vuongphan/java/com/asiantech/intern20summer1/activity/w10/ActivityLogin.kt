@@ -15,7 +15,7 @@ class ActivityLogin : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.w10_activity_login)
-        openFragment(FragmentLogin())
+        openFragment(FragmentLogin.newInstance())
     }
 
     internal fun openFragment(
