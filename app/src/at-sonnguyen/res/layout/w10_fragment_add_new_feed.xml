@@ -23,4 +23,12 @@
         android:autofillHints="@string/w10_status_edit_text_hint"
         android:inputType="text" />
 
+    <Button
+        android:layout_width="52dp"
+        android:text="OK"
+        android:id="@+id/btnOk"
+        android:layout_below="@id/edtContent"
+        android:layout_centerHorizontal="true"
+        android:layout_height="52dp"/>
+
 </RelativeLayout>

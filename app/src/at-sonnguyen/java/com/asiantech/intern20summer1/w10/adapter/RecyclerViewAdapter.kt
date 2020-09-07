@@ -11,12 +11,12 @@ import com.asiantech.intern20summer1.w10.activity.HomeActivity.Companion.IMAGE_F
 import com.asiantech.intern20summer1.w10.data.Post
 import com.bumptech.glide.Glide
 
-class RecyclerViewAdapter(private val items: MutableList<Post>) :
+class RecyclerViewAdapter(private val items: MutableList<Post>,internal val userId : Int) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     internal var onLikeClicked:(position : Int) -> Unit = {}
 
-    internal var onItemClicked: (position: Int) -> Unit = {}
+    internal var onUpdateClicked:(position : Int) -> Unit = {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.w10_newfeed_item,parent,false)
@@ -30,18 +30,15 @@ class RecyclerViewAdapter(private val items: MutableList<Post>) :
     }
 
     inner class RecyclerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val imgDelete : ImageView = itemView.findViewById(R.id.imgDelete)
+        private val imgEdit : ImageView = itemView.findViewById(R.id.imgEdit)
         private val imgItem: ImageView = itemView.findViewById(R.id.imgItem)
         private val imgLike: ImageView = itemView.findViewById(R.id.imgLike)
         private val tvLikeCount: TextView = itemView.findViewById(R.id.tvLikeCount)
         private val tvContent: TextView = itemView.findViewById(R.id.tvContent)
 
         init {
-            imgItem.setOnClickListener {
-                onItemClicked.invoke(adapterPosition)
-            }
-            imgDelete.setOnClickListener {
-                onItemClicked.invoke(adapterPosition)
+            imgEdit.setOnClickListener {
+                onUpdateClicked.invoke(adapterPosition)
             }
             imgLike.setOnClickListener {
                 onLikeClicked.invoke(adapterPosition)
@@ -55,13 +52,18 @@ class RecyclerViewAdapter(private val items: MutableList<Post>) :
                 .load(IMAGE_FOLDER_URL+item.image)
                 .placeholder(R.drawable.ic_launcher_background)
                 .into(imgItem)
-            tvLikeCount.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_heart_black, 0, 0, 0)
+            tvLikeCount.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_black_heart, 0, 0, 0)
             tvLikeCount.text = String.format(
                 itemView.context.getString(
                     R.string.w10_item_number_of_like,
                     item.like_count
                 )
             )
+            if (userId == item.userId){
+                imgEdit.visibility  = View.VISIBLE
+            }else {
+                imgEdit.visibility = View.INVISIBLE
+            }
             if (item.like_flag){
                 imgLike.setImageResource(R.drawable.ic_hearted)
             }else{

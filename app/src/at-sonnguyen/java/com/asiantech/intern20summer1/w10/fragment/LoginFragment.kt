@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,11 +23,11 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class LoginFragment : Fragment(){
+class LoginFragment : Fragment() {
     private var emailText: String = ""
     private var passwordText: String = ""
 
-    companion object{
+    companion object {
         internal fun newInstance() = LoginFragment()
     }
 
@@ -37,12 +36,7 @@ class LoginFragment : Fragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.w10_fragment_login,container,false)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        setEnableSignInButton()
+        return inflater.inflate(R.layout.w10_fragment_login, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -51,7 +45,12 @@ class LoginFragment : Fragment(){
         initListener()
     }
 
-    private fun initListener(){
+    override fun onResume() {
+        super.onResume()
+        setEnableSignInButton()
+    }
+
+    private fun initListener() {
         handleEmailEditTextListener()
         handlePasswordEditTextListener()
         setEnableSignInButton()
@@ -59,8 +58,23 @@ class LoginFragment : Fragment(){
         handleLoginButtonListener()
     }
 
-    private fun handleEmailEditTextListener(){
-        edtEmailLogin.addTextChangedListener(object :TextWatcher{
+    private fun handleRegisterTextViewListener() {
+        tvRegister.setOnClickListener {
+            (activity as? LoginActivity)?.replaceFragment(RegisterFragment.newInstance())
+        }
+    }
+
+    private fun getDataFromRegisterFragment() {
+        (arguments?.getString(KEY_VALUE_EMAIL))?.let {
+            edtEmailLogin.setText(it)
+        }
+        (arguments?.getString(KEY_VALUE_PASSWORD))?.let {
+            edtPasswordLogin.setText(it)
+        }
+    }
+
+    private fun handleEmailEditTextListener() {
+        edtEmailLogin.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
@@ -88,49 +102,7 @@ class LoginFragment : Fragment(){
         })
     }
 
-    private fun handleRegisterTextViewListener() {
-        tvRegister.setOnClickListener {
-            (activity as? LoginActivity)?.replaceFragment(RegisterFragment.newInstance())
-        }
-    }
-
-    private fun handleLoginButtonListener() {
-        btnLogin?.setOnClickListener {
-            val service = APIClient.createServiceClient()?.create(UserAPI::class.java)
-            val call =
-                service?.login(edtEmailLogin.text.toString(), edtPasswordLogin.text.toString())
-            call?.enqueue(object : Callback<User> {
-                override fun onResponse(call: Call<User>, response: Response<User>) {
-                    if (response.isSuccessful) {
-                        response.body().apply {
-                            val intent = Intent(activity, HomeActivity::class.java)
-                            intent.putExtra("Email", this?.email)
-                            activity?.startActivity(intent)
-                            activity?.finish()
-                            Log.d("TAG0000", "onResponse: success")
-                        }
-                    } else {
-                        Log.d("TAG0000", "onResponse: failure ${edtEmailLogin.text.toString()} ")
-                    }
-                }
-
-                override fun onFailure(call: Call<User>, t: Throwable) {
-                    Log.d("TAG0000", "onFailure: Login Failure ")
-                }
-            })
-        }
-    }
-
-    private fun getDataFromRegisterFragment() {
-        (arguments?.getString(KEY_VALUE_EMAIL))?.let {
-            edtEmailLogin.setText(it)
-        }
-        (arguments?.getString(KEY_VALUE_PASSWORD))?.let {
-            edtPasswordLogin.setText(it)
-        }
-    }
-
-    private fun handlePasswordEditTextListener(){
+    private fun handlePasswordEditTextListener() {
         edtPasswordLogin.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
                 if (isValidPassword(p0.toString())) {
@@ -161,6 +133,32 @@ class LoginFragment : Fragment(){
     }
 
     private fun setEnableSignInButton() {
-        btnLogin.isEnabled = isValidEmail(edtEmailLogin.text.toString()) && isValidPassword(edtPasswordLogin.text.toString())
+        btnLogin.isEnabled =
+            isValidEmail(edtEmailLogin.text.toString()) && isValidPassword(edtPasswordLogin.text.toString())
+    }
+
+    private fun handleLoginButtonListener() {
+        btnLogin?.setOnClickListener {
+            val service = APIClient.createServiceClient()?.create(UserAPI::class.java)
+            val call =
+                service?.login(edtEmailLogin.text.toString(), edtPasswordLogin.text.toString())
+            call?.enqueue(object : Callback<User> {
+                override fun onResponse(call: Call<User>, response: Response<User>) {
+                    if (response.isSuccessful) {
+                        response.body().apply {
+                            val intent = Intent(activity, HomeActivity::class.java)
+                            intent.putExtra("full_name",this?.full_name)
+                            intent.putExtra("token",this?.token)
+                            intent.putExtra("user", this )
+                            activity?.startActivity(intent)
+                            activity?.finish()
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<User>, t: Throwable) {
+                }
+            })
+        }
     }
 }

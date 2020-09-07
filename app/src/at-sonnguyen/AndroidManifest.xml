@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
 
 
     <application
@@ -28,6 +29,8 @@
         <activity android:name=".w6.activity.HomeActivity" />
         <activity android:name=".w10.activity.LoginActivity"/>
         <activity android:name=".w10.activity.HomeActivity"/>
+        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat"/>
 
     </application>
 

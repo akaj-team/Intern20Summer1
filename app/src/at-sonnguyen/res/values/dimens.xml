@@ -66,7 +66,7 @@
     <dimen name="w10_user_name_text_view_height">40dp</dimen>
     <dimen name="w10_like_number_text_view_margin_top">30dp</dimen>
     <dimen name="w10_like_number_text_view_height">40dp</dimen>
-    <dimen name="w10_like_number_text_view_width">80dp</dimen>
+    <dimen name="w10_like_number_text_view_width">120dp</dimen>
     <dimen name="w10_divider_decoration_text_view_margin_top">10dp</dimen>
     <dimen name="w10_line_text_view_height">2dp</dimen>
     <dimen name="w10_item_line_text_view_width">1dp</dimen>

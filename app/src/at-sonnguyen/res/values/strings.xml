@@ -57,4 +57,9 @@
     <string name="w10_ok_button_text">OK</string>
     <string name="week_10_api">Week 10 - API</string>
     <string name="w10_button_text">Week10</string>
+    <string name="w10_register_fragment_choose_set_avatar_dialog_from_camera">camera</string>
+    <string name="w10_register_fragment_choose_set_avatar_dialog_from_gallery">gallery</string>
+    <string name="w10_register_fragment_set_avatar_dialog_list_title">Choose Image</string>
+    <string name="w10_image_title">image</string>
+    <string name="w10_permission_denied_toast">Permission denied</string>
 </resources>

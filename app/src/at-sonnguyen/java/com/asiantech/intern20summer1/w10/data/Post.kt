@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class Post(
     @SerializedName("id") var id: Int = 0,
+    @SerializedName("user_id") var userId : Int = 0,
     @SerializedName("content") var content: String,
     @SerializedName("image") var image: String,
     @SerializedName("create_at") var create_at: String,
