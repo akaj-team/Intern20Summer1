@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     android:background="@color/background_white"
+    android:gravity="center"
     tools:context="com.asiantech.intern20summer1.w4.activity.SplashActivity">
 
     <ImageView

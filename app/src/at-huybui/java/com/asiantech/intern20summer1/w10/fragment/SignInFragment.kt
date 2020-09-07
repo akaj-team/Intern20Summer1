@@ -45,7 +45,7 @@ class SignInFragment : Fragment() {
         initView()
     }
 
-    private fun initView(){
+    private fun initView() {
         initListenerButton()
         handleEdiTextListener()
     }
@@ -96,7 +96,7 @@ class SignInFragment : Fragment() {
         })
     }
 
-    private fun handleEdiTextListener(){
+    private fun handleEdiTextListener() {
         edtEmail?.addTextChangedListener {
             checkEditText()
         }

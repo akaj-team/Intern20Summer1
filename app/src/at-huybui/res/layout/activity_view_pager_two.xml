@@ -10,17 +10,17 @@
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
-        app:tabIndicatorColor="@color/red"
-        app:tabGravity="fill"
-        app:tabMaxWidth="0dp"
-        app:tabMode="fixed"
         android:layout_height="@dimen/w6_tab_layout_size"
         android:background="@color/w6_background_activity_one"
-        app:tabSelectedTextColor="@color/red"
         android:scrollbarSize="@dimen/w6_tab_layout_scroll_bar_size"
         android:scrollbars="horizontal"
-        app:tabTextColor="@android:color/black"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:tabGravity="fill"
+        app:tabIndicatorColor="@color/red"
+        app:tabMaxWidth="0dp"
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="@color/red"
+        app:tabTextColor="@android:color/black" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewpagerTwo"

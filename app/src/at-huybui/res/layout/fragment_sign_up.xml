@@ -6,10 +6,10 @@
     <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/sign_in_edit_text_margin_left_right"
-        android:paddingRight="@dimen/sign_in_edit_text_margin_left_right"
         android:background="@color/background_white"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/sign_in_edit_text_margin_left_right"
+        android:paddingRight="@dimen/sign_in_edit_text_margin_left_right">
 
         <ImageView
             android:id="@+id/btnBackToSignIn"
@@ -134,8 +134,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:gravity="center"
             android:layout_marginTop="@dimen/sign_in_button_margin_top"
+            android:gravity="center"
             android:text="@string/by_registering_you_agree_to_terms_conditions_and_privacy_policy_of_the_festival"
             android:textSize="@dimen/by_registering_text_size" />
     </LinearLayout>

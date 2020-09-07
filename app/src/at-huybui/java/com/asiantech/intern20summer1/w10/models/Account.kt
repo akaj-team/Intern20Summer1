@@ -14,7 +14,7 @@ data class Account(
     @SerializedName("email") var email: String = "",
     @SerializedName("full_name") var full_name: String = "",
     @SerializedName("token") var token: String = ""
-):Serializable
+) : Serializable
 
 /**
  * Asian Tech Co., Ltd.

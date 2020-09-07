@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardElevation="@dimen/w10_item_card_elevation"
     android:layout_margin="@dimen/w10_item_card_view_margin"
+    android:background="@color/status_bar"
     app:cardCornerRadius="@dimen/w10_item_card_view_radius"
-    android:background="@color/status_bar">
+    app:cardElevation="@dimen/w10_item_card_elevation">
 
     <RelativeLayout
         android:id="@+id/rlItem"
@@ -43,17 +42,17 @@
 
         <RelativeLayout
             android:id="@+id/rlImage"
-            android:layout_below="@id/toolbar"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_below="@id/toolbar">
 
             <ImageView
                 android:id="@+id/imgImage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/w10_item_margin_left_right"
                 android:layout_marginLeft="@dimen/w10_item_margin_left_right"
                 android:layout_marginRight="@dimen/w10_item_margin_left_right"
+                android:layout_marginBottom="@dimen/w10_item_margin_left_right"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
                 android:src="@drawable/w10_img_placeholder" />
@@ -69,9 +68,9 @@
 
         <LinearLayout
             android:id="@+id/llIcon"
-            android:layout_below="@id/rlImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/rlImage"
             android:layout_marginLeft="@dimen/w10_item_margin_left_right_icon">
 
             <ImageView
@@ -93,10 +92,10 @@
                 android:src="@drawable/w10_ic_plane" />
 
             <TextView
-                android:layout_gravity="center"
                 android:id="@+id/tvLikeCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginLeft="@dimen/w10_item_margin_left_right_icon"
                 android:textColor="@color/black"
                 android:textSize="@dimen/w10_item_likes_text_size"
@@ -106,9 +105,9 @@
 
         <TextView
             android:id="@+id/tvCreatedAt"
-            android:layout_below="@id/llIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/llIcon"
             android:layout_marginLeft="@dimen/w10_item_margin_left_right_icon"
             android:textColor="@color/black"
             android:textSize="@dimen/w10_item_likes_text_size"
@@ -117,14 +116,14 @@
 
         <TextView
             android:id="@+id/tvContent"
-            android:layout_below="@id/tvCreatedAt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/tvCreatedAt"
             android:layout_marginLeft="@dimen/w10_item_margin_left_right_icon"
             android:layout_marginRight="@dimen/w10_item_margin_left_right_icon"
             android:layout_marginBottom="@dimen/w10_item_margin_bottom"
-            tools:text="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
             android:textColor="@color/black"
-            android:textSize="@dimen/w10_item_name_text_size" />
+            android:textSize="@dimen/w10_item_name_text_size"
+            tools:text="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

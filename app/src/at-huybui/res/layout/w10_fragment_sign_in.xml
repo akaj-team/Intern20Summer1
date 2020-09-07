@@ -5,9 +5,9 @@
 
     <TextView
         android:id="@+id/tvTitle"
-        android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/w10_signin_title_margin_top"
         android:text="@string/w10_login"
         android:textColor="@color/black"
@@ -47,7 +47,6 @@
 
     <Button
         android:id="@+id/btnSignIn"
-        android:enabled="false"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -55,18 +54,19 @@
         android:layout_marginRight="@dimen/w10_edit_text_margin_left_right"
         android:layout_marginBottom="@dimen/w10_signin_button_margin_bottom"
         android:background="@drawable/w10_bg_button_disable"
+        android:enabled="false"
         android:text="@string/w10_signin"
         android:textColor="@color/background_white" />
 
     <TextView
         android:id="@+id/tvRegister"
-        android:layout_below="@id/edtPassword"
-        android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/edtPassword"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="@dimen/w10_edit_text_margin_left_right"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/w10_signin_register_text_margin_top"
+        android:layout_marginRight="@dimen/w10_edit_text_margin_left_right"
         android:text="@string/w10_register_now"
         android:textColor="@color/black"
         android:textSize="@dimen/w10_signin_register_text_siz" />

@@ -6,31 +6,31 @@
 
     <RelativeLayout
         android:id="@+id/toolbar"
-        android:background="@color/background_white"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/w10_home_tool_bar_height">
+        android:layout_height="@dimen/w10_home_tool_bar_height"
+        android:background="@color/background_white">
 
         <ImageView
             android:id="@+id/imgHome"
-            android:padding="@dimen/w10_home_icon_menu_padding"
             android:layout_width="@dimen/w10_home_tool_bar_height"
-            android:src="@drawable/w10_ic_menu"
-            android:layout_height="@dimen/w10_home_tool_bar_height" />
+            android:layout_height="@dimen/w10_home_tool_bar_height"
+            android:padding="@dimen/w10_home_icon_menu_padding"
+            android:src="@drawable/w10_ic_menu" />
 
         <TextView
-            android:layout_centerInParent="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:text="@string/w10_home"
             android:textSize="@dimen/w10_home_title_size" />
 
         <ImageView
             android:id="@+id/imgAddPost"
-            android:padding="@dimen/w10_home_icon_add_padding"
             android:layout_width="@dimen/w10_home_tool_bar_height"
+            android:layout_height="@dimen/w10_home_tool_bar_height"
             android:layout_alignParentRight="true"
-            android:src="@drawable/w10_ic_add"
-            android:layout_height="@dimen/w10_home_tool_bar_height" />
+            android:padding="@dimen/w10_home_icon_add_padding"
+            android:src="@drawable/w10_ic_add" />
     </RelativeLayout>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
