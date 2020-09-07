@@ -1,22 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:gravity="center"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.asiantech.intern20summer1.w11.activity.CanvasActivity">
 
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/w11_activity_margin"
+        android:text="@string/w_11_custom_view_canvas"
+        android:textColor="@color/black"
+        android:textSize="@dimen/w11_activitty_title_size"
+        android:textStyle="bold" />
+
     <Button
+        android:layout_below="@id/tvTitle"
         android:id="@+id/btnExerciseOne"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:text="Bài tập 1" />
+        android:layout_margin="@dimen/w11_activity_margin"
+        android:text="@string/w11_exercise_one" />
 
     <Button
+        android:layout_below="@id/btnExerciseOne"
         android:id="@+id/btnExerciseTwo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:text="Bài tập 1" />
-</LinearLayout>
+        android:layout_margin="@dimen/w11_activity_margin"
+        android:text="@string/w11_exercise_two" />
+
+    <FrameLayout
+        android:id="@+id/frameLayoutContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</RelativeLayout>

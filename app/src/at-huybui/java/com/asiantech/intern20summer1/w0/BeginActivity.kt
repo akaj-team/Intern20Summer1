@@ -7,6 +7,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.w11.activity.CanvasActivity
 import com.asiantech.intern20summer1.w3.MainActivity
 import com.asiantech.intern20summer1.w4.activity.SplashActivity
 import com.asiantech.intern20summer1.w6.firstactivity.ViewPagerOneActivity
@@ -34,6 +35,11 @@ class BeginActivity : AppCompatActivity() {
 
         btnBeginW4?.setOnClickListener {
             val intent = Intent(this, SplashActivity::class.java)
+            startActivity(intent)
+        }
+
+        btnBeginW11?.setOnClickListener {
+            val intent = Intent(this, CanvasActivity::class.java)
             startActivity(intent)
         }
     }
