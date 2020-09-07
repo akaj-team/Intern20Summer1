@@ -32,9 +32,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/w11_activity_margin"
         android:text="@string/w11_exercise_two" />
-
     <FrameLayout
-        android:id="@+id/frameLayoutContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:id="@+id/frameLayoutContainer"
+        android:layout_height="match_parent" />
 </RelativeLayout>
