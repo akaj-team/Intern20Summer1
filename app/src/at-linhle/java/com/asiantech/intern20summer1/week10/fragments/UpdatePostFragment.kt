@@ -91,7 +91,11 @@ class UpdatePostFragment : Fragment() {
 
     private fun handleRenderDataInView() {
         edtContent.setText(content)
-        Glide.with(this).load(apiImageUrl + imageName).into(imgUpdatePost)
+        if(imageName == ""){
+            imgUpdatePost.setBackgroundResource(R.mipmap.ic_launcher)
+        }else {
+            Glide.with(this).load(apiImageUrl + imageName).into(imgUpdatePost)
+        }
     }
 
     private fun handleUpdatePostApi() {
