@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    android:background="@color/background_white"
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_white">
 
     <com.asiantech.intern20summer1.w11.views.ChessboardView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="500dp"
+        android:layout_width="300dp"
+        android:background="@color/background_white" />
 </RelativeLayout>

@@ -6,34 +6,40 @@
     android:orientation="vertical"
     tools:context="com.asiantech.intern20summer1.w11.activity.CanvasActivity">
 
-    <TextView
-        android:id="@+id/tvTitle"
-        android:layout_centerHorizontal="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/w11_activity_margin"
-        android:text="@string/w_11_custom_view_canvas"
-        android:textColor="@color/black"
-        android:textSize="@dimen/w11_activitty_title_size"
-        android:textStyle="bold" />
-
-    <Button
-        android:layout_below="@id/tvTitle"
-        android:id="@+id/btnExerciseOne"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/w11_activity_margin"
-        android:text="@string/w11_exercise_one" />
+        android:layout_height="match_parent">
 
-    <Button
-        android:layout_below="@id/btnExerciseOne"
-        android:id="@+id/btnExerciseTwo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/w11_activity_margin"
-        android:text="@string/w11_exercise_two" />
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/w11_activity_margin"
+            android:text="@string/w_11_custom_view_canvas"
+            android:textColor="@color/black"
+            android:textSize="@dimen/w11_activitty_title_size"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnExerciseOne"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvTitle"
+            android:layout_margin="@dimen/w11_activity_margin"
+            android:text="@string/w11_exercise_one" />
+
+        <Button
+            android:id="@+id/btnExerciseTwo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btnExerciseOne"
+            android:layout_margin="@dimen/w11_activity_margin"
+            android:text="@string/w11_exercise_two" />
+    </RelativeLayout>
+
     <FrameLayout
-        android:layout_width="match_parent"
         android:id="@+id/frameLayoutContainer"
+        android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </RelativeLayout>
