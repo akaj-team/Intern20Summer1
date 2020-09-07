@@ -12,6 +12,10 @@ class ChessBoardCustomView(context: Context?, attrs: AttributeSet?) : View(conte
         private const val MARGIN = 40f
         private const val NUMBER_OF_COLUMNS = 8
         private const val NUMBER_OF_ROWS = 9
+        private const val NUMBER_OF_ROWS_FIVE = 5
+        private const val NUMBER_OF_ROWS_FOUR = 4
+        private const val NUMBER_OF_ROWS_TWO = 2
+        private const val NUMBER_OF_ROWS_SEVEN = 7
         private const val COLUMN_NUMBER_THREE = 3
         private const val DEFAULT_LINE_NUMBER = 1
         private const val WIDTH_SQUARE = 80f
@@ -92,14 +96,14 @@ class ChessBoardCustomView(context: Context?, attrs: AttributeSet?) : View(conte
         canvas?.drawLine(
             startXSquare,
             MARGIN,
-            MARGIN + widthChess * Number.Five.number,
-            MARGIN + heightChess * Number.Two.number,
+            MARGIN + widthChess * NUMBER_OF_ROWS_FIVE,
+            MARGIN + heightChess * NUMBER_OF_ROWS_TWO,
             paint
         )
         canvas?.drawLine(
             startXSquare,
-            MARGIN + heightChess * Number.Two.number,
-            startXSquare + widthChess * Number.Two.number,
+            MARGIN + heightChess * NUMBER_OF_ROWS_TWO,
+            startXSquare + widthChess * NUMBER_OF_ROWS_TWO,
             MARGIN,
             paint
         )
@@ -109,15 +113,15 @@ class ChessBoardCustomView(context: Context?, attrs: AttributeSet?) : View(conte
         canvas?.drawLine(
             startXSquare,
             height - MARGIN,
-            startXSquare + widthChess * Number.Two.number,
-            height - MARGIN - heightChess * Number.Two.number,
+            startXSquare + widthChess * NUMBER_OF_ROWS_TWO,
+            height - MARGIN - heightChess * NUMBER_OF_ROWS_TWO,
             paint
         )
         canvas?.drawLine(
             startXSquare,
-            MARGIN + heightChess * Number.Seven.number,
-            startXSquare + widthChess * Number.Two.number,
-            heightChess * Number.Nice.number + MARGIN,
+            MARGIN + heightChess * NUMBER_OF_ROWS_SEVEN,
+            startXSquare + widthChess * NUMBER_OF_ROWS_TWO,
+            heightChess * NUMBER_OF_ROWS + MARGIN,
             paint
         )
     }
@@ -128,7 +132,7 @@ class ChessBoardCustomView(context: Context?, attrs: AttributeSet?) : View(conte
                 it,
                 MARGIN,
                 startXSquare,
-                heightChess * Number.Four.number + MARGIN,
+                heightChess * NUMBER_OF_ROWS_FOUR + MARGIN,
                 paint
             )
         }
@@ -138,7 +142,7 @@ class ChessBoardCustomView(context: Context?, attrs: AttributeSet?) : View(conte
         startXSquare?.let {
             canvas?.drawLine(
                 it,
-                heightChess * Number.Five.number + MARGIN,
+                heightChess * NUMBER_OF_ROWS_FIVE + MARGIN,
                 startXSquare,
                 height - MARGIN,
                 paint
@@ -159,12 +163,4 @@ class ChessBoardCustomView(context: Context?, attrs: AttributeSet?) : View(conte
         canvas?.drawLine(width - MARGIN, MARGIN, width - MARGIN, height - MARGIN, paint)
         canvas?.drawLine(MARGIN, height - MARGIN, width - MARGIN, height - MARGIN, paint)
     }
-}
-
-enum class Number(val number: Int) {
-    Five(5),
-    Nice(9),
-    Seven(7),
-    Four(4),
-    Two(2)
 }
