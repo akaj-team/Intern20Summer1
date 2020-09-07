@@ -13,12 +13,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".w10.CanvasActivity"></activity>
         <activity android:name=".w6.secondactivity.ViewPagerTwoActivity" />
         <activity android:name=".w6.firstactivity.ViewPagerOneActivity" />
         <activity android:name=".w3.MainActivity" />
-        <activity android:name=".w4.activity.HomeActivity"/>
+        <activity android:name=".w4.activity.HomeActivity" />
         <activity android:name=".w4.activity.MainActivity" />
-        <activity android:name=".w4.activity.SplashActivity"/>
+        <activity android:name=".w4.activity.SplashActivity" />
         <activity android:name=".w0.BeginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
