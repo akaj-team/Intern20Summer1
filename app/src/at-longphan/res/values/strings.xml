@@ -94,4 +94,6 @@
     <string name="text_error_occurred">Error occurred, please try later!</string>
     <string name="text_no_network_conennection">No network connection!</string>
     <string name="text_view_progress_dialog_loading_text">loading..</string>
+    <string name="text_view_new_post_toolbar_title_w10">New post</string>
+    <string name="text_view_content_description_w10">Content:</string>
 </resources>

@@ -2,11 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.asiantech.intern20summer1.week10.activity.TimeLineActivity">
+    android:layout_height="match_parent">
 
     <FrameLayout
-        android:id="@+id/frameLayoutActivityTimeLineW10"
+        android:id="@+id/frameLayoutFragmentTimeLineW10"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -18,6 +17,7 @@
                 android:id="@+id/toolbarActivityTimeLineW10"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/bg_toolbar_w10"
                 android:paddingHorizontal="16dp">
 
                 <ImageView
@@ -26,6 +26,7 @@
                     android:src="@drawable/ic_hamburger" />
 
                 <TextView
+                    android:id="@+id/text_view_fragment_time_line_title_w10"
                     style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

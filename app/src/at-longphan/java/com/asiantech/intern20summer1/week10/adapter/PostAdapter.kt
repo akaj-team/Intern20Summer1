@@ -18,8 +18,7 @@ import com.bumptech.glide.Glide
 class PostAdapter : RecyclerView.Adapter<PostViewHolder> {
 
     companion object {
-        private const val PICTURE_2 = 2
-        private const val PICTURE_3 = 3
+        private const val EXTRA_STRING_LENGTH = 5
     }
 
     internal var onIsLikedImageViewClick: (position: Int) -> Unit = {}
@@ -43,16 +42,14 @@ class PostAdapter : RecyclerView.Adapter<PostViewHolder> {
 
         // Set itemView based on views and data model
         val userIdTextView: TextView? = viewHolder.fullNameTextView
-        userIdTextView?.text = postItem.userId
+        userIdTextView?.text = "User " + postItem.userId
 
         val imageImageView = viewHolder.imageImageView
-        /*when {
-            position % PICTURE_3 == 0 -> imageImageView?.setImageResource(R.drawable.img_cat3)
-            position % PICTURE_2 == 0 -> imageImageView?.setImageResource(R.drawable.img_cat2)
-            else -> imageImageView?.setImageResource(R.drawable.img_cat)
-        }*/
         imageImageView?.let {
-            Glide.with(it).load(IMAGE_FOLDER_URL.plus(postItem.image)).into(it)
+            if (!postItem.image.isNullOrEmpty()) {
+                val imageUrl = IMAGE_FOLDER_URL.plus(postItem.image)
+                Glide.with(context).load(imageUrl).into(it)
+            }
         }
 
         val likeFlagImageView = viewHolder.likeFlagImageView
@@ -91,10 +88,10 @@ class PostAdapter : RecyclerView.Adapter<PostViewHolder> {
             }
         }
 
-        val userIdAndContent = postItem.userId + " " + postItem.content
+        val userIdAndContent = "User " + postItem.userId + " " + postItem.content
         val spannableString = SpannableString(userIdAndContent)
         postItem.userId?.length?.let {
-            spannableString.setSpan(StyleSpan(Typeface.BOLD), 0, it, 0)
+            spannableString.setSpan(StyleSpan(Typeface.BOLD), 0, it + EXTRA_STRING_LENGTH, 0)
         }
         val contentTextView: TextView? = viewHolder.contentTextView
         contentTextView?.text = spannableString
