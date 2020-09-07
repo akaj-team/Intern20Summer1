@@ -132,11 +132,11 @@ class FragmentLogin : Fragment() {
     private fun addBundleAccount(bundle: Bundle, user: UserAutoSignIn) {
         val id = user.id
         val email = user.email
-        val full_name = user.full_name
+        val fullName = user.full_name
         val token = user.token
         val accountData =
             token.let { it1 ->
-                full_name.let { it2 ->
+                fullName.let { it2 ->
                     email.let { it3 ->
                         id.let { it4 ->
                             UserAutoSignIn(
