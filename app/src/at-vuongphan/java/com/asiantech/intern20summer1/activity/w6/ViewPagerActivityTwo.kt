@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.activity
+package com.asiantech.intern20summer1.activity.w6
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

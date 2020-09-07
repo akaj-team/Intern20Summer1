@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.fragment
+package com.asiantech.intern20summer1.fragmennt.w4
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
@@ -10,7 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.activity.HomeActivity
+import com.asiantech.intern20summer1.activity.w4.HomeActivity
 import com.asiantech.intern20summer1.data.User
 import com.asiantech.intern20summer1.extension.hideKeyboard
 import com.asiantech.intern20summer1.extension.isValidEmail
@@ -110,7 +110,9 @@ class FragmentLogin : Fragment() {
 
     private fun openFragmentRegister() {
         fragmentManager?.beginTransaction().let {
-            it?.replace(R.id.frContainer, FragmentRegister.newInstance())
+            it?.replace(R.id.frContainer,
+                FragmentRegister.newInstance()
+            )
             it?.addToBackStack(null)
             it?.commit()
         }

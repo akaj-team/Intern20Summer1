@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.activity
+package com.asiantech.intern20summer1.activity.w4
 
 import android.os.Build
 import android.os.Bundle
@@ -13,6 +13,7 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.home_activity)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            @Suppress("DEPRECATION")
             window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
         getDataFromLogin()
