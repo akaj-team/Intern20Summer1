@@ -5,7 +5,6 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -18,25 +17,20 @@ import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week10.api.ApiClient
 import com.asiantech.intern20summer1.week10.extensions.handleOnTouchScreen
-import com.asiantech.intern20summer1.week10.fragments.AddNewPostFragment.Companion.ASPECT_IMAGE_RATIO
-import com.asiantech.intern20summer1.week10.fragments.AddNewPostFragment.Companion.KEY_IMAGE
 import com.asiantech.intern20summer1.week10.fragments.AddNewPostFragment.Companion.KEY_IMAGE_GALLERY
 import com.asiantech.intern20summer1.week10.fragments.AddNewPostFragment.Companion.OPEN_CAMERA_REQUEST
 import com.asiantech.intern20summer1.week10.fragments.AddNewPostFragment.Companion.PICK_IMAGE_REQUEST
-import com.asiantech.intern20summer1.week10.fragments.AddNewPostFragment.Companion.QUALITY_IMAGE_INDEX
 import com.asiantech.intern20summer1.week10.fragments.HomeFragment.Companion.KEY_STRING_TOKEN
 import com.asiantech.intern20summer1.week10.models.Body
 import com.asiantech.intern20summer1.week10.models.PostResponse
 import com.asiantech.intern20summer1.week10.views.HomeApiActivity
 import com.bumptech.glide.Glide
-import com.theartofdev.edmodo.cropper.CropImage
 import kotlinx.android.synthetic.`at-linhle`.fragment_api_update_post.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import retrofit2.Call
 import retrofit2.Response
-import java.io.ByteArrayOutputStream
 import java.io.File
 
 class UpdatePostFragment : Fragment() {
@@ -80,52 +74,6 @@ class UpdatePostFragment : Fragment() {
         handleOnTouchScreen(llUpdatePostMain)
     }
 
-    private fun getData() {
-        arguments?.let {
-            token = it.getString(KEY_STRING_TOKEN)
-            content = it.getString(KEY_STRING_CONTENT)
-            imageName = it.getString(KEY_STRING_IMAGE)
-            postId = it.getInt(KEY_INT_ID)
-        }
-    }
-
-    private fun handleRenderDataInView() {
-        edtContent.setText(content)
-        if(imageName == ""){
-            imgUpdatePost.setBackgroundResource(R.mipmap.ic_launcher)
-        }else {
-            Glide.with(this).load(apiImageUrl + imageName).into(imgUpdatePost)
-        }
-    }
-
-    private fun handleUpdatePostApi() {
-        val body = Body(edtContent.text.toString())
-        val callApi = token?.let {
-            ApiClient.cretePostService()?.updatePost(it, postId, handleGetImageFile(), body)
-        }
-        callApi?.enqueue(object : retrofit2.Callback<PostResponse> {
-            override fun onFailure(call: Call<PostResponse>, t: Throwable) {
-                Toast.makeText(activity, t.message, Toast.LENGTH_SHORT).show()
-            }
-
-            override fun onResponse(call: Call<PostResponse>, response: Response<PostResponse>) {
-                if (response.isSuccessful) {
-                    response.body()?.apply {
-                        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
-                    }
-                    activity?.onBackPressed()
-                } else {
-                    Toast.makeText(
-                        activity,
-                        getString(R.string.update_post_fragment_toast_fail),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-
-        })
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
@@ -134,13 +82,10 @@ class UpdatePostFragment : Fragment() {
                     if (!isStoragePermissionsAllowed()) {
                         makeStorageRequest()
                     } else {
-                        cropImageCamera(data)
+                        showImage(data)
                     }
                 }
                 PICK_IMAGE_REQUEST -> {
-                    cropImageGallery(data)
-                }
-                CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE -> {
                     showImage(data)
                 }
             }
@@ -174,6 +119,52 @@ class UpdatePostFragment : Fragment() {
         }
     }
 
+    private fun getData() {
+        arguments?.let {
+            token = it.getString(KEY_STRING_TOKEN)
+            content = it.getString(KEY_STRING_CONTENT)
+            imageName = it.getString(KEY_STRING_IMAGE)
+            postId = it.getInt(KEY_INT_ID)
+        }
+    }
+
+    private fun handleRenderDataInView() {
+        edtContent.setText(content)
+        if (imageName == "") {
+            imgUpdatePost.setBackgroundResource(R.mipmap.ic_launcher)
+        } else {
+            Glide.with(this).load(apiImageUrl + imageName).into(imgUpdatePost)
+        }
+    }
+
+    private fun handleUpdatePostApi() {
+        val body = Body(edtContent.text.toString())
+        val callApi = token?.let {
+            ApiClient.cretePostService()?.updatePost(it, postId, handleGetImageFile(), body)
+        }
+        callApi?.enqueue(object : retrofit2.Callback<PostResponse> {
+            override fun onFailure(call: Call<PostResponse>, t: Throwable) {
+                Toast.makeText(activity, t.message, Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onResponse(call: Call<PostResponse>, response: Response<PostResponse>) {
+                if (response.isSuccessful) {
+                    response.body()?.apply {
+                        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
+                    }
+                    activity?.onBackPressed()
+                } else {
+                    Toast.makeText(
+                        activity,
+                        getString(R.string.update_post_fragment_toast_fail),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+
+        })
+    }
+
     private fun handleOnClickListener() {
         imgArrowBack.setOnClickListener {
             (activity as HomeApiActivity).onBackPressed()
@@ -183,24 +174,9 @@ class UpdatePostFragment : Fragment() {
         }
     }
 
-    private fun cropImageCamera(data: Intent?) {
-        (data?.extras?.get(KEY_IMAGE) as? Bitmap)?.let {
-            getImageUri(it)?.let { uri -> handleCropImage(uri) }
-        }
-    }
-
-    private fun cropImageGallery(data: Intent?) {
-        data?.data?.let {
-            handleCropImage(it)
-        }
-    }
-
     private fun showImage(data: Intent?) {
-        CropImage.getActivityResult(data).uri?.apply {
-            val bitmap = MediaStore.Images.Media.getBitmap(activity?.contentResolver, this)
-            imageUri = this
-            imgUpdatePost.setImageBitmap(bitmap)
-        }
+        imageUri = data?.data
+        imgUpdatePost.setImageURI(imageUri)
     }
 
     private fun handleGetImageFile(): MultipartBody.Part? {
@@ -228,29 +204,6 @@ class UpdatePostFragment : Fragment() {
             cursor.close()
         }
         return result
-    }
-
-    private fun handleCropImage(uri: Uri) {
-        context?.let {
-            CropImage.activity(uri).setAspectRatio(
-                ASPECT_IMAGE_RATIO,
-                ASPECT_IMAGE_RATIO
-            )
-                .start(it, this)
-        }
-    }
-
-    private fun getImageUri(inImage: Bitmap): Uri? {
-        val bytes = ByteArrayOutputStream()
-        inImage.compress(Bitmap.CompressFormat.JPEG, QUALITY_IMAGE_INDEX, bytes)
-        val path =
-            MediaStore.Images.Media.insertImage(
-                context?.contentResolver,
-                inImage,
-                resources.getString(R.string.sign_up_fragment_image_profile_title),
-                null
-            )
-        return Uri.parse(path)
     }
 
     private fun isStoragePermissionsAllowed() = ContextCompat.checkSelfPermission(
