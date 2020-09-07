@@ -23,6 +23,7 @@ import com.asiantech.intern20summer1.week4.other.isValidPassword
 import kotlinx.android.synthetic.`at-longphan`.fragment_sign_in_w10.*
 import retrofit2.Call
 import retrofit2.Response
+import javax.net.ssl.HttpsURLConnection
 
 class SignInFragment : Fragment() {
 
@@ -93,7 +94,7 @@ class SignInFragment : Fragment() {
                 override fun onResponse(call: Call<User>, response: Response<User>) {
                     progressDialogLoading.dismiss()
                     when (response.code()) {
-                        200 -> {
+                        HttpsURLConnection.HTTP_OK -> {
                             if (response.body() != null) {
                                 loginUser = response.body()!!
                             }
@@ -108,7 +109,7 @@ class SignInFragment : Fragment() {
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
-                        401 -> {
+                        HttpsURLConnection.HTTP_UNAUTHORIZED -> {
                             Toast.makeText(
                                 context,
                                 getString(R.string.text_unauthorized),

@@ -19,7 +19,7 @@ import com.asiantech.intern20summer1.week4.other.isValidPassword
 import kotlinx.android.synthetic.`at-longphan`.fragment_sign_up_w10.*
 import retrofit2.Call
 import retrofit2.Response
-
+import javax.net.ssl.HttpsURLConnection
 
 class SignUpFragment : Fragment() {
 
@@ -114,14 +114,18 @@ class SignUpFragment : Fragment() {
             callApi?.enqueue(object : retrofit2.Callback<User> {
                 override fun onFailure(call: Call<User>, t: Throwable) {
                     progressDialogLoading?.dismiss()
-                    Toast.makeText(requireContext(), getString(R.string.text_no_network_conennection), Toast.LENGTH_SHORT)
+                    Toast.makeText(
+                        requireContext(),
+                        getString(R.string.text_no_network_conennection),
+                        Toast.LENGTH_SHORT
+                    )
                         .show()
                 }
 
                 override fun onResponse(call: Call<User>, response: Response<User>) {
                     progressDialogLoading?.dismiss()
                     when (response.code()) {
-                        200 -> {
+                        HttpsURLConnection.HTTP_OK -> {
                             onRegisterSuccess(userRegister)
                             Toast.makeText(
                                 context,

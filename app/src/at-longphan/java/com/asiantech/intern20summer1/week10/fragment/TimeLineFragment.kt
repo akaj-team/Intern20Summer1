@@ -20,11 +20,13 @@ import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week10.adapter.PostAdapter
 import com.asiantech.intern20summer1.week10.api.RetrofitClient
 import com.asiantech.intern20summer1.week10.model.Post
+import com.asiantech.intern20summer1.week10.model.ToggleLikeResponse
 import com.asiantech.intern20summer1.week10.model.User
 import com.asiantech.intern20summer1.week10.other.*
 import kotlinx.android.synthetic.`at-longphan`.fragment_time_line_w10.*
 import retrofit2.Call
 import retrofit2.Response
+import javax.net.ssl.HttpsURLConnection
 
 class TimeLineFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
 
@@ -37,16 +39,14 @@ class TimeLineFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
     private lateinit var loginUser: User
     private var postItemsAll = listOf<Post>()
     private var postItemsShowed = mutableListOf<Post>()
-    private lateinit var rvPostItems: RecyclerView
-    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private var adapter: PostAdapter? = null
     private var isLoading = false
+    private lateinit var progressDialogLoading: AlertDialog
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         return inflater.inflate(R.layout.fragment_time_line_w10, container, false)
     }
 
@@ -55,42 +55,37 @@ class TimeLineFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
         super.onViewCreated(view, savedInstanceState)
 
         loginUser = getLoginUserData()
+
+        val progressDialogLoadingBuilder =
+            AlertDialog.Builder(context).setView(R.layout.progress_dialog_loading)
+        progressDialogLoading = progressDialogLoadingBuilder.create()
+
         text_view_fragment_time_line_title_w10?.text = loginUser.fullName
-        //initRecyclerView()
+
         initData()
         initListeners()
     }
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onRefresh() {
         swipeContainerW10?.isRefreshing = true
         reloadData()
         swipeContainerW10?.isRefreshing = false
     }
 
-    /*private fun initRecyclerView() {
-        rvPostItems = activity?.findViewById(R.id.recycleViewTimeLineW10)!!
-    }*/
-
     private fun initSwipeRefreshLayout() {
-        //swipeRefreshLayout = activity?.findViewById(R.id.swipeContainerW10)!!
         swipeContainerW10?.setOnRefreshListener(this)
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun initData() {
+        val getPosts = RetrofitClient.createPostService()?.getPosts(loginUser.token)
 
-        val callApi =
-            RetrofitClient.createPostService()
-                ?.getPosts(loginUser.token)
+        progressDialogLoading.show()
 
-        val builder = AlertDialog.Builder(context)
-        builder.setView(R.layout.progress_dialog_loading)
-        val progressDialogLoading = builder.create()
-        progressDialogLoading?.show()
-
-        callApi?.enqueue(object : retrofit2.Callback<List<Post>> {
+        getPosts?.enqueue(object : retrofit2.Callback<List<Post>> {
             override fun onFailure(call: Call<List<Post>>, t: Throwable) {
-                progressDialogLoading?.dismiss()
+                progressDialogLoading.dismiss()
                 Toast.makeText(
                     context,
                     getString(R.string.text_no_network_conennection),
@@ -100,21 +95,14 @@ class TimeLineFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
             }
 
             override fun onResponse(call: Call<List<Post>>, response: Response<List<Post>>) {
-                progressDialogLoading?.dismiss()
+                progressDialogLoading.dismiss()
                 when (response.code()) {
-                    200 -> {
+                    HttpsURLConnection.HTTP_OK -> {
                         postItemsAll = response.body()!!
 
                         for (i in 0 until ITEMS_TAKE) {
                             postItemsShowed.add(postItemsAll[i])
                         }
-
-                        Toast.makeText(
-                            context,
-                            "getString(R.string.text_error_occurred)",
-                            Toast.LENGTH_SHORT
-                        )
-                            .show()
 
                         initAdapter()
                         initIsLikedImageViewClickListener()
@@ -139,25 +127,58 @@ class TimeLineFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
         adapter = context?.let { PostAdapter(it, postItemsShowed) }
     }
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun initIsLikedImageViewClickListener() {
         adapter?.onIsLikedImageViewClick = { position ->
             postItemsShowed[position].let {
-                it.likeFlag = !it.likeFlag
-                if (it.likeFlag) {
-                    it.likeCount++
-                } else {
-                    if (it.likeCount > 0) {
-                        it.likeCount--
+
+                val toggleLikePost =
+                    RetrofitClient.createPostService()?.toggleLike(loginUser.token, it.id)
+                progressDialogLoading.show()
+
+                toggleLikePost?.enqueue(object : retrofit2.Callback<ToggleLikeResponse> {
+                    override fun onFailure(call: Call<ToggleLikeResponse>, t: Throwable) {
+                        progressDialogLoading.dismiss()
+                        Toast.makeText(
+                            requireContext(),
+                            getString(R.string.text_error_occurred),
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
                     }
-                }
-                if (it.likeCount > 1) {
-                    it.isPluralLike = true
-                }
+
+                    override fun onResponse(
+                        call: Call<ToggleLikeResponse>,
+                        response: Response<ToggleLikeResponse>
+                    ) {
+                        progressDialogLoading.dismiss()
+                        when (response.code()) {
+                            HttpsURLConnection.HTTP_OK -> {
+                                val toggleLikeResponse = response.body()
+
+                                it.likeFlag = toggleLikeResponse?.likeFlag!!
+                                it.likeCount = toggleLikeResponse.likeCount
+                                if (it.likeCount > 1) {
+                                    it.isPluralLike = true
+                                }
+                                adapter?.notifyItemChanged(position)
+                                (recycleViewTimeLineW10?.itemAnimator as? SimpleItemAnimator)?.supportsChangeAnimations =
+                                    false
+                            }
+                            else -> {
+                                Toast.makeText(
+                                    context,
+                                    getString(R.string.text_error_occurred),
+                                    Toast.LENGTH_SHORT
+                                )
+                                    .show()
+                            }
+                        }
+                    }
+
+                })
             }
-            adapter?.notifyItemChanged(position)
-            // Remove flash animation when interact with a row item
-            (recycleViewTimeLineW10?.itemAnimator as? SimpleItemAnimator)?.supportsChangeAnimations =
-                false
+
         }
     }
 
@@ -177,8 +198,6 @@ class TimeLineFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
                             && postItemsShowed.size < postItemsAll.size
                         ) {
                             loadMore()
-                            isLoading = true
-                            progressBarW10?.visibility = View.VISIBLE
                         }
                     }
                 }
@@ -193,25 +212,29 @@ class TimeLineFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
     }
 
     private fun loadMore() {
-        Handler().postDelayed({
-            var currentSize = postItemsShowed.size
-            val nextLimit = currentSize + 10
-            while (currentSize < postItemsAll.size && currentSize < nextLimit) {
-                postItemsShowed.add(postItemsAll[currentSize])
-                currentSize++
-            }
-            adapter?.notifyDataSetChanged()
-            isLoading = false
-            progressBarW10?.visibility = View.INVISIBLE
-        }, TIME_DELAY)
+        if (postItemsShowed.size != 0) {
+            Handler().postDelayed({
+                var currentSize = postItemsShowed.size
+                val nextLimit = currentSize + ITEMS_TAKE
+                while (currentSize < postItemsAll.size && currentSize < nextLimit) {
+                    postItemsShowed.add(postItemsAll[currentSize])
+                    currentSize++
+                }
+                adapter?.notifyDataSetChanged()
+
+                isLoading = false
+                progressBarW10?.visibility = View.INVISIBLE
+            }, TIME_DELAY)
+
+            isLoading = true
+            progressBarW10?.visibility = View.VISIBLE
+        }
     }
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun reloadData() {
         postItemsShowed.clear()
-        for (i in 0 until ITEMS_TAKE) {
-            postItemsShowed.add(postItemsAll[i])
-        }
-        adapter?.notifyDataSetChanged()
+        initData()
     }
 
     private fun getLoginUserData(): User {
@@ -229,7 +252,6 @@ class TimeLineFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
     private fun addFragmentNewPost() {
         fragmentManager?.beginTransaction()
             ?.replace(R.id.frameLayoutActivityHomeW10, NewPostFragment())
-            //?.hide(this)
             ?.addToBackStack(null)?.commit()
     }
 }
