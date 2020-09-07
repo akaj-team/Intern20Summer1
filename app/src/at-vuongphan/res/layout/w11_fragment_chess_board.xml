@@ -4,6 +4,7 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/tvTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -13,10 +14,19 @@
         android:textSize="20sp"
         android:textStyle="bold" />
 
-    <com.asiantech.intern20summer1.fragmennt.w11.ChessBoardCustomView
-        android:id="@+id/canvas"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/chess_height_400dp"
-        android:layout_centerVertical="true"
-        android:layout_margin="@dimen/margin_4dp" />
+        android:layout_height="match_parent"
+        android:layout_below="@id/tvTitle"
+        android:layout_marginEnd="@dimen/margin_4dp"
+        android:layout_marginRight="@dimen/margin_4dp"
+        android:layout_marginLeft="@dimen/margin_4dp"
+        android:layout_marginBottom="@dimen/margin_4dp">
+
+        <com.asiantech.intern20summer1.fragmennt.w11.ChessBoardCustomView
+            android:id="@+id/canvas"
+            android:layout_width="400dp"
+            android:layout_height="@dimen/chess_height_400dp"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
 </RelativeLayout>

@@ -17,12 +17,15 @@ class ChessBoardCustomView(context: Context?, attrs: AttributeSet?) : View(conte
         private const val WIDTH_SQUARE = 80f
         private const val NUMBER_SQUARE_HORIZONTAL = 8f
         private const val NUMBER_SQUARE_VERTICAL = 9f
-        private const val PAINT_STROKE = 4f
+        private const val PAINT_STROKE = 5f
     }
 
     private var paint: Paint = Paint(Paint.ANTI_ALIAS_FLAG)
     private var widthChess = 0f
     private var heightChess = 0f
+    var startXSquare = MARGIN
+    var startYSquare = MARGIN
+    var lineCount = DEFAULT_LINE_NUMBER
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
         widthChess = (width - WIDTH_SQUARE) / NUMBER_SQUARE_HORIZONTAL
@@ -38,12 +41,109 @@ class ChessBoardCustomView(context: Context?, attrs: AttributeSet?) : View(conte
     }
 
     private fun drawLines(canvas: Canvas?) {
-        var startXSquare = MARGIN
-        var startYSquare = MARGIN
-        var lineCount = DEFAULT_LINE_NUMBER
         paintRectangleOutside(canvas)
         paint.strokeWidth = PAINT_STROKE
         paintRectangleInner(canvas)
+        paintHorizontalLine(canvas)
+        paintVerticalLine(canvas)
+    }
+
+    private fun paintVerticalLine(canvas: Canvas?) {
+        lineCount = DEFAULT_LINE_NUMBER
+        while (lineCount < NUMBER_OF_COLUMNS) {
+            startXSquare += widthChess
+            when (lineCount) {
+                COLUMN_NUMBER_THREE -> {
+                    paintDiagonalLineAbove(canvas, startXSquare)
+                }
+            }
+            paintVerticalLineAbove(canvas, startXSquare)
+            lineCount++
+        }
+        lineCount = DEFAULT_LINE_NUMBER
+        startXSquare = MARGIN
+        while (lineCount < NUMBER_OF_COLUMNS) {
+            startXSquare += widthChess
+            when (lineCount) {
+                COLUMN_NUMBER_THREE -> {
+                    paintDiagonalLineBelow(canvas, startXSquare)
+                }
+            }
+            paintVerticalLineBelow(canvas, startXSquare)
+            lineCount++
+        }
+    }
+
+    private fun paintHorizontalLine(canvas: Canvas?) {
+        while (lineCount < NUMBER_OF_ROWS) {
+            startYSquare += heightChess
+            canvas?.drawLine(
+                MARGIN,
+                startYSquare,
+                width - MARGIN,
+                startYSquare,
+                paint
+            )
+            lineCount++
+        }
+    }
+
+    private fun paintDiagonalLineAbove(canvas: Canvas?, startXSquare: Float) {
+        canvas?.drawLine(
+            startXSquare,
+            MARGIN,
+            MARGIN + widthChess * Number.Five.number,
+            MARGIN + heightChess * Number.Two.number,
+            paint
+        )
+        canvas?.drawLine(
+            startXSquare,
+            MARGIN + heightChess * Number.Two.number,
+            startXSquare + widthChess * Number.Two.number,
+            MARGIN,
+            paint
+        )
+    }
+
+    private fun paintDiagonalLineBelow(canvas: Canvas?, startXSquare: Float) {
+        canvas?.drawLine(
+            startXSquare,
+            height - MARGIN,
+            startXSquare + widthChess * Number.Two.number,
+            height - MARGIN - heightChess * Number.Two.number,
+            paint
+        )
+        canvas?.drawLine(
+            startXSquare,
+            MARGIN + heightChess * Number.Seven.number,
+            startXSquare + widthChess * Number.Two.number,
+            heightChess * Number.Nice.number + MARGIN,
+            paint
+        )
+    }
+
+    private fun paintVerticalLineAbove(canvas: Canvas?, startXSquare: Float?) {
+        startXSquare?.let {
+            canvas?.drawLine(
+                it,
+                MARGIN,
+                startXSquare,
+                heightChess * Number.Four.number + MARGIN,
+                paint
+            )
+        }
+    }
+
+    private fun paintVerticalLineBelow(canvas: Canvas?, startXSquare: Float?) {
+        startXSquare?.let {
+            canvas?.drawLine(
+                it,
+                heightChess * Number.Five.number + MARGIN,
+                startXSquare,
+                height - MARGIN,
+                paint
+            )
+        }
     }
 
     private fun paintRectangleOutside(canvas: Canvas?) {
@@ -59,4 +159,12 @@ class ChessBoardCustomView(context: Context?, attrs: AttributeSet?) : View(conte
         canvas?.drawLine(width - MARGIN, MARGIN, width - MARGIN, height - MARGIN, paint)
         canvas?.drawLine(MARGIN, height - MARGIN, width - MARGIN, height - MARGIN, paint)
     }
+}
+
+enum class Number(val number: Int) {
+    Five(5),
+    Nice(9),
+    Seven(7),
+    Four(4),
+    Two(2)
 }
