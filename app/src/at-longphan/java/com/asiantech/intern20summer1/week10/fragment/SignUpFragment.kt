@@ -104,7 +104,7 @@ class SignUpFragment : Fragment() {
 
             val callApi =
                 RetrofitClient.createUserService()
-                    ?.addNewUser(UserRegister(email, password, fullName))
+                    ?.createUser(UserRegister(email, password, fullName))
 
             val builder = AlertDialog.Builder(context)
             builder.setView(R.layout.progress_dialog_loading)

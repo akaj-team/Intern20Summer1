@@ -1,12 +1,15 @@
 package com.asiantech.intern20summer1.week10.activity
 
+import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.hideKeyboard
 import com.asiantech.intern20summer1.week10.fragment.TimeLineFragment
+import kotlinx.android.synthetic.`at-longphan`.activity_home_w10.*
 
 class TimeLineActivity : AppCompatActivity() {
 
@@ -16,6 +19,7 @@ class TimeLineActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_w10)
         configStatusBar()
+        handleLinearLayoutChildListener()
         replaceFragment(TimeLineFragment())
     }
 
@@ -46,4 +50,12 @@ class TimeLineActivity : AppCompatActivity() {
         transaction.commit()
     }
 
+    @SuppressLint("ClickableViewAccessibility")
+    private fun handleLinearLayoutChildListener() {
+        frameLayoutActivityHomeW10?.setOnTouchListener { view, _ ->
+            view.clearFocus()
+            view.hideKeyboard()
+            true
+        }
+    }
 }

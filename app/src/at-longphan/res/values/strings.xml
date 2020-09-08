@@ -96,4 +96,5 @@
     <string name="text_view_progress_dialog_loading_text">loading..</string>
     <string name="text_view_new_post_toolbar_title_w10">New post</string>
     <string name="text_view_content_description_w10">Content:</string>
+    <string name="button_post_w10">Post</string>
 </resources>

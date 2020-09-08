@@ -69,7 +69,7 @@ class TimeLineFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onRefresh() {
         swipeContainerW10?.isRefreshing = true
-        reloadData()
+        initData()
         swipeContainerW10?.isRefreshing = false
     }
 
@@ -79,6 +79,8 @@ class TimeLineFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun initData() {
+        postItemsShowed.clear()
+
         val getPosts = RetrofitClient.createPostService()?.getPosts(loginUser.token)
 
         progressDialogLoading.show()
@@ -133,7 +135,7 @@ class TimeLineFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
             postItemsShowed[position].let {
 
                 val toggleLikePost =
-                    RetrofitClient.createPostService()?.toggleLike(loginUser.token, it.id)
+                    RetrofitClient.createPostService()?.toggleLikeFlag(loginUser.token, it.id)
                 progressDialogLoading.show()
 
                 toggleLikePost?.enqueue(object : retrofit2.Callback<ToggleLikeResponse> {
@@ -231,12 +233,6 @@ class TimeLineFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    private fun reloadData() {
-        postItemsShowed.clear()
-        initData()
-    }
-
     private fun getLoginUserData(): User {
         val sharePref: SharedPreferences =
             context?.getSharedPreferences(USER_DATA_PREFS_WEEK_10, Context.MODE_PRIVATE)!!
@@ -251,7 +247,7 @@ class TimeLineFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
 
     private fun addFragmentNewPost() {
         fragmentManager?.beginTransaction()
-            ?.replace(R.id.frameLayoutActivityHomeW10, NewPostFragment())
+            ?.replace(R.id.frameLayoutActivityHomeW10, NewPostFragment.newInstance(loginUser.token))
             ?.addToBackStack(null)?.commit()
     }
 }

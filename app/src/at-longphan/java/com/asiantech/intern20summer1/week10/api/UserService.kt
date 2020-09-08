@@ -10,7 +10,7 @@ import retrofit2.http.POST
 interface UserService {
 
     @POST("api/user")
-    fun addNewUser(@Body userRegister: UserRegister): Call<User>
+    fun createUser(@Body userRegister: UserRegister): Call<User>
 
     /*@POST("api/login")
     @FormUrlEncoded

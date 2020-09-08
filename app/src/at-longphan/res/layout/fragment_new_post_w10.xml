@@ -23,6 +23,18 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/text_view_new_post_toolbar_title_w10" />
+
+        <Button
+            android:id="@+id/btnPostW10"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:background="@drawable/bg_button_post_unable"
+            android:enabled="false"
+            android:text="@string/button_post_w10"
+            android:textAllCaps="false"
+            android:textColor="@color/colorLoginButtonText"
+            android:textSize="16sp"
+            android:layout_gravity="right" />
     </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
@@ -32,12 +44,12 @@
         android:padding="10dp">
 
         <ImageView
-            android:background="@drawable/bg_black_border_1px"
             android:id="@+id/imgUploadImagePostW10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:adjustViewBounds="true"
+            android:background="@drawable/bg_black_border_1px"
             android:src="@drawable/ic_add_photo_50" />
 
         <TextView
