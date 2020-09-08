@@ -1,21 +1,86 @@
 package com.asiantech.intern20summer1.w10.activity
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.w10.fragment.LoginFragment
+import com.asiantech.intern20summer1.w10.api.APIClient
+import com.asiantech.intern20summer1.w10.api.UserAPI
+import com.asiantech.intern20summer1.w10.data.User
+import com.asiantech.intern20summer1.w10.fragment.HomeFragment.Companion.USER_KEY
+import com.example.demo_week_10.fragment.LoginFragment
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class LoginActivity : AppCompatActivity() {
+
+    private var token : String? = null
+    private var id : Int? = null
+    private var email : String? = null
+    private var fullName : String? = null
+
+    companion object{
+        internal const val SHARED_PREFERENCE_FILE = "share-preference-file"
+        internal const val SHARED_PREFERENCE_TOKEN_KEY = "shared-preference-token-key"
+        internal const val SHARED_PREFERENCE_ID_KEY = "shared-preference-id-key"
+        internal const val SHARED_PREFERENCE_EMAIL_KEY = "shared-preference-email-key"
+        internal const val SHARED_PREFERENCE_FULL_NAME_KEY = "shared-preference-full-name-key"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.w10_activity_login)
-        replaceFragment(LoginFragment.newInstance())
+        setContentView(R.layout.activity_main)
+//        replaceFragment(LoginFragment.newInstance())
+        handleAutoLogin()
     }
     internal fun replaceFragment(fragment: Fragment){
         supportFragmentManager.beginTransaction()
             .replace(R.id.frameLayoutMain,fragment,null)
             .addToBackStack(null)
             .commit()
+    }
+
+    private fun checkSharedPreference() : Boolean{
+        val sharedPreference = getSharedPreferences(SHARED_PREFERENCE_FILE, MODE_PRIVATE)
+        if (sharedPreference?.getString(SHARED_PREFERENCE_TOKEN_KEY,null) == null){
+            return false
+        }
+        token = sharedPreference.getString(SHARED_PREFERENCE_TOKEN_KEY, token)
+        id = sharedPreference.getInt(SHARED_PREFERENCE_ID_KEY, 0)
+        email = sharedPreference.getString(SHARED_PREFERENCE_EMAIL_KEY, email)
+        fullName = sharedPreference.getString(SHARED_PREFERENCE_FULL_NAME_KEY, fullName)
+        return true
+    }
+    private fun handleAutoLogin(){
+        if (checkSharedPreference()){
+            val service = APIClient.createServiceClient()?.create(UserAPI::class.java)
+            val call =
+                token?.let { service?.autoSignIn(it) }
+            call?.enqueue(object : Callback<User>{
+                override fun onResponse(call: Call<User>, response: Response<User>) {
+                    if (response.isSuccessful){
+                        val intent = Intent(this@LoginActivity,HomeActivity::class.java)
+                        intent.putExtra(LoginFragment.FULL_NAME_KEY, fullName)
+                        intent.putExtra(LoginFragment.TOKEN_KEY, token)
+                        response.body().apply {
+                            intent.putExtra(USER_KEY,this)
+                        }
+                        startActivity(intent)
+                        finish()
+                    }
+                }
+
+                override fun onFailure(call: Call<User>, t: Throwable) {
+                    replaceFragment(LoginFragment.newInstance())
+                }
+
+            })
+        }else{
+            Log.d("TAG00000", "handleAutoLogin: non check")
+            replaceFragment(LoginFragment.newInstance())
+        }
     }
 }

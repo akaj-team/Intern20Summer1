@@ -27,13 +27,13 @@
         android:textSize="@dimen/w10_text_view_text_size" />
 
     <EditText
+        android:background="@drawable/w10_select_custom_edit_text"
         android:id="@+id/edtEmailLogin"
         android:layout_width="match_parent"
         android:layout_height="@dimen/w10_edit_text_height"
         android:layout_below="@id/tvEmailLogin"
         android:layout_marginTop="@dimen/w10_edit_text_margin_top"
         android:autofillHints="@string/w10_email_text_view_text"
-        android:background="@drawable/w10_select_custom_edit_text"
         android:inputType="textEmailAddress"
         tools:ignore="LabelFor" />
 
@@ -49,35 +49,34 @@
         android:textSize="@dimen/w10_text_view_text_size" />
 
     <EditText
+        android:background="@drawable/w10_select_custom_edit_text"
         android:id="@+id/edtPasswordLogin"
         android:layout_width="match_parent"
         android:layout_height="@dimen/w10_edit_text_height"
         android:layout_below="@id/tvPasswordLogin"
         android:layout_marginTop="@dimen/w10_edit_text_margin_top"
         android:autofillHints="@string/w10_password_text_view_text"
-        android:background="@drawable/w10_select_custom_edit_text"
         android:inputType="textPassword"
         tools:ignore="LabelFor" />
 
     <Button
-        android:id="@+id/btnLogin"
         android:layout_width="match_parent"
         android:layout_height="@dimen/w10_edit_text_height"
-        android:layout_below="@id/edtPasswordLogin"
-        android:layout_marginTop="@dimen/w10_button_margin_top"
-        android:background="@drawable/w10_bg_button"
         android:text="@string/w10_login_fragment_title"
+        android:textSize="@dimen/w10_button_text_size"
         android:textAllCaps="false"
-        android:textSize="@dimen/w10_button_text_size" />
-
+        android:background="@drawable/w10_bg_button"
+        android:id="@+id/btnLogin"
+        android:layout_marginTop="@dimen/w10_button_margin_top"
+        android:layout_below="@id/edtPasswordLogin" />
     <TextView
-        android:id="@+id/tvRegister"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/btnLogin"
+        android:layout_below="@+id/btnLogin"
+        android:id="@+id/tvRegister"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="@dimen/w10_register_text_view_margin_top"
-        android:layout_marginRight="@dimen/w10_relative_margin_horizontal"
-        android:text="@string/w10_register_fragment_title_text_view_text"
-        android:textSize="@dimen/w10_register_text_view_text_size" />
+        android:layout_marginTop="@dimen/w10_edit_text_margin_top"
+        android:textSize="@dimen/w10_button_text_size"
+        android:text="@string/w10_register_text_view_text"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>

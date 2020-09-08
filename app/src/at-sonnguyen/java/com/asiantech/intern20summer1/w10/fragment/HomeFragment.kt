@@ -50,12 +50,24 @@ class HomeFragment : Fragment() {
         getDataFromActivity()
     }
 
+    private fun initView(){
+        toolbarHome.title = user.full_name
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.w10_fragment_home, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        getAllPost()
+        initView()
+        initAdapter()
+        initListener()
     }
 
     private fun likePost() {
@@ -92,18 +104,17 @@ class HomeFragment : Fragment() {
         }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        getAllPost()
-        initAdapter()
-        initListener()
-    }
-
     private fun initListener() {
         likePost()
         handleSwipeRefresh()
+        handleAddImageViewListener()
     }
 
+    private fun handleAddImageViewListener(){
+        imgAdd.setOnClickListener {
+            (activity as? HomeActivity)?.replaceFragmentHome(AddPostFragment.newInstance(user),true)
+        }
+    }
 
     private fun handleUpdateListener(position: Int) {
         val id = posts[position].id
@@ -115,7 +126,7 @@ class HomeFragment : Fragment() {
                 imageString,
                 content,
                 user.token
-            )
+            ),true
         )
     }
 
@@ -140,8 +151,8 @@ class HomeFragment : Fragment() {
             ) {
                 if (response.isSuccessful) {
                     response.body()?.let { it ->
-                        it.forEach {
-                            posts.add( it)
+                        it.forEach {post ->
+                            posts.add(post)
                         }
                         postAdapter = RecyclerViewAdapter(posts,user.id)
                         initAdapter()

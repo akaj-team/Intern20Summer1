@@ -17,7 +17,7 @@
 
     <ImageView
         android:id="@+id/imgItem"
-        android:layout_width="@dimen/w10_image_item_width"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/w10_image_item_height"
         android:contentDescription="@string/w10_picture_item_description"
         android:src="@mipmap/ic_launcher" />
@@ -73,19 +73,18 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/tvUsername"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/w10_user_name_text_view_height"
-        android:layout_below="@id/tvLikeCount"
-        android:gravity="fill_vertical"
+        android:id="@+id/tvCreatedTime"
         android:textSize="@dimen/w10_text_view_text_size"
-        android:textStyle="bold" />
+        android:layout_width="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/llReaction"
+        android:layout_height="wrap_content"/>
 
     <TextView
         android:id="@+id/tvContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tvUsername"
+        android:layout_below="@id/tvLikeCount"
         android:layout_marginBottom="@dimen/w10_description_text_view_margin_top" />
 
 </RelativeLayout>

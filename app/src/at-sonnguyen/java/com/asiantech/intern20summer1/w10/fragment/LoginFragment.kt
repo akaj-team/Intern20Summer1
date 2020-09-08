@@ -1,6 +1,8 @@
-package com.asiantech.intern20summer1.w10.fragment
+package com.example.demo_week_10.fragment
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -11,11 +13,17 @@ import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w10.activity.HomeActivity
 import com.asiantech.intern20summer1.w10.activity.LoginActivity
+import com.asiantech.intern20summer1.w10.activity.LoginActivity.Companion.SHARED_PREFERENCE_EMAIL_KEY
+import com.asiantech.intern20summer1.w10.activity.LoginActivity.Companion.SHARED_PREFERENCE_FILE
+import com.asiantech.intern20summer1.w10.activity.LoginActivity.Companion.SHARED_PREFERENCE_FULL_NAME_KEY
+import com.asiantech.intern20summer1.w10.activity.LoginActivity.Companion.SHARED_PREFERENCE_ID_KEY
+import com.asiantech.intern20summer1.w10.activity.LoginActivity.Companion.SHARED_PREFERENCE_TOKEN_KEY
 import com.asiantech.intern20summer1.w10.api.APIClient
 import com.asiantech.intern20summer1.w10.api.UserAPI
 import com.asiantech.intern20summer1.w10.data.User
 import com.asiantech.intern20summer1.w10.extension.isValidEmail
 import com.asiantech.intern20summer1.w10.extension.isValidPassword
+import com.asiantech.intern20summer1.w10.fragment.RegisterFragment
 import com.asiantech.intern20summer1.w10.fragment.RegisterFragment.Companion.KEY_VALUE_EMAIL
 import com.asiantech.intern20summer1.w10.fragment.RegisterFragment.Companion.KEY_VALUE_PASSWORD
 import kotlinx.android.synthetic.`at-sonnguyen`.w10_fragment_login.*
@@ -28,6 +36,9 @@ class LoginFragment : Fragment() {
     private var passwordText: String = ""
 
     companion object {
+        internal const val FULL_NAME_KEY = "full_name"
+        internal const val TOKEN_KEY = "token"
+        internal const val USER_KEY = "user"
         internal fun newInstance() = LoginFragment()
     }
 
@@ -145,11 +156,21 @@ class LoginFragment : Fragment() {
             call?.enqueue(object : Callback<User> {
                 override fun onResponse(call: Call<User>, response: Response<User>) {
                     if (response.isSuccessful) {
+                        val sharedPreferences = activity?.getSharedPreferences(
+                            SHARED_PREFERENCE_FILE,
+                            Context.MODE_PRIVATE
+                        )
+                        val editor : SharedPreferences.Editor? = sharedPreferences?.edit()
                         response.body().apply {
+                            editor?.putString(SHARED_PREFERENCE_TOKEN_KEY,this?.token)
+                            this?.id?.let { it1 -> editor?.putInt(SHARED_PREFERENCE_ID_KEY, it1) }
+                            editor?.putString(SHARED_PREFERENCE_EMAIL_KEY,this?.email)
+                            editor?.putString(SHARED_PREFERENCE_FULL_NAME_KEY,this?.full_name)
+                            editor?.apply()
                             val intent = Intent(activity, HomeActivity::class.java)
-                            intent.putExtra("full_name",this?.full_name)
-                            intent.putExtra("token",this?.token)
-                            intent.putExtra("user", this )
+                            intent.putExtra(FULL_NAME_KEY, this?.full_name)
+                            intent.putExtra(TOKEN_KEY, this?.token)
+                            intent.putExtra(USER_KEY, this)
                             activity?.startActivity(intent)
                             activity?.finish()
                         }

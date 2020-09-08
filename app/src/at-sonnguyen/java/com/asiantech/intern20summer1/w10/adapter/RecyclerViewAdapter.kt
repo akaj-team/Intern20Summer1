@@ -11,8 +11,10 @@ import com.asiantech.intern20summer1.w10.activity.HomeActivity.Companion.IMAGE_F
 import com.asiantech.intern20summer1.w10.data.Post
 import com.bumptech.glide.Glide
 
-class RecyclerViewAdapter(private val items: MutableList<Post>,internal val userId : Int) :
+class RecyclerViewAdapter(private val items: MutableList<Post>, internal val userId : Int) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    internal var onItemClicked: (position: Int) -> Unit = {}
 
     internal var onLikeClicked:(position : Int) -> Unit = {}
 
@@ -33,6 +35,7 @@ class RecyclerViewAdapter(private val items: MutableList<Post>,internal val user
         private val imgEdit : ImageView = itemView.findViewById(R.id.imgEdit)
         private val imgItem: ImageView = itemView.findViewById(R.id.imgItem)
         private val imgLike: ImageView = itemView.findViewById(R.id.imgLike)
+        private val tvCreatedTime : TextView = itemView.findViewById(R.id.tvCreatedTime)
         private val tvLikeCount: TextView = itemView.findViewById(R.id.tvLikeCount)
         private val tvContent: TextView = itemView.findViewById(R.id.tvContent)
 
@@ -50,20 +53,20 @@ class RecyclerViewAdapter(private val items: MutableList<Post>,internal val user
             tvContent.text = item.content
             Glide.with(itemView)
                 .load(IMAGE_FOLDER_URL+item.image)
-                .placeholder(R.drawable.ic_launcher_background)
                 .into(imgItem)
-            tvLikeCount.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_black_heart, 0, 0, 0)
+            tvLikeCount.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_twotone_add_circle_24, 0, 0, 0)
+            if (userId == item.userId){
+                imgEdit.visibility  = View.VISIBLE
+            }else {
+                imgEdit.visibility = View.INVISIBLE
+            }
+            tvCreatedTime.text = item.create_at
             tvLikeCount.text = String.format(
                 itemView.context.getString(
                     R.string.w10_item_number_of_like,
                     item.like_count
                 )
             )
-            if (userId == item.userId){
-                imgEdit.visibility  = View.VISIBLE
-            }else {
-                imgEdit.visibility = View.INVISIBLE
-            }
             if (item.like_flag){
                 imgLike.setImageResource(R.drawable.ic_hearted)
             }else{

@@ -16,6 +16,7 @@ import com.asiantech.intern20summer1.w10.data.User
 import com.asiantech.intern20summer1.w10.data.UserRegister
 import com.asiantech.intern20summer1.w10.extension.isValidEmail
 import com.asiantech.intern20summer1.w10.extension.isValidPassword
+import com.example.demo_week_10.fragment.LoginFragment
 import kotlinx.android.synthetic.`at-sonnguyen`.w10_fragment_register.*
 import retrofit2.Call
 import retrofit2.Callback

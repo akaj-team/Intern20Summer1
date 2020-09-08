@@ -18,16 +18,13 @@ import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w10.activity.HomeActivity
-import com.asiantech.intern20summer1.w10.activity.HomeActivity.Companion.IMAGE_FOLDER_URL
 import com.asiantech.intern20summer1.w10.api.APIClient
 import com.asiantech.intern20summer1.w10.api.PostAPI
 import com.asiantech.intern20summer1.w10.data.PostContent
 import com.asiantech.intern20summer1.w10.data.StatusResponse
 import com.asiantech.intern20summer1.w10.data.User
-import com.asiantech.intern20summer1.w10.fragment.AddPostFragment.Companion.IMAGE_NAME
-import com.bumptech.glide.Glide
 import com.theartofdev.edmodo.cropper.CropImage
-import kotlinx.android.synthetic.`at-sonnguyen`.w10_fragment_update_new_feed.*
+import kotlinx.android.synthetic.`at-sonnguyen`.w10_fragment_add_new_feed.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -37,42 +34,29 @@ import retrofit2.Response
 import java.io.ByteArrayOutputStream
 import java.io.File
 
-@Suppress("DEPRECATION")
-class UpdatePostFragment : Fragment() {
+@Suppress("DEPRECATION", "NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
+class AddPostFragment : Fragment() {
 
     private var user = User(0, "", "", "")
     private var flag = false
     private var imageURI: Uri? = null
-    private var token: String? = null
-    private var content: String? = null
-    private var imageString: String? = null
-    private var postId: Int = 0
 
     companion object {
         private const val CROP_IMAGE_HEIGHT = 1
         private const val CROP_IMAGE_WIDTH = 1
         private const val CAMERA_REQUEST_CODE = 111
-        private const val GALLERY_REQUEST_CODE = 112
+        internal const val GALLERY_REQUEST_CODE = 112
         private const val IMAGE_URI_QUALITY = 100
         private const val KEY_VALUE = "data"
-        private const val ID_KEY = "id"
-        private const val IMAGE_KEY = "image"
-        private const val CONTENT_KEY = "content"
-        private const val TOKEN_KEY = "token"
-        internal fun newInstance(id: Int, imageName: String?, content: String?, token: String?) =
-            UpdatePostFragment().apply {
-                arguments = Bundle().apply {
-                    putInt(ID_KEY, id)
-                    putString(IMAGE_KEY, imageName)
-                    putString(CONTENT_KEY, content)
-                    putString(TOKEN_KEY, token)
-                }
-            }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        getDataFromActivity()
+        internal const val IMAGE_KEY = "image/*"
+        internal const val IMAGE_NAME = "image"
+        internal fun newInstance(user: User): AddPostFragment {
+            val addPostFragment = AddPostFragment()
+            val bundle = Bundle()
+            bundle.putSerializable(HomeFragment.USER_KEY, user)
+            addPostFragment.arguments = bundle
+            return addPostFragment
+        }
     }
 
     override fun onCreateView(
@@ -80,33 +64,13 @@ class UpdatePostFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        getData()
-        return inflater.inflate(R.layout.w10_fragment_update_new_feed, container, false)
+        return inflater.inflate(R.layout.w10_fragment_add_new_feed, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
         initListener()
-    }
-
-    private fun getData() {
-        arguments?.let {
-            token = it.getString(TOKEN_KEY)
-            content = it.getString(CONTENT_KEY)
-            imageString = it.getString(IMAGE_KEY)
-            postId = it.getInt(ID_KEY)
-        }
-    }
-
-    private fun initView() {
-        edtContent.setText(content)
-        if (imageString == "") {
-            imgItem.setImageResource(R.mipmap.ic_launcher_round)
-        } else {
-            Glide.with(this).load(IMAGE_FOLDER_URL + imageString).into(imgItem)
-        }
-
     }
 
     private fun getDataFromActivity() {
@@ -118,6 +82,22 @@ class UpdatePostFragment : Fragment() {
         }
     }
 
+    private fun initListener() {
+        handleListenerItemImageView()
+        handleCreatePost()
+        handleBackImageViewListener()
+    }
+
+    private fun initView() {
+        getDataFromActivity()
+        toolbarAddPost.title = getString(R.string.w10_toolBar_add_new_post_title)
+    }
+
+    private fun handleBackImageViewListener() {
+        imgBack.setOnClickListener {
+            (activity as? HomeActivity)?.onBackPressed()
+        }
+    }
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -172,7 +152,7 @@ class UpdatePostFragment : Fragment() {
                         requestGalleryPermission()
                     } else {
                         (data?.extras?.get(KEY_VALUE) as? Bitmap)?.let {
-                            getImageUri(it)?.let(this::cropImage)
+                            getImageUri(it)?.let(this@AddPostFragment::cropImage)
                             imageURI = getImageUri(it)
                         }
                     }
@@ -187,18 +167,6 @@ class UpdatePostFragment : Fragment() {
                     imgItem.setImageURI(imageURI)
                 }
             }
-        }
-    }
-
-    private fun initListener() {
-        handleListenerItemImageView()
-        handleUpdatePost()
-        handleBackImageViewListener()
-    }
-
-    private fun handleBackImageViewListener(){
-        imgBack.setOnClickListener {
-            (activity as? HomeActivity)?.onBackPressed()
         }
     }
 
@@ -275,45 +243,27 @@ class UpdatePostFragment : Fragment() {
         Manifest.permission.WRITE_EXTERNAL_STORAGE
     ) == PackageManager.PERMISSION_GRANTED
 
-    private fun handleUpdatePost() {
-        tvUpdate.setOnClickListener {
-            updatePost()
+    private fun handleCreatePost() {
+        tvAdd.setOnClickListener {
+            val file = File(getPath(imageURI))
+            val fileRequestBody = file.asRequestBody(IMAGE_KEY.toMediaTypeOrNull())
+            val part = MultipartBody.Part.createFormData(IMAGE_NAME, file.name, fileRequestBody)
+            val service = APIClient.createServiceClient()?.create(PostAPI::class.java)
+            val call =
+                service?.createPost(user.token, PostContent(edtContent.text.toString()), part)
+            call?.enqueue(object : Callback<StatusResponse> {
+                override fun onResponse(
+                    call: Call<StatusResponse>,
+                    response: Response<StatusResponse>
+                ) {
+                }
+
+                override fun onFailure(call: Call<StatusResponse>, t: Throwable) {
+
+                }
+            })
+            (activity as? HomeActivity)?.replaceFragmentHome(HomeFragment.newInstance(user), false)
         }
-    }
-
-    private fun updatePost() {
-        val service = APIClient.createServiceClient()?.create(PostAPI::class.java)
-        val call = service?.updatePost(
-            token, postId, getImageFile(),
-            PostContent(edtContent.text.toString())
-        )
-        call?.enqueue(object : Callback<StatusResponse> {
-            override fun onResponse(
-                call: Call<StatusResponse>,
-                response: Response<StatusResponse>
-            ) {
-            }
-
-            override fun onFailure(call: Call<StatusResponse>, t: Throwable) {
-                Toast.makeText(activity, t.message, Toast.LENGTH_SHORT).show()
-            }
-        })
-    }
-
-    private fun getImageFile(): MultipartBody.Part? {
-        if (imageURI == null) {
-            return imageString?.let {
-                MultipartBody.Part.createFormData(IMAGE_NAME, it)
-            }
-        } else {
-            imageURI?.let {
-                val file = File(getPath(it))
-                val image =
-                    file.asRequestBody(AddPostFragment.IMAGE_KEY.toMediaTypeOrNull())
-                return MultipartBody.Part.createFormData(IMAGE_NAME, file.name, image)
-            }
-        }
-        return null
     }
 
     private fun getImageUri(inImage: Bitmap): Uri? {
