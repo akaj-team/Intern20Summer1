@@ -14,8 +14,6 @@ import com.bumptech.glide.Glide
 class RecyclerViewAdapter(private val items: MutableList<Post>, internal val userId : Int) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    internal var onItemClicked: (position: Int) -> Unit = {}
-
     internal var onLikeClicked:(position : Int) -> Unit = {}
 
     internal var onUpdateClicked:(position : Int) -> Unit = {}
@@ -54,7 +52,7 @@ class RecyclerViewAdapter(private val items: MutableList<Post>, internal val use
             Glide.with(itemView)
                 .load(IMAGE_FOLDER_URL+item.image)
                 .into(imgItem)
-            tvLikeCount.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_twotone_add_circle_24, 0, 0, 0)
+            tvLikeCount.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_black_heart, 0, 0, 0)
             if (userId == item.userId){
                 imgEdit.visibility  = View.VISIBLE
             }else {

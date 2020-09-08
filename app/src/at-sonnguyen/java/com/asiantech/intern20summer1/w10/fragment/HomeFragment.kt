@@ -24,19 +24,17 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-@Suppress("DEPRECATION")
+@Suppress("DEPRECATION", "NAME_SHADOWING")
 class HomeFragment : Fragment() {
     private var user = User(0, "", "", "")
     private var posts = mutableListOf<Post>()
     private lateinit var postAdapter: RecyclerViewAdapter
-    private var isLoading = false
-    private var currentPosition = -1
 
     companion object {
         internal const val USER_KEY = "user-Key"
         private const val DELAY_TIME = 2000
         internal fun newInstance(user: User): HomeFragment {
-            val homeFragment: HomeFragment = HomeFragment()
+            val homeFragment= HomeFragment()
             val bundle = Bundle()
             bundle.putSerializable(USER_KEY, user)
             homeFragment.arguments = bundle
@@ -50,7 +48,7 @@ class HomeFragment : Fragment() {
         getDataFromActivity()
     }
 
-    private fun initView(){
+    private fun initView() {
         toolbarHome.title = user.full_name
     }
 
@@ -110,9 +108,12 @@ class HomeFragment : Fragment() {
         handleAddImageViewListener()
     }
 
-    private fun handleAddImageViewListener(){
+    private fun handleAddImageViewListener() {
         imgAdd.setOnClickListener {
-            (activity as? HomeActivity)?.replaceFragmentHome(AddPostFragment.newInstance(user),true)
+            (activity as? HomeActivity)?.replaceFragmentHome(
+                AddPostFragment.newInstance(user),
+                true
+            )
         }
     }
 
@@ -125,8 +126,9 @@ class HomeFragment : Fragment() {
                 id,
                 imageString,
                 content,
-                user.token
-            ),true
+                user.token,
+                user
+            ), true
         )
     }
 
@@ -151,10 +153,10 @@ class HomeFragment : Fragment() {
             ) {
                 if (response.isSuccessful) {
                     response.body()?.let { it ->
-                        it.forEach {post ->
+                        it.forEach { post ->
                             posts.add(post)
                         }
-                        postAdapter = RecyclerViewAdapter(posts,user.id)
+                        postAdapter = RecyclerViewAdapter(posts, user.id)
                         initAdapter()
                     }
                 }
@@ -169,7 +171,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun initAdapter() {
-        postAdapter = RecyclerViewAdapter(posts,user.id)
+        postAdapter = RecyclerViewAdapter(posts, user.id)
         recyclerViewHome.layoutManager = LinearLayoutManager(requireContext())
         recyclerViewHome.adapter = postAdapter
         val dividerItemDecoration =
@@ -187,7 +189,7 @@ class HomeFragment : Fragment() {
         handleLikeListener()
     }
 
-    private fun handleLikeListener(){
+    private fun handleLikeListener() {
         postAdapter.onLikeClicked = { position ->
             val service = APIClient.createServiceClient()?.create(PostAPI::class.java)
             val call = service?.likePost(user.token, posts[position].id)

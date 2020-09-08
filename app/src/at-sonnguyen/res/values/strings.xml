@@ -67,4 +67,5 @@
     <string name="w10_update_post_fragment_title">Update Post</string>
     <string name="w10_back_image_view_description">back</string>
     <string name="w10register_fragment_set_avatar_dialog_list_title">Choose Image</string>
+    <string name="w10_register_success">Register success</string>
 </resources>

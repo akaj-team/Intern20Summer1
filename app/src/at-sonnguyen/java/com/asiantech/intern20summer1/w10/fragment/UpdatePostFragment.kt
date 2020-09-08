@@ -25,6 +25,7 @@ import com.asiantech.intern20summer1.w10.data.PostContent
 import com.asiantech.intern20summer1.w10.data.StatusResponse
 import com.asiantech.intern20summer1.w10.data.User
 import com.asiantech.intern20summer1.w10.fragment.AddPostFragment.Companion.IMAGE_NAME
+import com.asiantech.intern20summer1.w10.fragment.LoginFragment.Companion.USER_KEY_LOGIN
 import com.bumptech.glide.Glide
 import com.theartofdev.edmodo.cropper.CropImage
 import kotlinx.android.synthetic.`at-sonnguyen`.w10_fragment_update_new_feed.*
@@ -59,13 +60,14 @@ class UpdatePostFragment : Fragment() {
         private const val IMAGE_KEY = "image"
         private const val CONTENT_KEY = "content"
         private const val TOKEN_KEY = "token"
-        internal fun newInstance(id: Int, imageName: String?, content: String?, token: String?) =
+        internal fun newInstance(id: Int, imageName: String?, content: String?, token: String?,user: User?) =
             UpdatePostFragment().apply {
                 arguments = Bundle().apply {
                     putInt(ID_KEY, id)
                     putString(IMAGE_KEY, imageName)
                     putString(CONTENT_KEY, content)
                     putString(TOKEN_KEY, token)
+                    putSerializable(USER_KEY_LOGIN,user)
                 }
             }
     }
@@ -96,6 +98,12 @@ class UpdatePostFragment : Fragment() {
             content = it.getString(CONTENT_KEY)
             imageString = it.getString(IMAGE_KEY)
             postId = it.getInt(ID_KEY)
+        }
+        (arguments?.getSerializable(USER_KEY_LOGIN) as? User)?.let {
+            user.id = it.id
+            user.email = it.email
+            user.full_name = it.full_name
+            user.token = it.token
         }
     }
 
@@ -291,13 +299,13 @@ class UpdatePostFragment : Fragment() {
             override fun onResponse(
                 call: Call<StatusResponse>,
                 response: Response<StatusResponse>
-            ) {
-            }
+            ) {}
 
             override fun onFailure(call: Call<StatusResponse>, t: Throwable) {
                 Toast.makeText(activity, t.message, Toast.LENGTH_SHORT).show()
             }
         })
+        (activity as? HomeActivity)?.replaceFragmentHome(HomeFragment.newInstance(user),false)
     }
 
     private fun getImageFile(): MultipartBody.Part? {

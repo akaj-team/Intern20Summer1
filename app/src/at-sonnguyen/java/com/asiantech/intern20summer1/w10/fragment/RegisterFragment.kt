@@ -3,10 +3,10 @@ package com.asiantech.intern20summer1.w10.fragment
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.asiantech.intern20summer1.R
@@ -16,7 +16,6 @@ import com.asiantech.intern20summer1.w10.data.User
 import com.asiantech.intern20summer1.w10.data.UserRegister
 import com.asiantech.intern20summer1.w10.extension.isValidEmail
 import com.asiantech.intern20summer1.w10.extension.isValidPassword
-import com.example.demo_week_10.fragment.LoginFragment
 import kotlinx.android.synthetic.`at-sonnguyen`.w10_fragment_register.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -94,23 +93,11 @@ class RegisterFragment : Fragment() {
         btnRegister.setOnClickListener {
             val service = APIClient.createServiceClient()?.create(UserAPI::class.java)
             val call = service?.addUser(UserRegister(emailText,passwordText,fullNameText))
-            Log.d("TAG0000", "handleRegisterButtonListener: $emailText")
-            Log.d("TAG0000", "handleRegisterButtonListener: $passwordText")
-            Log.d("TAG0000", "handleRegisterButtonListener: $fullNameText")
             call?.enqueue(object : Callback<User> {
-                override fun onResponse(call: Call<User>, response: Response<User>) {
-                    if (response.isSuccessful) {
-                        Log.d("TAG0000", "onResponse: success")
-                    } else {
-                        Log.d("TAG0000", "handleRegisterButtonListener1: $emailText")
-                        Log.d("TAG0000", "handleRegisterButtonListener1: $passwordText")
-                        Log.d("TAG0000", "handleRegisterButtonListener1: $fullNameText")
-                        Log.d("TAG0000", "onResponse: failure")
-                    }
-                }
+                override fun onResponse(call: Call<User>, response: Response<User>) =
+                    Toast.makeText(requireContext(),getString(R.string.w10_register_success),Toast.LENGTH_SHORT).show()
 
                 override fun onFailure(call: Call<User>, t: Throwable) {
-                    Log.d("TAG0000", "onFailure: ")
                 }
             })
             sendDataToLoginFragment()

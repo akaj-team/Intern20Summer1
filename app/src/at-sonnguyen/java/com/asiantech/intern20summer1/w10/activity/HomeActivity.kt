@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w10.data.User
 import com.asiantech.intern20summer1.w10.fragment.HomeFragment
-import com.example.demo_week_10.fragment.LoginFragment.Companion.USER_KEY
+import com.asiantech.intern20summer1.w10.fragment.LoginFragment.Companion.USER_KEY_LOGIN
 
 class HomeActivity : AppCompatActivity() {
 
@@ -34,7 +34,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun getDataFromLogin(){
-        (intent?.getSerializableExtra(USER_KEY) as? User)?.let {
+        (intent?.getSerializableExtra(USER_KEY_LOGIN) as? User)?.let {
             user.id = it.id
             user.email = it.email
             user.full_name = it.full_name

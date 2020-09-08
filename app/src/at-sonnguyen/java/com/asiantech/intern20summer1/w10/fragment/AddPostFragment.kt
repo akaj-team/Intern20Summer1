@@ -255,12 +255,9 @@ class AddPostFragment : Fragment() {
                 override fun onResponse(
                     call: Call<StatusResponse>,
                     response: Response<StatusResponse>
-                ) {
-                }
+                ) {}
 
-                override fun onFailure(call: Call<StatusResponse>, t: Throwable) {
-
-                }
+                override fun onFailure(call: Call<StatusResponse>, t: Throwable) {}
             })
             (activity as? HomeActivity)?.replaceFragmentHome(HomeFragment.newInstance(user), false)
         }

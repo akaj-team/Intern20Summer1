@@ -1,4 +1,4 @@
-package com.example.demo_week_10.fragment
+package com.asiantech.intern20summer1.w10.fragment
 
 import android.content.Context
 import android.content.Intent
@@ -23,7 +23,6 @@ import com.asiantech.intern20summer1.w10.api.UserAPI
 import com.asiantech.intern20summer1.w10.data.User
 import com.asiantech.intern20summer1.w10.extension.isValidEmail
 import com.asiantech.intern20summer1.w10.extension.isValidPassword
-import com.asiantech.intern20summer1.w10.fragment.RegisterFragment
 import com.asiantech.intern20summer1.w10.fragment.RegisterFragment.Companion.KEY_VALUE_EMAIL
 import com.asiantech.intern20summer1.w10.fragment.RegisterFragment.Companion.KEY_VALUE_PASSWORD
 import kotlinx.android.synthetic.`at-sonnguyen`.w10_fragment_login.*
@@ -38,7 +37,7 @@ class LoginFragment : Fragment() {
     companion object {
         internal const val FULL_NAME_KEY = "full_name"
         internal const val TOKEN_KEY = "token"
-        internal const val USER_KEY = "user"
+        internal const val USER_KEY_LOGIN = "user"
         internal fun newInstance() = LoginFragment()
     }
 
@@ -109,7 +108,6 @@ class LoginFragment : Fragment() {
                     emailText = ""
                 }
             }
-
         })
     }
 
@@ -160,17 +158,17 @@ class LoginFragment : Fragment() {
                             SHARED_PREFERENCE_FILE,
                             Context.MODE_PRIVATE
                         )
-                        val editor : SharedPreferences.Editor? = sharedPreferences?.edit()
+                        val editor: SharedPreferences.Editor? = sharedPreferences?.edit()
                         response.body().apply {
-                            editor?.putString(SHARED_PREFERENCE_TOKEN_KEY,this?.token)
+                            editor?.putString(SHARED_PREFERENCE_TOKEN_KEY, this?.token)
                             this?.id?.let { it1 -> editor?.putInt(SHARED_PREFERENCE_ID_KEY, it1) }
-                            editor?.putString(SHARED_PREFERENCE_EMAIL_KEY,this?.email)
-                            editor?.putString(SHARED_PREFERENCE_FULL_NAME_KEY,this?.full_name)
+                            editor?.putString(SHARED_PREFERENCE_EMAIL_KEY, this?.email)
+                            editor?.putString(SHARED_PREFERENCE_FULL_NAME_KEY, this?.full_name)
                             editor?.apply()
                             val intent = Intent(activity, HomeActivity::class.java)
                             intent.putExtra(FULL_NAME_KEY, this?.full_name)
                             intent.putExtra(TOKEN_KEY, this?.token)
-                            intent.putExtra(USER_KEY, this)
+                            intent.putExtra(USER_KEY_LOGIN, this)
                             activity?.startActivity(intent)
                             activity?.finish()
                         }
