@@ -11,8 +11,8 @@ import com.asiantech.intern20summer1.R
  * Asian Tech Co., Ltd.
  * Intern20Summer1 Project.
  * Created by at-huybui on 07/09/2020.
- * This is ChessBoardFragment TODO("Not yet implemented").
- * It will TODO("Not yet implemented")
+ * This is ChessBoardFragment class for chess board fragment.
+ * It will contain chess board view
  */
 class ChessBoardFragment : Fragment() {
 

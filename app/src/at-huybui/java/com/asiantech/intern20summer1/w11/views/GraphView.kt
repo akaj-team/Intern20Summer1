@@ -48,6 +48,8 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
     private var move = 0f
     private var isWallLeft = false
     private var isWallRight = false
+    private var isSpeed = false
+    private var acceleration = 2f
 
     override fun onDraw(canvasPram: Canvas?) {
         super.onDraw(canvasPram)
@@ -64,26 +66,18 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
                 stopMove = event.x
+                dx = 0f
             }
 
             MotionEvent.ACTION_MOVE -> {
                 dx = event.x - stopMove
                 stopMove = event.x
-                d("dx2", "dx = $dx |L = $isWallLeft|R = $isWallRight ")
-                if (isWallLeft && dx > 0f) {
-                    dx = 0f
-                    d("dx2", "dxxl = $dx ")
-                }
-                if (isWallRight && dx < 0f) {
-                    dx = 0f
-                    d("dx2", "dxxr = $dx ")
-                }
+                d("pppp", "dx = $dx")
                 invalidate()
-
             }
 
             MotionEvent.ACTION_UP -> {
-                dx = 0f
+                isSpeed = true
                 invalidate()
             }
         }
@@ -96,6 +90,10 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
         dataWeight.toCollection(data)
     }
 
+    fun show() {
+        invalidate()
+    }
+
     private fun initValue() {
         x0 = marginLeft
         y0 = height - marginBottom
@@ -103,13 +101,26 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
         yMax = marginTop
     }
 
-    fun show() {
-        invalidate()
-    }
-
     private fun drawViewStatic(canvas: Canvas) {
+        if (isWallLeft && dx > 0f) {
+            dx = 0f
+        }
+        if (isWallRight && dx < 0f) {
+            dx = 0f
+        }
         move += dx
-        dx = 0f
+        if (isSpeed) {
+            if (dx > 0) {
+                dx -= acceleration
+                isSpeed = dx >= 0
+            } else if (dx < 0) {
+                dx += acceleration
+                isSpeed = dx <= 0
+            }
+            invalidate()
+        } else {
+            dx = 0f
+        }
         drawConnectLineWeight(canvas) //1
         drawPointWeight(canvas)  //2
         drawHorizontalAxis(canvas)  //3

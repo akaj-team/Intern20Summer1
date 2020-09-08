@@ -73,4 +73,5 @@
     <string name="w_11_custom_view_canvas">Week 11 - Custom View + Canvas</string>
     <string name="w11_exercise_one">Bài tập 1</string>
     <string name="w11_exercise_two">Bài tập 2</string>
+    <string name="w11_replace_data">Replace Data</string>
 </resources>

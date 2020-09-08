@@ -9,8 +9,8 @@ import android.view.View
  * Asian Tech Co., Ltd.
  * Intern20Summer1 Project.
  * Created by at-huybui on 07/09/2020.
- * This is ChessboardView TODO("Not yet implemented").
- * It will TODO("Not yet implemented")
+ * This is ChessboardView Class.
+ * It is custom view
  */
 class ChessboardView(context: Context?, attrs: AttributeSet? = null) : View(context, attrs) {
 
@@ -46,18 +46,6 @@ class ChessboardView(context: Context?, attrs: AttributeSet? = null) : View(cont
         }
     }
 
-    private fun initPaintStroke() {
-        paint.color = Color.BLACK
-        paint.style = Paint.Style.STROKE
-        paint.strokeWidth = STROKE_WIDTH
-    }
-
-    private fun initSize() {
-        halfWithInside = width / 2F - MARGIN_OUTSIDE
-        halfHeightInside = halfWithInside + (halfWithInside / NUMBER_COLUMN)
-        center = PointF(width / 2F, height / 2F)
-    }
-
     private fun drawStroke(canvas: Canvas) {
         //--point stroke
         center = PointF(width / 2F, height / 2F)
@@ -72,12 +60,6 @@ class ChessboardView(context: Context?, attrs: AttributeSet? = null) : View(cont
         canvas.run {
             drawRect(rectStroke, paint)
         }
-    }
-
-    private fun initPaintBoard() {
-        paint.color = Color.BLACK
-        paint.style = Paint.Style.STROKE
-        paint.strokeWidth = LINE_WIDTH
     }
 
     private fun drawChessBoard(canvas: Canvas) {
@@ -121,7 +103,6 @@ class ChessboardView(context: Context?, attrs: AttributeSet? = null) : View(cont
         drawCornerAtPoint(canvas, coordinatesPoint(4, 3))
         drawCornerAtPoint(canvas, coordinatesPoint(6, 3))
         drawCornerAtPoint(canvas, coordinatesPoint(8, 3))
-
         drawCornerAtPoint(canvas, coordinatesPoint(1, 7))
         drawCornerAtPoint(canvas, coordinatesPoint(7, 7))
         drawCornerAtPoint(canvas, coordinatesPoint(0, 6))
@@ -129,6 +110,24 @@ class ChessboardView(context: Context?, attrs: AttributeSet? = null) : View(cont
         drawCornerAtPoint(canvas, coordinatesPoint(4, 6))
         drawCornerAtPoint(canvas, coordinatesPoint(6, 6))
         drawCornerAtPoint(canvas, coordinatesPoint(8, 6))
+    }
+
+    private fun initPaintStroke() {
+        paint.color = Color.BLACK
+        paint.style = Paint.Style.STROKE
+        paint.strokeWidth = STROKE_WIDTH
+    }
+
+    private fun initSize() {
+        halfWithInside = width / 2F - MARGIN_OUTSIDE
+        halfHeightInside = halfWithInside + (halfWithInside / NUMBER_COLUMN)
+        center = PointF(width / 2F, height / 2F)
+    }
+
+    private fun initPaintBoard() {
+        paint.color = Color.BLACK
+        paint.style = Paint.Style.STROKE
+        paint.strokeWidth = LINE_WIDTH
     }
 
     private fun drawCornerAtPoint(canvas: Canvas, p: PointF) {
@@ -141,7 +140,6 @@ class ChessboardView(context: Context?, attrs: AttributeSet? = null) : View(cont
                     drawLine(p.x + padding, p.y - padding, p.x + length, p.y - padding, paint)
                     drawLine(p.x + length, p.y + padding, p.x + padding, p.y + padding, paint)
                     drawLine(p.x + padding, p.y + padding, p.x + padding, p.y + length, paint)
-
                 }
             }
             center.x + halfWithInside -> {

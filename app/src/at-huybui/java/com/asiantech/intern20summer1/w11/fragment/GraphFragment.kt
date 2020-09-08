@@ -13,8 +13,8 @@ import kotlinx.android.synthetic.`at-huybui`.w11_fragment_graph.*
  * Asian Tech Co., Ltd.
  * Intern20Summer1 Project.
  * Created by at-huybui on 07/09/2020.
- * This is GraphFragment TODO("Not yet implemented").
- * It will TODO("Not yet implemented")
+ * This is GraphFragment class fof graph fragment.
+ * It will contain graph weight
  */
 class GraphFragment : Fragment() {
 
