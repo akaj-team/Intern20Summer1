@@ -37,8 +37,9 @@ class NewPostFragment : Fragment() {
             }
         }
 
-        private const val TOKEN_KEY = "token_key"
         internal const val IMAGE_TYPE_KEY = "image/*"
+        private const val TOKEN_KEY = "token_key"
+        private const val DEFAULT_NAME_IMAGE = "image"
     }
 
     private var token: String? = null
@@ -65,6 +66,7 @@ class NewPostFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun handleListeners() {
+
         imgBackNewPost?.setOnClickListener {
             fragmentManager?.popBackStack()
         }
@@ -73,9 +75,16 @@ class NewPostFragment : Fragment() {
             onChoseFile()
         }
 
+        edtContentPostW10?.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus) {
+                if (edtContentPostW10.text.toString().trim().isEmpty()) {
+                    edtContentPostW10.error = getString(R.string.error_required_field_text)
+                }
+            }
+        }
+
         edtContentPostW10?.addTextChangedListener {
             if (edtContentPostW10.text.toString().trim().isEmpty()) {
-                edtContentPostW10.error = "Field required!"
                 toggleButtonPostAvailable(false)
             } else {
                 edtContentPostW10.error = null
@@ -84,7 +93,6 @@ class NewPostFragment : Fragment() {
         }
 
         btnPostW10?.setOnClickListener {
-            Toast.makeText(context, "Creating post..", Toast.LENGTH_SHORT).show()
             createPost()
         }
     }
@@ -156,7 +164,7 @@ class NewPostFragment : Fragment() {
         imageUri?.let {
             val file = File(getPath(it))
             val image = file.asRequestBody(IMAGE_TYPE_KEY.toMediaTypeOrNull())
-            return MultipartBody.Part.createFormData("image", file.name, image)
+            return MultipartBody.Part.createFormData(DEFAULT_NAME_IMAGE, file.name, image)
         }
         return null
     }

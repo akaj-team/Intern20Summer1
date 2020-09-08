@@ -180,7 +180,6 @@ class TimeLineFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
 
                 })
             }
-
         }
     }
 
