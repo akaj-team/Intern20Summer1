@@ -19,6 +19,8 @@ class ChessBoardCustomView(context: Context?, attrs: AttributeSet?) : View(conte
         private const val COLUMN_NUMBER_THREE = 3
         private const val DEFAULT_LINE_NUMBER = 1
         private const val WIDTH_SQUARE = 80f
+        private const val CORNER_WIDTH_SQUARE = 50f
+        private const val CORNER_WIDTH = 30f
         private const val NUMBER_SQUARE_HORIZONTAL = 8f
         private const val NUMBER_SQUARE_VERTICAL = 9f
         private const val PAINT_STROKE = 5f
@@ -50,6 +52,18 @@ class ChessBoardCustomView(context: Context?, attrs: AttributeSet?) : View(conte
         paintRectangleInner(canvas)
         paintHorizontalLine(canvas)
         paintVerticalLine(canvas)
+        drawCorner(NUMBER_OF_ROWS_SEVEN * widthChess, NUMBER_OF_ROWS_TWO * heightChess, canvas)
+        drawCorner(widthChess, NUMBER_OF_ROWS_TWO * heightChess, canvas)
+        drawCorner(widthChess, NUMBER_OF_ROWS_SEVEN * heightChess, canvas)
+        drawCorner(NUMBER_OF_ROWS_SEVEN * widthChess, NUMBER_OF_ROWS_SEVEN * heightChess, canvas)
+        for (i in 0..(NUMBER_OF_ROWS_TWO * NUMBER_OF_ROWS_FOUR) step NUMBER_OF_ROWS_TWO) {
+            drawCorner(i * widthChess, COLUMN_NUMBER_THREE * heightChess, canvas)
+            drawCorner(
+                i * widthChess,
+                COLUMN_NUMBER_THREE * NUMBER_OF_ROWS_TWO * heightChess,
+                canvas
+            )
+        }
     }
 
     private fun paintVerticalLine(canvas: Canvas?) {
@@ -162,5 +176,38 @@ class ChessBoardCustomView(context: Context?, attrs: AttributeSet?) : View(conte
         canvas?.drawLine(MARGIN, MARGIN, MARGIN, height - MARGIN, paint)
         canvas?.drawLine(width - MARGIN, MARGIN, width - MARGIN, height - MARGIN, paint)
         canvas?.drawLine(MARGIN, height - MARGIN, width - MARGIN, height - MARGIN, paint)
+    }
+
+    private fun drawCorner(coordinatesX: Float, coordinatesY: Float, canvas: Canvas?) {
+        when (coordinatesX) {
+            NUMBER_OF_COLUMNS * widthChess -> {
+                canvas?.apply {
+                    drawLine(coordinatesX + CORNER_WIDTH, coordinatesY + CORNER_WIDTH, coordinatesX + CORNER_WIDTH, coordinatesY, paint)
+                    drawLine(coordinatesX + CORNER_WIDTH, coordinatesY + CORNER_WIDTH, coordinatesX, coordinatesY + CORNER_WIDTH, paint)
+                    drawLine(coordinatesX + CORNER_WIDTH, coordinatesY + CORNER_WIDTH_SQUARE, coordinatesX + CORNER_WIDTH, coordinatesY + WIDTH_SQUARE, paint)
+                    drawLine(coordinatesX + CORNER_WIDTH, coordinatesY + CORNER_WIDTH_SQUARE, coordinatesX, coordinatesY + CORNER_WIDTH_SQUARE, paint)
+                }
+            }
+            0f -> {
+                canvas?.apply {
+                    drawLine(coordinatesX + CORNER_WIDTH_SQUARE, coordinatesY + CORNER_WIDTH, coordinatesX + CORNER_WIDTH_SQUARE, coordinatesY, paint)
+                    drawLine(coordinatesX + CORNER_WIDTH_SQUARE, coordinatesY + CORNER_WIDTH, coordinatesX + WIDTH_SQUARE, coordinatesY + CORNER_WIDTH, paint)
+                    drawLine(coordinatesX + CORNER_WIDTH_SQUARE, coordinatesY + CORNER_WIDTH_SQUARE, coordinatesX + CORNER_WIDTH_SQUARE, coordinatesY + WIDTH_SQUARE, paint)
+                    drawLine(coordinatesX + CORNER_WIDTH_SQUARE, coordinatesY + CORNER_WIDTH_SQUARE, coordinatesX + WIDTH_SQUARE, coordinatesY + CORNER_WIDTH_SQUARE, paint)
+                }
+            }
+            else -> {
+                canvas?.apply {
+                    drawLine(coordinatesX + CORNER_WIDTH, coordinatesY + CORNER_WIDTH, coordinatesX + CORNER_WIDTH, coordinatesY, paint)
+                    drawLine(coordinatesX + CORNER_WIDTH, coordinatesY + CORNER_WIDTH, coordinatesX, coordinatesY + CORNER_WIDTH, paint)
+                    drawLine(coordinatesX + CORNER_WIDTH_SQUARE, coordinatesY + CORNER_WIDTH, coordinatesX + CORNER_WIDTH_SQUARE, coordinatesY, paint)
+                    drawLine(coordinatesX + CORNER_WIDTH_SQUARE, coordinatesY + CORNER_WIDTH, coordinatesX + WIDTH_SQUARE, coordinatesY + CORNER_WIDTH, paint)
+                    drawLine(coordinatesX + CORNER_WIDTH, coordinatesY + CORNER_WIDTH_SQUARE, coordinatesX + CORNER_WIDTH, coordinatesY + WIDTH_SQUARE, paint)
+                    drawLine(coordinatesX + CORNER_WIDTH, coordinatesY + CORNER_WIDTH_SQUARE, coordinatesX, coordinatesY + CORNER_WIDTH_SQUARE, paint)
+                    drawLine(coordinatesX + CORNER_WIDTH_SQUARE, coordinatesY + CORNER_WIDTH_SQUARE, coordinatesX + CORNER_WIDTH_SQUARE, coordinatesY + WIDTH_SQUARE, paint)
+                    drawLine(coordinatesX + CORNER_WIDTH_SQUARE, coordinatesY + CORNER_WIDTH_SQUARE, coordinatesX + WIDTH_SQUARE, coordinatesY + CORNER_WIDTH_SQUARE, paint)
+                }
+            }
+        }
     }
 }
