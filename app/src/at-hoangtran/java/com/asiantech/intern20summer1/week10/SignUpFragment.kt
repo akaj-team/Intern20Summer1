@@ -9,16 +9,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import kotlinx.android.synthetic.`at-hoangtran`.fragment_sign_up.*
+import retrofit2.Call
+import retrofit2.Response
 
 @Suppress("DEPRECATION")
 class SignUpFragment : Fragment() {
     companion object {
-        internal var onRegisterSuccess: (user: User) -> Unit = {}
+        private const val RESPONSE_CODE = 400
+        internal fun newInstance() = SignUpFragment()
     }
 
+    internal var onRegisterSuccess: (email: String, pass: String) -> Unit = { _, _ -> }
     var emailCheck = false
     var passCheck = false
     var confirmPassCheck = false
@@ -40,8 +45,6 @@ class SignUpFragment : Fragment() {
         handleBtnBack()
         hideKeyBoard()
     }
-
-    private val user = User("", "", "", "")
 
     @SuppressLint("ClickableViewAccessibility")
     private fun hideKeyBoard() {
@@ -72,7 +75,6 @@ class SignUpFragment : Fragment() {
                     }
                     edt_password -> {
                         confirmPassCheck = isValidPassword(str)
-
                     }
                     edt_confirm_password -> {
                         passCheck = isValidConfirmPassword(str)
@@ -96,13 +98,31 @@ class SignUpFragment : Fragment() {
 
     private fun handleBtnRegister() {
         btn_register.setOnClickListener {
-            user.email = edt_email.text.toString()
-            user.pass = edt_password.text.toString()
-            user.name = edt_name.text.toString()
-            onRegisterSuccess(
-                user
-            )
-            fragmentManager?.popBackStack()
+            val name = edt_name.text.toString()
+            val email = edt_email.text.toString()
+            val pass = edt_password.text.toString()
+            val callApi = ApiClient.createUserService()?.addNewUser(UserRegister(email, pass, name))
+            callApi?.enqueue(object : retrofit2.Callback<User> {
+                override fun onFailure(call: Call<User>, t: Throwable) {
+                    Toast.makeText(activity, t.message, Toast.LENGTH_SHORT).show()
+                }
+
+                override fun onResponse(call: Call<User>, response: Response<User>) {
+                    if (response.isSuccessful) {
+                        Toast.makeText(activity, "Register success", Toast.LENGTH_SHORT).show()
+                        onRegisterSuccess(email, pass)
+                        activity?.onBackPressed()
+                    } else {
+                        if (response.code() == RESPONSE_CODE) {
+                            Toast.makeText(activity, "Email already registered", Toast.LENGTH_SHORT)
+                                .show()
+                        } else {
+                            Toast.makeText(activity, "Fail to register", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+
+            })
         }
     }
 

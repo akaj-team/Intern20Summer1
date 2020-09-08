@@ -1,23 +1,27 @@
 package com.asiantech.intern20summer1.week10
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.week10.SignUpFragment.Companion.onRegisterSuccess
 import kotlinx.android.synthetic.`at-hoangtran`.fragment_login.*
+import kotlinx.android.synthetic.`at-hoangtran`.fragment_sign_up.*
 
 @Suppress("DEPRECATION")
 class LoginFragment : Fragment() {
-
-    internal var user = User()
+    companion object {
+        internal const val KEY_FULL_NAME = "fullName"
+        internal const val USER_SHARE_PREFERENCE = "userSharePreference"
+        internal const val TOKEN_SHARE_REFERENCE = "token"
+        internal const val KEY_USER_ID = "id"
+    }
 
     var emailCheck = false
     var passCheck = false
@@ -50,39 +54,36 @@ class LoginFragment : Fragment() {
 
     private fun handleSignUp() {
         tv_signUp.setOnClickListener {
-            SignUpFragment().apply {
-                onRegisterSuccess = { user ->
-                    this@LoginFragment.user = user
-                    this@LoginFragment.edt_login_email.setText(user.email)
-                    this@LoginFragment.edt_login_password.setText(user.pass)
-                }
-            }
             (activity as LoginActivity).showSignUpFragment()
         }
     }
 
     private fun handleLogin() {
         btn_login.setOnClickListener {
-            val intent = Intent(activity, HomeActivity::class.java)
-            intent.putExtra("user", user)
-            activity?.startActivity(intent)
-            activity?.finish()
+
         }
     }
+
+    private fun isValidPassword(str: String): Boolean {
+        val regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$".toRegex()
+        return str.matches(regex)
+    }
+
+    private fun isValidEmail(email: String) = Patterns.EMAIL_ADDRESS.matcher(email).matches()
 
     private fun handleEditText(edt: EditText) {
         edt.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 val str = s.toString()
                 when (edt) {
-                    edt_login_email -> {
-                        emailCheck = (str == user.email)
+                    edt_email -> {
+                        emailCheck = isValidEmail(str)
                     }
-                    edt_login_password -> {
-                        passCheck = (str == user.pass)
+                    edt_password -> {
+                        passCheck = isValidPassword(str)
                     }
                 }
-                btn_login.isEnabled = emailCheck && passCheck
+                btn_register.isEnabled = emailCheck && passCheck
             }
 
             override fun beforeTextChanged(

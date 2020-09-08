@@ -1,12 +1,11 @@
 package com.asiantech.intern20summer1.week10
 
-import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
-@Parcelize
-data class User(
-    var name: String = "",
-    var pass: String = "",
-    var mobile: String = "",
-    var email: String = ""
-) : Parcelable
+class User(
+    @SerializedName("id") var id: Int,
+    @SerializedName("email") var email: String,
+    @SerializedName("full_name") var fullName: String,
+    @SerializedName("token") var token: String
+) : Serializable
