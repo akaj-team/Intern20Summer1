@@ -56,31 +56,8 @@ class GraphFragment : Fragment() {
 
     private fun initData() {
         list.clear()
-        list.add(Weight((50..120).random(), 1))
-        list.add(Weight((50..120).random(), 2))
-        list.add(Weight((50..120).random(), 3))
-        list.add(Weight((50..120).random(), 4))
-        list.add(Weight((50..120).random(), 5))
-        list.add(Weight((50..120).random(), 6))
-        list.add(Weight((50..120).random(), 7))
-        list.add(Weight((50..120).random(), 8))
-        list.add(Weight((50..120).random(), 9))
-        list.add(Weight((50..120).random(), 10))
-        list.add(Weight((50..120).random(), 11))
-        list.add(Weight((50..120).random(), 12))
-        list.add(Weight((50..120).random(), 13))
-        list.add(Weight((50..120).random(), 14))
-        list.add(Weight((50..120).random(), 15))
-        list.add(Weight((50..120).random(), 16))
-        list.add(Weight((50..120).random(), 17))
-        list.add(Weight((50..120).random(), 18))
-        list.add(Weight((50..120).random(), 19))
-        list.add(Weight((50..120).random(), 20))
-        list.add(Weight((50..120).random(), 21))
-        list.add(Weight((50..120).random(), 22))
-        list.add(Weight((50..120).random(), 23))
-        list.add(Weight((50..120).random(), 24))
-        list.add(Weight((50..120).random(), 25))
-        list.add(Weight((50..120).random(), 26))
+        for (i in 1..40) {
+            list.add(Weight((50..120).random(), i))
+        }
     }
 }
