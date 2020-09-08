@@ -15,8 +15,7 @@ import kotlinx.android.synthetic.`at-huybui`.w11_activity_canvas.*
  * Asian Tech Co., Ltd.
  * Intern20Summer1 Project.
  * Created by at-huybui on 07/09/2020.
- * This is xxx TODO("Not yet implemented").
- * It will TODO("Not yet implemented")
+ * This is Main activity.
  */
 
 class CanvasActivity : AppCompatActivity() {
@@ -25,7 +24,6 @@ class CanvasActivity : AppCompatActivity() {
         setContentView(R.layout.w11_activity_canvas)
         setColorStatusBar()
         initListener()
-        replaceFragment(GraphFragment.newInstance())
     }
 
     private fun initListener() {

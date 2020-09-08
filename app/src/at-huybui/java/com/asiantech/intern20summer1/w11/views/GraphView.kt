@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
-import android.util.Log.d
 import android.view.MotionEvent
 import android.view.View
 
@@ -21,7 +20,7 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
     companion object {
         private const val MARGIN = 20f
         private const val STROKE_WIDTH = 20f
-        private const val TEXT_SIZE = 15f
+        private const val TEXT_SIZE = 20f
         private const val STEP_VERTICAL = 20
     }
 
@@ -60,7 +59,6 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
         }
     }
 
-
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
         when (event.action) {
@@ -72,7 +70,6 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
             MotionEvent.ACTION_MOVE -> {
                 dx = event.x - stopMove
                 stopMove = event.x
-                d("pppp", "dx = $dx")
                 invalidate()
             }
 
@@ -83,7 +80,6 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
         }
         return true
     }
-
 
     fun replaceAllData(dataWeight: List<Weight>) {
         data.clear()
@@ -180,7 +176,7 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
         var paint = paintStroke().apply { strokeWidth = verticalAxisWidth }
         canvas.drawLine(x0, y0, x0, yMax, paint) // doc
         paint = paintPoint().apply {
-            color = Color.YELLOW
+            color = Color.BLUE
             textSize = 20f
         }
         for ((index, i) in (verticalMaxValue downTo 0 step stepVertical).withIndex()) {
@@ -189,7 +185,6 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
         }
 
     }
-
 
     private fun writeTitle(canvas: Canvas) {
         val textPaint = Paint().apply {
@@ -229,7 +224,7 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
 
     private fun paintText() = Paint().apply {
         Paint.ANTI_ALIAS_FLAG
-        color = Color.GREEN
+        color = Color.BLUE
         textSize = TEXT_SIZE
         pathEffect = null
     }

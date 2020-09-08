@@ -2,7 +2,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:foo="http://schemas.android.com/apk/res-auto"
     android:background="@color/background_white">
 
     <Button
@@ -12,7 +11,7 @@
         android:text="@string/w11_replace_data"
         android:layout_alignParentRight="true"/>
     <com.asiantech.intern20summer1.w11.views.GraphView
-        android:background="#E1DFDF"
+        android:background="@color/background_white"
         android:id="@+id/graphView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

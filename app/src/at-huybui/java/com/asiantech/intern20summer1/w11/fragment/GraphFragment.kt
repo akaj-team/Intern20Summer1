@@ -42,11 +42,10 @@ class GraphFragment : Fragment() {
             initData()
             graphView?.run {
                 replaceAllData(list)
-                verticalMaxValue = 200
+                verticalMaxValue = 150
                 numberWeek = 3
                 horizontalAxisWidth = 90f
                 verticalAxisWidth = 20f
-                graphTitle = "Đồ Thị"
                 graphTitleSize = 40f
                 marginBottom = 20f
                 show()
@@ -56,7 +55,7 @@ class GraphFragment : Fragment() {
 
     private fun initData() {
         list.clear()
-        for (i in 1..40) {
+        for (i in 1..100) {
             list.add(Weight((50..120).random(), i))
         }
     }
