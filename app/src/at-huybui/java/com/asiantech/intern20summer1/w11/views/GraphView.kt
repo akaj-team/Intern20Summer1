@@ -131,8 +131,8 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
             canvas.drawText("week " + weight.week.toString(), x1, y0 - 20, paintText())
             endPoint = PointF(zeroPoint.x + stepX * (data.size - 1), y1)
         }
-        isWallLeft = (zeroPoint.x > 20f)
-        isWallRight = (endPoint.x < (width - 20f))
+        isWallLeft = (zeroPoint.x > marginLeft)
+        isWallRight = (endPoint.x < (width - marginRight))
     }
 
     private fun drawPointWeight(canvas: Canvas) {

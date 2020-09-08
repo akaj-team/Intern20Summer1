@@ -19,6 +19,10 @@ class ChessboardView(context: Context?, attrs: AttributeSet? = null) : View(cont
         private const val NUMBER_ROW = 9
         private const val MARGIN_INSIDE = 10
         private const val MARGIN_OUTSIDE = 20
+        private const val STROKE_WIDTH = 10f
+        private const val LINE_WIDTH = 3f
+        private const val LENGTH_CORNER = 30
+        private const val PADDING_CORNER = 10
     }
 
     //-- set half of with and height inside
@@ -34,18 +38,18 @@ class ChessboardView(context: Context?, attrs: AttributeSet? = null) : View(cont
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
         initSize()
-        canvas?.let {
-            drawStroke(it)
-            drawChessBoard(it)
-            drawDiagonalLine(it)
-            drawCorner(it)
+        canvas?.run {
+            drawStroke(this)
+            drawChessBoard(this)
+            drawDiagonalLine(this)
+            drawCorner(this)
         }
     }
 
     private fun initPaintStroke() {
         paint.color = Color.BLACK
         paint.style = Paint.Style.STROKE
-        paint.strokeWidth = 10f
+        paint.strokeWidth = STROKE_WIDTH
     }
 
     private fun initSize() {
@@ -73,7 +77,7 @@ class ChessboardView(context: Context?, attrs: AttributeSet? = null) : View(cont
     private fun initPaintBoard() {
         paint.color = Color.BLACK
         paint.style = Paint.Style.STROKE
-        paint.strokeWidth = 3f
+        paint.strokeWidth = LINE_WIDTH
     }
 
     private fun drawChessBoard(canvas: Canvas) {
@@ -128,8 +132,8 @@ class ChessboardView(context: Context?, attrs: AttributeSet? = null) : View(cont
     }
 
     private fun drawCornerAtPoint(canvas: Canvas, p: PointF) {
-        val length = 30
-        val padding = 10
+        val length = LENGTH_CORNER
+        val padding = PADDING_CORNER
         when (p.x) {
             center.x - halfWithInside -> {
                 canvas.run {
@@ -164,7 +168,7 @@ class ChessboardView(context: Context?, attrs: AttributeSet? = null) : View(cont
     }
 
     private fun coordinatesPoint(x: Int, y: Int): PointF {
-        val squareSize = halfWithInside / 4
+        val squareSize = halfWithInside / 2 / 2
         val zero = PointF(center.x - halfWithInside, center.y - halfHeightInside)
         return PointF(zero.x + (x * squareSize), zero.y + (y * squareSize))
     }
