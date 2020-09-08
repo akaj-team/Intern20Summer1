@@ -25,7 +25,7 @@ class CanvasActivity : AppCompatActivity() {
         setContentView(R.layout.w11_activity_canvas)
         setColorStatusBar()
         initListener()
-        replaceFragment(ChessBoardFragment.newInstance())
+        replaceFragment(GraphFragment.newInstance())
     }
 
     private fun initListener() {

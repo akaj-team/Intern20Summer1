@@ -26,3 +26,10 @@ internal fun Context.getScreenHeight(): Int {
     return dimenSion.heightPixels
 }
 
+internal fun Context.getDpi(): Int {
+    val h = getSystemService(Context.WINDOW_SERVICE) as? WindowManager
+    val dimenSion = DisplayMetrics()
+    h?.defaultDisplay?.getMetrics(dimenSion)
+    return dimenSion.densityDpi
+}
+

@@ -2,6 +2,19 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:foo="http://schemas.android.com/apk/res-auto"
     android:background="@color/background_white">
 
+    <Button
+        android:id="@+id/btnChange"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Change"
+        android:layout_alignParentRight="true"/>
+    <com.asiantech.intern20summer1.w11.views.GraphView
+        android:id="@+id/graphView"
+        android:layout_width="match_parent"
+        foo:verticalAxisWidth="500dp"
+        foo:graphTitleSize="100sp"
+        android:layout_height="match_parent" />
 </RelativeLayout>
