@@ -4,32 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/w11_button_height"
-        android:weightSum="2">
-
-        <Button
-            android:id="@+id/btnChessBoard"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/w11_button_height"
-            android:layout_margin="@dimen/w11_button_margin"
-            android:layout_weight="1"
-            android:text="@string/w11_chess_board_button_text"
-            tools:ignore="ButtonStyle" />
-
-        <Button
-            android:id="@+id/btnWeightChart"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/w11_button_height"
-            android:layout_margin="@dimen/w11_button_margin"
-            android:layout_weight="1"
-            android:text="@string/w11_weight_chart_button_text"
-            tools:ignore="ButtonStyle" />
-
-    </LinearLayout>
-
     <FrameLayout
         android:id="@+id/frameLayoutHome"
         android:layout_width="match_parent"

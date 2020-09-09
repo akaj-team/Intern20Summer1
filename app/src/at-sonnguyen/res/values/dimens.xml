@@ -77,4 +77,5 @@
     <dimen name="w10_delete_image_view_size">20dp</dimen>
     <dimen name="w11_button_height">52dp</dimen>
     <dimen name="w11_button_margin">20dp</dimen>
+    <dimen name="w11_chess_board_margin_parent">20dp</dimen>
 </resources>
