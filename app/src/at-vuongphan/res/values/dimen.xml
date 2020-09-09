@@ -60,4 +60,6 @@
     <dimen name="text_view_padding">3dp</dimen>
     <dimen name="chess_height_400dp">400dp</dimen>
     <dimen name="margin_4dp">4dp</dimen>
+    <dimen name="margin_20dp">20dp</dimen>
+    <dimen name="text_size_20sp">20sp</dimen>
 </resources>

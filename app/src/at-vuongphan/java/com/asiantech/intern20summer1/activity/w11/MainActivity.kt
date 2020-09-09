@@ -4,13 +4,12 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.fragmennt.w11.WeightFragment
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.w11_activity)
-        openFragment(WeightFragment())
+        openFragment(com.asiantech.intern20summer1.fragmennt.w11.FragmentContainer.newInstance())
     }
 
     internal fun openFragment(

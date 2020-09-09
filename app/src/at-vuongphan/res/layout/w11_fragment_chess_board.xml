@@ -1,31 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <TextView
-        android:id="@+id/tvTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:gravity="center"
-        android:text="@string/title_text_view_chess"
-        android:textColor="@color/colorBlack"
-        android:textSize="20sp"
-        android:textStyle="bold" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/tvTitle"
         android:layout_marginEnd="@dimen/margin_4dp"
         android:layout_marginRight="@dimen/margin_4dp"
         android:layout_marginLeft="@dimen/margin_4dp"
-        android:layout_marginBottom="@dimen/margin_4dp">
+        android:layout_marginBottom="@dimen/margin_4dp"
+        tools:ignore="UselessParent">
 
         <com.asiantech.intern20summer1.fragmennt.w11.ChessBoardCustomView
             android:id="@+id/canvas"
-            android:layout_width="400dp"
+            android:layout_width="@dimen/chess_height_400dp"
             android:layout_height="@dimen/chess_height_400dp"
             android:layout_centerInParent="true" />
     </RelativeLayout>

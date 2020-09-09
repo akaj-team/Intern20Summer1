@@ -59,4 +59,7 @@
     <string name="enter_input_your_email">Enter input your number phone</string>
     <string name="button_description_chess">Fragment Chess</string>
     <string name="title_text_view_chess">CHESS BOARD</string>
+    <string name="description_text_weight">Weight (kg)</string>
+    <string name="button_exercise_one">Exercise Chess</string>
+    <string name="button_exercise_two">Exercise Weight</string>
 </resources>

@@ -8,6 +8,10 @@ import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 
 class FragmentChessBoard : Fragment() {
+    companion object {
+        internal fun newInstance() = FragmentChessBoard()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
