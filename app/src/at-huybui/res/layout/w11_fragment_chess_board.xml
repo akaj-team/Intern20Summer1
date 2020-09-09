@@ -5,7 +5,7 @@
     android:background="@color/background_white">
 
     <com.asiantech.intern20summer1.w11.views.ChessboardView
-        android:layout_height="match_parent"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="@color/background_white" />
 </RelativeLayout>

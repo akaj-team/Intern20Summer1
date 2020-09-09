@@ -15,61 +15,62 @@
         android:gravity="center"
         app:cardCornerRadius="@dimen/w6_card_view_radius"
         app:cardElevation="@dimen/w6_card_view_elevation">
-            <RelativeLayout
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imgTopFlat"
+                android:layout_width="@dimen/w6_flat_width"
+                android:layout_height="@dimen/w6_flat_height"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/w6_top_text_margin_top"
+                android:src="@drawable/img_australia_flat" />
+
+            <TextView
+                android:id="@+id/tvNameEnglish"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imgTopFlat"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/w6_top_text_margin_top"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/w6_name_text_size"
+                tools:text="Kangaroo" />
+
+            <ImageView
+                android:id="@+id/imgCenterMain"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_margin="@dimen/w6_fragment_two_margin_vertical"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                tools:src="@drawable/img_koala" />
 
-                <ImageView
-                    android:id="@+id/imgTopFlat"
-                    android:layout_width="@dimen/w6_flat_width"
-                    android:layout_height="@dimen/w6_flat_height"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="@dimen/w6_top_text_margin_top"
-                    android:src="@drawable/img_australia_flat" />
+            <TextView
+                android:id="@+id/tvNameFrance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/imgBottomFlat"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/w6_top_text_margin_top"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/w6_name_text_size"
+                tools:text="Le Kangourou" />
 
-                <TextView
-                    android:id="@+id/tvNameEnglish"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/imgTopFlat"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="@dimen/w6_top_text_margin_top"
-                    android:textColor="@android:color/black"
-                    android:textSize="@dimen/w6_name_text_size"
-                    tools:text="Kangaroo" />
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:id="@+id/imgCenterMain"
-                    android:layout_centerInParent="true"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/w6_fragment_two_margin_vertical"
-                    android:adjustViewBounds="true"
-                    android:scaleType="fitXY"
-                    tools:src="@drawable/img_koala" />
-
-                <TextView
-                    android:id="@+id/tvNameFrance"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/black"
-                    android:layout_above="@id/imgBottomFlat"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="@dimen/w6_top_text_margin_top"
-                    android:textSize="@dimen/w6_name_text_size"
-                    tools:text="Le Kangourou" />
-
-                <ImageView
-                    android:id="@+id/imgBottomFlat"
-                    android:layout_width="@dimen/w6_flat_width"
-                    android:layout_height="@dimen/w6_flat_height"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="@dimen/w6_top_text_margin_top"
-                    android:src="@drawable/img_france_flat" />
-            </RelativeLayout>
+            <ImageView
+                android:id="@+id/imgBottomFlat"
+                android:layout_width="@dimen/w6_flat_width"
+                android:layout_height="@dimen/w6_flat_height"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/w6_top_text_margin_top"
+                android:src="@drawable/img_france_flat" />
+        </RelativeLayout>
     </androidx.cardview.widget.CardView>
 </LinearLayout>

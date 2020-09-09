@@ -156,8 +156,12 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
         }
     }
 
-    private fun drawHorizontalAxis(canvas: Canvas){
-        canvas.drawLine(0f, y0, width + 0f, y0, paintStroke().apply { strokeWidth = verticalAxisWidth })
+    private fun drawHorizontalAxis(canvas: Canvas) {
+        canvas.drawLine(0f,
+            y0,
+            width + 0f,
+            y0,
+            paintStroke().apply { strokeWidth = verticalAxisWidth })
     }
 
     private fun drawMargin(canvas: Canvas) {

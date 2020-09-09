@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal"
     android:background="@color/background_white"
+    android:gravity="center_horizontal"
     android:orientation="vertical">
 
     <ImageView
@@ -15,10 +15,10 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewAvatar"
-        android:layout_marginTop="@dimen/home_avatar_margin_top"
         android:layout_width="@dimen/home_avatar_size"
         android:layout_height="@dimen/home_avatar_size"
         android:layout_gravity="center"
+        android:layout_marginTop="@dimen/home_avatar_margin_top"
         app:cardCornerRadius="@dimen/home_avatar_corner_radius">
 
         <ImageView
@@ -37,8 +37,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:gravity="center_vertical"
-        android:layout_height="@dimen/home_linear_layout_height">
+        android:layout_height="@dimen/home_linear_layout_height"
+        android:gravity="center_vertical">
 
         <TextView
             android:layout_width="wrap_content"
@@ -63,8 +63,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:gravity="center_vertical"
-        android:layout_height="@dimen/home_linear_layout_height">
+        android:layout_height="@dimen/home_linear_layout_height"
+        android:gravity="center_vertical">
 
         <TextView
             android:layout_width="wrap_content"
@@ -89,8 +89,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:gravity="center_vertical"
-        android:layout_height="@dimen/home_linear_layout_height">
+        android:layout_height="@dimen/home_linear_layout_height"
+        android:gravity="center_vertical">
 
         <TextView
             android:layout_width="wrap_content"
