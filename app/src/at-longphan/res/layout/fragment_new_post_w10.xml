@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -8,13 +9,13 @@
         android:id="@+id/toolbarFragmentNewPostW10"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FF9800"
-        android:paddingHorizontal="16dp">
+        android:background="@color/colorMainToneWeek10"
+        android:paddingHorizontal="@dimen/toolbar_fragment_new_post_w10_padding_horizontal">
 
         <ImageView
             android:id="@+id/imgBackNewPost"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
+            android:layout_width="@dimen/image_view_hamburger_w10_size"
+            android:layout_height="@dimen/image_view_hamburger_w10_size"
             android:src="@drawable/ic_arrow_back_ios_20" />
 
         <TextView
@@ -28,13 +29,13 @@
         <Button
             android:id="@+id/btnPostW10"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_height="@dimen/button_new_post_w10_height"
             android:background="@drawable/bg_button_post_unable"
             android:enabled="false"
             android:text="@string/button_post_w10"
             android:textAllCaps="false"
             android:textColor="@color/colorLoginButtonText"
-            android:textSize="16sp"
+            android:textSize="@dimen/button_new_post_w10_text_size"
             android:layout_gravity="right" />
     </androidx.appcompat.widget.Toolbar>
 
@@ -42,7 +43,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:padding="@dimen/linear_layout_main_content_new_post_w10_padding">
 
         <ImageView
             android:id="@+id/imgUploadImagePostW10"
@@ -56,17 +57,18 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/text_view_content_description_w10_margin_top"
             android:text="@string/text_view_content_description_w10"
-            android:textColor="#FF9800"
-            android:textSize="18sp" />
+            android:textColor="@color/colorMainToneWeek10"
+            android:textSize="@dimen/text_view_content_description_w10_text_size" />
 
         <EditText
             android:id="@+id/edtContentPostW10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="#FF9800"
+            android:backgroundTint="@color/colorMainToneWeek10"
             android:maxLength="500"
-            android:textSize="16sp" />
+            android:textSize="@dimen/edit_text_content_post_w10_text_size"
+            tools:targetApi="lollipop" />
     </LinearLayout>
 </LinearLayout>

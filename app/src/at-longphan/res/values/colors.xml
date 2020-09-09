@@ -68,4 +68,5 @@
     <color name="colorToolbarFragmentPlantDetailW7Background">#FFC300</color>
     <color name="colorTextViewPlantMainDescriptionW7Text">#FFC300</color>
     <color name="colorContainerHeaderW7Background">#FFC300</color>
+    <color name="colorMainToneWeek10">#FF9800</color>
 </resources>

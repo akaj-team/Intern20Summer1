@@ -13,7 +13,7 @@
         android:scrollbars="none">
 
         <FrameLayout
-            android:id="@+id/fragmentContainer"
+            android:id="@+id/fragmentContainerW10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </ScrollView>

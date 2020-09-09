@@ -90,7 +90,7 @@ class TimeLineFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
                 progressDialogLoading.dismiss()
                 Toast.makeText(
                     context,
-                    getString(R.string.text_no_network_conennection),
+                    getString(R.string.text_no_network_connection),
                     Toast.LENGTH_SHORT
                 )
                     .show()
@@ -178,7 +178,6 @@ class TimeLineFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
                             }
                         }
                     }
-
                 })
             }
         }
@@ -186,7 +185,7 @@ class TimeLineFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
 
     private fun initPostOptionImageViewClickListener() {
         adapter?.onPostOptionImageViewClick =
-            { position: Int, idPost: Int, image: String, content: String ->
+            { idPost: Int, image: String, content: String ->
                 val dialogBuilder = AlertDialog.Builder(context)
                 dialogBuilder.setTitle(getString(R.string.title_post_option_dialog))
                 val optionList = arrayOf(
@@ -199,7 +198,11 @@ class TimeLineFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
                             addFragmentNewPostForEdit(idPost, image, content)
                         }
                         1 -> {
-                            Toast.makeText(context, "Open soon..", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                context,
+                                getString(R.string.text_open_soon),
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                     }
                 }

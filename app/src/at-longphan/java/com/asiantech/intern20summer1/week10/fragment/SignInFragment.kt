@@ -86,8 +86,8 @@ class SignInFragment : Fragment() {
                     progressDialogLoading?.dismiss()
                     Toast.makeText(
                         context,
-                        getString(R.string.text_no_network_conennection),
-                        Toast.LENGTH_SHORT
+                        getString(R.string.text_no_network_connection),
+                        Toast.LENGTH_LONG
                     ).show()
                 }
 

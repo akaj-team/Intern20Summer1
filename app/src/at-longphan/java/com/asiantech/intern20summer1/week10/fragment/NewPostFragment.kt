@@ -90,19 +90,14 @@ class NewPostFragment : Fragment() {
     }
 
     private fun initViews() {
-        /**
-         * idEditPost != -1
-         *      -> edit post
-         */
-        if (idEditPost != -1) {
+        if (idEditPost != null) {
             //button
             btnPostW10?.text = getString(R.string.button_done_edit_w10)
             //title
             tvTitleFragmentNewPostW10?.text =
                 getString(R.string.text_view_edit_post_toolbar_title_w10)
             //image
-            //if (imageUri.toString().isNotBlank()) {
-            if (imageName != "") {
+            if (imageName != null && imageName != "") {
                 context?.let {
                     Glide.with(it).load(IMAGE_FOLDER_URL + imageName).into(imgUploadImagePostW10)
                 }
@@ -277,11 +272,6 @@ class NewPostFragment : Fragment() {
             val image = file.asRequestBody(IMAGE_TYPE_KEY.toMediaTypeOrNull())
             MultipartBody.Part.createFormData(DEFAULT_NAME_IMAGE_UPLOAD, file.name, image)
         } else
-        /*imageUri?.let {
-                val file = File(getPath(it))
-                val image = file.asRequestBody(IMAGE_TYPE_KEY.toMediaTypeOrNull())
-                return MultipartBody.Part.createFormData(DEFAULT_NAME_IMAGE_UPLOAD, file.name, image)
-            }*/
             null
     }
 

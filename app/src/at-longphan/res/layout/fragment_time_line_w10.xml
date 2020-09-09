@@ -18,11 +18,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_toolbar_w10"
-                android:paddingHorizontal="16dp">
+                android:paddingHorizontal="@dimen/toolbar_fragment_time_line_w10_padding_horizontal">
 
                 <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
+                    android:layout_width="@dimen/image_view_hamburger_w10_size"
+                    android:layout_height="@dimen/image_view_hamburger_w10_size"
                     android:src="@drawable/ic_hamburger" />
 
                 <TextView
@@ -35,8 +35,8 @@
 
                 <ImageView
                     android:id="@+id/imgCreateNewPostW10"
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
+                    android:layout_width="@dimen/image_view_hamburger_w10_size"
+                    android:layout_height="@dimen/image_view_hamburger_w10_size"
                     android:layout_gravity="right"
                     android:src="@drawable/ic_add_16" />
             </androidx.appcompat.widget.Toolbar>

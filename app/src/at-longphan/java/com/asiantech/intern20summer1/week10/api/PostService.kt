@@ -14,7 +14,10 @@ interface PostService {
     fun getPosts(@Header("token") token: String?): Call<List<Post>>
 
     @POST("api/post/{id}/like")
-    fun toggleLikeFlag(@Header("token") token: String?, @Path("id") postId: Int?): Call<ToggleLikeResponse>
+    fun toggleLikeFlag(
+        @Header("token") token: String?,
+        @Path("id") postId: Int?
+    ): Call<ToggleLikeResponse>
 
     @POST("/api/post")
     @Multipart
@@ -32,11 +35,4 @@ interface PostService {
         @Part image: MultipartBody.Part? = null,
         @Part("body") body: CreatePostBody
     ): Call<StatusResponse>
-
-    /*@POST("api/login")
-    @FormUrlEncoded
-    fun login(@Field("email") email: String, @Field("password") password: String): Call<User>*/
-
-    /*@POST("api/login")
-    fun login(@Body userLogin: UserLogin): Call<User>*/
 }

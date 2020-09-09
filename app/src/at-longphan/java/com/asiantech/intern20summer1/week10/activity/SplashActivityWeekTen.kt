@@ -1,27 +1,60 @@
 package com.asiantech.intern20summer1.week10.activity
 
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.asiantech.intern20summer1.week10.api.RetrofitClient
+import com.asiantech.intern20summer1.week10.model.User
+import com.asiantech.intern20summer1.week10.other.TOKEN_KEY
+import com.asiantech.intern20summer1.week10.other.USER_DATA_PREFS_WEEK_10
+import retrofit2.Call
+import retrofit2.Response
+import javax.net.ssl.HttpsURLConnection
 
 class SplashActivityWeekTen : AppCompatActivity() {
-
-    companion object {
-        private const val SPLASH_TIME_OUT: Long = 1000
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         configStatusBarColor()
-        Handler().postDelayed(
-            {
-                startActivity(Intent(this, SignInActivity::class.java))
-                finish()
-            }, SPLASH_TIME_OUT
-        )
+
+        val sharePref = getSharedPreferences(USER_DATA_PREFS_WEEK_10, Context.MODE_PRIVATE)
+
+        val autoSignIn =
+            sharePref.getString(TOKEN_KEY, null)?.let { token ->
+                RetrofitClient.createUserService()?.autoSignIn(
+                    token
+                )
+            }
+
+        autoSignIn?.enqueue(object : retrofit2.Callback<User> {
+            override fun onFailure(call: Call<User>, t: Throwable) {
+                Toast.makeText(this@SplashActivityWeekTen, t.message, Toast.LENGTH_LONG)
+                    .show()
+                openSignInActivity()
+            }
+
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+                if (response.code() == HttpsURLConnection.HTTP_OK) {
+                    loginApp()
+                } else {
+                    openSignInActivity()
+                }
+            }
+        })
+    }
+
+    private fun loginApp() {
+        startActivity(Intent(this, TimeLineActivity::class.java))
+        finish()
+    }
+
+    private fun openSignInActivity() {
+        startActivity(Intent(this, SignInActivity::class.java))
+        finish()
     }
 
     private fun configStatusBarColor() {

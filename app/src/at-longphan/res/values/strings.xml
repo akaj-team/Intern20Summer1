@@ -92,7 +92,7 @@
     <string name="text_sign_in_success">Sign in successfully!</string>
     <string name="text_unauthorized">Invalid email or password!</string>
     <string name="text_error_occurred">Error occurred, please try later!</string>
-    <string name="text_no_network_conennection">No network connection!</string>
+    <string name="text_no_network_connection">No network connection!</string>
     <string name="text_view_progress_dialog_loading_text">loading..</string>
     <string name="text_view_new_post_toolbar_title_w10">New post</string>
     <string name="text_view_content_description_w10">Content:</string>
@@ -103,4 +103,5 @@
     <string name="delete_post_option">Delete</string>
     <string name="button_done_edit_w10">Done</string>
     <string name="text_view_edit_post_toolbar_title_w10">Edit post</string>
+    <string name="text_open_soon">Open soon..</string>
 </resources>

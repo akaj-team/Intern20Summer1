@@ -255,4 +255,13 @@
     <dimen name="text_view_progress_dialog_loading_text_size">18sp</dimen>
     <dimen name="container_progress_dialog_loading_margin">20dp</dimen>
     <dimen name="container_progress_dialog_loading_padding">10dp</dimen>
+    <dimen name="toolbar_fragment_time_line_w10_padding_horizontal">16dp</dimen>
+    <dimen name="image_view_hamburger_w10_size">16dp</dimen>
+    <dimen name="edit_text_content_post_w10_text_size">16sp</dimen>
+    <dimen name="text_view_content_description_w10_text_size">18sp</dimen>
+    <dimen name="text_view_content_description_w10_margin_top">10dp</dimen>
+    <dimen name="linear_layout_main_content_new_post_w10_padding">10dp</dimen>
+    <dimen name="button_new_post_w10_text_size">16sp</dimen>
+    <dimen name="button_new_post_w10_height">30dp</dimen>
+    <dimen name="toolbar_fragment_new_post_w10_padding_horizontal">16dp</dimen>
 </resources>

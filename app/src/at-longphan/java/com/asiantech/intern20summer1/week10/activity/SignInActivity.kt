@@ -1,11 +1,14 @@
 package com.asiantech.intern20summer1.week10.activity
 
+import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.hideKeyboard
 import com.asiantech.intern20summer1.week10.fragment.SignInFragment
+import kotlinx.android.synthetic.`at-longphan`.activity_sign_in_w10.*
 
 class SignInActivity : AppCompatActivity() {
 
@@ -15,6 +18,7 @@ class SignInActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in_w10)
         configStatusBarColor()
+        handleLinearLayoutChildListener()
         addSignInFragment()
     }
 
@@ -26,7 +30,16 @@ class SignInActivity : AppCompatActivity() {
 
     private fun addSignInFragment() {
         val transaction = fragmentManager.beginTransaction()
-        transaction.add(R.id.fragmentContainer, SignInFragment())
+        transaction.add(R.id.fragmentContainerW10, SignInFragment())
         transaction.commit()
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private fun handleLinearLayoutChildListener() {
+        fragmentContainerW10?.setOnTouchListener { view, _ ->
+            view.clearFocus()
+            view.hideKeyboard()
+            true
+        }
     }
 }

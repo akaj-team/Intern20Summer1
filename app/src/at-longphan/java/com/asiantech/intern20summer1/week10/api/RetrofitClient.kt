@@ -9,7 +9,7 @@ object RetrofitClient {
 
     private const val baseURL = "https://at-a-trainning.000webhostapp.com/"
     private var retrofit: Retrofit? = null
-    private const val REQUEST_TIMEOUT = 60
+    private const val REQUEST_TIMEOUT = 30
 
     internal fun createUserService(): UserService? =
         getClient()?.create(UserService::class.java)

@@ -21,8 +21,8 @@ class PostAdapter : RecyclerView.Adapter<PostViewHolder> {
     }
 
     internal var onIsLikedImageViewClick: (position: Int) -> Unit = {}
-    internal var onPostOptionImageViewClick: (position: Int, idPost: Int, image: String, content: String) -> Unit =
-        { position: Int, postId: Int, image: String, content: String -> }
+    internal var onPostOptionImageViewClick: (idPost: Int, image: String, content: String) -> Unit =
+        { _: Int, _: String, _: String -> }
 
     private var posts: MutableList<Post>
     private var context: Context
@@ -105,7 +105,7 @@ class PostAdapter : RecyclerView.Adapter<PostViewHolder> {
             postItem.id?.let { postId ->
                 postItem.image?.let { image ->
                     postItem.content?.let { content ->
-                        onPostOptionImageViewClick.invoke(position, postId, image, content)
+                        onPostOptionImageViewClick.invoke(postId, image, content)
                     }
                 }
             }
