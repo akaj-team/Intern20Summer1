@@ -14,6 +14,8 @@ class PostViewHolder : RecyclerView.ViewHolder {
     internal var likeCountTextView: TextView? = null
     internal var isPluralLikeTextView: TextView? = null
     internal var contentTextView: TextView? = null
+    internal var postOptionImageView: ImageView? = null
+
 
     constructor(itemView: View) : super(itemView) {
         fullNameTextView = itemView.findViewById(R.id.tvUserNameWeek10) as? TextView
@@ -22,5 +24,6 @@ class PostViewHolder : RecyclerView.ViewHolder {
         likeCountTextView = itemView.findViewById(R.id.tvLikesWeek10) as? TextView
         isPluralLikeTextView = itemView.findViewById(R.id.tvIsPluralLikeWeek10) as? TextView
         contentTextView = itemView.findViewById(R.id.tvCaptionWeek10) as? TextView
+        postOptionImageView = itemView.findViewById(R.id.imgPostOptionW10) as? ImageView
     }
 }

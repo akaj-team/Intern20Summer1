@@ -24,13 +24,13 @@ interface PostService {
         @Part("body") body: CreatePostBody
     ): Call<StatusResponse>
 
-    @POST("/api/post/{id} ")
+    @POST("/api/post/{id}")
     @Multipart
     fun updatePost(
         @Header("token") token: String,
         @Path("id") id: Int,
         @Part image: MultipartBody.Part? = null,
-        @Part("body") body: Body
+        @Part("body") body: CreatePostBody
     ): Call<StatusResponse>
 
     /*@POST("api/login")

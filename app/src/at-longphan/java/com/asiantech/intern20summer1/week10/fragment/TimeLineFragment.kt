@@ -108,6 +108,7 @@ class TimeLineFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
 
                         initAdapter()
                         initIsLikedImageViewClickListener()
+                        initPostOptionImageViewClickListener()
                         assignRecyclerView()
                         initSwipeRefreshLayout()
                         initScrollListener()
@@ -183,6 +184,30 @@ class TimeLineFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
         }
     }
 
+    private fun initPostOptionImageViewClickListener() {
+        adapter?.onPostOptionImageViewClick =
+            { position: Int, idPost: Int, image: String, content: String ->
+                val dialogBuilder = AlertDialog.Builder(context)
+                dialogBuilder.setTitle(getString(R.string.title_post_option_dialog))
+                val optionList = arrayOf(
+                    getString(R.string.edit_post_option),
+                    getString(R.string.delete_post_option)
+                )
+                dialogBuilder.setItems(optionList) { _, which ->
+                    when (which) {
+                        0 -> {
+                            addFragmentNewPostForEdit(idPost, image, content)
+                        }
+                        1 -> {
+                            Toast.makeText(context, "Open soon..", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+                val dialog = dialogBuilder.create()
+                dialog.show()
+            }
+    }
+
     private fun assignRecyclerView() {
         recycleViewTimeLineW10?.adapter = adapter
         recycleViewTimeLineW10?.layoutManager = LinearLayoutManager(context)
@@ -247,6 +272,15 @@ class TimeLineFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
     private fun addFragmentNewPost() {
         fragmentManager?.beginTransaction()
             ?.replace(R.id.frameLayoutActivityHomeW10, NewPostFragment.newInstance(loginUser.token))
+            ?.addToBackStack(null)?.commit()
+    }
+
+    private fun addFragmentNewPostForEdit(idPost: Int, image: String, content: String) {
+        fragmentManager?.beginTransaction()
+            ?.replace(
+                R.id.frameLayoutActivityHomeW10,
+                NewPostFragment.newInstance(loginUser.token, idPost, image, content)
+            )
             ?.addToBackStack(null)?.commit()
     }
 }

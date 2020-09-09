@@ -98,4 +98,9 @@
     <string name="text_view_content_description_w10">Content:</string>
     <string name="button_post_w10">Post</string>
     <string name="error_required_field_text">Required field!</string>
+    <string name="title_post_option_dialog">Post options:</string>
+    <string name="edit_post_option">Edit post</string>
+    <string name="delete_post_option">Delete</string>
+    <string name="button_done_edit_w10">Done</string>
+    <string name="text_view_edit_post_toolbar_title_w10">Edit post</string>
 </resources>

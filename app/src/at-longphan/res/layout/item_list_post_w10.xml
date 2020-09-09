@@ -25,6 +25,7 @@
             tools:text="saybayaaa" />
 
         <ImageView
+            android:id="@+id/imgPostOptionW10"
             android:layout_width="@dimen/image_view_more_width"
             android:layout_height="@dimen/image_view_more_height"
             android:src="@drawable/ic_more" />

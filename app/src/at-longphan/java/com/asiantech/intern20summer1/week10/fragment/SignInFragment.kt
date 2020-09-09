@@ -85,7 +85,7 @@ class SignInFragment : Fragment() {
                 override fun onFailure(call: Call<User>, t: Throwable) {
                     progressDialogLoading?.dismiss()
                     Toast.makeText(
-                        requireContext(),
+                        context,
                         getString(R.string.text_no_network_conennection),
                         Toast.LENGTH_SHORT
                     ).show()
@@ -118,7 +118,7 @@ class SignInFragment : Fragment() {
                         }
                         else -> {
                             Toast.makeText(
-                                requireContext(),
+                                context,
                                 getString(R.string.text_error_occurred),
                                 Toast.LENGTH_SHORT
                             )

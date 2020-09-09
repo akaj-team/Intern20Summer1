@@ -7,7 +7,6 @@ import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week10.model.Post
@@ -22,6 +21,8 @@ class PostAdapter : RecyclerView.Adapter<PostViewHolder> {
     }
 
     internal var onIsLikedImageViewClick: (position: Int) -> Unit = {}
+    internal var onPostOptionImageViewClick: (position: Int, idPost: Int, image: String, content: String) -> Unit =
+        { position: Int, postId: Int, image: String, content: String -> }
 
     private var posts: MutableList<Post>
     private var context: Context
@@ -41,14 +42,17 @@ class PostAdapter : RecyclerView.Adapter<PostViewHolder> {
         val postItem = posts[position]
 
         // Set itemView based on views and data model
-        val userIdTextView: TextView? = viewHolder.fullNameTextView
+        val userIdTextView = viewHolder.fullNameTextView
         userIdTextView?.text = "User " + postItem.userId
 
         val imageImageView = viewHolder.imageImageView
         imageImageView?.let {
             if (!postItem.image.isNullOrEmpty()) {
+                it.visibility = View.VISIBLE
                 val imageUrl = IMAGE_FOLDER_URL.plus(postItem.image)
                 Glide.with(context).load(imageUrl).into(it)
+            } else {
+                it.visibility = View.GONE
             }
         }
 
@@ -93,8 +97,19 @@ class PostAdapter : RecyclerView.Adapter<PostViewHolder> {
         postItem.userId?.length?.let {
             spannableString.setSpan(StyleSpan(Typeface.BOLD), 0, it + EXTRA_STRING_LENGTH, 0)
         }
-        val contentTextView: TextView? = viewHolder.contentTextView
+        val contentTextView = viewHolder.contentTextView
         contentTextView?.text = spannableString
+
+        val postOptionImageView = viewHolder.postOptionImageView
+        postOptionImageView?.setOnClickListener {
+            postItem.id?.let { postId ->
+                postItem.image?.let { image ->
+                    postItem.content?.let { content ->
+                        onPostOptionImageViewClick.invoke(position, postId, image, content)
+                    }
+                }
+            }
+        }
     }
 
     override fun getItemCount(): Int {
