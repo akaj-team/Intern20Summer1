@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.week11.views.CanvasActivity
 import com.asiantech.intern20summer1.week3.MainActivity
 import com.asiantech.intern20summer1.week4.views.SplashActivity
 import com.asiantech.intern20summer1.week6.views.IndicatorActivity
@@ -28,6 +29,9 @@ class HomeActivity : AppCompatActivity() {
 
         weekSix?.setOnClickListener {
             startActivity(Intent(this, IndicatorActivity::class.java))
+        }
+        weekEleven?.setOnClickListener {
+            startActivity(Intent(this, CanvasActivity::class.java))
         }
     }
 }

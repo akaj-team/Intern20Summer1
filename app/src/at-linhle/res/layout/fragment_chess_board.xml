@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.asiantech.intern20summer1.week11.customs.ChessBoardCanvasView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/chess_board_canvas_view_layout_height"
+        android:layout_centerVertical="true" />
+</RelativeLayout>

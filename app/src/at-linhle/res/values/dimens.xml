@@ -69,4 +69,7 @@
     <dimen name="dot_indicator_corner_radius">8dp</dimen>
     <dimen name="dot_indicator_size">16dp</dimen>
     <dimen name="dot_indicator_spacing">4dp</dimen>
+    <dimen name="button_margin_right">30dp</dimen>
+    <dimen name="linear_layout_margin_top_bottom">15dp</dimen>
+    <dimen name="chess_board_canvas_view_layout_height">400dp</dimen>
 </resources>

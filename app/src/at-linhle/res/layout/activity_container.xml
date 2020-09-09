@@ -32,5 +32,12 @@
             android:layout_centerInParent="true"
             android:layout_toRightOf="@id/weekFour"
             android:text="@string/week_six_button_description" />
+        <Button
+            android:id="@+id/weekEleven"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_toRightOf="@id/weekSix"
+            android:text="@string/week_eleven_button_description" />
     </RelativeLayout>
 </RelativeLayout>

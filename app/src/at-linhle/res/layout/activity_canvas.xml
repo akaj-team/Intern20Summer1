@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.asiantech.intern20summer1.week11.views.CanvasActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/linear_layout_margin_top_bottom"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/btnChessBoard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/button_margin_right"
+            android:text="@string/chess_board_button_description"
+            tools:ignore="ButtonStyle" />
+
+        <Button
+            android:id="@+id/btnWeightChart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/weight_chart_button_description"
+            tools:ignore="ButtonStyle" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/flCanvasContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>

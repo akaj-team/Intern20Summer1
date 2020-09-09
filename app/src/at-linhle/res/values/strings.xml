@@ -49,4 +49,8 @@
     <string name="week_three_button_description">Week 3</string>
     <string name="week_four_button_description">Week 4</string>
     <string name="week_six_button_description">Week 6</string>
+    <string name="chess_board_button_description">Chess Board</string>
+    <string name="weight_chart_button_description">Weight Chart</string>
+    <!--Week11-->
+    <string name="week_eleven_button_description">Week 11</string>
 </resources>
