@@ -93,7 +93,14 @@ class HomeFragment : Fragment() {
         val id = postItem[position]?.id ?: 0
         val content = postItem[position]?.content
         val image = postItem[position]?.image
-        (activity as HomeActivity).replaceFragment(UpdateFragment, true)
+        (activity as HomeActivity).replaceFragment(
+            UpdateFragment.newInstance(
+                token,
+                content,
+                image,
+                id
+            ), true
+        )
     }
 
     private fun getData() {
