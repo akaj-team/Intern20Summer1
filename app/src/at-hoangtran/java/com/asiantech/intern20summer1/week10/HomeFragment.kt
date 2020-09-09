@@ -19,7 +19,7 @@ import retrofit2.Response
 class HomeFragment : Fragment() {
     companion object {
         private const val DELAY_TIME = 2000L
-        private const val KEY_TOKEN = "token"
+        internal const val KEY_TOKEN = "token"
         internal fun newInstance(fullName: String?, token: String?, userId: Int) =
             HomeFragment().apply {
                 arguments = Bundle().apply {
