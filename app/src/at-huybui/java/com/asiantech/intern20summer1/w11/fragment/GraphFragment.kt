@@ -19,6 +19,7 @@ import kotlinx.android.synthetic.`at-huybui`.w11_fragment_graph.*
 class GraphFragment : Fragment() {
 
     companion object {
+        private const val MAX_VALUE = 100
         internal fun newInstance() = GraphFragment()
     }
 
@@ -55,7 +56,7 @@ class GraphFragment : Fragment() {
 
     private fun initData() {
         list.clear()
-        for (i in 1..100) {
+        for (i in 1..MAX_VALUE) {
             list.add(Weight((50..120).random(), i))
         }
     }

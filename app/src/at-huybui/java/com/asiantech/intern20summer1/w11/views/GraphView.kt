@@ -7,7 +7,6 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 
-
 /**
  * Asian Tech Co., Ltd.
  * Intern20Summer1 Project.
