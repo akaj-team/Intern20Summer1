@@ -37,10 +37,10 @@ class ChessBoardCanvasView(context: Context, attrs: AttributeSet) : View(context
         var startXSquare = MARGIN
         var startYSquare = MARGIN
         var lineCount = DEFAULT_LINE_NUMBER
-        canvas?.drawLine(0f, 0f, width / 1f, 0f, paint) // line horizontal top
-        canvas?.drawLine(0f, 0f, 0f, height / 1f, paint) //line vertical left
-        canvas?.drawLine(width / 1f, 0f, width / 1f, height / 1f, paint) //line vertical left
-        canvas?.drawLine(0f, height / 1f, width / 1f, height / 1f, paint) // line horizontal bottom
+        canvas?.drawLine(0f, 0f, width / 1f, 0f, paint)
+        canvas?.drawLine(0f, 0f, 0f, height / 1f, paint)
+        canvas?.drawLine(width / 1f, 0f, width / 1f, height / 1f, paint)
+        canvas?.drawLine(0f, height / 1f, width / 1f, height / 1f, paint)
         paint.strokeWidth = 4f
         canvas?.drawLine(
             MARGIN,
@@ -48,23 +48,22 @@ class ChessBoardCanvasView(context: Context, attrs: AttributeSet) : View(context
             width - MARGIN,
             MARGIN,
             paint
-        ) // line horizontal top inside
-        canvas?.drawLine(MARGIN, MARGIN, MARGIN, height - MARGIN, paint) //line vertical left inside
+        )
+        canvas?.drawLine(MARGIN, MARGIN, MARGIN, height - MARGIN, paint)
         canvas?.drawLine(
             width - MARGIN,
             MARGIN,
             width - MARGIN,
             height - MARGIN,
             paint
-        ) //line vertical left inside
+        )
         canvas?.drawLine(
             MARGIN,
             height - MARGIN,
             width - MARGIN,
             height - MARGIN,
             paint
-        ) // line horizontal bottom inside
-        //horizontal
+        )
         while (lineCount < NUMBER_OF_ROWS) {
             startYSquare += heightSquare
             canvas?.drawLine(
@@ -73,10 +72,9 @@ class ChessBoardCanvasView(context: Context, attrs: AttributeSet) : View(context
                 width - MARGIN,
                 startYSquare,
                 paint
-            ) // line ngang
+            )
             lineCount++
         }
-        // vertical up
         lineCount = DEFAULT_LINE_NUMBER
         while (lineCount < NUMBER_OF_COLUMNS) {
             startXSquare += widthSquare
@@ -101,7 +99,6 @@ class ChessBoardCanvasView(context: Context, attrs: AttributeSet) : View(context
             canvas?.drawLine(startXSquare, MARGIN, startXSquare, heightSquare * 4 + MARGIN, paint)
             lineCount++
         }
-        // vertical down
         lineCount = DEFAULT_LINE_NUMBER
         startXSquare = MARGIN
         while (lineCount < NUMBER_OF_COLUMNS) {

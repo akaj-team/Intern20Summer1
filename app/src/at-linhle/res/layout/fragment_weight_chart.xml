@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.asiantech.intern20summer1.week11.customs.WeightChartCanvasView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/weight_chart_canvas_margin_left"
+        android:layout_marginTop="@dimen/weight_chart_canvas_margin_top" />
+</RelativeLayout>
