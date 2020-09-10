@@ -8,272 +8,88 @@ import android.util.AttributeSet
 import android.view.View
 
 class ChessBoardCanvasView(context: Context, attrs: AttributeSet) : View(context, attrs) {
-    companion object {
-        private const val MARGIN = 40f
-        private const val NUMBER_OF_COLUMNS = 8
-        private const val NUMBER_OF_ROWS = 9
-        private const val COLUMN_NUMBER_THREE = 3
-        private const val DEFAULT_LINE_NUMBER = 1
-        private const val NUMBER_DIVISOR_WIDTH = 8f
-        private const val NUMBER_DIVISOR_HEIGHT = 8f
-        private const val NUMBER_MINUS = 80f
-        private const val PAINT_STROKE_WIDTH_OUTLINE = 40f
-        private const val PAINT_STROKE_WIDTH = 4f
-        private const val LIMIT_OF_ROW = 8
-    }
+    private val lineColor = Color.BLACK
+    private val borderWidthIn = 4.0f
+    private val borderWidthOut = 10.0f
+    private val paintBorder = Paint(Paint.ANTI_ALIAS_FLAG)
+    private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
+    private var size: Float = 0f
 
-    private var paint: Paint = Paint(Paint.ANTI_ALIAS_FLAG)
-    private var widthSquare = 0f
-    private var heightSquare = 0f
-    override fun onDraw(canvas: Canvas?) {
+    override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        widthSquare = (width - NUMBER_MINUS) / NUMBER_DIVISOR_WIDTH
-        heightSquare = (height - NUMBER_MINUS) / NUMBER_DIVISOR_HEIGHT
+        size = (width / 10).toFloat()
         initPaint()
-        drawLines(canvas)
+        canvas.drawRect(size - 20f, size - 20f, size * 9 + 20f, size * 10 + 20f, paintBorder)
+        canvas.drawRect(size, size, size * 9, size * 10, paint)
+        drawVerticalLine(canvas)
+        drawHorizontalLine(canvas)
+        drawDiagonalLine(size * 5, size * 2, canvas)
+        drawDiagonalLine(size * 5, size * 9, canvas)
+        drawSmallLine(size * 2, size * 3, canvas)
+        drawSmallLine(size * 8, size * 3, canvas)
+        drawSmallLine(size * 2, size * 8, canvas)
+        drawSmallLine(size * 8, size * 8, canvas)
+        drawSmallLine(size * 3, size * 4, canvas)
+        drawSmallLine(size * 5, size * 4, canvas)
+        drawSmallLine(size * 7, size * 4, canvas)
+        drawSmallLine(size * 3, size * 7, canvas)
+        drawSmallLine(size * 5, size * 7, canvas)
+        drawSmallLine(size * 7, size * 7, canvas)
+        drawLeftPawn(size, size * 4, canvas)
+        drawLeftPawn(size, size * 7, canvas)
+        drawRightPawn(size * 9, size * 4, canvas)
+        drawRightPawn(size * 9, size * 7, canvas)
     }
 
     private fun initPaint() {
-        paint.color = Color.BLACK
+        paintBorder.color = lineColor
+        paintBorder.style = Paint.Style.STROKE
+        paintBorder.strokeWidth = borderWidthOut
+        paint.color = lineColor
         paint.style = Paint.Style.STROKE
-        paint.strokeWidth = PAINT_STROKE_WIDTH_OUTLINE
+        paint.strokeWidth = borderWidthIn
     }
 
-    private fun drawLines(canvas: Canvas?) {
-        var startXSquare = MARGIN
-        var startYSquare = MARGIN
-        var lineCount = DEFAULT_LINE_NUMBER
-        canvas?.drawLine(0f, 0f, width / 1f, 0f, paint)
-        canvas?.drawLine(0f, 0f, 0f, height / 1f, paint)
-        canvas?.drawLine(width / 1f, 0f, width / 1f, height / 1f, paint)
-        canvas?.drawLine(0f, height / 1f, width / 1f, height / 1f, paint)
-        paint.strokeWidth = PAINT_STROKE_WIDTH
-        canvas?.drawLine(
-            MARGIN,
-            MARGIN,
-            width - MARGIN,
-            MARGIN,
-            paint
-        )
-        canvas?.drawLine(MARGIN, MARGIN, MARGIN, height - MARGIN, paint)
-        canvas?.drawLine(
-            width - MARGIN,
-            MARGIN,
-            width - MARGIN,
-            height - MARGIN,
-            paint
-        )
-        canvas?.drawLine(
-            MARGIN,
-            height - MARGIN,
-            width - MARGIN,
-            height - MARGIN,
-            paint
-        )
-        while (lineCount < NUMBER_OF_ROWS) {
-            startYSquare += heightSquare
-            canvas?.drawLine(
-                MARGIN,
-                startYSquare,
-                width - MARGIN,
-                startYSquare,
-                paint
-            )
-            lineCount++
-        }
-        lineCount = DEFAULT_LINE_NUMBER
-        while (lineCount < NUMBER_OF_COLUMNS) {
-            startXSquare += widthSquare
-            when (lineCount) {
-                COLUMN_NUMBER_THREE -> {
-                    canvas?.drawLine(
-                        startXSquare,
-                        MARGIN,
-                        MARGIN + widthSquare * 5,
-                        MARGIN + heightSquare * 2,
-                        paint
-                    )
-                    canvas?.drawLine(
-                        startXSquare,
-                        MARGIN + heightSquare * 2,
-                        startXSquare + widthSquare * 2,
-                        MARGIN,
-                        paint
-                    )
-                }
-            }
-            canvas?.drawLine(startXSquare, MARGIN, startXSquare, heightSquare * 4 + MARGIN, paint)
-            lineCount++
-        }
-        lineCount = DEFAULT_LINE_NUMBER
-        startXSquare = MARGIN
-        while (lineCount < NUMBER_OF_COLUMNS) {
-            startXSquare += widthSquare
-            when (lineCount) {
-                COLUMN_NUMBER_THREE -> {
-                    canvas?.drawLine(
-                        startXSquare,
-                        height - MARGIN,
-                        startXSquare + widthSquare * 2,
-                        height - MARGIN - heightSquare * 2,
-                        paint
-                    )
-                    canvas?.drawLine(
-                        startXSquare,
-                        MARGIN + heightSquare * 7,
-                        startXSquare + widthSquare * 2,
-                        heightSquare * 9 + MARGIN,
-                        paint
-                    )
-                }
-            }
-            canvas?.drawLine(
-                startXSquare,
-                heightSquare * 5 + MARGIN,
-                startXSquare,
-                height - MARGIN,
-                paint
-            )
-            lineCount++
-        }
-        drawCorner(7 * widthSquare, 2 * heightSquare, canvas)
-        drawCorner(widthSquare, 2 * heightSquare, canvas)
-
-        for (i in 0..LIMIT_OF_ROW step 2) {
-            drawCorner(i * widthSquare, 3 * heightSquare, canvas)
-            drawCorner(i * widthSquare, 6 * heightSquare, canvas)
-        }
-        drawCorner(widthSquare, 7 * heightSquare, canvas)
-        drawCorner(7 * widthSquare, 7 * heightSquare, canvas)
-
+    private fun drawSmallLine(dX: Float, dY: Float, canvas: Canvas) {
+        canvas.drawLine(dX - 10, dY - 10, dX - 30, dY - 10, paint)
+        canvas.drawLine(dX - 10, dY + 10, dX - 30, dY + 10, paint)
+        canvas.drawLine(dX + 10, dY - 10, dX + 30, dY - 10, paint)
+        canvas.drawLine(dX + 10, dY + 10, dX + 30, dY + 10, paint)
+        canvas.drawLine(dX - 10, dY - 10, dX - 10, dY - 30, paint)
+        canvas.drawLine(dX - 10, dY + 10, dX - 10, dY + 30, paint)
+        canvas.drawLine(dX + 10, dY - 10, dX + 10, dY - 30, paint)
+        canvas.drawLine(dX + 10, dY + 10, dX + 10, dY + 30, paint)
     }
 
-    private fun drawCorner(coordinatesX: Float, coordinatesY: Float, canvas: Canvas?) {
-        when (coordinatesX) {
-            NUMBER_OF_COLUMNS * widthSquare -> {
-                canvas?.apply {
-                    drawLine(
-                        coordinatesX + 30f,
-                        coordinatesY + 30f,
-                        coordinatesX + 30f,
-                        coordinatesY,
-                        paint
-                    )
-                    drawLine(
-                        coordinatesX + 30f,
-                        coordinatesY + 30f,
-                        coordinatesX,
-                        coordinatesY + 30f,
-                        paint
-                    )
-                    drawLine(
-                        coordinatesX + 30f,
-                        coordinatesY + 50f,
-                        coordinatesX + 30f,
-                        coordinatesY + 80f,
-                        paint
-                    )
-                    drawLine(
-                        coordinatesX + 30f,
-                        coordinatesY + 50f,
-                        coordinatesX,
-                        coordinatesY + 50f,
-                        paint
-                    )
-                }
-            }
-            0f -> {
-                canvas?.apply {
-                    drawLine(
-                        coordinatesX + 50f,
-                        coordinatesY + 30f,
-                        coordinatesX + 50f,
-                        coordinatesY,
-                        paint
-                    )
-                    drawLine(
-                        coordinatesX + 50f,
-                        coordinatesY + 30f,
-                        coordinatesX + 80f,
-                        coordinatesY + 30f,
-                        paint
-                    )
-                    drawLine(
-                        coordinatesX + 50f,
-                        coordinatesY + 50f,
-                        coordinatesX + 50f,
-                        coordinatesY + 80f,
-                        paint
-                    )
-                    drawLine(
-                        coordinatesX + 50f,
-                        coordinatesY + 50f,
-                        coordinatesX + 80f,
-                        coordinatesY + 50f,
-                        paint
-                    )
-                }
-            }
-            else -> {
-                canvas?.apply {
-                    drawLine(
-                        coordinatesX + 30f,
-                        coordinatesY + 30f,
-                        coordinatesX + 30f,
-                        coordinatesY,
-                        paint
-                    )
-                    drawLine(
-                        coordinatesX + 30f,
-                        coordinatesY + 30f,
-                        coordinatesX,
-                        coordinatesY + 30f,
-                        paint
-                    )
-                    drawLine(
-                        coordinatesX + 50f,
-                        coordinatesY + 30f,
-                        coordinatesX + 50f,
-                        coordinatesY,
-                        paint
-                    )
-                    drawLine(
-                        coordinatesX + 50f,
-                        coordinatesY + 30f,
-                        coordinatesX + 80f,
-                        coordinatesY + 30f,
-                        paint
-                    )
-                    drawLine(
-                        coordinatesX + 30f,
-                        coordinatesY + 50f,
-                        coordinatesX + 30f,
-                        coordinatesY + 80f,
-                        paint
-                    )
-                    drawLine(
-                        coordinatesX + 30f,
-                        coordinatesY + 50f,
-                        coordinatesX,
-                        coordinatesY + 50f,
-                        paint
-                    )
-                    drawLine(
-                        coordinatesX + 50f,
-                        coordinatesY + 50f,
-                        coordinatesX + 50f,
-                        coordinatesY + 80f,
-                        paint
-                    )
-                    drawLine(
-                        coordinatesX + 50f,
-                        coordinatesY + 50f,
-                        coordinatesX + 80f,
-                        coordinatesY + 50f,
-                        paint
-                    )
-                }
-            }
+    private fun drawLeftPawn(dX: Float, dY: Float, canvas: Canvas) {
+        canvas.drawLine(dX + 10, dY - 10, dX + 30, dY - 10, paint)
+        canvas.drawLine(dX + 10, dY + 10, dX + 30, dY + 10, paint)
+        canvas.drawLine(dX + 10, dY - 30, dX + 10, dY - 10, paint)
+        canvas.drawLine(dX + 10, dY + 30, dX + 10, dY + 10, paint)
+    }
+
+    private fun drawRightPawn(dX: Float, dY: Float, canvas: Canvas) {
+        canvas.drawLine(dX - 10, dY - 10, dX - 30, dY - 10, paint)
+        canvas.drawLine(dX - 10, dY + 10, dX - 30, dY + 10, paint)
+        canvas.drawLine(dX - 10, dY - 30, dX - 10, dY - 10, paint)
+        canvas.drawLine(dX - 10, dY + 30, dX - 10, dY + 10, paint)
+    }
+
+    private fun drawHorizontalLine(canvas: Canvas) {
+        for (i in 2..9) {
+            canvas.drawLine(size, size * i, size * 9, size * i, paint)
         }
+    }
+
+    private fun drawVerticalLine(canvas: Canvas) {
+        for (i in 2..8) {
+            canvas.drawLine(size * i, size * 1, size * i, size * 5, paint)
+            canvas.drawLine(size * i, size * 6, size * i, size * 10, paint)
+        }
+    }
+
+    private fun drawDiagonalLine(dX: Float, dY: Float, canvas: Canvas) {
+        canvas.drawLine(dX - size, dY - size, dX + size, dY + size, paint)
+        canvas.drawLine(dX - size, dY + size, dX + size, dY - size, paint)
     }
 }
