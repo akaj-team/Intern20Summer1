@@ -4,10 +4,6 @@ import com.google.gson.annotations.SerializedName
 
 class Post() {
 
-    companion object {
-        private const val RANDOM_LIKES_RANGE = 4
-    }
-
     @SerializedName("id")
     internal var id: Int? = null
     @SerializedName("user_id")
