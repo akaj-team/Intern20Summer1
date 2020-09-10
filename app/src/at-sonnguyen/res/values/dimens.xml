@@ -78,4 +78,6 @@
     <dimen name="w11_button_height">52dp</dimen>
     <dimen name="w11_button_margin">20dp</dimen>
     <dimen name="w11_chess_board_margin_parent">20dp</dimen>
+    <dimen name="w11_weight_chart_width">1000dp</dimen>
+    <dimen name="w11_weight_chart_margin">20dp</dimen>
 </resources>
