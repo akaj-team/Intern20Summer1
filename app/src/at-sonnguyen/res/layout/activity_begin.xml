@@ -22,7 +22,8 @@
             android:id="@+id/btnWeek4"
             android:layout_width="@dimen/begin_button_width"
             android:layout_height="@dimen/begin_button_height"
-            android:text="@string/begin_week6_button_text" />
+            android:text="@string/begin_week6_button_text"
+            android:textAllCaps="false" />
     </LinearLayout>
 
     <LinearLayout
@@ -41,7 +42,8 @@
             android:id="@+id/btnWeek6"
             android:layout_width="@dimen/begin_button_width"
             android:layout_height="@dimen/begin_button_height"
-            android:text="@string/begin_week6_button_text" />
+            android:text="@string/begin_week6_button_text"
+            android:textAllCaps="false" />
     </LinearLayout>
 
     <LinearLayout
@@ -60,7 +62,8 @@
             android:id="@+id/btnWeek7"
             android:layout_width="@dimen/begin_button_width"
             android:layout_height="@dimen/begin_button_height"
-            android:text="@string/w7_button_text" />
+            android:text="@string/w7_button_text"
+            android:textAllCaps="false" />
     </LinearLayout>
 
     <LinearLayout
@@ -79,6 +82,7 @@
             android:id="@+id/btnWeek11"
             android:layout_width="@dimen/begin_button_width"
             android:layout_height="@dimen/begin_button_height"
-            android:text="@string/w11_button_text" />
+            android:text="@string/w11_button_text"
+            android:textAllCaps="false" />
     </LinearLayout>
 </LinearLayout>
