@@ -12,7 +12,7 @@ import com.asiantech.intern20summer1.week11.models.Weight
 class WeightChartCanvasView(context: Context, attrs: AttributeSet) : View(context, attrs) {
 
     companion object {
-        private const val LIMIT_OF_LIST = 12
+        private const val LIMIT_OF_LIST = 13
         private const val RANDOM_NUMBER_FROM = 50
         private const val RANDOM_NUMBER_UTIL = 120
         private const val NUMBER_MINUS_WIDTH = 12
