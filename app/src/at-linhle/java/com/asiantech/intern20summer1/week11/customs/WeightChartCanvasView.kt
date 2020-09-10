@@ -11,11 +11,13 @@ import kotlin.random.Random
 
 class WeightChartCanvasView(context: Context, attrs: AttributeSet) : View(context, attrs) {
 
-    companion object{
+    companion object {
         private const val NUMBER_DIVISOR_HEIGHT = 150
         private const val LIMIT_OF_LIST = 12
         private const val RANDOM_NUMBER_FROM = 50
         private const val RANDOM_NUMBER_UTIL = 120
+        private const val NUMBER_MINUS_WIDTH = 10
+        private const val NUMBER_DIVISOR_WIDTH = 15f
     }
 
     private var widths = 0f
@@ -77,7 +79,7 @@ class WeightChartCanvasView(context: Context, attrs: AttributeSet) : View(contex
     }
 
     private fun drawNumberWeight(canvas: Canvas?) {
-        val rangeWidth = widths / 10 - 15f
+        val rangeWidth = widths / NUMBER_MINUS_WIDTH - NUMBER_DIVISOR_WIDTH
         start = -distanceMove - oldDistance
         weightData.forEachIndexed { index, it ->
             if (index < weightData.size - 1) {

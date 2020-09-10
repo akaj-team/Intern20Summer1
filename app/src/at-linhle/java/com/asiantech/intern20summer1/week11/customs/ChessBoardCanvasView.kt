@@ -14,6 +14,12 @@ class ChessBoardCanvasView(context: Context, attrs: AttributeSet) : View(context
         private const val NUMBER_OF_ROWS = 9
         private const val COLUMN_NUMBER_THREE = 3
         private const val DEFAULT_LINE_NUMBER = 1
+        private const val NUMBER_DIVISOR_WIDTH = 8f
+        private const val NUMBER_DIVISOR_HEIGHT = 8f
+        private const val NUMBER_MINUS = 80f
+        private const val PAINT_STROKE_WIDTH_OUTLINE = 40f
+        private const val PAINT_STROKE_WIDTH = 4f
+        private const val LIMIT_OF_ROW = 8
     }
 
     private var paint: Paint = Paint(Paint.ANTI_ALIAS_FLAG)
@@ -21,8 +27,8 @@ class ChessBoardCanvasView(context: Context, attrs: AttributeSet) : View(context
     private var heightSquare = 0f
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
-        widthSquare = (width - 80f) / 8f
-        heightSquare = (height - 80f) / 9f
+        widthSquare = (width - NUMBER_MINUS) / NUMBER_DIVISOR_WIDTH
+        heightSquare = (height - NUMBER_MINUS) / NUMBER_DIVISOR_HEIGHT
         initPaint()
         drawLines(canvas)
     }
@@ -30,7 +36,7 @@ class ChessBoardCanvasView(context: Context, attrs: AttributeSet) : View(context
     private fun initPaint() {
         paint.color = Color.BLACK
         paint.style = Paint.Style.STROKE
-        paint.strokeWidth = 40f
+        paint.strokeWidth = PAINT_STROKE_WIDTH_OUTLINE
     }
 
     private fun drawLines(canvas: Canvas?) {
@@ -41,7 +47,7 @@ class ChessBoardCanvasView(context: Context, attrs: AttributeSet) : View(context
         canvas?.drawLine(0f, 0f, 0f, height / 1f, paint)
         canvas?.drawLine(width / 1f, 0f, width / 1f, height / 1f, paint)
         canvas?.drawLine(0f, height / 1f, width / 1f, height / 1f, paint)
-        paint.strokeWidth = 4f
+        paint.strokeWidth = PAINT_STROKE_WIDTH
         canvas?.drawLine(
             MARGIN,
             MARGIN,
@@ -133,7 +139,7 @@ class ChessBoardCanvasView(context: Context, attrs: AttributeSet) : View(context
         drawCorner(7 * widthSquare, 2 * heightSquare, canvas)
         drawCorner(widthSquare, 2 * heightSquare, canvas)
 
-        for (i in 0..8 step 2) {
+        for (i in 0..LIMIT_OF_ROW step 2) {
             drawCorner(i * widthSquare, 3 * heightSquare, canvas)
             drawCorner(i * widthSquare, 6 * heightSquare, canvas)
         }
