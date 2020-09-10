@@ -6,45 +6,52 @@ import android.graphics.*
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
-import com.asiantech.intern20summer1.week11.models.Weight
-import kotlin.random.Random
+import com.asiantech.intern20summer1.R
 
 class WeightChartCanvasView(context: Context, attrs: AttributeSet) : View(context, attrs) {
 
     companion object {
-        private const val NUMBER_DIVISOR_HEIGHT = 150
         private const val LIMIT_OF_LIST = 12
+        private const val LIMIT_OF_ADD_LIST = 5
         private const val RANDOM_NUMBER_FROM = 50
         private const val RANDOM_NUMBER_UTIL = 120
-        private const val NUMBER_MINUS_WIDTH = 10
-        private const val NUMBER_DIVISOR_WIDTH = 15f
+        private const val NUMBER_MINUS_WIDTH = 6
+        private const val NUMBER_MINUS_WIDTH_SIZE_IN = 11
+        private const val NUMBER_MINUS_HEIGHT = 15
+        private const val NUMBER_STROKE_WIDTH = 4f
+        private const val NUMBER_PIVOT_STROKE_WIDTH = 6f
+        private const val NUMBER_LINE_DASH_STROKE_WIDTH = 2f
+        private const val NUMBER_OF_TEXT_SIZE = 18f
     }
 
     private var widths = 0f
     private var heights = 0f
-    private var weightData = mutableListOf<Weight>()
-    private var scaleAxisY = 0f
-    private var path = Path()
+    private var dX = 0f
+    private var dY = 0f
+    private var sizeInt = 0
+    private val path = Path()
+    private var isAddData = false
+    private var weightList: MutableList<Int> = mutableListOf()
     private var moveX = 0f
     private var startMove = 0f
     private var stopMove = 0f
     private var distanceMove = 0f
-    private var isAddData = false
-    private var start = 0f
     private var oldDistance = 0f
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         if (!isAddData) {
-            addData()
+            initData()
             isAddData = true
         }
         widths = width.toFloat()
         heights = height.toFloat()
-        scaleAxisY = heights / NUMBER_DIVISOR_HEIGHT
-        drawNumberWeight(canvas)
-        drawAxisLine(canvas)
-        drawText(canvas)
+        dX = (width / NUMBER_MINUS_WIDTH).toFloat()
+        dY = (height / NUMBER_MINUS_HEIGHT).toFloat()
+        sizeInt = (width / NUMBER_MINUS_WIDTH_SIZE_IN)
+        drawWeight(canvas)
+        drawGraph(canvas)
+        drawData(canvas)
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -59,7 +66,6 @@ class WeightChartCanvasView(context: Context, attrs: AttributeSet) : View(contex
                 moveX = x
                 stopMove = x
                 distanceMove = startMove - stopMove
-
                 path.reset()
                 invalidate()
             }
@@ -70,73 +76,82 @@ class WeightChartCanvasView(context: Context, attrs: AttributeSet) : View(contex
         return true
     }
 
-    private fun addData() {
-        weightData.apply {
-            for (i in 1..LIMIT_OF_LIST) {
-                weightData.add(Weight(i, Random.nextInt(RANDOM_NUMBER_FROM, RANDOM_NUMBER_UTIL)))
-            }
-        }
+    private fun drawGraph(canvas: Canvas) {
+        canvas.drawLine(0f, dY * 14, width.toFloat(), dY * 14, paintPivot)
+        canvas.drawLine(0f, dY, 0f, dY * 14, paintPivot)
     }
 
-    private fun drawNumberWeight(canvas: Canvas?) {
-        val rangeWidth = widths / NUMBER_MINUS_WIDTH - NUMBER_DIVISOR_WIDTH
-        start = -distanceMove - oldDistance
-        weightData.forEachIndexed { index, it ->
-            if (index < weightData.size - 1) {
+    private fun drawData(canvas: Canvas) {
+        var start = -distanceMove - oldDistance
+        weightList.forEachIndexed { index, i ->
+            if (index < weightList.size - 1) {
                 val startX = start
-                val startY = heights - it.weight * scaleAxisY
-                val endX = start + rangeWidth
-                val endY = heights - (weightData[index + 1].weight) * scaleAxisY
-                canvas?.drawText("${it.weight}", start, startY - 30f, textPaint)
-                canvas?.drawLine(startX, startY, endX, endY, linePaint)
-                canvas?.drawCircle(startX, startY, 12f, pointPaint)
-                canvas?.drawText("${it.month}", start + 20f, heights - 20f, textPaint)
+                val startY = ((i - 140f) / (-10f)) * dY
+                val endX = startX + dX
+                val endY = ((weightList[index + 1] - 140f) / (-10f)) * dY
+                canvas.drawText(i.toString(), startX, startY - 50, paintText)
+                canvas.drawText((index + 1).toString(), startX, dY * 14.5f, paintText)
+                canvas.drawLine(startX, startY, endX, endY, paintLine)
+                canvas.drawCircle(startX, startY, 10f, paintDot)
                 path.moveTo(startX, startY)
-                path.lineTo(start, heights)
-                canvas?.drawPath(path, dashedLinePaint)
-                start += rangeWidth
+                path.lineTo(start, dY * 14)
+                canvas.drawPath(path, paintLineDash)
+                path.moveTo(startX, startY)
+                path.lineTo(0f, startY)
+                canvas.drawPath(path, paintLineDash)
+                start += dX
             }
         }
     }
 
-    private fun drawAxisLine(canvas: Canvas) {
-        canvas.drawLine(0f, 0f, 0f, height.toFloat(), axisLinePaint)
-        canvas.drawLine(0f, height.toFloat(), width.toFloat(), height.toFloat(), axisLinePaint)
+    private fun drawWeight(canvas: Canvas) {
+        canvas.drawText(
+            context.getString(R.string.weight_chart_canvas_weight_text),
+            0f,
+            dY,
+            paintText
+        )
     }
 
-    private fun drawText(canvas: Canvas) {
-        canvas.drawText("Kg", 20f, 30f, textPaint)
+    private fun initData() {
+        for (i in 1..LIMIT_OF_LIST) {
+            weightList.add((RANDOM_NUMBER_FROM..RANDOM_NUMBER_UTIL).random())
+        }
     }
 
-    private val dashedLinePaint = Paint().apply {
-        Paint.ANTI_ALIAS_FLAG
-        color = Color.BLACK
+    private fun addData() {
+        for (i in 1..LIMIT_OF_ADD_LIST) {
+            weightList.add((RANDOM_NUMBER_FROM..RANDOM_NUMBER_UTIL).random())
+        }
+    }
+
+    private val paintLine = Paint().apply {
         style = Paint.Style.STROKE
-        strokeWidth = 5f
-        pathEffect = DashPathEffect(floatArrayOf(5f, 5f), 0f)
-
-    }
-    private val linePaint = Paint().apply {
-        Paint.ANTI_ALIAS_FLAG
+        strokeWidth = NUMBER_STROKE_WIDTH
         color = Color.BLACK
-        strokeWidth = 7f
+    }
+
+    private val paintText = Paint().apply {
+        textSize = NUMBER_OF_TEXT_SIZE
+        strokeWidth = NUMBER_STROKE_WIDTH
+        color = Color.BLACK
+    }
+
+    private val paintPivot = Paint().apply {
+        style = Paint.Style.STROKE
+        strokeWidth = NUMBER_PIVOT_STROKE_WIDTH
+        color = Color.BLACK
+    }
+
+    private val paintDot = Paint().apply {
         style = Paint.Style.FILL
     }
 
-    private val pointPaint = Paint().apply {
-        Paint.ANTI_ALIAS_FLAG
-        color = Color.RED
-    }
-
-    private val textPaint = Paint().apply {
-        Paint.ANTI_ALIAS_FLAG
-        color = Color.BLUE
-        textSize = 30f
-    }
-
-    private val axisLinePaint = Paint().apply {
-        Paint.ANTI_ALIAS_FLAG
-        color = Color.RED
-        strokeWidth = 10f
+    private val paintLineDash = Paint().apply {
+        Paint.DITHER_FLAG
+        strokeWidth = NUMBER_LINE_DASH_STROKE_WIDTH
+        style = Paint.Style.STROKE
+        setARGB(255, 0, 0, 0)
+        pathEffect = DashPathEffect(floatArrayOf(10f, 18f, 10f, 18f), 0f)
     }
 }

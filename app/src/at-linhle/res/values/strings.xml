@@ -53,4 +53,5 @@
     <string name="weight_chart_button_description">Weight Chart</string>
     <!--Week11-->
     <string name="week_eleven_button_description">Week 11</string>
+    <string name="weight_chart_canvas_weight_text">Weight(Kg)</string>
 </resources>
