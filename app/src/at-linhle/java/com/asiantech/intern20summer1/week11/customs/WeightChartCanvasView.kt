@@ -7,15 +7,15 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.week11.models.Weight
 
 class WeightChartCanvasView(context: Context, attrs: AttributeSet) : View(context, attrs) {
 
     companion object {
         private const val LIMIT_OF_LIST = 12
-        private const val LIMIT_OF_ADD_LIST = 5
         private const val RANDOM_NUMBER_FROM = 50
         private const val RANDOM_NUMBER_UTIL = 120
-        private const val NUMBER_MINUS_WIDTH = 6
+        private const val NUMBER_MINUS_WIDTH = 12
         private const val NUMBER_MINUS_WIDTH_SIZE_IN = 11
         private const val NUMBER_MINUS_HEIGHT = 15
         private const val NUMBER_STROKE_WIDTH = 4f
@@ -31,7 +31,7 @@ class WeightChartCanvasView(context: Context, attrs: AttributeSet) : View(contex
     private var sizeInt = 0
     private val path = Path()
     private var isAddData = false
-    private var weightList: MutableList<Int> = mutableListOf()
+    private var weightList: MutableList<Weight> = mutableListOf()
     private var moveX = 0f
     private var startMove = 0f
     private var stopMove = 0f
@@ -59,7 +59,7 @@ class WeightChartCanvasView(context: Context, attrs: AttributeSet) : View(contex
         val x = event.x
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
-                addData()
+                initData()
                 startMove = x
             }
             MotionEvent.ACTION_MOVE -> {
@@ -86,11 +86,11 @@ class WeightChartCanvasView(context: Context, attrs: AttributeSet) : View(contex
         weightList.forEachIndexed { index, i ->
             if (index < weightList.size - 1) {
                 val startX = start
-                val startY = ((i - 140f) / (-10f)) * dY
+                val startY = ((i.weight - 140f) / (-10f)) * dY
                 val endX = startX + dX
-                val endY = ((weightList[index + 1] - 140f) / (-10f)) * dY
-                canvas.drawText(i.toString(), startX, startY - 50, paintText)
-                canvas.drawText((index + 1).toString(), startX, dY * 14.5f, paintText)
+                val endY = ((weightList[index + 1].weight - 140f) / (-10f)) * dY
+                canvas.drawText(i.weight.toString(), startX, startY - 50, paintText)
+                canvas.drawText(i.month.toString(), startX, dY * 14.5f, paintText)
                 canvas.drawLine(startX, startY, endX, endY, paintLine)
                 canvas.drawCircle(startX, startY, 10f, paintDot)
                 path.moveTo(startX, startY)
@@ -115,13 +115,7 @@ class WeightChartCanvasView(context: Context, attrs: AttributeSet) : View(contex
 
     private fun initData() {
         for (i in 1..LIMIT_OF_LIST) {
-            weightList.add((RANDOM_NUMBER_FROM..RANDOM_NUMBER_UTIL).random())
-        }
-    }
-
-    private fun addData() {
-        for (i in 1..LIMIT_OF_ADD_LIST) {
-            weightList.add((RANDOM_NUMBER_FROM..RANDOM_NUMBER_UTIL).random())
+            weightList.add(Weight(i, (RANDOM_NUMBER_FROM..RANDOM_NUMBER_UTIL).random()))
         }
     }
 
