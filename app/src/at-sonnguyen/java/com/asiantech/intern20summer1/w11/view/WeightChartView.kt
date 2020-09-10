@@ -25,6 +25,9 @@ class WeightChartView(context: Context, attributeSet: AttributeSet) : View(conte
         private const val DASH_LINE_STROKE_WIDTH = 2f
         private const val DASH_PATH_EFFECT = 5f
         private const val DASH_PATH_PHASE = 10f
+        private const val MAX_RANDOM = 8
+        private const val MIN_RANDOM = 5
+        private const val MULTIPLIER = 10
 
     }
 
@@ -130,7 +133,7 @@ class WeightChartView(context: Context, attributeSet: AttributeSet) : View(conte
         var startX = START_POINT
         var startY = height - START_POINT
         for (i in 1 until STEP_NUMBER) {
-            val number = Random.nextInt(8) + 5
+            val number = Random.nextInt(MAX_RANDOM) + MIN_RANDOM
             path.moveTo(
                 START_DIV_POINT,
                 (height - START_POINT) / STEP_NUMBER * (STEP_NUMBER - number)
@@ -165,7 +168,7 @@ class WeightChartView(context: Context, attributeSet: AttributeSet) : View(conte
             )
             startX = width.toFloat() / STEP_NUMBER * i
             startY = (height - START_POINT) / STEP_NUMBER * (STEP_NUMBER - number)
-            val weight = number * 10
+            val weight = number * MULTIPLIER
             canvas?.drawText(
                 weight.toString(),
                 width.toFloat() / STEP_NUMBER * i + START_POINT,
