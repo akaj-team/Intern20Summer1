@@ -8,13 +8,20 @@ class Post() {
         private const val RANDOM_LIKES_RANGE = 4
     }
 
-    @SerializedName("id") internal var id: Int? = null
-    @SerializedName("user_id") internal var userId: String? = null
-    @SerializedName("image") internal var image: String? = null
-    @SerializedName("content") internal var content: String? = null
-    @SerializedName("created_at") internal var createAt: String? = null
-    @SerializedName("like_flag") internal var likeFlag: Boolean = false
-    @SerializedName("like_count") internal var likeCount: Int = 0
+    @SerializedName("id")
+    internal var id: Int? = null
+    @SerializedName("user_id")
+    internal var userId: String? = null
+    @SerializedName("image")
+    internal var image: String? = null
+    @SerializedName("content")
+    internal var content: String? = null
+    @SerializedName("created_at")
+    internal var createAt: String? = null
+    @SerializedName("like_flag")
+    internal var likeFlag: Boolean = false
+    @SerializedName("like_count")
+    internal var likeCount: Int = 0
     internal var isPluralLike: Boolean = false
 
     constructor(
@@ -30,22 +37,5 @@ class Post() {
         this.likeFlag = likeFlag
         this.likeCount = likeCount
         this.isPluralLike = likeCount > 1
-    }
-
-    fun createTimeLineItemsList(numItems: Int): MutableList<Post> {
-        val posts = mutableListOf<Post>()
-        for (i in 1..numItems) {
-            val random = (0..RANDOM_LIKES_RANGE).random()
-            posts.add(
-                Post(
-                    "Name $i",
-                    "",
-                    "This is content, this is content this is content this is content",
-                    random != 0 && i % 2 == 0,
-                    random
-                )
-            )
-        }
-        return posts
     }
 }
