@@ -241,10 +241,7 @@ class ChessBoardView(context: Context, attributeSet: AttributeSet) : View(contex
     }
 
     private fun drawBorder(canvas: Canvas?) {
-        // ngang 1
         canvas?.drawLine(START_POINT, START_POINT, width.toFloat(), START_POINT, paint)
-
-        // doc trai
         canvas?.drawLine(
             START_POINT,
             START_POINT,
@@ -252,7 +249,6 @@ class ChessBoardView(context: Context, attributeSet: AttributeSet) : View(contex
             width.toFloat() / COLUM_NUMBER * ROW_NUMBER,
             paint
         )
-        //doc phai
         canvas?.drawLine(
             width.toFloat() - 2,
             START_POINT,
@@ -260,8 +256,6 @@ class ChessBoardView(context: Context, attributeSet: AttributeSet) : View(contex
             width.toFloat() / COLUM_NUMBER * ROW_NUMBER,
             paint
         )
-
-        // ngang duoi
         canvas?.drawLine(
             START_POINT,
             width.toFloat() / COLUM_NUMBER * ROW_NUMBER,
