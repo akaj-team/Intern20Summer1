@@ -108,6 +108,12 @@ class WeightChartView(context: Context, attributeSet: AttributeSet) : View(conte
                 height - START_POINT * 2,
                 paintText
             )
+            canvas?.drawText(
+                context.getString(R.string.w11_chart_root_text),
+                START_DIV_POINT,
+                height - START_POINT,
+                paintText
+            )
         }
         for (i in 1 until STEP_NUMBER) {
             canvas?.drawLine(
@@ -136,10 +142,10 @@ class WeightChartView(context: Context, attributeSet: AttributeSet) : View(conte
                 (height - START_POINT) / STEP_NUMBER * (STEP_NUMBER - number)
             )
             canvas?.drawPath(path, dashLinePaint)
-            path.moveTo(width.toFloat() / STEP_NUMBER * i, height - START_POINT *2)
+            path.moveTo(width.toFloat() / STEP_NUMBER * i, height - START_POINT * 2)
             path.quadTo(
                 width.toFloat() / STEP_NUMBER * i,
-                height.toFloat() - START_POINT*2,
+                height.toFloat() - START_POINT * 2,
                 width.toFloat() / STEP_NUMBER * i,
                 (height - START_POINT) / STEP_NUMBER * (STEP_NUMBER - number)
             )
@@ -162,7 +168,7 @@ class WeightChartView(context: Context, attributeSet: AttributeSet) : View(conte
             val weight = number * 10
             canvas?.drawText(
                 weight.toString(),
-                width.toFloat() / STEP_NUMBER * i+ START_POINT,
+                width.toFloat() / STEP_NUMBER * i + START_POINT,
                 (height - START_POINT) / STEP_NUMBER * (STEP_NUMBER - number) - START_POINT,
                 paintText
             )
@@ -187,6 +193,7 @@ class WeightChartView(context: Context, attributeSet: AttributeSet) : View(conte
         dashLinePaint.color = Color.BLACK
         dashLinePaint.style = Paint.Style.STROKE
         dashLinePaint.strokeWidth = DASH_LINE_STROKE_WIDTH
-        dashLinePaint.pathEffect = DashPathEffect(floatArrayOf(DASH_PATH_EFFECT, DASH_PATH_EFFECT), DASH_PATH_PHASE)
+        dashLinePaint.pathEffect =
+            DashPathEffect(floatArrayOf(DASH_PATH_EFFECT, DASH_PATH_EFFECT), DASH_PATH_PHASE)
     }
 }

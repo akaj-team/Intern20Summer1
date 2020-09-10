@@ -61,4 +61,5 @@
     <string name="w11_weight_chart_button_text">Weight Chart</string>
     <string name="w11_weight_text">Weight</string>
     <string name="w11_month_text">Month</string>
+    <string name="w11_chart_root_text">0</string>
 </resources>
