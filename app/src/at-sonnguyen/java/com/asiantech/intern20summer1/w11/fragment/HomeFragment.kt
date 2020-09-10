@@ -30,5 +30,8 @@ class HomeFragment : Fragment(){
         btnChessBoard.setOnClickListener {
             (activity as? HomeActivity)?.replaceFragment(ChessBoardFragment.newInstance())
         }
+        btnWeightChart.setOnClickListener {
+            (activity as? HomeActivity)?.replaceFragment(WeightChartFragment.newInstance())
+        }
     }
 }

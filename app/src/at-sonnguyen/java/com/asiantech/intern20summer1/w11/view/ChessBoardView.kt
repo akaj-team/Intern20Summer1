@@ -11,7 +11,7 @@ import com.asiantech.intern20summer1.w11.model.Position
 class ChessBoardView(context: Context, attributeSet: AttributeSet) : View(context, attributeSet) {
     private lateinit var paint: Paint
     private lateinit var markedPaint: Paint
-    private var points = arrayListOf<Position>(
+    private var points = arrayListOf(
         Position(1, 2),
         Position(7, 2),
         Position(2, 3),
@@ -23,6 +23,7 @@ class ChessBoardView(context: Context, attributeSet: AttributeSet) : View(contex
         Position(4, 6),
         Position(6, 6)
     )
+    private var pointsTwoMark = arrayOf(3, 6)
 
     companion object {
         private const val START_POINT = 3f
@@ -47,12 +48,12 @@ class ChessBoardView(context: Context, attributeSet: AttributeSet) : View(contex
         drawHorizontalLine(canvas)
         drawVerticalLine(canvas)
         drawDiagonalLine(canvas)
-        markTwoPointLeft(canvas, 3)
-        markTwoPointLeft(canvas, 6)
-        markTwoPointRight(canvas, 3)
-        markTwoPointRight(canvas, 6)
-        points.forEach{ it ->
-            markFourPoint(canvas,it.x , it.y)
+        pointsTwoMark.forEach {
+            markTwoPointLeft(canvas, it)
+            markTwoPointRight(canvas, it)
+        }
+        points.forEach {
+            markFourPoint(canvas, it.x, it.y)
         }
     }
 
