@@ -1,6 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Intern20Summer1</string>
+    <!--    w3-layout ui-->
+    <string name="app_name">[Huy]Intern20Summer1</string>
+    <string name="don_t_have_an_account_register_now">Don\'t have an account? Register Now</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="login">login</string>
+    <string name="register_to_music_festival">Register to Music Festival</string>
+    <string name="register">Register</string>
+    <string name="by_registering_you_agree_to_terms_conditions_and_privacy_policy_of_the_festival"><![CDATA[By registering you agree to terms & Conditions\nand Privacy Policy of the Festival]]></string>
+    <string name="full_name">Full Name</string>
+    <string name="email">Email</string>
+    <string name="mobile_number">Mobile Number</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="facebook">FaceBook</string>
+    <string name="google">Google</string>
+    <string name="email_id">Email ID</string>
+    <string name="or">OR</string>
+    <string name="enter_input">please, Enter input full your information</string>
+    <string name="enter_input_your_name">Enter input your name</string>
+    <string name="enter_input_your_email">Enter input your email</string>
+    <string name="avatar">Avatar</string>
+    <string name="please_rewrite_your_password">Please, rewrite your password</string>
+    <string name="enter_input_your_password">Enter input your password</string>
+    <string name="invalid_email">Invalid email</string>
+    <string name="invalid_number_phone">Invalid number phone</string>
+    <string name="invalid_password">Invalid password</string>
+    <string name="password_does_not_match">Password does not match</string>
+    <string name="register_complete">Register complete!</string>
+    <string name="char_double_dot">"  : "</string>
+    <string name="invalid_account_or_password">Invalid account or password</string>
+    <string name="select">Select</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="enter_email_and_password">Enter your email and password</string>
+    <!--   W4-intent-fragment-activity-->
     <string name="email_title">Enter your email ID</string>
     <string name="pass_title">Type your password</string>
     <string name="rewrite_pass_title">Retype your password</string>
@@ -15,4 +49,25 @@
     <string name="text_goto_google">Go to Google page</string>
     <string name="text_goto_facebook">Go to Facebook</string>
     <string name="text_goto_twitter">Go to Twitter</string>
+    <string name="w6_tab_layout_tab0_text">HOME</string>
+    <string name="w6_tab_layout_tab1_text">INFO</string>
+    <string name="w6_tab_layout_tab2_text">ANOTHER</string>
+    <string name="w6_name_english_kangaroo">Kangaroo</string>
+    <string name="w6_name_france_kangaroo">Le Kangourou</string>
+    <string name="w6_name_english_koala">Koala</string>
+    <string name="w6_name_france_koala">Le Koala</string>
+    <string name="w6_name_english_Platypus">Platypus</string>
+    <string name="w6_name_france_platypus">Le Ornithorynque</string>
+    <string name="w6_text_next">Next</string>
+    <string name="w6_text_done">Done</string>
+    <string name="w6_text_step">Step %s</string>
+    <string name="intern_summer_2020">Intern Summer 2020</string>
+    <string name="w1_java">W1 JAVA</string>
+    <string name="w2_kotlin">W2 KOTLIN</string>
+    <string name="w3_layout">W3 LAYOUT</string>
+    <string name="w4_activity_fragment">W4 ACTIVITY + FRAGMENT</string>
+    <string name="w5_recycle_view">W5 RECYCLE VIEW</string>
+    <string name="w6_view_pager_tab_layout">W6 VIEW PAGER + TAB LAYOUT</string>
+    <string name="crop_complete">Crop complete</string>
+    <string name="w4_crop_your_picture">Crop your picture</string>
 </resources>

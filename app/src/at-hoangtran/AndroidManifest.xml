@@ -10,12 +10,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".week11.CustomViewActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".week6.IndicatorActivity" />
+        <activity android:name=".week6.TabLayoutActivity" />
+        <activity android:name=".week4.LayoutActivity" />
     </application>
-
 </manifest>
+
+

@@ -1,4 +1,7 @@
 <resources>
+    <String name="week4">week4</String>
+    <String name="week5">week5</String>
+    <String name="week6">week6</String>
     <string name="app_name">Intern20Summer1</string>
     <string name="email_hint">Email</string>
     <string name="pass_hint">Password</string>
@@ -9,4 +12,9 @@
     <string name="sign_up_button">SIGN UP</string>
     <string name="not_register">Not Registered yet? </string>
     <string name="sign">Sign up!</string>
+    <string name="tab_layout_text_view_home">Home</string>
+    <string name="tab_layout_text_view_info">Info</string>
+    <string name="tab_layout_text_view_another">Another</string>
+    <string name="next">Next</string>
+    <string name="step_count">Step ${arguments?.getInt(KEY_POS)}</string>
 </resources>
