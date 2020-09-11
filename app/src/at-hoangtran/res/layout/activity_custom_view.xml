@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context="com.asiantech.intern20summer1.week11.CustomViewActivity">
+
+    <Button
+        android:id="@+id/btnChessBoard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="30dp"
+        android:background="@drawable/bg_button"
+        android:padding="10dp"
+        android:text="@string/chess_board"
+        tools:ignore="ButtonStyle" />
+
+    <Button
+        android:id="@+id/btnWeightData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_button"
+        android:padding="10dp"
+        android:text="@string/weight_data"
+        tools:ignore="ButtonStyle" />
+
+    <FrameLayout
+        android:id="@+id/flContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>
