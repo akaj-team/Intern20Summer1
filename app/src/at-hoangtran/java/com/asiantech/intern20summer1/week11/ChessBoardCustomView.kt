@@ -11,20 +11,31 @@ class ChessBoardCustomView(context: Context, attributeSet: AttributeSet) :
     View(context, attributeSet) {
 
     companion object {
-        private const val COL = 9
-        private const val ROW = 10
+        private const val COL = 8
+        private const val ROW = 9
+        private const val OUTLINE_WIDTH = 10f
+        private const val INLINE_WIDTH = 4f
+        private const val SPOT_LINE_DISTANCE = 10f
     }
 
     private var size: Float = 0f
     private val paintOut = Paint(Paint.ANTI_ALIAS_FLAG)
     private val paintIn = Paint(Paint.ANTI_ALIAS_FLAG)
+    private var d0: Float = 0f
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         initPaint()
-        size = (width / COL).toFloat()
-        canvas.drawRect(30f, 30f, size * 9 - 30f, size * 10 - 30f, paintOut)
-        canvas.drawRect(60f, 60f, size * 9 - 60f, size * 10 - 60f, paintIn)
+        size = (width / (COL + 1)).toFloat()
+        d0 = size / 2
+        canvas.drawRect(
+            size / 6,
+            size / 6,
+            size * 8 + d0 + size / 3,
+            size * 9 + d0 + size / 3,
+            paintOut
+        )
+        canvas.drawRect(d0, d0, size * 8 + d0, size * 9 + d0, paintIn)
         drawHorizontalLine(canvas)
         drawVerticalLine(canvas)
         drawDiagonalLine(canvas)
@@ -34,103 +45,105 @@ class ChessBoardCustomView(context: Context, attributeSet: AttributeSet) :
     private fun initPaint() {
         paintOut.color = Color.BLACK
         paintOut.style = Paint.Style.STROKE
-        paintOut.strokeWidth = 10f
+        paintOut.strokeWidth = OUTLINE_WIDTH
         paintIn.color = Color.BLACK
         paintIn.style = Paint.Style.STROKE
-        paintIn.strokeWidth = 4f
+        paintIn.strokeWidth = INLINE_WIDTH
     }
 
     private fun drawHorizontalLine(canvas: Canvas) {
-        for (i in 2..ROW) {
-            canvas.drawLine(60f, size * i - 60f, size * 9 - 60f, size * i - 60f, paintIn)
+        for (i in 1..ROW) {
+            canvas.drawLine(
+                d0, size * i + d0, size * 8 + d0, size * i + d0, paintIn
+            )
         }
     }
 
     private fun drawVerticalLine(canvas: Canvas) {
-        for (i in 2..COL) {
-            canvas.drawLine(size * i - 60f, size - 60f, size * i - 60f, size * 5 - 60f, paintIn)
+        for (i in 1..COL) {
+            canvas.drawLine(size * i + d0, d0, size * i + d0, size * 4 + d0, paintIn)
             canvas.drawLine(
-                size * i - 60f,
-                size * 6 - 60f,
-                size * i - 60f,
-                size * ROW - 60f,
+                size * i + d0,
+                size * 5 + d0,
+                size * i + d0,
+                size * (COL + 1) + d0,
                 paintIn
             )
         }
     }
 
     private fun drawDiagonalLine(canvas: Canvas) {
-        canvas.drawLine(size * 4 - 60f, 60f, size * 6 - 60f, size * 3 - 60f, paintIn)
-        canvas.drawLine(size * 4 - 60f, size * 3 - 60f, size * 6 - 60f, size - 60f, paintIn)
-        canvas.drawLine(size * 4 - 60f, size * 8 - 60f, size * 6 - 60f, size * 10 - 60f, paintIn)
-        canvas.drawLine(size * 4 - 60f, size * 10 - 60f, size * 6 - 60f, size * 8 - 60f, paintIn)
+        canvas.drawLine(size * 4 - d0, d0, size * 6 - d0, size * 3 - d0, paintIn)
+        canvas.drawLine(size * 4 - d0, size * 3 - d0, size * 6 - d0, size - d0, paintIn)
+        canvas.drawLine(size * 4 - d0, size * 8 - d0, size * 6 - d0, size * 10 - d0, paintIn)
+        canvas.drawLine(size * 4 - d0, size * 10 - d0, size * 6 - d0, size * 8 - d0, paintIn)
     }
 
     private fun drawRightSpot(canvas: Canvas, x: Float, y: Float) {
         canvas.drawLine(
-            x - 50f,
-            y - 70f,
-            x + size / 3 - 60f,
-            y - 70f,
+            x - d0 + SPOT_LINE_DISTANCE,
+            y - d0 - SPOT_LINE_DISTANCE,
+            x + size / 3 - d0,
+            y - d0 - SPOT_LINE_DISTANCE,
             paintIn
         )
 
         canvas.drawLine(
-            x - 50f,
-            y - 50f,
-            x + size / 3 - 60f,
-            y - 50f,
+            x - d0 + SPOT_LINE_DISTANCE,
+            y - d0 + SPOT_LINE_DISTANCE,
+            x + size / 3 - d0,
+            y - d0 + SPOT_LINE_DISTANCE,
             paintIn
         )
 
 
         canvas.drawLine(
-            x - 50f,
-            y - 70f,
-            x - 50f,
-            y - size / 3 - 60f,
+            x - d0 + SPOT_LINE_DISTANCE,
+            y - d0 - SPOT_LINE_DISTANCE,
+            x - d0 + SPOT_LINE_DISTANCE,
+            y - size / 3 - d0,
             paintIn
         )
 
         canvas.drawLine(
-            x - 50f,
-            y - 50f,
-            x - 50f,
-            y + size / 3 - 60f,
+            x - d0 + SPOT_LINE_DISTANCE,
+            y - d0 + SPOT_LINE_DISTANCE,
+            x - d0 + SPOT_LINE_DISTANCE,
+            y + size / 3 - d0,
             paintIn
         )
     }
 
     private fun drawLeftSpot(canvas: Canvas, x: Float, y: Float) {
         canvas.drawLine(
-            x - 70f,
-            y - 70f,
-            x - size / 3 - 60f,
-            y - 70f,
+            x - d0 - SPOT_LINE_DISTANCE,
+            y - d0 - SPOT_LINE_DISTANCE,
+            x - size / 3 - d0,
+            y - d0 - SPOT_LINE_DISTANCE,
             paintIn
         )
 
         canvas.drawLine(
-            x - 70f,
-            y - 50f,
-            x - size / 3 - 60f,
-            y - 50f,
+            x - d0 - SPOT_LINE_DISTANCE,
+            y - d0 + SPOT_LINE_DISTANCE,
+            x - size / 3 - d0,
+            y - d0 + SPOT_LINE_DISTANCE,
             paintIn
         )
 
         canvas.drawLine(
-            x - 70f,
-            y - 70f,
-            x - 70f,
-            y - size / 3 - 60f,
+            x - d0 - SPOT_LINE_DISTANCE,
+            y - d0 - SPOT_LINE_DISTANCE,
+            x - d0 - SPOT_LINE_DISTANCE,
+            y - size / 3 - d0,
             paintIn
         )
 
         canvas.drawLine(
-            x - 70f,
-            y - 50f,
-            x - 70f,
-            y + size / 3 - 60f,
+            x - d0 - SPOT_LINE_DISTANCE,
+            y - d0 + SPOT_LINE_DISTANCE,
+            x - d0 - SPOT_LINE_DISTANCE,
+            y + size / 3 - d0,
             paintIn
         )
     }
@@ -173,7 +186,6 @@ class ChessBoardCustomView(context: Context, attributeSet: AttributeSet) :
 
         drawRightSpot(canvas, size * 8, size * 8)
         drawLeftSpot(canvas, size * 8, size * 8)
-
 
 
     }
