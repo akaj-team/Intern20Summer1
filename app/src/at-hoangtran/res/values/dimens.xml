@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+<!--    week4-->
     <dimen name="relative_layout_height">50dp</dimen>
     <dimen name="logo_margin_top">40dp</dimen>
     <dimen name="logo_margin_bottom">30dp</dimen>
@@ -24,4 +25,14 @@
     <dimen name="register_text_view_padding_right">5dp</dimen>
     <dimen name="stroke_width">1dp</dimen>
     <dimen name="corner_radius">1000dp</dimen>
+<!--    week6-->
+    <dimen name="dot_indicator_corner_radius">10dp</dimen>
+    <dimen name="dot_indicator_margin_start">10dp</dimen>
+    <dimen name="dot_indicator_margin_end">10dp</dimen>
+    <dimen name="dot_indicator_margin_bottom">20dp</dimen>
+    <dimen name="dot_indicator_spacing">4dp</dimen>
+    <dimen name="dot_size">20dp</dimen>
+    <dimen name="text_view_next_margin">20dp</dimen>
+    <dimen name="text_view_next_text_size">40sp</dimen>
+    <dimen name="text_view_fragment_indicator_text_size">40sp</dimen>
 </resources>

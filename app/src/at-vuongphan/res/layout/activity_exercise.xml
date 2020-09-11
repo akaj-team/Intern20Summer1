@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background">
+
+    <RelativeLayout
+        android:id="@+id/rlButton1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/icon_image_margin_top">
+
+        <Button
+            android:id="@+id/btnW1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_exercise_w1" />
+
+        <Button
+            android:id="@+id/btnW2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/layout_margin_left"
+            android:layout_toRightOf="@id/btnW1"
+            android:text="@string/button_exercise_w2" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rlButton1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/edit_text_margin_top">
+
+        <Button
+            android:id="@+id/btnW3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_exercise_w3" />
+
+        <Button
+            android:id="@+id/btnW4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/layout_margin_left"
+            android:layout_toRightOf="@id/btnW3"
+            android:text="@string/button_exercise_w4" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlButton3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rlButton2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/edit_text_margin_top">
+
+        <Button
+            android:id="@+id/btnW5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_exercise_w5" />
+
+        <Button
+            android:id="@+id/btnW6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/layout_margin_left"
+            android:layout_toRightOf="@id/btnW5"
+            android:text="@string/button_exercise_w6" />
+    </RelativeLayout>
+</RelativeLayout>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <corners android:radius="@dimen/background_button_corners_radius" />
+    <corners android:radius="@dimen/background_button_week_3_corners_radius" />
 
     <solid android:color="@color/colorCustomButtonSolid" />
 
