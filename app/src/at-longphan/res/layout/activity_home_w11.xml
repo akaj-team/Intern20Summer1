@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/containerHomeW11"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.asiantech.intern20summer1.week11.activity.HomeActivityWeekEleven">
+
+    <com.asiantech.intern20summer1.week11.customview.SmileyView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btnChessTable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_chess_table_text"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/btnWeightTracking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_weight_tracking_text"
+            android:textAllCaps="false" />
+    </LinearLayout>
+</FrameLayout>
