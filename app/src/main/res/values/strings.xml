@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Intern20Summer1</string>
+    <string name="add_new_post_fragment_toast_fail">Fail to add new post</string>
 </resources>

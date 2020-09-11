@@ -24,4 +24,8 @@
     <string name="register_to_music_festival">Register to Music Festival</string>
     <string name="agreement">By registering you agree to Term &amp; Conditions and Privacy Policy of the Festival</string>
     <string name="home">Home</string>
+    <string name="like_text_view_description">Like</string>
+    <string name="status_text_view">Recording history</string>
+    <string name="detail_status_text_view">Life is short. Time is fast. No reply. No rewind. So enjoy every moment as it comes</string>
+    <string name="content_edit_text_description">What do you think ?</string>
 </resources>
