@@ -22,6 +22,13 @@ open class ChessTable(context: Context?, attrs: AttributeSet?, defStyleAttr: Int
         private const val RANGE_BOUND_AND_WIDTH_BOX_RATIO = 1 / 10f
         private const val RANGE_AND_WIDTH_BOX_RATIO = 8 / 100f
         private const val AIM_LENGTH_AND_WIDTH_BOX_RATIO = 24 / 100f
+        private const val THREE = 3
+        private const val FOUR = 4
+        private const val FIVE = 5
+        private const val SIX = 6
+        private const val SEVEN = 7
+        private const val EIGHT = 8
+        private const val NINE = 9
     }
 
     private var widthSquareView = 0f
@@ -35,8 +42,8 @@ open class ChessTable(context: Context?, attrs: AttributeSet?, defStyleAttr: Int
     private var normalWhiteLine: Paint? = null
     private var aimLinePaint: Paint? = null
 
-    constructor(context: Context?) : this(context, null) {}
-    constructor(context: Context?, attrs: AttributeSet?) : this(context, attrs, 0) {}
+    //constructor(context: Context?) : this(context, null) {}
+    //constructor(context: Context?, attrs: AttributeSet?) : this(context, attrs, 0) {}
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         var w = MeasureSpec.getSize(widthMeasureSpec)
@@ -69,8 +76,8 @@ open class ChessTable(context: Context?, attrs: AttributeSet?, defStyleAttr: Int
                 RectF(
                     0f,
                     0f,
-                    widthSquareView + 4 * rangeBound,
-                    heightSquareView + 4 * rangeBound
+                    widthSquareView + FOUR * rangeBound,
+                    heightSquareView + FOUR * rangeBound
                 ),
                 BLACK_ROUND,
                 BLACK_ROUND,
@@ -83,8 +90,8 @@ open class ChessTable(context: Context?, attrs: AttributeSet?, defStyleAttr: Int
                 RectF(
                     rangeBound,
                     rangeBound,
-                    widthSquareView + 3 * rangeBound,
-                    heightSquareView + 3 * rangeBound
+                    widthSquareView + THREE * rangeBound,
+                    heightSquareView + THREE * rangeBound
                 ),
                 WHITE_ROUND,
                 WHITE_ROUND,
@@ -92,10 +99,10 @@ open class ChessTable(context: Context?, attrs: AttributeSet?, defStyleAttr: Int
             )
         }
         // 10 horizontal line
-        for (i in 0..9) {
+        for (i in 0..NUMBER_VERTICAL_BOX) {
             val startX = origin
             val startY = origin + widthBox * i
-            val endX = startX + 8 * widthBox
+            val endX = startX + NUMBER_HORIZONTAL_BOX * widthBox
             val endY = origin + widthBox * i
             val line = floatArrayOf(startX, startY, endX, endY)
             normalBlackLine?.let { canvas?.drawLines(line, it) }
@@ -106,16 +113,16 @@ open class ChessTable(context: Context?, attrs: AttributeSet?, defStyleAttr: Int
                 origin,
                 origin,
                 origin,
-                origin + 9 * widthBox,
+                origin + NUMBER_VERTICAL_BOX * widthBox,
                 it
             )
         }
         normalBlackLine?.let {
             canvas?.drawLine(
-                origin + 8 * widthBox,
+                origin + NUMBER_HORIZONTAL_BOX * widthBox,
                 origin + 0 * widthBox,
-                origin + 8 * widthBox,
-                origin + 9 * widthBox,
+                origin + NUMBER_HORIZONTAL_BOX * widthBox,
+                origin + NUMBER_VERTICAL_BOX * widthBox,
                 it
             )
         }
@@ -124,29 +131,29 @@ open class ChessTable(context: Context?, attrs: AttributeSet?, defStyleAttr: Int
          * ABOVE SIDE
          */
         //9 verLines above side(long: 4 wbox)
-        for (i in 0 until 9) {
+        for (i in 0 .. NUMBER_HORIZONTAL_BOX) {
             val startX = origin + widthBox * i
             val startY = origin
             val endX = origin + widthBox * i
-            val endY = origin + 4 * widthBox
+            val endY = origin + FOUR * widthBox
             val line = floatArrayOf(startX, startY, endX, endY)
             normalBlackLine?.let { canvas?.drawLines(line, it) }
         }
         // 2 across lines above side
         normalBlackLine?.let {
             canvas?.drawLine(
-                origin + widthBox * 3,
+                origin + widthBox * THREE,
                 origin,
-                origin + widthBox * 5,
+                origin + widthBox * FIVE,
                 origin + widthBox * 2,
                 it
             )
         }
         normalBlackLine?.let {
             canvas?.drawLine(
-                origin + widthBox * 5,
+                origin + widthBox * FIVE,
                 origin,
-                origin + widthBox * 3,
+                origin + widthBox * THREE,
                 origin + widthBox * 2,
                 it
             )
@@ -156,30 +163,30 @@ open class ChessTable(context: Context?, attrs: AttributeSet?, defStyleAttr: Int
          * BOTTOM SIDE
          */
         //9 verLine bottom side(long: 4 wbox)
-        for (i in 0 until 9) {
+        for (i in 0 .. NUMBER_HORIZONTAL_BOX) {
             val startX = origin + widthBox * i
-            val startY = origin + 5 * widthBox
+            val startY = origin + FIVE * widthBox
             val endX = origin + widthBox * i
-            val endY = origin + 9 * widthBox
+            val endY = origin + NUMBER_VERTICAL_BOX * widthBox
             val line = floatArrayOf(startX, startY, endX, endY)
             normalBlackLine?.let { canvas?.drawLines(line, it) }
         }
         // 2 across lines bottom side
         normalBlackLine?.let {
             canvas?.drawLine(
-                origin + widthBox * 3,
-                origin + widthBox * 7,
-                origin + widthBox * 5,
-                origin + widthBox * 9,
+                origin + widthBox * THREE,
+                origin + widthBox * SEVEN,
+                origin + widthBox * FIVE,
+                origin + widthBox * NINE,
                 it
             )
         }
         normalBlackLine?.let {
             canvas?.drawLine(
-                origin + widthBox * 5,
-                origin + widthBox * 7,
-                origin + widthBox * 3,
-                origin + widthBox * 9,
+                origin + widthBox * FIVE,
+                origin + widthBox * SEVEN,
+                origin + widthBox * THREE,
+                origin + widthBox * NINE,
                 it
             )
         }
@@ -189,32 +196,32 @@ open class ChessTable(context: Context?, attrs: AttributeSet?, defStyleAttr: Int
          */
         //full
         drawFullAim(canvas, origin + widthBox, origin + 2 * widthBox)
-        drawFullAim(canvas, origin + 2 * widthBox, origin + 3 * widthBox)
-        drawFullAim(canvas, origin + 4 * widthBox, origin + 3 * widthBox)
-        drawFullAim(canvas, origin + 6 * widthBox, origin + 3 * widthBox)
-        drawFullAim(canvas, origin + 7 * widthBox, origin + 2 * widthBox)
+        drawFullAim(canvas, origin + 2 * widthBox, origin + THREE * widthBox)
+        drawFullAim(canvas, origin + FOUR * widthBox, origin + THREE * widthBox)
+        drawFullAim(canvas, origin + SIX * widthBox, origin + THREE * widthBox)
+        drawFullAim(canvas, origin + SEVEN * widthBox, origin + 2 * widthBox)
         //half
-        drawAimTopRight(canvas, origin, origin + 3 * widthBox)
-        drawAimBottomRight(canvas, origin, origin + 3 * widthBox)
+        drawAimTopRight(canvas, origin, origin + THREE * widthBox)
+        drawAimBottomRight(canvas, origin, origin + THREE * widthBox)
 
-        drawAimTopLeft(canvas, origin + 8 * widthBox, origin + 3 * widthBox)
-        drawAimBottomLeft(canvas, origin + 8 * widthBox, origin + 3 * widthBox)
+        drawAimTopLeft(canvas, origin + EIGHT * widthBox, origin + THREE * widthBox)
+        drawAimBottomLeft(canvas, origin + EIGHT * widthBox, origin + THREE * widthBox)
 
         /**
          * drawAIM above side
          */
         //full
-        drawFullAim(canvas, origin + widthBox, origin + 7 * widthBox)
-        drawFullAim(canvas, origin + 2 * widthBox, origin + 6 * widthBox)
-        drawFullAim(canvas, origin + 4 * widthBox, origin + 6 * widthBox)
-        drawFullAim(canvas, origin + 6 * widthBox, origin + 6 * widthBox)
-        drawFullAim(canvas, origin + 7 * widthBox, origin + 7 * widthBox)
+        drawFullAim(canvas, origin + widthBox, origin + SEVEN * widthBox)
+        drawFullAim(canvas, origin + 2 * widthBox, origin + SIX * widthBox)
+        drawFullAim(canvas, origin + FOUR * widthBox, origin + SIX * widthBox)
+        drawFullAim(canvas, origin + SIX * widthBox, origin + SIX * widthBox)
+        drawFullAim(canvas, origin + SEVEN * widthBox, origin + SEVEN * widthBox)
         //half
-        drawAimTopRight(canvas, origin, origin + 6 * widthBox)
-        drawAimBottomRight(canvas, origin, origin + 6 * widthBox)
+        drawAimTopRight(canvas, origin, origin + SIX * widthBox)
+        drawAimBottomRight(canvas, origin, origin + SIX * widthBox)
 
-        drawAimTopLeft(canvas, origin + 8 * widthBox, origin + 6 * widthBox)
-        drawAimBottomLeft(canvas, origin + 8 * widthBox, origin + 6 * widthBox)
+        drawAimTopLeft(canvas, origin + EIGHT * widthBox, origin + SIX * widthBox)
+        drawAimBottomLeft(canvas, origin + EIGHT * widthBox, origin + SIX * widthBox)
     }
 
     init {
