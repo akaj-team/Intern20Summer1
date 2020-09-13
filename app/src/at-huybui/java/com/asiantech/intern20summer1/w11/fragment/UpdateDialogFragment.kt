@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.w10.fragment
+package com.asiantech.intern20summer1.w11.fragment
 
 import android.Manifest
 import android.app.Activity
@@ -19,13 +19,15 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.w10.activity.ApiMainActivity
-import com.asiantech.intern20summer1.w10.api.Api
-import com.asiantech.intern20summer1.w10.api.ApiPostService
-import com.asiantech.intern20summer1.w10.models.PostContent
-import com.asiantech.intern20summer1.w10.models.ResponsePost
-import com.asiantech.intern20summer1.w10.utils.AppUtils
-import com.asiantech.intern20summer1.w10.utils.FileInformation
+import com.asiantech.intern20summer1.w11.activity.ApiMainActivity
+import com.asiantech.intern20summer1.w11.api.Api
+import com.asiantech.intern20summer1.w11.api.ApiPostService
+import com.asiantech.intern20summer1.w11.models.PostContent
+import com.asiantech.intern20summer1.w11.models.PostItem
+import com.asiantech.intern20summer1.w11.models.ResponsePost
+import com.asiantech.intern20summer1.w11.utils.AppUtils
+import com.asiantech.intern20summer1.w11.utils.FileInformation
+import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import kotlinx.android.synthetic.`at-huybui`.w10_dialog_fragment_post.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -37,11 +39,11 @@ import retrofit2.Response
 /**
  * Asian Tech Co., Ltd.
  * Intern20Summer1 Project.
- * Created by at-huybui on 02/09/2020.
- * This is PostDialogFragment class. It is fragment to display add new post page
+ * Created by at-huybui on 01/09/2020.
+ * This is UpdateDialogFragment class. It is fragment to display update the post page
  */
 
-class PostDialogFragment : DialogFragment() {
+class UpdateDialogFragment : DialogFragment() {
 
     companion object {
         private const val REQUEST_IMAGE_CAPTURE = 100
@@ -49,10 +51,13 @@ class PostDialogFragment : DialogFragment() {
         private const val PERMISSION_REQUEST_CODE = 200
         private const val TYPE_IMAGE = "image/*"
         private const val TYPE_TEXT = "text"
-        internal fun newInstance() = PostDialogFragment()
+        internal fun newInstance(item: PostItem) = UpdateDialogFragment().apply {
+            postItem = item
+        }
     }
 
     internal var onPostClick: () -> Unit = {}
+    private lateinit var postItem: PostItem
     private var callApi: ApiPostService? = null
     private var imageUri: Uri? = null
     private var isCameraAllowed = false
@@ -97,41 +102,51 @@ class PostDialogFragment : DialogFragment() {
     }
 
     private fun initView() {
-        initListener()
+        initViewListener()
+        initDisPlayView()
     }
 
 
-    private fun initListener() {
+    private fun initViewListener() {
         btnBack?.setOnClickListener {
             dialog?.dismiss()
         }
 
         btnPost?.setOnClickListener {
-            handlePostContent()
+            handleUpdateContent()
         }
-
         handleForAvatarImage()
     }
 
-    private fun handlePostContent() {
+    private fun initDisPlayView() {
+        if (postItem.image.isNotEmpty()) {
+            Glide.with(requireContext())
+                .load(Api.IMAGE_URL + postItem.image)
+                .into(imgContent)
+        }
+        tvTitle?.text = getString(R.string.w10_edit_post)
+        edtContent?.setText(postItem.content)
+    }
+
+    private fun handleUpdateContent() {
         progressBar?.visibility = View.VISIBLE
         val postJson = Gson().toJson(PostContent(edtContent?.text.toString())).toString()
         val body = postJson.toRequestBody(TYPE_TEXT.toMediaTypeOrNull())
         val token = AppUtils().getToken(requireContext())
-        callApi?.createPost(token, createMultiPartBody(), body)
+        callApi?.updatePost(token, postItem.id, createMultiPartBody(), body)
             ?.enqueue(object : retrofit2.Callback<ResponsePost> {
                 override fun onResponse(
                     call: retrofit2.Call<ResponsePost>,
                     response: Response<ResponsePost>
                 ) {
 
-                    if (response.body()?.message == Api.MESSAGE_CREATE_POST_SUCCESS) {
-                        val text = getString(R.string.w10_complete_post)
+                    if (response.body()?.message == Api.MESSAGE_UPDATE_POST_SUCCESS) {
+                        val text = getString(R.string.w10_update_complete)
                         ApiMainActivity().showToast(requireContext(), text)
                         onPostClick.invoke()
                         dialog?.dismiss()
                     } else {
-                        val text = getString(R.string.w10_error_post)
+                        val text = getString(R.string.w10_error_update)
                         ApiMainActivity().showToast(requireContext(), text)
                     }
                     progressBar?.visibility = View.INVISIBLE
@@ -188,10 +203,11 @@ class PostDialogFragment : DialogFragment() {
      */
     private fun openCamera() {
         val values = ContentValues()
-        imageUri = (activity as ApiMainActivity).contentResolver.insert(
-            MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-            values
-        )
+        imageUri =
+            (activity as ApiMainActivity).contentResolver.insert(
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                values
+            )
         val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
         startActivityForResult(
@@ -205,8 +221,12 @@ class PostDialogFragment : DialogFragment() {
      */
     private fun openGallery() {
         val intentGallery = Intent(Intent.ACTION_PICK)
-        intentGallery.type = TYPE_IMAGE
-        startActivityForResult(intentGallery, REQUEST_SELECT_IMAGE_IN_ALBUM)
+        intentGallery.type =
+            TYPE_IMAGE
+        startActivityForResult(
+            intentGallery,
+            REQUEST_SELECT_IMAGE_IN_ALBUM
+        )
     }
 
     private fun isCheckCameraPermission(): Boolean {

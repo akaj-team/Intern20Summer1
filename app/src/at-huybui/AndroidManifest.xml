@@ -20,7 +20,7 @@
             android:theme="@style/Base.Theme.AppCompat" />
         <!-- optional (needed if default theme has no action bar) -->
         <activity android:name=".w0.TestActivity"></activity>
-        <activity android:name=".w10.activity.ApiMainActivity" />
+        <activity android:name=".w11.activity.ApiMainActivity" />
         <activity android:name=".w6.secondactivity.ViewPagerTwoActivity" />
         <activity android:name=".w6.firstactivity.ViewPagerOneActivity" />
         <activity android:name=".w3.MainActivity" />

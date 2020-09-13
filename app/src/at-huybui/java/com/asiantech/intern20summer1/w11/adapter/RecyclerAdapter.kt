@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.w10.adapter
+package com.asiantech.intern20summer1.w11.adapter
 
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.w10.api.Api
-import com.asiantech.intern20summer1.w10.models.PostItem
-import com.asiantech.intern20summer1.w10.utils.AppUtils
+import com.asiantech.intern20summer1.w11.api.Api
+import com.asiantech.intern20summer1.w11.models.PostItem
+import com.asiantech.intern20summer1.w11.utils.AppUtils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
