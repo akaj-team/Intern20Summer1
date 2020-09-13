@@ -6,7 +6,6 @@ import android.graphics.Color
 import android.graphics.DashPathEffect
 import android.graphics.Paint
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
 import kotlin.random.Random
 
@@ -41,7 +40,7 @@ class WeightDataView(context: Context, attributeSet: AttributeSet) : View(contex
     }
 
     private fun initSize() {
-        sizeX = width / 8.toFloat()
+        sizeX = width / 13.toFloat()
         sizeY = height / 12.toFloat()
     }
 
@@ -59,7 +58,6 @@ class WeightDataView(context: Context, attributeSet: AttributeSet) : View(contex
     private fun initData() {
         for (i in 0..13) {
             weightData.add(Random.nextInt(MIN_WEIGHT, MAX_WEIGHT))
-            Log.d("aaa", weightData[i].toString())
         }
     }
 
@@ -88,7 +86,7 @@ class WeightDataView(context: Context, attributeSet: AttributeSet) : View(contex
     private fun drawDot(canvas: Canvas) {
         val dy = height - sizeY * 4
         val weightUnit = dy / (MAX_WEIGHT + 10 - MIN_WEIGHT)
-        for (i in 0..12) {
+        for (i in 0..11) {
             canvas.drawCircle(
                 sizeX * (i + 1) + 50f,
                 dy - (weightData[i] - MIN_WEIGHT) * weightUnit,
@@ -107,7 +105,7 @@ class WeightDataView(context: Context, attributeSet: AttributeSet) : View(contex
                     sizeX * (i + 1) + 50f,
                     dy - (weightData[i] - MIN_WEIGHT) * weightUnit,
                     sizeX * (i) + 50f,
-                    dy - (weightData[i-1] - MIN_WEIGHT) * weightUnit,
+                    dy - (weightData[i - 1] - MIN_WEIGHT) * weightUnit,
                     linePaint
                 )
             }
