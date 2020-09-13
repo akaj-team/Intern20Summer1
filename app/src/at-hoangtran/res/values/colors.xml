@@ -6,4 +6,5 @@
     <color name="colorLightGreen">#90EE90</color>
     <color name="colorLightSlateGray">#EFF2F4</color>
     <color name="colorBlack">#000000</color>
+    <color name="colorW6BackgroundRelative">#123123</color>
 </resources>

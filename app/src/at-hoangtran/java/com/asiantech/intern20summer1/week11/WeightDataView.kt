@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.graphics.DashPathEffect
 import android.graphics.Paint
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import kotlin.random.Random
 
@@ -19,9 +20,9 @@ class WeightDataView(context: Context, attributeSet: AttributeSet) : View(contex
         private const val MONTH = 12
     }
 
-    private var size = 0f
+    private var sizeX = 0f
+    private var sizeY = 0f
     private var d0 = 0f
-    private var height = 0f
     private var weightData = arrayListOf<Int>()
     private var textPaint = Paint(Paint.ANTI_ALIAS_FLAG)
     private var linePaint = Paint(Paint.ANTI_ALIAS_FLAG)
@@ -40,8 +41,8 @@ class WeightDataView(context: Context, attributeSet: AttributeSet) : View(contex
     }
 
     private fun initSize() {
-        size = width / 8.toFloat()
-        height = ((MAX_WEIGHT - MIN_WEIGHT) * 10).toFloat()
+        sizeX = width / 8.toFloat()
+        sizeY = height / 12.toFloat()
     }
 
     private fun initPaint() {
@@ -56,46 +57,59 @@ class WeightDataView(context: Context, attributeSet: AttributeSet) : View(contex
     }
 
     private fun initData() {
-        for (i in 0..MONTH) {
+        for (i in 0..13) {
             weightData.add(Random.nextInt(MIN_WEIGHT, MAX_WEIGHT))
+            Log.d("aaa", weightData[i].toString())
         }
     }
 
     private fun drawAxis(canvas: Canvas) {
-        canvas.drawLine(d0 + 30f, d0 + 30f, d0 + 30f, height - 30f, linePaint)
-        canvas.drawLine(width - d0, height - 30f, width - d0, height - d0, linePaint)
+        canvas.drawLine(d0 + 50f, d0 + 50f, d0 + 50f, height - sizeY * 4, linePaint)
+        canvas.drawLine(d0 + 50f, height - sizeY * 4, width - d0, height - sizeY * 4, linePaint)
     }
 
     private fun drawAxisText(canvas: Canvas) {
-        canvas.drawText("Weight", d0, d0, textPaint)
-        canvas.drawText("Month", d0, height - d0, textPaint)
+        canvas.drawText("Weight", d0 + 20f, d0 + 30f, textPaint)
+        canvas.drawText("Month", d0 + 50f, height - sizeY * 4 + 30f, textPaint)
 
-        for (i in 0..MONTH) {
-            canvas.drawText(i.toString(), size * i, height - d0, textPaint)
+        for (i in 1..MONTH) {
+            canvas.drawText(i.toString(), sizeX * i + 50f, height - sizeY * 4 + 30f, textPaint)
         }
-        for (i in 0..7) {
+        for (i in 5..13) {
             canvas.drawText(
-                (i * 10 + 50).toString(),
+                (i * 10).toString(),
                 d0,
-                height - (i + 50) * 10,
+                height - sizeY * (i - 1),
                 textPaint
             )
         }
     }
 
     private fun drawDot(canvas: Canvas) {
-        weightData.forEachIndexed { index, i ->
-            if (index < weightData.size - 1) {
-                canvas.drawCircle(size * i, (index - 50) * 10.toFloat(), 10f, dotPaint)
-                canvas.drawText(index.toString(), size * i, ((index - 50) * 10 - 10f), linePaint)
+        val dy = height - sizeY * 4
+        val weightUnit = dy / (MAX_WEIGHT + 10 - MIN_WEIGHT)
+        for (i in 0..12) {
+            canvas.drawCircle(
+                sizeX * (i + 1) + 50f,
+                dy - (weightData[i] - MIN_WEIGHT) * weightUnit,
+                10f,
+                dotPaint
+            )
+
+            canvas.drawText(
+                weightData[i].toString(),
+                sizeX * (i + 1) + 40f,
+                dy - (weightData[i] - MIN_WEIGHT) * weightUnit - 15f,
+                textPaint
+            )
+            if (i > 0) {
                 canvas.drawLine(
-                    size * i,
-                    (index - 50) * 10 - 10f,
-                    d0 + 30f,
-                    (index - 50) * 10 - 10f,
-                    dashPaint
+                    sizeX * (i + 1) + 50f,
+                    dy - (weightData[i] - MIN_WEIGHT) * weightUnit,
+                    sizeX * (i) + 50f,
+                    dy - (weightData[i-1] - MIN_WEIGHT) * weightUnit,
+                    linePaint
                 )
-                canvas.drawLine(size * i, (index - 50) * 10 - 10f, size * i, height, dashPaint)
             }
         }
     }

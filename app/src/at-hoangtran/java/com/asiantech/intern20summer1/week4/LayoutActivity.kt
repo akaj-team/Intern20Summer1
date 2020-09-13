@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.asiantech.intern20summer1.R
 import kotlinx.android.synthetic.`at-hoangtran`.activity_main.*
 
+@Suppress("DEPRECATION")
 class LayoutActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     @SuppressLint("ClickableViewAccessibility", "ResourceAsColor")
