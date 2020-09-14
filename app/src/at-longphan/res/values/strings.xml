@@ -91,4 +91,5 @@
     <string name="button_week_11_description">Week 11: CustomView - Canvas</string>
     <string name="button_chess_table_text">Chess Table</string>
     <string name="button_weight_tracking_text">Weight Tracking</string>
+    <string name="weight_chart_canvas_weight_text">Weight(Kg)</string>
 </resources>

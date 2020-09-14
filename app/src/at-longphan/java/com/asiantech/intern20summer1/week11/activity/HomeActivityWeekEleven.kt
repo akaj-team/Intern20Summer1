@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week11.fragment.ChessTableFragment
+import com.asiantech.intern20summer1.week11.fragment.GraphFragmentTwo
 import kotlinx.android.synthetic.`at-longphan`.activity_home_w11.*
 
 class HomeActivityWeekEleven : AppCompatActivity() {
@@ -20,6 +21,7 @@ class HomeActivityWeekEleven : AppCompatActivity() {
             replaceFragment(ChessTableFragment(), true)
         }
         btnWeightTracking?.setOnClickListener {
+            replaceFragment(GraphFragmentTwo(), true)
         }
     }
 

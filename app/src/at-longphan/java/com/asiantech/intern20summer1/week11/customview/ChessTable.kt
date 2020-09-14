@@ -42,8 +42,15 @@ open class ChessTable(context: Context?, attrs: AttributeSet?, defStyleAttr: Int
     private var normalWhiteLine: Paint? = null
     private var aimLinePaint: Paint? = null
 
-    //constructor(context: Context?) : this(context, null) {}
-    //constructor(context: Context?, attrs: AttributeSet?) : this(context, attrs, 0) {}
+    /*private var pointX = 0f
+    private var pointY = 0f
+
+    private var day = 13
+    private var month = 9
+    private var year = 2020*/
+
+    constructor(context: Context?) : this(context, null) {}
+    constructor(context: Context?, attrs: AttributeSet?) : this(context, attrs, 0) {}
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         var w = MeasureSpec.getSize(widthMeasureSpec)
@@ -67,6 +74,24 @@ open class ChessTable(context: Context?, attrs: AttributeSet?, defStyleAttr: Int
         aimLength = widthBox * AIM_LENGTH_AND_WIDTH_BOX_RATIO
         range = widthBox * RANGE_AND_WIDTH_BOX_RATIO
     }
+
+    /*override fun onTouchEvent(event: MotionEvent): Boolean {
+        val x = event.x
+        var startX = 0f
+        var endX = 0f
+        when(event.action){
+            MotionEvent.ACTION_DOWN -> {
+                startX = x
+            }
+            MotionEvent.ACTION_MOVE -> {
+                endX
+            }
+            MotionEvent.ACTION_UP -> {
+
+            }
+        }
+        return super.onTouchEvent(event)
+    }*/
 
     @SuppressLint("DrawAllocation")
     override fun onDraw(canvas: Canvas?) {
@@ -131,7 +156,7 @@ open class ChessTable(context: Context?, attrs: AttributeSet?, defStyleAttr: Int
          * ABOVE SIDE
          */
         //9 verLines above side(long: 4 wbox)
-        for (i in 0 .. NUMBER_HORIZONTAL_BOX) {
+        for (i in 0..NUMBER_HORIZONTAL_BOX) {
             val startX = origin + widthBox * i
             val startY = origin
             val endX = origin + widthBox * i
@@ -163,7 +188,7 @@ open class ChessTable(context: Context?, attrs: AttributeSet?, defStyleAttr: Int
          * BOTTOM SIDE
          */
         //9 verLine bottom side(long: 4 wbox)
-        for (i in 0 .. NUMBER_HORIZONTAL_BOX) {
+        for (i in 0..NUMBER_HORIZONTAL_BOX) {
             val startX = origin + widthBox * i
             val startY = origin + FIVE * widthBox
             val endX = origin + widthBox * i
@@ -302,4 +327,8 @@ open class ChessTable(context: Context?, attrs: AttributeSet?, defStyleAttr: Int
         drawAimTopLeft(canvas, aimX, aimY)
         drawAimTopRight(canvas, aimX, aimY)
     }
+
+    /*private fun drawPointOnClick(canvas: Canvas?, aimX: Float, aimY: Float) {
+        aimLinePaint?.let { canvas?.drawPoint(aimX, aimY, it) }
+    }*/
 }
