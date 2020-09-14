@@ -52,7 +52,7 @@ class WeightDataView(context: Context, attributeSet: AttributeSet) : View(contex
         dashPaint.color = LINE_COLOR
         dashPaint.style = Paint.Style.STROKE
         dashPaint.strokeWidth = STROKE_WIDTH
-        dashPaint.pathEffect = DashPathEffect(floatArrayOf(5f, 5f), 10f)
+        dashPaint.pathEffect = DashPathEffect(floatArrayOf(10f, 10f), 0f)
     }
 
     private fun initData() {
@@ -99,6 +99,17 @@ class WeightDataView(context: Context, attributeSet: AttributeSet) : View(contex
                 sizeX * (i + 1) + 40f,
                 dy - (weightData[i] - MIN_WEIGHT) * weightUnit - 15f,
                 textPaint
+            )
+            canvas.drawLine(
+                sizeX * (i + 1) + 50f,
+                dy - (weightData[i] - MIN_WEIGHT) * weightUnit,
+                d0 + 50f, dy - (weightData[i] - MIN_WEIGHT) * weightUnit, dashPaint
+            )
+            canvas.drawLine(
+                sizeX * (i + 1) + 50f,
+                dy - (weightData[i] - MIN_WEIGHT) * weightUnit,
+                sizeX * (i + 1) + 50f,
+                dy, dashPaint
             )
             if (i > 0) {
                 canvas.drawLine(
