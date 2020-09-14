@@ -1,260 +1,268 @@
 package com.asiantech.intern20summer1.week5
 
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
-import android.os.PersistableBundle
-import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.asiantech.intern20summer1.R
-import kotlinx.android.synthetic.`at-hoangtran`.loading_layout.*
 import kotlinx.android.synthetic.`at-hoangtran`.recycler_view_layout.*
+import java.util.*
 
-class RecyclerViewActivity : AppCompatActivity() {
+@Suppress("DEPRECATION")
+class TimeLineActivity : AppCompatActivity(), LoadMore {
+
     companion object {
-        private const val HUNDED = 100
-        private const val DELAY = 5000L
+        private const val LAST_ITEM_POSITION = 10
+        private const val RANDOM_INDEX_MAX = 100
+        private const val DELAY_TIME = 2000L
     }
 
-    private val itemList: MutableList<ItemRecycler> = mutableListOf()
-    private val adapter = RecyclerAdapter(itemList)
-    private var isLoadMore = false
+    private lateinit var timeLineItems: MutableList<TimeLineItem?>
+    private lateinit var timeLineItemsStorage: MutableList<TimeLineItem?>
+    private lateinit var adapter: RecyclerAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         setContentView(R.layout.recycler_view_layout)
-
-        handleRefresh()
-        initAdapter()
         initData()
+        initAdapter()
+        pullToRefresh()
+    }
+
+    override fun onLoadMore() {
+        timeLineItems.add(null)
+        adapter.notifyItemInserted(timeLineItems.size - 1)
+        Handler().postDelayed({
+            timeLineItems.removeAt(timeLineItems.size - 1)
+            val index = timeLineItems.size
+            adapter.notifyItemRemoved(index)
+            val end = index + LAST_ITEM_POSITION
+            for (i in index until end) {
+                timeLineItems.add(timeLineItemsStorage[Random().nextInt(timeLineItemsStorage.size)])
+            }
+            adapter.notifyDataSetChanged()
+            adapter.setLoaded()
+        }, DELAY_TIME)
     }
 
     private fun initAdapter() {
-        adapter.onItemClick = { position ->
-            itemList[position].let {
-                it.heartStatus = !it.heartStatus
-                if (it.heartStatus) {
-                    it.heartCount++
+        timeLineItemsStorage.shuffle()
+        timeLineItems = timeLineItemsStorage.subList(0, LAST_ITEM_POSITION)
+        adapter = RecyclerAdapter(recyclerViewContainer, this, timeLineItems)
+        adapter.onHeartClicked = { position ->
+            timeLineItems[position]?.let {
+                if (it.isLiked) {
+                    it.isLiked = false
+                    it.countLike--
                 } else {
-                    it.heartCount--
+                    it.isLiked = true
+                    it.countLike++
                 }
+                adapter.notifyItemChanged(position)
             }
-            adapter.notifyItemChanged(position, null)
         }
-        rv_contact.adapter = adapter
-        rv_contact.layoutManager = LinearLayoutManager(this)
-        rv_contact.setHasFixedSize(true)
+        recyclerViewContainer.adapter = adapter
+        adapter.setLoadMore(this)
     }
 
-    private fun handleRefresh() {
+    private fun pullToRefresh() {
         swipeContainer.setOnRefreshListener {
             Handler().postDelayed({
-                itemList.clear()
-                initData()
-                adapter.notifyDataSetChanged()
+                adapter.clear()
+                adapter.addAll(timeLineItemsStorage.apply {
+                    shuffle()
+                    subList(0, LAST_ITEM_POSITION)
+                })
                 swipeContainer.isRefreshing = false
-            }, DELAY)
+            }, DELAY_TIME)
         }
-        rv_contact.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dy, dx)
-                val linearLayoutManager = recyclerView.layoutManager as? LinearLayoutManager
-                val lastVisibleItem = linearLayoutManager?.findLastCompletelyVisibleItemPosition()
-                if (!isLoadMore && (lastVisibleItem == itemList.size - 1)) {
-                    progressBar.visibility = View.VISIBLE
-                    Handler().postDelayed({
-                        isLoadMore = true
-                        progressBar.visibility = View.INVISIBLE
-                        initData()
-                        adapter.notifyDataSetChanged()
-                    }, DELAY)
-                }
-                isLoadMore = false
-            }
-        })
     }
 
     private fun initData() {
-        itemList.add(
-            ItemRecycler(
-                R.mipmap.image1,
-                R.mipmap.heartless,
-                (0..HUNDED).random(),
-                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                false
+        timeLineItemsStorage = mutableListOf()
+        timeLineItemsStorage.apply {
+            add(
+                TimeLineItem(
+                    "Artemis",
+                    R.mipmap.ic_launcher_round,
+                    R.mipmap.image1,
+                    (0..RANDOM_INDEX_MAX).random(),
+                    false
+                )
             )
-        )
-        itemList.add(
-            ItemRecycler(
-                R.mipmap.image2,
-                R.mipmap.heartless,
-                (0..HUNDED).random(),
-                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                false
+            add(
+                TimeLineItem(
+                    "Annabella",
+                    R.mipmap.ic_launcher_round,
+                    R.mipmap.image2,
+                    (0..RANDOM_INDEX_MAX).random(),
+                    true
+                )
             )
-        )
-        itemList.add(
-            ItemRecycler(
-                R.mipmap.image3,
-                R.mipmap.heartless,
-                (0..HUNDED).random(),
-                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                false
+            add(
+                TimeLineItem(
+                    "Angela",
+                    R.mipmap.ic_launcher_round,
+                    R.mipmap.image3,
+                    (0..RANDOM_INDEX_MAX).random(),
+                    true
+                )
             )
-        )
-        itemList.add(
-            ItemRecycler(
-                R.mipmap.image4,
-                R.mipmap.heartless,
-                (0..HUNDED).random(),
-                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                false
+            add(
+                TimeLineItem(
+                    "Thekla",
+                    R.mipmap.ic_launcher_round,
+                    R.mipmap.image4,
+                    (0..RANDOM_INDEX_MAX).random(),
+                    false
+                )
             )
-        )
-        itemList.add(
-            ItemRecycler(
-                R.mipmap.image5,
-                R.mipmap.heartless,
-                (0..HUNDED).random(),
-                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                false
+            add(
+                TimeLineItem(
+                    "Calantha",
+                    R.mipmap.ic_launcher_round,
+                    R.mipmap.image5,
+                    (0..RANDOM_INDEX_MAX).random(),
+                    false
+                )
             )
-        )
-        itemList.add(
-            ItemRecycler(
-                R.mipmap.image6,
-                R.mipmap.heartless,
-                (0..HUNDED).random(),
-                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                false
+            add(
+                TimeLineItem(
+                    "Charmaine",
+                    R.mipmap.ic_launcher_round,
+                    R.mipmap.image6,
+                    (0..RANDOM_INDEX_MAX).random(),
+                    false
+                )
             )
-        )
-        itemList.add(
-            ItemRecycler(
-                R.mipmap.image7,
-                R.mipmap.heartless,
-                (0..HUNDED).random(),
-                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                false
+            add(
+                TimeLineItem(
+                    "Christabel",
+                    R.mipmap.ic_launcher_round,
+                    R.mipmap.image7,
+                    (0..RANDOM_INDEX_MAX).random(),
+                    true
+                )
             )
-        )
-        itemList.add(
-            ItemRecycler(
-                R.mipmap.image8,
-                R.mipmap.heartless,
-                (0..HUNDED).random(),
-                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                false
+            add(
+                TimeLineItem(
+                    "Cosima",
+                    R.mipmap.ic_launcher_round,
+                    R.mipmap.image8,
+                    (0..RANDOM_INDEX_MAX).random(),
+                    false
+                )
             )
-        )
-        itemList.add(
-            ItemRecycler(
-                R.mipmap.image9,
-                R.mipmap.heartless,
-                (0..HUNDED).random(),
-                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                false
+            add(
+                TimeLineItem(
+                    "Drusilla",
+                    R.mipmap.ic_launcher_round,
+                    R.mipmap.image9,
+                    (0..RANDOM_INDEX_MAX).random(),
+                    false
+                )
             )
-        )
-        itemList.add(
-            ItemRecycler(
-                R.mipmap.image10,
-                R.mipmap.heartless,
-                (0..HUNDED).random(),
-                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                false
+            add(
+                TimeLineItem(
+                    "Ermintrude",
+                    R.mipmap.ic_launcher_round,
+                    R.mipmap.image10,
+                    (0..RANDOM_INDEX_MAX).random(),
+                    true
+                )
             )
-        )
-        itemList.add(
-            ItemRecycler(
-                R.mipmap.image11,
-                R.mipmap.heartless,
-                (0..HUNDED).random(),
-                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                false
+            add(
+                TimeLineItem(
+                    "Esperanza",
+                    R.mipmap.ic_launcher_round,
+                    R.mipmap.image11,
+                    (0..RANDOM_INDEX_MAX).random(),
+                    false
+                )
             )
-        )
-        itemList.add(
-            ItemRecycler(
-                R.mipmap.image12,
-                R.mipmap.heartless,
-                (0..HUNDED).random(),
-                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                false
+            add(
+                TimeLineItem(
+                    "Euphemia",
+                    R.mipmap.ic_launcher_round,
+                    R.mipmap.image12,
+                    (0..RANDOM_INDEX_MAX).random(),
+                    false
+                )
             )
-        )
-        itemList.add(
-            ItemRecycler(
-                R.mipmap.image13,
-                R.mipmap.heartless,
-                (0..HUNDED).random(),
-                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                false
+            add(
+                TimeLineItem(
+                    "Genevieve",
+                    R.mipmap.ic_launcher_round,
+                    R.mipmap.image13,
+                    (0..RANDOM_INDEX_MAX).random(),
+                    true
+                )
             )
-        )
-        itemList.add(
-            ItemRecycler(
-                R.mipmap.image14,
-                R.mipmap.heartless,
-                (0..HUNDED).random(),
-                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                false
+            add(
+                TimeLineItem(
+                    "Guinevere",
+                    R.mipmap.ic_launcher_round,
+                    R.mipmap.image14,
+                    (0..RANDOM_INDEX_MAX).random(),
+                    false
+                )
             )
-        )
-        itemList.add(
-            ItemRecycler(
-                R.mipmap.image15,
-                R.mipmap.heartless,
-                (0..HUNDED).random(),
-                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                false
+            add(
+                TimeLineItem(
+                    "Iphigenia",
+                    R.mipmap.ic_launcher_round,
+                    R.mipmap.image15,
+                    (0..RANDOM_INDEX_MAX).random(),
+                    false
+                )
             )
-        )
-        itemList.add(
-            ItemRecycler(
-                R.mipmap.image16,
-                R.mipmap.heartless,
-                (0..HUNDED).random(),
-                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                false
+            add(
+                TimeLineItem(
+                    "Jocasta",
+                    R.mipmap.ic_launcher_round,
+                    R.mipmap.image16,
+                    (0..RANDOM_INDEX_MAX).random(),
+                    true
+                )
             )
-        )
-        itemList.add(
-            ItemRecycler(
-                R.mipmap.image17,
-                R.mipmap.heartless,
-                (0..HUNDED).random(),
-                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                false
+            add(
+                TimeLineItem(
+                    "Keelin",
+                    R.mipmap.ic_launcher_round,
+                    R.mipmap.image17,
+                    (0..RANDOM_INDEX_MAX).random(),
+                    false
+                )
             )
-        )
-        itemList.add(
-            ItemRecycler(
-                R.mipmap.image18,
-                R.mipmap.heartless,
-                (0..HUNDED).random(),
-                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                false
+            add(
+                TimeLineItem(
+                    "Kelsey",
+                    R.mipmap.ic_launcher_round,
+                    R.mipmap.image18,
+                    (0..RANDOM_INDEX_MAX).random(),
+                    false
+                )
             )
-        )
-        itemList.add(
-            ItemRecycler(
-                R.mipmap.image19,
-                R.mipmap.heartless,
-                (0..HUNDED).random(),
-                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                false
+            add(
+                TimeLineItem(
+                    "Lysandra",
+                    R.mipmap.ic_launcher_round,
+                    R.mipmap.image19,
+                    (0..RANDOM_INDEX_MAX).random(),
+                    true
+                )
             )
-        )
-        itemList.add(
-            ItemRecycler(
-                R.mipmap.image20,
-                R.mipmap.heartless,
-                (0..HUNDED).random(),
-                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                false
+            add(
+                TimeLineItem(
+                    "Martha",
+                    R.mipmap.ic_launcher_round,
+                    R.mipmap.image20,
+                    (0..RANDOM_INDEX_MAX).random(),
+                    false
+                )
             )
-        )
+        }
     }
 }

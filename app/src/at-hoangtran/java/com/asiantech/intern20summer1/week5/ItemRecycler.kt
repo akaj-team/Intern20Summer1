@@ -1,9 +1,9 @@
 package com.asiantech.intern20summer1.week5
 
-data class ItemRecycler(
-    var image: Int,
-    var heart: Int,
-    var heartCount: Int,
-    var content: String,
-    var heartStatus: Boolean = false
+data class TimeLineItem(
+    val userName: String,
+    val avatar: Int,
+    val picture: Int,
+    var countLike: Int,
+    var isLiked: Boolean
 )

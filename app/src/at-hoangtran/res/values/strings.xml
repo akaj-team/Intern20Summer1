@@ -9,4 +9,7 @@
     <string name="sign_up_button">SIGN UP</string>
     <string name="not_register">Not Registered yet? </string>
     <string name="sign">Sign up!</string>
+    <string name="like_text_view_description">Like</string>
+    <string name="status_text_view">Recording history</string>
+    <string name="detail_status_text_view">Life is short. Time is fast. No reply. No rewind. So enjoy every moment as it comes</string>
 </resources>
