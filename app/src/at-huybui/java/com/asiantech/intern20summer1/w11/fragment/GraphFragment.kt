@@ -39,6 +39,15 @@ class GraphFragment : Fragment() {
     }
 
     private fun initView() {
+        graphView?.run {
+            replaceAllData(list)
+            verticalMaxValue = 150
+            numberWeek = 3
+            horizontalAxisWidth = 90f
+            marginBottom = 20f
+            marginLeft = 50f
+            show()
+        }
         btnChange?.setOnClickListener {
             initData()
             graphView?.run {
@@ -46,9 +55,8 @@ class GraphFragment : Fragment() {
                 verticalMaxValue = 150
                 numberWeek = 3
                 horizontalAxisWidth = 90f
-                verticalAxisWidth = 20f
-                graphTitleSize = 40f
                 marginBottom = 20f
+                marginLeft = 50f
                 show()
             }
         }

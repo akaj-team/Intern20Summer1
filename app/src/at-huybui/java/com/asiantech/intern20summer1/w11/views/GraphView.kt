@@ -237,7 +237,7 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
         color = Color.BLACK
         style = Paint.Style.STROKE
         strokeWidth = 2f
-        pathEffect = DashPathEffect(floatArrayOf(10f, 10f), 0f)
+        pathEffect = DashPathEffect(floatArrayOf(20f, 20f), 0f)
     }
 
     private fun paintStroke() = Paint().apply {
