@@ -4,11 +4,8 @@
     android:id="@+id/containerHomeW11"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     tools:context="com.asiantech.intern20summer1.week11.activity.HomeActivityWeekEleven">
-
-    <com.asiantech.intern20summer1.week11.customview.SmileyView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 
     <LinearLayout
         android:layout_width="match_parent"

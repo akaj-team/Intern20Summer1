@@ -6,147 +6,234 @@ import android.graphics.*
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
-import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.week11.Weight
+import com.asiantech.intern20summer1.week11.WeightTwo
+import kotlin.random.Random
+import kotlin.random.nextInt
 
-class WeightChart(context: Context, attrs: AttributeSet) : View(context, attrs) {
+class WeightChart(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) :
+    View(context, attrs, defStyleAttr) {
 
     companion object {
-        private const val LIMIT_OF_LIST = 13
-        private const val RANDOM_NUMBER_FROM = 50
-        private const val RANDOM_NUMBER_UTIL = 120
-        private const val NUMBER_MINUS_WIDTH = 12
-        private const val NUMBER_MINUS_WIDTH_SIZE_IN = 11
-        private const val NUMBER_MINUS_HEIGHT = 15
-        private const val NUMBER_STROKE_WIDTH = 4f
-        private const val NUMBER_PIVOT_STROKE_WIDTH = 6f
-        private const val NUMBER_LINE_DASH_STROKE_WIDTH = 2f
-        private const val NUMBER_OF_TEXT_SIZE = 18f
+        private const val WEIGHT_TEXT = "Weight"
+        private const val MONTH_TEXT = "Month"
+
+        private const val MAX_MONTH = 12
+        private const val MAX_WEIGHT = 120
+        private const val MIN_WEIGHT = 50
+        private const val WEIGHT_STEP = 10
+
+        private const val LEFT_BOUND = 100f
+        private const val BOTTOM_BOUND = 100f
+
+        private const val MONTH_MARGIN = 50f
+        private const val WEIGHT_MARGIN = 50f
+
+        private var VALUE_POINT_RANGE = 15f
+        private var AXIS_VALUE_TEXT_SIZE = 20f
+
+        private const val THREE = 3
+        private const val FOUR = 4
+        private const val FIVE = 5
+        private const val TEN = 10
+        private const val THIRTEEN = 13
+        private const val FOURTEEN = 14
+        private const val EIGHTEEN = 18
     }
 
-    private var widths = 0f
-    private var heights = 0f
-    private var dX = 0f
-    private var dY = 0f
-    private var sizeInt = 0
-    private val path = Path()
-    private var isAddData = false
-    private var weightList: MutableList<Weight> = mutableListOf()
-    private var moveX = 0f
-    private var startMove = 0f
-    private var stopMove = 0f
-    private var distanceMove = 0f
-    private var oldDistance = 0f
+    private var maxWeight = 0
+    private var weights = mutableListOf<WeightTwo>()
+    private var xRangeStep = 150f
+    private var yRangeStep = 15f
+    private var origin = PointF()
+    private var begin = 0f
+    private var actionMove = 0f
+    private var moveOx = 0f
+    private var minOx = 0f
+    private var maxOx = 0f
+    private var widthUnit = resources.displayMetrics.density
+    private var axisStrokeWidth = FOUR * widthUnit
 
-    override fun onDraw(canvas: Canvas) {
-        super.onDraw(canvas)
-        if (!isAddData) {
-            initData()
-            isAddData = true
+    constructor(context: Context?) : this(context, null) {}
+    constructor(context: Context?, attrs: AttributeSet?) : this(context, attrs, 0) {}
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        val w = MeasureSpec.getSize(widthMeasureSpec)
+        val h = MeasureSpec.getSize(heightMeasureSpec)
+        setMeasuredDimension(w, h)
+    }
+
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        super.onSizeChanged(w, h, oldw, oldh)
+        origin = PointF(0f + LEFT_BOUND, h.toFloat() - BOTTOM_BOUND)
+        minOx = origin.x - THIRTEEN * xRangeStep + w - WEIGHT_MARGIN
+        maxOx = origin.x
+
+        for (i in 1..MAX_MONTH) {
+            val random = Random.nextInt(MIN_WEIGHT..MAX_WEIGHT)
+            if (random > maxWeight) {
+                maxWeight = random + TEN
+            }
+            weights.add(WeightTwo(random, i))
         }
-        widths = width.toFloat()
-        heights = height.toFloat()
-        dX = (width / NUMBER_MINUS_WIDTH).toFloat()
-        dY = (height / NUMBER_MINUS_HEIGHT).toFloat()
-        sizeInt = (width / NUMBER_MINUS_WIDTH_SIZE_IN)
-        drawWeight(canvas)
-        drawGraph(canvas)
-        drawData(canvas)
+        yRangeStep = (h - BOTTOM_BOUND) / maxWeight.toFloat()
     }
 
-    @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        val x = event.x
         when (event.action) {
+
             MotionEvent.ACTION_DOWN -> {
-                initData()
-                startMove = x
+                begin = event.x
+                actionMove = 0f
             }
             MotionEvent.ACTION_MOVE -> {
-                moveX = x
-                stopMove = x
-                distanceMove = startMove - stopMove
-                path.reset()
-                invalidate()
+                if (origin.x + moveOx < minOx || origin.x + moveOx > maxOx) {
+                    actionMove = (event.x - begin) / FIVE
+                    begin = event.x
+                    invalidate()
+                } else {
+                    actionMove = event.x - begin
+                    begin = event.x
+                    invalidate()
+                }
             }
             MotionEvent.ACTION_UP -> {
-                oldDistance += distanceMove
+                if (origin.x + moveOx < minOx) {
+                    moveOx = origin.x - FOURTEEN * xRangeStep + width - WEIGHT_MARGIN
+                    invalidate()
+                }
+                if (origin.x + moveOx > maxOx) {
+                    moveOx = 0f
+                    invalidate()
+                }
             }
         }
         return true
     }
 
-    private fun drawGraph(canvas: Canvas) {
-        canvas.drawLine(0f, dY * 14, width.toFloat(), dY * 14, paintPivot)
-        canvas.drawLine(0f, dY, 0f, dY * 14, paintPivot)
-    }
+    @SuppressLint("DrawAllocation")
+    override fun onDraw(canvas: Canvas?) {
+        super.onDraw(canvas)
 
-    private fun drawData(canvas: Canvas) {
-        var start = -distanceMove - oldDistance
-        weightList.forEachIndexed { index, i ->
-            if (index < weightList.size - 1) {
-                val startX = start
-                val startY = ((i.weight - 140f) / (-10f)) * dY
-                val endX = startX + dX
-                val endY = ((weightList[index + 1].weight - 140f) / (-10f)) * dY
-                canvas.drawText(i.weight.toString(), startX, startY - 50, paintText)
-                TODO()
-                //canvas.drawText(i.month.toString(), startX, dY * 14.5f, paintText)
-                canvas.drawLine(startX, startY, endX, endY, paintLine)
-                canvas.drawCircle(startX, startY, 10f, paintDot)
-                path.moveTo(startX, startY)
-                path.lineTo(start, dY * 14)
-                canvas.drawPath(path, paintLineDash)
-                path.moveTo(startX, startY)
-                path.lineTo(0f, startY)
-                canvas.drawPath(path, paintLineDash)
-                start += dX
+        moveOx += actionMove
+        //  dash
+        var prevPoint = PointF()
+        for (i in weights.indices) {
+            val point =
+                PointF(
+                    origin.x + (i + 1) * xRangeStep + moveOx,
+                    origin.y - weights[i].weight * yRangeStep
+                )
+            // point to Ox
+            canvas?.drawLine(point.x, origin.y, point.x, point.y, paintDashLine())
+            // point to Oy
+            canvas?.drawLine(origin.x, point.y, point.x, point.y, paintDashLine())
+            // draw line between 2 point and save prev point
+            if (i != 0) {
+                canvas?.drawLine(prevPoint.x, prevPoint.y, point.x, point.y, paintLine())
             }
+            prevPoint = point
         }
-    }
 
-    private fun drawWeight(canvas: Canvas) {
-        canvas.drawText(
-            context.getString(R.string.weight_chart_canvas_weight_text),
+        // ox
+        canvas?.drawLine(origin.x, origin.y, width.toFloat(), origin.y, paintAxis())
+
+        // month oX
+        for (i in 1..MAX_MONTH) {
+            val ox = origin.x + i * xRangeStep + moveOx
+
+            canvas?.drawCircle(ox, origin.y, FIVE.toFloat(), paintPoint())
+            canvas?.drawText(i.toString(), ox, origin.y + MONTH_MARGIN, paintText())
+        }
+        canvas?.drawText(
+            MONTH_TEXT,
+            width - THREE * AXIS_VALUE_TEXT_SIZE,
+            height.toFloat(),
+            paintText().apply { textSize = AXIS_VALUE_TEXT_SIZE })
+
+        // point
+        for (i in weights.indices) {
+            val point =
+                PointF(
+                    origin.x + (i + 1) * xRangeStep + moveOx,
+                    origin.y - weights[i].weight * yRangeStep
+                )
+            //point
+            canvas?.drawCircle(
+                point.x,
+                point.y,
+                TEN.toFloat(),
+                paintPoint().apply { color = Color.RED })
+            //weight above
+            canvas?.drawText(
+                weights[i].weight.toString(),
+                point.x + VALUE_POINT_RANGE,
+                point.y - VALUE_POINT_RANGE,
+                paintText()
+            )
+        }
+
+        // margin white of the left
+        canvas?.drawRect(
             0f,
-            dY,
-            paintText
-        )
-    }
-
-    private fun initData() {
-        for (i in 1..LIMIT_OF_LIST) {
-            weightList.add(Weight(i, (RANDOM_NUMBER_FROM..RANDOM_NUMBER_UTIL).random()))
+            0f,
+            origin.x - axisStrokeWidth / 2,
+            origin.y + BOTTOM_BOUND,
+            paintLine().apply { color = Color.WHITE })
+        // oy
+        canvas?.drawLine(origin.x, origin.y, origin.x, 0f, paintAxis())
+        // weight oy
+        for (i in 0 until maxWeight step WEIGHT_STEP) {
+            canvas?.drawCircle(origin.x, origin.y - i * yRangeStep, FIVE.toFloat(), paintPoint())
+            canvas?.drawText(
+                i.toString(),
+                origin.x - WEIGHT_MARGIN,
+                origin.y - i * yRangeStep,
+                paintText()
+            )
         }
+        canvas?.drawText(
+            WEIGHT_TEXT,
+            0f,
+            AXIS_VALUE_TEXT_SIZE,
+            paintText().apply { textSize = AXIS_VALUE_TEXT_SIZE })
     }
 
-    private val paintLine = Paint().apply {
+    private fun paintAxis() = Paint().apply {
+        Paint.ANTI_ALIAS_FLAG
+        color = Color.BLACK
         style = Paint.Style.STROKE
-        strokeWidth = NUMBER_STROKE_WIDTH
-        color = Color.BLACK
+        strokeWidth = axisStrokeWidth
+        pathEffect = null
     }
 
-    private val paintText = Paint().apply {
-        textSize = NUMBER_OF_TEXT_SIZE
-        strokeWidth = NUMBER_STROKE_WIDTH
-        color = Color.BLACK
+    private fun paintLine() = Paint().apply {
+        Paint.ANTI_ALIAS_FLAG
+        color = Color.GRAY
+        strokeWidth = 2 * widthUnit
+        pathEffect = null
     }
 
-    private val paintPivot = Paint().apply {
-        style = Paint.Style.STROKE
-        strokeWidth = NUMBER_PIVOT_STROKE_WIDTH
-        color = Color.BLACK
-    }
-
-    private val paintDot = Paint().apply {
+    private fun paintPoint() = Paint().apply {
+        Paint.ANTI_ALIAS_FLAG
+        color = Color.CYAN
         style = Paint.Style.FILL
+        strokeWidth = FIVE * widthUnit
+        pathEffect = null
     }
 
-    private val paintLineDash = Paint().apply {
-        Paint.DITHER_FLAG
-        strokeWidth = NUMBER_LINE_DASH_STROKE_WIDTH
+    private fun paintText() = Paint().apply {
+        Paint.ANTI_ALIAS_FLAG
+        color = Color.BLUE
+        style = Paint.Style.FILL
+        textSize = EIGHTEEN.toFloat()
+        pathEffect = null
+    }
+
+    private fun paintDashLine() = Paint().apply {
+        Paint.ANTI_ALIAS_FLAG
+        color = Color.GRAY
         style = Paint.Style.STROKE
-        setARGB(255, 0, 0, 0)
-        pathEffect = DashPathEffect(floatArrayOf(10f, 18f, 10f, 18f), 0f)
+        strokeWidth = widthUnit
+        pathEffect = DashPathEffect(floatArrayOf(TEN.toFloat(), TEN.toFloat()), 0f)
     }
 }
