@@ -14,7 +14,7 @@
         android:layout_marginVertical="30dp"
         android:background="@drawable/bg_button"
         android:padding="10dp"
-        android:text="@string/chess_board"
+        android:text="chess board"
         tools:ignore="ButtonStyle" />
 
     <Button
@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/bg_button"
         android:padding="10dp"
-        android:text="@string/weight_data"
+        android:text="asdasdasd"
         tools:ignore="ButtonStyle" />
 
         <FrameLayout

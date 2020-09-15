@@ -186,7 +186,5 @@ class ChessBoardCustomView(context: Context, attributeSet: AttributeSet) :
 
         drawRightSpot(canvas, size * 8, size * 8)
         drawLeftSpot(canvas, size * 8, size * 8)
-
-
     }
 }

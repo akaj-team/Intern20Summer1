@@ -13,11 +13,13 @@ import kotlin.random.Random
 class WeightDataView(context: Context, attributeSet: AttributeSet) : View(context, attributeSet) {
     companion object {
         private const val STROKE_WIDTH = 4f
+        private const val WALL_STROKE_WIDTH = 50f
         private const val LINE_COLOR = Color.BLACK
         private const val DOT_COLOR = Color.BLUE
         private const val MAX_WEIGHT = 120
         private const val MIN_WEIGHT = 50
         private const val MONTH: Int = 12
+        private const val DAY: Int = 30
     }
 
     private var sizeX = 0f
@@ -28,27 +30,24 @@ class WeightDataView(context: Context, attributeSet: AttributeSet) : View(contex
     private var linePaint = Paint(Paint.ANTI_ALIAS_FLAG)
     private var dotPaint = Paint(Paint.ANTI_ALIAS_FLAG)
     private var dashPaint = Paint(Paint.ANTI_ALIAS_FLAG)
-    private var moveX = 0f
+    private var wallPaint = Paint(Paint.ANTI_ALIAS_FLAG)
     private var startMove = 0f
     private var stopMove = 0f
     private var distanceMove = 0f
     private var oldDistance = 0f
     private var path = Path()
-    private var isAddData = false
 
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
         initSize()
-        if (!isAddData) {
-            initData()
-            isAddData = true
-        }
+        initData()
         initPaint()
+        drawWall(canvas)
+        drawDot(canvas)
         drawAxis(canvas)
         drawAxisText(canvas)
-        drawDot(canvas)
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -56,11 +55,10 @@ class WeightDataView(context: Context, attributeSet: AttributeSet) : View(contex
         val x = event.x
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
-                initData()
                 startMove = x
+                distanceMove = 0f
             }
             MotionEvent.ACTION_MOVE -> {
-                moveX = x
                 stopMove = x
                 distanceMove = startMove - stopMove
                 invalidate()
@@ -68,6 +66,7 @@ class WeightDataView(context: Context, attributeSet: AttributeSet) : View(contex
             }
             MotionEvent.ACTION_UP -> {
                 oldDistance += distanceMove
+                invalidate()
             }
         }
         return true
@@ -89,12 +88,19 @@ class WeightDataView(context: Context, attributeSet: AttributeSet) : View(contex
         dashPaint.style = Paint.Style.STROKE
         dashPaint.strokeWidth = STROKE_WIDTH
         dashPaint.pathEffect = DashPathEffect(floatArrayOf(10f, 10f), 0f)
+        wallPaint.color = Color.WHITE
+        wallPaint.style = Paint.Style.STROKE
+        wallPaint.strokeWidth = WALL_STROKE_WIDTH
     }
 
     private fun initData() {
-        for (i in 0..MONTH) {
+        for (i in 0..DAY) {
             weightData.add(Random.nextInt(MIN_WEIGHT, MAX_WEIGHT))
         }
+    }
+
+    private fun drawWall(canvas: Canvas) {
+        canvas.drawLine(d0 + 20f, d0, d0 + 20f, height - sizeY * 4, wallPaint)
     }
 
     private fun drawAxis(canvas: Canvas) {
@@ -104,7 +110,7 @@ class WeightDataView(context: Context, attributeSet: AttributeSet) : View(contex
 
     private fun drawAxisText(canvas: Canvas) {
         canvas.drawText("Weight", d0 + 20f, d0 + 30f, textPaint)
-        canvas.drawText("Month", d0 + 50f, height - sizeY * 4 + 30f, textPaint)
+        canvas.drawText("Day", d0 + 50f, height - sizeY * 4 + 50f, textPaint)
 
         for (i in MIN_WEIGHT / 10..(MAX_WEIGHT + 1) / 10) {
             canvas.drawText(
@@ -120,7 +126,7 @@ class WeightDataView(context: Context, attributeSet: AttributeSet) : View(contex
         val dy = height - sizeY * 4
         var dx = -distanceMove - oldDistance + sizeX + 50f
         val weightUnit = dy / (MAX_WEIGHT + 10 - MIN_WEIGHT)
-        for (i in 0 until MONTH) {
+        for (i in 0 until DAY) {
             val startX = dx
             val startY = dy - (weightData[i] - MIN_WEIGHT) * weightUnit
             val endX = dx + sizeX
@@ -138,13 +144,13 @@ class WeightDataView(context: Context, attributeSet: AttributeSet) : View(contex
                 textPaint
             )
             canvas.drawText(i.toString(), startX, dy + 30f, textPaint)
-            path.moveTo(startX, startY)
-            path.lineTo(d0 + 50f, startY)
-            canvas.drawPath(path, dashPaint)
+//            path.moveTo(startX, startY)
+//            path.lineTo(d0 + 50f, startY)
+//            canvas.drawPath(path, dashPaint)
             path.moveTo(startX, startY)
             path.lineTo(startX, dy)
             canvas.drawPath(path, dashPaint)
-            if (i != MONTH - 1) {
+            if (i != DAY - 1) {
                 canvas.drawLine(
                     startX,
                     startY,
