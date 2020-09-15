@@ -118,29 +118,29 @@ class PostDialogFragment : DialogFragment() {
         val postJson = Gson().toJson(PostContent(edtContent?.text.toString())).toString()
         val body = postJson.toRequestBody(TYPE_TEXT.toMediaTypeOrNull())
         val token = AppUtils().getToken(requireContext())
-        callApi?.createPost(token, createMultiPartBody(), body)
-            ?.enqueue(object : retrofit2.Callback<ResponsePost> {
-                override fun onResponse(
-                    call: retrofit2.Call<ResponsePost>,
-                    response: Response<ResponsePost>
-                ) {
-
-                    if (response.body()?.message == Api.MESSAGE_CREATE_POST_SUCCESS) {
-                        val text = getString(R.string.w10_complete_post)
-                        ApiMainActivity().showToast(requireContext(), text)
-                        onPostClick.invoke()
-                        dialog?.dismiss()
-                    } else {
-                        val text = getString(R.string.w10_error_post)
-                        ApiMainActivity().showToast(requireContext(), text)
-                    }
-                    progressBar?.visibility = View.INVISIBLE
-                }
-
-                override fun onFailure(call: retrofit2.Call<ResponsePost>, t: Throwable) {
-                    t.printStackTrace()
-                }
-            })
+//        callApi?.createPost(token, createMultiPartBody(), body)
+//            ?.enqueue(object : retrofit2.Callback<ResponsePost> {
+//                override fun onResponse(
+//                    call: retrofit2.Call<ResponsePost>,
+//                    response: Response<ResponsePost>
+//                ) {
+//
+//                    if (response.body()?.message == Api.MESSAGE_CREATE_POST_SUCCESS) {
+//                        val text = getString(R.string.w10_complete_post)
+//                        ApiMainActivity().showToast(requireContext(), text)
+//                        onPostClick.invoke()
+//                        dialog?.dismiss()
+//                    } else {
+//                        val text = getString(R.string.w10_error_post)
+//                        ApiMainActivity().showToast(requireContext(), text)
+//                    }
+//                    progressBar?.visibility = View.INVISIBLE
+//                }
+//
+//                override fun onFailure(call: retrofit2.Call<ResponsePost>, t: Throwable) {
+//                    t.printStackTrace()
+//                }
+//            })
     }
 
     private fun createMultiPartBody(): MultipartBody.Part? {

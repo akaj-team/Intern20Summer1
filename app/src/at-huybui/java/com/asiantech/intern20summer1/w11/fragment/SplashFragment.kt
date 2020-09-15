@@ -115,6 +115,7 @@ class SplashFragment : Fragment() {
 
                 override fun onFailure(call: Call<Account>, t: Throwable) {}
             })
+
         }
     }
 

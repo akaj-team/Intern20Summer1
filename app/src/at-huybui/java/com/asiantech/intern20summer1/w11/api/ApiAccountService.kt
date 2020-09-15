@@ -33,5 +33,3 @@ interface ApiAccountService {
     @POST(PART_CREATE_POST)
     fun createUser(@Body request: RequestAccount): Call<Account>
 }
-
-
