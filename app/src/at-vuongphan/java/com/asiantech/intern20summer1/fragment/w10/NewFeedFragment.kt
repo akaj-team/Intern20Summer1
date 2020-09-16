@@ -2,14 +2,15 @@
 
 package com.asiantech.intern20summer1.fragment.w10
 
-import android.app.AlertDialog
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,12 +18,13 @@ import androidx.recyclerview.widget.SimpleItemAnimator
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.activity.w10.RecyclerViewNewFeed
 import com.asiantech.intern20summer1.adapter.w10.ItemFeedAdapter
-import com.asiantech.intern20summer1.api.w10.ClientAPI
-import com.asiantech.intern20summer1.model.w10.ApiResponse
+import com.asiantech.intern20summer1.api.w10.repository.PostRepository
 import com.asiantech.intern20summer1.model.w10.NewPost
 import com.asiantech.intern20summer1.model.w10.ResponseLike
+import com.asiantech.intern20summer1.views.PostViewModel
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.`at-vuongphan`.w10_fragment_new_feed.*
-import retrofit2.Call
 import retrofit2.Response
 
 class NewFeedFragment : Fragment() {
@@ -30,7 +32,9 @@ class NewFeedFragment : Fragment() {
     private var adapterNewFeeds = ItemFeedAdapter(newfeeds)
     private var isLoading = false
     private var currentPos = -1
+
     internal var token: String? = null
+    private var viewModel: PostViewModel? = null
 
     companion object {
         private const val DELAY_TIME = 2000L
@@ -39,7 +43,7 @@ class NewFeedFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
+        viewModel = PostViewModel(PostRepository())
     }
 
     override fun onCreateView(
@@ -50,67 +54,36 @@ class NewFeedFragment : Fragment() {
         val view = inflater.inflate(R.layout.w10_fragment_new_feed, container, false)
         val toolbar = view?.findViewById<androidx.appcompat.widget.Toolbar>(R.id.tbNewFeed)
         (activity as RecyclerViewNewFeed).setSupportActionBar(toolbar)
-        val imgPlus = view.findViewById<ImageView>(R.id.imgPlus)
         getToken()
-        imgPlus?.setOnClickListener {
-            Bundle().let {
-                it.putString(resources.getString(R.string.key_token), token)
-                val addNewFeedFragment = AddNewFeedFragment.newInstance()
-                addNewFeedFragment.arguments = it
-                (activity as? RecyclerViewNewFeed)?.openFragment(addNewFeedFragment, true)
-            }
+        val imgSearch = view.findViewById<ImageView>(R.id.imgSearch)
+        imgSearch?.setOnClickListener {
+            fragmentManager?.let { it1 -> FragmentDialogSearch().show(it1, "") }
         }
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getListAPI()
         initListener()
+        getListAPI()
     }
 
     private fun initAdapter() {
         recyclerViewMain.layoutManager = LinearLayoutManager(requireContext())
         recyclerViewMain.adapter = adapterNewFeeds
         adapterNewFeeds.onItemClicked = { position ->
-            addLike(position)
-            initListener()
+            addLikePost(position)
         }
         adapterNewFeeds.onItemDeleteClicked = {
-            displayDeleteDialog(newfeeds[it].id)
             currentPos = it
         }
-        itemOnclick(adapterNewFeeds)
-    }
-
-    private fun addLike(position: Int) {
-        token?.let { ClientAPI.createPost()?.likePost(it, newfeeds[position].id) }
-            ?.enqueue(object : retrofit2.Callback<ResponseLike> {
-                override fun onResponse(
-                    call: Call<ResponseLike>,
-                    response: Response<ResponseLike>
-                ) {
-                    if (response.isSuccessful) {
-                        response.body()?.let {
-                            newfeeds[position].like_count = it.likeCount
-                            newfeeds[position].like_flag = it.like_flag
-                            adapterNewFeeds.notifyItemChanged(position, null)
-                            (recyclerViewMain.itemAnimator as? SimpleItemAnimator)?.supportsChangeAnimations =
-                                true
-                        }
-                    }
-                }
-
-                override fun onFailure(call: Call<ResponseLike>, t: Throwable) {
-                }
-            })
-
     }
 
     private fun getToken() {
         val bundle = arguments
         if (bundle != null) {
             token = bundle.getString(resources.getString(R.string.key_data)).toString()
+            Log.d("TAG", "getToken: $token")
         } else {
             Toast.makeText(
                 requireContext(),
@@ -149,7 +122,27 @@ class NewFeedFragment : Fragment() {
         })
     }
 
-    internal fun displayErrorDialog(message: String) {
+    @Suppress("NAME_SHADOWING")
+    private fun getListAPI() {
+        token?.let { viewModel?.getPost(it) }
+            ?.subscribeOn(Schedulers.io())
+            ?.observeOn(AndroidSchedulers.mainThread())
+            ?.subscribe({ it: Response<MutableList<NewPost>> ->
+                if (it.isSuccessful) {
+                    it.body().let {
+                        it?.let { it1 -> newfeeds.addAll(it1) }
+                    }
+                    progressLoadData.visibility = View.GONE
+                    initAdapter()
+                } else {
+                    Toast.makeText(requireContext(), "Thất bại", Toast.LENGTH_SHORT).show()
+                }
+            }, {
+                it.message?.let { it -> displayErrorDialog(it) }
+            })
+    }
+
+    private fun displayErrorDialog(message: String) {
         val errorDialog = AlertDialog.Builder(requireContext())
         errorDialog.setTitle(
             getString(R.string.dialog_title_error)
@@ -159,73 +152,22 @@ class NewFeedFragment : Fragment() {
             .show()
     }
 
-    private fun getListAPI() {
-        val call = token?.let { ClientAPI.createPost()?.getPost(it) }
-        call?.enqueue(object : retrofit2.Callback<MutableList<NewPost>> {
-            override fun onFailure(call: Call<MutableList<NewPost>>, t: Throwable) {
-                t.message?.let { it -> displayErrorDialog(it) }
-            }
-
-            override fun onResponse(
-                call: Call<MutableList<NewPost>>,
-                response: Response<MutableList<NewPost>>
-            ) {
-                response.body().let {
-                    it?.let { it1 -> newfeeds.addAll(it1) }
+    private fun addLikePost(position: Int) {
+        token?.let { viewModel?.likePost(it, newfeeds[position].id) }
+            ?.subscribeOn(Schedulers.io())
+            ?.observeOn(AndroidSchedulers.mainThread())
+            ?.subscribe({ it: Response<ResponseLike> ->
+                if (it.isSuccessful) {
+                    it.body()?.let {
+                        newfeeds[position].like_count = it.likeCount
+                        newfeeds[position].like_flag = it.like_flag
+                        adapterNewFeeds.notifyItemChanged(position, null)
+                        (recyclerViewMain.itemAnimator as? SimpleItemAnimator)?.supportsChangeAnimations =
+                            true
+                    }
                 }
-                progressLoadData.visibility = View.GONE
-                initAdapter()
-            }
-        })
-    }
-
-    private fun deleteNewFeed(id: Int) {
-        val call = token?.let { ClientAPI.createPost()?.deletePosts(it, id) }
-        call?.enqueue(object : retrofit2.Callback<ApiResponse> {
-            override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
-                t.message?.let { displayErrorDialog(it) }
-            }
-
-            override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
-                newfeeds.removeAt(currentPos)
-                adapterNewFeeds.notifyDataSetChanged()
-            }
-        })
-    }
-
-    private fun displayDeleteDialog(id: Int) {
-        val errorDialog = androidx.appcompat.app.AlertDialog.Builder(requireContext())
-        errorDialog.setTitle(
-            getString(R.string.dialog_title_delete)
-        )
-            .setMessage(getString(R.string.dialog_message_delete))
-            .setNegativeButton(R.string.dialog_text_cancel) { dialog, _ -> dialog.dismiss() }
-            .setPositiveButton(R.string.dialog_text_ok) { _, _ -> deleteNewFeed(id) }
-            .show()
-    }
-
-    private fun itemOnclick(adapter: ItemFeedAdapter) {
-        adapter.click(object : ItemFeedAdapter.Onclick {
-            override fun iconEditFeed(post: NewPost) {
-                sendDataUpdate(post)
-            }
-        })
-    }
-
-    private fun sendDataUpdate(post: NewPost) {
-        val id = post.id
-        val content = post.content
-        val image = post.image
-        Bundle().let {
-            it.putString(resources.getString(R.string.key_token), token)
-            it.putInt(resources.getString(R.string.key_id), id)
-            it.putString(resources.getString(R.string.key_content), content)
-            it.putString(resources.getString(R.string.key_image_api), image)
-            val update = UpdateFeedFragment.newInstance()
-            update.arguments = it
-            (activity as? RecyclerViewNewFeed)?.openFragment(
-                update, true
-            )
-        }
+            }, {
+                it.message.let { it -> it?.let { it1 -> displayErrorDialog(it1) } }
+            })
     }
 }

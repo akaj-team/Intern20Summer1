@@ -2,18 +2,23 @@ package com.asiantech.intern20summer1.fragment.w10
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.api.w10.ClientAPI
+import com.asiantech.intern20summer1.api.w10.repository.UserRepository
 import com.asiantech.intern20summer1.extension.hideKeyboard
 import com.asiantech.intern20summer1.extension.isValidEmail
 import com.asiantech.intern20summer1.extension.isValidPasswordW10
 import com.asiantech.intern20summer1.model.w10.UserAutoSignIn
 import com.asiantech.intern20summer1.model.w10.UserRegister
+import com.asiantech.intern20summer1.views.RegisterViewModel
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.`at-vuongphan`.w10_fragment_register.*
 import retrofit2.Response
 
@@ -28,6 +33,12 @@ class FragmentRegister : Fragment() {
     private var isEmailValid = false
     private var isPassWordValid = false
     private var isUserNameValid = false
+    private var viewModel: RegisterViewModel? = null
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = RegisterViewModel(UserRepository())
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -53,26 +64,30 @@ class FragmentRegister : Fragment() {
     }
 
     private fun addNewUser() {
+        val email = edtEmail.text.toString()
+        val password = edtPassword.text.toString()
         btnRegister?.setOnClickListener {
-            val userName = edtUserName.text.toString()
-            val email = edtEmail.text.toString()
-            val password = edtPassword.text.toString()
-
-            val call = ClientAPI.createUserService()
-                ?.addNewUserRegister(UserRegister(email, password, userName))
-            call?.enqueue(object : retrofit2.Callback<UserAutoSignIn> {
-                override fun onFailure(call: retrofit2.Call<UserAutoSignIn>, t: Throwable) {
-                    t.message?.let { it1 -> NewFeedFragment().displayErrorDialog(it1) }
-                }
-
-                override fun onResponse(
-                    call: retrofit2.Call<UserAutoSignIn>,
-                    response: Response<UserAutoSignIn>
-                ) {
-                }
-            })
-            onRegisterSuccess(email, password)
-            activity?.onBackPressed()
+            viewModel?.addUserRegister(
+                UserRegister(
+                    edtEmail.text.toString(),
+                    edtPassword.text.toString(),
+                    edtUserName.text.toString()
+                )
+            )
+                ?.subscribeOn(Schedulers.io())
+                ?.observeOn(AndroidSchedulers.mainThread())
+                ?.subscribe({ it: Response<UserAutoSignIn> ->
+                    if (it.isSuccessful) {
+                        Toast.makeText(requireContext(), "Đăng kí thành công", Toast.LENGTH_SHORT)
+                            .show()
+                        onRegisterSuccess(email, password)
+                        activity?.onBackPressed()
+                    } else {
+                        Log.d("AAA", "addNewUser:${it.code()} ")
+                    }
+                }, {
+                    Log.d("AAA", "addNewUser:${it.message} ")
+                })
         }
     }
 

@@ -1,8 +1,11 @@
+@file:Suppress("NAME_SHADOWING")
+
 package com.asiantech.intern20summer1.fragment.w10
 
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,13 +16,16 @@ import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.activity.w10.RecyclerViewNewFeed
 import com.asiantech.intern20summer1.api.w10.ClientAPI
 import com.asiantech.intern20summer1.api.w10.ErrorUtils
+import com.asiantech.intern20summer1.api.w10.repository.UserRepository
 import com.asiantech.intern20summer1.extension.hideKeyboard
 import com.asiantech.intern20summer1.extension.isValidEmail
 import com.asiantech.intern20summer1.extension.isValidPasswordW10
 import com.asiantech.intern20summer1.fragment.w10.FragmentRegister.Companion.EMAIL_LENGTH
 import com.asiantech.intern20summer1.model.w10.UserAutoSignIn
+import com.asiantech.intern20summer1.views.LoginViewModel
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.`at-vuongphan`.w10_fragment_login.*
-import retrofit2.Call
 import retrofit2.Response
 
 class FragmentLogin : Fragment() {
@@ -28,6 +34,12 @@ class FragmentLogin : Fragment() {
 
     companion object {
         internal fun newInstance() = FragmentLogin()
+    }
+
+    private var viewModel: LoginViewModel? = null
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = LoginViewModel(UserRepository())
     }
 
     override fun onCreateView(
@@ -82,35 +94,25 @@ class FragmentLogin : Fragment() {
 
     private fun initButtonLogin() {
         btnLogin?.setOnClickListener {
-            val email = edtEmail?.text.toString()
-            val password = edtPassword.text.toString()
-            val call = ClientAPI.createUserService()?.login(email, password)
-            call?.enqueue(object : retrofit2.Callback<UserAutoSignIn> {
-                override fun onResponse(
-                    call: Call<UserAutoSignIn>,
-                    response: Response<UserAutoSignIn>
-                ) {
-                    if (response.isSuccessful) {
-                        response.body().apply {
-                            this?.let { it1 -> initPutDataLogin(it1) }
+            viewModel?.login(edtEmail.text.toString(), edtPassword.text.toString())
+                ?.subscribeOn(Schedulers.io())
+                ?.observeOn(AndroidSchedulers.mainThread())
+                ?.subscribe { it: Response<UserAutoSignIn> ->
+                    if (it.isSuccessful) {
+                        it.body()?.apply {
+                            initPutDataLogin(this)
                         }
                     } else {
-                        val error = ErrorUtils().parseError(response)
+                        val error = ErrorUtils().parseError(it)
                         if (error?.message == ClientAPI.MESSAGE_LOGIN_INCORRECT) {
                             Toast.makeText(
                                 requireContext(),
                                 resources.getString(R.string.register_error),
                                 Toast.LENGTH_SHORT
-                            )
-                                .show()
+                            ).show()
                         }
                     }
                 }
-
-                override fun onFailure(call: Call<UserAutoSignIn>, t: Throwable) {
-                    Toast.makeText(requireContext(), t.message, Toast.LENGTH_SHORT).show()
-                }
-            })
         }
     }
 
@@ -147,6 +149,7 @@ class FragmentLogin : Fragment() {
                     }
                 }
             }
+        Log.d("TAG", "addBundleAccount: ${user.token}")
         bundle.putSerializable(resources.getString(R.string.key_data), accountData)
     }
 

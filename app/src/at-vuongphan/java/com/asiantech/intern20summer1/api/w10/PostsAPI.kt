@@ -9,16 +9,17 @@ import com.asiantech.intern20summer1.model.w10.ApiResponse
 import com.asiantech.intern20summer1.model.w10.NewPost
 import com.asiantech.intern20summer1.model.w10.Post
 import com.asiantech.intern20summer1.model.w10.ResponseLike
+import io.reactivex.Single
 import okhttp3.MultipartBody
-import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.*
 
 interface PostsAPI {
     @GET(GET_API_POSTS)
-    fun getPost(@Header("token") token: String): Call<MutableList<NewPost>>
+    fun getPost(@Header("token") token: String): Single<Response<MutableList<NewPost>>>
 
     @DELETE(DELETE_POST)
-    fun deletePosts(@Header("token") token: String, @Path("id") id: Int): Call<ApiResponse>
+    fun deletePosts(@Header("token") token: String, @Path("id") id: Int): Single<ApiResponse>
 
     @Multipart
     @POST(CREATE_POST)
@@ -26,7 +27,7 @@ interface PostsAPI {
         @Header("token") token: String,
         @Part("body") body: Post,
         @Part image: MultipartBody.Part? = null
-    ): Call<ApiResponse>
+    ): Single<ApiResponse>
 
     @Multipart
     @POST(UPDATE_POST)
@@ -35,8 +36,11 @@ interface PostsAPI {
         @Path("id") id: Int,
         @Part("body") body: Post,
         @Part image: MultipartBody.Part? = null
-    ): Call<ApiResponse>
+    ): Single<ApiResponse>
 
     @POST(LIKE_POST)
-    fun likePost(@Header("token") token: String, @Path("id") id: Int = 0): Call<ResponseLike>
+    fun likePost(
+        @Header("token") token: String,
+        @Path("id") id: Int = 0
+    ): Single<Response<ResponseLike>>
 }

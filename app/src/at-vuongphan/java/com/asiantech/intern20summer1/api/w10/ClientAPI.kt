@@ -1,6 +1,7 @@
 package com.asiantech.intern20summer1.api.w10
 
 import com.asiantech.intern20summer1.BuildConfig
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -34,6 +35,7 @@ object ClientAPI {
             retrofit = Retrofit.Builder()
                 .baseUrl(API_URL)
                 .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(
                     OkHttpClient().newBuilder()
                         .connectTimeout(API_TIMEOUT.toLong(), TimeUnit.SECONDS)
