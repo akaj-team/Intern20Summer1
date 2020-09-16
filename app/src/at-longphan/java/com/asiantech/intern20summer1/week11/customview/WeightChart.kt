@@ -45,8 +45,8 @@ class WeightChart(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) :
 
     private var maxWeight = 0
     private var weights = mutableListOf<Weight>()
-    private var xRangeStep = 150f
-    private var yRangeStep = 15f
+    private var xRangeStep = 0f
+    private var yRangeStep = 0f
     private var origin = PointF()
     private var begin = 0f
     private var actionMove = 0f
