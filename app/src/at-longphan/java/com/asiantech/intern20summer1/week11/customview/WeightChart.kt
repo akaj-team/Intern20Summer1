@@ -6,9 +6,7 @@ import android.graphics.*
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
-import com.asiantech.intern20summer1.week11.WeightTwo
-import kotlin.random.Random
-import kotlin.random.nextInt
+import com.asiantech.intern20summer1.week11.Weight
 
 class WeightChart(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) :
     View(context, attrs, defStyleAttr) {
@@ -17,9 +15,10 @@ class WeightChart(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) :
         private const val WEIGHT_TEXT = "Weight"
         private const val MONTH_TEXT = "Month"
 
-        private const val MAX_MONTH = 12
-        private const val MAX_WEIGHT = 120
-        private const val MIN_WEIGHT = 50
+        internal const val SIZE_WEIGHT = 12
+        internal const val MAX_WEIGHT = 120
+        internal const val MIN_WEIGHT = 50
+        internal const val EXTRA_BOUND = 10
         private const val WEIGHT_STEP = 10
 
         private const val LEFT_BOUND = 100f
@@ -34,14 +33,18 @@ class WeightChart(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) :
         private const val THREE = 3
         private const val FOUR = 4
         private const val FIVE = 5
+        private const val SEVEN = 7
         private const val TEN = 10
         private const val THIRTEEN = 13
         private const val FOURTEEN = 14
         private const val EIGHTEEN = 18
     }
 
+    private var widthView = 0
+    private var heightView = 0
+
     private var maxWeight = 0
-    private var weights = mutableListOf<WeightTwo>()
+    private var weights = mutableListOf<Weight>()
     private var xRangeStep = 150f
     private var yRangeStep = 15f
     private var origin = PointF()
@@ -53,8 +56,8 @@ class WeightChart(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) :
     private var widthUnit = resources.displayMetrics.density
     private var axisStrokeWidth = FOUR * widthUnit
 
-    constructor(context: Context?) : this(context, null) {}
-    constructor(context: Context?, attrs: AttributeSet?) : this(context, attrs, 0) {}
+    constructor(context: Context?) : this(context, null)
+    constructor(context: Context?, attrs: AttributeSet?) : this(context, attrs, 0)
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         val w = MeasureSpec.getSize(widthMeasureSpec)
@@ -64,18 +67,15 @@ class WeightChart(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) :
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
+        widthView = w
+        heightView = h
+
         origin = PointF(0f + LEFT_BOUND, h.toFloat() - BOTTOM_BOUND)
         minOx = origin.x - THIRTEEN * xRangeStep + w - WEIGHT_MARGIN
         maxOx = origin.x
 
-        for (i in 1..MAX_MONTH) {
-            val random = Random.nextInt(MIN_WEIGHT..MAX_WEIGHT)
-            if (random > maxWeight) {
-                maxWeight = random + TEN
-            }
-            weights.add(WeightTwo(random, i))
-        }
-        yRangeStep = (h - BOTTOM_BOUND) / maxWeight.toFloat()
+        yRangeStep = (heightView - BOTTOM_BOUND) / maxWeight.toFloat()
+        xRangeStep = widthView / SEVEN.toFloat()
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
@@ -115,6 +115,14 @@ class WeightChart(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) :
         super.onDraw(canvas)
 
         moveOx += actionMove
+
+        drawDash(canvas)
+        drawOx(canvas)
+        drawPoint(canvas)
+        drawOy(canvas)
+    }
+
+    private fun drawDash(canvas: Canvas?) {
         //  dash
         var prevPoint = PointF()
         for (i in weights.indices) {
@@ -133,12 +141,14 @@ class WeightChart(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) :
             }
             prevPoint = point
         }
+    }
 
+    private fun drawOx(canvas: Canvas?) {
         // ox
         canvas?.drawLine(origin.x, origin.y, width.toFloat(), origin.y, paintAxis())
 
         // month oX
-        for (i in 1..MAX_MONTH) {
+        for (i in 1..SIZE_WEIGHT) {
             val ox = origin.x + i * xRangeStep + moveOx
 
             canvas?.drawCircle(ox, origin.y, FIVE.toFloat(), paintPoint())
@@ -149,7 +159,9 @@ class WeightChart(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) :
             width - THREE * AXIS_VALUE_TEXT_SIZE,
             height.toFloat(),
             paintText().apply { textSize = AXIS_VALUE_TEXT_SIZE })
+    }
 
+    private fun drawPoint(canvas: Canvas?) {
         // point
         for (i in weights.indices) {
             val point =
@@ -171,7 +183,9 @@ class WeightChart(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) :
                 paintText()
             )
         }
+    }
 
+    private fun drawOy(canvas: Canvas?) {
         // margin white of the left
         canvas?.drawRect(
             0f,
@@ -198,19 +212,22 @@ class WeightChart(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) :
             paintText().apply { textSize = AXIS_VALUE_TEXT_SIZE })
     }
 
+    internal fun initData(listData: MutableList<Weight>, max: Int){
+        weights = listData
+        maxWeight = max
+    }
+
     private fun paintAxis() = Paint().apply {
         Paint.ANTI_ALIAS_FLAG
         color = Color.BLACK
         style = Paint.Style.STROKE
         strokeWidth = axisStrokeWidth
-        pathEffect = null
     }
 
     private fun paintLine() = Paint().apply {
         Paint.ANTI_ALIAS_FLAG
         color = Color.GRAY
         strokeWidth = 2 * widthUnit
-        pathEffect = null
     }
 
     private fun paintPoint() = Paint().apply {
@@ -218,7 +235,6 @@ class WeightChart(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) :
         color = Color.CYAN
         style = Paint.Style.FILL
         strokeWidth = FIVE * widthUnit
-        pathEffect = null
     }
 
     private fun paintText() = Paint().apply {
@@ -226,7 +242,6 @@ class WeightChart(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) :
         color = Color.BLUE
         style = Paint.Style.FILL
         textSize = EIGHTEEN.toFloat()
-        pathEffect = null
     }
 
     private fun paintDashLine() = Paint().apply {
