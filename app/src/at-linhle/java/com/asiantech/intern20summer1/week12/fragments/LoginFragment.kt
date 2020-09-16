@@ -1,5 +1,8 @@
 package com.asiantech.intern20summer1.week12.fragments
 
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,13 +10,20 @@ import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.week12.viewmodels.LoginViewModel
+import com.asiantech.intern20summer1.week12.views.HomeRxActivity
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.`at-linhle`.fragment_login.*
 import java.util.regex.Pattern
 
 class LoginFragment : Fragment() {
 
     companion object {
+        internal const val KEY_STRING_FULL_NAME = "fullName"
         internal const val MAX_EMAIL_LENGTH = 264
+        internal const val SHARED_PREFERENCE_FILE = "userSharedPreference"
+        internal const val SHARED_PREFERENCE_TOKEN = "token"
         internal fun newInstance() = LoginFragment()
     }
 
@@ -32,6 +42,7 @@ class LoginFragment : Fragment() {
         handleClickingRegisterTextView()
         handleLoginEmailTextChanged()
         handleLoginPasswordTextChanged()
+        handleClickingLoginButton()
     }
 
     private fun isSignUpPasswordValid(password: String) =
@@ -83,6 +94,32 @@ class LoginFragment : Fragment() {
                     this@LoginFragment.edtPassword.setText(password)
                 }
             })?.addToBackStack(null)?.hide(this)?.commit()
+        }
+    }
+
+    private fun handleClickingLoginButton() {
+        btnLogin?.setOnClickListener {
+            LoginViewModel().login(edtEmail.text.toString(), edtPassword.text.toString())
+                ?.subscribeOn(Schedulers.io())
+                ?.observeOn(AndroidSchedulers.mainThread())
+                ?.subscribe({
+                    it.body()?.let { user ->
+                        val sharedPreferences = activity?.getSharedPreferences(
+                            SHARED_PREFERENCE_FILE,
+                            Context.MODE_PRIVATE
+                        )
+                        val editor: SharedPreferences.Editor? = sharedPreferences?.edit()
+                        editor?.putString(SHARED_PREFERENCE_TOKEN, user.token)
+                        editor?.apply()
+                        val intent = Intent(activity, HomeRxActivity::class.java)
+                        intent.putExtra(KEY_STRING_FULL_NAME, user.fullName)
+                        intent.putExtra(SHARED_PREFERENCE_TOKEN, user.token)
+                        activity?.startActivity(intent)
+                        activity?.finish()
+                    }
+                }, {
+                    //No-op
+                })
         }
     }
 }
