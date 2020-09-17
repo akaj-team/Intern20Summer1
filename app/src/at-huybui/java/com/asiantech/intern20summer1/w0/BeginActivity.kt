@@ -7,7 +7,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.w11.activity.ApiMainActivity
+import com.asiantech.intern20summer1.w11.ui.activity.ApiMainActivity
 import com.asiantech.intern20summer1.w3.MainActivity
 import com.asiantech.intern20summer1.w4.activity.SplashActivity
 import com.asiantech.intern20summer1.w6.firstactivity.ViewPagerOneActivity

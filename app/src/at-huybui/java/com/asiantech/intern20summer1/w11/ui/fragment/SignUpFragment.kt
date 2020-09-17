@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.w11.fragment
+package com.asiantech.intern20summer1.w11.ui.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,11 +8,11 @@ import androidx.core.util.PatternsCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.w11.api.Api
-import com.asiantech.intern20summer1.w11.api.ApiAccountService
-import com.asiantech.intern20summer1.w11.api.ErrorUtils
-import com.asiantech.intern20summer1.w11.models.Account
-import com.asiantech.intern20summer1.w11.models.RequestAccount
+import com.asiantech.intern20summer1.w11.data.api.ApiClient
+import com.asiantech.intern20summer1.w11.data.api.apiservice.ApiAccountService
+import com.asiantech.intern20summer1.w11.data.api.ErrorUtils
+import com.asiantech.intern20summer1.w11.data.models.Account
+import com.asiantech.intern20summer1.w11.data.models.RequestAccount
 import com.asiantech.intern20summer1.w11.utils.AppUtils
 import kotlinx.android.synthetic.`at-huybui`.w10_fragment_sign_up.*
 import retrofit2.Call
@@ -41,7 +41,7 @@ class SignUpFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        callApi = Api.getInstance()?.create(ApiAccountService::class.java)
+        callApi = ApiClient.getClientInstance()?.create(ApiAccountService::class.java)
         return inflater.inflate(R.layout.w10_fragment_sign_up, container, false)
     }
 
@@ -118,7 +118,7 @@ class SignUpFragment : Fragment() {
                     } else {
                         val error = ErrorUtils().parseError(response)
                         if (error?.message ==
-                            Api.MESSAGE_EMAIL_HAS_BEEN_TAKEN
+                            ApiClient.MESSAGE_EMAIL_HAS_BEEN_TAKEN
                         ) {
                             AppUtils().showToast(requireContext(),
                                 getString(R.string.w10_email_is_been_take))

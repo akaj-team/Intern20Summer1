@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.w11.fragment
+package com.asiantech.intern20summer1.w11.ui.fragment
 
 import android.content.Context
 import android.content.Intent
@@ -14,11 +14,11 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.w11.activity.ApiMainActivity
-import com.asiantech.intern20summer1.w11.api.Api
-import com.asiantech.intern20summer1.w11.api.ApiAccountService
-import com.asiantech.intern20summer1.w11.api.ErrorUtils
-import com.asiantech.intern20summer1.w11.models.Account
+import com.asiantech.intern20summer1.w11.ui.activity.ApiMainActivity
+import com.asiantech.intern20summer1.w11.data.api.ApiClient
+import com.asiantech.intern20summer1.w11.data.api.apiservice.ApiAccountService
+import com.asiantech.intern20summer1.w11.data.api.ErrorUtils
+import com.asiantech.intern20summer1.w11.data.models.Account
 import com.asiantech.intern20summer1.w11.utils.AppUtils
 import retrofit2.Call
 import retrofit2.Response
@@ -48,7 +48,7 @@ class SplashFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        callApi = Api.getInstance()?.create(ApiAccountService::class.java)
+        callApi = ApiClient.getClientInstance()?.create(ApiAccountService::class.java)
         return inflater.inflate(R.layout.w10_fragment_splash, container, false)
     }
 
@@ -107,7 +107,7 @@ class SplashFragment : Fragment() {
                         }
                     } else {
                         val error = ErrorUtils().parseError(response)
-                        if (error?.message == Api.MESSAGE_UNAUTHORIZED) {
+                        if (error?.message == ApiClient.MESSAGE_UNAUTHORIZED) {
                             (activity as ApiMainActivity).replaceFragment(SignInFragment.newInstance())
                         }
                     }

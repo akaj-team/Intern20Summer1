@@ -1,7 +1,10 @@
-package com.asiantech.intern20summer1.w11.api
+package com.asiantech.intern20summer1.w11.data.api
 
+import com.asiantech.intern20summer1.w11.data.api.apiservice.ApiAccountService
+import com.asiantech.intern20summer1.w11.data.api.apiservice.ApiPostService
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
@@ -12,7 +15,7 @@ import java.util.concurrent.TimeUnit
  * This is Api class. It is class progress connect Api
  */
 
-class Api {
+class ApiClient {
 
     companion object {
         //-- message from api server
@@ -35,15 +38,22 @@ class Api {
             .readTimeout(30, TimeUnit.SECONDS)
             .build()
 
-        internal fun getInstance(): Retrofit? {
+        internal fun getClientInstance(): Retrofit? {
             if (retrofit == null) {
                 retrofit = Retrofit.Builder()
                     .baseUrl(BASE_URL)
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(provideOkHttpClient())
                     .build()
             }
             return retrofit
         }
+
+        internal fun getApiPosts(): ApiPostService? =
+            getClientInstance()?.create(ApiPostService::class.java)
+
+        internal fun getApiUser(): ApiAccountService? =
+            getClientInstance()?.create(ApiAccountService::class.java)
     }
 }

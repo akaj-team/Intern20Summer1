@@ -85,17 +85,19 @@ android {
 
 dependencies {
 
+    //--
 
-    implementation "androidx.recyclerview:recyclerview:1.1.0"
-    implementation 'android.arch.lifecycle:extensions:1.1.1'
-    implementation 'com.github.bumptech.glide:glide:4.9.0'
-    implementation 'com.amitshekhar.android:rx2-android-networking:1.0.2'
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.18'
+//    implementation 'io.reactivex:rxandroid:1.2.1'
+//    implementation 'io.reactivex:rxjava:1.1.6'
+//    implementation 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.6.0'
+    //RxJava
+
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.12'
+    //RxAndroid
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
-
-//    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
-//    implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
-    
+    //--
     implementation 'com.squareup.okhttp3:logging-interceptor:4.2.1'
     implementation 'com.github.ronaldsmartin:Material-ViewPagerIndicator:1.0.4'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
@@ -122,6 +124,7 @@ dependencies {
     implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:4.1.2'
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'

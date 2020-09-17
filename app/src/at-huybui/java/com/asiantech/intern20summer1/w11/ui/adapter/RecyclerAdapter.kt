@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.w11.adapter
+package com.asiantech.intern20summer1.w11.ui.adapter
 
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.w11.api.Api
-import com.asiantech.intern20summer1.w11.models.PostItem
+import com.asiantech.intern20summer1.w11.data.api.ApiClient
+import com.asiantech.intern20summer1.w11.data.models.PostItem
 import com.asiantech.intern20summer1.w11.utils.AppUtils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -123,7 +123,7 @@ class RecyclerAdapter(private var mutableList: List<Any> = emptyList()) :
         private fun loadImage(item: PostItem) {
             progressBar.visibility = View.VISIBLE
             Glide.with(itemView)
-                .load(Api.IMAGE_URL + item.image)
+                .load(ApiClient.IMAGE_URL + item.image)
                 .placeholder(R.drawable.w10_img_placeholder)
                 .listener(object : RequestListener<Drawable> {
                     override fun onLoadFailed(

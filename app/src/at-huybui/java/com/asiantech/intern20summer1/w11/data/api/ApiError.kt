@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.w11.api
+package com.asiantech.intern20summer1.w11.data.api
 
 import okhttp3.ResponseBody
 import retrofit2.Converter
@@ -17,7 +17,7 @@ data class ApiError(var statusCode: Int = 0, var message: String = "")
 class ErrorUtils {
 
     fun parseError(response: Response<*>): ApiError? {
-        val converter: Converter<ResponseBody, ApiError>? = Api.getInstance()
+        val converter: Converter<ResponseBody, ApiError>? = ApiClient.getClientInstance()
             ?.responseBodyConverter(ApiError::class.java, arrayOfNulls<Annotation>(0))
         val error: ApiError?
         error = try {

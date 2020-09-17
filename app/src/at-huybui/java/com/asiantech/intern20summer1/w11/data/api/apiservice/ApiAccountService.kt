@@ -1,7 +1,7 @@
-package com.asiantech.intern20summer1.w11.api
+package com.asiantech.intern20summer1.w11.data.api.apiservice
 
-import com.asiantech.intern20summer1.w11.models.Account
-import com.asiantech.intern20summer1.w11.models.RequestAccount
+import com.asiantech.intern20summer1.w11.data.models.Account
+import com.asiantech.intern20summer1.w11.data.models.RequestAccount
 import retrofit2.Call
 import retrofit2.http.*
 
