@@ -4,7 +4,6 @@ package com.asiantech.intern20summer1.fragment.w10
 
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +12,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.activity.w10.RecyclerViewNewFeed
@@ -29,8 +27,9 @@ import retrofit2.Response
 
 class NewFeedFragment : Fragment() {
     private var newfeeds = mutableListOf<NewPost>()
-    private var adapterNewFeeds = ItemFeedAdapter(newfeeds)
+    private lateinit var adapterNewFeeds: ItemFeedAdapter
     private var isLoading = false
+    private var postItem = mutableListOf<NewPost>()
     private var currentPos = -1
 
     internal var token: String? = null
@@ -38,6 +37,7 @@ class NewFeedFragment : Fragment() {
 
     companion object {
         private const val DELAY_TIME = 2000L
+        private const val ITEMS_TAKE: Int = 10
         internal fun newInstance() = NewFeedFragment()
     }
 
@@ -55,9 +55,18 @@ class NewFeedFragment : Fragment() {
         val toolbar = view?.findViewById<androidx.appcompat.widget.Toolbar>(R.id.tbNewFeed)
         (activity as RecyclerViewNewFeed).setSupportActionBar(toolbar)
         getToken()
+        val imgPlus = view.findViewById<ImageView>(R.id.imgPlus)
         val imgSearch = view.findViewById<ImageView>(R.id.imgSearch)
         imgSearch?.setOnClickListener {
             fragmentManager?.let { it1 -> FragmentDialogSearch().show(it1, "") }
+        }
+        imgPlus?.setOnClickListener {
+            Bundle().let {
+                it.putString(resources.getString(R.string.key_token), token)
+                val addNewFeedFragment = AddNewFeedFragment.newInstance()
+                addNewFeedFragment.arguments = it
+                (activity as? RecyclerViewNewFeed)?.openFragment(addNewFeedFragment, true)
+            }
         }
         return view
     }
@@ -66,10 +75,13 @@ class NewFeedFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initListener()
         getListAPI()
+        handleSwipeRefresh()
     }
 
     private fun initAdapter() {
+        postItem = newfeeds.subList(0, ITEMS_TAKE)
         recyclerViewMain.layoutManager = LinearLayoutManager(requireContext())
+        adapterNewFeeds = ItemFeedAdapter(postItem)
         recyclerViewMain.adapter = adapterNewFeeds
         adapterNewFeeds.onItemClicked = { position ->
             addLikePost(position)
@@ -83,7 +95,6 @@ class NewFeedFragment : Fragment() {
         val bundle = arguments
         if (bundle != null) {
             token = bundle.getString(resources.getString(R.string.key_data)).toString()
-            Log.d("TAG", "getToken: $token")
         } else {
             Toast.makeText(
                 requireContext(),
@@ -102,25 +113,8 @@ class NewFeedFragment : Fragment() {
                 srlRefreshItem.isRefreshing = false
             }, DELAY_TIME)
         }
-
-        recyclerViewMain.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                val linearLayoutManager = recyclerView.layoutManager as LinearLayoutManager
-                val lastVisibleItem = linearLayoutManager.findLastCompletelyVisibleItemPosition()
-                if (!isLoading) {
-                    if (lastVisibleItem == newfeeds.size - 1) {
-                        progressBar.visibility = View.VISIBLE
-                        Handler().postDelayed({
-                            adapterNewFeeds.notifyDataSetChanged()
-                            isLoading = false
-                            progressBar.visibility = View.INVISIBLE
-                        }, DELAY_TIME)
-                    }
-                }
-            }
-        })
     }
+
 
     @Suppress("NAME_SHADOWING")
     private fun getListAPI() {
@@ -129,10 +123,12 @@ class NewFeedFragment : Fragment() {
             ?.observeOn(AndroidSchedulers.mainThread())
             ?.subscribe({ it: Response<MutableList<NewPost>> ->
                 if (it.isSuccessful) {
-                    it.body().let {
-                        it?.let { it1 -> newfeeds.addAll(it1) }
+                    it.body()?.apply {
+                        for (i in 0.until(size)) {
+                            newfeeds.add(this[i])
+                        }
                     }
-                    progressLoadData.visibility = View.GONE
+                    progressBar.visibility = View.GONE
                     initAdapter()
                 } else {
                     Toast.makeText(requireContext(), "Thất bại", Toast.LENGTH_SHORT).show()
@@ -169,5 +165,17 @@ class NewFeedFragment : Fragment() {
             }, {
                 it.message.let { it -> it?.let { it1 -> displayErrorDialog(it1) } }
             })
+    }
+
+    private fun handleSwipeRefresh() {
+        srlRefreshItem.setOnRefreshListener {
+            Handler().postDelayed({
+                postItem.clear()
+                progressBar.visibility = View.VISIBLE
+                getListAPI()
+                adapterNewFeeds.notifyDataSetChanged()
+                srlRefreshItem.isRefreshing = false
+            }, DELAY_TIME)
+        }
     }
 }

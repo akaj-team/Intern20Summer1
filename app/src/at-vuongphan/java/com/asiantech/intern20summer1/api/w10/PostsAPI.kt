@@ -27,7 +27,7 @@ interface PostsAPI {
         @Header("token") token: String,
         @Part("body") body: Post,
         @Part image: MultipartBody.Part? = null
-    ): Single<ApiResponse>
+    ): Single<Response<ApiResponse>>
 
     @Multipart
     @POST(UPDATE_POST)
