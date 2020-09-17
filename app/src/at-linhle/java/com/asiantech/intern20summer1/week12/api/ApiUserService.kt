@@ -9,7 +9,7 @@ import retrofit2.http.*
 interface ApiUserService {
 
     @POST("/api/user")
-    fun addNewUser(@Body userRegister: UserRegister): Single<User>
+    fun addNewUser(@Body userRegister: UserRegister): Single<Response<User>>
 
     @POST("/api/login")
     @FormUrlEncoded

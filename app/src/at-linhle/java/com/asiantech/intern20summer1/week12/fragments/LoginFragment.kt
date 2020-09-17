@@ -103,19 +103,21 @@ class LoginFragment : Fragment() {
                 ?.subscribeOn(Schedulers.io())
                 ?.observeOn(AndroidSchedulers.mainThread())
                 ?.subscribe({
-                    it.body()?.let { user ->
-                        val sharedPreferences = activity?.getSharedPreferences(
-                            SHARED_PREFERENCE_FILE,
-                            Context.MODE_PRIVATE
-                        )
-                        val editor: SharedPreferences.Editor? = sharedPreferences?.edit()
-                        editor?.putString(SHARED_PREFERENCE_TOKEN, user.token)
-                        editor?.apply()
-                        val intent = Intent(activity, HomeRxActivity::class.java)
-                        intent.putExtra(KEY_STRING_FULL_NAME, user.fullName)
-                        intent.putExtra(SHARED_PREFERENCE_TOKEN, user.token)
-                        activity?.startActivity(intent)
-                        activity?.finish()
+                    if (it.isSuccessful) {
+                        it.body()?.let { user ->
+                            val sharedPreferences = activity?.getSharedPreferences(
+                                SHARED_PREFERENCE_FILE,
+                                Context.MODE_PRIVATE
+                            )
+                            val editor: SharedPreferences.Editor? = sharedPreferences?.edit()
+                            editor?.putString(SHARED_PREFERENCE_TOKEN, user.token)
+                            editor?.apply()
+                            val intent = Intent(activity, HomeRxActivity::class.java)
+                            intent.putExtra(KEY_STRING_FULL_NAME, user.fullName)
+                            intent.putExtra(SHARED_PREFERENCE_TOKEN, user.token)
+                            activity?.startActivity(intent)
+                            activity?.finish()
+                        }
                     }
                 }, {
                     //No-op

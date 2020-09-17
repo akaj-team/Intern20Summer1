@@ -1,13 +1,19 @@
 package com.asiantech.intern20summer1.week12.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week12.fragments.LoginFragment.Companion.MAX_EMAIL_LENGTH
+import com.asiantech.intern20summer1.week12.models.UserRegister
+import com.asiantech.intern20summer1.week12.viewmodels.LoginViewModel
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.`at-linhle`.fragment_register.*
 import java.util.regex.Pattern
 
@@ -35,6 +41,7 @@ class RegisterFragment : Fragment() {
         handleRegisterEmailTextChanged()
         handleRegisterFullNameTextChanged()
         handleRegisterPasswordTextChanged()
+        handleClickingRegisterButton()
     }
 
     private fun isSignUpFullNameValid(fullName: String) = fullName.length <= MAX_FULL_NAME_LENGTH
@@ -98,6 +105,33 @@ class RegisterFragment : Fragment() {
     private fun handleClickingArrowBack() {
         imgArrowLeft?.setOnClickListener {
             activity?.onBackPressed()
+        }
+    }
+
+    private fun handleClickingRegisterButton() {
+        val fullName = edtUserName.text.toString()
+        val email = edtEmail.text.toString()
+        val password = edtPassword.text.toString()
+        btnRegister?.setOnClickListener {
+            LoginViewModel().register(UserRegister(email, password, fullName))
+                ?.subscribeOn(Schedulers.io())
+                ?.observeOn(AndroidSchedulers.mainThread())
+                ?.subscribe({
+                    if (it.isSuccessful) {
+                        Toast.makeText(
+                            activity,
+                            getString(R.string.register_fragment_register_success),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        onRegisterSuccess(email, password)
+                        activity?.onBackPressed()
+                    }else{
+                        Log.d("TAG", "handleClickingRegisterButton: ${it.code()}")
+                    }
+                }, {
+                    //No-op
+                    Log.d("TAG", "handleClickingRegisterButton: ${it.message}")
+                })
         }
     }
 }
