@@ -16,6 +16,7 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.`at-linhle`.fragment_register.*
 import java.util.regex.Pattern
 
+
 class RegisterFragment : Fragment() {
 
     companion object {
@@ -57,9 +58,7 @@ class RegisterFragment : Fragment() {
         fullName: String,
         email: String,
         password: String
-    ) = isSignUpFullNameValid(fullName) && isSignUpEmailValid(email) && isSignUpPasswordValid(
-        password
-    )
+    ) = isSignUpFullNameValid(fullName) && isSignUpEmailValid(email) && isSignUpPasswordValid(password)
 
     private fun handleRegisterFullNameTextChanged() {
         edtUserName?.addTextChangedListener(onTextChanged = { p0: CharSequence?, _, _, _ ->
@@ -109,10 +108,10 @@ class RegisterFragment : Fragment() {
     }
 
     private fun handleClickingRegisterButton() {
-        val fullName = edtUserName.text.toString()
-        val email = edtEmail.text.toString()
-        val password = edtPassword.text.toString()
         btnRegister?.setOnClickListener {
+            val fullName = edtUserName?.text.toString()
+            val email = edtEmail?.text.toString()
+            val password = edtPassword?.text.toString()
             LoginViewModel().register(UserRegister(email, password, fullName))
                 ?.subscribeOn(Schedulers.io())
                 ?.observeOn(AndroidSchedulers.mainThread())
