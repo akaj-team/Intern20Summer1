@@ -1,6 +1,6 @@
 package com.asiantech.intern20summer1.w11.ui.viewmodel
 
-import com.asiantech.intern20summer1.w11.data.datasource.PostsDataSource
+import com.asiantech.intern20summer1.w11.data.remotedatasource.PostsDataSource
 import com.asiantech.intern20summer1.w11.data.models.PostItem
 import com.asiantech.intern20summer1.w11.data.models.ResponseLike
 import com.asiantech.intern20summer1.w11.data.models.ResponsePost

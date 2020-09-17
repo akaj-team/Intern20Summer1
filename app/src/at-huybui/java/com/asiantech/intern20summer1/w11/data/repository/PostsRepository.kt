@@ -1,7 +1,7 @@
 package com.asiantech.intern20summer1.w11.data.repository
 
-import com.asiantech.intern20summer1.w11.data.datasource.PostsDataSource
-import com.asiantech.intern20summer1.w11.data.datasource.PostsRemoteDataSource
+import com.asiantech.intern20summer1.w11.data.remotedatasource.PostsDataSource
+import com.asiantech.intern20summer1.w11.data.remotedatasource.PostsRemoteDataSource
 import com.asiantech.intern20summer1.w11.data.models.PostItem
 import com.asiantech.intern20summer1.w11.data.models.ResponseLike
 import com.asiantech.intern20summer1.w11.data.models.ResponsePost

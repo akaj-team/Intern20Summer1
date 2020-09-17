@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.w11.data.datasource
+package com.asiantech.intern20summer1.w11.data.remotedatasource
 
 import com.asiantech.intern20summer1.w11.data.models.PostItem
 import com.asiantech.intern20summer1.w11.data.models.ResponseLike
