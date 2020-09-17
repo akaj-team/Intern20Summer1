@@ -12,6 +12,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import com.asiantech.intern20summer1.week12.hideSoftKeyboard
 import kotlinx.android.synthetic.`at-hoangtran`.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -25,11 +26,11 @@ class MainActivity : AppCompatActivity() {
         edtPass.onFocusEditText()
         edtRetype.onFocusEditText()
 
-        lnMain?.setOnTouchListener { it, _ ->
-            it.requestFocus()
-            this.hideSoftKeyboard()
-            true
-        }
+//        lnMain?.setOnTouchListener { it, _ ->
+//            it.requestFocus()
+//            this.hide
+//            true
+//        }
 
         onTextChange(edtEmail, imgEmailTick)
         onTextChange(edtPass, imgPassTick)
