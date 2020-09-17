@@ -1,7 +1,6 @@
 package com.asiantech.intern20summer1.week12.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +19,7 @@ import java.util.regex.Pattern
 class RegisterFragment : Fragment() {
 
     companion object {
+        private const val RESPONSE_CODE = 400
         private const val MAX_FULL_NAME_LENGTH = 64
         internal fun newInstance() = RegisterFragment()
     }
@@ -125,12 +125,25 @@ class RegisterFragment : Fragment() {
                         ).show()
                         onRegisterSuccess(email, password)
                         activity?.onBackPressed()
-                    }else{
-                        Log.d("TAG", "handleClickingRegisterButton: ${it.code()}")
+                    } else {
+                        if (it.code() == RESPONSE_CODE) {
+                            Toast.makeText(
+                                activity,
+                                getString(R.string.register_fragment_email_already_have),
+                                Toast.LENGTH_SHORT
+                            )
+                                .show()
+                        } else {
+                            Toast.makeText(
+                                activity,
+                                getString(R.string.register_fragment_register_fail),
+                                Toast.LENGTH_SHORT
+                            )
+                                .show()
+                        }
                     }
                 }, {
                     //No-op
-                    Log.d("TAG", "handleClickingRegisterButton: ${it.message}")
                 })
         }
     }

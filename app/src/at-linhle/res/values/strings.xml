@@ -58,4 +58,8 @@
     <string name="detail_status_text_view">Life is short. Time is fast. No reply. No rewind. So enjoy every moment as it comes</string>
     <string name="week_twelve_button_description">Week 12</string>
     <string name="register_fragment_register_success">Register Successfully</string>
+    <string name="login_fragment_login_incorrect">Email or password incorrect!</string>
+    <string name="login_fragment_login_fail">Login Fail !!!</string>
+    <string name="register_fragment_email_already_have">The email has already been taken.</string>
+    <string name="register_fragment_register_fail">Register fail !!!!!</string>
 </resources>

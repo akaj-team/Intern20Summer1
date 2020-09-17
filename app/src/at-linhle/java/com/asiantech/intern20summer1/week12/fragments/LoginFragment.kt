@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
@@ -22,6 +23,7 @@ class LoginFragment : Fragment() {
     companion object {
         internal const val KEY_STRING_FULL_NAME = "fullName"
         internal const val MAX_EMAIL_LENGTH = 264
+        private const val RESPONSE_CODE = 401
         internal const val SHARED_PREFERENCE_FILE = "userSharedPreference"
         internal const val SHARED_PREFERENCE_TOKEN = "token"
         internal fun newInstance() = LoginFragment()
@@ -117,6 +119,20 @@ class LoginFragment : Fragment() {
                             intent.putExtra(SHARED_PREFERENCE_TOKEN, user.token)
                             activity?.startActivity(intent)
                             activity?.finish()
+                        }
+                    } else {
+                        if (it.code() == RESPONSE_CODE) {
+                            Toast.makeText(
+                                requireContext(),
+                                getString(R.string.login_fragment_login_incorrect),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        } else {
+                            Toast.makeText(
+                                requireContext(),
+                                getString(R.string.login_fragment_login_fail),
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                     }
                 }, {
