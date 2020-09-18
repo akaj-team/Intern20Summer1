@@ -37,7 +37,7 @@ internal class FileInformation {
      *
      * @param context The context.
      */
-    private fun getPath(context: Context, uri: Uri): String? {
+    fun getPath(context: Context, uri: Uri): String? {
         var pathReturn: String? = UNKNOWN
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT

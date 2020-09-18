@@ -1,6 +1,7 @@
 package com.asiantech.intern20summer1.w11.ui.adapter
 
 import android.graphics.drawable.Drawable
+import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -81,6 +82,7 @@ class RecyclerAdapter(private var mutableList: List<Any> = emptyList()) :
         }
     }
 
+
     inner class ItemViewHolder(itemView: View) : BaseViewHolder<PostItem>(itemView) {
         private var image = itemView.imgImage
         private var iconLike = itemView.btnLike
@@ -107,7 +109,12 @@ class RecyclerAdapter(private var mutableList: List<Any> = emptyList()) :
             } else {
                 btnMenu.visibility = View.INVISIBLE
             }
-            loadImage(item)
+
+            if (item.image.isNotEmpty()) {
+                loadImage(item.image)
+            } else {
+                image.setImageResource(0)
+            }
             val text = itemView.context.getString(R.string.w10_text_likes)
             val stLikeCount = "$BLACK_HEART_SYMBOL ${item.like_count} $text"
             content.text = item.content
@@ -120,10 +127,10 @@ class RecyclerAdapter(private var mutableList: List<Any> = emptyList()) :
             }
         }
 
-        private fun loadImage(item: PostItem) {
+        private fun loadImage(imageUrl: String) {
             progressBar.visibility = View.VISIBLE
             Glide.with(itemView)
-                .load(ApiClient.IMAGE_URL + item.image)
+                .load(ApiClient.IMAGE_URL + imageUrl)
                 .placeholder(R.drawable.w10_img_placeholder)
                 .listener(object : RequestListener<Drawable> {
                     override fun onLoadFailed(
@@ -132,6 +139,7 @@ class RecyclerAdapter(private var mutableList: List<Any> = emptyList()) :
                         target: Target<Drawable>?,
                         isFirstResource: Boolean
                     ): Boolean {
+                        progressBar.visibility = View.INVISIBLE
                         return false
                     }
 
@@ -142,6 +150,7 @@ class RecyclerAdapter(private var mutableList: List<Any> = emptyList()) :
                         dataSource: DataSource?,
                         isFirstResource: Boolean
                     ): Boolean {
+                        d("adpter", "$adapterPosition ** $imageUrl")
                         progressBar.visibility = View.INVISIBLE
                         return false
                     }

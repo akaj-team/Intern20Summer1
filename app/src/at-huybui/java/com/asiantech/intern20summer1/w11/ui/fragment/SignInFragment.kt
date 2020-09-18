@@ -7,14 +7,15 @@ import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.w11.ui.activity.ApiMainActivity
 import com.asiantech.intern20summer1.w11.data.api.ApiClient
-import com.asiantech.intern20summer1.w11.data.api.apiservice.ApiAccountService
 import com.asiantech.intern20summer1.w11.data.api.ErrorUtils
-import com.asiantech.intern20summer1.w11.data.models.Account
+import com.asiantech.intern20summer1.w11.data.repository.RemoteRepository
+import com.asiantech.intern20summer1.w11.ui.activity.ApiMainActivity
+import com.asiantech.intern20summer1.w11.ui.viewmodel.LauncherViewModel
 import com.asiantech.intern20summer1.w11.utils.AppUtils
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.`at-huybui`.w10_fragment_sign_in.*
-import retrofit2.Response
 
 /**
  * Asian Tech Co., Ltd.
@@ -29,14 +30,14 @@ class SignInFragment : Fragment() {
         internal fun newInstance() = SignInFragment()
     }
 
-    private var callApi: ApiAccountService? = null
+    private var viewModel: LauncherViewModel? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        callApi = ApiClient.getClientInstance()?.create(ApiAccountService::class.java)
+        setupViewModel()
         return inflater.inflate(R.layout.w10_fragment_sign_in, container, false)
     }
 
@@ -69,8 +70,11 @@ class SignInFragment : Fragment() {
         progressBar?.visibility = View.VISIBLE
         val email = edtEmail.text.toString()
         val password = edtPassword.text.toString()
-        callApi?.login(email, password)?.enqueue(object : retrofit2.Callback<Account> {
-            override fun onResponse(call: retrofit2.Call<Account>, response: Response<Account>) {
+        viewModel
+            ?.login(email, password)
+            ?.subscribeOn(Schedulers.io())
+            ?.observeOn(AndroidSchedulers.mainThread())
+            ?.subscribe { response ->
                 if (response.isSuccessful) {
                     response.body()?.let { account ->
                         AppUtils().putIsLogin(requireContext(), true)
@@ -91,9 +95,6 @@ class SignInFragment : Fragment() {
                 progressBar?.visibility = View.INVISIBLE
             }
 
-            override fun onFailure(call: retrofit2.Call<Account>, t: Throwable) {
-            }
-        })
     }
 
     private fun handleEdiTextListener() {
@@ -114,5 +115,9 @@ class SignInFragment : Fragment() {
             btnSignIn?.setBackgroundResource(R.drawable.w10_bg_select_button)
             btnSignIn?.isEnabled = true
         }
+    }
+
+    private fun setupViewModel() {
+        viewModel = LauncherViewModel(RemoteRepository(requireContext()))
     }
 }

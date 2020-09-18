@@ -10,18 +10,18 @@ import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import androidx.appcompat.app.AlertDialog
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w11.data.api.ApiClient
 import com.asiantech.intern20summer1.w11.data.models.PostContent
-import com.asiantech.intern20summer1.w11.data.repository.PostsRepository
+import com.asiantech.intern20summer1.w11.data.repository.RemoteRepository
 import com.asiantech.intern20summer1.w11.ui.activity.ApiMainActivity
 import com.asiantech.intern20summer1.w11.ui.viewmodel.HomeViewModel
 import com.asiantech.intern20summer1.w11.utils.AppUtils
@@ -47,7 +47,8 @@ class PostDialogFragment : DialogFragment() {
     companion object {
         private const val REQUEST_IMAGE_CAPTURE = 100
         private const val REQUEST_SELECT_IMAGE_IN_ALBUM = 101
-        private const val PERMISSION_REQUEST_CODE = 200
+        private const val PERMISSION_REQUEST_CAMERA_CODE = 200
+        private const val PERMISSION_REQUEST_GALLERY_CODE = 201
         private const val TYPE_IMAGE = "image/*"
         private const val TYPE_TEXT = "text"
         internal fun newInstance() = PostDialogFragment()
@@ -73,11 +74,6 @@ class PostDialogFragment : DialogFragment() {
         initView()
     }
 
-    override fun onResume() {
-        super.onResume()
-        handleCheckPermissionAfterRequest()
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
@@ -88,6 +84,29 @@ class PostDialogFragment : DialogFragment() {
                 REQUEST_SELECT_IMAGE_IN_ALBUM -> {
                     imageUri = data?.data
                     imgContent?.setImageURI(imageUri)
+                }
+            }
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        Log.d("permissionx", "requestcode = $requestCode")
+        when (requestCode) {
+            PERMISSION_REQUEST_CAMERA_CODE -> {
+                Log.d("permissionx", "PERMISSION_REQUEST_CAMERA_CODE")
+                if (isCheckCameraPermission()) {
+                    openCamera()
+                }
+            }
+            PERMISSION_REQUEST_GALLERY_CODE -> {
+                Log.d("permissionx", "PERMISSION_REQUEST_GALLERY_CODE")
+                if (isCheckGalleryPermission()) {
+                    openGallery()
                 }
             }
         }
@@ -115,8 +134,9 @@ class PostDialogFragment : DialogFragment() {
         val postJson = Gson().toJson(PostContent(edtContent?.text.toString())).toString()
         val body = postJson.toRequestBody(TYPE_TEXT.toMediaTypeOrNull())
         val token = AppUtils().getToken(requireContext())
+        val file = createMultiPartBody()
         viewModel
-            ?.createPost(token, createMultiPartBody(), body)
+            ?.createPost(token, file, body)
             ?.subscribeOn(Schedulers.io())
             ?.observeOn(AndroidSchedulers.mainThread())
             ?.subscribe { response ->
@@ -210,10 +230,9 @@ class PostDialogFragment : DialogFragment() {
     }
 
     private fun requestCameraPermission() {
-        ActivityCompat.requestPermissions(
-            (activity as ApiMainActivity),
+        requestPermissions(
             arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE),
-            PERMISSION_REQUEST_CODE
+            PERMISSION_REQUEST_CAMERA_CODE
         )
     }
 
@@ -225,27 +244,9 @@ class PostDialogFragment : DialogFragment() {
     }
 
     private fun requestGalleryPermission() {
-        ActivityCompat.requestPermissions(
-            (activity as ApiMainActivity), arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-            PERMISSION_REQUEST_CODE
+        requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+            PERMISSION_REQUEST_GALLERY_CODE
         )
-    }
-
-    private fun handleCheckPermissionAfterRequest() {
-        when {
-            isCameraAllowed -> {
-                isCameraAllowed = false
-                if (isCheckCameraPermission()) {
-                    openCamera()
-                }
-            }
-            isCheckGallery -> {
-                isCheckGallery = false
-                if (isCheckGalleryPermission()) {
-                    openGallery()
-                }
-            }
-        }
     }
 
     private fun initDialog() {
@@ -256,6 +257,6 @@ class PostDialogFragment : DialogFragment() {
     }
 
     private fun setupViewModel() {
-        viewModel = HomeViewModel(PostsRepository())
+        viewModel = HomeViewModel(RemoteRepository(requireContext()))
     }
 }

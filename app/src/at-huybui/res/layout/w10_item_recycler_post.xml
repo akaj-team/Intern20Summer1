@@ -55,7 +55,7 @@
                 android:layout_marginBottom="@dimen/w10_item_margin_left_right"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
-                android:src="@drawable/w10_img_placeholder" />
+                tools:src="@drawable/w10_img_placeholder" />
 
             <ProgressBar
                 android:id="@+id/progressBar"

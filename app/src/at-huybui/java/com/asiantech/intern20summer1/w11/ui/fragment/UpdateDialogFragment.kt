@@ -10,31 +10,28 @@ import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import androidx.appcompat.app.AlertDialog
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w11.data.api.ApiClient
 import com.asiantech.intern20summer1.w11.data.models.PostContent
 import com.asiantech.intern20summer1.w11.data.models.PostItem
-import com.asiantech.intern20summer1.w11.data.repository.PostsRepository
+import com.asiantech.intern20summer1.w11.data.repository.RemoteRepository
 import com.asiantech.intern20summer1.w11.ui.activity.ApiMainActivity
 import com.asiantech.intern20summer1.w11.ui.viewmodel.HomeViewModel
 import com.asiantech.intern20summer1.w11.utils.AppUtils
-import com.asiantech.intern20summer1.w11.utils.FileInformation
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.`at-huybui`.w10_dialog_fragment_post.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.MultipartBody
-import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 
 /**
@@ -47,10 +44,11 @@ import okhttp3.RequestBody.Companion.toRequestBody
 class UpdateDialogFragment : DialogFragment() {
 
     companion object {
-        private const val REQUEST_IMAGE_CAPTURE = 100
-        private const val REQUEST_SELECT_IMAGE_IN_ALBUM = 101
-        private const val PERMISSION_REQUEST_CODE = 200
-        private const val TYPE_IMAGE = "image/*"
+        private const val REQUEST_IMAGE_CAPTURE_CODE = 100
+        private const val REQUEST_IMAGE_GALLERY_CODE = 101
+        private const val PERMISSION_REQUEST_CAMERA_CODE = 200
+        private const val PERMISSION_REQUEST_GALLERY_CODE = 201
+        private const val TYPE_IMAGE_GALLERY = "image/*"
         private const val TYPE_TEXT = "text"
         internal fun newInstance(item: PostItem) = UpdateDialogFragment().apply {
             postItem = item
@@ -69,6 +67,7 @@ class UpdateDialogFragment : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        d("permissionx", "open")
         setupViewModel()
         return inflater.inflate(R.layout.w10_dialog_fragment_post, container, false)
     }
@@ -78,21 +77,39 @@ class UpdateDialogFragment : DialogFragment() {
         initView()
     }
 
-    override fun onResume() {
-        super.onResume()
-        handleCheckPermissionAfterRequest()
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
-                REQUEST_IMAGE_CAPTURE -> {
+                REQUEST_IMAGE_CAPTURE_CODE -> {
                     imgContent?.setImageURI(imageUri)
                 }
-                REQUEST_SELECT_IMAGE_IN_ALBUM -> {
+                REQUEST_IMAGE_GALLERY_CODE -> {
                     imageUri = data?.data
                     imgContent?.setImageURI(imageUri)
+                }
+            }
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        d("permissionx", "requestcode = $requestCode")
+        when (requestCode) {
+            PERMISSION_REQUEST_CAMERA_CODE -> {
+                d("permissionx", "PERMISSION_REQUEST_CAMERA_CODE")
+                if (isCheckCameraPermission()) {
+                    openCamera()
+                }
+            }
+            PERMISSION_REQUEST_GALLERY_CODE -> {
+                d("permissionx", "PERMISSION_REQUEST_GALLERY_CODE")
+                if (isCheckGalleryPermission()) {
+                    openGallery()
                 }
             }
         }
@@ -132,7 +149,7 @@ class UpdateDialogFragment : DialogFragment() {
         val body = postJson.toRequestBody(TYPE_TEXT.toMediaTypeOrNull())
         val token = AppUtils().getToken(requireContext())
         viewModel
-            ?.updatePost(token, postItem.id, createMultiPartBody(), body)
+            ?.updatePost(token, postItem.id, imageUri.toString(), body)
             ?.subscribeOn(Schedulers.io())
             ?.observeOn(AndroidSchedulers.mainThread())
             ?.subscribe { response ->
@@ -147,15 +164,6 @@ class UpdateDialogFragment : DialogFragment() {
                 }
                 progressBar?.visibility = View.INVISIBLE
             }
-    }
-
-    private fun createMultiPartBody(): MultipartBody.Part? {
-        imageUri?.let {
-            val file = FileInformation().getFile(requireContext(), it)
-            val image = file.asRequestBody(TYPE_IMAGE.toMediaTypeOrNull())
-            return MultipartBody.Part.createFormData(TYPE_IMAGE, file.name, image)
-        }
-        return null
     }
 
     private fun handleForAvatarImage() {
@@ -203,7 +211,7 @@ class UpdateDialogFragment : DialogFragment() {
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
         startActivityForResult(
             cameraIntent,
-            REQUEST_IMAGE_CAPTURE
+            REQUEST_IMAGE_CAPTURE_CODE
         )
     }
 
@@ -213,10 +221,10 @@ class UpdateDialogFragment : DialogFragment() {
     private fun openGallery() {
         val intentGallery = Intent(Intent.ACTION_PICK)
         intentGallery.type =
-            TYPE_IMAGE
+            TYPE_IMAGE_GALLERY
         startActivityForResult(
             intentGallery,
-            REQUEST_SELECT_IMAGE_IN_ALBUM
+            REQUEST_IMAGE_GALLERY_CODE
         )
     }
 
@@ -231,10 +239,9 @@ class UpdateDialogFragment : DialogFragment() {
     }
 
     private fun requestCameraPermission() {
-        ActivityCompat.requestPermissions(
-            (activity as ApiMainActivity),
+        requestPermissions(
             arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE),
-            PERMISSION_REQUEST_CODE
+            PERMISSION_REQUEST_CAMERA_CODE
         )
     }
 
@@ -246,27 +253,11 @@ class UpdateDialogFragment : DialogFragment() {
     }
 
     private fun requestGalleryPermission() {
-        ActivityCompat.requestPermissions(
-            (activity as ApiMainActivity), arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-            PERMISSION_REQUEST_CODE
-        )
-    }
 
-    private fun handleCheckPermissionAfterRequest() {
-        when {
-            isCameraAllowed -> {
-                isCameraAllowed = false
-                if (isCheckCameraPermission()) {
-                    openCamera()
-                }
-            }
-            isCheckGallery -> {
-                isCheckGallery = false
-                if (isCheckGalleryPermission()) {
-                    openGallery()
-                }
-            }
-        }
+        requestPermissions(
+            arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+            PERMISSION_REQUEST_GALLERY_CODE
+        )
     }
 
     private fun initDialog() {
@@ -277,6 +268,6 @@ class UpdateDialogFragment : DialogFragment() {
     }
 
     private fun setupViewModel() {
-        viewModel = HomeViewModel(PostsRepository())
+        viewModel = HomeViewModel(RemoteRepository(requireContext()))
     }
 }

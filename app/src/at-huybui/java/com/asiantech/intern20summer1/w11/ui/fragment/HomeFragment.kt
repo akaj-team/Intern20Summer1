@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w11.data.models.PostItem
-import com.asiantech.intern20summer1.w11.data.repository.PostsRepository
+import com.asiantech.intern20summer1.w11.data.repository.RemoteRepository
 import com.asiantech.intern20summer1.w11.ui.activity.ApiMainActivity
 import com.asiantech.intern20summer1.w11.ui.adapter.RecyclerAdapter
 import com.asiantech.intern20summer1.w11.ui.viewmodel.HomeViewModel
@@ -201,6 +201,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupViewModel() {
-        viewModel = HomeViewModel(PostsRepository())
+        viewModel = HomeViewModel(RemoteRepository(requireContext()))
     }
 }

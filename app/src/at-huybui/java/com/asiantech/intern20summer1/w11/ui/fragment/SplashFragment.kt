@@ -14,14 +14,14 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.w11.ui.activity.ApiMainActivity
 import com.asiantech.intern20summer1.w11.data.api.ApiClient
-import com.asiantech.intern20summer1.w11.data.api.apiservice.ApiAccountService
 import com.asiantech.intern20summer1.w11.data.api.ErrorUtils
-import com.asiantech.intern20summer1.w11.data.models.Account
+import com.asiantech.intern20summer1.w11.data.repository.RemoteRepository
+import com.asiantech.intern20summer1.w11.ui.activity.ApiMainActivity
+import com.asiantech.intern20summer1.w11.ui.viewmodel.LauncherViewModel
 import com.asiantech.intern20summer1.w11.utils.AppUtils
-import retrofit2.Call
-import retrofit2.Response
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 /**
  * Asian Tech Co., Ltd.
@@ -39,7 +39,7 @@ class SplashFragment : Fragment() {
         internal fun newInstance() = SplashFragment()
     }
 
-    private var callApi: ApiAccountService? = null
+    private var viewModel: LauncherViewModel? = null
     private var dialog: AlertDialog? = null
     private var count = 0
 
@@ -48,7 +48,7 @@ class SplashFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        callApi = ApiClient.getClientInstance()?.create(ApiAccountService::class.java)
+        setupViewModel()
         return inflater.inflate(R.layout.w10_fragment_splash, container, false)
     }
 
@@ -94,8 +94,11 @@ class SplashFragment : Fragment() {
 
     private fun autoSignIn(token: String?) {
         token?.let {
-            callApi?.autoSignIn(it)?.enqueue(object : retrofit2.Callback<Account> {
-                override fun onResponse(call: Call<Account>, response: Response<Account>) {
+            viewModel
+                ?.autoSignIn(it)
+                ?.subscribeOn(Schedulers.io())
+                ?.observeOn(AndroidSchedulers.mainThread())
+                ?.subscribe { response ->
                     if (response.isSuccessful) {
                         response.body()?.let { account ->
                             AppUtils().putIsLogin(requireContext(), true)
@@ -112,10 +115,6 @@ class SplashFragment : Fragment() {
                         }
                     }
                 }
-
-                override fun onFailure(call: Call<Account>, t: Throwable) {}
-            })
-
         }
     }
 
@@ -164,5 +163,9 @@ class SplashFragment : Fragment() {
         }
         dialog?.setCanceledOnTouchOutside(true)
         dialog?.show()
+    }
+
+    private fun setupViewModel() {
+        viewModel = LauncherViewModel(RemoteRepository(requireContext()))
     }
 }

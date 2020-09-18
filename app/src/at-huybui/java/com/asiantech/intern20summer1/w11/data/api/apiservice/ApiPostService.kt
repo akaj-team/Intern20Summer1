@@ -4,6 +4,7 @@ import com.asiantech.intern20summer1.w11.data.models.PostItem
 import com.asiantech.intern20summer1.w11.data.models.ResponseLike
 import com.asiantech.intern20summer1.w11.data.models.ResponsePost
 import io.reactivex.Observable
+import io.reactivex.Single
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
@@ -40,7 +41,7 @@ interface ApiPostService {
         @Path("id") id: Int = 0,
         @Part image: MultipartBody.Part? = null,
         @Part("body") body: RequestBody
-    ): Observable<Response<ResponsePost>>
+    ): Single<Response<ResponsePost>>
 
     @DELETE(PART_UPDATE_POST)
     fun deletePost(

@@ -53,7 +53,7 @@ class ApiClient {
         internal fun getApiPosts(): ApiPostService? =
             getClientInstance()?.create(ApiPostService::class.java)
 
-        internal fun getApiUser(): ApiAccountService? =
+        internal fun getApiAccount(): ApiAccountService? =
             getClientInstance()?.create(ApiAccountService::class.java)
     }
 }
