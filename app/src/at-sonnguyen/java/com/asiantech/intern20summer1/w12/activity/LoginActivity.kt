@@ -1,19 +1,24 @@
 package com.asiantech.intern20summer1.w12.activity
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w12.fragment.LoginFragment
+import com.asiantech.intern20summer1.w12.fragment.LoginFragment.Companion.USER_KEY_LOGIN
+import com.asiantech.intern20summer1.w12.view_model.LoginViewModel
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 class LoginActivity : AppCompatActivity() {
 
-    private var token : String? = null
-    private var id : Int? = null
-    private var email : String? = null
-    private var fullName : String? = null
+    private var token: String? = null
+    private var id: Int? = null
+    private var email: String? = null
+    private var fullName: String? = null
 
-    companion object{
+    companion object {
         internal const val SHARED_PREFERENCE_FILE = "share-preference-file"
         internal const val SHARED_PREFERENCE_TOKEN_KEY = "shared-preference-token-key"
         internal const val SHARED_PREFERENCE_ID_KEY = "shared-preference-id-key"
@@ -24,19 +29,20 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.w12_activity_login)
-//        handleAutoLogin()
-        replaceFragment(LoginFragment.newInstance())
+        handleAutoLogin()
+//        replaceFragment(LoginFragment.newInstance())
     }
-    internal fun replaceFragment(fragment: Fragment){
+
+    internal fun replaceFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.frameLayoutMain,fragment,null)
+            .replace(R.id.frameLayoutMain, fragment, null)
             .addToBackStack(null)
             .commit()
     }
 
-    private fun checkSharedPreference() : Boolean{
+    private fun checkSharedPreference(): Boolean {
         val sharedPreference = getSharedPreferences(SHARED_PREFERENCE_FILE, MODE_PRIVATE)
-        if (sharedPreference?.getString(SHARED_PREFERENCE_TOKEN_KEY,null) == null){
+        if (sharedPreference?.getString(SHARED_PREFERENCE_TOKEN_KEY, null) == null) {
             return false
         }
         token = sharedPreference.getString(SHARED_PREFERENCE_TOKEN_KEY, token)
@@ -45,31 +51,28 @@ class LoginActivity : AppCompatActivity() {
         fullName = sharedPreference.getString(SHARED_PREFERENCE_FULL_NAME_KEY, fullName)
         return true
     }
-//    private fun handleAutoLogin(){
-//        if (checkSharedPreference()){
-//            val service = APIClient.createServiceClient()?.create(UserAPI::class.java)
-//            val call =
-//                token?.let { service?.autoSignIn(it) }
-//            call?.enqueue(object : Callback<User> {
-//                override fun onResponse(call: Call<User>, response: Response<User>) {
-//                    if (response.isSuccessful) {
-//                        val intent = Intent(this@LoginActivity, HomeActivity::class.java)
-//                        intent.putExtra(LoginFragment.FULL_NAME_KEY, fullName)
-//                        intent.putExtra(LoginFragment.TOKEN_KEY, token)
-//                        response.body().apply {
-//                            intent.putExtra(USER_KEY_LOGIN, this)
-//                        }
-//                        startActivity(intent)
-//                        finish()
-//                    }
-//                }
-//
-//                override fun onFailure(call: Call<User>, t: Throwable) {
-//                    replaceFragment(LoginFragment.newInstance())
-//                }
-//          })
-//        }else{
-//            replaceFragment(LoginFragment.newInstance())
-//        }
-//    }
+
+    private fun handleAutoLogin() {
+        if (checkSharedPreference()) {
+            LoginViewModel().autoLogin(token)
+                ?.subscribeOn(Schedulers.io())
+                ?.observeOn(AndroidSchedulers.mainThread())
+                ?.subscribe({
+                    if (it.isSuccessful) {
+                        val intent = Intent(this@LoginActivity, HomeActivity::class.java)
+                        intent.putExtra(LoginFragment.FULL_NAME_KEY, fullName)
+                        intent.putExtra(LoginFragment.TOKEN_KEY, token)
+                        it.body()?.apply {
+                            intent.putExtra(USER_KEY_LOGIN, this)
+                        }
+                        startActivity(intent)
+                        finish()
+                    }
+                }, {
+                    // No-ops
+                })
+        } else {
+            replaceFragment(LoginFragment.newInstance())
+        }
+    }
 }

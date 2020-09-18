@@ -19,5 +19,5 @@ interface UserAPI {
     ): Single<Response<User>>
 
     @GET("/api/autosignin")
-    fun autoSignIn(@Header("token") token: String): Single<User>
+    fun autoSignIn(@Header("token") token: String?): Single<Response<User>>
 }

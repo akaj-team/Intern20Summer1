@@ -13,7 +13,7 @@ import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w12.extension.isValidEmail
 import com.asiantech.intern20summer1.w12.extension.isValidPassword
 import com.asiantech.intern20summer1.w12.model.UserRegister
-import com.asiantech.intern20summer1.w12.viewModel.RegisterViewModel
+import com.asiantech.intern20summer1.w12.view_model.RegisterViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.`at-sonnguyen`.w12_fragment_register.*

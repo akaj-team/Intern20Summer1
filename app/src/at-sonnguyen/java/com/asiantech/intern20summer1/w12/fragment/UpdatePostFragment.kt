@@ -25,7 +25,7 @@ import com.asiantech.intern20summer1.w12.fragment.AddPostFragment.Companion.IMAG
 import com.asiantech.intern20summer1.w12.fragment.LoginFragment.Companion.USER_KEY_LOGIN
 import com.asiantech.intern20summer1.w12.model.PostContent
 import com.asiantech.intern20summer1.w12.model.User
-import com.asiantech.intern20summer1.w12.viewModel.UpdateViewModel
+import com.asiantech.intern20summer1.w12.view_model.UpdateViewModel
 import com.bumptech.glide.Glide
 import com.theartofdev.edmodo.cropper.CropImage
 import io.reactivex.android.schedulers.AndroidSchedulers

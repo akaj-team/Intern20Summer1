@@ -6,9 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.asiantech.intern20summer1.R
@@ -16,7 +14,7 @@ import com.asiantech.intern20summer1.w12.activity.HomeActivity
 import com.asiantech.intern20summer1.w12.adapter.RecyclerViewAdapter
 import com.asiantech.intern20summer1.w12.model.Post
 import com.asiantech.intern20summer1.w12.model.User
-import com.asiantech.intern20summer1.w12.viewModel.HomeViewModel
+import com.asiantech.intern20summer1.w12.view_model.HomeViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.`at-sonnguyen`.w12_fragment_home.*
@@ -165,19 +163,9 @@ class HomeFragment : Fragment() {
         postAdapter = RecyclerViewAdapter(posts, user.id)
         recyclerViewHome.layoutManager = LinearLayoutManager(requireContext())
         recyclerViewHome.adapter = postAdapter
-        val dividerItemDecoration =
-            DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL)
-        ResourcesCompat.getDrawable(
-            resources,
-            R.drawable.w10_bg_recycler_view_divider_decoration,
-            null
-        )
-            ?.let { dividerItemDecoration.setDrawable(it) }
-        recyclerViewHome.addItemDecoration(dividerItemDecoration)
         postAdapter.onUpdateClicked = {
             handleUpdateListener(it)
         }
-//        handleLikeListener()
         likePost()
     }
 

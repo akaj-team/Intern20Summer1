@@ -22,7 +22,7 @@ import com.asiantech.intern20summer1.w12.activity.HomeActivity
 import com.asiantech.intern20summer1.w12.extension.makeToastError
 import com.asiantech.intern20summer1.w12.model.PostContent
 import com.asiantech.intern20summer1.w12.model.User
-import com.asiantech.intern20summer1.w12.viewModel.AddPostViewModel
+import com.asiantech.intern20summer1.w12.view_model.AddPostViewModel
 import com.theartofdev.edmodo.cropper.CropImage
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
