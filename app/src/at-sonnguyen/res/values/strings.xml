@@ -55,4 +55,9 @@
     <string name="w10_delete_post_image_description">delete post</string>
     <string name="w10_error_dialog_title">ERROR</string>
     <string name="w10_ok_button_text">OK</string>
+    <string name="w10_register_text_view_text">Register</string>
+    <string name="w10_update_post_fragment_title">Update Post</string>
+    <string name="w10_back_image_view_description">back</string>
+    <string name="w12_button_text">Week 12</string>
+    <string name="week_12_Rx">Week 12 - Rx</string>
 </resources>
