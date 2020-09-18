@@ -1,7 +1,7 @@
-package com.example.demo_rx.viewModel
+package com.asiantech.intern20summer1.w12.viewModel
 
 import androidx.lifecycle.ViewModel
-import com.example.demo_rx.api.APIClient
+import com.asiantech.intern20summer1.w12.api.APIClient
 
 
 class LoginViewModel : ViewModel() {

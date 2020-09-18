@@ -24,6 +24,8 @@
         </activity>
         <activity android:name=".w6.activity.StepActivity"/>
         <activity android:name=".w6.activity.HomeActivity"/>
+        <activity android:name=".w12.activity.HomeActivity"/>
+        <activity android:name=".w12.activity.LoginActivity"/>
 
     </application>
 

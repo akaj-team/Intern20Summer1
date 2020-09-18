@@ -60,4 +60,10 @@
     <string name="w10_back_image_view_description">back</string>
     <string name="w12_button_text">Week 12</string>
     <string name="week_12_Rx">Week 12 - Rx</string>
+    <string name="w12_toolBar_add_new_post_title">Add Post</string>
+    <string name="w10_permission_denied_toast">Permission Denied</string>
+    <string name="w12_register_fragment_set_avatar_dialog_list_title">Choose resource</string>
+    <string name="w12_register_fragment_choose_set_avatar_dialog_from_gallery">Gallery</string>
+    <string name="w12_register_fragment_choose_set_avatar_dialog_from_camera">Camera</string>
+    <string name="w10_image_title">image title</string>
 </resources>
