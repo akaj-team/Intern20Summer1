@@ -47,7 +47,8 @@ class PostDialogFragment : DialogFragment() {
         private const val REQUEST_IMAGE_CAPTURE = 100
         private const val REQUEST_SELECT_IMAGE_IN_ALBUM = 101
         private const val PERMISSION_REQUEST_CODE = 200
-        private const val TYPE_IMAGE = "image/*"
+        private const val TYPE_IMAGE_GALLERY = "image/*"
+        private const val TYPE_IMAGE_POST = "image"
         private const val TYPE_TEXT = "text"
         internal fun newInstance() = PostDialogFragment()
     }
@@ -146,8 +147,8 @@ class PostDialogFragment : DialogFragment() {
     private fun createMultiPartBody(): MultipartBody.Part? {
         imageUri?.let {
             val file = FileInformation().getFile(requireContext(), it)
-            val image = file.asRequestBody(TYPE_IMAGE.toMediaTypeOrNull())
-            return MultipartBody.Part.createFormData(TYPE_IMAGE, file.name, image)
+            val image = file.asRequestBody(TYPE_IMAGE_POST.toMediaTypeOrNull())
+            return MultipartBody.Part.createFormData(TYPE_IMAGE_POST, file.name, image)
         }
         return null
     }
@@ -205,7 +206,7 @@ class PostDialogFragment : DialogFragment() {
      */
     private fun openGallery() {
         val intentGallery = Intent(Intent.ACTION_PICK)
-        intentGallery.type = TYPE_IMAGE
+        intentGallery.type = TYPE_IMAGE_GALLERY
         startActivityForResult(intentGallery, REQUEST_SELECT_IMAGE_IN_ALBUM)
     }
 
