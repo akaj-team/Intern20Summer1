@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.week12.extensions.handleOnTouchScreen
 import com.asiantech.intern20summer1.week12.fragments.LoginFragment.Companion.MAX_EMAIL_LENGTH
 import com.asiantech.intern20summer1.week12.models.UserRegister
 import com.asiantech.intern20summer1.week12.viewmodels.LoginViewModel
@@ -15,7 +16,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.`at-linhle`.fragment_register.*
 import java.util.regex.Pattern
-
 
 class RegisterFragment : Fragment() {
 
@@ -43,6 +43,7 @@ class RegisterFragment : Fragment() {
         handleRegisterFullNameTextChanged()
         handleRegisterPasswordTextChanged()
         handleClickingRegisterButton()
+        handleOnTouchScreen(llRegisterMain)
     }
 
     private fun isSignUpFullNameValid(fullName: String) = fullName.length <= MAX_FULL_NAME_LENGTH
