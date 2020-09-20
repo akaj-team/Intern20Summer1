@@ -18,5 +18,5 @@ interface ApiPostService {
     fun updatePostLike(
         @Header("token") token: String,
         @Path("id") id: Int
-    ): Single<LikeResponse>
+    ): Single<Response<LikeResponse>>
 }

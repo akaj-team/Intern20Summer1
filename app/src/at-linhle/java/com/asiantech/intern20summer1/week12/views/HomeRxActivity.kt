@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.SimpleItemAnimator
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week12.adapters.PostViewHolder
 import com.asiantech.intern20summer1.week12.fragments.LoginFragment.Companion.KEY_STRING_FULL_NAME
@@ -15,7 +16,7 @@ import com.asiantech.intern20summer1.week12.fragments.SearchDialogFragment
 import com.asiantech.intern20summer1.week12.models.Post
 import com.asiantech.intern20summer1.week12.viewmodels.HomeViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import io.reactivex.schedulers.Schedulers.io
 import kotlinx.android.synthetic.`at-linhle`.activity_post_home.*
 
 class HomeRxActivity : AppCompatActivity() {
@@ -60,16 +61,16 @@ class HomeRxActivity : AppCompatActivity() {
         }
         adapter = PostViewHolder(postItems)
         recyclerViewContainer?.layoutManager = LinearLayoutManager(this)
-//        adapter.onHeartClicked = {
-//            handleClickingHeartIcon(it)
-//        }
+        adapter.onHeartClicked = {
+            handleClickingHeartIcon(it)
+        }
         recyclerViewContainer?.adapter = adapter
     }
 
     private fun initData() {
         token?.let {
             HomeViewModel().getListPost(it)
-                ?.subscribeOn(Schedulers.io())
+                ?.subscribeOn(io())
                 ?.observeOn(AndroidSchedulers.mainThread())
                 ?.subscribe({ response ->
                     if (response.isSuccessful) {
@@ -135,6 +136,27 @@ class HomeRxActivity : AppCompatActivity() {
 
             isLoading = true
             progressBar?.visibility = View.VISIBLE
+        }
+    }
+
+    private fun handleClickingHeartIcon(position: Int) {
+        token?.let {
+            HomeViewModel().updatePostLike(it, postItems[position]?.id ?: 0)
+                ?.subscribeOn(io())
+                ?.observeOn(AndroidSchedulers.mainThread())
+                ?.subscribe({ response ->
+                    if (response.isSuccessful) {
+                        response.body()?.let { post ->
+                            postItems[position]?.likeCount = post.likeCount
+                            postItems[position]?.likeFlag = post.likeFlag
+                            adapter.notifyItemChanged(position, null)
+                            (recyclerViewContainer?.itemAnimator as? SimpleItemAnimator)?.supportsChangeAnimations =
+                                true
+                        }
+                    }
+                }, {
+                    //No-op
+                })
         }
     }
 
