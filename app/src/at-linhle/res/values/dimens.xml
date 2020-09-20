@@ -111,4 +111,16 @@
     <dimen name="view_height_4dp">4dp</dimen>
     <dimen name="heart_bold_icon_width">12dp</dimen>
     <dimen name="heart_bold_height">12dp</dimen>
+    <dimen name="card_corner_radius">16dp</dimen>
+    <dimen name="card_elevation">16dp</dimen>
+    <dimen name="fragment_dialog_relative_layout_height">300dp</dimen>
+    <dimen name="cancel_image_view_size">25dp</dimen>
+    <dimen name="cancel_image_view_margin">25dp</dimen>
+    <dimen name="text_view_margin_top">60dp</dimen>
+    <dimen name="search_text_view_text_size">35sp</dimen>
+    <dimen name="ok_button_margin_left_right">16dp</dimen>
+    <dimen name="ok_button_margin_bottom">30dp</dimen>
+    <dimen name="search_edit_text_margin_left_right">16dp</dimen>
+    <dimen name="search_edit_text_margin_top">20dp</dimen>
+    <dimen name="search_edit_text_margin_bottom">20dp</dimen>
 </resources>

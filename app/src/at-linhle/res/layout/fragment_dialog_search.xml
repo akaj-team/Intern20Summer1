@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/card_corner_radius"
+    app:cardElevation="@dimen/card_elevation">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imgCancel"
+            android:layout_width="@dimen/cancel_image_view_size"
+            android:layout_height="@dimen/cancel_image_view_size"
+            android:layout_margin="@dimen/cancel_image_view_margin"
+            android:background="@drawable/ic_cancel" />
+
+        <TextView
+            android:id="@+id/tvTitleDialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/text_view_margin_top"
+            android:text="@string/search_text_view_description"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/search_text_view_text_size" />
+
+        <EditText
+            android:id="@+id/edtSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvTitleDialog"
+            android:layout_marginLeft="@dimen/search_edit_text_margin_left_right"
+            android:layout_marginTop="@dimen/search_edit_text_margin_top"
+            android:layout_marginRight="@dimen/search_edit_text_margin_left_right"
+            android:layout_marginBottom="@dimen/search_edit_text_margin_bottom"
+            android:autofillHints=""
+            android:hint="@string/search_edit_text_hint"
+            android:inputType="text" />
+
+        <Button
+            android:id="@+id/btnOkDialog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edtSearch"
+            android:layout_marginLeft="@dimen/ok_button_margin_left_right"
+            android:layout_marginRight="@dimen/ok_button_margin_left_right"
+            android:layout_marginBottom="@dimen/ok_button_margin_bottom"
+            android:text="@string/ok_button_description"
+            android:textColor="@color/colorWhite" />
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

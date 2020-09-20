@@ -2,8 +2,8 @@ package com.asiantech.intern20summer1.week12.views
 
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -11,6 +11,7 @@ import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week12.adapters.PostViewHolder
 import com.asiantech.intern20summer1.week12.fragments.LoginFragment.Companion.KEY_STRING_FULL_NAME
 import com.asiantech.intern20summer1.week12.fragments.LoginFragment.Companion.SHARED_PREFERENCE_TOKEN
+import com.asiantech.intern20summer1.week12.fragments.SearchDialogFragment
 import com.asiantech.intern20summer1.week12.models.Post
 import com.asiantech.intern20summer1.week12.viewmodels.HomeViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -28,7 +29,8 @@ class HomeRxActivity : AppCompatActivity() {
     private var fullName: String? = null
     private var token: String? = null
     private var postItems = mutableListOf<Post?>()
-    private lateinit var postItemsStorage: List<Post?>
+    private var postItemsSearch = mutableListOf<Post>()
+    private var postItemsStorage = mutableListOf<Post>()
     private lateinit var adapter: PostViewHolder
     private var isLoading = false
 
@@ -37,6 +39,7 @@ class HomeRxActivity : AppCompatActivity() {
         setContentView(R.layout.activity_post_home)
         getData()
         initData()
+        handleSearchIconCLicked()
         toolbarHome?.title = fullName
     }
 
@@ -45,20 +48,25 @@ class HomeRxActivity : AppCompatActivity() {
         token = intent?.getStringExtra(SHARED_PREFERENCE_TOKEN)
     }
 
-    private fun initAdapter() {
-        for(i in 0 until LIMIT_ITEM){
-            postItems.add(postItemsStorage[i])
+    private fun initAdapter(list: List<Post>) {
+        if (list.size >= LIMIT_ITEM) {
+            for (i in 0 until LIMIT_ITEM) {
+                postItems.add(list[i])
+            }
+        } else {
+            for (element in list) {
+                postItems.add(element)
+            }
         }
         adapter = PostViewHolder(postItems)
-        recyclerViewContainer.layoutManager = LinearLayoutManager(this)
+        recyclerViewContainer?.layoutManager = LinearLayoutManager(this)
 //        adapter.onHeartClicked = {
 //            handleClickingHeartIcon(it)
 //        }
-        recyclerViewContainer.adapter = adapter
+        recyclerViewContainer?.adapter = adapter
     }
 
     private fun initData() {
-        postItemsStorage = listOf()
         token?.let {
             HomeViewModel().getListPost(it)
                 ?.subscribeOn(Schedulers.io())
@@ -68,10 +76,10 @@ class HomeRxActivity : AppCompatActivity() {
                         response.body()?.apply {
                             postItemsStorage = this
                         }
-                        progressLoadApi.visibility = View.GONE
-                        initAdapter()
+                        progressLoadApi?.visibility = View.GONE
+                        initAdapter(postItemsStorage)
                         handleSwipeRefresh()
-                        initScrollListener()
+                        initScrollListener(postItemsStorage)
                     }
                 }, {
                     //No-op
@@ -83,7 +91,8 @@ class HomeRxActivity : AppCompatActivity() {
         swipeContainer.setOnRefreshListener {
             Handler().postDelayed({
                 postItems.clear()
-                progressLoadApi.visibility = View.VISIBLE
+                imgPlus?.visibility = View.VISIBLE
+                progressLoadApi?.visibility = View.VISIBLE
                 initData()
                 adapter.notifyDataSetChanged()
                 swipeContainer.isRefreshing = false
@@ -91,18 +100,17 @@ class HomeRxActivity : AppCompatActivity() {
         }
     }
 
-    private fun initScrollListener() {
+    private fun initScrollListener(list: List<Post>) {
         recyclerViewContainer?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 val linearLayoutManager = recyclerView.layoutManager as? LinearLayoutManager?
                 if (!isLoading) {
                     linearLayoutManager?.let {
-//                        Log.d("TAG", "onScrolled: ${it.findLastVisibleItemPosition()}")
                         if (it.findLastVisibleItemPosition() == postItems.size - 3
-                            && postItems.size < postItemsStorage.size
+                            && postItems.size < list.size
                         ) {
-                            loadMore()
+                            loadMore(list)
                         }
                     }
                 }
@@ -110,13 +118,13 @@ class HomeRxActivity : AppCompatActivity() {
         })
     }
 
-    private fun loadMore() {
+    private fun loadMore(list: List<Post>) {
         if (postItems.size != 0) {
             Handler().postDelayed({
                 var currentSize = postItems.size
                 val nextLimit = currentSize + LIMIT_ITEM
-                while (currentSize < postItemsStorage.size && currentSize < nextLimit) {
-                    postItems.add(postItemsStorage[currentSize])
+                while (currentSize < list.size && currentSize < nextLimit) {
+                    postItems.add(list[currentSize])
                     currentSize++
                 }
                 adapter.notifyDataSetChanged()
@@ -127,6 +135,36 @@ class HomeRxActivity : AppCompatActivity() {
 
             isLoading = true
             progressBar?.visibility = View.VISIBLE
+        }
+    }
+
+    private fun handleSearchIconCLicked() {
+        imgPlus?.setOnClickListener {
+            val fragmentManager = supportFragmentManager
+            SearchDialogFragment().show(fragmentManager, null)
+        }
+    }
+
+    internal fun search(search: String) {
+        postItemsSearch.clear()
+        for (i in postItemsStorage.indices) {
+            if (postItemsStorage[i].content.contains(search)) {
+                postItemsStorage[i].content = search
+                postItemsSearch.add(postItemsStorage[i])
+            }
+        }
+        if (postItemsSearch.size == 0) {
+            Toast.makeText(
+                this,
+                getString(R.string.home_rx_activity_search_result),
+                Toast.LENGTH_SHORT
+            ).show()
+        } else {
+            imgPlus?.visibility = View.INVISIBLE
+            postItems.clear()
+            postItemsStorage.clear()
+            initAdapter(postItemsSearch)
+            initScrollListener(postItemsSearch)
         }
     }
 }

@@ -62,4 +62,8 @@
     <string name="login_fragment_login_fail">Login Fail !!!</string>
     <string name="register_fragment_email_already_have">The email has already been taken.</string>
     <string name="register_fragment_register_fail">Register fail !!!!!</string>
+    <string name="search_text_view_description">Search</string>
+    <string name="ok_button_description">OK</string>
+    <string name="search_edit_text_hint">Search</string>
+    <string name="home_rx_activity_search_result">No Result Found !!!</string>
 </resources>
