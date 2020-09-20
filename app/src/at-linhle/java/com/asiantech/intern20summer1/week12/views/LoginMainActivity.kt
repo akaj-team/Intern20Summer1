@@ -13,7 +13,7 @@ class LoginMainActivity : AppCompatActivity() {
         replaceFragment(LoginFragment.newInstance())
     }
 
-    internal fun replaceFragment(
+    private fun replaceFragment(
         fragment: Fragment,
         backStack: Boolean = false,
         nameBackStack: String = "null"
@@ -26,6 +26,4 @@ class LoginMainActivity : AppCompatActivity() {
         }
         fragmentTransaction.commit()
     }
-
-
 }
