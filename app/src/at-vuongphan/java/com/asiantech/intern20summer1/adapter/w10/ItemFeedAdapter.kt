@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.model.w10.NewPost
+import com.asiantech.intern20summer1.utils.UtilsConvert
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import de.hdodenhof.circleimageview.CircleImageView
@@ -73,7 +74,7 @@ class ItemFeedAdapter(private val newFeeds: MutableList<NewPost>) :
                     R.drawable.ic_heart
                 )
                 tvStatus.text = it.content
-                tvNameStatus.text = it.created_at
+                tvNameStatus.text = UtilsConvert().convertDate(it.created_at)
                 tvLike.text =
                     itemView.context.getString(R.string.text_view_text_like_number, it.like_count)
             }
