@@ -100,4 +100,5 @@
     <string name="w10_error_update">Update bài viết không thành công</string>
     <string name="w10_menu_remove">Xóa</string>
     <string name="w10_menu_edit">Chỉnh Sửa</string>
+    <string name="w11_search">SEARCH</string>
 </resources>

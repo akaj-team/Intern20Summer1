@@ -9,7 +9,7 @@ import android.content.Context
  * This is SharedPreferencesLocalDataSource TODO("Not yet implemented").
  * It will TODO("Not yet implemented")
  */
-class SharedPreferencesLocalDataSource : SharedPreferencesDataSource {
+class SharedPreferencesLocalDataSource(private val context: Context) : SharedPreferencesDataSource {
     companion object {
         internal const val NAME_PREFERENCE = "preference"
         internal const val KEY_IS_LOGIN = "key_is_login"
@@ -17,7 +17,7 @@ class SharedPreferencesLocalDataSource : SharedPreferencesDataSource {
         private const val KEY_ID_USER = "key_id_user"
     }
 
-    override fun putToken(context: Context, token: String) {
+    override fun putToken(token: String) {
         val preference = context.getSharedPreferences(
             NAME_PREFERENCE,
             Context.MODE_PRIVATE
@@ -25,7 +25,7 @@ class SharedPreferencesLocalDataSource : SharedPreferencesDataSource {
         preference.edit().putString(KEY_TOKEN, token).apply()
     }
 
-    override fun getToken(context: Context): String {
+    override fun getToken(): String {
         val preference = context.getSharedPreferences(
             NAME_PREFERENCE,
             Context.MODE_PRIVATE
@@ -33,7 +33,7 @@ class SharedPreferencesLocalDataSource : SharedPreferencesDataSource {
         return preference.getString(KEY_TOKEN, "").toString()
     }
 
-    override fun putIdUser(context: Context, idUser: Int) {
+    override fun putIdUser(idUser: Int) {
         val preference = context.getSharedPreferences(
             NAME_PREFERENCE,
             Context.MODE_PRIVATE
@@ -41,7 +41,7 @@ class SharedPreferencesLocalDataSource : SharedPreferencesDataSource {
         preference.edit().putInt(KEY_ID_USER, idUser).apply()
     }
 
-    override fun getIdUser(context: Context): Int {
+    override fun getIdUser(): Int {
         val preference = context.getSharedPreferences(
             NAME_PREFERENCE,
             Context.MODE_PRIVATE
@@ -49,7 +49,7 @@ class SharedPreferencesLocalDataSource : SharedPreferencesDataSource {
         return preference.getInt(KEY_ID_USER, 0)
     }
 
-    override fun putIsLogin(context: Context, isLogin: Boolean) {
+    override fun putIsLogin(isLogin: Boolean) {
         val preference = context.getSharedPreferences(
             NAME_PREFERENCE,
             Context.MODE_PRIVATE
@@ -57,7 +57,7 @@ class SharedPreferencesLocalDataSource : SharedPreferencesDataSource {
         preference.edit().putBoolean(KEY_IS_LOGIN, isLogin).apply()
     }
 
-    override fun getIsLogin(context: Context): Boolean {
+    override fun getIsLogin(): Boolean {
         val preference = context.getSharedPreferences(
             NAME_PREFERENCE,
             Context.MODE_PRIVATE

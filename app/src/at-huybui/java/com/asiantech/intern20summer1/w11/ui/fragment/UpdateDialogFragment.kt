@@ -24,8 +24,7 @@ import com.asiantech.intern20summer1.w11.data.models.PostContent
 import com.asiantech.intern20summer1.w11.data.models.PostItem
 import com.asiantech.intern20summer1.w11.data.repository.RemoteRepository
 import com.asiantech.intern20summer1.w11.ui.activity.ApiMainActivity
-import com.asiantech.intern20summer1.w11.ui.viewmodel.HomeViewModel
-import com.asiantech.intern20summer1.w11.utils.AppUtils
+import com.asiantech.intern20summer1.w11.ui.viewmodel.ViewModel
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -57,7 +56,7 @@ class UpdateDialogFragment : DialogFragment() {
 
     internal var onPostClick: () -> Unit = {}
     private lateinit var postItem: PostItem
-    private var viewModel: HomeViewModel? = null
+    private var viewModel: ViewModel? = null
     private var imageUri: Uri? = null
     private var isCameraAllowed = false
     private var isCheckGallery = false
@@ -147,7 +146,7 @@ class UpdateDialogFragment : DialogFragment() {
         progressBar?.visibility = View.VISIBLE
         val postJson = Gson().toJson(PostContent(edtContent?.text.toString())).toString()
         val body = postJson.toRequestBody(TYPE_TEXT.toMediaTypeOrNull())
-        val token = AppUtils().getToken(requireContext())
+        val token = viewModel?.getToken().toString()
         viewModel
             ?.updatePost(token, postItem.id, imageUri.toString(), body)
             ?.subscribeOn(Schedulers.io())
@@ -268,6 +267,6 @@ class UpdateDialogFragment : DialogFragment() {
     }
 
     private fun setupViewModel() {
-        viewModel = HomeViewModel(RemoteRepository(requireContext()))
+        viewModel = ViewModel(RemoteRepository(requireContext()))
     }
 }

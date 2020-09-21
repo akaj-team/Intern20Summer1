@@ -9,9 +9,10 @@ import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w11.data.api.ApiClient
 import com.asiantech.intern20summer1.w11.data.api.ErrorUtils
+import com.asiantech.intern20summer1.w11.data.repository.LocalRepository
 import com.asiantech.intern20summer1.w11.data.repository.RemoteRepository
 import com.asiantech.intern20summer1.w11.ui.activity.ApiMainActivity
-import com.asiantech.intern20summer1.w11.ui.viewmodel.LauncherViewModel
+import com.asiantech.intern20summer1.w11.ui.viewmodel.ViewModel
 import com.asiantech.intern20summer1.w11.utils.AppUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -30,7 +31,7 @@ class SignInFragment : Fragment() {
         internal fun newInstance() = SignInFragment()
     }
 
-    private var viewModel: LauncherViewModel? = null
+    private var viewModel: ViewModel? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -77,9 +78,9 @@ class SignInFragment : Fragment() {
             ?.subscribe { response ->
                 if (response.isSuccessful) {
                     response.body()?.let { account ->
-                        AppUtils().putIsLogin(requireContext(), true)
-                        AppUtils().putToken(requireContext(), account.token)
-                        AppUtils().putIdUser(requireContext(), account.id)
+                        viewModel?.putIsLogin(true)
+                        viewModel?.putToken(account.token)
+                        viewModel?.putIdUser(account.id)
                         (activity as ApiMainActivity).replaceFragment(
                             HomeFragment.newInstance()
                         )
@@ -118,6 +119,6 @@ class SignInFragment : Fragment() {
     }
 
     private fun setupViewModel() {
-        viewModel = LauncherViewModel(RemoteRepository(requireContext()))
+        viewModel = ViewModel(RemoteRepository(requireContext()), LocalRepository(requireContext()))
     }
 }

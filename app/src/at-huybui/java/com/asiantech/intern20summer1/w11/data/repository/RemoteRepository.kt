@@ -34,10 +34,22 @@ class RemoteRepository(private val context: Context) : AccountDataSource {
 
     fun createPost(
         token: String,
-        image: MultipartBody.Part?,
+        image: String?,
         body: RequestBody
-    ): Observable<Response<ResponsePost>>? =
-        postRemote.createPost(token, image, body)
+    ): Observable<Response<ResponsePost>>? {
+        val file = createMultiPartBody(image)
+        return postRemote.createPost(token, file, body)
+    }
+
+    fun updatePost(
+        token: String,
+        id: Int,
+        image: String?,
+        body: RequestBody
+    ): Single<Response<ResponsePost>>? {
+        val file = createMultiPartBody(image)
+        return postRemote.updatePost(token, id, file, body)
+    }
 
 
     fun likePost(token: String, id: Int): Observable<Response<ResponseLike>>? =
@@ -51,17 +63,6 @@ class RemoteRepository(private val context: Context) : AccountDataSource {
 
     override fun createUser(request: RequestAccount): Observable<Response<Account>>? =
         accountRemote.createUser(request)
-
-
-    fun updatePost(
-        token: String,
-        id: Int,
-        image: String?,
-        body: RequestBody
-    ): Single<Response<ResponsePost>>? {
-        val file = createMultiPartBody(image)
-        return postRemote.updatePost(token, id, file, body)
-    }
 
     private fun createMultiPartBody(uri: String?): MultipartBody.Part? {
         uri?.let {

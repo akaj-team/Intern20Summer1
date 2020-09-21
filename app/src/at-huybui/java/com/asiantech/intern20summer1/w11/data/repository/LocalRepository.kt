@@ -12,28 +12,28 @@ import com.asiantech.intern20summer1.w11.data.localdatasource.SharedPreferencesL
  * It will TODO("Not yet implemented")
  */
 class LocalRepository(private val context: Context) : SharedPreferencesDataSource {
-    val sharedPreferences = SharedPreferencesLocalDataSource()
+    private val sharedPreferences = SharedPreferencesLocalDataSource(context)
 
-    override fun putToken(context: Context, token: String) {
-        sharedPreferences.putToken(context, token)
+    override fun putToken(token: String) {
+        sharedPreferences.putToken(token)
     }
 
-    override fun getToken(context: Context): String =
-        sharedPreferences.getToken(context)
+    override fun getToken(): String =
+        sharedPreferences.getToken()
 
 
-    override fun putIdUser(context: Context, idUser: Int) {
-        sharedPreferences.putIdUser(context, idUser)
+    override fun putIdUser(idUser: Int) {
+        sharedPreferences.putIdUser(idUser)
     }
 
-    override fun getIdUser(context: Context): Int =
-        sharedPreferences.getIdUser(context)
+    override fun getIdUser(): Int =
+        sharedPreferences.getIdUser()
 
-    override fun putIsLogin(context: Context, isLogin: Boolean) {
-        sharedPreferences.putIsLogin(context, isLogin)
+    override fun putIsLogin(isLogin: Boolean) {
+        sharedPreferences.putIsLogin(isLogin)
     }
 
-    override fun getIsLogin(context: Context): Boolean =
-        sharedPreferences.getIsLogin(context)
+    override fun getIsLogin(): Boolean =
+        sharedPreferences.getIsLogin()
 }
      

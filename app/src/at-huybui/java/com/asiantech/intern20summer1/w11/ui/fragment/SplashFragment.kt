@@ -8,6 +8,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.provider.Settings
+import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,9 +17,10 @@ import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w11.data.api.ApiClient
 import com.asiantech.intern20summer1.w11.data.api.ErrorUtils
+import com.asiantech.intern20summer1.w11.data.repository.LocalRepository
 import com.asiantech.intern20summer1.w11.data.repository.RemoteRepository
 import com.asiantech.intern20summer1.w11.ui.activity.ApiMainActivity
-import com.asiantech.intern20summer1.w11.ui.viewmodel.LauncherViewModel
+import com.asiantech.intern20summer1.w11.ui.viewmodel.ViewModel
 import com.asiantech.intern20summer1.w11.utils.AppUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -39,7 +41,7 @@ class SplashFragment : Fragment() {
         internal fun newInstance() = SplashFragment()
     }
 
-    private var viewModel: LauncherViewModel? = null
+    private var viewModel: ViewModel? = null
     private var dialog: AlertDialog? = null
     private var count = 0
 
@@ -68,11 +70,14 @@ class SplashFragment : Fragment() {
                 count++
                 when (count) {
                     TICK_INTERNET -> {
-                        val isLogin = AppUtils().getIsLogin(requireContext())
+                        val isLogin = viewModel?.getIsLogin()
                         if (isCheckInternet()) {
                             this.cancel()
-                            if (isLogin) {
-                                autoSignIn(AppUtils().getToken(requireContext()))
+                            if (isLogin != null && isLogin) {
+                                d("autologin", "islogin = $isLogin")
+                                val token = viewModel?.getToken()
+                                d("autologin", "token = $token")
+                                autoSignIn(token)
                             } else {
                                 (activity as ApiMainActivity).replaceFragment(SignInFragment.newInstance())
                             }
@@ -101,9 +106,9 @@ class SplashFragment : Fragment() {
                 ?.subscribe { response ->
                     if (response.isSuccessful) {
                         response.body()?.let { account ->
-                            AppUtils().putIsLogin(requireContext(), true)
-                            AppUtils().putToken(requireContext(), account.token)
-                            AppUtils().putIdUser(requireContext(), account.id)
+                            viewModel?.putIsLogin(true)
+                            viewModel?.putToken(account.token)
+                            viewModel?.putIdUser(account.id)
                             (activity as ApiMainActivity).replaceFragment(
                                 HomeFragment.newInstance()
                             )
@@ -166,6 +171,6 @@ class SplashFragment : Fragment() {
     }
 
     private fun setupViewModel() {
-        viewModel = LauncherViewModel(RemoteRepository(requireContext()))
+        viewModel = ViewModel(RemoteRepository(requireContext()), LocalRepository(requireContext()))
     }
 }

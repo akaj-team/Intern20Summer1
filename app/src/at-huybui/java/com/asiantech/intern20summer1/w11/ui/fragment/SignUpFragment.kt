@@ -12,7 +12,7 @@ import com.asiantech.intern20summer1.w11.data.api.ApiClient
 import com.asiantech.intern20summer1.w11.data.api.ErrorUtils
 import com.asiantech.intern20summer1.w11.data.models.RequestAccount
 import com.asiantech.intern20summer1.w11.data.repository.RemoteRepository
-import com.asiantech.intern20summer1.w11.ui.viewmodel.LauncherViewModel
+import com.asiantech.intern20summer1.w11.ui.viewmodel.ViewModel
 import com.asiantech.intern20summer1.w11.utils.AppUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -35,7 +35,7 @@ class SignUpFragment : Fragment() {
 
     internal var onRegisterClick: (account: RequestAccount) -> Unit = {}
 
-    private var viewModel: LauncherViewModel? = null
+    private var viewModel: ViewModel? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -132,6 +132,6 @@ class SignUpFragment : Fragment() {
     }
 
     private fun setupViewModel() {
-        viewModel = LauncherViewModel(RemoteRepository(requireContext()))
+        viewModel = ViewModel(RemoteRepository(requireContext()))
     }
 }

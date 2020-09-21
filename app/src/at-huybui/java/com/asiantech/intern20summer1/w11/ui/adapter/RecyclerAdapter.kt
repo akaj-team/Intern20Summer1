@@ -24,7 +24,7 @@ import kotlinx.android.synthetic.`at-huybui`.w10_item_recycler_post.view.*
  * This is RecyclerAdapter class. It is adapter for recycler view to display posts
  */
 
-class RecyclerAdapter(private var mutableList: List<Any> = emptyList()) :
+class RecyclerAdapter(private var mutableList: List<Any> = emptyList(), private val idUser: Int) :
     RecyclerView.Adapter<RecyclerAdapter.BaseViewHolder<*>>() {
 
     companion object {
@@ -103,8 +103,7 @@ class RecyclerAdapter(private var mutableList: List<Any> = emptyList()) :
         }
 
         override fun bind(item: PostItem) {
-            val id = AppUtils().getIdUser(itemView.context)
-            if (id == item.user_id) {
+            if (idUser == item.user_id) {
                 btnMenu.visibility = View.VISIBLE
             } else {
                 btnMenu.visibility = View.INVISIBLE

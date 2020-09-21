@@ -3,6 +3,7 @@ package com.asiantech.intern20summer1.w11.ui.fragment
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,10 +14,11 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w11.data.models.PostItem
+import com.asiantech.intern20summer1.w11.data.repository.LocalRepository
 import com.asiantech.intern20summer1.w11.data.repository.RemoteRepository
 import com.asiantech.intern20summer1.w11.ui.activity.ApiMainActivity
 import com.asiantech.intern20summer1.w11.ui.adapter.RecyclerAdapter
-import com.asiantech.intern20summer1.w11.ui.viewmodel.HomeViewModel
+import com.asiantech.intern20summer1.w11.ui.viewmodel.ViewModel
 import com.asiantech.intern20summer1.w11.utils.AppUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -37,10 +39,10 @@ class HomeFragment : Fragment() {
         internal fun newInstance() = HomeFragment()
     }
 
-    private var viewModel: HomeViewModel? = null
+    private var viewModel: ViewModel? = null
     var postLists = mutableListOf<PostItem>()
     var postListRecycler = mutableListOf<PostItem>()
-    var postAdapter = RecyclerAdapter(postListRecycler)
+    lateinit var postAdapter: RecyclerAdapter
     private var isLoadMore = false
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -62,8 +64,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun initRecyclerView() {
-        initData()
         initAdapter()
+        initData()
         handleForLoadMoreAndRefreshListener()
     }
 
@@ -71,13 +73,17 @@ class HomeFragment : Fragment() {
         imgAddPost?.setOnClickListener {
             handleShowDialogPostFragment()
         }
+
+        imgSearch?.setOnClickListener {
+            handleShowDialogSearchFragment()
+        }
     }
 
     private fun initData(isSwiped: Boolean = false) {
         if (!isSwiped) {
             progressBar?.visibility = View.VISIBLE
         }
-        val token = AppUtils().getToken(requireContext())
+        val token = viewModel?.getToken().toString()
         viewModel
             ?.getPosts(token)
             ?.subscribeOn(Schedulers.io())
@@ -85,8 +91,8 @@ class HomeFragment : Fragment() {
             ?.subscribe { response ->
                 postLists.clear()
                 postListRecycler.clear()
-                postListRecycler.add(PostItem())
                 response.body()?.toCollection(postLists)
+                postListRecycler.add(PostItem())
                 if (postLists.size < RECYCLER_LOAD_SIZE) {
                     initDataRecycler(0, postLists.size)
                 } else {
@@ -101,8 +107,9 @@ class HomeFragment : Fragment() {
     }
 
     private fun initAdapter() {
+        postAdapter = RecyclerAdapter(postListRecycler, viewModel?.getIdUser() ?: 0)
         postAdapter.onLikeClicked = { position ->
-            val token = AppUtils().getToken(requireContext())
+            val token = viewModel?.getToken().toString()
             viewModel
                 ?.likePost(token, postLists[position].id)
                 ?.subscribeOn(Schedulers.io())
@@ -154,6 +161,16 @@ class HomeFragment : Fragment() {
         fragment.show(fragmentManager, null)
     }
 
+    private fun handleShowDialogSearchFragment() {
+        val fragmentManager = (activity as ApiMainActivity).supportFragmentManager
+        val fragment = SearchDialogFragment.newInstance()
+        fragment.onSearchClick = {
+            searchData(it)
+        }
+        fragment.show(fragmentManager, null)
+    }
+
+
     private fun handleShowDialogUpdateFragment(postItem: PostItem) {
         val fragmentManager = (activity as ApiMainActivity).supportFragmentManager
         val fragment = UpdateDialogFragment.newInstance(postItem)
@@ -178,6 +195,7 @@ class HomeFragment : Fragment() {
                 if (!isLoadMore && (lastVisibleItem == postListRecycler.size - 1)) {
                     isLoadMore = true
                     Handler(Looper.getMainLooper()).postDelayed({
+                        d("loadmore", "load")
                         val currentSize = postListRecycler.size - 1
                         if (postLists.size - currentSize < RECYCLER_LOAD_SIZE) {
                             initDataRecycler(currentSize, postLists.size)
@@ -192,6 +210,33 @@ class HomeFragment : Fragment() {
         })
     }
 
+    private fun searchData(text: String) {
+        val token = viewModel?.getToken().toString()
+
+        viewModel
+            ?.getPosts(token)
+            ?.subscribeOn(Schedulers.io())
+            ?.observeOn(AndroidSchedulers.mainThread())
+            ?.subscribe {
+                if (it.isSuccessful) {
+                    postListRecycler.clear()
+                    postLists.clear()
+                    it.body()?.forEach { post ->
+                        if (post.content.contains(text,true)) {
+                            postLists.add(post)
+                        }
+                    }
+                    postListRecycler.add(PostItem())
+                    if (postLists.size < RECYCLER_LOAD_SIZE) {
+                        initDataRecycler(0, postLists.size)
+                    } else {
+                        initDataRecycler(0, RECYCLER_LOAD_SIZE)
+                    }
+                    postAdapter.notifyDataSetChanged()
+                }
+            }
+    }
+
     private fun initDataRecycler(start: Int, end: Int) {
         postListRecycler.removeAt(postListRecycler.size - 1)
         for (i in start until end) {
@@ -201,6 +246,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupViewModel() {
-        viewModel = HomeViewModel(RemoteRepository(requireContext()))
+        viewModel = ViewModel(RemoteRepository(requireContext()), LocalRepository(requireContext()))
     }
 }

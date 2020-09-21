@@ -10,7 +10,6 @@ import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,10 +20,10 @@ import androidx.fragment.app.DialogFragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w11.data.api.ApiClient
 import com.asiantech.intern20summer1.w11.data.models.PostContent
+import com.asiantech.intern20summer1.w11.data.repository.LocalRepository
 import com.asiantech.intern20summer1.w11.data.repository.RemoteRepository
 import com.asiantech.intern20summer1.w11.ui.activity.ApiMainActivity
-import com.asiantech.intern20summer1.w11.ui.viewmodel.HomeViewModel
-import com.asiantech.intern20summer1.w11.utils.AppUtils
+import com.asiantech.intern20summer1.w11.ui.viewmodel.ViewModel
 import com.asiantech.intern20summer1.w11.utils.FileInformation
 import com.google.gson.Gson
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -58,7 +57,7 @@ class PostDialogFragment : DialogFragment() {
     private var imageUri: Uri? = null
     private var isCameraAllowed = false
     private var isCheckGallery = false
-    private var viewModel: HomeViewModel? = null
+    private var viewModel: ViewModel? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -95,16 +94,13 @@ class PostDialogFragment : DialogFragment() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        Log.d("permissionx", "requestcode = $requestCode")
         when (requestCode) {
             PERMISSION_REQUEST_CAMERA_CODE -> {
-                Log.d("permissionx", "PERMISSION_REQUEST_CAMERA_CODE")
                 if (isCheckCameraPermission()) {
                     openCamera()
                 }
             }
             PERMISSION_REQUEST_GALLERY_CODE -> {
-                Log.d("permissionx", "PERMISSION_REQUEST_GALLERY_CODE")
                 if (isCheckGalleryPermission()) {
                     openGallery()
                 }
@@ -133,10 +129,9 @@ class PostDialogFragment : DialogFragment() {
         progressBar?.visibility = View.VISIBLE
         val postJson = Gson().toJson(PostContent(edtContent?.text.toString())).toString()
         val body = postJson.toRequestBody(TYPE_TEXT.toMediaTypeOrNull())
-        val token = AppUtils().getToken(requireContext())
-        val file = createMultiPartBody()
+        val token = viewModel?.getToken()
         viewModel
-            ?.createPost(token, file, body)
+            ?.createPost(token.toString(), imageUri.toString(), body)
             ?.subscribeOn(Schedulers.io())
             ?.observeOn(AndroidSchedulers.mainThread())
             ?.subscribe { response ->
@@ -257,6 +252,6 @@ class PostDialogFragment : DialogFragment() {
     }
 
     private fun setupViewModel() {
-        viewModel = HomeViewModel(RemoteRepository(requireContext()))
+        viewModel = ViewModel(RemoteRepository(requireContext()), LocalRepository(requireContext()))
     }
 }

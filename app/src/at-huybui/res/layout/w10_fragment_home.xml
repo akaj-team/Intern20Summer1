@@ -11,11 +11,11 @@
         android:background="@color/background_white">
 
         <ImageView
-            android:id="@+id/imgHome"
+            android:id="@+id/imgSearch"
             android:layout_width="@dimen/w10_home_tool_bar_height"
             android:layout_height="@dimen/w10_home_tool_bar_height"
             android:padding="@dimen/w10_home_icon_menu_padding"
-            android:src="@drawable/w10_ic_menu" />
+            android:src="@drawable/w11_ic_search" />
 
         <TextView
             android:layout_width="wrap_content"

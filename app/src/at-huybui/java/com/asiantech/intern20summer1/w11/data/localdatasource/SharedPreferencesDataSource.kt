@@ -1,7 +1,5 @@
 package com.asiantech.intern20summer1.w11.data.localdatasource
 
-import android.content.Context
-
 /**
  * Asian Tech Co., Ltd.
  * Intern20Summer1 Project.
@@ -10,11 +8,11 @@ import android.content.Context
  * It will TODO("Not yet implemented")
  */
 interface SharedPreferencesDataSource {
-    fun putToken(context: Context, token: String)
-    fun getToken(context: Context): String
-    fun putIdUser(context: Context, idUser: Int)
-    fun getIdUser(context: Context): Int
-    fun putIsLogin(context: Context, isLogin: Boolean)
-    fun getIsLogin(context: Context): Boolean
+    fun putToken(token: String)
+    fun getToken(): String
+    fun putIdUser(idUser: Int)
+    fun getIdUser(): Int
+    fun putIsLogin(isLogin: Boolean)
+    fun getIsLogin(): Boolean
 }
      
