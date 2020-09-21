@@ -2,6 +2,7 @@ package com.asiantech.intern20summer1.week12.views
 
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -37,6 +38,7 @@ class HomeRxActivity : AppCompatActivity() {
     private lateinit var adapter: PostViewHolder
     private var isLoading = false
     private var viewModel: HomeDataSource? = null
+    private var isSearching: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -94,6 +96,8 @@ class HomeRxActivity : AppCompatActivity() {
 
     private fun handleSwipeRefresh() {
         swipeContainer.setOnRefreshListener {
+            isSearching = false
+            isLoading = false
             Handler().postDelayed({
                 postItems.clear()
                 imgPlus?.visibility = View.VISIBLE
@@ -115,7 +119,7 @@ class HomeRxActivity : AppCompatActivity() {
                         if (it.findLastVisibleItemPosition() == postItems.size - 3
                             && postItems.size < list.size
                         ) {
-                            loadMore(list)
+                            loadMore()
                         }
                     }
                 }
@@ -123,8 +127,14 @@ class HomeRxActivity : AppCompatActivity() {
         })
     }
 
-    private fun loadMore(list: List<Post>) {
+    private fun loadMore() {
+        val list: List<Post>
         if (postItems.size != 0) {
+            list = if (!isSearching) {
+                postItemsStorage
+            } else {
+                postItemsSearch
+            }
             Handler().postDelayed({
                 var currentSize = postItems.size
                 val nextLimit = currentSize + LIMIT_ITEM
@@ -133,8 +143,7 @@ class HomeRxActivity : AppCompatActivity() {
                     currentSize++
                 }
                 adapter.notifyDataSetChanged()
-
-                isLoading = false
+                isLoading = postItems.size == list.size
                 progressBar?.visibility = View.INVISIBLE
             }, TIME_DELAY)
 
@@ -186,6 +195,7 @@ class HomeRxActivity : AppCompatActivity() {
                 Toast.LENGTH_SHORT
             ).show()
         } else {
+            isSearching = true
             imgPlus?.visibility = View.INVISIBLE
             postItems.clear()
             postItemsStorage.clear()
