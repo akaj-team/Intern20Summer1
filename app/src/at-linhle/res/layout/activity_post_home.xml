@@ -23,7 +23,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
             android:layout_marginRight="@dimen/plus_image_margin_right"
-            android:background="@drawable/ic_baseline_add_circle_outline_24" />
+            android:background="@drawable/ic_baseline_search_24" />
     </RelativeLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -61,9 +61,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            android:visibility="invisible"
             app:layout_constraintRight_toRightOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
