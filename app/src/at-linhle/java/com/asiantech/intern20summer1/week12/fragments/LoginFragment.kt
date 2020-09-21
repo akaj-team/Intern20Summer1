@@ -10,6 +10,8 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week12.extensions.handleOnTouchScreen
+import com.asiantech.intern20summer1.week12.repository.datasource.LoginDataSource
+import com.asiantech.intern20summer1.week12.repository.RemoteRepository
 import com.asiantech.intern20summer1.week12.viewmodels.LoginViewModel
 import com.asiantech.intern20summer1.week12.views.HomeRxActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -28,7 +30,12 @@ class LoginFragment : Fragment() {
     }
 
     private val passwordPattern = Pattern.compile("""^(?=.*).{8,16}$""")
+    private var viewModel: LoginDataSource? = null
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = LoginViewModel(RemoteRepository())
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -100,7 +107,7 @@ class LoginFragment : Fragment() {
 
     private fun handleClickingLoginButton() {
         btnLogin?.setOnClickListener {
-            LoginViewModel().login(edtEmail.text.toString(), edtPassword.text.toString())
+            viewModel?.login(edtEmail.text.toString(), edtPassword.text.toString())
                 ?.subscribeOn(Schedulers.io())
                 ?.observeOn(AndroidSchedulers.mainThread())
                 ?.subscribe({

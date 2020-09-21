@@ -11,6 +11,8 @@ import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week12.extensions.handleOnTouchScreen
 import com.asiantech.intern20summer1.week12.fragments.LoginFragment.Companion.MAX_EMAIL_LENGTH
 import com.asiantech.intern20summer1.week12.models.UserRegister
+import com.asiantech.intern20summer1.week12.repository.datasource.LoginDataSource
+import com.asiantech.intern20summer1.week12.repository.RemoteRepository
 import com.asiantech.intern20summer1.week12.viewmodels.LoginViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -27,6 +29,12 @@ class RegisterFragment : Fragment() {
 
     internal var onRegisterSuccess: (email: String, password: String) -> Unit = { _, _ -> }
     private val passwordPattern = Pattern.compile("""^(?=.*).{8,16}$""")
+    private var viewModel: LoginDataSource? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = LoginViewModel(RemoteRepository())
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -59,7 +67,9 @@ class RegisterFragment : Fragment() {
         fullName: String,
         email: String,
         password: String
-    ) = isSignUpFullNameValid(fullName) && isSignUpEmailValid(email) && isSignUpPasswordValid(password)
+    ) = isSignUpFullNameValid(fullName) && isSignUpEmailValid(email) && isSignUpPasswordValid(
+        password
+    )
 
     private fun handleRegisterFullNameTextChanged() {
         edtUserName?.addTextChangedListener(onTextChanged = { p0: CharSequence?, _, _, _ ->
@@ -113,7 +123,7 @@ class RegisterFragment : Fragment() {
             val fullName = edtUserName?.text.toString()
             val email = edtEmail?.text.toString()
             val password = edtPassword?.text.toString()
-            LoginViewModel().register(UserRegister(email, password, fullName))
+            viewModel?.register(UserRegister(email, password, fullName))
                 ?.subscribeOn(Schedulers.io())
                 ?.observeOn(AndroidSchedulers.mainThread())
                 ?.subscribe({

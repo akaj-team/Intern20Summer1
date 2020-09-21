@@ -14,6 +14,8 @@ import com.asiantech.intern20summer1.week12.fragments.LoginFragment.Companion.KE
 import com.asiantech.intern20summer1.week12.fragments.LoginFragment.Companion.SHARED_PREFERENCE_TOKEN
 import com.asiantech.intern20summer1.week12.fragments.SearchDialogFragment
 import com.asiantech.intern20summer1.week12.models.Post
+import com.asiantech.intern20summer1.week12.repository.RemoteRepository
+import com.asiantech.intern20summer1.week12.repository.datasource.HomeDataSource
 import com.asiantech.intern20summer1.week12.viewmodels.HomeViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers.io
@@ -34,10 +36,12 @@ class HomeRxActivity : AppCompatActivity() {
     private var postItemsStorage = mutableListOf<Post>()
     private lateinit var adapter: PostViewHolder
     private var isLoading = false
+    private var viewModel: HomeDataSource? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_post_home)
+        viewModel = HomeViewModel(RemoteRepository())
         getData()
         initData()
         handleSearchIconCLicked()
@@ -69,7 +73,7 @@ class HomeRxActivity : AppCompatActivity() {
 
     private fun initData() {
         token?.let {
-            HomeViewModel().getListPost(it)
+            viewModel?.getListPost(it)
                 ?.subscribeOn(io())
                 ?.observeOn(AndroidSchedulers.mainThread())
                 ?.subscribe({ response ->
@@ -141,7 +145,7 @@ class HomeRxActivity : AppCompatActivity() {
 
     private fun handleClickingHeartIcon(position: Int) {
         token?.let {
-            HomeViewModel().updatePostLike(it, postItems[position]?.id ?: 0)
+            viewModel?.updateLikePost(it, postItems[position]?.id ?: 0)
                 ?.subscribeOn(io())
                 ?.observeOn(AndroidSchedulers.mainThread())
                 ?.subscribe({ response ->

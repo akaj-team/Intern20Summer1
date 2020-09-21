@@ -17,7 +17,4 @@ interface ApiUserService {
         @Field("email") email: String,
         @Field("password") password: String
     ): Single<Response<User>>
-
-    @GET("/api/autosignin")
-    fun handleAutoSignIn(@Header("token") token: String): Single<User>
 }

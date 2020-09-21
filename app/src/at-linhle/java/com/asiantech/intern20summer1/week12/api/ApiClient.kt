@@ -14,7 +14,7 @@ object ApiClient {
     internal fun createUserService(): ApiUserService? =
         getClient()?.create(ApiUserService::class.java)
 
-    internal fun cretePostService(): ApiPostService? =
+    internal fun createPostService(): ApiPostService? =
         getClient()?.create(ApiPostService::class.java)
 
     private fun getClient(): Retrofit? {
