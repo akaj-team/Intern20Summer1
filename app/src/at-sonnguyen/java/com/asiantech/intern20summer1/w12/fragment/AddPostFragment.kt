@@ -9,7 +9,6 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +21,8 @@ import com.asiantech.intern20summer1.w12.activity.HomeActivity
 import com.asiantech.intern20summer1.w12.extension.makeToastError
 import com.asiantech.intern20summer1.w12.model.PostContent
 import com.asiantech.intern20summer1.w12.model.User
+import com.asiantech.intern20summer1.w12.remoteRepository.RemoteRepository
+import com.asiantech.intern20summer1.w12.remoteRepository.dataResource.AddPostDataResource
 import com.asiantech.intern20summer1.w12.view_model.AddPostViewModel
 import com.theartofdev.edmodo.cropper.CropImage
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -39,6 +40,7 @@ class AddPostFragment : Fragment() {
     private var user = User(0, "", "", "")
     private var flag = false
     private var imageURI: Uri? = null
+    private var viewModel: AddPostDataResource? = null
 
     companion object {
         private const val CROP_IMAGE_HEIGHT = 1
@@ -59,6 +61,11 @@ class AddPostFragment : Fragment() {
             addPostFragment.arguments = bundle
             return addPostFragment
         }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = AddPostViewModel(RemoteRepository())
     }
 
     override fun onCreateView(
@@ -250,12 +257,11 @@ class AddPostFragment : Fragment() {
             val file = File(getPath(imageURI))
             val fileRequestBody = file.asRequestBody(IMAGE_KEY.toMediaTypeOrNull())
             val part = MultipartBody.Part.createFormData(IMAGE_NAME, file.name, fileRequestBody)
-            AddPostViewModel().addPost(user.token, PostContent(edtContent.text.toString()), part)
+            viewModel?.addPost(user.token, PostContent(edtContent.text.toString()), part)
                 ?.subscribeOn(Schedulers.io())
                 ?.observeOn(AndroidSchedulers.mainThread())
                 ?.subscribe({
                     if (it.isSuccessful) {
-                        Log.d("TAG0000", "handleCreatePost: successful")
                         (activity as? HomeActivity)?.replaceFragmentHome(
                             HomeFragment.newInstance(
                                 user

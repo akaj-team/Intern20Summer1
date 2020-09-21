@@ -13,6 +13,8 @@ import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w12.extension.isValidEmail
 import com.asiantech.intern20summer1.w12.extension.isValidPassword
 import com.asiantech.intern20summer1.w12.model.UserRegister
+import com.asiantech.intern20summer1.w12.remoteRepository.RemoteRepository
+import com.asiantech.intern20summer1.w12.remoteRepository.dataResource.RegisterDataResource
 import com.asiantech.intern20summer1.w12.view_model.RegisterViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -23,11 +25,17 @@ class RegisterFragment : Fragment() {
     private var fullNameText = ""
     private var passwordText = ""
     private var checkFullName = false
+    private var viewModel : RegisterDataResource? = null
 
     companion object {
         internal fun newInstance() = RegisterFragment()
         internal const val KEY_VALUE_EMAIL = "email_key"
         internal const val KEY_VALUE_PASSWORD = "password_key"
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = RegisterViewModel(RemoteRepository())
     }
 
     override fun onCreateView(
@@ -88,7 +96,7 @@ class RegisterFragment : Fragment() {
 
     private fun handleRegisterButtonListener() {
         btnRegister.setOnClickListener {
-            RegisterViewModel().register(UserRegister(emailText, passwordText, fullNameText))
+            viewModel?.register(UserRegister(emailText, passwordText, fullNameText))
                 ?.subscribeOn(Schedulers.io())
                 ?.observeOn(AndroidSchedulers.mainThread())
                 ?.subscribe({

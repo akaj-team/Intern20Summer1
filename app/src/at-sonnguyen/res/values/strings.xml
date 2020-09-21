@@ -66,4 +66,6 @@
     <string name="w12_register_fragment_choose_set_avatar_dialog_from_gallery">Gallery</string>
     <string name="w12_register_fragment_choose_set_avatar_dialog_from_camera">Camera</string>
     <string name="w10_image_title">image title</string>
+    <string name="w12_type_to_search_text_view_text">Type to search</string>
+    <string name="w12_search_edit_text_hint">search</string>
 </resources>

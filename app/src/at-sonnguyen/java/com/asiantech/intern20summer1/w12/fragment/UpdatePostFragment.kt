@@ -25,6 +25,8 @@ import com.asiantech.intern20summer1.w12.fragment.AddPostFragment.Companion.IMAG
 import com.asiantech.intern20summer1.w12.fragment.LoginFragment.Companion.USER_KEY_LOGIN
 import com.asiantech.intern20summer1.w12.model.PostContent
 import com.asiantech.intern20summer1.w12.model.User
+import com.asiantech.intern20summer1.w12.remoteRepository.RemoteRepository
+import com.asiantech.intern20summer1.w12.remoteRepository.dataResource.UpdateDataResource
 import com.asiantech.intern20summer1.w12.view_model.UpdateViewModel
 import com.bumptech.glide.Glide
 import com.theartofdev.edmodo.cropper.CropImage
@@ -47,6 +49,7 @@ class UpdatePostFragment : Fragment() {
     private var content: String? = null
     private var imageString: String? = null
     private var postId: Int = 0
+    private var viewModel : UpdateDataResource? = null
 
     companion object {
         private const val CROP_IMAGE_HEIGHT = 1
@@ -73,6 +76,7 @@ class UpdatePostFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel = UpdateViewModel(RemoteRepository())
         getDataFromActivity()
     }
 
@@ -290,7 +294,7 @@ class UpdatePostFragment : Fragment() {
 
     @SuppressLint("CheckResult")
     private fun updatePost() {
-        UpdateViewModel().update(token,postId,getImageFile(), PostContent(edtContent.text.toString()))
+        viewModel?.updatePost(token,postId,getImageFile(), PostContent(edtContent.text.toString()))
             ?.subscribeOn(Schedulers.io())
             ?.observeOn(AndroidSchedulers.mainThread())
             ?.subscribe({
@@ -304,22 +308,6 @@ class UpdatePostFragment : Fragment() {
                 // No-ops
                 Log.d("TAG0000", "updatePost: $it")
             })
-//        val service = APIClient.createServiceClient()?.create(PostAPI::class.java)
-//        val call = service?.updatePost(
-//            token, postId, getImageFile(),
-//            PostContent(edtContent.text.toString())
-//        )
-//        call?.enqueue(object : Callback<StatusResponse> {
-//            override fun onResponse(
-//                call: Call<StatusResponse>,
-//                response: Response<StatusResponse>
-//            ) {}
-//
-//            override fun onFailure(call: Call<StatusResponse>, t: Throwable) {
-//                Toast.makeText(activity, t.message, Toast.LENGTH_SHORT).show()
-//            }
-//        })
-//        (activity as? HomeActivity)?.replaceFragmentHome(HomeFragment.newInstance(user),false)
     }
 
     private fun getImageFile(): MultipartBody.Part? {

@@ -21,6 +21,8 @@ import com.asiantech.intern20summer1.w12.extension.isValidPassword
 import com.asiantech.intern20summer1.w12.extension.makeToastError
 import com.asiantech.intern20summer1.w12.fragment.RegisterFragment.Companion.KEY_VALUE_EMAIL
 import com.asiantech.intern20summer1.w12.fragment.RegisterFragment.Companion.KEY_VALUE_PASSWORD
+import com.asiantech.intern20summer1.w12.remoteRepository.RemoteRepository
+import com.asiantech.intern20summer1.w12.remoteRepository.dataResource.LoginDataSource
 import com.asiantech.intern20summer1.w12.view_model.LoginViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -29,12 +31,18 @@ import kotlinx.android.synthetic.`at-sonnguyen`.w12_fragment_login.*
 class LoginFragment : Fragment() {
     private var emailText: String = ""
     private var passwordText: String = ""
+    private var viewModel : LoginDataSource? = null
 
     companion object {
         internal const val FULL_NAME_KEY = "full_name"
         internal const val TOKEN_KEY = "token"
         internal const val USER_KEY_LOGIN = "user"
         internal fun newInstance() = LoginFragment()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = LoginViewModel(RemoteRepository())
     }
 
     override fun onCreateView(
@@ -144,7 +152,7 @@ class LoginFragment : Fragment() {
 
     private fun handleLoginButtonListener() {
         btnLogin?.setOnClickListener {
-            LoginViewModel().login(emailText, passwordText)?.subscribeOn(Schedulers.io())
+            viewModel?.login(emailText, passwordText)?.subscribeOn(Schedulers.io())
                 ?.observeOn(AndroidSchedulers.mainThread())
                 ?.subscribe({
                     if (it.isSuccessful) {
