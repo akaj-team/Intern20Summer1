@@ -2,7 +2,6 @@ package com.asiantech.intern20summer1.week12.views
 
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
