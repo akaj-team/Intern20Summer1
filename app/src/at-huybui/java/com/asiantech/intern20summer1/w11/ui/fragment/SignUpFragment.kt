@@ -13,7 +13,7 @@ import com.asiantech.intern20summer1.w11.data.api.ErrorUtils
 import com.asiantech.intern20summer1.w11.data.models.RequestAccount
 import com.asiantech.intern20summer1.w11.data.repository.RemoteRepository
 import com.asiantech.intern20summer1.w11.ui.viewmodel.ViewModel
-import com.asiantech.intern20summer1.w11.utils.AppUtils
+import com.asiantech.intern20summer1.w11.utils.extension.showToast
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.`at-huybui`.w10_fragment_sign_up.*
@@ -69,9 +69,6 @@ class SignUpFragment : Fragment() {
         edtPassword?.addTextChangedListener {
             checkEditText()
         }
-        edtEmail?.addTextChangedListener {
-            checkEditText()
-        }
         edtRePass?.addTextChangedListener {
             checkEditText()
         }
@@ -114,8 +111,7 @@ class SignUpFragment : Fragment() {
             ?.observeOn(AndroidSchedulers.mainThread())
             ?.subscribe { response ->
                 if (response.isSuccessful) {
-                    AppUtils().showToast(requireContext(),
-                        getString(R.string.w10_register_complete))
+                    getString(R.string.w10_register_complete).showToast(requireContext())
                     response.body()?.let { onRegisterClick.invoke(requestAccount) }
                     fragmentManager?.popBackStack()
                 } else {
@@ -123,8 +119,7 @@ class SignUpFragment : Fragment() {
                     if (error?.message ==
                         ApiClient.MESSAGE_EMAIL_HAS_BEEN_TAKEN
                     ) {
-                        AppUtils().showToast(requireContext(),
-                            getString(R.string.w10_email_is_been_take))
+                        getString(R.string.w10_email_is_been_take).showToast(requireContext())
                     }
                 }
                 progressBar?.visibility = View.INVISIBLE

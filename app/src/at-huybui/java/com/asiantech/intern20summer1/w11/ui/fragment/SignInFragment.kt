@@ -13,7 +13,7 @@ import com.asiantech.intern20summer1.w11.data.repository.LocalRepository
 import com.asiantech.intern20summer1.w11.data.repository.RemoteRepository
 import com.asiantech.intern20summer1.w11.ui.activity.ApiMainActivity
 import com.asiantech.intern20summer1.w11.ui.viewmodel.ViewModel
-import com.asiantech.intern20summer1.w11.utils.AppUtils
+import com.asiantech.intern20summer1.w11.utils.extension.showToast
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.`at-huybui`.w10_fragment_sign_in.*
@@ -88,8 +88,7 @@ class SignInFragment : Fragment() {
                 } else {
                     val error = ErrorUtils().parseError(response)
                     if (error?.message == ApiClient.MESSAGE_LOGIN_INCORRECT) {
-                        AppUtils().showToast(requireContext(),
-                            getString(R.string.w10_email_or_pass_invalid))
+                        getString(R.string.w10_email_or_pass_invalid).showToast(requireContext())
                     }
                 }
 

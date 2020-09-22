@@ -10,7 +10,6 @@ import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -66,7 +65,6 @@ class UpdateDialogFragment : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        d("permissionx", "open")
         setupViewModel()
         return inflater.inflate(R.layout.w10_dialog_fragment_post, container, false)
     }
@@ -97,16 +95,13 @@ class UpdateDialogFragment : DialogFragment() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        d("permissionx", "requestcode = $requestCode")
         when (requestCode) {
             PERMISSION_REQUEST_CAMERA_CODE -> {
-                d("permissionx", "PERMISSION_REQUEST_CAMERA_CODE")
                 if (isCheckCameraPermission()) {
                     openCamera()
                 }
             }
             PERMISSION_REQUEST_GALLERY_CODE -> {
-                d("permissionx", "PERMISSION_REQUEST_GALLERY_CODE")
                 if (isCheckGalleryPermission()) {
                     openGallery()
                 }

@@ -8,8 +8,7 @@ import com.asiantech.intern20summer1.w11.data.localdatasource.SharedPreferencesL
  * Asian Tech Co., Ltd.
  * Intern20Summer1 Project.
  * Created by at-huybui on 18/09/2020.
- * This is LocalRepository TODO("Not yet implemented").
- * It will TODO("Not yet implemented")
+ * This is LocalRepository
  */
 class LocalRepository(private val context: Context) : SharedPreferencesDataSource {
     private val sharedPreferences = SharedPreferencesLocalDataSource(context)

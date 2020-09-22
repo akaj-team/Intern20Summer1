@@ -21,7 +21,7 @@ import com.asiantech.intern20summer1.w11.data.repository.LocalRepository
 import com.asiantech.intern20summer1.w11.data.repository.RemoteRepository
 import com.asiantech.intern20summer1.w11.ui.activity.ApiMainActivity
 import com.asiantech.intern20summer1.w11.ui.viewmodel.ViewModel
-import com.asiantech.intern20summer1.w11.utils.AppUtils
+import com.asiantech.intern20summer1.w11.utils.extension.showToast
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -89,7 +89,7 @@ class SplashFragment : Fragment() {
             }
 
             override fun onFinish() {
-                AppUtils().showToast(requireContext(), getString(R.string.w10_finish_wait_time))
+                getString(R.string.w10_finish_wait_time).showToast(requireContext())
                 (activity as ApiMainActivity).finish()
             }
 

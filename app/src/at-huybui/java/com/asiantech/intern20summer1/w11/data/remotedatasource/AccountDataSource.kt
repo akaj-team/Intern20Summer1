@@ -9,8 +9,7 @@ import retrofit2.Response
  * Asian Tech Co., Ltd.
  * Intern20Summer1 Project.
  * Created by at-huybui on 17/09/2020.
- * This is AccountDataSource TODO("Not yet implemented").
- * It will TODO("Not yet implemented")
+ * This is AccountDataSource
  */
 interface AccountDataSource {
     fun autoSignIn(token: String): Observable<Response<Account>>?

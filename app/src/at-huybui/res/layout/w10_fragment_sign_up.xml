@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/background_white">
 
     <ImageView
@@ -21,70 +22,84 @@
         android:textColor="@color/black"
         android:textSize="@dimen/w10_signup_title_size" />
 
-    <EditText
-        android:id="@+id/edtEmail"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edtlayoutEmail"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/w10_editext_height"
         android:layout_below="@id/tvTitle"
         android:layout_marginLeft="@dimen/w10_edit_text_margin_left_right"
         android:layout_marginTop="@dimen/w10_edit_text_margin_top"
         android:layout_marginRight="@dimen/w10_edit_text_margin_left_right"
-        android:background="@drawable/w10_bg_editext"
-        android:hint="@string/w10_email"
-        android:importantForAutofill="no"
-        android:inputType="textEmailAddress"
-        android:paddingLeft="@dimen/w10_edit_text_padding_left_right"
-        android:paddingRight="@dimen/w10_edit_text_padding_left_right"
-        android:textSize="@dimen/w10_editext_text_size" />
+        android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/edtFullName"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtEmail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/w10_email"
+            android:importantForAutofill="no"
+            android:inputType="textEmailAddress"
+            android:textSize="@dimen/w10_editext_text_size" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edtlayoutFullname"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/w10_editext_height"
-        android:layout_below="@id/edtEmail"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/w10_edit_text_margin_left_right"
         android:layout_marginTop="@dimen/w10_edit_text_margin_top"
         android:layout_marginRight="@dimen/w10_edit_text_margin_left_right"
-        android:background="@drawable/w10_bg_editext"
-        android:hint="@string/w10_full_name"
-        android:importantForAutofill="no"
-        android:inputType="text"
-        android:paddingLeft="@dimen/w10_edit_text_padding_left_right"
-        android:paddingRight="@dimen/w10_edit_text_padding_left_right"
-        android:textSize="@dimen/w10_editext_text_size" />
+        android:layout_below="@id/edtlayoutEmail">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtFullName"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/w10_full_name"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:textSize="@dimen/w10_editext_text_size" />
+    </com.google.android.material.textfield.TextInputLayout>
 
 
-    <EditText
-        android:id="@+id/edtPassword"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edtlayoutPassword"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/w10_editext_height"
-        android:layout_below="@id/edtFullName"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edtlayoutFullname"
         android:layout_marginLeft="@dimen/w10_edit_text_margin_left_right"
         android:layout_marginTop="@dimen/w10_edit_text_margin_top"
         android:layout_marginRight="@dimen/w10_edit_text_margin_left_right"
-        android:background="@drawable/w10_bg_editext"
-        android:hint="@string/w10_password"
-        android:importantForAutofill="no"
-        android:inputType="textPassword"
-        android:paddingLeft="@dimen/w10_edit_text_padding_left_right"
-        android:paddingRight="@dimen/w10_edit_text_padding_left_right"
-        android:textSize="@dimen/w10_editext_text_size" />
+        app:passwordToggleEnabled="true">
 
-    <EditText
-        android:id="@+id/edtRePass"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtPassword"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/w10_password"
+            android:importantForAutofill="no"
+            android:inputType="textPassword"
+            android:textSize="@dimen/w10_editext_text_size" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edtlayoutRePass"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/w10_editext_height"
-        android:layout_below="@id/edtPassword"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edtlayoutPassword"
         android:layout_marginLeft="@dimen/w10_edit_text_margin_left_right"
         android:layout_marginTop="@dimen/w10_edit_text_margin_top"
         android:layout_marginRight="@dimen/w10_edit_text_margin_left_right"
-        android:background="@drawable/w10_bg_editext"
-        android:hint="@string/w10_rewrite_password"
-        android:importantForAutofill="no"
-        android:inputType="text"
-        android:paddingLeft="@dimen/w10_edit_text_padding_left_right"
-        android:paddingRight="@dimen/w10_edit_text_padding_left_right"
-        android:textSize="@dimen/w10_editext_text_size" />
+        app:passwordToggleEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtRePass"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/w10_rewrite_password"
+            android:importantForAutofill="no"
+            android:inputType="textPassword"
+            android:textSize="@dimen/w10_editext_text_size" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/btnRegister"

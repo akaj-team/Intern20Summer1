@@ -10,11 +10,11 @@ import retrofit2.Response
  * Asian Tech Co., Ltd.
  * Intern20Summer1 Project.
  * Created by at-huybui on 17/09/2020.
- * This is HomeViewModelContract TODO("Not yet implemented").
- * It will TODO("Not yet implemented")
+ * This is HomeViewModelContract
  */
 interface ViewModelContract {
     fun getPosts(token: String): Observable<Response<List<PostItem>>>?
+
     fun createPost(
         token: String,
         image: String? = null,
@@ -40,10 +40,15 @@ interface ViewModelContract {
     fun createUser(request: RequestAccount): Observable<Response<Account>>?
 
     fun putToken(token: String)
+
     fun getToken(): String?
+
     fun putIdUser(idUser: Int)
+
     fun getIdUser(): Int?
+
     fun putIsLogin(isLogin: Boolean)
+
     fun getIsLogin(): Boolean?
 }
      

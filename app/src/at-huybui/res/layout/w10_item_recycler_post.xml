@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/w10_item_card_view_margin"
+    android:layout_marginTop="@dimen/w10_item_card_view_margin"
     android:background="@color/status_bar"
-    app:cardCornerRadius="@dimen/w10_item_card_view_radius"
     app:cardElevation="@dimen/w10_item_card_elevation">
 
     <RelativeLayout
@@ -66,11 +65,12 @@
                 android:visibility="invisible" />
         </RelativeLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/llIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/w10_item_icon_heart_size"
             android:layout_below="@id/rlImage"
+            android:layout_marginRight="@dimen/w10_item_margin_left_right_icon"
             android:layout_marginLeft="@dimen/w10_item_margin_left_right_icon">
 
             <ImageView
@@ -80,19 +80,23 @@
                 android:src="@drawable/w10_ic_heart_transparent" />
 
             <ImageView
+                android:id="@+id/btnMessenger"
                 android:layout_width="@dimen/w10_item_icon_heart_size"
+                android:layout_toRightOf="@id/btnLike"
                 android:layout_height="@dimen/w10_item_icon_heart_size"
                 android:layout_marginLeft="@dimen/w10_item_margin_left_right"
                 android:layout_marginRight="@dimen/w10_item_margin_left_right"
                 android:src="@drawable/w10_ic_messenger" />
 
             <ImageView
+                android:layout_toRightOf="@id/btnMessenger"
                 android:layout_width="@dimen/w10_item_icon_heart_size"
                 android:layout_height="@dimen/w10_item_icon_heart_size"
                 android:src="@drawable/w10_ic_plane" />
 
             <TextView
                 android:id="@+id/tvLikeCount"
+                android:layout_alignParentRight="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -101,7 +105,7 @@
                 android:textSize="@dimen/w10_item_likes_text_size"
                 android:textStyle="bold"
                 tools:text="🖤  12k likes" />
-        </LinearLayout>
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/tvCreatedAt"

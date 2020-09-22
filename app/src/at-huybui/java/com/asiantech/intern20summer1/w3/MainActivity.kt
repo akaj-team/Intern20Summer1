@@ -81,25 +81,25 @@ class MainActivity : AppCompatActivity() {
      * This function will change color of box with state of text in box
      */
     private fun handleForEditTextEmail() {
-        edtEmail.addTextChangedListener { text ->
+        edtlayoutEmail.addTextChangedListener { text ->
             val textEmail = text.toString()
             if (textEmail.isNotEmpty()) {
                 if (textEmail.matches(REGEX_EMAIL.toRegex())) {
                     setIconTickOrErrorForEditText(
-                        edtEmail,
+                        edtlayoutEmail,
                         R.drawable.icon_tick
                     )
-                    edtEmail.setBackgroundResource(R.drawable.bg_custom_edit_text_tick)
+                    edtlayoutEmail.setBackgroundResource(R.drawable.bg_custom_edit_text_tick)
                 } else {
                     setIconTickOrErrorForEditText(
-                        edtEmail,
+                        edtlayoutEmail,
                         R.drawable.icon_error
                     )
-                    edtEmail.setBackgroundResource(R.drawable.bg_custom_edit_text_error)
+                    edtlayoutEmail.setBackgroundResource(R.drawable.bg_custom_edit_text_error)
                 }
             } else {
-                setIconTickOrErrorForEditText(edtEmail, 0)
-                edtEmail.setBackgroundResource(R.drawable.bg_custom_select_edit_text)
+                setIconTickOrErrorForEditText(edtlayoutEmail, 0)
+                edtlayoutEmail.setBackgroundResource(R.drawable.bg_custom_select_edit_text)
             }
         }
     }

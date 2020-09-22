@@ -6,8 +6,7 @@ import android.content.Context
  * Asian Tech Co., Ltd.
  * Intern20Summer1 Project.
  * Created by at-huybui on 18/09/2020.
- * This is SharedPreferencesLocalDataSource TODO("Not yet implemented").
- * It will TODO("Not yet implemented")
+ * This is SharedPreferencesLocalDataSource
  */
 class SharedPreferencesLocalDataSource(private val context: Context) : SharedPreferencesDataSource {
     companion object {

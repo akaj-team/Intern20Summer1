@@ -19,8 +19,7 @@ import retrofit2.Response
  * Asian Tech Co., Ltd.
  * Intern20Summer1 Project.
  * Created by at-huybui on 17/09/2020.
- * This is PostsRepository TODO("Not yet implemented").
- * It will TODO("Not yet implemented")
+ * This is PostsRepository
  */
 class RemoteRepository(private val context: Context) : AccountDataSource {
     companion object {

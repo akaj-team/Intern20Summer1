@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.w11.data.api.ApiClient
 import com.asiantech.intern20summer1.w11.data.models.PostItem
-import com.asiantech.intern20summer1.w11.utils.AppUtils
+import com.asiantech.intern20summer1.w11.utils.extension.convertDate
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -118,7 +118,7 @@ class RecyclerAdapter(private var mutableList: List<Any> = emptyList(), private 
             val stLikeCount = "$BLACK_HEART_SYMBOL ${item.like_count} $text"
             content.text = item.content
             likeCount.text = stLikeCount
-            createdAt.text = AppUtils().convertDate(item.created_at)
+            createdAt.text = item.created_at.convertDate()
             if (item.like_flag) {
                 iconLike.setImageResource(R.drawable.w10_ic_heart_red)
             } else {

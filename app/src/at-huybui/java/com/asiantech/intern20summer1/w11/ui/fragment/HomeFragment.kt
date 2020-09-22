@@ -3,7 +3,6 @@ package com.asiantech.intern20summer1.w11.ui.fragment
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,7 +18,7 @@ import com.asiantech.intern20summer1.w11.data.repository.RemoteRepository
 import com.asiantech.intern20summer1.w11.ui.activity.ApiMainActivity
 import com.asiantech.intern20summer1.w11.ui.adapter.RecyclerAdapter
 import com.asiantech.intern20summer1.w11.ui.viewmodel.ViewModel
-import com.asiantech.intern20summer1.w11.utils.AppUtils
+import com.asiantech.intern20summer1.w11.utils.extension.showToast
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.`at-huybui`.w10_fragment_home.*
@@ -44,6 +43,7 @@ class HomeFragment : Fragment() {
     var postListRecycler = mutableListOf<PostItem>()
     lateinit var postAdapter: RecyclerAdapter
     private var isLoadMore = false
+    private var isSearching = false
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -75,7 +75,19 @@ class HomeFragment : Fragment() {
         }
 
         imgSearch?.setOnClickListener {
-            handleShowDialogSearchFragment()
+            if (!isSearching) {
+                enableSearch()
+            } else {
+                val text = edtSearch?.text.toString()
+                if (text.isNotEmpty()) {
+                    searchData(text)
+                }
+                disableSearch()
+            }
+        }
+
+        btnBackSearch?.setOnClickListener {
+            disableSearch()
         }
     }
 
@@ -141,7 +153,7 @@ class HomeFragment : Fragment() {
         popupMenu.setOnMenuItemClickListener { item ->
             when (item.itemId) {
                 R.id.menuDelete -> {
-                    AppUtils().showToast(requireContext(), "Api không hỗ trợ!!")
+                    "Api không hỗ trợ!!".showToast(requireContext())
                 }
                 R.id.menuUpdate -> {
                     handleShowDialogUpdateFragment(postLists[position])
@@ -161,13 +173,21 @@ class HomeFragment : Fragment() {
         fragment.show(fragmentManager, null)
     }
 
-    private fun handleShowDialogSearchFragment() {
-        val fragmentManager = (activity as ApiMainActivity).supportFragmentManager
-        val fragment = SearchDialogFragment.newInstance()
-        fragment.onSearchClick = {
-            searchData(it)
-        }
-        fragment.show(fragmentManager, null)
+    private fun enableSearch() {
+        edtSearch?.visibility = View.VISIBLE
+        btnBackSearch?.visibility = View.VISIBLE
+        tvTitle?.visibility = View.INVISIBLE
+        imgAddPost?.visibility = View.INVISIBLE
+        isSearching = true
+    }
+
+    private fun disableSearch() {
+        edtSearch?.text = null
+        edtSearch?.visibility = View.INVISIBLE
+        btnBackSearch?.visibility = View.INVISIBLE
+        tvTitle?.visibility = View.VISIBLE
+        imgAddPost?.visibility = View.VISIBLE
+        isSearching = false
     }
 
 
@@ -195,7 +215,6 @@ class HomeFragment : Fragment() {
                 if (!isLoadMore && (lastVisibleItem == postListRecycler.size - 1)) {
                     isLoadMore = true
                     Handler(Looper.getMainLooper()).postDelayed({
-                        d("loadmore", "load")
                         val currentSize = postListRecycler.size - 1
                         if (postLists.size - currentSize < RECYCLER_LOAD_SIZE) {
                             initDataRecycler(currentSize, postLists.size)

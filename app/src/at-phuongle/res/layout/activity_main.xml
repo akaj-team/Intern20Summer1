@@ -50,7 +50,7 @@
                     android:id="@+id/imgEmail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignRight="@id/edtEmail"
+                    android:layout_alignRight="@id/edtlayoutEmail"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/icon_image_margin_right"
                     android:visibility="gone" />

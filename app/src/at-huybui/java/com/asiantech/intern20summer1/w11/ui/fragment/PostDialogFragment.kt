@@ -24,14 +24,11 @@ import com.asiantech.intern20summer1.w11.data.repository.LocalRepository
 import com.asiantech.intern20summer1.w11.data.repository.RemoteRepository
 import com.asiantech.intern20summer1.w11.ui.activity.ApiMainActivity
 import com.asiantech.intern20summer1.w11.ui.viewmodel.ViewModel
-import com.asiantech.intern20summer1.w11.utils.FileInformation
 import com.google.gson.Gson
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.`at-huybui`.w10_dialog_fragment_post.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.MultipartBody
-import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 
 /**
@@ -146,15 +143,6 @@ class PostDialogFragment : DialogFragment() {
                 }
                 progressBar?.visibility = View.INVISIBLE
             }
-    }
-
-    private fun createMultiPartBody(): MultipartBody.Part? {
-        imageUri?.let {
-            val file = FileInformation().getFile(requireContext(), it)
-            val image = file.asRequestBody(TYPE_IMAGE.toMediaTypeOrNull())
-            return MultipartBody.Part.createFormData(TYPE_IMAGE, file.name, image)
-        }
-        return null
     }
 
     private fun handleForAvatarImage() {

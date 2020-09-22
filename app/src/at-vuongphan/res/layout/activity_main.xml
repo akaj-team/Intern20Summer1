@@ -45,7 +45,7 @@
             android:id="@+id/tvTypePassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/edtEmail"
+            android:layout_below="@id/edtlayoutEmail"
             android:layout_marginLeft="@dimen/layout_margin_left"
             android:layout_marginTop="@dimen/text_view_password_margin_top"
             android:layout_marginRight="@dimen/layout_margin_right"
