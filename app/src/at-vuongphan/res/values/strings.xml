@@ -87,4 +87,7 @@
     <string name="denied_permission_gallery">Please open permission on settings</string>
     <string name="string_gallery">image/*</string>
     <string name="string_image">image</string>
+    <string name="search_description">Search</string>
+    <string name="button_ok_text">Ok</string>
+    <string name="search_error">Not Found !!</string>
 </resources>
