@@ -28,6 +28,7 @@ class LoginFragment : Fragment() {
 
     var emailCheck = false
     var passCheck = false
+    private var viewModel = LoginViewModel(RemoteRepository())
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -65,7 +66,7 @@ class LoginFragment : Fragment() {
         btn_login?.setOnClickListener {
             val email = edt_login_email?.text.toString()
             val password = edt_login_password?.text.toString()
-            LoginViewModel().login(email, password)
+            viewModel.login(email, password)
                 ?.subscribeOn(Schedulers.io())
                 ?.observeOn(AndroidSchedulers.mainThread())
                 ?.subscribe({

@@ -1,11 +1,11 @@
 package com.asiantech.intern20summer1.week12
 
 import androidx.lifecycle.ViewModel
+import io.reactivex.Single
+import retrofit2.Response
 
-class LoginViewModel : ViewModel() {
-    internal fun login(email: String, password: String) =
-        ApiClient.createUserService()?.login(email, password)
-
-    private fun register(userRegister: UserRegister) =
-        ApiClient.createUserService()?.addNewUser(userRegister)
+class LoginViewModel(private val remoteRepository: RemoteRepository) : ViewModel(),
+    LoginDataSource {
+    override fun login(email: String, password: String): Single<Response<User>>? =
+        remoteRepository.login(email, password)
 }

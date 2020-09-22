@@ -5,9 +5,11 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.SimpleItemAnimator
 import com.asiantech.intern20summer1.R
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -20,9 +22,11 @@ class HomeFragment : Fragment() {
 
     private var postItem: MutableList<Post> = mutableListOf()
     private lateinit var postItemStorage: MutableList<Post>
+    private lateinit var postItemSearch: MutableList<Post>
     private lateinit var adapter: PostViewHolder
     private var isLoading: Boolean = false
     private var token: String? = null
+    private var viewModel = PostViewModel(RemoteRepository())
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,31 +52,30 @@ class HomeFragment : Fragment() {
         }
         adapter = PostViewHolder(postItem)
         adapter.onHeartClicked = {
-//            handleHeartIcon(it)
+            handleHeartIcon(it)
         }
         rvContainer.layoutManager = LinearLayoutManager(context)
         rvContainer.adapter = adapter
     }
 
-//    private fun handleHeartIcon(position: Int) {
-//        token?.let {
-//            PostViewModel().onHeartClick(it, id)
-//                ?.subscribeOn(Schedulers.io())
-//                ?.observeOn(AndroidSchedulers.mainThread())
-//                ?.subscribe({ response ->
-//                    response.body()?.apply {
-//                        postItem[position]?.likeCount = this.likeCount
-//                        postItem[position]?.likeFlag = this.likeFlag
-//                        adapter.notifyItemChanged(position, null)
-//                        (rvContainer?.itemAnimator as? SimpleItemAnimator)?.supportsChangeAnimations =
-//                            true
-//                    }
-//                }, {
-//
-//                })
-//        }
-//    }
+    private fun handleHeartIcon(position: Int) {
+        token?.let {
+            viewModel.updatePostLike(it, postItem[position].id)
+                ?.subscribeOn(Schedulers.io())
+                ?.observeOn(AndroidSchedulers.mainThread())
+                ?.subscribe({ response ->
+                    response.body()?.apply {
+                        postItem[position].likeCount = this.likeCount
+                        postItem[position].likeFlag = this.likeFlag
+                        adapter.notifyItemChanged(position, null)
+                        (rvContainer?.itemAnimator as? SimpleItemAnimator)?.supportsChangeAnimations =
+                            true
+                    }
+                }, {
 
+                })
+        }
+    }
 
     private fun getData() {
         token = (activity as HomeActivity).getData()
@@ -81,7 +84,7 @@ class HomeFragment : Fragment() {
     private fun initData() {
         postItemStorage = mutableListOf()
         token?.let { token ->
-            PostViewModel().getPost(token)
+            viewModel.getListPost(token)
                 ?.subscribeOn(Schedulers.io())
                 ?.observeOn(AndroidSchedulers.mainThread())
                 ?.subscribe({
@@ -142,6 +145,24 @@ class HomeFragment : Fragment() {
             }, 1000L)
             isLoading = true
             progressBar.visibility = View.VISIBLE
+        }
+    }
+
+    internal fun search(search: String) {
+        postItemSearch.clear()
+        for (i in postItemStorage.indices) {
+            if (postItemStorage[i].content.contains(search)) {
+                postItemSearch.add(postItemStorage[i])
+                postItemStorage[i].content = search
+            }
+        }
+        if (postItemSearch.size == 0) {
+            Toast.makeText(activity, "No result", Toast.LENGTH_SHORT).show()
+        } else {
+            postItem.clear()
+            postItemStorage.clear()
+            initAdapter()
+            handleLoadMore()
         }
     }
 }

@@ -1,9 +1,13 @@
 package com.asiantech.intern20summer1.week12
 
-class PostViewModel {
-    internal fun getPost(token: String) =
-        ApiClient.createPostService()?.getListPost(token)
+import androidx.lifecycle.ViewModel
+import io.reactivex.Single
+import retrofit2.Response
 
-    internal fun onHeartClick(token: String, id: Int) =
-        ApiClient.createPostService()?.updatePostLike(token, id)
+class PostViewModel(private val remoteRepository: RemoteRepository) : ViewModel(), HomeDataSource {
+    override fun getListPost(token: String): Single<MutableList<Post>>? =
+        remoteRepository.getListPost(token)
+
+    override fun updatePostLike(token: String, id: Int): Single<Response<LikeResponse>>? =
+        remoteRepository.updatePostLike(token, id)
 }

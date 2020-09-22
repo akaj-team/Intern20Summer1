@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 class Post(
     @SerializedName("id") val id: Int,
     @SerializedName("user_id") val userId: Int,
-    @SerializedName("content") val content: String,
+    @SerializedName("content") var content: String,
     @SerializedName("image") val image: String,
     @SerializedName("created_at") val createdAt: String,
     @SerializedName("like_count") var likeCount: Int,
