@@ -1,15 +1,13 @@
 package com.asiantech.intern20summer1.w12.activity
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.w12.fragment.LoginFragment
-import com.asiantech.intern20summer1.w12.fragment.LoginFragment.Companion.USER_KEY_LOGIN
-import com.asiantech.intern20summer1.w12.view_model.LoginViewModel
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import com.asiantech.intern20summer1.w12.remoteRepository.RemoteRepository
+import com.asiantech.intern20summer1.w12.ui.login.LoginFragment
+import com.asiantech.intern20summer1.w12.ui.login.LoginVMContact
+import com.asiantech.intern20summer1.w12.ui.login.LoginViewModel
 
 class LoginActivity : AppCompatActivity() {
 
@@ -17,6 +15,7 @@ class LoginActivity : AppCompatActivity() {
     private var id: Int? = null
     private var email: String? = null
     private var fullName: String? = null
+    private var viewModel : LoginVMContact? = null
 
     companion object {
         internal const val SHARED_PREFERENCE_FILE = "share-preference-file"
@@ -29,8 +28,9 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.w12_activity_login)
-        handleAutoLogin()
-//        replaceFragment(LoginFragment.newInstance())
+        viewModel = LoginViewModel(RemoteRepository())
+//        handleAutoLogin()
+        replaceFragment(LoginFragment.newInstance("",""))
     }
 
     internal fun replaceFragment(fragment: Fragment) {
@@ -52,27 +52,27 @@ class LoginActivity : AppCompatActivity() {
         return true
     }
 
-    private fun handleAutoLogin() {
-        if (checkSharedPreference()) {
-            LoginViewModel().autoLogin(token)
-                ?.subscribeOn(Schedulers.io())
-                ?.observeOn(AndroidSchedulers.mainThread())
-                ?.subscribe({
-                    if (it.isSuccessful) {
-                        val intent = Intent(this@LoginActivity, HomeActivity::class.java)
-                        intent.putExtra(LoginFragment.FULL_NAME_KEY, fullName)
-                        intent.putExtra(LoginFragment.TOKEN_KEY, token)
-                        it.body()?.apply {
-                            intent.putExtra(USER_KEY_LOGIN, this)
-                        }
-                        startActivity(intent)
-                        finish()
-                    }
-                }, {
-                    // No-ops
-                })
-        } else {
-            replaceFragment(LoginFragment.newInstance())
-        }
-    }
+//    private fun handleAutoLogin() {
+//        if (checkSharedPreference()) {
+//            viewModel?.autoLogin(token)
+//                ?.subscribeOn(Schedulers.io())
+//                ?.observeOn(AndroidSchedulers.mainThread())
+//                ?.subscribe({
+//                    if (it.isSuccessful) {
+//                        val intent = Intent(this@LoginActivity, HomeActivity::class.java)
+//                        intent.putExtra(LoginFragment.FULL_NAME_KEY, fullName)
+//                        intent.putExtra(LoginFragment.TOKEN_KEY, token)
+//                        it.body()?.apply {
+//                            intent.putExtra(USER_KEY_LOGIN, this)
+//                        }
+//                        startActivity(intent)
+//                        finish()
+//                    }
+//                }, {
+//                    // No-ops
+//                })
+//        } else {
+//            replaceFragment(LoginFragment.newInstance())
+//        }
+//    }
 }

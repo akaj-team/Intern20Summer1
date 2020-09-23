@@ -2,7 +2,7 @@ package com.asiantech.intern20summer1.w12.extension
 
 import android.content.Context
 import android.widget.Toast
-import com.asiantech.intern20summer1.w12.fragment.AddPostFragment
+import com.asiantech.intern20summer1.w12.ui.addPost.AddPostFragment
 
 fun isValidEmail(string: String) =
     android.util.Patterns.EMAIL_ADDRESS.matcher(string).matches()

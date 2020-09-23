@@ -1,6 +1,6 @@
 package com.asiantech.intern20summer1.w12.remoteRepository
 
-import com.asiantech.intern20summer1.w12.model.*
+import com.asiantech.intern20summer1.w12.data.model.*
 import io.reactivex.Single
 import okhttp3.MultipartBody
 import retrofit2.Response
@@ -20,7 +20,7 @@ interface RemoteDataSource {
         id: Int,
         image: MultipartBody.Part?,
         postContent: PostContent
-    ) : Single<retrofit2.Response<StatusResponse>>?
+    ): Single<Response<StatusResponse>>?
 
     fun addPost(
         token: String,

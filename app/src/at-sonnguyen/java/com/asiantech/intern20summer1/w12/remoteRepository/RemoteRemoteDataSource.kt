@@ -1,7 +1,7 @@
 package com.asiantech.intern20summer1.w12.remoteRepository
 
-import com.asiantech.intern20summer1.w12.api.APIClient
-import com.asiantech.intern20summer1.w12.model.*
+import com.asiantech.intern20summer1.w12.data.model.*
+import com.asiantech.intern20summer1.w12.data.network.APIClient
 import io.reactivex.Single
 import okhttp3.MultipartBody
 import retrofit2.Response
@@ -14,7 +14,7 @@ class RemoteRemoteDataSource(private val api: APIClient) : RemoteDataSource {
         api.createPostService()?.getAllPost(token)
 
     override fun likePost(token: String, id: Int): Single<Response<LikeResponse>>? =
-        api.createPostService()?.likePost(token)
+        api.createPostService()?.likePost(token,id)
 
     override fun register(userRegister: UserRegister): Single<Response<User>>? =
         api.createUserService()?.addUser(userRegister)

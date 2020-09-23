@@ -4,9 +4,9 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.w12.fragment.HomeFragment
-import com.asiantech.intern20summer1.w12.fragment.LoginFragment.Companion.USER_KEY_LOGIN
-import com.asiantech.intern20summer1.w12.model.User
+import com.asiantech.intern20summer1.w12.data.model.User
+import com.asiantech.intern20summer1.w12.ui.home.HomeFragment
+import com.asiantech.intern20summer1.w12.ui.login.LoginFragment.Companion.USER_KEY_LOGIN
 
 class HomeActivity : AppCompatActivity() {
 

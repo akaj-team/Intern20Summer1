@@ -1,7 +1,7 @@
 package com.asiantech.intern20summer1.w12.remoteRepository
 
-import com.asiantech.intern20summer1.w12.api.APIClient
-import com.asiantech.intern20summer1.w12.model.*
+import com.asiantech.intern20summer1.w12.data.model.*
+import com.asiantech.intern20summer1.w12.data.network.APIClient
 import io.reactivex.Single
 import okhttp3.MultipartBody
 import retrofit2.Response
