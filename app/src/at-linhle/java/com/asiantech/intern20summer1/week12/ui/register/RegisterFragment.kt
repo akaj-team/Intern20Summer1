@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.week12.fragments
+package com.asiantech.intern20summer1.week12.ui.register
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,11 +9,11 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week12.extensions.handleOnTouchScreen
-import com.asiantech.intern20summer1.week12.fragments.LoginFragment.Companion.MAX_EMAIL_LENGTH
-import com.asiantech.intern20summer1.week12.models.UserRegister
-import com.asiantech.intern20summer1.week12.repository.datasource.LoginDataSource
-import com.asiantech.intern20summer1.week12.repository.RemoteRepository
-import com.asiantech.intern20summer1.week12.viewmodels.LoginViewModel
+import com.asiantech.intern20summer1.week12.ui.login.LoginFragment.Companion.MAX_EMAIL_LENGTH
+import com.asiantech.intern20summer1.week12.data.model.UserRegister
+import com.asiantech.intern20summer1.week12.data.source.LoginRepository
+import com.asiantech.intern20summer1.week12.data.source.datasource.LoginDataSource
+import com.asiantech.intern20summer1.week12.ui.login.LoginViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.`at-linhle`.fragment_register.*
@@ -24,7 +24,8 @@ class RegisterFragment : Fragment() {
     companion object {
         private const val RESPONSE_CODE = 400
         private const val MAX_FULL_NAME_LENGTH = 64
-        internal fun newInstance() = RegisterFragment()
+        internal fun newInstance() =
+            RegisterFragment()
     }
 
     internal var onRegisterSuccess: (email: String, password: String) -> Unit = { _, _ -> }
@@ -33,7 +34,9 @@ class RegisterFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = LoginViewModel(RemoteRepository())
+        viewModel = LoginViewModel(
+            LoginRepository()
+        )
     }
 
     override fun onCreateView(
@@ -123,7 +126,13 @@ class RegisterFragment : Fragment() {
             val fullName = edtUserName?.text.toString()
             val email = edtEmail?.text.toString()
             val password = edtPassword?.text.toString()
-            viewModel?.register(UserRegister(email, password, fullName))
+            viewModel?.register(
+                UserRegister(
+                    email,
+                    password,
+                    fullName
+                )
+            )
                 ?.subscribeOn(Schedulers.io())
                 ?.observeOn(AndroidSchedulers.mainThread())
                 ?.subscribe({

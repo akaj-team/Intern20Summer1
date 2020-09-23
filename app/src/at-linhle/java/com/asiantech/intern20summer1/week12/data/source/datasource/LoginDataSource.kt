@@ -1,7 +1,7 @@
-package com.asiantech.intern20summer1.week12.repository.datasource
+package com.asiantech.intern20summer1.week12.data.source.datasource
 
-import com.asiantech.intern20summer1.week12.models.User
-import com.asiantech.intern20summer1.week12.models.UserRegister
+import com.asiantech.intern20summer1.week12.data.model.User
+import com.asiantech.intern20summer1.week12.data.model.UserRegister
 import io.reactivex.Single
 import retrofit2.Response
 

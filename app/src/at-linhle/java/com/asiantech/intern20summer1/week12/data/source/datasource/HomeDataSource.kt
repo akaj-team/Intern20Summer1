@@ -1,7 +1,7 @@
-package com.asiantech.intern20summer1.week12.repository.datasource
+package com.asiantech.intern20summer1.week12.data.source.datasource
 
-import com.asiantech.intern20summer1.week12.models.LikeResponse
-import com.asiantech.intern20summer1.week12.models.Post
+import com.asiantech.intern20summer1.week12.data.model.LikeResponse
+import com.asiantech.intern20summer1.week12.data.model.Post
 import io.reactivex.Single
 import retrofit2.Response
 

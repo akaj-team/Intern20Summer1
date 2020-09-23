@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.week12.fragments
+package com.asiantech.intern20summer1.week12.ui.post
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.week12.views.HomeRxActivity
 import kotlinx.android.synthetic.`at-linhle`.fragment_dialog_search.*
 
 class SearchDialogFragment : DialogFragment() {

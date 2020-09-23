@@ -1,10 +1,9 @@
-package com.asiantech.intern20summer1.week12.views
+package com.asiantech.intern20summer1.week12.ui.login
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.week12.fragments.LoginFragment
 
 class LoginMainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

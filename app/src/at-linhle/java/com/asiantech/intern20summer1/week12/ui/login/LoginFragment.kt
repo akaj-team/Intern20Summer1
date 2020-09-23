@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.week12.fragments
+package com.asiantech.intern20summer1.week12.ui.login
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,11 +9,11 @@ import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.week12.data.source.LoginRepository
 import com.asiantech.intern20summer1.week12.extensions.handleOnTouchScreen
-import com.asiantech.intern20summer1.week12.repository.datasource.LoginDataSource
-import com.asiantech.intern20summer1.week12.repository.RemoteRepository
-import com.asiantech.intern20summer1.week12.viewmodels.LoginViewModel
-import com.asiantech.intern20summer1.week12.views.HomeRxActivity
+import com.asiantech.intern20summer1.week12.data.source.datasource.LoginDataSource
+import com.asiantech.intern20summer1.week12.ui.register.RegisterFragment
+import com.asiantech.intern20summer1.week12.ui.post.HomeRxActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.`at-linhle`.fragment_login.*
@@ -26,7 +26,8 @@ class LoginFragment : Fragment() {
         internal const val MAX_EMAIL_LENGTH = 264
         private const val RESPONSE_CODE = 401
         internal const val SHARED_PREFERENCE_TOKEN = "token"
-        internal fun newInstance() = LoginFragment()
+        internal fun newInstance() =
+            LoginFragment()
     }
 
     private val passwordPattern = Pattern.compile("""^(?=.*).{8,16}$""")
@@ -34,7 +35,9 @@ class LoginFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = LoginViewModel(RemoteRepository())
+        viewModel = LoginViewModel(
+            LoginRepository()
+        )
     }
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -96,7 +99,8 @@ class LoginFragment : Fragment() {
     private fun handleClickingRegisterTextView() {
         tvRegister.setOnClickListener {
             val transaction = fragmentManager?.beginTransaction()
-            transaction?.add(R.id.flLoginContainer, RegisterFragment.newInstance().apply {
+            transaction?.add(R.id.flLoginContainer, RegisterFragment.newInstance()
+                .apply {
                 onRegisterSuccess = { email, password ->
                     this@LoginFragment.edtEmail.setText(email)
                     this@LoginFragment.edtPassword.setText(password)

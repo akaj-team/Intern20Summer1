@@ -21,8 +21,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".week12.views.HomeRxActivity"/>
-        <activity android:name=".week12.views.LoginMainActivity" />
+        <activity android:name=".week12.ui.post.HomeRxActivity"/>
+        <activity android:name=".week12.ui.login.LoginMainActivity" />
         <activity android:name=".week6.views.IndicatorActivity" />
         <activity android:name=".week6.views.TabLayoutActivity" />
         <activity android:name=".week4.views.SignInActivity" />

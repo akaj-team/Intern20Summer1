@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.week12.api
+package com.asiantech.intern20summer1.week12.data.source.remote.network
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import okhttp3.OkHttpClient
@@ -11,11 +11,8 @@ object ApiClient {
     private var retrofit: Retrofit? = null
     private const val REQUEST_TIMEOUT = 60
 
-    internal fun createUserService(): ApiUserService? =
-        getClient()?.create(ApiUserService::class.java)
-
-    internal fun createPostService(): ApiPostService? =
-        getClient()?.create(ApiPostService::class.java)
+    internal fun createService(): ApiService? =
+        getClient()?.create(ApiService::class.java)
 
     private fun getClient(): Retrofit? {
         if (retrofit == null) {

@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.recyclerview.widget.RecyclerView
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.week12.models.Post
+import com.asiantech.intern20summer1.week12.data.model.Post
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.`at-linhle`.item_list_post.view.*
 import kotlinx.android.synthetic.`at-linhle`.loading_layout.view.*
