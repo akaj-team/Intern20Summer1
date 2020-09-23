@@ -13,8 +13,7 @@ import retrofit2.Response
  * Asian Tech Co., Ltd.
  * Intern20Summer1 Project.
  * Created by at-huybui on 22/09/2020.
- * This is LoginVM TODO("Not yet implemented").
- * It will TODO("Not yet implemented")
+ * This is LoginVM
  */
 class LoginVM(
     private val loginRepository: LoginRepository,
@@ -22,7 +21,22 @@ class LoginVM(
 ) : LoginVMContract {
 
     override fun autoSignIn(token: String): Single<Response<Account>>? =
-        loginRepository.autoSignIn(localRepository.getToken())
+        loginRepository.autoSignIn(token)
+            ?.subscribeOn(Schedulers.io())
+            ?.observeOn(AndroidSchedulers.mainThread())
+            ?.doAfterSuccess { response ->
+                if (response.isSuccessful) {
+                    response.body()?.let { account ->
+                        localRepository.putIsLogin(true)
+                        localRepository.putToken(account.token)
+                        localRepository.putIdUser(account.id)
+                    }
+                }
+            }
+
+    override fun login(email: String, password: String): Single<Response<Account>>? {
+        return loginRepository
+            .login(email, password)
             ?.subscribeOn(Schedulers.io())
             ?.observeOn(AndroidSchedulers.mainThread())
             ?.doOnSuccess { response ->
@@ -34,36 +48,26 @@ class LoginVM(
                     }
                 }
             }
-
-    override fun login(email: String, password: String): Single<Response<Account>>? {
-        TODO("Not yet implemented")
     }
 
-    override fun createUser(request: RequestAccount): Single<Response<Account>>? {
-        TODO("Not yet implemented")
-    }
+    override fun createUser(request: RequestAccount): Single<Response<Account>>? =
+        loginRepository.createUser(request)
 
-    override fun getToken(): String? {
-        TODO("Not yet implemented")
-    }
+    override fun getToken(): String? = localRepository.getToken()
 
     override fun putToken(token: String) {
-        TODO("Not yet implemented")
+        localRepository.putToken(token)
     }
 
     override fun putIdUser(idUser: Int) {
-        TODO("Not yet implemented")
+        localRepository.putIdUser(idUser)
     }
 
-    override fun getIdUser(): Int? {
-        TODO("Not yet implemented")
-    }
+    override fun getIdUser(): Int? = localRepository.getIdUser()
 
     override fun putIsLogin(isLogin: Boolean) {
-        TODO("Not yet implemented")
+        localRepository.putIsLogin(isLogin)
     }
 
-    override fun getIsLogin(): Boolean? {
-        TODO("Not yet implemented")
-    }
+    override fun getIsLogin(): Boolean? = localRepository.getIsLogin()
 }

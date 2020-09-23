@@ -8,10 +8,11 @@ import androidx.core.util.PatternsCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.w11.data.models.RequestAccount
+import com.asiantech.intern20summer1.w11.data.source.LocalRepository
+import com.asiantech.intern20summer1.w11.data.source.LoginRepository
 import com.asiantech.intern20summer1.w11.data.source.remote.network.ApiClient
 import com.asiantech.intern20summer1.w11.data.source.remote.network.ErrorUtils
-import com.asiantech.intern20summer1.w11.data.models.RequestAccount
-import com.asiantech.intern20summer1.w11.ui.viewmodel.ViewModel
 import com.asiantech.intern20summer1.w11.utils.extension.showToast
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -34,7 +35,7 @@ class SignUpFragment : Fragment() {
 
     internal var onRegisterClick: (account: RequestAccount) -> Unit = {}
 
-    private var viewModel: ViewModel? = null
+    private var viewModel: LoginVM? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -126,6 +127,6 @@ class SignUpFragment : Fragment() {
     }
 
     private fun setupViewModel() {
-//        viewModel = ViewModel(RemoteRepository(requireContext()))
+        viewModel = LoginVM(LoginRepository(requireContext()), LocalRepository(requireContext()))
     }
 }

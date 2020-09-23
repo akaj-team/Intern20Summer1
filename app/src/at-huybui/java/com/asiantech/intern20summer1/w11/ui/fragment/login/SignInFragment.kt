@@ -7,13 +7,13 @@ import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.w11.data.source.LocalRepository
+import com.asiantech.intern20summer1.w11.data.source.LoginRepository
 import com.asiantech.intern20summer1.w11.data.source.remote.network.ApiClient
 import com.asiantech.intern20summer1.w11.data.source.remote.network.ErrorUtils
 import com.asiantech.intern20summer1.w11.ui.activity.ApiMainActivity
 import com.asiantech.intern20summer1.w11.ui.fragment.home.HomeFragment
-import com.asiantech.intern20summer1.w11.ui.viewmodel.ViewModel
 import com.asiantech.intern20summer1.w11.utils.extension.showToast
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.`at-huybui`.w10_fragment_sign_in.*
 
@@ -30,7 +30,7 @@ class SignInFragment : Fragment() {
         internal fun newInstance() = SignInFragment()
     }
 
-    private var viewModel: ViewModel? = null
+    private var viewModel: LoginVM? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -73,13 +73,9 @@ class SignInFragment : Fragment() {
         viewModel
             ?.login(email, password)
             ?.subscribeOn(Schedulers.io())
-            ?.observeOn(AndroidSchedulers.mainThread())
-            ?.subscribe { response ->
+            ?.subscribe({ response ->
                 if (response.isSuccessful) {
-                    response.body()?.let { account ->
-                        viewModel?.putIsLogin(true)
-                        viewModel?.putToken(account.token)
-                        viewModel?.putIdUser(account.id)
+                    response.body()?.let {
                         (activity as ApiMainActivity).replaceFragment(
                             HomeFragment.newInstance()
                         )
@@ -92,7 +88,10 @@ class SignInFragment : Fragment() {
                 }
 
                 progressBar?.visibility = View.INVISIBLE
-            }
+
+            }, {
+                it.toString().showToast(requireContext())
+            })
 
     }
 
@@ -117,6 +116,6 @@ class SignInFragment : Fragment() {
     }
 
     private fun setupViewModel() {
-//        viewModel = ViewModel(RemoteRepository(requireContext()), LocalRepository(requireContext()))
+        viewModel = LoginVM(LoginRepository(requireContext()), LocalRepository(requireContext()))
     }
 }

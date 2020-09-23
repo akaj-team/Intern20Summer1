@@ -8,7 +8,6 @@ import com.asiantech.intern20summer1.w11.data.models.ResponsePost
 import com.asiantech.intern20summer1.w11.data.source.datasource.HomeDataSource
 import com.asiantech.intern20summer1.w11.data.source.remote.HomeRemoteDataSource
 import com.asiantech.intern20summer1.w11.utils.FileInformation
-import io.reactivex.Observable
 import io.reactivex.Single
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -20,8 +19,7 @@ import retrofit2.Response
  * Asian Tech Co., Ltd.
  * Intern20Summer1 Project.
  * Created by at-huybui on 22/09/2020.
- * This is HomeRepository TODO("Not yet implemented").
- * It will TODO("Not yet implemented")
+ * This is HomeRepository
  */
 class HomeRepository(private val context: Context) : HomeDataSource {
 
@@ -38,25 +36,25 @@ class HomeRepository(private val context: Context) : HomeDataSource {
         token: String,
         image: MultipartBody.Part?,
         body: RequestBody
-    ): Single<Response<ResponsePost>>? {
-        return postRemote.createPost(token, image, body)
-    }
+    ): Single<Response<ResponsePost>>? =
+        postRemote.createPost(token, image, body)
+
 
     override fun updatePost(
         token: String,
         id: Int,
         image: MultipartBody.Part?,
         body: RequestBody
-    ): Single<Response<ResponsePost>>? {
-        return postRemote.updatePost(token, id, image, body)
-    }
+    ): Single<Response<ResponsePost>>? =
+        postRemote.updatePost(token, id, image, body)
+
 
     override fun likePost(token: String, id: Int): Single<Response<ResponseLike>>? =
         postRemote.likePost(token, id)
 
-    private fun createMultiPartBody(uri: String?): MultipartBody.Part? {
+    fun createMultiPartBody(uri: Uri?): MultipartBody.Part? {
         uri?.let {
-            val file = FileInformation().getFile(context, Uri.parse(it))
+            val file = FileInformation().getFile(context, Uri.parse(it.toString()))
             val image = file.asRequestBody(TYPE_IMAGE.toMediaTypeOrNull())
             return MultipartBody.Part.createFormData(TYPE_IMAGE, file.name, image)
         }

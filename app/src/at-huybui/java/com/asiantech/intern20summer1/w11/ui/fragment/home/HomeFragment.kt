@@ -32,7 +32,6 @@ import kotlinx.android.synthetic.`at-huybui`.w10_fragment_home.*
 class HomeFragment : Fragment() {
 
     companion object {
-        private const val RECYCLER_LOAD_SIZE = 10
         private const val DELAY_LOAD_MORE = 2000L
         internal fun newInstance() = HomeFragment()
     }
@@ -96,32 +95,26 @@ class HomeFragment : Fragment() {
             .getPostsData()
             ?.subscribeOn(Schedulers.io())
             ?.observeOn(AndroidSchedulers.mainThread())
-            ?.doOnSuccess {
+            ?.subscribe({
                 postAdapter.notifyDataSetChanged()
                 (recyclerView.itemAnimator as? SimpleItemAnimator)?.supportsChangeAnimations = true
                 progressBar?.visibility = View.INVISIBLE
                 swipeRefreshContainer.isRefreshing = false
-            }
-
+            }, {})
     }
 
     private fun initAdapter() {
-        postAdapter = RecyclerAdapter(
-            viewModel.getDataAdapter() ?: mutableListOf(),
-            viewModel.getIdUser() ?: 0
-        )
+        postAdapter = RecyclerAdapter(viewModel.getDataAdapter(), viewModel.getIdUser() ?: 0)
         postAdapter.onLikeClicked = { position ->
-            val token = viewModel.getToken().toString()
-
             viewModel
-                .likePost(token, position)
+                .likePost(position)
                 ?.subscribeOn(Schedulers.io())
                 ?.observeOn(AndroidSchedulers.mainThread())
-                ?.doOnSuccess {
+                ?.subscribe({
                     postAdapter.notifyItemChanged(position, null)
                     (recyclerView.itemAnimator as? SimpleItemAnimator)?.supportsChangeAnimations =
                         true
-                }
+                }, {})
         }
         postAdapter.onMenuClicked = { view, position ->
             showMenuItem(view, position)
@@ -175,7 +168,6 @@ class HomeFragment : Fragment() {
         isSearching = false
     }
 
-
     private fun handleShowDialogUpdateFragment(postItem: PostItem) {
         val fragmentManager = (activity as ApiMainActivity).supportFragmentManager
         val fragment = UpdateDialogFragment.newInstance(postItem)
@@ -184,7 +176,6 @@ class HomeFragment : Fragment() {
         }
         fragment.show(fragmentManager, null)
     }
-
 
     private fun handleForLoadMoreAndRefreshListener() {
         swipeRefreshContainer.setOnRefreshListener {
@@ -214,11 +205,10 @@ class HomeFragment : Fragment() {
             .searchData(key)
             ?.subscribeOn(Schedulers.io())
             ?.observeOn(AndroidSchedulers.mainThread())
-            ?.doOnSuccess {
+            ?.subscribe({
                 postAdapter.notifyDataSetChanged()
-            }
+            }, {})
     }
-
 
     private fun setupViewModel() {
         viewModel = HomeVM(HomeRepository(requireContext()), LocalRepository(requireContext()))

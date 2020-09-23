@@ -10,7 +10,7 @@ import com.asiantech.intern20summer1.w11.data.source.local.SharedPreferencesLoca
  * Created by at-huybui on 18/09/2020.
  * This is LocalRepository
  */
-class LocalRepository(private val context: Context) : SharedPreferencesDataSource {
+class LocalRepository(context: Context) : SharedPreferencesDataSource {
     private val sharedPreferences = SharedPreferencesLocalDataSource(context)
 
     override fun putToken(token: String) {

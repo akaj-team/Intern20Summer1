@@ -48,7 +48,8 @@ class ApiClient {
             return retrofit
         }
 
-        internal fun getApiService(): ApiService? =
-            getClientInstance()?.create(ApiService::class.java)
+        internal fun getApiService(): ApiService? {
+            return getClientInstance()?.create(ApiService::class.java)
+        }
     }
 }

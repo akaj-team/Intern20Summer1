@@ -2,8 +2,6 @@ package com.asiantech.intern20summer1.w11.ui.fragment.login
 
 import com.asiantech.intern20summer1.w11.data.models.Account
 import com.asiantech.intern20summer1.w11.data.models.RequestAccount
-import com.asiantech.intern20summer1.w11.data.models.ResponseLike
-import io.reactivex.Observable
 import io.reactivex.Single
 import retrofit2.Response
 
@@ -11,8 +9,7 @@ import retrofit2.Response
  * Asian Tech Co., Ltd.
  * Intern20Summer1 Project.
  * Created by at-huybui on 22/09/2020.
- * This is LoginMVCotract TODO("Not yet implemented").
- * It will TODO("Not yet implemented")
+ * This is LoginMVCotract
  */
 interface LoginVMContract {
 

@@ -1,10 +1,11 @@
 package com.asiantech.intern20summer1.w11.data.source
 
+import android.content.Context
+import android.util.Log.d
 import com.asiantech.intern20summer1.w11.data.models.Account
 import com.asiantech.intern20summer1.w11.data.models.RequestAccount
 import com.asiantech.intern20summer1.w11.data.source.datasource.LoginDataSource
 import com.asiantech.intern20summer1.w11.data.source.remote.LoginRemoteDataSource
-import io.reactivex.Observable
 import io.reactivex.Single
 import retrofit2.Response
 
@@ -15,14 +16,16 @@ import retrofit2.Response
  * This is LoginRepository TODO("Not yet implemented").
  * It will TODO("Not yet implemented")
  */
-class LoginRepository : LoginDataSource {
+class LoginRepository(private val context: Context) : LoginDataSource {
     private val loginRemote = LoginRemoteDataSource()
 
     override fun autoSignIn(token: String): Single<Response<Account>>? =
         loginRemote.autoSignIn(token)
 
-    override fun login(email: String, password: String): Single<Response<Account>>? =
-        loginRemote.login(email, password)
+    override fun login(email: String, password: String): Single<Response<Account>>? {
+        d("login", "login repository")
+        return loginRemote.login(email, password)
+    }
 
     override fun createUser(request: RequestAccount): Single<Response<Account>>? =
         loginRemote.createUser(request)

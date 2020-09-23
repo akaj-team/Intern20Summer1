@@ -8,18 +8,18 @@ import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.provider.Settings
-import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.w11.data.source.LocalRepository
+import com.asiantech.intern20summer1.w11.data.source.LoginRepository
 import com.asiantech.intern20summer1.w11.data.source.remote.network.ApiClient
 import com.asiantech.intern20summer1.w11.data.source.remote.network.ErrorUtils
 import com.asiantech.intern20summer1.w11.ui.activity.ApiMainActivity
 import com.asiantech.intern20summer1.w11.ui.fragment.home.HomeFragment
-import com.asiantech.intern20summer1.w11.ui.viewmodel.ViewModel
 import com.asiantech.intern20summer1.w11.utils.extension.showToast
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -40,7 +40,7 @@ class SplashFragment : Fragment() {
         internal fun newInstance() = SplashFragment()
     }
 
-    private var viewModel: ViewModel? = null
+    private var viewModel: LoginVM? = null
     private var dialog: AlertDialog? = null
     private var count = 0
 
@@ -73,9 +73,7 @@ class SplashFragment : Fragment() {
                         if (isCheckInternet()) {
                             this.cancel()
                             if (isLogin != null && isLogin) {
-                                d("autologin", "islogin = $isLogin")
                                 val token = viewModel?.getToken()
-                                d("autologin", "token = $token")
                                 autoSignIn(token)
                             } else {
                                 (activity as ApiMainActivity).replaceFragment(SignInFragment.newInstance())
@@ -163,6 +161,6 @@ class SplashFragment : Fragment() {
     }
 
     private fun setupViewModel() {
-//        viewModel = ViewModel(RemoteRepository(requireContext()), LocalRepository(requireContext()))
+        viewModel = LoginVM(LoginRepository(requireContext()), LocalRepository(requireContext()))
     }
 }

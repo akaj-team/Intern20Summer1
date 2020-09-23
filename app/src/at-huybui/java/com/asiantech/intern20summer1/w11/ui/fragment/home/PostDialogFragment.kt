@@ -18,16 +18,13 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.w11.data.source.HomeRepository
+import com.asiantech.intern20summer1.w11.data.source.LocalRepository
 import com.asiantech.intern20summer1.w11.data.source.remote.network.ApiClient
-import com.asiantech.intern20summer1.w11.data.models.PostContent
 import com.asiantech.intern20summer1.w11.ui.activity.ApiMainActivity
-import com.asiantech.intern20summer1.w11.ui.viewmodel.ViewModel
-import com.google.gson.Gson
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.`at-huybui`.w10_dialog_fragment_post.*
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.RequestBody.Companion.toRequestBody
 
 /**
  * Asian Tech Co., Ltd.
@@ -44,7 +41,6 @@ class PostDialogFragment : DialogFragment() {
         private const val PERMISSION_REQUEST_CAMERA_CODE = 200
         private const val PERMISSION_REQUEST_GALLERY_CODE = 201
         private const val TYPE_IMAGE = "image/*"
-        private const val TYPE_TEXT = "text"
         internal fun newInstance() = PostDialogFragment()
     }
 
@@ -52,7 +48,7 @@ class PostDialogFragment : DialogFragment() {
     private var imageUri: Uri? = null
     private var isCameraAllowed = false
     private var isCheckGallery = false
-    private var viewModel: ViewModel? = null
+    private var viewModel: HomeVM? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -122,11 +118,8 @@ class PostDialogFragment : DialogFragment() {
 
     private fun handlePostContent() {
         progressBar?.visibility = View.VISIBLE
-        val postJson = Gson().toJson(PostContent(edtContent?.text.toString())).toString()
-        val body = postJson.toRequestBody(TYPE_TEXT.toMediaTypeOrNull())
-        val token = viewModel?.getToken()
         viewModel
-            ?.createPost(token.toString(), imageUri.toString(), body)
+            ?.createPost(edtContent.text.toString(), imageUri)
             ?.subscribeOn(Schedulers.io())
             ?.observeOn(AndroidSchedulers.mainThread())
             ?.subscribe { response ->
@@ -238,6 +231,6 @@ class PostDialogFragment : DialogFragment() {
     }
 
     private fun setupViewModel() {
-//        viewModel = ViewModel(RemoteRepository(requireContext()), LocalRepository(requireContext()))
+        viewModel = HomeVM(HomeRepository(requireContext()), LocalRepository(requireContext()))
     }
 }

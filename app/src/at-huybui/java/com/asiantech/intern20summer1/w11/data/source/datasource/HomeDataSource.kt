@@ -3,7 +3,6 @@ package com.asiantech.intern20summer1.w11.data.source.datasource
 import com.asiantech.intern20summer1.w11.data.models.PostItem
 import com.asiantech.intern20summer1.w11.data.models.ResponseLike
 import com.asiantech.intern20summer1.w11.data.models.ResponsePost
-import io.reactivex.Observable
 import io.reactivex.Single
 import okhttp3.MultipartBody
 import okhttp3.RequestBody

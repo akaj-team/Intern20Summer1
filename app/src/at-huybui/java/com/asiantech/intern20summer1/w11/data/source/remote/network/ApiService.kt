@@ -1,7 +1,6 @@
 package com.asiantech.intern20summer1.w11.data.source.remote.network
 
 import com.asiantech.intern20summer1.w11.data.models.*
-import io.reactivex.Observable
 import io.reactivex.Single
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -55,12 +54,6 @@ interface ApiService {
         @Path("id") id: Int = 0,
         @Part image: MultipartBody.Part? = null,
         @Part("body") body: RequestBody
-    ): Single<Response<ResponsePost>>
-
-    @DELETE(PART_UPDATE_POST)
-    fun deletePost(
-        @Header("token") token: String,
-        @Path("id") id: Int = 0
     ): Single<Response<ResponsePost>>
 
     @POST(PART_LIKE_POST)

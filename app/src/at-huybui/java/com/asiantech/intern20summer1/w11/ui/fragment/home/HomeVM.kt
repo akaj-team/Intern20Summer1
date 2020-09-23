@@ -1,20 +1,25 @@
 package com.asiantech.intern20summer1.w11.ui.fragment.home
 
+import android.net.Uri
+import com.asiantech.intern20summer1.w11.data.models.PostContent
 import com.asiantech.intern20summer1.w11.data.models.PostItem
 import com.asiantech.intern20summer1.w11.data.models.ResponseLike
+import com.asiantech.intern20summer1.w11.data.models.ResponsePost
 import com.asiantech.intern20summer1.w11.data.source.HomeRepository
 import com.asiantech.intern20summer1.w11.data.source.LocalRepository
+import com.google.gson.Gson
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Response
 
 /**
  * Asian Tech Co., Ltd.
  * Intern20Summer1 Project.
  * Created by at-huybui on 22/09/2020.
- * This is HomeViewModel TODO("Not yet implemented").
- * It will TODO("Not yet implemented")
+ * This is HomeViewModel
  */
 
 class HomeVM(
@@ -24,15 +29,15 @@ class HomeVM(
 
     companion object {
         private const val RECYCLER_LOAD_SIZE = 10
+        private const val TYPE_TEXT = "text"
     }
 
     var postLists = mutableListOf<PostItem>()
     var postListRecycler = mutableListOf<PostItem>()
 
-
-    override fun likePost(token: String, position: Int): Single<Response<ResponseLike>>? =
+    override fun likePost(position: Int): Single<Response<ResponseLike>>? =
         homeRepository
-            ?.likePost(token, postLists[position].id)
+            ?.likePost(localRepository.getToken(), postLists[position].id)
             ?.subscribeOn(Schedulers.io())
             ?.observeOn(AndroidSchedulers.mainThread())
             ?.doOnSuccess { response ->
@@ -85,7 +90,6 @@ class HomeVM(
                 }
             }
 
-
     override fun loadMoreData() {
         val currentSize = postListRecycler.size - 1
         if (postLists.size - currentSize < RECYCLER_LOAD_SIZE) {
@@ -95,11 +99,35 @@ class HomeVM(
         }
     }
 
-    override fun getIdUser(): Int? =
-        localRepository.getIdUser()
+    override fun getIdUser(): Int? = localRepository.getIdUser()
+    override fun createPost(
+        content: String,
+        uri: Uri?
+    ): Single<Response<ResponsePost>>? {
+        val token = localRepository.getToken()
+        val postJson = Gson().toJson(PostContent(content)).toString()
+        val body = postJson.toRequestBody(TYPE_TEXT.toMediaTypeOrNull())
+        val imagePart = homeRepository?.createMultiPartBody(uri)
+        return homeRepository
+            ?.createPost(token, imagePart, body)
+            ?.subscribeOn(Schedulers.io())
+            ?.observeOn(AndroidSchedulers.mainThread())
+    }
 
-    override fun getToken(): String? =
-        localRepository.getToken()
+    override fun updatePost(
+        idPost: Int,
+        content: String,
+        uri: Uri?
+    ): Single<Response<ResponsePost>>? {
+        val token = localRepository.getToken()
+        val postJson = Gson().toJson(PostContent(content)).toString()
+        val body = postJson.toRequestBody(TYPE_TEXT.toMediaTypeOrNull())
+        val imagePart = homeRepository?.createMultiPartBody(uri)
+        return homeRepository
+            ?.updatePost(token, idPost, imagePart, body)
+            ?.subscribeOn(Schedulers.io())
+            ?.observeOn(AndroidSchedulers.mainThread())
+    }
 
 
     private fun initDataRecycler(start: Int, end: Int) {
