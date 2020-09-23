@@ -10,10 +10,11 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import com.asiantech.intern20summer1.R
-import kotlinx.android.synthetic.`at-huybui`.activity_main.*
+import kotlinx.android.synthetic.`at-huybui`.activity_main_w3.*
 
 @Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
+
     companion object {
         private const val REGEX_EMAIL = """^[a-zA-Z][a-zA-Z0-9_.]*[@][a-zA-Z0-9]+[.][a-zA-Z0-9]+$"""
         private const val REGEX_PASSWORD = """^[A-Z][a-zA-Z0-9]{5,}$""" // regex for password
@@ -26,7 +27,7 @@ class MainActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_main_w3)
         // call handle function for api
         handleStatusBarFollowSdk()
         // call handle function for views

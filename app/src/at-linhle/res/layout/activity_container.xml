@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/img_home"
+    tools:context="com.asiantech.intern20summer1.home.HomeActivity">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+        <Button
+            android:id="@+id/weekThree"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/week_three_button_description" />
+
+        <Button
+            android:id="@+id/weekFour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_toRightOf="@id/weekThree"
+            android:text="@string/week_four_button_description" />
+
+        <Button
+            android:id="@+id/weekSix"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_toRightOf="@id/weekFour"
+            android:text="@string/week_six_button_description" />
+    </RelativeLayout>
+</RelativeLayout>
