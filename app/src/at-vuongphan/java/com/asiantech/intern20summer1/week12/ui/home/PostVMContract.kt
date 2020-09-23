@@ -9,8 +9,9 @@ import okhttp3.MultipartBody
 import retrofit2.Response
 
 interface PostVMContract {
-    fun getPost(token: String): Single<Response<MutableList<NewPost>>>?
+    fun getPost(): Single<Response<MutableList<NewPost>>>?
 
+    fun getDataRecyclerView(): MutableList<NewPost>
     fun likePost(token: String, id: Int): Single<Response<ResponseLike>>?
 
     fun createNewPost(
@@ -18,4 +19,8 @@ interface PostVMContract {
         body: Post,
         image: MultipartBody.Part?
     ): Single<Response<ApiResponse>>?
+
+    fun getIdUser(): Int?
+    fun getToken(): String?
+    fun search(search: String): MutableList<NewPost>
 }

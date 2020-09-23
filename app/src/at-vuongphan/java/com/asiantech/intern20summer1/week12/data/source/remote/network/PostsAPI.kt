@@ -1,14 +1,14 @@
 package com.asiantech.intern20summer1.week12.data.source.remote.network
 
+import com.asiantech.intern20summer1.week12.data.models.ApiResponse
+import com.asiantech.intern20summer1.week12.data.models.NewPost
+import com.asiantech.intern20summer1.week12.data.models.Post
+import com.asiantech.intern20summer1.week12.data.models.ResponseLike
 import com.asiantech.intern20summer1.week12.data.source.remote.network.ClientAPI.CREATE_POST
 import com.asiantech.intern20summer1.week12.data.source.remote.network.ClientAPI.DELETE_POST
 import com.asiantech.intern20summer1.week12.data.source.remote.network.ClientAPI.GET_API_POSTS
 import com.asiantech.intern20summer1.week12.data.source.remote.network.ClientAPI.LIKE_POST
 import com.asiantech.intern20summer1.week12.data.source.remote.network.ClientAPI.UPDATE_POST
-import com.asiantech.intern20summer1.week12.data.models.ApiResponse
-import com.asiantech.intern20summer1.week12.data.models.NewPost
-import com.asiantech.intern20summer1.week12.data.models.Post
-import com.asiantech.intern20summer1.week12.data.models.ResponseLike
 import io.reactivex.Single
 import okhttp3.MultipartBody
 import retrofit2.Response

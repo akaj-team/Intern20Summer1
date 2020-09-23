@@ -16,7 +16,9 @@ import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week12.activity.RecyclerViewNewFeed
 import com.asiantech.intern20summer1.week12.data.models.Post
+import com.asiantech.intern20summer1.week12.data.source.LocalRepository
 import com.asiantech.intern20summer1.week12.data.source.PostRepository
+import com.asiantech.intern20summer1.week12.utils.UtilsConvert
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.`at-vuongphan`.w10_add_new_feed.*
@@ -36,7 +38,8 @@ class AddNewFeedFragment : Fragment() {
     private var viewModel: PostViewModel? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = PostViewModel(PostRepository())
+        viewModel = PostViewModel(PostRepository(), LocalRepository(requireContext()))
+        token = viewModel?.getToken().toString()
     }
 
     override fun onCreateView(
@@ -45,16 +48,6 @@ class AddNewFeedFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.w10_add_new_feed, container, false)
-        val bundle = this.arguments
-        if (bundle != null) {
-            token = bundle.getString(resources.getString(R.string.key_token)).toString()
-        } else {
-            Toast.makeText(
-                requireContext(),
-                resources.getString(R.string.string_error),
-                Toast.LENGTH_SHORT
-            ).show()
-        }
         return view
     }
 
@@ -112,7 +105,7 @@ class AddNewFeedFragment : Fragment() {
     private fun createNewPost() {
         btnCreatePost?.setOnClickListener {
             @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS") val file =
-                File(getPath(imgPicture))
+                File(context?.let { it1 -> UtilsConvert().getPath(imgPicture, it1) })
             val fileReqBody =
                 file.asRequestBody(resources.getString(R.string.string_gallery).toMediaTypeOrNull())
             val part = MultipartBody.Part.createFormData(
@@ -135,20 +128,5 @@ class AddNewFeedFragment : Fragment() {
                 })
             (activity as? RecyclerViewNewFeed)?.openFragment(NewFeedFragment.newInstance())
         }
-    }
-
-    private fun getPath(uri: Uri?): String? {
-        val result: String
-        val cursor = uri?.let { context?.contentResolver?.query(it, null, null, null, null) }
-        if (cursor == null) {
-            result = uri?.path.toString()
-        } else {
-            cursor.moveToFirst()
-            @Suppress("DEPRECATION") val idx =
-                cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA)
-            result = cursor.getString(idx)
-            cursor.close()
-        }
-        return result
     }
 }

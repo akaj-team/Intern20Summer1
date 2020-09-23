@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.week12.ui.login.data
+package com.asiantech.intern20summer1.week6.data
 
 import android.os.Parcel
 import android.os.Parcelable

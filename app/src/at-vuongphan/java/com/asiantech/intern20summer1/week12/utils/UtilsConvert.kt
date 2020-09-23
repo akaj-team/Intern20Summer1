@@ -1,5 +1,8 @@
 package com.asiantech.intern20summer1.week12.utils
 
+import android.content.Context
+import android.net.Uri
+import android.provider.MediaStore
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -16,5 +19,20 @@ class UtilsConvert {
             dateReturn = SimpleDateFormat(FORMAT_CODE_AFTER, Locale.US).format(it)
         }
         return dateReturn
+    }
+
+    internal fun getPath(uri: Uri?, context: Context): String? {
+        val result: String
+        val cursor = uri?.let { context.contentResolver?.query(it, null, null, null, null) }
+        if (cursor == null) {
+            result = uri?.path.toString()
+        } else {
+            cursor.moveToFirst()
+            @Suppress("DEPRECATION") val idx =
+                cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA)
+            result = cursor.getString(idx)
+            cursor.close()
+        }
+        return result
     }
 }

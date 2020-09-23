@@ -2,7 +2,6 @@ package com.asiantech.intern20summer1.week12.ui.register
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,13 +12,11 @@ import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.extension.hideKeyboard
 import com.asiantech.intern20summer1.extension.isValidEmail
 import com.asiantech.intern20summer1.extension.isValidPasswordW10
-import com.asiantech.intern20summer1.week12.data.models.UserAutoSignIn
 import com.asiantech.intern20summer1.week12.data.models.UserRegister
 import com.asiantech.intern20summer1.week12.data.source.UserRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.`at-vuongphan`.w10_fragment_register.*
-import retrofit2.Response
 
 class FragmentRegister : Fragment() {
     companion object {
@@ -75,17 +72,14 @@ class FragmentRegister : Fragment() {
             )
                 ?.subscribeOn(Schedulers.io())
                 ?.observeOn(AndroidSchedulers.mainThread())
-                ?.subscribe({ it: Response<UserAutoSignIn> ->
+                ?.subscribe({
                     if (it.isSuccessful) {
                         Toast.makeText(requireContext(), "Đăng kí thành công", Toast.LENGTH_SHORT)
                             .show()
                         onRegisterSuccess(email, password)
                         activity?.onBackPressed()
-                    } else {
-                        Log.d("AAA", "addNewUser:${it.code()} ")
                     }
                 }, {
-                    Log.d("AAA", "addNewUser:${it.message} ")
                 })
         }
     }
@@ -96,7 +90,7 @@ class FragmentRegister : Fragment() {
         initUserName()
     }
 
-    internal fun setBackgroundButton() {
+    private fun setBackgroundButton() {
         if (btnRegister.isEnabled) {
             btnRegister?.setBackgroundResource(R.drawable.bg_button_login)
         } else {

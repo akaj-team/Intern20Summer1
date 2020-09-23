@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.week12.ui.login.data.ensign
-import com.asiantech.intern20summer1.week12.ui.login.data.image
+import com.asiantech.intern20summer1.week6.data.ensign
+import com.asiantech.intern20summer1.week6.data.image
 import kotlinx.android.synthetic.`at-vuongphan`.fragment_two.*
 
 class FragmentTwo : Fragment() {

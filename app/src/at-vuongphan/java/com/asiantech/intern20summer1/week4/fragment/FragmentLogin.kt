@@ -11,7 +11,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week4.activity.HomeActivity
-import com.asiantech.intern20summer1.week12.ui.login.data.User
+import com.asiantech.intern20summer1.week6.data.User
 import com.asiantech.intern20summer1.extension.hideKeyboard
 import com.asiantech.intern20summer1.extension.isValidEmail
 import com.asiantech.intern20summer1.extension.isValidPasswordW4

@@ -19,7 +19,7 @@ import androidx.core.content.PermissionChecker.checkSelfPermission
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.week12.ui.login.data.User
+import com.asiantech.intern20summer1.week6.data.User
 import com.asiantech.intern20summer1.extension.*
 import com.theartofdev.edmodo.cropper.CropImage
 import kotlinx.android.synthetic.`at-vuongphan`.fragment_sign_up.*

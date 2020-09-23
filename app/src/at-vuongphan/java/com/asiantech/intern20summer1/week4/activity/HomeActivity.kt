@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.week12.ui.login.data.User
+import com.asiantech.intern20summer1.week6.data.User
 import kotlinx.android.synthetic.`at-vuongphan`.home_activity.*
 
 class HomeActivity : AppCompatActivity() {

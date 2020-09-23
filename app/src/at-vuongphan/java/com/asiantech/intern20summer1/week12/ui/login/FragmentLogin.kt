@@ -12,16 +12,17 @@ import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.week12.activity.RecyclerViewNewFeed
-import com.asiantech.intern20summer1.week12.data.source.remote.network.ClientAPI
-import com.asiantech.intern20summer1.api.w10.ErrorUtils
 import com.asiantech.intern20summer1.extension.hideKeyboard
 import com.asiantech.intern20summer1.extension.isValidEmail
 import com.asiantech.intern20summer1.extension.isValidPasswordW10
+import com.asiantech.intern20summer1.week12.activity.RecyclerViewNewFeed
+import com.asiantech.intern20summer1.week12.data.models.UserAutoSignIn
+import com.asiantech.intern20summer1.week12.data.source.LocalRepository
+import com.asiantech.intern20summer1.week12.data.source.UserRepository
+import com.asiantech.intern20summer1.week12.data.source.remote.network.ClientAPI
+import com.asiantech.intern20summer1.week12.data.source.remote.network.ErrorUtils
 import com.asiantech.intern20summer1.week12.ui.register.FragmentRegister
 import com.asiantech.intern20summer1.week12.ui.register.FragmentRegister.Companion.EMAIL_LENGTH
-import com.asiantech.intern20summer1.week12.data.models.UserAutoSignIn
-import com.asiantech.intern20summer1.week12.data.source.UserRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.`at-vuongphan`.w10_fragment_login.*
@@ -38,7 +39,7 @@ class FragmentLogin : Fragment() {
     private var viewModel: LoginViewModel? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = LoginViewModel(UserRepository())
+        viewModel = LoginViewModel(UserRepository(), LocalRepository(requireContext()))
     }
 
     override fun onCreateView(
@@ -98,9 +99,8 @@ class FragmentLogin : Fragment() {
                 ?.observeOn(AndroidSchedulers.mainThread())
                 ?.subscribe { it: Response<UserAutoSignIn> ->
                     if (it.isSuccessful) {
-                        it.body()?.apply {
-                            initPutDataLogin(this)
-                        }
+                        startActivity(Intent(requireContext(), RecyclerViewNewFeed::class.java))
+                        activity?.finish()
                     } else {
                         val error = ErrorUtils().parseError(it)
                         if (error?.message == ClientAPI.MESSAGE_LOGIN_INCORRECT) {
@@ -115,42 +115,6 @@ class FragmentLogin : Fragment() {
         }
     }
 
-    private fun initPutDataLogin(user: UserAutoSignIn) {
-        Intent(activity, RecyclerViewNewFeed::class.java).apply {
-            Bundle().let {
-                addBundleAccount(it, user)
-                putExtras(it)
-                initStartActivity(this)
-            }
-        }
-    }
-
-    private fun initStartActivity(intent: Intent) {
-        startActivity(intent)
-        activity?.finish()
-    }
-
-    private fun addBundleAccount(bundle: Bundle, user: UserAutoSignIn) {
-        val id = user.id
-        val email = user.email
-        val fullName = user.full_name
-        val token = user.token
-        val accountData =
-            token.let { it1 ->
-                fullName.let { it2 ->
-                    email.let { it3 ->
-                        id.let { it4 ->
-                            UserAutoSignIn(
-                                it4, it3, it2,
-                                it1
-                            )
-                        }
-                    }
-                }
-            }
-        bundle.putSerializable(resources.getString(R.string.key_data), accountData)
-    }
-
     private fun initEmail() {
         edtEmail.addTextChangedListener {
             isUserNameValid =
@@ -162,12 +126,12 @@ class FragmentLogin : Fragment() {
     }
 
     private fun initPassword() {
-        edtPassword?.addTextChangedListener {
+        edtPassword.addTextChangedListener {
             if (it.isNullOrEmpty()) {
-                btnLogin?.isEnabled = false
+                btnLogin.isEnabled = false
             } else {
                 isPassWordValid = edtPassword.text.toString().isValidPasswordW10()
-                btnLogin?.isEnabled = isPassWordValid && isUserNameValid
+                btnLogin.isEnabled = isPassWordValid && isUserNameValid
                 setBackgroundButton()
             }
         }
