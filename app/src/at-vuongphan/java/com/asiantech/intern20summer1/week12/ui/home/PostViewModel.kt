@@ -1,7 +1,5 @@
 package com.asiantech.intern20summer1.week12.ui.home
 
-import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
 import com.asiantech.intern20summer1.week12.data.models.ApiResponse
 import com.asiantech.intern20summer1.week12.data.models.NewPost
 import com.asiantech.intern20summer1.week12.data.models.Post
@@ -21,11 +19,6 @@ class PostViewModel(
     var postLists = mutableListOf<NewPost>()
     var postListRecycler = mutableListOf<NewPost>()
     private var itemSearch = mutableListOf<NewPost>()
-
-    companion object {
-        private const val DELAY_TIME = 2000L
-        private const val ITEMS_TAKE: Int = 10
-    }
 
     override fun getDataRecyclerView() = postLists
 
