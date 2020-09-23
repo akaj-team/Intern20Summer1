@@ -1,9 +1,10 @@
-package com.asiantech.intern20summer1.w11.data.remotedatasource
+package com.asiantech.intern20summer1.w11.data.source.remote
 
-import com.asiantech.intern20summer1.w11.data.api.ApiClient
+import com.asiantech.intern20summer1.w11.data.source.remote.network.ApiClient
 import com.asiantech.intern20summer1.w11.data.models.PostItem
 import com.asiantech.intern20summer1.w11.data.models.ResponseLike
 import com.asiantech.intern20summer1.w11.data.models.ResponsePost
+import com.asiantech.intern20summer1.w11.data.source.datasource.HomeDataSource
 import io.reactivex.Observable
 import io.reactivex.Single
 import okhttp3.MultipartBody
@@ -16,17 +17,17 @@ import retrofit2.Response
  * Created by at-huybui on 17/09/2020.
  * This is PostsRemoteDataSource
  */
-class PostsRemoteDataSource : PostsDataSource {
-    private val callRx = ApiClient.getApiPosts()
-    override fun getPosts(token: String): Observable<Response<List<PostItem>>>? =
-        callRx?.getPostLists(token)
+class HomeRemoteDataSource : HomeDataSource {
+    private val apiService = ApiClient.getApiService()
+    override fun getPosts(token: String): Single<Response<List<PostItem>>>? =
+        apiService?.getPostLists(token)
 
     override fun createPost(
         token: String,
         image: MultipartBody.Part?,
         body: RequestBody
-    ): Observable<Response<ResponsePost>>? =
-        callRx?.createPost(token, image, body)
+    ): Single<Response<ResponsePost>>? =
+        apiService?.createPost(token, image, body)
 
 
     override fun updatePost(
@@ -35,9 +36,8 @@ class PostsRemoteDataSource : PostsDataSource {
         image: MultipartBody.Part?,
         body: RequestBody
     ): Single<Response<ResponsePost>>? =
-        callRx?.updatePost(token, id, image, body)
+        apiService?.updatePost(token, id, image, body)
 
-    override fun likePost(token: String, id: Int): Observable<Response<ResponseLike>>? =
-        callRx?.likePost(token, id)
+    override fun likePost(token: String, id: Int): Single<Response<ResponseLike>>? =
+        apiService?.likePost(token, id)
 }
-     

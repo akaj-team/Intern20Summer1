@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.w11.ui.fragment
+package com.asiantech.intern20summer1.w11.ui.fragment.login
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,11 +7,10 @@ import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.w11.data.api.ApiClient
-import com.asiantech.intern20summer1.w11.data.api.ErrorUtils
-import com.asiantech.intern20summer1.w11.data.repository.LocalRepository
-import com.asiantech.intern20summer1.w11.data.repository.RemoteRepository
+import com.asiantech.intern20summer1.w11.data.source.remote.network.ApiClient
+import com.asiantech.intern20summer1.w11.data.source.remote.network.ErrorUtils
 import com.asiantech.intern20summer1.w11.ui.activity.ApiMainActivity
+import com.asiantech.intern20summer1.w11.ui.fragment.home.HomeFragment
 import com.asiantech.intern20summer1.w11.ui.viewmodel.ViewModel
 import com.asiantech.intern20summer1.w11.utils.extension.showToast
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -118,6 +117,6 @@ class SignInFragment : Fragment() {
     }
 
     private fun setupViewModel() {
-        viewModel = ViewModel(RemoteRepository(requireContext()), LocalRepository(requireContext()))
+//        viewModel = ViewModel(RemoteRepository(requireContext()), LocalRepository(requireContext()))
     }
 }

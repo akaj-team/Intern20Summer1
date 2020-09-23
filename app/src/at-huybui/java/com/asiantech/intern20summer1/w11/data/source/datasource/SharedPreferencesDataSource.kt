@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.w11.data.localdatasource
+package com.asiantech.intern20summer1.w11.data.source.datasource
 
 /**
  * Asian Tech Co., Ltd.
@@ -14,4 +14,3 @@ interface SharedPreferencesDataSource {
     fun putIsLogin(isLogin: Boolean)
     fun getIsLogin(): Boolean
 }
-     

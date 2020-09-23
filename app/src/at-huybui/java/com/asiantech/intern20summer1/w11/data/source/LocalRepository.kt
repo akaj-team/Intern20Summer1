@@ -1,8 +1,8 @@
-package com.asiantech.intern20summer1.w11.data.repository
+package com.asiantech.intern20summer1.w11.data.source
 
 import android.content.Context
-import com.asiantech.intern20summer1.w11.data.localdatasource.SharedPreferencesDataSource
-import com.asiantech.intern20summer1.w11.data.localdatasource.SharedPreferencesLocalDataSource
+import com.asiantech.intern20summer1.w11.data.source.datasource.SharedPreferencesDataSource
+import com.asiantech.intern20summer1.w11.data.source.local.SharedPreferencesLocalDataSource
 
 /**
  * Asian Tech Co., Ltd.
@@ -35,4 +35,3 @@ class LocalRepository(private val context: Context) : SharedPreferencesDataSourc
     override fun getIsLogin(): Boolean =
         sharedPreferences.getIsLogin()
 }
-     

@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.w11.ui.fragment
+package com.asiantech.intern20summer1.w11.ui.fragment.login
 
 import android.content.Context
 import android.content.Intent
@@ -15,11 +15,10 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.w11.data.api.ApiClient
-import com.asiantech.intern20summer1.w11.data.api.ErrorUtils
-import com.asiantech.intern20summer1.w11.data.repository.LocalRepository
-import com.asiantech.intern20summer1.w11.data.repository.RemoteRepository
+import com.asiantech.intern20summer1.w11.data.source.remote.network.ApiClient
+import com.asiantech.intern20summer1.w11.data.source.remote.network.ErrorUtils
 import com.asiantech.intern20summer1.w11.ui.activity.ApiMainActivity
+import com.asiantech.intern20summer1.w11.ui.fragment.home.HomeFragment
 import com.asiantech.intern20summer1.w11.ui.viewmodel.ViewModel
 import com.asiantech.intern20summer1.w11.utils.extension.showToast
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -105,14 +104,7 @@ class SplashFragment : Fragment() {
                 ?.observeOn(AndroidSchedulers.mainThread())
                 ?.subscribe { response ->
                     if (response.isSuccessful) {
-                        response.body()?.let { account ->
-                            viewModel?.putIsLogin(true)
-                            viewModel?.putToken(account.token)
-                            viewModel?.putIdUser(account.id)
-                            (activity as ApiMainActivity).replaceFragment(
-                                HomeFragment.newInstance()
-                            )
-                        }
+                        (activity as ApiMainActivity).replaceFragment(HomeFragment.newInstance())
                     } else {
                         val error = ErrorUtils().parseError(response)
                         if (error?.message == ApiClient.MESSAGE_UNAUTHORIZED) {
@@ -171,6 +163,6 @@ class SplashFragment : Fragment() {
     }
 
     private fun setupViewModel() {
-        viewModel = ViewModel(RemoteRepository(requireContext()), LocalRepository(requireContext()))
+//        viewModel = ViewModel(RemoteRepository(requireContext()), LocalRepository(requireContext()))
     }
 }

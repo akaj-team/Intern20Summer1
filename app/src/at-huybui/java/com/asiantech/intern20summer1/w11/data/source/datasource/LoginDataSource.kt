@@ -1,8 +1,9 @@
-package com.asiantech.intern20summer1.w11.data.remotedatasource
+package com.asiantech.intern20summer1.w11.data.source.datasource
 
 import com.asiantech.intern20summer1.w11.data.models.Account
 import com.asiantech.intern20summer1.w11.data.models.RequestAccount
 import io.reactivex.Observable
+import io.reactivex.Single
 import retrofit2.Response
 
 /**
@@ -11,14 +12,13 @@ import retrofit2.Response
  * Created by at-huybui on 17/09/2020.
  * This is AccountDataSource
  */
-interface AccountDataSource {
-    fun autoSignIn(token: String): Observable<Response<Account>>?
+interface LoginDataSource {
+    fun autoSignIn(token: String): Single<Response<Account>>?
 
     fun login(
         email: String = "",
         password: String = ""
-    ): Observable<Response<Account>>?
+    ): Single<Response<Account>>?
 
-    fun createUser(request: RequestAccount): Observable<Response<Account>>?
+    fun createUser(request: RequestAccount): Single<Response<Account>>?
 }
-     

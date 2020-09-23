@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.w11.data.remotedatasource
+package com.asiantech.intern20summer1.w11.data.source.datasource
 
 import com.asiantech.intern20summer1.w11.data.models.PostItem
 import com.asiantech.intern20summer1.w11.data.models.ResponseLike
@@ -16,13 +16,13 @@ import retrofit2.Response
  * This is PostsDataSource
  */
 
-interface PostsDataSource {
-    fun getPosts(token: String): Observable<Response<List<PostItem>>>?
+interface HomeDataSource {
+    fun getPosts(token: String): Single<Response<List<PostItem>>>?
     fun createPost(
         token: String,
         image: MultipartBody.Part? = null,
         body: RequestBody
-    ): Observable<Response<ResponsePost>>?
+    ): Single<Response<ResponsePost>>?
 
     fun updatePost(
         token: String,
@@ -31,5 +31,5 @@ interface PostsDataSource {
         body: RequestBody
     ): Single<Response<ResponsePost>>?
 
-    fun likePost(token: String, id: Int): Observable<Response<ResponseLike>>?
+    fun likePost(token: String, id: Int): Single<Response<ResponseLike>>?
 }

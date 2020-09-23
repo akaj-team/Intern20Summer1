@@ -1,8 +1,6 @@
-package com.asiantech.intern20summer1.w11.data.api.apiservice
+package com.asiantech.intern20summer1.w11.data.source.remote.network
 
-import com.asiantech.intern20summer1.w11.data.models.PostItem
-import com.asiantech.intern20summer1.w11.data.models.ResponseLike
-import com.asiantech.intern20summer1.w11.data.models.ResponsePost
+import com.asiantech.intern20summer1.w11.data.models.*
 import io.reactivex.Observable
 import io.reactivex.Single
 import okhttp3.MultipartBody
@@ -17,14 +15,30 @@ import retrofit2.http.*
  * This is ApiPostService class. It will progress Api for Post model
  */
 
-interface ApiPostService {
+interface ApiService {
 
     companion object {
+        private const val PART_CREATE_USER = "/api/user"
+        private const val PART_AUTO_SIGN_IN = "/api/autosignin"
+        private const val PART_LOGIN = "/api/login"
         const val PART_CREATE_POST = "/api/post"
         const val PART_UPDATE_POST = "/api/post/{id}"
         const val PART_LIKE_POST = "/api/post/{id}/like"
         const val PAST_GET_POSTS = "/api/posts"
     }
+
+    @GET(PART_AUTO_SIGN_IN)
+    fun autoSignIn(@Header("token") token: String): Single<Response<Account>>?
+
+    @POST(PART_LOGIN)
+    @FormUrlEncoded
+    fun login(
+        @Field("email") email: String = "",
+        @Field("password") password: String = ""
+    ): Single<Response<Account>>?
+
+    @POST(PART_CREATE_USER)
+    fun createUser(@Body request: RequestAccount): Single<Response<Account>>?
 
     @Multipart
     @POST(PART_CREATE_POST)
@@ -32,7 +46,7 @@ interface ApiPostService {
         @Header("token") token: String,
         @Part image: MultipartBody.Part? = null,
         @Part("body") body: RequestBody
-    ): Observable<Response<ResponsePost>>
+    ): Single<Response<ResponsePost>>
 
     @Multipart
     @POST(PART_UPDATE_POST)
@@ -47,14 +61,14 @@ interface ApiPostService {
     fun deletePost(
         @Header("token") token: String,
         @Path("id") id: Int = 0
-    ): Observable<Response<ResponsePost>>
+    ): Single<Response<ResponsePost>>
 
     @POST(PART_LIKE_POST)
     fun likePost(
         @Header("token") token: String,
         @Path("id") id: Int = 0
-    ): Observable<Response<ResponseLike>>
+    ): Single<Response<ResponseLike>>
 
     @GET(PAST_GET_POSTS)
-    fun getPostLists(@Header("token") token: String): Observable<Response<List<PostItem>>>
+    fun getPostLists(@Header("token") token: String): Single<Response<List<PostItem>>>
 }

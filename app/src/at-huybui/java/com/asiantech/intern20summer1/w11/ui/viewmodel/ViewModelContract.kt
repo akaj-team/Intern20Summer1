@@ -28,27 +28,6 @@ interface ViewModelContract {
         body: RequestBody
     ): Single<Response<ResponsePost>>?
 
-    fun likePost(token: String, id: Int): Observable<Response<ResponseLike>>?
 
-    fun autoSignIn(token: String): Observable<Response<Account>>?
-
-    fun login(
-        email: String = "",
-        password: String = ""
-    ): Observable<Response<Account>>?
-
-    fun createUser(request: RequestAccount): Observable<Response<Account>>?
-
-    fun putToken(token: String)
-
-    fun getToken(): String?
-
-    fun putIdUser(idUser: Int)
-
-    fun getIdUser(): Int?
-
-    fun putIsLogin(isLogin: Boolean)
-
-    fun getIsLogin(): Boolean?
 }
      

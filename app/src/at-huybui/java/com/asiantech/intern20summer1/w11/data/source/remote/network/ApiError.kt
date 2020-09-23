@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.w11.data.api
+package com.asiantech.intern20summer1.w11.data.source.remote.network
 
 import okhttp3.ResponseBody
 import retrofit2.Converter

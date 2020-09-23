@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.w11.ui.fragment.SplashFragment
+import com.asiantech.intern20summer1.w11.ui.fragment.login.SplashFragment
 
 /**
  * Asian Tech Co., Ltd.

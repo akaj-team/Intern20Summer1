@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.w11.ui.fragment
+package com.asiantech.intern20summer1.w11.ui.fragment.home
 
 import android.Manifest
 import android.app.Activity
@@ -18,12 +18,12 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.w11.data.api.ApiClient
+import com.asiantech.intern20summer1.w11.data.source.remote.network.ApiClient
 import com.asiantech.intern20summer1.w11.data.models.PostContent
-import com.asiantech.intern20summer1.w11.data.repository.LocalRepository
-import com.asiantech.intern20summer1.w11.data.repository.RemoteRepository
+import com.asiantech.intern20summer1.w11.data.models.PostItem
 import com.asiantech.intern20summer1.w11.ui.activity.ApiMainActivity
 import com.asiantech.intern20summer1.w11.ui.viewmodel.ViewModel
+import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -34,27 +34,30 @@ import okhttp3.RequestBody.Companion.toRequestBody
 /**
  * Asian Tech Co., Ltd.
  * Intern20Summer1 Project.
- * Created by at-huybui on 02/09/2020.
- * This is PostDialogFragment class. It is fragment to display add new post page
+ * Created by at-huybui on 01/09/2020.
+ * This is UpdateDialogFragment class. It is fragment to display update the post page
  */
 
-class PostDialogFragment : DialogFragment() {
+class UpdateDialogFragment : DialogFragment() {
 
     companion object {
-        private const val REQUEST_IMAGE_CAPTURE = 100
-        private const val REQUEST_SELECT_IMAGE_IN_ALBUM = 101
+        private const val REQUEST_IMAGE_CAPTURE_CODE = 100
+        private const val REQUEST_IMAGE_GALLERY_CODE = 101
         private const val PERMISSION_REQUEST_CAMERA_CODE = 200
         private const val PERMISSION_REQUEST_GALLERY_CODE = 201
-        private const val TYPE_IMAGE = "image/*"
+        private const val TYPE_IMAGE_GALLERY = "image/*"
         private const val TYPE_TEXT = "text"
-        internal fun newInstance() = PostDialogFragment()
+        internal fun newInstance(item: PostItem) = UpdateDialogFragment().apply {
+            postItem = item
+        }
     }
 
     internal var onPostClick: () -> Unit = {}
+    private lateinit var postItem: PostItem
+    private var viewModel: ViewModel? = null
     private var imageUri: Uri? = null
     private var isCameraAllowed = false
     private var isCheckGallery = false
-    private var viewModel: ViewModel? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -74,10 +77,10 @@ class PostDialogFragment : DialogFragment() {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
-                REQUEST_IMAGE_CAPTURE -> {
+                REQUEST_IMAGE_CAPTURE_CODE -> {
                     imgContent?.setImageURI(imageUri)
                 }
-                REQUEST_SELECT_IMAGE_IN_ALBUM -> {
+                REQUEST_IMAGE_GALLERY_CODE -> {
                     imageUri = data?.data
                     imgContent?.setImageURI(imageUri)
                 }
@@ -107,38 +110,49 @@ class PostDialogFragment : DialogFragment() {
 
     private fun initView() {
         initDialog()
-        initListener()
+        initViewListener()
+        initDisPlayView()
     }
 
 
-    private fun initListener() {
+    private fun initViewListener() {
         btnBack?.setOnClickListener {
             dialog?.dismiss()
         }
 
         btnPost?.setOnClickListener {
-            handlePostContent()
+            handleUpdateContent()
         }
         handleForAvatarImage()
     }
 
-    private fun handlePostContent() {
+    private fun initDisPlayView() {
+        if (postItem.image.isNotEmpty()) {
+            Glide.with(requireContext())
+                .load(ApiClient.IMAGE_URL + postItem.image)
+                .into(imgContent)
+        }
+        tvTitle?.text = getString(R.string.w10_edit_post)
+        edtContent?.setText(postItem.content)
+    }
+
+    private fun handleUpdateContent() {
         progressBar?.visibility = View.VISIBLE
         val postJson = Gson().toJson(PostContent(edtContent?.text.toString())).toString()
         val body = postJson.toRequestBody(TYPE_TEXT.toMediaTypeOrNull())
-        val token = viewModel?.getToken()
+        val token = viewModel?.getToken().toString()
         viewModel
-            ?.createPost(token.toString(), imageUri.toString(), body)
+            ?.updatePost(token, postItem.id, imageUri.toString(), body)
             ?.subscribeOn(Schedulers.io())
             ?.observeOn(AndroidSchedulers.mainThread())
             ?.subscribe { response ->
-                if (response.body()?.message == ApiClient.MESSAGE_CREATE_POST_SUCCESS) {
-                    val text = getString(R.string.w10_complete_post)
+                if (response.body()?.message == ApiClient.MESSAGE_UPDATE_POST_SUCCESS) {
+                    val text = getString(R.string.w10_update_complete)
                     ApiMainActivity().showToast(requireContext(), text)
                     onPostClick.invoke()
                     dialog?.dismiss()
                 } else {
-                    val text = getString(R.string.w10_error_post)
+                    val text = getString(R.string.w10_error_update)
                     ApiMainActivity().showToast(requireContext(), text)
                 }
                 progressBar?.visibility = View.INVISIBLE
@@ -181,15 +195,16 @@ class PostDialogFragment : DialogFragment() {
      */
     private fun openCamera() {
         val values = ContentValues()
-        imageUri = (activity as ApiMainActivity).contentResolver.insert(
-            MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-            values
-        )
+        imageUri =
+            (activity as ApiMainActivity).contentResolver.insert(
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                values
+            )
         val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
         startActivityForResult(
             cameraIntent,
-            REQUEST_IMAGE_CAPTURE
+            REQUEST_IMAGE_CAPTURE_CODE
         )
     }
 
@@ -198,8 +213,12 @@ class PostDialogFragment : DialogFragment() {
      */
     private fun openGallery() {
         val intentGallery = Intent(Intent.ACTION_PICK)
-        intentGallery.type = TYPE_IMAGE
-        startActivityForResult(intentGallery, REQUEST_SELECT_IMAGE_IN_ALBUM)
+        intentGallery.type =
+            TYPE_IMAGE_GALLERY
+        startActivityForResult(
+            intentGallery,
+            REQUEST_IMAGE_GALLERY_CODE
+        )
     }
 
     private fun isCheckCameraPermission(): Boolean {
@@ -227,7 +246,9 @@ class PostDialogFragment : DialogFragment() {
     }
 
     private fun requestGalleryPermission() {
-        requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+
+        requestPermissions(
+            arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
             PERMISSION_REQUEST_GALLERY_CODE
         )
     }
@@ -240,6 +261,6 @@ class PostDialogFragment : DialogFragment() {
     }
 
     private fun setupViewModel() {
-        viewModel = ViewModel(RemoteRepository(requireContext()), LocalRepository(requireContext()))
+//        viewModel = ViewModel(RemoteRepository(requireContext()))
     }
 }

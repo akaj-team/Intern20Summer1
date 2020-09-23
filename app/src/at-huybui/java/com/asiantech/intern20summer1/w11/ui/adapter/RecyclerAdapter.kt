@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.w11.data.api.ApiClient
 import com.asiantech.intern20summer1.w11.data.models.PostItem
+import com.asiantech.intern20summer1.w11.data.source.remote.network.ApiClient
 import com.asiantech.intern20summer1.w11.utils.extension.convertDate
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -24,7 +24,10 @@ import kotlinx.android.synthetic.`at-huybui`.w10_item_recycler_post.view.*
  * This is RecyclerAdapter class. It is adapter for recycler view to display posts
  */
 
-class RecyclerAdapter(private var mutableList: List<Any> = emptyList(), private val idUser: Int) :
+class RecyclerAdapter(
+    private var mutableList: MutableList<PostItem> = mutableListOf(),
+    private val idUser: Int
+) :
     RecyclerView.Adapter<RecyclerAdapter.BaseViewHolder<*>>() {
 
     companion object {
@@ -71,9 +74,9 @@ class RecyclerAdapter(private var mutableList: List<Any> = emptyList(), private 
     override fun onBindViewHolder(holder: BaseViewHolder<*>, position: Int) {
         val element = mutableList[position]
         if (holder is ItemViewHolder) {
-            holder.bind(element as PostItem)
+            holder.bind(element)
         } else if (holder is LoadMoreViewHolder) {
-            holder.bind(element as PostItem)
+            holder.bind(element)
         }
     }
 

@@ -1,6 +1,7 @@
-package com.asiantech.intern20summer1.w11.data.localdatasource
+package com.asiantech.intern20summer1.w11.data.source.local
 
 import android.content.Context
+import com.asiantech.intern20summer1.w11.data.source.datasource.SharedPreferencesDataSource
 
 /**
  * Asian Tech Co., Ltd.
@@ -64,4 +65,3 @@ class SharedPreferencesLocalDataSource(private val context: Context) : SharedPre
         return preference.getBoolean(KEY_IS_LOGIN, false)
     }
 }
-     

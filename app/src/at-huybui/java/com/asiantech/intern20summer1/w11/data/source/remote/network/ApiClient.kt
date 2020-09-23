@@ -1,7 +1,5 @@
-package com.asiantech.intern20summer1.w11.data.api
+package com.asiantech.intern20summer1.w11.data.source.remote.network
 
-import com.asiantech.intern20summer1.w11.data.api.apiservice.ApiAccountService
-import com.asiantech.intern20summer1.w11.data.api.apiservice.ApiPostService
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -38,7 +36,7 @@ class ApiClient {
             .readTimeout(30, TimeUnit.SECONDS)
             .build()
 
-        internal fun getClientInstance(): Retrofit? {
+        fun getClientInstance(): Retrofit? {
             if (retrofit == null) {
                 retrofit = Retrofit.Builder()
                     .baseUrl(BASE_URL)
@@ -50,10 +48,7 @@ class ApiClient {
             return retrofit
         }
 
-        internal fun getApiPosts(): ApiPostService? =
-            getClientInstance()?.create(ApiPostService::class.java)
-
-        internal fun getApiAccount(): ApiAccountService? =
-            getClientInstance()?.create(ApiAccountService::class.java)
+        internal fun getApiService(): ApiService? =
+            getClientInstance()?.create(ApiService::class.java)
     }
 }
