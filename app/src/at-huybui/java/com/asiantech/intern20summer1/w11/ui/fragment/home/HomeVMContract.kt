@@ -5,6 +5,7 @@ import com.asiantech.intern20summer1.w11.data.models.PostItem
 import com.asiantech.intern20summer1.w11.data.models.ResponseLike
 import com.asiantech.intern20summer1.w11.data.models.ResponsePost
 import io.reactivex.Single
+import io.reactivex.subjects.BehaviorSubject
 import retrofit2.Response
 
 /**
@@ -24,4 +25,5 @@ interface HomeVMContract {
     fun getIdUser(): Int?
     fun createPost(content: String, uri: Uri?): Single<Response<ResponsePost>>?
     fun updatePost(idPost: Int, content: String, uri: Uri?): Single<Response<ResponsePost>>?
+    fun progressDialogStatus(): BehaviorSubject<Boolean>?
 }

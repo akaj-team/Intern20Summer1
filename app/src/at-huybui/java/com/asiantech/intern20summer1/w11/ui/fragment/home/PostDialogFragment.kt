@@ -18,13 +18,16 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.w11.data.models.ResponsePost
 import com.asiantech.intern20summer1.w11.data.source.HomeRepository
 import com.asiantech.intern20summer1.w11.data.source.LocalRepository
 import com.asiantech.intern20summer1.w11.data.source.remote.network.ApiClient
 import com.asiantech.intern20summer1.w11.ui.activity.ApiMainActivity
+import com.asiantech.intern20summer1.w11.utils.extension.showToast
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.`at-huybui`.w10_dialog_fragment_post.*
+import retrofit2.Response
 
 /**
  * Asian Tech Co., Ltd.
@@ -117,23 +120,29 @@ class PostDialogFragment : DialogFragment() {
     }
 
     private fun handlePostContent() {
-        progressBar?.visibility = View.VISIBLE
         viewModel
             ?.createPost(edtContent.text.toString(), imageUri)
             ?.subscribeOn(Schedulers.io())
             ?.observeOn(AndroidSchedulers.mainThread())
-            ?.subscribe { response ->
-                if (response.body()?.message == ApiClient.MESSAGE_CREATE_POST_SUCCESS) {
-                    val text = getString(R.string.w10_complete_post)
-                    ApiMainActivity().showToast(requireContext(), text)
-                    onPostClick.invoke()
-                    dialog?.dismiss()
-                } else {
-                    val text = getString(R.string.w10_error_post)
-                    ApiMainActivity().showToast(requireContext(), text)
-                }
-                progressBar?.visibility = View.INVISIBLE
-            }
+            ?.doOnSubscribe { progressBar?.visibility = View.VISIBLE }
+            ?.subscribe(this::handleOnSuccess, this::handleOnError)
+    }
+
+    private fun handleOnSuccess(response: Response<ResponsePost>) {
+        if (response.body()?.message == ApiClient.MESSAGE_CREATE_POST_SUCCESS) {
+            val text = getString(R.string.w10_complete_post)
+            ApiMainActivity().showToast(requireContext(), text)
+            onPostClick.invoke()
+            dialog?.dismiss()
+        } else {
+            val text = getString(R.string.w10_error_post)
+            ApiMainActivity().showToast(requireContext(), text)
+        }
+        progressBar?.visibility = View.INVISIBLE
+    }
+
+    private fun handleOnError(t: Throwable) {
+        t.message.toString().showToast(requireContext())
     }
 
     private fun handleForAvatarImage() {

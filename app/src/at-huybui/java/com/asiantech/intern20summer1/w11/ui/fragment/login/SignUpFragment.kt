@@ -8,6 +8,7 @@ import androidx.core.util.PatternsCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.w11.data.models.Account
 import com.asiantech.intern20summer1.w11.data.models.RequestAccount
 import com.asiantech.intern20summer1.w11.data.source.LocalRepository
 import com.asiantech.intern20summer1.w11.data.source.LoginRepository
@@ -17,6 +18,7 @@ import com.asiantech.intern20summer1.w11.utils.extension.showToast
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.`at-huybui`.w10_fragment_sign_up.*
+import retrofit2.Response
 
 /**
  * Asian Tech Co., Ltd.
@@ -36,6 +38,7 @@ class SignUpFragment : Fragment() {
     internal var onRegisterClick: (account: RequestAccount) -> Unit = {}
 
     private var viewModel: LoginVM? = null
+    private var requestAccount = RequestAccount()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -103,27 +106,33 @@ class SignUpFragment : Fragment() {
         val email = edtEmail.text.toString()
         val fullName = edtFullName.text.toString()
         val password = edtPassword.text.toString()
-        val requestAccount = RequestAccount(email, password, fullName)
+        requestAccount = RequestAccount(email, password, fullName)
 
         viewModel
             ?.createUser(requestAccount)
             ?.subscribeOn(Schedulers.io())
             ?.observeOn(AndroidSchedulers.mainThread())
-            ?.subscribe { response ->
-                if (response.isSuccessful) {
-                    getString(R.string.w10_register_complete).showToast(requireContext())
-                    response.body()?.let { onRegisterClick.invoke(requestAccount) }
-                    fragmentManager?.popBackStack()
-                } else {
-                    val error = ErrorUtils().parseError(response)
-                    if (error?.message ==
-                        ApiClient.MESSAGE_EMAIL_HAS_BEEN_TAKEN
-                    ) {
-                        getString(R.string.w10_email_is_been_take).showToast(requireContext())
-                    }
-                }
-                progressBar?.visibility = View.INVISIBLE
+            ?.subscribe(this::handleOnSuccess, this::handleOnError)
+    }
+
+    private fun handleOnSuccess(response: Response<Account>) {
+        if (response.isSuccessful) {
+            getString(R.string.w10_register_complete).showToast(requireContext())
+            response.body()?.let { onRegisterClick.invoke(requestAccount) }
+            fragmentManager?.popBackStack()
+        } else {
+            val error = ErrorUtils().parseError(response)
+            if (error?.message ==
+                ApiClient.MESSAGE_EMAIL_HAS_BEEN_TAKEN
+            ) {
+                getString(R.string.w10_email_is_been_take).showToast(requireContext())
             }
+        }
+        progressBar?.visibility = View.INVISIBLE
+    }
+
+    private fun handleOnError(t: Throwable) {
+        t.message.toString().showToast(requireContext())
     }
 
     private fun setupViewModel() {

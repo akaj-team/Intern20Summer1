@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.w11.data.models.Account
 import com.asiantech.intern20summer1.w11.data.source.LocalRepository
 import com.asiantech.intern20summer1.w11.data.source.LoginRepository
 import com.asiantech.intern20summer1.w11.data.source.remote.network.ApiClient
@@ -16,6 +17,7 @@ import com.asiantech.intern20summer1.w11.ui.fragment.home.HomeFragment
 import com.asiantech.intern20summer1.w11.utils.extension.showToast
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.`at-huybui`.w10_fragment_sign_in.*
+import retrofit2.Response
 
 /**
  * Asian Tech Co., Ltd.
@@ -73,26 +75,29 @@ class SignInFragment : Fragment() {
         viewModel
             ?.login(email, password)
             ?.subscribeOn(Schedulers.io())
-            ?.subscribe({ response ->
-                if (response.isSuccessful) {
-                    response.body()?.let {
-                        (activity as ApiMainActivity).replaceFragment(
-                            HomeFragment.newInstance()
-                        )
-                    }
-                } else {
-                    val error = ErrorUtils().parseError(response)
-                    if (error?.message == ApiClient.MESSAGE_LOGIN_INCORRECT) {
-                        getString(R.string.w10_email_or_pass_invalid).showToast(requireContext())
-                    }
-                }
+            ?.subscribe(this::handleOnSuccess, this::handleOnError)
 
-                progressBar?.visibility = View.INVISIBLE
+    }
 
-            }, {
-                it.toString().showToast(requireContext())
-            })
+    private fun handleOnSuccess(response: Response<Account>) {
+        if (response.isSuccessful) {
+            response.body()?.let {
+                (activity as ApiMainActivity).replaceFragment(
+                    HomeFragment.newInstance()
+                )
+            }
+        } else {
+            val error = ErrorUtils().parseError(response)
+            if (error?.message == ApiClient.MESSAGE_LOGIN_INCORRECT) {
+                getString(R.string.w10_email_or_pass_invalid).showToast(requireContext())
+            }
+        }
 
+        progressBar?.visibility = View.INVISIBLE
+    }
+
+    private fun handleOnError(t: Throwable) {
+        t.message.toString().showToast(requireContext())
     }
 
     private fun handleEdiTextListener() {

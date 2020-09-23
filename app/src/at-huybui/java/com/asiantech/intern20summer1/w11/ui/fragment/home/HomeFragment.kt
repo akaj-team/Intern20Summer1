@@ -54,6 +54,14 @@ class HomeFragment : Fragment() {
         initView()
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.progressDialogStatus()
+            ?.subscribeOn(Schedulers.io())
+            ?.observeOn(AndroidSchedulers.mainThread())
+            ?.subscribe(this::handleProgressStatus)
+    }
+
     private fun initView() {
         initRecyclerView()
         initListener()
@@ -166,6 +174,14 @@ class HomeFragment : Fragment() {
         tvTitle?.visibility = View.VISIBLE
         imgAddPost?.visibility = View.VISIBLE
         isSearching = false
+    }
+
+    private fun handleProgressStatus(status: Boolean) {
+        if (status) {
+            progressBar.visibility = View.VISIBLE
+        } else {
+            progressBar.visibility = View.INVISIBLE
+        }
     }
 
     private fun handleShowDialogUpdateFragment(postItem: PostItem) {

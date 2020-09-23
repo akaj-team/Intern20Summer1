@@ -14,6 +14,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
+import com.asiantech.intern20summer1.w11.data.models.Account
 import com.asiantech.intern20summer1.w11.data.source.LocalRepository
 import com.asiantech.intern20summer1.w11.data.source.LoginRepository
 import com.asiantech.intern20summer1.w11.data.source.remote.network.ApiClient
@@ -23,6 +24,7 @@ import com.asiantech.intern20summer1.w11.ui.fragment.home.HomeFragment
 import com.asiantech.intern20summer1.w11.utils.extension.showToast
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import retrofit2.Response
 
 /**
  * Asian Tech Co., Ltd.
@@ -100,17 +102,23 @@ class SplashFragment : Fragment() {
                 ?.autoSignIn(it)
                 ?.subscribeOn(Schedulers.io())
                 ?.observeOn(AndroidSchedulers.mainThread())
-                ?.subscribe { response ->
-                    if (response.isSuccessful) {
-                        (activity as ApiMainActivity).replaceFragment(HomeFragment.newInstance())
-                    } else {
-                        val error = ErrorUtils().parseError(response)
-                        if (error?.message == ApiClient.MESSAGE_UNAUTHORIZED) {
-                            (activity as ApiMainActivity).replaceFragment(SignInFragment.newInstance())
-                        }
-                    }
-                }
+                ?.subscribe(this::handleOnSuccess, this::handleOnError)
         }
+    }
+
+    private fun handleOnSuccess(response: Response<Account>) {
+        if (response.isSuccessful) {
+            (activity as ApiMainActivity).replaceFragment(HomeFragment.newInstance())
+        } else {
+            val error = ErrorUtils().parseError(response)
+            if (error?.message == ApiClient.MESSAGE_UNAUTHORIZED) {
+                (activity as ApiMainActivity).replaceFragment(SignInFragment.newInstance())
+            }
+        }
+    }
+
+    private fun handleOnError(t: Throwable) {
+        t.message.toString().showToast(requireContext())
     }
 
     private fun isCheckInternet(): Boolean {

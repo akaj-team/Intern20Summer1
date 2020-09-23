@@ -13,7 +13,6 @@ import retrofit2.Response
  */
 interface LoginVMContract {
 
-
     fun autoSignIn(token: String): Single<Response<Account>>?
 
     fun login(
@@ -34,5 +33,4 @@ interface LoginVMContract {
     fun putIsLogin(isLogin: Boolean)
 
     fun getIsLogin(): Boolean?
-
 }

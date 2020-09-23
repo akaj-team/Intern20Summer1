@@ -11,6 +11,7 @@ import com.google.gson.Gson
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import io.reactivex.subjects.BehaviorSubject
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Response
@@ -32,6 +33,7 @@ class HomeVM(
         private const val TYPE_TEXT = "text"
     }
 
+    var progressBehavior = BehaviorSubject.create<Boolean>()
     var postLists = mutableListOf<PostItem>()
     var postListRecycler = mutableListOf<PostItem>()
 
@@ -55,6 +57,7 @@ class HomeVM(
             ?.getPosts(localRepository.getToken())
             ?.subscribeOn(Schedulers.io())
             ?.observeOn(AndroidSchedulers.mainThread())
+            ?.doOnSubscribe { progressBehavior.onNext(true) }
             ?.doOnSuccess { response ->
                 postLists.clear()
                 postListRecycler.clear()
@@ -66,6 +69,7 @@ class HomeVM(
                     initDataRecycler(0, RECYCLER_LOAD_SIZE)
                 }
             }
+            ?.doFinally { progressBehavior.onNext(false) }
 
     override fun searchData(key: String): Single<Response<List<PostItem>>>? =
         homeRepository
@@ -128,6 +132,8 @@ class HomeVM(
             ?.subscribeOn(Schedulers.io())
             ?.observeOn(AndroidSchedulers.mainThread())
     }
+
+    override fun progressDialogStatus(): BehaviorSubject<Boolean>? = progressBehavior
 
 
     private fun initDataRecycler(start: Int, end: Int) {
