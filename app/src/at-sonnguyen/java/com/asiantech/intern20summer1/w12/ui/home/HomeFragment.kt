@@ -2,7 +2,6 @@ package com.asiantech.intern20summer1.w12.ui.home
 
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -188,44 +187,44 @@ class HomeFragment : Fragment() {
                 super.onScrolled(recyclerView, dx, dy)
                 val linearLayoutManager = recyclerView.layoutManager as? LinearLayoutManager?
                 linearLayoutManager?.let {
-                    val visibleItemCount = linearLayoutManager.childCount
-                    val totalItemCount = linearLayoutManager.itemCount
-                    val firstVisibleItem = linearLayoutManager.findFirstVisibleItemPosition()
-//                        if (it.findLastVisibleItemPosition() == posts.size - 2 && posts.size < allPosts.size) {
-////                            initLoadMore()
-//                        }
+                    val lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition()
                     viewModel?.loadMore(
-                        visibleItemCount,
-                        totalItemCount,
-                        firstVisibleItem,
-                        user.token
+                        lastVisibleItem
                     )
-                    Log.d(
-                        "TAG0000",
-                        "onScrolled:$visibleItemCount $totalItemCount $firstVisibleItem "
-                    )
+                    viewModel?.isEnableProgressBar()?.subscribe({
+                        if(it){
+                            progressBarMain?.visibility = View.VISIBLE
+                        }else{
+                            progressBarMain?.visibility = View.INVISIBLE
+                        }
+                    },{})
                 }
+            }
+
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                postAdapter.notifyDataSetChanged()
             }
         })
     }
 
-    private fun initLoadMore() {
-        Handler().postDelayed({
-            var currentSize = posts.size
-            val nextLimit = if (allPosts.size - posts.size >= 10) {
-                currentSize + ITEM_LIMIT
-            } else {
-                currentSize + allPosts.size - posts.size
-            }
-            while (currentSize < nextLimit) {
-                posts.add(allPosts[currentSize])
-                currentSize++
-            }
-            postAdapter.notifyDataSetChanged()
-            isLoading = false
-            progressBarMain.visibility = View.INVISIBLE
-        }, DELAY_TIME.toLong())
-        isLoading = true
-        progressBarMain?.visibility = View.VISIBLE
-    }
+//    private fun initLoadMore() {
+//        Handler().postDelayed({
+//            var currentSize = posts.size
+//            val nextLimit = if (allPosts.size - posts.size >= 10) {
+//                currentSize + ITEM_LIMIT
+//            } else {
+//                currentSize + allPosts.size - posts.size
+//            }
+//            while (currentSize < nextLimit) {
+//                posts.add(allPosts[currentSize])
+//                currentSize++
+//            }
+//            postAdapter.notifyDataSetChanged()
+//            isLoading = false
+//            progressBarMain.visibility = View.INVISIBLE
+//        }, DELAY_TIME.toLong())
+//        isLoading = true
+//        progressBarMain?.visibility = View.VISIBLE
+//    }
 }

@@ -1,5 +1,6 @@
 package com.asiantech.intern20summer1.w12.ui.home
 
+import android.os.Handler
 import androidx.lifecycle.ViewModel
 import com.asiantech.intern20summer1.w12.data.model.LikeResponse
 import com.asiantech.intern20summer1.w12.data.model.Post
@@ -64,37 +65,36 @@ class HomeViewModel(private val repository: RemoteRepository) : ViewModel(), Hom
     }
 
     override fun loadMore(
-        visibleItemCount: Int,
-        totalItemCount: Int,
-        firstVisibleItem: Int,
-        token: String
+        lastVisibleItem: Int
     ) {
-        if (canLoadMore(visibleItemCount, totalItemCount, firstVisibleItem)) {
-//            getAllPostsFromServer(token)
-//                ?.subscribe({
-//                    Log.d("TAG0000", "loadMore: success $it")
-//                }, {
-//                    Log.d("TAG0000", "loadMore: $token")
-//                    Log.d("TAG0000", "loadMore:  failure ${it.message}")
-//                })
+        if (canLoadMore(lastVisibleItem)) {
+            getExtraPost()
         }
     }
 
     override fun getExtraPost() {
-        var currentSize = getPostList().size
-        val nextLimit = if (getAllPostFromServer().size - getPostList().size >= 10) {
-            currentSize + ITEM_LIMIT
-        } else {
-            currentSize + getAllPostFromServer().size - getPostList().size
-        }
-        while (currentSize < nextLimit) {
-            posts.add(allPosts[currentSize])
-            currentSize++
-        }
+        Handler().postDelayed({
+            var currentSize = getPostList().size
+            val nextLimit = if (allPosts.size - posts.size >= 10) {
+                currentSize + ITEM_LIMIT
+            } else {
+                currentSize + allPosts.size - posts.size
+            }
+            while (currentSize < nextLimit) {
+                posts.add(allPosts[currentSize])
+                currentSize++
+            }
+            progressBar.onNext(false)
+            isLoading = false
+        }, 2000L)
+        isLoading = true
+        progressBar.onNext(true)
     }
 
     override fun getAllPostFromServer(): MutableList<Post> = allPosts
 
-    private fun canLoadMore(visibleItemCount: Int, totalItemCount: Int, firstVisibleItem: Int) =
-        (visibleItemCount + firstVisibleItem + VISIBLE_THRESHOLD >= totalItemCount)
+    private fun canLoadMore(lastVisibleItem: Int) =
+        (!isLoading && lastVisibleItem == posts.size - 2 && posts.size < allPosts.size)
+
+    override fun isEnableProgressBar() = progressBar
 }

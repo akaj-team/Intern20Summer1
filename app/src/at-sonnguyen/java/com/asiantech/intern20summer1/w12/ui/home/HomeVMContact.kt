@@ -3,6 +3,7 @@ package com.asiantech.intern20summer1.w12.ui.home
 import com.asiantech.intern20summer1.w12.data.model.LikeResponse
 import com.asiantech.intern20summer1.w12.data.model.Post
 import io.reactivex.Single
+import io.reactivex.subjects.BehaviorSubject
 import retrofit2.Response
 
 interface HomeVMContact {
@@ -19,9 +20,11 @@ interface HomeVMContact {
 
     fun likePost(token : String,id: Int,position : Int) : Single<Response<LikeResponse>>?
 
-    fun loadMore(visibleItemCount: Int, totalItemCount: Int, firstVisibleItem: Int,token: String)
+    fun loadMore(lastVisibleItem: Int)
 
     fun getExtraPost()
 
     fun getAllPostFromServer() : MutableList<Post>
+
+    fun isEnableProgressBar() : BehaviorSubject<Boolean>
 }
