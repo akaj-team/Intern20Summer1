@@ -13,6 +13,7 @@ class HomeViewModel(private val repository: HomeRepository) : ViewModel(),
     HomeVMContract {
 
     companion object {
+        private const val POSITION_ITEM_LOAD_MORE = 3
         private const val LIMIT_ITEM = 10
         internal const val DELAY_TIME = 2000L
     }
@@ -102,7 +103,7 @@ class HomeViewModel(private val repository: HomeRepository) : ViewModel(),
     override fun getResultSearch(): Boolean = result
 
     private fun canLoadMore(lastVisibleItem: Int) =
-        (!isLoading && lastVisibleItem == postItems.size - 3 && postItems.size < postItemsStorage.size)
+        (!isLoading && lastVisibleItem == postItems.size - POSITION_ITEM_LOAD_MORE && postItems.size < postItemsStorage.size)
 
     private fun createListPost() {
         postItems.clear()
