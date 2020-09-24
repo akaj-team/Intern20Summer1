@@ -42,6 +42,7 @@ class RegisterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initView()
         handleClickingArrowBack()
         handleRegisterEmailTextChanged()
         handleRegisterFullNameTextChanged()
@@ -50,6 +51,10 @@ class RegisterFragment : Fragment() {
         handleOnTouchScreen(llRegisterMain)
     }
 
+    private fun initView() {
+        progressDialog = ProgressDialog(context)
+        progressDialog.setCancelable(false)
+    }
 
     private fun handleRegisterFullNameTextChanged() {
         edtUserName?.addTextChangedListener(onTextChanged = { p0: CharSequence?, _, _, _ ->
