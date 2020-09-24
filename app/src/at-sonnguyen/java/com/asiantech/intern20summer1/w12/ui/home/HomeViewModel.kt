@@ -4,23 +4,26 @@ import android.os.Handler
 import androidx.lifecycle.ViewModel
 import com.asiantech.intern20summer1.w12.data.model.LikeResponse
 import com.asiantech.intern20summer1.w12.data.model.Post
-import com.asiantech.intern20summer1.w12.remoteRepository.RemoteRepository
+import com.asiantech.intern20summer1.w12.data.source.repository.HomeRepository
 import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 import retrofit2.Response
 
-class HomeViewModel(private val repository: RemoteRepository) : ViewModel(), HomeVMContact {
-
-    private var progressBar = BehaviorSubject.create<Boolean>()
+@Suppress("DEPRECATION")
+class HomeViewModel(private val repository: HomeRepository) : ViewModel(), HomeVMContact {
 
     companion object {
         private const val ITEM_LIMIT = 10
-        private const val VISIBLE_THRESHOLD = 10
+        private const val TIME_DELAY = 2000
+        private var isSearching = false
     }
 
     private var isLoading = false
     private var posts = mutableListOf<Post?>()
     private var allPosts = mutableListOf<Post>()
+    private var progressBar = BehaviorSubject.create<Boolean>()
 
     override fun getAllPostsFromServer(token: String): Single<Response<MutableList<Post>>>? =
         repository.getAllPosts(token)?.doOnSuccess {
@@ -86,7 +89,7 @@ class HomeViewModel(private val repository: RemoteRepository) : ViewModel(), Hom
             }
             progressBar.onNext(false)
             isLoading = false
-        }, 2000L)
+        }, TIME_DELAY.toLong())
         isLoading = true
         progressBar.onNext(true)
     }
@@ -97,4 +100,28 @@ class HomeViewModel(private val repository: RemoteRepository) : ViewModel(), Hom
         (!isLoading && lastVisibleItem == posts.size - 2 && posts.size < allPosts.size)
 
     override fun isEnableProgressBar() = progressBar
+    override fun searchContent(key: String, token: String): Single<Response<MutableList<Post>>>? =
+        repository.getAllPosts(token)
+            ?.subscribeOn(Schedulers.io())
+            ?.observeOn(AndroidSchedulers.mainThread())
+            ?.doOnSuccess {
+                if (it.isSuccessful) {
+                    posts.clear()
+                    allPosts.clear()
+                    it.body()?.forEach { post ->
+                        if (post.content.contains(key, true)) {
+                            post.content = key
+                            allPosts.add(post)
+                        }
+                    }
+                    if (allPosts.isNotEmpty()) {
+                        isSearching = true
+                        getPostListAdapter()
+                    } else {
+                        isSearching = false
+                    }
+                }
+            }
+
+    override fun isSearching(): Boolean = isSearching
 }

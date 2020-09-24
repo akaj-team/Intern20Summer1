@@ -8,23 +8,27 @@ import retrofit2.Response
 
 interface HomeVMContact {
 
-    fun getAllPostsFromServer(token : String) : Single<Response<MutableList<Post>>>?
+    fun getAllPostsFromServer(token: String): Single<Response<MutableList<Post>>>?
 
-    fun likePost(token: String,id : Int) : Single<Response<LikeResponse>>?
+    fun likePost(token: String, id: Int): Single<Response<LikeResponse>>?
 
-    fun getPostList() : MutableList<Post?>
+    fun getPostList(): MutableList<Post?>
 
-    fun getPostListAdapter() : MutableList<Post?>
+    fun getPostListAdapter(): MutableList<Post?>
 
     fun refreshData()
 
-    fun likePost(token : String,id: Int,position : Int) : Single<Response<LikeResponse>>?
+    fun likePost(token: String, id: Int, position: Int): Single<Response<LikeResponse>>?
 
     fun loadMore(lastVisibleItem: Int)
 
     fun getExtraPost()
 
-    fun getAllPostFromServer() : MutableList<Post>
+    fun getAllPostFromServer(): MutableList<Post>
 
-    fun isEnableProgressBar() : BehaviorSubject<Boolean>
+    fun isEnableProgressBar(): BehaviorSubject<Boolean>
+
+    fun searchContent(key: String, token: String): Single<Response<MutableList<Post>>>?
+
+    fun isSearching(): Boolean
 }

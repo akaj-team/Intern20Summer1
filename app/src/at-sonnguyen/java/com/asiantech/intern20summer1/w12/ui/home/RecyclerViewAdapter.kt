@@ -7,8 +7,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.w12.activity.HomeActivity.Companion.IMAGE_FOLDER_URL
 import com.asiantech.intern20summer1.w12.data.model.Post
+import com.asiantech.intern20summer1.w12.ui.home.HomActivity.Companion.IMAGE_FOLDER_URL
 import com.bumptech.glide.Glide
 
 class RecyclerViewAdapter(private val items: MutableList<Post?>, internal val userId: Int) :

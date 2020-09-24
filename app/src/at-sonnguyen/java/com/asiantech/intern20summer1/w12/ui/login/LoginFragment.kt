@@ -1,25 +1,20 @@
 package com.asiantech.intern20summer1.w12.ui.login
 
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.w12.activity.HomeActivity
-import com.asiantech.intern20summer1.w12.activity.LoginActivity
-import com.asiantech.intern20summer1.w12.activity.LoginActivity.Companion.SHARED_PREFERENCE_FILE
-import com.asiantech.intern20summer1.w12.activity.LoginActivity.Companion.SHARED_PREFERENCE_TOKEN_KEY
+import com.asiantech.intern20summer1.w12.data.source.repository.LoginRepository
 import com.asiantech.intern20summer1.w12.extension.isValidEmail
 import com.asiantech.intern20summer1.w12.extension.isValidPassword
 import com.asiantech.intern20summer1.w12.extension.makeToastError
-import com.asiantech.intern20summer1.w12.remoteRepository.RemoteRepository
+import com.asiantech.intern20summer1.w12.ui.activity.LoginActivity
+import com.asiantech.intern20summer1.w12.ui.home.HomActivity
 import com.asiantech.intern20summer1.w12.ui.register.RegisterFragment
 import com.asiantech.intern20summer1.w12.ui.register.RegisterFragment.Companion.KEY_VALUE_EMAIL
 import com.asiantech.intern20summer1.w12.ui.register.RegisterFragment.Companion.KEY_VALUE_PASSWORD
@@ -30,22 +25,22 @@ import kotlinx.android.synthetic.`at-sonnguyen`.w12_fragment_login.*
 class LoginFragment : Fragment() {
     private var emailText: String = ""
     private var passwordText: String = ""
-    private var viewModel : LoginVMContact? = null
+    private var viewModel: LoginVMContact? = null
 
     companion object {
 
         internal const val USER_KEY_LOGIN = "user"
-        internal fun newInstance(email : String,password : String) = LoginFragment().apply {
+        internal fun newInstance(email: String, password: String) = LoginFragment().apply {
             arguments = Bundle().apply {
-                putString(KEY_VALUE_EMAIL,email)
-                putString(KEY_VALUE_PASSWORD,password)
+                putString(KEY_VALUE_EMAIL, email)
+                putString(KEY_VALUE_PASSWORD, password)
             }
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = LoginViewModel(RemoteRepository())
+        viewModel = LoginViewModel(LoginRepository())
     }
 
     override fun onCreateView(
@@ -59,7 +54,6 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         getData()
-//        getDataFromRegisterFragment()
         initListener()
     }
 
@@ -82,19 +76,12 @@ class LoginFragment : Fragment() {
         }
     }
 
-    private fun getData(){
+    private fun getData() {
         arguments?.let {
             edtEmailLogin.setText(it.getString(KEY_VALUE_EMAIL))
+            emailText = it.getString(KEY_VALUE_EMAIL).toString()
             edtPasswordLogin.setText(it.getString(KEY_VALUE_PASSWORD))
-        }
-    }
-
-    private fun getDataFromRegisterFragment() {
-        (arguments?.getString(KEY_VALUE_EMAIL))?.let {
-            edtEmailLogin.setText(it)
-        }
-        (arguments?.getString(KEY_VALUE_PASSWORD))?.let {
-            edtPasswordLogin.setText(it)
+            passwordText = it.getString(KEY_VALUE_PASSWORD).toString()
         }
     }
 
@@ -157,35 +144,33 @@ class LoginFragment : Fragment() {
     }
 
     private fun setEnableSignInButton() {
-        btnLogin.isEnabled =
-            isValidEmail(edtEmailLogin.text.toString()) && isValidPassword(edtPasswordLogin.text.toString())
+        viewModel?.isValidInformationStatus()?.subscribe({
+            btnLogin.isEnabled = it
+        }, {
+            //No-op
+        })
     }
 
     private fun handleLoginButtonListener() {
         btnLogin?.setOnClickListener {
+            progressBarLogin.visibility = View.VISIBLE
             viewModel?.login(emailText, passwordText)?.subscribeOn(Schedulers.io())
                 ?.observeOn(AndroidSchedulers.mainThread())
                 ?.subscribe({
                     if (it.isSuccessful) {
                         it.body()?.let { user ->
-                            val sharedPreferences = activity?.getSharedPreferences(
-                                SHARED_PREFERENCE_FILE,
-                                Context.MODE_PRIVATE
-                            )
-                            val editor: SharedPreferences.Editor? = sharedPreferences?.edit()
-                            editor?.putString(SHARED_PREFERENCE_TOKEN_KEY, user.token)
-                            editor?.apply()
-                            val intent = Intent(activity, HomeActivity::class.java)
+                            val intent = Intent(activity, HomActivity::class.java)
                             intent.putExtra(USER_KEY_LOGIN, user)
                             activity?.startActivity(intent)
+                            progressBarLogin.visibility = View.INVISIBLE
                             activity?.finish()
                         }
                     } else {
-                        makeToastError(it.code(),requireContext())
+                        makeToastError(it.code(), requireContext())
+                        progressBarLogin.visibility = View.INVISIBLE
                     }
                 }, {
                     // no ops
-                    Log.d("TAG0000", "handleLoginButtonListener: $it")
                 })
         }
     }

@@ -89,4 +89,11 @@
         android:text="@string/w10_register_fragment_title_text_view_text"
         android:textAllCaps="false"
         android:textSize="@dimen/w10_button_text_size" />
+
+    <ProgressBar
+        android:id="@+id/progressBarRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="invisible" />
 </RelativeLayout>

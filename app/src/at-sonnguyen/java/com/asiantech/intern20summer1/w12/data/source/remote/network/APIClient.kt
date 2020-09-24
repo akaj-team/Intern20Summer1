@@ -1,4 +1,4 @@
-package com.asiantech.intern20summer1.w12.data.network
+package com.asiantech.intern20summer1.w12.data.source.remote.network
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import okhttp3.OkHttpClient
@@ -12,11 +12,7 @@ object APIClient {
     private const val REQUEST_TIMEOUT = 60
     private const val BASE_URL = "https://at-a-trainning.000webhostapp.com"
 
-    internal fun createUserService(): UserAPI? = createServiceClient()?.create(UserAPI::class.java)
-
-    internal fun createPostService(): PostAPI? = createServiceClient()?.create(PostAPI::class.java)
-
-//    internal fun createApiService() : APIService? = createServiceClient()?.create(APIService::class.java)
+    internal fun createService(): APIService? = createServiceClient()?.create(APIService::class.java)
 
     private fun createServiceClient(): Retrofit? {
         if (retrofit == null) {
