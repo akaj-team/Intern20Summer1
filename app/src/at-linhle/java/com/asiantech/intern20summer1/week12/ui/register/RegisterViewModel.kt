@@ -12,7 +12,7 @@ import java.util.regex.Pattern
 
 class RegisterViewModel(private val repository: LoginRepository) : ViewModel(), RegisterMVContract {
 
-    companion object{
+    companion object {
         private const val MAX_FULL_NAME_LENGTH = 64
     }
 
@@ -25,14 +25,21 @@ class RegisterViewModel(private val repository: LoginRepository) : ViewModel(), 
     override fun infoValidateStatus(): BehaviorSubject<Boolean> = validateRegisterInformationStatus
 
     override fun validateRegisterInformation(fullName: String, email: String, password: String) {
-        if (fullName.length <= MAX_FULL_NAME_LENGTH
-            &&passwordPattern.matcher(password).matches()
-            && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
-            && email.length <= LoginViewModel.MAX_EMAIL_LENGTH
-        ) {
+        if (isCorrectFormat(fullName, email, password)) {
             validateRegisterInformationStatus.onNext(true)
         } else {
             validateRegisterInformationStatus.onNext(false)
         }
     }
+
+    private fun isEmailValidated(email: String) =
+        android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+                && email.length <= LoginViewModel.MAX_EMAIL_LENGTH
+
+    private fun isPasswordValidated(password: String) = passwordPattern.matcher(password).matches()
+
+    private fun isFullNameValidated(fullName: String) = fullName.length <= MAX_FULL_NAME_LENGTH
+
+    private fun isCorrectFormat(fullName: String, email: String, password: String) =
+        isEmailValidated(email) && isPasswordValidated(password) && isFullNameValidated(fullName)
 }
