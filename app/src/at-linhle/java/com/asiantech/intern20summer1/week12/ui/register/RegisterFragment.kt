@@ -1,5 +1,6 @@
 package com.asiantech.intern20summer1.week12.ui.register
 
+import android.app.ProgressDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,35 +9,27 @@ import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.week12.extensions.handleOnTouchScreen
-import com.asiantech.intern20summer1.week12.ui.login.LoginFragment.Companion.MAX_EMAIL_LENGTH
 import com.asiantech.intern20summer1.week12.data.model.UserRegister
 import com.asiantech.intern20summer1.week12.data.source.LoginRepository
-import com.asiantech.intern20summer1.week12.data.source.datasource.LoginDataSource
-import com.asiantech.intern20summer1.week12.ui.login.LoginViewModel
+import com.asiantech.intern20summer1.week12.extensions.handleOnTouchScreen
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.`at-linhle`.fragment_register.*
-import java.util.regex.Pattern
 
 class RegisterFragment : Fragment() {
 
     companion object {
         private const val RESPONSE_CODE = 400
-        private const val MAX_FULL_NAME_LENGTH = 64
-        internal fun newInstance() =
-            RegisterFragment()
+        internal fun newInstance() = RegisterFragment()
     }
 
     internal var onRegisterSuccess: (email: String, password: String) -> Unit = { _, _ -> }
-    private val passwordPattern = Pattern.compile("""^(?=.*).{8,16}$""")
-    private var viewModel: LoginDataSource? = null
+    private var viewModel: RegisterMVContract? = null
+    private lateinit var progressDialog: ProgressDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = LoginViewModel(
-            LoginRepository()
-        )
+        viewModel = RegisterViewModel(LoginRepository())
     }
 
     override fun onCreateView(
@@ -57,26 +50,10 @@ class RegisterFragment : Fragment() {
         handleOnTouchScreen(llRegisterMain)
     }
 
-    private fun isSignUpFullNameValid(fullName: String) = fullName.length <= MAX_FULL_NAME_LENGTH
-
-    private fun isSignUpPasswordValid(password: String) =
-        passwordPattern.matcher(password).matches()
-
-    private fun isSignUpEmailValid(email: String) =
-        android.util.Patterns.EMAIL_ADDRESS.matcher(email)
-            .matches() && email.length <= MAX_EMAIL_LENGTH
-
-    private fun isCorrectFormat(
-        fullName: String,
-        email: String,
-        password: String
-    ) = isSignUpFullNameValid(fullName) && isSignUpEmailValid(email) && isSignUpPasswordValid(
-        password
-    )
 
     private fun handleRegisterFullNameTextChanged() {
         edtUserName?.addTextChangedListener(onTextChanged = { p0: CharSequence?, _, _, _ ->
-            btnRegister?.isEnabled = isCorrectFormat(
+            viewModel?.validateRegisterInformation(
                 p0.toString(),
                 edtEmail?.text.toString(),
                 edtPassword?.text.toString()
@@ -87,7 +64,7 @@ class RegisterFragment : Fragment() {
 
     private fun handleRegisterEmailTextChanged() {
         edtEmail?.addTextChangedListener(onTextChanged = { p0: CharSequence?, _, _, _ ->
-            btnRegister?.isEnabled = isCorrectFormat(
+            viewModel?.validateRegisterInformation(
                 edtUserName?.text.toString(),
                 p0.toString(),
                 edtPassword?.text.toString()
@@ -98,7 +75,7 @@ class RegisterFragment : Fragment() {
 
     private fun handleRegisterPasswordTextChanged() {
         edtPassword?.addTextChangedListener(onTextChanged = { p0: CharSequence?, _, _, _ ->
-            btnRegister?.isEnabled = isCorrectFormat(
+            viewModel?.validateRegisterInformation(
                 edtUserName?.text.toString(),
                 edtEmail?.text.toString(),
                 p0.toString()
@@ -108,11 +85,16 @@ class RegisterFragment : Fragment() {
     }
 
     private fun setBackgroundButton() {
-        if (btnRegister.isEnabled) {
-            btnRegister?.setBackgroundResource(R.drawable.bg_button_enabled)
-        } else {
-            btnRegister?.setBackgroundResource(R.drawable.bg_button_disabled)
-        }
+        viewModel?.infoValidateStatus()?.subscribe({
+            btnRegister?.isEnabled = it
+            if (it) {
+                btnRegister?.setBackgroundResource(R.drawable.bg_button_enabled)
+            } else {
+                btnRegister?.setBackgroundResource(R.drawable.bg_button_disabled)
+            }
+        }, {
+            //No-op
+        })
     }
 
     private fun handleClickingArrowBack() {
@@ -123,16 +105,11 @@ class RegisterFragment : Fragment() {
 
     private fun handleClickingRegisterButton() {
         btnRegister?.setOnClickListener {
+            progressDialog.show()
             val fullName = edtUserName?.text.toString()
             val email = edtEmail?.text.toString()
             val password = edtPassword?.text.toString()
-            viewModel?.register(
-                UserRegister(
-                    email,
-                    password,
-                    fullName
-                )
-            )
+            viewModel?.register(UserRegister(email, password, fullName))
                 ?.subscribeOn(Schedulers.io())
                 ?.observeOn(AndroidSchedulers.mainThread())
                 ?.subscribe({
@@ -143,8 +120,10 @@ class RegisterFragment : Fragment() {
                             Toast.LENGTH_SHORT
                         ).show()
                         onRegisterSuccess(email, password)
+                        progressDialog.dismiss()
                         activity?.onBackPressed()
                     } else {
+                        progressDialog.dismiss()
                         if (it.code() == RESPONSE_CODE) {
                             Toast.makeText(
                                 activity,
