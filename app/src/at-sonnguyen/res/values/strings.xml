@@ -69,4 +69,6 @@
     <string name="w12_type_to_search_text_view_text">Type to search</string>
     <string name="w12_search_edit_text_hint">search</string>
     <string name="w12_nothing_toast">Không có kết quả phù hợp</string>
+    <string name="w12_register_success_toast">Register Success</string>
+    <string name="w12_register_failure_toast">Register failure</string>
 </resources>

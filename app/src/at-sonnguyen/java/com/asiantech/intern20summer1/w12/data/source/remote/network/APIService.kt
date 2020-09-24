@@ -1,8 +1,10 @@
 package com.asiantech.intern20summer1.w12.data.source.remote.network
 
-import com.asiantech.intern20summer1.w12.data.model.*
+import com.asiantech.intern20summer1.w12.data.model.LikeResponse
+import com.asiantech.intern20summer1.w12.data.model.Post
+import com.asiantech.intern20summer1.w12.data.model.User
+import com.asiantech.intern20summer1.w12.data.model.UserRegister
 import io.reactivex.Single
-import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -25,21 +27,4 @@ interface APIService {
         @Header("token") token: String,
         @Path("id") id: Int = 0
     ): Single<Response<LikeResponse>>
-
-    @Multipart
-    @POST("api/post")
-    fun createPost(
-        @Header("token") token: String,
-        @Part("body") body: PostContent,
-        @Part image: MultipartBody.Part? = null
-    ): Single<Response<StatusResponse>>
-
-    @POST("/api/post/{id} ")
-    @Multipart
-    fun updatePost(
-        @Header("token") token: String?,
-        @Path("id") id: Int,
-        @Part image: MultipartBody.Part? = null,
-        @Part("body") body: PostContent
-    ): Single<Response<StatusResponse>>
 }

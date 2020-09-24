@@ -101,10 +101,18 @@ class RegisterFragment : Fragment() {
                 ?.observeOn(AndroidSchedulers.mainThread())
                 ?.subscribe({
                     if (it.isSuccessful) {
-                        Toast.makeText(activity, "Register Success", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            activity,
+                            getString(R.string.w12_register_success_toast),
+                            Toast.LENGTH_SHORT
+                        ).show()
                         sendDataToLoginFragment()
                     } else {
-                        Toast.makeText(activity, "Register failure", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            activity,
+                            getString(R.string.w12_register_failure_toast),
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                     progressBarRegister.visibility = View.INVISIBLE
                 }, {
