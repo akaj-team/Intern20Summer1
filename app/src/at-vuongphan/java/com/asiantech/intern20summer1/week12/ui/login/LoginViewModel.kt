@@ -1,8 +1,6 @@
 package com.asiantech.intern20summer1.week12.ui.login
 
 import com.asiantech.intern20summer1.week12.data.models.UserAutoSignIn
-import com.asiantech.intern20summer1.week12.data.source.LocalRepository
-import com.asiantech.intern20summer1.week12.data.source.UserRepository
 import com.asiantech.intern20summer1.week12.data.source.datasource.LocalDataSource
 import com.asiantech.intern20summer1.week12.data.source.datasource.UserDataSource
 import io.reactivex.Single
