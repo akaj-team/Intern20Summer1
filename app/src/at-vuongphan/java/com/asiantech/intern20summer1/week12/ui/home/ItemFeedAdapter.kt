@@ -14,7 +14,7 @@ import com.bumptech.glide.request.RequestOptions
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.`at-vuongphan`.item_new_feed.view.*
 
-class ItemFeedAdapter(private val newFeeds: MutableList<NewPost>) :
+class ItemFeedAdapter(internal val newFeeds: MutableList<NewPost?>?) :
     RecyclerView.Adapter<ItemFeedAdapter.NewFeedViewHolder>() {
 
     internal var onItemClicked: (position: Int) -> Unit = {}
@@ -32,7 +32,7 @@ class ItemFeedAdapter(private val newFeeds: MutableList<NewPost>) :
         (holder as? NewFeedViewHolder)?.bindData()
     }
 
-    override fun getItemCount() = newFeeds.size
+    override fun getItemCount(): Int = newFeeds?.size!!
 
     inner class NewFeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val tvName: TextView = itemView.tvName
@@ -55,8 +55,8 @@ class ItemFeedAdapter(private val newFeeds: MutableList<NewPost>) :
         }
 
         fun bindData() {
-            val post = newFeeds[adapterPosition]
-            newFeeds[adapterPosition].let {
+            val post = newFeeds?.get(adapterPosition)
+            newFeeds?.get(adapterPosition)?.let {
                 val image = url.plus(it.image)
                 tvName.text = it.content
                 val options = RequestOptions()
@@ -79,7 +79,7 @@ class ItemFeedAdapter(private val newFeeds: MutableList<NewPost>) :
                     itemView.context.getString(R.string.text_view_text_like_number, it.like_count)
             }
             imgUpdate.setOnClickListener {
-                onClick?.iconEditFeed(post)
+                post?.let { it1 -> onClick?.iconEditFeed(it1) }
             }
         }
     }

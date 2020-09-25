@@ -1,5 +1,3 @@
-@file:Suppress("DEPRECATION")
-
 package com.asiantech.intern20summer1.week12.ui.home
 
 import android.os.Bundle
@@ -14,34 +12,28 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week12.activity.RecyclerViewNewFeed
-import com.asiantech.intern20summer1.week12.data.models.NewPost
 import com.asiantech.intern20summer1.week12.data.source.LocalRepository
 import com.asiantech.intern20summer1.week12.data.source.PostRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import io.reactivex.schedulers.Schedulers.io
 import kotlinx.android.synthetic.`at-vuongphan`.w10_fragment_new_feed.*
-import retrofit2.Response
 
 class NewFeedFragment : Fragment() {
-    private var newfeeds = mutableListOf<NewPost>()
     private lateinit var adapterNewFeeds: ItemFeedAdapter
-    private var postItem = mutableListOf<NewPost>()
-    private var isLoading = false
-    private var postItemSearch = mutableListOf<NewPost>()
+    private var id: Int? = 0
     private var token: String? = null
     private var viewModel: PostViewModel? = null
+    private var post = viewModel?.getListPostAdapter()
 
     companion object {
         private const val DELAY_TIME = 2000L
-        private const val ITEMS_TAKE: Int = 10
         internal fun newInstance() = NewFeedFragment()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = PostViewModel(PostRepository(), LocalRepository(requireContext()))
-        token = viewModel?.getToken().toString()
-        newfeeds = viewModel?.getDataRecyclerView() ?: mutableListOf()
+        viewModel =
+            PostViewModel(PostRepository(requireContext()), LocalRepository(requireContext()))
     }
 
     override fun onCreateView(
@@ -57,12 +49,17 @@ class NewFeedFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initAdapter(viewModel?.getDataRecyclerView() ?: mutableListOf())
         openAddNewFeedFragment()
         openDialogSearch()
-        initListener()
-        getListAPI()
-        handleSwipeRefresh()
+        getData()
+        initData()
+        openDialogSearch()
+        openAddNewFeedFragment()
+    }
+
+    private fun getData() {
+        token = viewModel?.getToken().toString()
+        id = viewModel?.getIdUser()
     }
 
     private fun openDialogSearch() {
@@ -78,58 +75,25 @@ class NewFeedFragment : Fragment() {
         }
     }
 
-    private fun initAdapter(list: List<NewPost>) {
-        if (list.size >= ITEMS_TAKE) {
-            for (i in 0 until ITEMS_TAKE) {
-                postItem.add(list[i])
-            }
-        } else {
-            for (element in list) {
-                postItem.add(element)
-            }
-        }
-        adapterNewFeeds = ItemFeedAdapter(postItem)
+    private fun initAdapter() {
+        adapterNewFeeds = ItemFeedAdapter(post)
         recyclerViewMain?.layoutManager = LinearLayoutManager(requireContext())
-        adapterNewFeeds.onItemClicked = { position ->
-            token?.let { viewModel?.likePost(it, position) }
-                ?.subscribeOn(Schedulers.io())
-                ?.observeOn(AndroidSchedulers.mainThread())
-                ?.subscribe({
-                    adapterNewFeeds.notifyItemChanged(position, null)
-                    (recyclerViewMain.itemAnimator as? SimpleItemAnimator)?.supportsChangeAnimations =
-                        true
-                }, {
-
-                })
-            handleSwipeRefresh()
+        adapterNewFeeds.onItemClicked = {
+            handleClickingHeartIcon(it)
         }
         recyclerViewMain?.adapter = adapterNewFeeds
     }
 
-    private fun initListener() {
-        srlRefreshItem.setOnRefreshListener {
-            Handler().postDelayed({
-                viewModel?.getDataRecyclerView()?.clear()
-                getListAPI()
-                adapterNewFeeds.notifyDataSetChanged()
-                srlRefreshItem.isRefreshing = false
-            }, DELAY_TIME)
-        }
-    }
-
-
-    @Suppress("NAME_SHADOWING")
-    private fun getListAPI() {
-        viewModel?.getToken()?.let {
-            viewModel?.getPost()
-                ?.subscribeOn(Schedulers.io())
+    private fun initData() {
+        token?.let {
+            viewModel?.getListPostFromServer(it)
+                ?.subscribeOn(io())
                 ?.observeOn(AndroidSchedulers.mainThread())
-                ?.subscribe({ it: Response<MutableList<NewPost>> ->
-                    adapterNewFeeds.notifyDataSetChanged()
-                    progressLoadApi.visibility = View.GONE
-                     initAdapter(viewModel?.getDataRecyclerView() ?: mutableListOf())
-                    initScrollListener(viewModel?.getDataRecyclerView() ?: mutableListOf())
+                ?.subscribe({
+                    initAdapter()
+                    progressLoadApi?.visibility = View.GONE
                     handleSwipeRefresh()
+                    initScrollListener()
                 }, {
 
                 })
@@ -139,72 +103,79 @@ class NewFeedFragment : Fragment() {
     private fun handleSwipeRefresh() {
         srlRefreshItem.setOnRefreshListener {
             Handler().postDelayed({
-                postItem.clear()
-                progressBar.visibility = View.INVISIBLE
-                getListAPI()
+                viewModel?.refreshData()
+                imgPlus?.visibility = View.VISIBLE
+                progressLoadApi?.visibility = View.VISIBLE
+                initData()
                 adapterNewFeeds.notifyDataSetChanged()
                 srlRefreshItem.isRefreshing = false
             }, DELAY_TIME)
         }
     }
 
-    internal fun search(search: String) {
-        postItemSearch.clear()
-        for (i in newfeeds.indices) {
-            if (newfeeds[i].content.contains(search)) {
-                postItemSearch.add(newfeeds[i])
-            }
-        }
-        if (postItemSearch.size == 0) {
-            Toast.makeText(
-                requireContext(),
-                resources.getString(R.string.search_error),
-                Toast.LENGTH_SHORT
-            ).show()
-        } else {
-            imgSearch.visibility = View.INVISIBLE
-            postItem.clear()
-            newfeeds.clear()
-            initAdapter(postItemSearch)
-            initScrollListener(postItemSearch)
-        }
-    }
-
-    private fun loadMore(list: List<NewPost>) {
-        if (postItem.size != 0) {
-            Handler().postDelayed({
-                var currentSize = postItem.size
-                val nextLimit = currentSize + ITEMS_TAKE
-                while (currentSize < list.size && currentSize < nextLimit) {
-                    postItem.add(list[currentSize])
-                    currentSize++
-                }
-                adapterNewFeeds.notifyDataSetChanged()
-
-                isLoading = false
-                progressBar?.visibility = View.INVISIBLE
-            }, DELAY_TIME)
-
-            isLoading = true
-            progressBar?.visibility = View.VISIBLE
-        }
-    }
-
-    private fun initScrollListener(list: List<NewPost>) {
+    private fun initScrollListener() {
         recyclerViewMain?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 val linearLayoutManager = recyclerView.layoutManager as? LinearLayoutManager?
-                if (!isLoading) {
-                    linearLayoutManager?.let {
-                        if (it.findLastVisibleItemPosition() == postItem.size - 3
-                            && postItem.size < list.size
-                        ) {
-                            loadMore(list)
+                linearLayoutManager?.let {
+                    val lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition()
+                    viewModel?.loadMore(lastVisibleItem)
+                    viewModel?.updateProgressBar()?.subscribe({
+                        if (it) {
+                            progressBar?.visibility = View.VISIBLE
+                        } else {
+                            progressBar?.visibility = View.INVISIBLE
                         }
-                    }
+                    }, {
+                        //No-op
+                    })
                 }
             }
+
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                adapterNewFeeds.notifyDataSetChanged()
+            }
         })
+    }
+
+    private fun handleClickingHeartIcon(position: Int) {
+        token?.let {
+            viewModel?.updateLikePost(
+                it,
+                id?.let { it1 -> viewModel?.getListPost()?.get(it1)?.id } ?: 0
+
+            )
+                ?.subscribeOn(io())
+                ?.observeOn(AndroidSchedulers.mainThread())
+                ?.subscribe({
+                    adapterNewFeeds.notifyItemChanged(position, null)
+                    (recyclerViewMain.itemAnimator as? SimpleItemAnimator)?.supportsChangeAnimations =
+                        true
+                }, {
+                    //No-op
+                })
+        }
+    }
+
+    internal fun search(search: String) {
+        viewModel?.searchPostFromServer(search)
+            ?.subscribeOn(io())
+            ?.observeOn(AndroidSchedulers.mainThread())
+            ?.subscribe({
+                if (viewModel?.getResultSearch() == true) {
+                    adapterNewFeeds.notifyDataSetChanged()
+                    imgPlus?.visibility = View.INVISIBLE
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        getString(R.string.search_error),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }, {
+                //No-op
+            })
     }
 }

@@ -1,9 +1,9 @@
 package com.asiantech.intern20summer1.week12.data.source.local
 
 import android.content.Context
-import com.asiantech.intern20summer1.week12.data.source.datasource.SharedPreferencesDataSource
+import com.asiantech.intern20summer1.week12.data.source.datasource.LocalDataSource
 
-class SharedPreferencesLocalDataSource(private val context: Context) : SharedPreferencesDataSource {
+class SharedPreferencesLocalDataSource(private val context: Context) : LocalDataSource {
     companion object {
         internal const val NAME_PREFERENCE = "preference"
         internal const val KEY_IS_LOGIN = "key_is_login"

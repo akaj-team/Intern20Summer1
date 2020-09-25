@@ -3,14 +3,16 @@ package com.asiantech.intern20summer1.week12.ui.login
 import com.asiantech.intern20summer1.week12.data.models.UserAutoSignIn
 import com.asiantech.intern20summer1.week12.data.source.LocalRepository
 import com.asiantech.intern20summer1.week12.data.source.UserRepository
+import com.asiantech.intern20summer1.week12.data.source.datasource.LocalDataSource
+import com.asiantech.intern20summer1.week12.data.source.datasource.UserDataSource
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Response
 
 class LoginViewModel(
-    private val userRepository: UserRepository,
-    private val localRepository: LocalRepository
+    private val userRepository: UserDataSource,
+    private val localRepository: LocalDataSource
 ) : LoginVMContract {
 
     override fun login(username: String, password: String): Single<Response<UserAutoSignIn>>? =

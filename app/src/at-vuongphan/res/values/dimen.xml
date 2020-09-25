@@ -79,4 +79,12 @@
     <dimen name="text_size_24sp">24sp</dimen>
     <dimen name="text_size_38sp">38sp</dimen>
     <dimen name="padding_12dp">12dp</dimen>
+    <dimen name="layout_width_128dp">128dp</dimen>
+    <dimen name="layout_height_128dp">128dp</dimen>
+    <dimen name="margin_142dp">142dp</dimen>
+    <dimen name="margin_top_238dp">238dp</dimen>
+    <dimen name="padding_2dp">2dp</dimen>
+    <dimen name="progress_bar_width">251dp</dimen>
+    <dimen name="progress_bar_height">4dp</dimen>
+    <dimen name="progress_bar_margin_top">32dp</dimen>
 </resources>

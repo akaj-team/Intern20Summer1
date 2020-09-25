@@ -1,6 +1,6 @@
 package com.asiantech.intern20summer1.week12.data.source.datasource
 
-interface SharedPreferencesDataSource {
+interface LocalDataSource {
     fun putToken(token: String)
     fun getToken(): String
     fun putIdUser(idUser: Int)

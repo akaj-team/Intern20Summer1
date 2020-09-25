@@ -1,74 +1,126 @@
 package com.asiantech.intern20summer1.week12.ui.home
 
-import com.asiantech.intern20summer1.week12.data.models.ApiResponse
+import android.os.Handler
 import com.asiantech.intern20summer1.week12.data.models.NewPost
-import com.asiantech.intern20summer1.week12.data.models.Post
 import com.asiantech.intern20summer1.week12.data.models.ResponseLike
-import com.asiantech.intern20summer1.week12.data.source.LocalRepository
-import com.asiantech.intern20summer1.week12.data.source.PostRepository
+import com.asiantech.intern20summer1.week12.data.source.datasource.LocalDataSource
+import com.asiantech.intern20summer1.week12.data.source.datasource.PostDataSource
 import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
-import okhttp3.MultipartBody
+import io.reactivex.subjects.BehaviorSubject
 import retrofit2.Response
 
 class PostViewModel(
-    private val postRepository: PostRepository,
-    private val localRepository: LocalRepository
+    private val postRepository: PostDataSource,
+    private val localRepository: LocalDataSource
 ) : PostVMContract {
-    var postLists = mutableListOf<NewPost>()
-    var postListRecycler = mutableListOf<NewPost>()
-    private var itemSearch = mutableListOf<NewPost>()
+    companion object {
+        private const val POSITION_ITEM_LOAD_MORE = 3
+        private const val LIMIT_ITEM = 10
+        internal const val DELAY_TIME = 2000L
+    }
 
-    override fun getDataRecyclerView() = postLists
+    private var progressBar = BehaviorSubject.create<Boolean>()
+    private var result = false
+    private var postItems = mutableListOf<NewPost?>()
+    private var postItemsAll = mutableListOf<NewPost>()
+    private var isLoading = false
+    private var tokenPost: String? = null
+    override fun getAllPost(): MutableList<NewPost> = postItemsAll
 
-    override fun getPost(): Single<Response<MutableList<NewPost>>>? =
-        postRepository.getPost(localRepository.getToken())
-            ?.subscribeOn(Schedulers.io())
-            ?.observeOn(AndroidSchedulers.mainThread())
-            ?.doOnSuccess {
-                postListRecycler.clear()
-                postLists.clear()
-                it.body()?.let { it1 -> postLists.addAll(it1) }
-                postListRecycler.add(NewPost())
+    override fun getListPostAdapter(): MutableList<NewPost?> {
+        createListPost()
+        return postItems
+    }
+
+    override fun getListPost(): MutableList<NewPost?> = postItems
+
+    override fun getListPostFromServer(token: String): Single<Response<MutableList<NewPost>>>? =
+        postRepository.getPost(token)?.doOnSuccess {
+            if (it.isSuccessful) {
+                tokenPost = token
+                postItemsAll.clear()
+                postItemsAll.addAll(it.body()?.toMutableList() ?: mutableListOf())
             }
+        }
 
-    override fun likePost(token: String, id: Int): Single<Response<ResponseLike>>? =
-        postRepository.likePost(token, postLists[id].id)
-            ?.subscribeOn(Schedulers.io())
-            ?.observeOn(AndroidSchedulers.mainThread())
-            ?.doOnSuccess {
+    override fun updateLikePost(
+        token: String,
+        id: Int
+    ): Single<Response<ResponseLike>>? =
+        postItems[id]?.id?.let {
+            postRepository.likePost(token, it)?.doOnSuccess {
                 if (it.isSuccessful) {
-                    it.body()?.let {
-                        postLists[id].like_count = it.likeCount
-                        postLists[id].like_flag = it.like_flag
+                    it.body().let {
+                        postItems[id]?.like_flag = it?.like_flag!!
+                        postItems[id]?.like_count = it.likeCount
                     }
                 }
             }
-
-
-    override fun createNewPost(
-        token: String,
-        body: Post,
-        image: MultipartBody.Part?
-    ): Single<Response<ApiResponse>>? = postRepository.createNewPost(token, body, image)
-        ?.subscribeOn(Schedulers.io())
-        ?.observeOn(AndroidSchedulers.mainThread())
-        ?.doOnSuccess {
         }
 
+    override fun refreshData() = postItems.clear()
+
+    override fun loadMore(positionItem: Int) {
+        if (canLoadMore(positionItem)) {
+            Handler().postDelayed({
+                var currentSize = postItems.size
+                val next = currentSize + LIMIT_ITEM
+                while (currentSize < postItemsAll.size && currentSize < next) {
+                    postItems.add(postItemsAll[currentSize])
+                    currentSize++
+                }
+                progressBar.onNext(false)
+                isLoading = false
+            }, DELAY_TIME)
+            isLoading = true
+            progressBar.onNext(true)
+        }
+    }
+
+    override fun updateProgressBar(): BehaviorSubject<Boolean> = progressBar
+
+    override fun searchPostFromServer(key: String): Single<Response<MutableList<NewPost>>>? =
+        tokenPost.let {
+            it?.let { it1 ->
+                postRepository.getPost(it1)?.doOnSuccess {
+                    if (it.isSuccessful) {
+                        postItemsAll.clear()
+                        it.body()?.forEach { post ->
+                            if (post.content.contains(key)) {
+                                post.content = key
+                                postItemsAll.add(post)
+                            }
+                        }
+                        if (postItemsAll.size != 0) {
+                            result = true
+                            createListPost()
+                        } else {
+                            result = false
+                        }
+                    }
+                }
+            }
+        }
+
+    override fun getResultSearch(): Boolean = result
     override fun getIdUser(): Int? =
         localRepository.getIdUser()
 
     override fun getToken(): String? = localRepository.getToken()
 
-    override fun search(search: String): MutableList<NewPost> {
-        itemSearch.clear()
-        for (i in postLists.indices) {
-            if (postLists[i].content.contains(search)) {
-                itemSearch.add(postLists[i])
+    private fun canLoadMore(lastVisibleItem: Int) =
+        (!isLoading && lastVisibleItem == postItems.size - POSITION_ITEM_LOAD_MORE && postItems.size < postItemsAll.size)
+
+    private fun createListPost() {
+        postItems.clear()
+        if (postItemsAll.size >= LIMIT_ITEM) {
+            for (i in 0 until LIMIT_ITEM) {
+                postItems.add(postItemsAll[i])
+            }
+        } else {
+            for (element in postItemsAll) {
+                postItems.add(element)
             }
         }
-        return itemSearch
     }
 }

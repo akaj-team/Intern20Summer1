@@ -38,7 +38,8 @@ class AddNewFeedFragment : Fragment() {
     private var viewModel: PostViewModel? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = PostViewModel(PostRepository(), LocalRepository(requireContext()))
+        viewModel =
+            PostViewModel(PostRepository(requireContext()), LocalRepository(requireContext()))
         token = viewModel?.getToken().toString()
     }
 
@@ -104,8 +105,8 @@ class AddNewFeedFragment : Fragment() {
 
     private fun createNewPost() {
         btnCreatePost?.setOnClickListener {
-            @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS") val file =
-                File(context?.let { it1 -> UtilsConvert().getPath(imgPicture, it1) })
+            @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
+            val file = File(context?.let { it1 -> UtilsConvert().getPath(imgPicture, it1) })
             val fileReqBody =
                 file.asRequestBody(resources.getString(R.string.string_gallery).toMediaTypeOrNull())
             val part = MultipartBody.Part.createFormData(
@@ -117,12 +118,7 @@ class AddNewFeedFragment : Fragment() {
             token?.let { it1 -> viewModel?.createNewPost(it1, Post(content), part) }
                 ?.subscribeOn(Schedulers.io())
                 ?.observeOn(AndroidSchedulers.mainThread())
-                ?.subscribe({ it ->
-                    if (it.isSuccessful) {
-                        Toast.makeText(requireContext(), "successful", Toast.LENGTH_SHORT).show()
-                    } else {
-                        Toast.makeText(requireContext(), "fail", Toast.LENGTH_SHORT).show()
-                    }
+                ?.subscribe({
                 }, {
                     it.message
                 })
