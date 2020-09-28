@@ -24,12 +24,6 @@ class HomeViewModel(private val repository: HomeRepository) : ViewModel(),
     private var postItemsStorage = mutableListOf<Post>()
     private var isLoading = false
     private var tokenVM: String? = null
-    override fun getAllPost(): MutableList<Post> = postItemsStorage
-
-    override fun getListPostAdapter(): MutableList<Post?> {
-        createListPost()
-        return postItems
-    }
 
     override fun getListPost(): MutableList<Post?> = postItems
 
@@ -39,6 +33,7 @@ class HomeViewModel(private val repository: HomeRepository) : ViewModel(),
                 tokenVM = token
                 postItemsStorage.clear()
                 postItemsStorage.addAll(it.body()?.toMutableList() ?: mutableListOf())
+                createListPost()
             }
         }
 

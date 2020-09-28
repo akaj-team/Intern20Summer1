@@ -8,10 +8,6 @@ import retrofit2.Response
 
 interface HomeVMContract {
 
-    fun getAllPost(): MutableList<Post>
-
-    fun getListPostAdapter(): MutableList<Post?>
-
     fun getListPost(): MutableList<Post?>
 
     fun getListPostFromServer(token: String): Single<Response<MutableList<Post>>>?

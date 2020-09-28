@@ -46,6 +46,7 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+        setBackGroundLoginButton()
         handleClickingRegisterTextView()
         handleLoginEmailTextChanged()
         handleLoginPasswordTextChanged()
@@ -74,14 +75,12 @@ class LoginFragment : Fragment() {
     private fun handleLoginEmailTextChanged() {
         edtEmail?.addTextChangedListener(onTextChanged = { p0: CharSequence?, _, _, _ ->
             viewModel?.validateLoginInformation(p0.toString(), edtPassword.text.toString())
-            setBackGroundLoginButton()
         })
     }
 
     private fun handleLoginPasswordTextChanged() {
         edtPassword?.addTextChangedListener(onTextChanged = { p0: CharSequence?, _, _, _ ->
             viewModel?.validateLoginInformation(edtEmail.text.toString(), p0.toString())
-            setBackGroundLoginButton()
         })
     }
 

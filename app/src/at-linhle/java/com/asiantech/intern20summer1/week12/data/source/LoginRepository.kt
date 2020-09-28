@@ -9,7 +9,7 @@ import io.reactivex.Single
 import retrofit2.Response
 
 class LoginRepository : LoginDataSource {
-    private val loginRemoteDataSource = LoginRemoteDataSource(ApiClient)
+    private val loginRemoteDataSource = LoginRemoteDataSource(ApiClient.createService())
 
     override fun login(email: String, password: String): Single<Response<User>>? = loginRemoteDataSource.login(email, password)
 

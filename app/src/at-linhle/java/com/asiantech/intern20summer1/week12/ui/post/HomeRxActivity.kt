@@ -15,6 +15,7 @@ import com.asiantech.intern20summer1.week12.ui.login.LoginFragment.Companion.KEY
 import com.asiantech.intern20summer1.week12.ui.login.LoginFragment.Companion.SHARED_PREFERENCE_TOKEN
 import com.asiantech.intern20summer1.week12.ui.post.HomeViewModel.Companion.DELAY_TIME
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers.io
 import kotlinx.android.synthetic.`at-linhle`.activity_post_home.*
 
@@ -24,6 +25,7 @@ class HomeRxActivity : AppCompatActivity() {
     private var token: String? = null
     private lateinit var adapter: PostViewHolder
     private var viewModel: HomeVMContract? = null
+    private val compositeDisposable = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,9 +34,47 @@ class HomeRxActivity : AppCompatActivity() {
             HomeRepository()
         )
         getData()
+        initAdapter()
+        handleSwipeRefresh()
+        initScrollListener()
         initData()
         handleSearchIconCLicked()
         toolbarHome?.title = fullName
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel?.updateProgressBar()
+            ?.subscribeOn(io())
+            ?.observeOn(AndroidSchedulers.mainThread())
+            ?.subscribe(this::handleProgressStatus)?.let {
+                compositeDisposable.add(it)
+            }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        compositeDisposable.clear()
+    }
+
+    internal fun search(search: String) {
+        viewModel?.searchPostFromServer(search)
+            ?.subscribeOn(io())
+            ?.observeOn(AndroidSchedulers.mainThread())
+            ?.subscribe({
+                if (viewModel?.getResultSearch() == true) {
+                    adapter.notifyDataSetChanged()
+                    imgPlus?.visibility = View.INVISIBLE
+                } else {
+                    Toast.makeText(
+                        this,
+                        getString(R.string.home_rx_activity_search_result),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }, {
+                //No-op
+            })
     }
 
     private fun getData() {
@@ -43,7 +83,7 @@ class HomeRxActivity : AppCompatActivity() {
     }
 
     private fun initAdapter() {
-        adapter = PostViewHolder(viewModel?.getListPostAdapter() ?: mutableListOf())
+        adapter = PostViewHolder(viewModel?.getListPost() ?: mutableListOf())
         recyclerViewContainer?.layoutManager = LinearLayoutManager(this)
         adapter.onHeartClicked = {
             handleClickingHeartIcon(it)
@@ -57,10 +97,8 @@ class HomeRxActivity : AppCompatActivity() {
                 ?.subscribeOn(io())
                 ?.observeOn(AndroidSchedulers.mainThread())
                 ?.subscribe({
-                    initAdapter()
+                    adapter.notifyDataSetChanged()
                     progressLoadApi?.visibility = View.GONE
-                    handleSwipeRefresh()
-                    initScrollListener()
                 }, {
                     //No-op
                 })
@@ -74,7 +112,6 @@ class HomeRxActivity : AppCompatActivity() {
                 imgPlus?.visibility = View.VISIBLE
                 progressLoadApi?.visibility = View.VISIBLE
                 initData()
-                adapter.notifyDataSetChanged()
                 swipeContainer.isRefreshing = false
             }, DELAY_TIME)
         }
@@ -88,15 +125,6 @@ class HomeRxActivity : AppCompatActivity() {
                 linearLayoutManager?.let {
                     val lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition()
                     viewModel?.loadMore(lastVisibleItem)
-                    viewModel?.updateProgressBar()?.subscribe({
-                        if (it) {
-                            progressBar?.visibility = View.VISIBLE
-                        } else {
-                            progressBar?.visibility = View.INVISIBLE
-                        }
-                    }, {
-                        //No-op
-                    })
                 }
             }
 
@@ -105,6 +133,14 @@ class HomeRxActivity : AppCompatActivity() {
                 adapter.notifyDataSetChanged()
             }
         })
+    }
+
+    private fun handleProgressStatus(status: Boolean) {
+        if (status) {
+            progressBar?.visibility = View.VISIBLE
+        } else {
+            progressBar?.visibility = View.INVISIBLE
+        }
     }
 
     private fun handleClickingHeartIcon(position: Int) {
@@ -129,28 +165,7 @@ class HomeRxActivity : AppCompatActivity() {
     private fun handleSearchIconCLicked() {
         imgPlus?.setOnClickListener {
             val fragmentManager = supportFragmentManager
-            SearchDialogFragment()
-                .show(fragmentManager, null)
+            SearchDialogFragment().show(fragmentManager, null)
         }
-    }
-
-    internal fun search(search: String) {
-        viewModel?.searchPostFromServer(search)
-            ?.subscribeOn(io())
-            ?.observeOn(AndroidSchedulers.mainThread())
-            ?.subscribe({
-                if (viewModel?.getResultSearch() == true) {
-                    adapter.notifyDataSetChanged()
-                    imgPlus?.visibility = View.INVISIBLE
-                } else {
-                    Toast.makeText(
-                        this,
-                        getString(R.string.home_rx_activity_search_result),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }, {
-                //No-op
-            })
     }
 }
