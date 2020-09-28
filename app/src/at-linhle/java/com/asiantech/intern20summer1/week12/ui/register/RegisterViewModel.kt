@@ -6,7 +6,7 @@ import com.asiantech.intern20summer1.week12.data.model.UserRegister
 import com.asiantech.intern20summer1.week12.data.source.LoginRepository
 import com.asiantech.intern20summer1.week12.ui.login.LoginViewModel
 import io.reactivex.Single
-import io.reactivex.subjects.BehaviorSubject
+import io.reactivex.subjects.PublishSubject
 import retrofit2.Response
 import java.util.regex.Pattern
 
@@ -16,13 +16,13 @@ class RegisterViewModel(private val repository: LoginRepository) : ViewModel(), 
         private const val MAX_FULL_NAME_LENGTH = 64
     }
 
-    private val validateRegisterInformationStatus = BehaviorSubject.create<Boolean>()
+    private val validateRegisterInformationStatus = PublishSubject.create<Boolean>()
     private val passwordPattern = Pattern.compile("""^(?=.*).{8,16}$""")
 
     override fun register(userRegister: UserRegister): Single<Response<User>>? =
         repository.register(userRegister)
 
-    override fun infoValidateStatus(): BehaviorSubject<Boolean> = validateRegisterInformationStatus
+    override fun infoValidateStatus(): PublishSubject<Boolean> = validateRegisterInformationStatus
 
     override fun validateRegisterInformation(fullName: String, email: String, password: String) {
         if (isCorrectFormat(fullName, email, password)) {

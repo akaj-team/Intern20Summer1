@@ -42,6 +42,7 @@ class RegisterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setBackgroundButton()
         initView()
         handleClickingArrowBack()
         handleRegisterEmailTextChanged()
@@ -63,7 +64,6 @@ class RegisterFragment : Fragment() {
                 edtEmail?.text.toString(),
                 edtPassword?.text.toString()
             )
-            setBackgroundButton()
         })
     }
 
@@ -74,7 +74,6 @@ class RegisterFragment : Fragment() {
                 p0.toString(),
                 edtPassword?.text.toString()
             )
-            setBackgroundButton()
         })
     }
 
@@ -85,7 +84,6 @@ class RegisterFragment : Fragment() {
                 edtEmail?.text.toString(),
                 p0.toString()
             )
-            setBackgroundButton()
         })
     }
 

@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import com.asiantech.intern20summer1.week12.data.model.User
 import com.asiantech.intern20summer1.week12.data.source.LoginRepository
 import io.reactivex.Single
-import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject
 import retrofit2.Response
 import java.util.regex.Pattern
