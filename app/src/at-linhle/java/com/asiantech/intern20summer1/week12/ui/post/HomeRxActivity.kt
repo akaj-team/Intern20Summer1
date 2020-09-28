@@ -98,7 +98,6 @@ class HomeRxActivity : AppCompatActivity() {
                 ?.observeOn(AndroidSchedulers.mainThread())
                 ?.subscribe({
                     adapter.notifyDataSetChanged()
-                    progressLoadApi?.visibility = View.GONE
                 }, {
                     //No-op
                 })
@@ -110,7 +109,6 @@ class HomeRxActivity : AppCompatActivity() {
             Handler().postDelayed({
                 viewModel?.refreshData()
                 imgPlus?.visibility = View.VISIBLE
-                progressLoadApi?.visibility = View.VISIBLE
                 initData()
                 swipeContainer.isRefreshing = false
             }, DELAY_TIME)
