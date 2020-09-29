@@ -22,8 +22,6 @@ interface HomeVMContact {
 
     fun loadMore(lastVisibleItem: Int)
 
-//    fun getExtraPost()
-
     fun updateProgressBar() : BehaviorSubject<Boolean>
 
     fun getAllPostFromServer(): MutableList<Post>
