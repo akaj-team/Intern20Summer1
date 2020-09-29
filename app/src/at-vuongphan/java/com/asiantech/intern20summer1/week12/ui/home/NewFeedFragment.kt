@@ -11,10 +11,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.week12.activity.RecyclerViewNewFeed
+import com.asiantech.intern20summer1.week12.activity.NewFeedActivity
 import com.asiantech.intern20summer1.week12.data.source.LocalRepository
 import com.asiantech.intern20summer1.week12.data.source.PostRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers.io
 import kotlinx.android.synthetic.`at-vuongphan`.w10_fragment_new_feed.*
 
@@ -23,7 +24,7 @@ class NewFeedFragment : Fragment() {
     private var id: Int? = 0
     private var token: String? = null
     private var viewModel: PostViewModel? = null
-    private var post = viewModel?.getListPostAdapter()
+    private val compositeDisposable = CompositeDisposable()
 
     companion object {
         private const val DELAY_TIME = 2000L
@@ -34,6 +35,24 @@ class NewFeedFragment : Fragment() {
         super.onCreate(savedInstanceState)
         viewModel =
             PostViewModel(PostRepository(requireContext()), LocalRepository(requireContext()))
+        initAdapter()
+        handleSwipeRefresh()
+        initScrollListener()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel?.updateProgressBar()
+            ?.subscribeOn(io())
+            ?.observeOn(AndroidSchedulers.mainThread())
+            ?.subscribe()?.let {
+                compositeDisposable.add(it)
+            }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        compositeDisposable.clear()
     }
 
     override fun onCreateView(
@@ -43,7 +62,7 @@ class NewFeedFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.w10_fragment_new_feed, container, false)
         val toolbar = view?.findViewById<androidx.appcompat.widget.Toolbar>(R.id.tbNewFeed)
-        (activity as RecyclerViewNewFeed).setSupportActionBar(toolbar)
+        (activity as NewFeedActivity).setSupportActionBar(toolbar)
         return view
     }
 
@@ -64,19 +83,19 @@ class NewFeedFragment : Fragment() {
 
     private fun openDialogSearch() {
         imgSearch?.setOnClickListener {
-            val fragment = FragmentDialogSearch.newInstance(this@NewFeedFragment)
+            val fragment = FragmentDialogSearch.newInstance()
             fragmentManager?.let { it1 -> fragment.show(it1, "") }
         }
     }
 
     private fun openAddNewFeedFragment() {
         imgPlus?.setOnClickListener {
-            (activity as? RecyclerViewNewFeed)?.openFragment(AddNewFeedFragment.newInstance(), true)
+            (activity as? NewFeedActivity)?.openFragment(AddNewFeedFragment.newInstance(), true)
         }
     }
 
     private fun initAdapter() {
-        adapterNewFeeds = ItemFeedAdapter(post)
+        adapterNewFeeds = ItemFeedAdapter(viewModel?.getListPostAdapter())
         recyclerViewMain?.layoutManager = LinearLayoutManager(requireContext())
         adapterNewFeeds.onItemClicked = {
             handleClickingHeartIcon(it)
@@ -90,12 +109,8 @@ class NewFeedFragment : Fragment() {
                 ?.subscribeOn(io())
                 ?.observeOn(AndroidSchedulers.mainThread())
                 ?.subscribe({
-                    initAdapter()
-                    progressLoadApi?.visibility = View.GONE
-                    handleSwipeRefresh()
-                    initScrollListener()
+                    adapterNewFeeds.notifyDataSetChanged()
                 }, {
-
                 })
         }
     }
@@ -105,9 +120,7 @@ class NewFeedFragment : Fragment() {
             Handler().postDelayed({
                 viewModel?.refreshData()
                 imgPlus?.visibility = View.VISIBLE
-                progressLoadApi?.visibility = View.VISIBLE
                 initData()
-                adapterNewFeeds.notifyDataSetChanged()
                 srlRefreshItem.isRefreshing = false
             }, DELAY_TIME)
         }
@@ -121,15 +134,6 @@ class NewFeedFragment : Fragment() {
                 linearLayoutManager?.let {
                     val lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition()
                     viewModel?.loadMore(lastVisibleItem)
-                    viewModel?.updateProgressBar()?.subscribe({
-                        if (it) {
-                            progressBar?.visibility = View.VISIBLE
-                        } else {
-                            progressBar?.visibility = View.INVISIBLE
-                        }
-                    }, {
-                        //No-op
-                    })
                 }
             }
 

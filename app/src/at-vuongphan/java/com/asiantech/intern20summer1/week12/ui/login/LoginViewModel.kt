@@ -25,10 +25,6 @@ class LoginViewModel(
                 }
             }
 
-    override fun getToken(): String? {
-        TODO("Not yet implemented")
-    }
-
     override fun putToken(token: String) {
         localRepository.putToken(token)
     }
@@ -37,15 +33,8 @@ class LoginViewModel(
         localRepository.putIdUser(idUser)
     }
 
-    override fun getIdUser(): Int? {
-        TODO("Not yet implemented")
-    }
-
     override fun putIsLogin(isLogin: Boolean) {
         localRepository.putIsLogin(isLogin)
     }
 
-    override fun getIsLogin(): Boolean? {
-        TODO("Not yet implemented")
-    }
 }

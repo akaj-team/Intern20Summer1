@@ -15,7 +15,7 @@ import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.extension.hideKeyboard
 import com.asiantech.intern20summer1.extension.isValidEmail
 import com.asiantech.intern20summer1.extension.isValidPasswordW10
-import com.asiantech.intern20summer1.week12.activity.RecyclerViewNewFeed
+import com.asiantech.intern20summer1.week12.activity.NewFeedActivity
 import com.asiantech.intern20summer1.week12.data.models.UserAutoSignIn
 import com.asiantech.intern20summer1.week12.data.source.LocalRepository
 import com.asiantech.intern20summer1.week12.data.source.UserRepository
@@ -99,7 +99,7 @@ class FragmentLogin : Fragment() {
                 ?.observeOn(AndroidSchedulers.mainThread())
                 ?.subscribe { it: Response<UserAutoSignIn> ->
                     if (it.isSuccessful) {
-                        startActivity(Intent(requireContext(), RecyclerViewNewFeed::class.java))
+                        startActivity(Intent(requireContext(), NewFeedActivity::class.java))
                         activity?.finish()
                     } else {
                         val error = ErrorUtils().parseError(it)

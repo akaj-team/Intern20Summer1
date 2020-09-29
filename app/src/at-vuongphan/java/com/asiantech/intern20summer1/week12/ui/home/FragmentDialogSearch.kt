@@ -11,11 +11,9 @@ import com.asiantech.intern20summer1.R
 import kotlinx.android.synthetic.`at-vuongphan`.w10_dialog_search.*
 
 class FragmentDialogSearch : DialogFragment() {
-    lateinit var view: NewFeedFragment
 
     companion object {
-        fun newInstance(parent: NewFeedFragment) = FragmentDialogSearch().apply {
-            view = parent
+        fun newInstance() = FragmentDialogSearch().apply {
         }
     }
 
@@ -48,8 +46,9 @@ class FragmentDialogSearch : DialogFragment() {
     private fun initButtonOkClicked() {
         btnOk?.setOnClickListener {
             val search = edtSearch.text.toString()
-            view.search(search)
+            (parentFragment as? NewFeedFragment)?.search(search)
             dialog?.dismiss()
+
         }
     }
 }

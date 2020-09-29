@@ -1,9 +1,6 @@
 package com.asiantech.intern20summer1.week12.data.source.remote.network
 
-import com.asiantech.intern20summer1.week12.data.models.ApiResponse
-import com.asiantech.intern20summer1.week12.data.models.NewPost
-import com.asiantech.intern20summer1.week12.data.models.Post
-import com.asiantech.intern20summer1.week12.data.models.ResponseLike
+import com.asiantech.intern20summer1.week12.data.models.*
 import com.asiantech.intern20summer1.week12.data.source.remote.network.ClientAPI.CREATE_POST
 import com.asiantech.intern20summer1.week12.data.source.remote.network.ClientAPI.DELETE_POST
 import com.asiantech.intern20summer1.week12.data.source.remote.network.ClientAPI.GET_API_POSTS
@@ -14,7 +11,7 @@ import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.*
 
-interface PostsAPI {
+interface ApiService {
     @GET(GET_API_POSTS)
     fun getPost(@Header("token") token: String): Single<Response<MutableList<NewPost>>>
 
@@ -43,4 +40,14 @@ interface PostsAPI {
         @Header("token") token: String,
         @Path("id") id: Int = 0
     ): Single<Response<ResponseLike>>
+
+    @POST("api/user")
+    fun addNewUserRegister(@Body newUserRegister: UserRegister): Single<Response<UserAutoSignIn>>
+
+    @POST("/api/login")
+    @FormUrlEncoded
+    fun login(
+        @Field("email") email: String,
+        @Field("password") password: String
+    ): Single<Response<UserAutoSignIn>>
 }

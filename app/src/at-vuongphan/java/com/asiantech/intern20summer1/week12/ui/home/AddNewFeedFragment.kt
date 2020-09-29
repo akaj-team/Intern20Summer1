@@ -14,7 +14,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.asiantech.intern20summer1.R
-import com.asiantech.intern20summer1.week12.activity.RecyclerViewNewFeed
+import com.asiantech.intern20summer1.week12.activity.NewFeedActivity
 import com.asiantech.intern20summer1.week12.data.models.Post
 import com.asiantech.intern20summer1.week12.data.source.LocalRepository
 import com.asiantech.intern20summer1.week12.data.source.PostRepository
@@ -119,10 +119,10 @@ class AddNewFeedFragment : Fragment() {
                 ?.subscribeOn(Schedulers.io())
                 ?.observeOn(AndroidSchedulers.mainThread())
                 ?.subscribe({
+                    (activity as? NewFeedActivity)?.openFragment(NewFeedFragment.newInstance())
                 }, {
                     it.message
                 })
-            (activity as? RecyclerViewNewFeed)?.openFragment(NewFeedFragment.newInstance())
         }
     }
 }

@@ -20,11 +20,9 @@ object ClientAPI {
     internal const val LIKE_POST = "api/post/{id}/like"
 
     private const val API_URL = "https://at-a-trainning.000webhostapp.com/"
-    internal fun createUserService(): UserClient? =
-        getClient()?.create(UserClient::class.java)
 
-    internal fun createPost(): PostsAPI? =
-        getClient()?.create(PostsAPI::class.java)
+    internal fun createPost(): ApiService? =
+        getClient()?.create(ApiService::class.java)
 
     internal fun getClient(): Retrofit? {
         val httpLoggingInterceptor = HttpLoggingInterceptor().apply {

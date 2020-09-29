@@ -8,7 +8,7 @@ import com.asiantech.intern20summer1.R
 import com.asiantech.intern20summer1.week12.ui.home.NewFeedFragment
 import com.asiantech.intern20summer1.week12.data.models.UserAutoSignIn
 
-class RecyclerViewNewFeed : AppCompatActivity() {
+class NewFeedActivity : AppCompatActivity() {
     internal lateinit var token: String
 
     override fun onCreate(savedInstanceState: Bundle?) {

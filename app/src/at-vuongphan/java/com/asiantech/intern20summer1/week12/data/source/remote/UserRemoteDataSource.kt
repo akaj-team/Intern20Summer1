@@ -4,14 +4,14 @@ import com.asiantech.intern20summer1.week12.data.source.remote.network.ClientAPI
 import com.asiantech.intern20summer1.week12.data.source.datasource.UserDataSource
 import com.asiantech.intern20summer1.week12.data.models.UserAutoSignIn
 import com.asiantech.intern20summer1.week12.data.models.UserRegister
+import com.asiantech.intern20summer1.week12.data.source.remote.network.ApiService
 import io.reactivex.Single
 import retrofit2.Response
 
-class UserRemoteDataSource : UserDataSource {
-    val callRx = ClientAPI.createUserService()
+class UserRemoteDataSource(val api: ApiService? = ClientAPI.createPost()) : UserDataSource {
     override fun login(username: String, password: String): Single<Response<UserAutoSignIn>>? =
-        callRx?.login(username, password)
+        api?.login(username, password)
 
     override fun addUser(userRegister: UserRegister): Single<Response<UserAutoSignIn>>? =
-        callRx?.addNewUserRegister(userRegister)
+        api?.addNewUserRegister(userRegister)
 }

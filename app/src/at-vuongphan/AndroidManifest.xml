@@ -19,7 +19,7 @@
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat"
             tools:ignore="MissingClass" />
-        <activity android:name=".week12.activity.RecyclerViewNewFeed" />
+        <activity android:name=".week12.activity.NewFeedActivity" />
         <activity android:name=".week12.activity.ActivityLogin" />
         <activity android:name=".week3.activity.MainActivity" />
         <activity android:name=".week6.activity.ViewPagerActivityTwo" />
