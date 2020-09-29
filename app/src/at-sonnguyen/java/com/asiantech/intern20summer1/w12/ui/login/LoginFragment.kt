@@ -20,8 +20,6 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.`at-sonnguyen`.w12_fragment_login.*
 
 class LoginFragment : Fragment() {
-    private var emailText: String = ""
-    private var passwordText: String = ""
     private var viewModel: LoginVMContact? = null
 
     companion object {
@@ -71,9 +69,7 @@ class LoginFragment : Fragment() {
     private fun getData() {
         arguments?.let {
             edtEmailLogin.setText(it.getString(KEY_VALUE_EMAIL))
-            emailText = it.getString(KEY_VALUE_EMAIL).toString()
             edtPasswordLogin.setText(it.getString(KEY_VALUE_PASSWORD))
-            passwordText = it.getString(KEY_VALUE_PASSWORD).toString()
         }
     }
 
@@ -100,7 +96,7 @@ class LoginFragment : Fragment() {
     private fun handleLoginButtonListener() {
         btnLogin?.setOnClickListener {
             progressBarLogin.visibility = View.VISIBLE
-            viewModel?.login(emailText, passwordText)?.subscribeOn(Schedulers.io())
+            viewModel?.login(edtEmailLogin.text.toString(), edtPasswordLogin.text.toString())?.subscribeOn(Schedulers.io())
                 ?.observeOn(AndroidSchedulers.mainThread())
                 ?.subscribe({
                     if (it.isSuccessful) {

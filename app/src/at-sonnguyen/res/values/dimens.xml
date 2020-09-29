@@ -88,4 +88,9 @@
     <dimen name="w12_search_fragment_margin">15dp</dimen>
     <dimen name="w12_search_fragment_height">200dp</dimen>
     <dimen name="w12_search_fragment_back_image_margin_top">25dp</dimen>
+    <dimen name="w12_image_icon_size">30dp</dimen>
+    <dimen name="w12_search_edit_text_height">35dp</dimen>
+    <dimen name="w12_text_view_text_size">16sp</dimen>
+    <dimen name="w12_text_view_register_margin_right">20dp</dimen>
+    <dimen name="w12_text_view_ask_margin_right">80dp</dimen>
 </resources>

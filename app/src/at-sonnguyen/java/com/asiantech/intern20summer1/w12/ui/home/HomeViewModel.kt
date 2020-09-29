@@ -30,12 +30,9 @@ class HomeViewModel(private val repository: HomeRepository) : ViewModel(), HomeV
             if (it.isSuccessful) {
                 allPosts.clear()
                 allPosts.addAll(it.body()?.toMutableList() ?: mutableListOf())
+                getPostListAdapter()
             }
         }
-
-
-    override fun likePost(token: String, id: Int): Single<Response<LikeResponse>>? =
-        repository.likePost(token, id)
 
     override fun likePost(token: String, id: Int, position: Int): Single<Response<LikeResponse>>? =
         repository.likePost(token, id)?.doOnSuccess {
@@ -49,7 +46,7 @@ class HomeViewModel(private val repository: HomeRepository) : ViewModel(), HomeV
 
     override fun getPostList(): MutableList<Post?> = posts
 
-    override fun getPostListAdapter(): MutableList<Post?> {
+    private fun getPostListAdapter(): MutableList<Post?> {
         posts.clear()
         if (allPosts.size >= ITEM_LIMIT) {
             for (i in 0 until ITEM_LIMIT) {
@@ -72,7 +69,7 @@ class HomeViewModel(private val repository: HomeRepository) : ViewModel(), HomeV
     ) {
         if (canLoadMore(lastVisibleItem)) {
             Handler().postDelayed({
-                var currentSize = getPostList().size
+                var currentSize = posts.size
                 val nextLimit = if (allPosts.size - posts.size >= 10) {
                     currentSize + ITEM_LIMIT
                 } else {

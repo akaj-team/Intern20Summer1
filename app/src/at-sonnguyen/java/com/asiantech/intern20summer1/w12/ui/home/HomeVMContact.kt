@@ -10,11 +10,7 @@ interface HomeVMContact {
 
     fun getAllPostsFromServer(token: String): Single<Response<MutableList<Post>>>?
 
-    fun likePost(token: String, id: Int): Single<Response<LikeResponse>>?
-
     fun getPostList(): MutableList<Post?>
-
-    fun getPostListAdapter(): MutableList<Post?>
 
     fun refreshData()
 

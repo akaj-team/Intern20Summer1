@@ -6,18 +6,18 @@ import com.asiantech.intern20summer1.w12.data.source.repository.LoginRepository
 import com.asiantech.intern20summer1.w12.extension.isValidEmail
 import com.asiantech.intern20summer1.w12.extension.isValidPassword
 import io.reactivex.Single
-import io.reactivex.subjects.BehaviorSubject
+import io.reactivex.subjects.PublishSubject
 import retrofit2.Response
 
 
 class LoginViewModel(private val repository: LoginRepository) : ViewModel(), LoginVMContact {
 
-    private var isValidInfo = BehaviorSubject.create<Boolean>()
+    private var isValidInfo = PublishSubject.create<Boolean>()
 
     override fun login(email: String, password: String): Single<Response<User>>? =
         repository.login(email, password)
 
-    override fun isValidInformationStatus(): BehaviorSubject<Boolean> = isValidInfo
+    override fun isValidInformationStatus(): PublishSubject<Boolean> = isValidInfo
 
     override fun isValidInformation(email: String, password: String) {
         if (isValidEmail(email) && isValidPassword(password)) {

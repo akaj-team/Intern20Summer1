@@ -71,4 +71,5 @@
     <string name="w12_nothing_toast">Không có kết quả phù hợp</string>
     <string name="w12_register_success_toast">Register Success</string>
     <string name="w12_register_failure_toast">Register failure</string>
+    <string name="w12_do_you_have_account">Do you have Account ?</string>
 </resources>

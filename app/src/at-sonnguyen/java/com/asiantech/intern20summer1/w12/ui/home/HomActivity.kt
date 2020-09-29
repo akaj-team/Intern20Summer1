@@ -40,34 +40,13 @@ class HomActivity : AppCompatActivity() {
         setContentView(R.layout.w12_fragment_home)
         viewModel = HomeViewModel(HomeRepository())
         getDataFromLogin()
-        getAllPost()
         initAdapter()
         initScrollListener()
+        handleSwipeRefresh()
+        getAllPost()
         initListener()
         toolbarHome.title = user.full_name
     }
-
-    private fun getAllPost() {
-        user.token.let {
-            viewModel?.getAllPostsFromServer(it)
-                ?.subscribeOn(Schedulers.io())
-                ?.observeOn(AndroidSchedulers.mainThread())
-                ?.subscribe({
-                    initAdapter()
-                    progressBarMain.visibility = View.GONE
-                    handleSwipeRefresh()
-                    initScrollListener()
-                }, {
-                    // No-ops
-                })
-        }
-    }
-
-//    override fun onStart() {
-//        super.onStart()
-//        initView()
-//        initListener()
-//    }
 
     override fun onResume() {
         super.onResume()
@@ -79,14 +58,23 @@ class HomActivity : AppCompatActivity() {
             }
     }
 
+    private fun getAllPost() {
+        user.token.let {
+            viewModel?.getAllPostsFromServer(it)
+                ?.subscribeOn(Schedulers.io())
+                ?.observeOn(AndroidSchedulers.mainThread())
+                ?.subscribe({
+                    postAdapter.notifyDataSetChanged()
+                }, {
+                    // No-ops
+                })
+        }
+    }
+
     override fun onPause() {
         super.onPause()
         compositeDisposable.clear()
     }
-
-//    private fun initView() {
-//        toolbarHome.title = user.full_name
-//    }
 
     private fun handleProgressStatus(status: Boolean) {
         if (status) {
@@ -102,7 +90,7 @@ class HomActivity : AppCompatActivity() {
 
     private fun initAdapter() {
         postAdapter =
-            RecyclerViewAdapter(viewModel?.getPostListAdapter() ?: mutableListOf(), user.id)
+            RecyclerViewAdapter(viewModel?.getPostList() ?: mutableListOf(), user.id)
         recyclerViewHome.layoutManager = LinearLayoutManager(this)
         recyclerViewHome.adapter = postAdapter
         postAdapter.onLikeClicked = {
@@ -135,7 +123,6 @@ class HomActivity : AppCompatActivity() {
             Handler().postDelayed({
                 posts.clear()
                 getAllPost()
-//                postAdapter.notifyDataSetChanged()
                 pullToRefresh.isRefreshing = false
             }, DELAY_TIME.toLong())
         }

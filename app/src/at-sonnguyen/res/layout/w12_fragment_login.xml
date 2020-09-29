@@ -79,8 +79,19 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_marginTop="@dimen/w10_edit_text_margin_top"
+        android:layout_marginRight="@dimen/w12_text_view_register_margin_right"
         android:text="@string/w10_register_text_view_text"
-        android:textSize="@dimen/w10_button_text_size" />
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="@dimen/w12_text_view_text_size" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnLogin"
+        android:layout_marginTop="@dimen/w10_edit_text_margin_top"
+        android:layout_toLeftOf="@id/tvRegister"
+        android:text="@string/w12_do_you_have_account"
+        android:textSize="@dimen/w12_text_view_text_size" />
 
     <ProgressBar
         android:id="@+id/progressBarLogin"
