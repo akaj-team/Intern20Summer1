@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "cultivation")
 data class Cultivation(
-    @PrimaryKey(autoGenerate = true) val id: Int? = 0,
+    @PrimaryKey(autoGenerate = true) val id: Int? = null,
     var userGrowId: Int? = 0,
     var plantId: String? = "",
     var dateCultivation: String? = "",

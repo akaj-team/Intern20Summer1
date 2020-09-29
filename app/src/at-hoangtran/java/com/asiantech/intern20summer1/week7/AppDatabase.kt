@@ -39,7 +39,7 @@ abstract class AppDatabase : RoomDatabase() {
                     override fun onCreate(db: SupportSQLiteDatabase) {
                         super.onCreate(db)
                         Executors.newFixedThreadPool(2).execute {
-                            context.assets.open("plants.json").use { inputStream ->
+                            context.assets.open(JSON_NAME).use { inputStream ->
                                 JsonReader(inputStream.reader()).use { jsonReader ->
                                     val plantType = object : TypeToken<List<Plant>>() {}.type
                                     val plants: List<Plant> = Gson().fromJson(jsonReader, plantType)
@@ -48,8 +48,7 @@ abstract class AppDatabase : RoomDatabase() {
                             }
                         }
                     }
-                })
-                .allowMainThreadQueries().build()
+                }).allowMainThreadQueries().build()
         }
     }
 }

@@ -2,6 +2,7 @@ package com.asiantech.intern20summer1.week7
 
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -21,7 +22,7 @@ class GardenActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_garden)
-
+        appDatabase = AppDatabase.getInstance(this)
         handleActionBar()
         handleReplaceFragment(fragment, parent = R.id.flToolbarContainer)
         nav_bar.setNavigationItemSelectedListener(this)
@@ -81,6 +82,7 @@ class GardenActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
     private fun getUser() {
         val header = nav_bar.getHeaderView(0)
         val user = appDatabase?.getUserDAO()?.getUser()
+        Log.d("tag11", "getUser: ${user?.userName}")
         user?.apply{
             header.tvHomeUserName?.text = user.userName
             header.tvHomeUniversity?.text = user.university

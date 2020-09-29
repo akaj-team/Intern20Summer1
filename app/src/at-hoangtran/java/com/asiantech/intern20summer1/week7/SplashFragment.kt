@@ -21,7 +21,7 @@ SplashFragment : Fragment() {
         private const val TIME_CHECK_DATA = 1L
         private const val TIME_LOAD_DATA = 10L
         private const val TIMER_PERIOD = 100L
-        private const val LOAD_DATA_INTERNET = 20L
+        private const val LOAD_DATA_INTERNET = 30L
         internal fun newInstance() = SplashFragment()
     }
 
@@ -38,7 +38,7 @@ SplashFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        appDatabase = AppDatabase.getInstance(requireContext())
         loadProgressBar()
     }
 

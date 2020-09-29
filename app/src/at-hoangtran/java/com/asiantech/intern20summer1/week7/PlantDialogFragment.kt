@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +17,7 @@ import java.util.*
 
 class PlantDialogFragment : DialogFragment() {
     companion object {
-        internal const val DATE_FORMAT_STRING = "dd//MM//yyyy HH:mm"
+        internal const val DATE_FORMAT_STRING = "dd/MM/yyyy HH:mm"
     }
 
     private var plants: List<Plant>? = null
@@ -32,15 +33,14 @@ class PlantDialogFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        initData()
-        initView()
+        appDatabase = AppDatabase.getInstance(requireContext())
         handleBackButton()
+        initView()
+        initData()
     }
 
     private fun initView() {
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        handleBackButton()
     }
 
     private fun handleBackButton() {
@@ -51,6 +51,7 @@ class PlantDialogFragment : DialogFragment() {
 
     private fun initData() {
         plants = appDatabase?.getPlantDAO()?.getPlants()
+        Log.d("TAG11", "initData: ${plants?.size}")
         val listPlant = arrayListOf<String>()
         plants?.forEach { plant ->
             plant.name?.let { name ->
@@ -69,6 +70,7 @@ class PlantDialogFragment : DialogFragment() {
             val text =
                 "Grow Zome Number: ${plant?.growZoneNumber}\n Watering Interval: ${plant?.wateringInterval}"
             tvDialogDetail?.text = text
+            Log.d("TAG11", "handleOKButton: ${plant?.imageUrl}")
             imgDialogPlant.setImageURI(Uri.parse(plant?.imageUrl))
         }
     }
@@ -80,7 +82,7 @@ class PlantDialogFragment : DialogFragment() {
         val user = appDatabase?.getUserDAO()?.getUser()
         val cultivation = Cultivation()
         btnOK?.setOnClickListener {
-            Cultivation().apply {
+            cultivation.apply {
                 userGrowId = user?.userId
                 plantId = plants?.get(position)?.plantId
                 dateCultivation = dateCurrent
