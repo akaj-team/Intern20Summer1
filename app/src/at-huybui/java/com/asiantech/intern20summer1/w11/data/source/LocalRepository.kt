@@ -1,8 +1,10 @@
 package com.asiantech.intern20summer1.w11.data.source
 
 import android.content.Context
-import com.asiantech.intern20summer1.w11.data.source.datasource.SharedPreferencesDataSource
-import com.asiantech.intern20summer1.w11.data.source.local.SharedPreferencesLocalDataSource
+import android.net.Uri
+import com.asiantech.intern20summer1.w11.data.source.datasource.LocalDataSource
+import com.asiantech.intern20summer1.w11.data.source.local.LocalLocalDataSource
+import okhttp3.MultipartBody
 
 /**
  * Asian Tech Co., Ltd.
@@ -10,8 +12,8 @@ import com.asiantech.intern20summer1.w11.data.source.local.SharedPreferencesLoca
  * Created by at-huybui on 18/09/2020.
  * This is LocalRepository
  */
-class LocalRepository(context: Context) : SharedPreferencesDataSource {
-    private val sharedPreferences = SharedPreferencesLocalDataSource(context)
+class LocalRepository(context: Context) : LocalDataSource {
+    private val sharedPreferences = LocalLocalDataSource(context)
 
     override fun putToken(token: String) {
         sharedPreferences.putToken(token)
@@ -34,4 +36,7 @@ class LocalRepository(context: Context) : SharedPreferencesDataSource {
 
     override fun getIsLogin(): Boolean =
         sharedPreferences.getIsLogin()
+
+    override fun createMultiPartBody(uri: Uri?): MultipartBody.Part? =
+        sharedPreferences.createMultiPartBody(uri)
 }

@@ -5,11 +5,11 @@ import com.asiantech.intern20summer1.w11.data.models.PostContent
 import com.asiantech.intern20summer1.w11.data.models.PostItem
 import com.asiantech.intern20summer1.w11.data.models.ResponseLike
 import com.asiantech.intern20summer1.w11.data.models.ResponsePost
-import com.asiantech.intern20summer1.w11.data.source.HomeRepository
-import com.asiantech.intern20summer1.w11.data.source.LocalRepository
+import com.asiantech.intern20summer1.w11.data.source.datasource.HomeDataSource
+import com.asiantech.intern20summer1.w11.data.source.datasource.LocalDataSource
 import com.google.gson.Gson
+import io.reactivex.Scheduler
 import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -24,8 +24,8 @@ import retrofit2.Response
  */
 
 class HomeVM(
-    private val homeRepository: HomeRepository?,
-    private val localRepository: LocalRepository
+    private val homeRepository: HomeDataSource,
+    private val localRepository: LocalDataSource
 ) : HomeVMContract {
 
     companion object {
@@ -33,15 +33,32 @@ class HomeVM(
         private const val TYPE_TEXT = "text"
     }
 
-    var progressBehavior = BehaviorSubject.create<Boolean>()
-    var postLists = mutableListOf<PostItem>()
-    var postListRecycler = mutableListOf<PostItem>()
+    private var progressBehavior = BehaviorSubject.create<Boolean>()
+    private var postLists = mutableListOf<PostItem>()
+    private var postListRecycler = mutableListOf<PostItem>()
 
-    override fun likePost(position: Int): Single<Response<ResponseLike>>? =
-        homeRepository
-            ?.likePost(localRepository.getToken(), postLists[position].id)
-            ?.subscribeOn(Schedulers.io())
-            ?.observeOn(AndroidSchedulers.mainThread())
+    fun getPost(position: Int): PostItem? {
+        return if (position < postLists.size) {
+            postLists[position]
+        } else {
+            null
+        }
+    }
+
+    fun getPostRecycler(position: Int): PostItem? {
+        return if (position < postListRecycler.size) {
+            postListRecycler[position]
+        } else {
+            null
+        }
+    }
+
+    fun getPostsList() = postLists
+
+    override fun likePost(position: Int): Single<Response<ResponseLike>>? {
+        val token = localRepository.getToken()
+        return homeRepository
+            .likePost(token, postLists[position].id)
             ?.doOnSuccess { response ->
                 if (response.isSuccessful) {
                     response.body()?.let {
@@ -50,13 +67,13 @@ class HomeVM(
                     }
                 }
             }
+    }
 
     override fun getDataAdapter(): MutableList<PostItem> = postListRecycler
-    override fun getPostsData(): Single<Response<List<PostItem>>>? =
-        homeRepository
-            ?.getPosts(localRepository.getToken())
-            ?.subscribeOn(Schedulers.io())
-            ?.observeOn(AndroidSchedulers.mainThread())
+    override fun getPostsData(): Single<Response<List<PostItem>>>? {
+        val token = localRepository.getToken()
+        return homeRepository
+            .getPosts(token)
             ?.doOnSubscribe { progressBehavior.onNext(true) }
             ?.doOnSuccess { response ->
                 postLists.clear()
@@ -69,13 +86,14 @@ class HomeVM(
                     initDataRecycler(0, RECYCLER_LOAD_SIZE)
                 }
             }
-            ?.doFinally { progressBehavior.onNext(false) }
-
+            ?.doFinally { progressBehavior.onNext(false)
+                postLists.forEach {
+                    print("${it.id}, ")
+                }}
+    }
     override fun searchData(key: String): Single<Response<List<PostItem>>>? =
         homeRepository
-            ?.getPosts(localRepository.getToken())
-            ?.subscribeOn(Schedulers.io())
-            ?.observeOn(AndroidSchedulers.mainThread())
+            .getPosts(localRepository.getToken())
             ?.doOnSuccess {
                 if (it.isSuccessful) {
                     postListRecycler.clear()
@@ -111,11 +129,9 @@ class HomeVM(
         val token = localRepository.getToken()
         val postJson = Gson().toJson(PostContent(content)).toString()
         val body = postJson.toRequestBody(TYPE_TEXT.toMediaTypeOrNull())
-        val imagePart = homeRepository?.createMultiPartBody(uri)
+        val imageFile = localRepository.createMultiPartBody(uri)
         return homeRepository
-            ?.createPost(token, imagePart, body)
-            ?.subscribeOn(Schedulers.io())
-            ?.observeOn(AndroidSchedulers.mainThread())
+            .createPost(token, imageFile, body)
     }
 
     override fun updatePost(
@@ -126,17 +142,19 @@ class HomeVM(
         val token = localRepository.getToken()
         val postJson = Gson().toJson(PostContent(content)).toString()
         val body = postJson.toRequestBody(TYPE_TEXT.toMediaTypeOrNull())
-        val imagePart = homeRepository?.createMultiPartBody(uri)
+        val imageFile = localRepository.createMultiPartBody(uri)
+        println(token)
+        println(body)
+        println(imageFile)
+        println(idPost)
         return homeRepository
-            ?.updatePost(token, idPost, imagePart, body)
-            ?.subscribeOn(Schedulers.io())
-            ?.observeOn(AndroidSchedulers.mainThread())
+            .updatePost(token, idPost, imageFile, body)
     }
 
     override fun progressDialogStatus(): BehaviorSubject<Boolean>? = progressBehavior
 
 
-    private fun initDataRecycler(start: Int, end: Int) {
+    override fun initDataRecycler(start: Int, end: Int) {
         postListRecycler.removeAt(postListRecycler.size - 1)
         for (i in start until end) {
             postListRecycler.add(postLists[i])

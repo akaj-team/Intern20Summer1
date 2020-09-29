@@ -1,7 +1,13 @@
 package com.asiantech.intern20summer1.w11.data.source.local
 
 import android.content.Context
-import com.asiantech.intern20summer1.w11.data.source.datasource.SharedPreferencesDataSource
+import android.net.Uri
+import com.asiantech.intern20summer1.w11.data.source.HomeRepository
+import com.asiantech.intern20summer1.w11.data.source.datasource.LocalDataSource
+import com.asiantech.intern20summer1.w11.utils.FileInformation
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
 
 /**
  * Asian Tech Co., Ltd.
@@ -9,8 +15,9 @@ import com.asiantech.intern20summer1.w11.data.source.datasource.SharedPreference
  * Created by at-huybui on 18/09/2020.
  * This is SharedPreferencesLocalDataSource
  */
-class SharedPreferencesLocalDataSource(private val context: Context) : SharedPreferencesDataSource {
+class LocalLocalDataSource(private val context: Context) : LocalDataSource {
     companion object {
+        private const val TYPE_IMAGE = "image"
         internal const val NAME_PREFERENCE = "preference"
         internal const val KEY_IS_LOGIN = "key_is_login"
         internal const val KEY_TOKEN = "key_token_login"
@@ -63,5 +70,14 @@ class SharedPreferencesLocalDataSource(private val context: Context) : SharedPre
             Context.MODE_PRIVATE
         )
         return preference.getBoolean(KEY_IS_LOGIN, false)
+    }
+
+    override fun createMultiPartBody(uri: Uri?): MultipartBody.Part? {
+        uri?.let {
+            val file = FileInformation().getFile(context, Uri.parse(it.toString()))
+            val image = file.asRequestBody(TYPE_IMAGE.toMediaTypeOrNull())
+            return MultipartBody.Part.createFormData(TYPE_IMAGE, file.name, image)
+        }
+        return null
     }
 }

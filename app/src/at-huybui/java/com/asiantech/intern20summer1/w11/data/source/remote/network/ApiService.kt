@@ -27,17 +27,17 @@ interface ApiService {
     }
 
     @GET(PART_AUTO_SIGN_IN)
-    fun autoSignIn(@Header("token") token: String): Single<Response<Account>>?
+    fun autoSignIn(@Header("token") token: String): Single<Response<Account>>
 
     @POST(PART_LOGIN)
     @FormUrlEncoded
     fun login(
         @Field("email") email: String = "",
         @Field("password") password: String = ""
-    ): Single<Response<Account>>?
+    ): Single<Response<Account>>
 
     @POST(PART_CREATE_USER)
-    fun createUser(@Body request: RequestAccount): Single<Response<Account>>?
+    fun createUser(@Body request: RequestAccount): Single<Response<Account>>
 
     @Multipart
     @POST(PART_CREATE_POST)

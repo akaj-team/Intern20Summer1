@@ -142,7 +142,7 @@ class HomeFragment : Fragment() {
                     "Api không hỗ trợ!!".showToast(requireContext())
                 }
                 R.id.menuUpdate -> {
-                    handleShowDialogUpdateFragment(viewModel.postLists[position])
+                    viewModel.getPost(position)?.let { handleShowDialogUpdateFragment(it) }
                 }
             }
             return@setOnMenuItemClickListener false
@@ -204,7 +204,7 @@ class HomeFragment : Fragment() {
                 super.onScrolled(recyclerView, dx, dy)
                 val linearLayoutManager = recyclerView.layoutManager as LinearLayoutManager
                 val lastVisibleItem = linearLayoutManager.findLastCompletelyVisibleItemPosition()
-                if (!isLoadMore && (lastVisibleItem == viewModel.postListRecycler.size - 1)) {
+                if (!isLoadMore && (lastVisibleItem == viewModel.getDataAdapter().size - 1)) {
                     isLoadMore = true
                     viewModel.loadMoreData()
                     Handler(Looper.getMainLooper()).postDelayed({

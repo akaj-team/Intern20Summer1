@@ -26,7 +26,7 @@ class HomeRemoteDataSource : HomeDataSource {
         image: MultipartBody.Part?,
         body: RequestBody
     ): Single<Response<ResponsePost>>? =
-        apiService?.createPost(token, image, body)
+         apiService?.createPost(token, image, body)
 
 
     override fun updatePost(

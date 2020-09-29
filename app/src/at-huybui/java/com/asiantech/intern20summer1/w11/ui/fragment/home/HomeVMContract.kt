@@ -26,4 +26,5 @@ interface HomeVMContract {
     fun createPost(content: String, uri: Uri?): Single<Response<ResponsePost>>?
     fun updatePost(idPost: Int, content: String, uri: Uri?): Single<Response<ResponsePost>>?
     fun progressDialogStatus(): BehaviorSubject<Boolean>?
+    fun initDataRecycler(start: Int, end: Int)
 }

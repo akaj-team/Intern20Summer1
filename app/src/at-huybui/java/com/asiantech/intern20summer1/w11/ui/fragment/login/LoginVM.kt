@@ -2,10 +2,9 @@ package com.asiantech.intern20summer1.w11.ui.fragment.login
 
 import com.asiantech.intern20summer1.w11.data.models.Account
 import com.asiantech.intern20summer1.w11.data.models.RequestAccount
-import com.asiantech.intern20summer1.w11.data.source.LocalRepository
-import com.asiantech.intern20summer1.w11.data.source.LoginRepository
+import com.asiantech.intern20summer1.w11.data.source.datasource.LoginDataSource
+import com.asiantech.intern20summer1.w11.data.source.datasource.LocalDataSource
 import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Response
 
@@ -16,14 +15,13 @@ import retrofit2.Response
  * This is LoginVM
  */
 class LoginVM(
-    private val loginRepository: LoginRepository,
-    private val localRepository: LocalRepository
+    private val loginRepository: LoginDataSource,
+    private val localRepository: LocalDataSource
 ) : LoginVMContract {
 
     override fun autoSignIn(token: String): Single<Response<Account>>? =
         loginRepository.autoSignIn(token)
             ?.subscribeOn(Schedulers.io())
-            ?.observeOn(AndroidSchedulers.mainThread())
             ?.doAfterSuccess { response ->
                 if (response.isSuccessful) {
                     response.body()?.let { account ->
@@ -38,7 +36,6 @@ class LoginVM(
         return loginRepository
             .login(email, password)
             ?.subscribeOn(Schedulers.io())
-            ?.observeOn(AndroidSchedulers.mainThread())
             ?.doOnSuccess { response ->
                 if (response.isSuccessful) {
                     response.body()?.let { account ->
