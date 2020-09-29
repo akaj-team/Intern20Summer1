@@ -13,9 +13,6 @@ import org.mockito.Mock
  */
 class LoginRemoteDataSourceTest : BaseTest() {
     private lateinit var loginRemoteDataSource: UserRemoteDataSource
-
-    @Mock
-    private lateinit var apiUser: UserClient
     override fun initTest() {
         loginRemoteDataSource = UserRemoteDataSource()
     }
