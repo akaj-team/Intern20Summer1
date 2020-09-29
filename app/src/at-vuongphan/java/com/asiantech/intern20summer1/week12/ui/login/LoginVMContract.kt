@@ -6,16 +6,7 @@ import retrofit2.Response
 
 interface LoginVMContract {
     fun login(username: String, password: String): Single<Response<UserAutoSignIn>>?
-
-    fun getToken(): String?
-
     fun putToken(token: String)
-
     fun putIdUser(idUser: Int)
-
-    fun getIdUser(): Int?
-
     fun putIsLogin(isLogin: Boolean)
-
-    fun getIsLogin(): Boolean?
 }

@@ -1,12 +1,17 @@
 package com.asiantech.intern20summer1.week12.ui.home
 
 import android.os.Handler
+import com.asiantech.intern20summer1.week12.data.models.ApiResponse
 import com.asiantech.intern20summer1.week12.data.models.NewPost
+import com.asiantech.intern20summer1.week12.data.models.Post
 import com.asiantech.intern20summer1.week12.data.models.ResponseLike
 import com.asiantech.intern20summer1.week12.data.source.datasource.LocalDataSource
 import com.asiantech.intern20summer1.week12.data.source.datasource.PostDataSource
 import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
+import okhttp3.MultipartBody
 import retrofit2.Response
 
 class PostViewModel(
@@ -107,6 +112,15 @@ class PostViewModel(
         localRepository.getIdUser()
 
     override fun getToken(): String? = localRepository.getToken()
+    override fun createNewPost(
+        token: String,
+        body: Post,
+        image: MultipartBody.Part?
+    ): Single<Response<ApiResponse>>? = postRepository.createNewPost(token, body, image)
+        ?.subscribeOn(Schedulers.io())
+        ?.observeOn(AndroidSchedulers.mainThread())
+        ?.doOnSuccess {
+        }
 
     private fun canLoadMore(lastVisibleItem: Int) =
         (!isLoading && lastVisibleItem == postItems.size - POSITION_ITEM_LOAD_MORE && postItems.size < postItemsAll.size)

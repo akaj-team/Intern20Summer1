@@ -9,4 +9,6 @@ import retrofit2.Response
 class RegisterViewModel(private val userRepository: UserDataSource) : RegisterVMContract {
     override fun addUserRegister(userRegister: UserRegister): Single<Response<UserAutoSignIn>>? =
         userRepository.addUser(userRegister)
+            ?.doOnSuccess {
+            }
 }
