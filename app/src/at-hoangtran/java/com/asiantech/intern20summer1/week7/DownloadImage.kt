@@ -8,6 +8,7 @@ import java.io.File
 import java.io.FileOutputStream
 import java.net.URL
 
+@Suppress("DEPRECATION")
 class DownloadImage(val context: Context, private var name: String) :
     AsyncTask<String, Unit, String>() {
 
