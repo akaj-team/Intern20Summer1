@@ -9,7 +9,7 @@ import io.reactivex.Single
 import retrofit2.Response
 
 class HomeRepository : HomeDataSource {
-    private val homeRemoteRepository = HomeRemoteDataSource(APIClient)
+    private val homeRemoteRepository = HomeRemoteDataSource(APIClient.createService())
     override fun getAllPosts(token: String): Single<Response<MutableList<Post>>>? =
         homeRemoteRepository.getAllPosts(token)
 

@@ -71,28 +71,26 @@ class HomeViewModel(private val repository: HomeRepository) : ViewModel(), HomeV
         lastVisibleItem: Int
     ) {
         if (canLoadMore(lastVisibleItem)) {
-            getExtraPost()
+            Handler().postDelayed({
+                var currentSize = getPostList().size
+                val nextLimit = if (allPosts.size - posts.size >= 10) {
+                    currentSize + ITEM_LIMIT
+                } else {
+                    currentSize + allPosts.size - posts.size
+                }
+                while (currentSize < nextLimit) {
+                    posts.add(allPosts[currentSize])
+                    currentSize++
+                }
+                progressBar.onNext(false)
+                isLoading = false
+            }, TIME_DELAY.toLong())
+            isLoading = true
+            progressBar.onNext(true)
         }
     }
 
-    override fun getExtraPost() {
-        Handler().postDelayed({
-            var currentSize = getPostList().size
-            val nextLimit = if (allPosts.size - posts.size >= 10) {
-                currentSize + ITEM_LIMIT
-            } else {
-                currentSize + allPosts.size - posts.size
-            }
-            while (currentSize < nextLimit) {
-                posts.add(allPosts[currentSize])
-                currentSize++
-            }
-            progressBar.onNext(false)
-            isLoading = false
-        }, TIME_DELAY.toLong())
-        isLoading = true
-        progressBar.onNext(true)
-    }
+    override fun updateProgressBar(): BehaviorSubject<Boolean> = progressBar
 
     override fun getAllPostFromServer(): MutableList<Post> = allPosts
 

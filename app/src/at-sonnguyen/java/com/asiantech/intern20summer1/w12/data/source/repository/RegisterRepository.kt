@@ -9,7 +9,7 @@ import io.reactivex.Single
 import retrofit2.Response
 
 class RegisterRepository : RegisterDataSource {
-    private val registerRemoteRepository = RegisterRemoteDataSource(APIClient)
+    private val registerRemoteRepository = RegisterRemoteDataSource(APIClient.createService())
 
     override fun register(userRegister: UserRegister): Single<Response<User>>? =
         registerRemoteRepository.register(userRegister)

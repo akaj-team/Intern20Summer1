@@ -14,6 +14,7 @@ import com.asiantech.intern20summer1.w12.data.model.User
 import com.asiantech.intern20summer1.w12.data.source.repository.HomeRepository
 import com.asiantech.intern20summer1.w12.ui.login.LoginFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.`at-sonnguyen`.w12_fragment_home.*
 
@@ -24,6 +25,7 @@ class HomActivity : AppCompatActivity() {
     private var user: User = User(0, "", "", "")
     private lateinit var postAdapter: RecyclerViewAdapter
     private var posts = mutableListOf<Post>()
+    private val compositeDisposable = CompositeDisposable()
 
     companion object {
         private const val DELAY_TIME = 2000
@@ -39,6 +41,10 @@ class HomActivity : AppCompatActivity() {
         viewModel = HomeViewModel(HomeRepository())
         getDataFromLogin()
         getAllPost()
+        initAdapter()
+        initScrollListener()
+        initListener()
+        toolbarHome.title = user.full_name
     }
 
     private fun getAllPost() {
@@ -57,14 +63,37 @@ class HomActivity : AppCompatActivity() {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        initView()
-        initListener()
+//    override fun onStart() {
+//        super.onStart()
+//        initView()
+//        initListener()
+//    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel?.updateProgressBar()
+            ?.subscribeOn(Schedulers.io())
+            ?.observeOn(AndroidSchedulers.mainThread())
+            ?.subscribe(this::handleProgressStatus)?.let {
+                compositeDisposable.add(it)
+            }
     }
 
-    private fun initView() {
-        toolbarHome.title = user.full_name
+    override fun onPause() {
+        super.onPause()
+        compositeDisposable.clear()
+    }
+
+//    private fun initView() {
+//        toolbarHome.title = user.full_name
+//    }
+
+    private fun handleProgressStatus(status: Boolean) {
+        if (status) {
+            progressBarMain?.visibility = View.VISIBLE
+        } else {
+            progressBarMain?.visibility = View.INVISIBLE
+        }
     }
 
     private fun initListener() {
@@ -106,7 +135,7 @@ class HomActivity : AppCompatActivity() {
             Handler().postDelayed({
                 posts.clear()
                 getAllPost()
-                postAdapter.notifyDataSetChanged()
+//                postAdapter.notifyDataSetChanged()
                 pullToRefresh.isRefreshing = false
             }, DELAY_TIME.toLong())
         }
@@ -118,17 +147,8 @@ class HomActivity : AppCompatActivity() {
                 super.onScrolled(recyclerView, dx, dy)
                 val linearLayoutManager = recyclerView.layoutManager as? LinearLayoutManager?
                 linearLayoutManager?.let {
-                    val lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition()
-                    viewModel?.loadMore(
-                        lastVisibleItem
-                    )
-                    viewModel?.isEnableProgressBar()?.subscribe({
-                        if (it) {
-                            progressBarMain?.visibility = View.VISIBLE
-                        } else {
-                            progressBarMain?.visibility = View.INVISIBLE
-                        }
-                    }, {})
+                    val lastItem = linearLayoutManager.findLastVisibleItemPosition()
+                    viewModel?.loadMore(lastItem)
                 }
             }
 
