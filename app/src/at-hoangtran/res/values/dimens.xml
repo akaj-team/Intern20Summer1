@@ -56,4 +56,14 @@
     <dimen name="register_avatar_margin_bottom">20dp</dimen>
     <dimen name="edit_text_height">50dp</dimen>
     <dimen name="register_edit_text_margin_bottom">20dp</dimen>
+<!--    week6-->
+    <dimen name="dot_indicator_corner_radius">10dp</dimen>
+    <dimen name="dot_indicator_margin_start">10dp</dimen>
+    <dimen name="dot_indicator_margin_end">10dp</dimen>
+    <dimen name="dot_indicator_margin_bottom">20dp</dimen>
+    <dimen name="dot_indicator_spacing">4dp</dimen>
+    <dimen name="dot_size">20dp</dimen>
+    <dimen name="text_view_next_margin">20dp</dimen>
+    <dimen name="text_view_next_text_size">40sp</dimen>
+    <dimen name="text_view_fragment_indicator_text_size">40sp</dimen>
 </resources>

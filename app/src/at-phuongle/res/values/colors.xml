@@ -9,4 +9,6 @@
     <color name="colorGreen">#A8E490</color>
     <color name="colorRed">#FF0000</color>
     <color name="colorGainsboro">#F0F0F0</color>
+    <color name="colorLightYellow">#FFFF66</color>
+    <color name="colorBlack">#000000</color>
 </resources>

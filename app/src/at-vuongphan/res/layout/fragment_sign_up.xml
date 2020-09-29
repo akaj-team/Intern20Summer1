@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <RelativeLayout
+        android:id="@+id/rlFragmentRegister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite">
+
+        <ImageButton
+            android:id="@+id/imgBtnBack"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/image_button_margin_left"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/icon_back" />
+
+        <TextView
+            android:id="@+id/tvBegin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/imgBtnBack"
+            android:layout_marginLeft="@dimen/fragment_sign_up_layout_margin_left"
+            android:layout_marginTop="20dp"
+            android:text="@string/title_text_view_description_text"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvFullName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvBegin"
+            android:layout_marginLeft="@dimen/fragment_sign_up_layout_margin_left"
+            android:layout_marginTop="@dimen/text_view_margin_top"
+            android:text="@string/full_name_text_view_description_text" />
+
+        <EditText
+            android:id="@+id/edtFullName"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_edit_text"
+            android:layout_below="@id/tvFullName"
+            android:layout_marginLeft="@dimen/fragment_sign_up_layout_margin_left"
+            android:layout_marginTop="@dimen/edit_text_sign_up_marin_top"
+            android:layout_marginRight="@dimen/fragment_sign_up_layout_margin_right"
+            android:background="@drawable/bg_edit_text_non_selected_pass"
+            android:hint="@string/edit_text_hint"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:paddingLeft="@dimen/edit_text_padding_left"
+            tools:ignore="LabelFor" />
+
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/imgIconName"
+            android:layout_width="@dimen/avatar_sign_up"
+            android:layout_height="@dimen/avatar_sign_up"
+            android:layout_below="@id/edtFullName"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/image_view_sign_up_margin_top"
+            android:src="@drawable/ic_launcher_background"
+            app:civ_border_color="@color/colorYellow"
+            app:civ_border_width="2dp" />
+
+        <TextView
+            android:id="@+id/tvEmailSignUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/imgIconName"
+            android:layout_marginLeft="@dimen/fragment_sign_up_layout_margin_left"
+            android:layout_marginTop="@dimen/text_view_margin_top"
+            android:text="@string/email_sign_up_text_view_description_text" />
+
+        <EditText
+            android:id="@+id/edtEmailSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_edit_text"
+            android:layout_below="@id/tvEmailSignUp"
+            android:layout_marginLeft="@dimen/fragment_sign_up_layout_margin_left"
+            android:layout_marginTop="@dimen/edit_text_sign_up_marin_top"
+            android:layout_marginRight="@dimen/fragment_sign_up_layout_margin_right"
+            android:background="@drawable/bg_edit_text_non_selected_pass"
+            android:hint="@string/edit_text_hint"
+            android:importantForAutofill="no"
+            android:inputType="textEmailAddress"
+            android:paddingLeft="@dimen/edit_text_padding_left"
+            tools:ignore="LabelFor" />
+
+        <TextView
+            android:id="@+id/tvNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edtEmailSignUp"
+            android:layout_marginLeft="@dimen/fragment_sign_up_layout_margin_left"
+            android:layout_marginTop="@dimen/text_view_margin_top"
+            android:text="@string/phone_number_text_view_description_text" />
+
+        <EditText
+            android:id="@+id/edtNumber"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_edit_text"
+            android:layout_below="@id/tvNumber"
+            android:layout_marginLeft="@dimen/fragment_sign_up_layout_margin_left"
+            android:layout_marginTop="@dimen/edit_text_sign_up_marin_top"
+            android:layout_marginRight="@dimen/fragment_sign_up_layout_margin_right"
+            android:background="@drawable/bg_edit_text_non_selected_pass"
+            android:hint="@string/edit_text_hint"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:paddingLeft="@dimen/edit_text_padding_left"
+            tools:ignore="LabelFor" />
+
+        <TextView
+            android:id="@+id/tvPasswordSignUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edtNumber"
+            android:layout_marginLeft="@dimen/fragment_sign_up_layout_margin_left"
+            android:layout_marginTop="@dimen/text_view_margin_top"
+            android:text="@string/password_text_view_description_text" />
+
+        <EditText
+            android:id="@+id/edtPasswordSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_edit_text"
+            android:layout_below="@id/tvPasswordSignUp"
+            android:layout_marginLeft="@dimen/fragment_sign_up_layout_margin_left"
+            android:layout_marginTop="@dimen/edit_text_sign_up_marin_top"
+            android:layout_marginRight="@dimen/fragment_sign_up_layout_margin_right"
+            android:background="@drawable/bg_edit_text_non_selected_pass"
+            android:hint="@string/edit_text_hint"
+            android:importantForAutofill="no"
+            android:inputType="textPassword"
+            android:paddingLeft="@dimen/edit_text_padding_left"
+            tools:ignore="LabelFor" />
+
+        <TextView
+            android:id="@+id/tvPasswordConfirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edtPasswordSignUp"
+            android:layout_marginLeft="@dimen/fragment_sign_up_layout_margin_left"
+            android:layout_marginTop="@dimen/text_view_margin_top"
+            android:text="@string/confirm_password_text_view_description_text" />
+
+        <EditText
+            android:id="@+id/edtPasswordConfirm"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_edit_text"
+            android:layout_below="@id/tvPasswordConfirm"
+            android:layout_marginLeft="@dimen/fragment_sign_up_layout_margin_left"
+            android:layout_marginTop="@dimen/edit_text_sign_up_marin_top"
+            android:layout_marginRight="@dimen/fragment_sign_up_layout_margin_right"
+            android:background="@drawable/bg_edit_text_non_selected_pass"
+            android:hint="@string/edit_text_hint"
+            android:importantForAutofill="no"
+            android:inputType="textPassword"
+            android:paddingLeft="@dimen/edit_text_padding_left"
+            tools:ignore="LabelFor" />
+
+        <Button
+            android:id="@+id/btnRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edtPasswordConfirm"
+            android:layout_marginLeft="@dimen/fragment_sign_up_layout_margin_left"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="@dimen/fragment_sign_up_layout_margin_right"
+            android:background="@drawable/bg_button_radius"
+            android:enabled="false"
+            android:text="@string/register_button_description_text" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btnRegister"
+            android:layout_marginLeft="@dimen/text_view_the_end_sign_up_margin_left"
+            android:layout_marginTop="@dimen/text_view_the_end_sign_up_margin_top"
+            android:layout_marginRight="@dimen/text_view_the_end_sign_up_margin_right"
+            android:gravity="center"
+            android:paddingTop="@dimen/text_view_the_end_sign_up_padding_top"
+            android:text="@string/the_end_text_view_description_text" />
+    </RelativeLayout>
+</ScrollView>

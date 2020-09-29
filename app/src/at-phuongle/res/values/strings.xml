@@ -7,4 +7,9 @@
     <string name="not_registered_text_view_description">Not registered?</string>
     <string name="sign_up_text_view_description">Sign up!</string>
     <string name="sign_up_button_text">SIGN UP</string>
+    <string name="step_1_text_view_description">Step&#160;1</string>
+    <string name="step_2_text_view_description">Step&#160;2</string>
+    <string name="step_3_text_view_description">Step&#160;3</string>
+    <string name="skip_text_view_description">SKIP</string>
+    <string name="next_text_view_description">NEXT</string>
 </resources>

@@ -1,0 +1,16 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/theme">
+
+    <ImageView
+        android:id="@+id/imgAnimal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/animal_image_view_margin_left"
+        android:layout_marginTop="@dimen/animal_image_view_margin_top"
+        android:layout_marginRight="@dimen/animal_image_view_margin_right"
+        android:background="@drawable/bg_animal_image_view"
+        android:elevation="@dimen/animal_image_view_elevation"
+        android:padding="@dimen/animal_image_view_padding" />
+</RelativeLayout>

@@ -1,4 +1,17 @@
 <resources>
     <string name="app_name">Intern20Summer1</string>
     <string name="sign_up_fragment_image_profile_title">Register Avatar</string>
+    <string name="week4">week4</string>
+    <string name="week_5">Week 5</string>
+    <string name="week_6">Week 6</string>
+    <string name="user_name">User Name</string>
+    <string name="edit_text_register_home_town">Home Town</string>
+    <string name="edit_text_register_university">University</string>
+    <string name="btn_next">Next</string>
+    <string name="text_view_register">Register</string>
+    <string name="item_vuon_cay">Vườn Cây</string>
+    <string name="item_trong_cay">Trồng Cây</string>
+    <string name="item_cay_sap_thu_hoach">Cây Sắp Thu Hoạch</string>
+    <string name="item_cay_bi_sau">Cây Bị Sâu</string>
+    <string name="item_cay_bi_thieu_nuoc">Cây Bị Thiếu Nước</string>
 </resources>
