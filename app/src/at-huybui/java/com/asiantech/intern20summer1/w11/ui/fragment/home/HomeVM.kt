@@ -8,9 +8,7 @@ import com.asiantech.intern20summer1.w11.data.models.ResponsePost
 import com.asiantech.intern20summer1.w11.data.source.datasource.HomeDataSource
 import com.asiantech.intern20summer1.w11.data.source.datasource.LocalDataSource
 import com.google.gson.Gson
-import io.reactivex.Scheduler
 import io.reactivex.Single
-import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -44,16 +42,6 @@ class HomeVM(
             null
         }
     }
-
-    fun getPostRecycler(position: Int): PostItem? {
-        return if (position < postListRecycler.size) {
-            postListRecycler[position]
-        } else {
-            null
-        }
-    }
-
-    fun getPostsList() = postLists
 
     override fun likePost(position: Int): Single<Response<ResponseLike>>? {
         val token = localRepository.getToken()
