@@ -1,0 +1,122 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/circleImageViewLogo"
+        android:layout_width="@dimen/logo_circle_image_view_size"
+        android:layout_height="@dimen/logo_circle_image_view_size"
+        android:layout_marginTop="@dimen/logo_circle_image_view_margin_top"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/logo" />
+
+    <TextView
+        android:id="@+id/tvSongName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/song_name_text_view_margin_top"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/song_name_text_view_text_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/circleImageViewLogo"
+        tools:text="Hãy Trao Cho Anh" />
+
+    <TextView
+        android:id="@+id/tvArtist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/artist_text_view_text_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvSongName"
+        tools:text="Sơn Tùng MTP" />
+
+    <ImageView
+        android:id="@+id/imgPlay"
+        android:layout_width="@dimen/play_image_view_size"
+        android:layout_height="@dimen/play_image_view_size"
+        android:layout_marginTop="@dimen/play_image_view_margin_top"
+        android:src="@drawable/play"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvSongName" />
+
+    <ImageView
+        android:id="@+id/imgShuffle"
+        android:layout_width="@dimen/previous_image_view_size"
+        android:layout_height="@dimen/previous_image_view_size"
+        android:layout_marginRight="@dimen/previous_image_view_margin_right"
+        android:src="@drawable/shuffle"
+        app:layout_constraintBottom_toBottomOf="@+id/imgPlay"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/imgPreviousSong"
+        app:layout_constraintTop_toTopOf="@+id/imgPlay" />
+
+    <ImageView
+        android:id="@+id/imgPreviousSong"
+        android:layout_width="@dimen/previous_image_view_size"
+        android:layout_height="@dimen/previous_image_view_size"
+        android:layout_marginRight="@dimen/previous_image_view_margin_right"
+        android:src="@drawable/previous"
+        app:layout_constraintBottom_toBottomOf="@+id/imgPlay"
+        app:layout_constraintRight_toLeftOf="@id/imgPlay"
+        app:layout_constraintLeft_toRightOf="@id/imgShuffle"
+        app:layout_constraintTop_toTopOf="@+id/imgPlay" />
+
+    <ImageView
+        android:id="@+id/imgNexSong"
+        android:layout_width="@dimen/next_image_view_size"
+        android:layout_height="@dimen/next_image_view_size"
+        android:layout_marginLeft="@dimen/next_image_view_margin_left"
+        android:src="@drawable/next"
+        app:layout_constraintBottom_toBottomOf="@id/imgPlay"
+        app:layout_constraintLeft_toRightOf="@id/imgPlay"
+        app:layout_constraintRight_toLeftOf="@id/imgRepeat"
+        app:layout_constraintTop_toTopOf="@id/imgPlay" />
+
+    <ImageView
+        android:id="@+id/imgRepeat"
+        android:layout_width="@dimen/previous_image_view_size"
+        android:layout_height="@dimen/previous_image_view_size"
+        android:layout_marginRight="@dimen/previous_image_view_margin_right"
+        android:src="@drawable/repeat"
+        app:layout_constraintBottom_toBottomOf="@id/imgPlay"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/imgNexSong"
+        app:layout_constraintTop_toTopOf="@id/imgPlay" />
+
+    <SeekBar
+        android:id="@+id/seekBar"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/seek_bar_margin_top"
+        android:layout_marginBottom="@dimen/seek_bar_margin_bottom"
+        app:layout_constraintTop_toBottomOf="@+id/imgPlay" />
+
+    <TextView
+        android:id="@+id/tvStartTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/start_time_text_view_margin_left"
+        android:layout_marginBottom="@dimen/start_time_text_view_margin_bottom"
+        app:layout_constraintBottom_toTopOf="@+id/seekBar"
+        app:layout_constraintStart_toStartOf="@+id/seekBar"
+        tools:text="0:00" />
+
+    <TextView
+        android:id="@+id/tvEndTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/end_time_text_view_margin_right"
+        app:layout_constraintBottom_toBottomOf="@+id/tvStartTime"
+        app:layout_constraintEnd_toEndOf="@+id/seekBar"
+        app:layout_constraintTop_toTopOf="@+id/tvStartTime"
+        tools:text="5:00" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
