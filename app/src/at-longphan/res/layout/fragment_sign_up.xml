@@ -1,0 +1,114 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.asiantech.intern20summer1.week4.fragment.SignUpFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/linear_layout_second_bound_margin_horizontal"
+        android:layout_marginVertical="@dimen/linear_layout_second_bound_margin_vertical"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/imgBtnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:src="?attr/actionModeCloseDrawable" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/text_view_register_title_margin_top"
+            android:layout_marginBottom="@dimen/text_view_register_title_margin_bottom"
+            android:text="@string/text_view_register_title"
+            android:textColor="@color/colorRegisterTitleTextView"
+            android:textSize="@dimen/text_view_register_title_text_size"
+            android:textStyle="bold" />
+
+        <TextView
+            style="@style/TextViewDescriptionMusicApp"
+            android:text="@string/text_view_full_name_description" />
+
+        <EditText
+            android:id="@+id/edtFullName"
+            style="@style/EditTextDescriptionMusicApp"
+            android:inputType="textPersonName"
+            app:backgroundTint="@color/colorMainWeek4" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgAvatar"
+            android:layout_width="@dimen/circle_image_view_register_avatar_width"
+            android:layout_height="@dimen/circle_image_view_register_avatar_height"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/circle_image_view_register_avatar_margin_bottom"
+            android:src="@mipmap/ic_launcher"
+            app:civ_border_color="@color/colorCircleImageViewRegisterAvatarBorder"
+            app:civ_border_width="@dimen/circle_image_view_register_avatar_border_width" />
+
+        <TextView
+            style="@style/TextViewDescriptionMusicApp"
+            android:text="@string/text_view_email_description" />
+
+        <EditText
+            android:id="@+id/edtEmail"
+            style="@style/EditTextDescriptionMusicApp"
+            android:inputType="textEmailAddress"
+            app:backgroundTint="@color/colorMainWeek4" />
+
+        <TextView
+            style="@style/TextViewDescriptionMusicApp"
+            android:text="@string/text_view_mobile_number_description" />
+
+        <EditText
+            android:id="@+id/edtMobileNumber"
+            style="@style/EditTextDescriptionMusicApp"
+            android:inputType="number"
+            app:backgroundTint="@color/colorMainWeek4" />
+
+        <TextView
+            style="@style/TextViewDescriptionMusicApp"
+            android:text="@string/text_view_password_description" />
+
+        <EditText
+            android:id="@+id/edtPassword"
+            style="@style/EditTextDescriptionMusicApp"
+            android:inputType="textPassword"
+            app:backgroundTint="@color/colorMainWeek4" />
+
+        <TextView
+            style="@style/TextViewDescriptionMusicApp"
+            android:text="@string/text_view_confirm_password_description" />
+
+        <EditText
+            android:id="@+id/edtConfirmPassword"
+            style="@style/EditTextDescriptionMusicApp"
+            android:inputType="textPassword"
+            app:backgroundTint="@color/colorMainWeek4" />
+
+        <Button
+            android:id="@+id/btnSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/button_register_margin_top"
+            android:background="@drawable/bg_button_unable"
+            android:enabled="false"
+            android:text="@string/button_register"
+            android:textAllCaps="false"
+            android:textColor="@color/colorRegisterButtonText"
+            android:textSize="@dimen/button_register_text_size"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/text_view_agree_description_margin_top"
+            android:gravity="center"
+            android:paddingHorizontal="@dimen/text_view_agree_description_padding_horizontal"
+            android:text="@string/text_view_agree_description"
+            android:textSize="@dimen/text_view_agree_description_text_size" />
+    </LinearLayout>
+</FrameLayout>

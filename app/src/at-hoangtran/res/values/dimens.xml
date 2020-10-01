@@ -67,4 +67,14 @@
     <dimen name="skip_next_previous_image_view_size">30dp</dimen>
     <dimen name="skip_next_previous_margin_left_right">80dp</dimen>
     <dimen name="skip_next_previous_margin_top">15dp</dimen>
+<!--    week6-->
+    <dimen name="dot_indicator_corner_radius">10dp</dimen>
+    <dimen name="dot_indicator_margin_start">10dp</dimen>
+    <dimen name="dot_indicator_margin_end">10dp</dimen>
+    <dimen name="dot_indicator_margin_bottom">20dp</dimen>
+    <dimen name="dot_indicator_spacing">4dp</dimen>
+    <dimen name="dot_size">20dp</dimen>
+    <dimen name="text_view_next_margin">20dp</dimen>
+    <dimen name="text_view_next_text_size">40sp</dimen>
+    <dimen name="text_view_fragment_indicator_text_size">40sp</dimen>
 </resources>

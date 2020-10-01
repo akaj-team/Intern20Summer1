@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent">
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator
+        android:id="@+id/dotsIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="@dimen/view_pager_margin"
+        android:layout_marginBottom="@dimen/view_pager_margin"
+        app:dotsColor="@android:color/holo_red_light"
+        app:dotsSize="@dimen/indicator_size"
+        app:progressMode="true"
+        tools:ignore="MissingClass" />
+
+    <TextView
+        android:id="@+id/tvNext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginRight="@dimen/view_pager_margin"
+        android:layout_marginBottom="@dimen/view_pager_margin"
+        android:text="@string/text_view_next_description_text"
+        android:textSize="@dimen/text_view_next_text_size" />
+</FrameLayout>
