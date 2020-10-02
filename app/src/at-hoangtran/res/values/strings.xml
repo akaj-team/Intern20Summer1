@@ -1,7 +1,4 @@
 <resources>
-    <String name="week4">week4</String>
-    <String name="week5">week5</String>
-    <String name="week6">week6</String>
     <string name="app_name">Intern20Summer1</string>
     <string name="email_hint">Email</string>
     <string name="pass_hint">Password</string>

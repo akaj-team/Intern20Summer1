@@ -111,6 +111,8 @@ class MusicService : Service(), MediaPlayer.OnCompletionListener {
 
     fun currentPosition() = currentPosition
 
+    fun seekBarPositon() = mediaPlayer?.currentPosition
+
     fun isRepeat() = isRepeat
 
     fun isShuffle() = isShuffle

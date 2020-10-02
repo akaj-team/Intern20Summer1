@@ -1,6 +1,5 @@
 package com.asiantech.intern20summer1.week9
 
-import android.annotation.SuppressLint
 import android.content.ContentUris
 import android.content.Context
 import android.graphics.Bitmap
@@ -9,7 +8,6 @@ import android.media.MediaMetadataRetriever
 import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
-import android.widget.ImageView
 import androidx.annotation.RequiresApi
 
 object Utils {
@@ -25,7 +23,6 @@ object Utils {
     }
 
     @RequiresApi(Build.VERSION_CODES.Q)
-    @SuppressLint("Recycle")
     fun getSongFromDevice(context: Context): ArrayList<Song> {
         musicList.clear()
         val contentResolver = context.contentResolver
